@@ -11,6 +11,7 @@ related.json (vid -> related vids), and meta.json (areas + comment counts).
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -48,6 +49,7 @@ FEED_KEYS = (
     "title",
     "title_zh",
     "summary_zh",
+    "why_zh",
     "channel",
     "score",
     "content_type",
@@ -140,6 +142,8 @@ def main() -> None:
     feed: list[dict[str, Any]] = []
     for row in output:
         entry = {key: row[key] for key in FEED_KEYS}
+        entry["why_zh"] = row["why_zh"] or row["why_hn"]
+        entry["categories"] = (row["categories"] or [])[:3]
         entry["area"] = row["area"]
         entry["comment_count"] = comment_counts.get(row["vid"], 0)
         feed.append(entry)
@@ -171,9 +175,11 @@ def main() -> None:
     write_json(OUT_DIR / "meta.json", {"areas": areas, "commentCounts": comment_counts})
 
     translated = sum(1 for row in output if row["title_zh"])
-    print(f"wrote {len(output)} videos ({translated} translated) to {OUT_DIR}")
-    print(f"feed {len(feed)} rows, related {len(related)} sources, "
-          f"comments {sum(comment_counts.values())} in {len(comment_counts)} files")
+    sys.stdout.write(
+        f"wrote {len(output)} videos ({translated} translated) to {OUT_DIR}\n"
+        f"feed {len(feed)} rows, related {len(related)} sources, "
+        f"comments {sum(comment_counts.values())} in {len(comment_counts)} files\n"
+    )
 
 
 if __name__ == "__main__":

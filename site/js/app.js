@@ -7,6 +7,8 @@ import * as watch from './watch.js';
 const view = document.getElementById('view');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+const searchKbd = document.getElementById('search-kbd');
 const menuBtn = document.getElementById('menu-btn');
 const sidebar = document.getElementById('sidebar');
 const scrim = document.getElementById('scrim');
@@ -19,6 +21,9 @@ const state = {
   meta: { areas: [] },
   areaNames: new Map(),
   mounted: null,
+  lastRoute: null,
+  lastListKey: '',
+  scrollMemory: new Map(),
 };
 
 const context = {
@@ -67,26 +72,43 @@ function buildAreaNav() {
   )));
 }
 
+function routeKey(route) {
+  const q = route.params.toString();
+  return `${route.view}${q ? '?' + q : ''}`;
+}
+
 function render() {
   const route = parse();
+  if (state.lastRoute && state.lastRoute.view !== 'watch') {
+    state.scrollMemory.set(state.lastListKey, {
+      scrollY: window.scrollY,
+      shown: state.mounted?.getShown?.() || 48,
+    });
+  }
   state.mounted?.destroy?.();
   state.mounted = null;
   closeDrawer(false);
   syncSearch(route);
   syncNav(route.view, route.params);
-  window.scrollTo({ top: 0 });
 
   if (route.view === 'watch') {
+    window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = 'HackerTube 中文';
     state.mounted = watch.show(view, route, context) || null;
   } else {
+    const key = routeKey(route);
+    const returningFromWatch = state.lastRoute?.view === 'watch';
+    const restored = returningFromWatch ? state.scrollMemory.get(key) : null;
+    state.lastListKey = key;
     document.title = route.view === 'saved'
       ? '收藏 · HackerTube 中文'
       : route.view === 'history'
         ? '已浏览 · HackerTube 中文'
         : 'HackerTube 中文';
-    state.mounted = home.show(view, route, context);
+    state.mounted = home.show(view, route, context, restored);
+    window.scrollTo({ top: restored ? restored.scrollY : 0, behavior: 'instant' });
   }
+  state.lastRoute = route;
 }
 
 function syncNav(viewName, params) {
@@ -120,6 +142,23 @@ function syncSearch(route) {
   if (document.activeElement !== searchInput && searchInput.value !== query) {
     searchInput.value = query;
   }
+  syncSearchAffordance();
+}
+
+function syncSearchAffordance() {
+  const hasValue = Boolean(searchInput.value.trim());
+  if (searchClear) searchClear.hidden = !hasValue;
+  if (searchKbd) searchKbd.hidden = hasValue;
+}
+
+function applySearchValue(raw) {
+  const query = raw.trim();
+  const current = parse();
+  if (current.view === 'feed') {
+    state.mounted?.setQuery?.(query);
+  } else if (query) {
+    location.hash = `#/feed?q=${encodeURIComponent(query)}`;
+  }
 }
 
 function bindChrome() {
@@ -140,7 +179,25 @@ function bindChrome() {
   scrim.addEventListener('click', () => closeDrawer(true));
 
   document.addEventListener('keydown', (event) => {
+    const tag = event.target?.tagName;
+    const inField = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+    if (event.key === '/' && !inField && !event.ctrlKey && !event.metaKey && !event.altKey) {
+      event.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+      return;
+    }
     if (event.key !== 'Escape') return;
+    if (document.activeElement === searchInput) {
+      if (searchInput.value) {
+        searchInput.value = '';
+        syncSearchAffordance();
+        applySearchValue('');
+      } else {
+        searchInput.blur();
+      }
+      return;
+    }
     if (sidebar.classList.contains('open')) {
       closeDrawer(true);
     } else if (!mobile.matches && document.body.classList.contains('nav-collapsed')) {
@@ -156,14 +213,27 @@ function bindChrome() {
   searchForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const query = searchInput.value.trim();
-    location.hash = query ? `#/feed?q=${encodeURIComponent(query)}` : '#/';
+    if (parse().view === 'feed') {
+      state.mounted?.setQuery?.(query);
+    } else {
+      location.hash = query ? `#/feed?q=${encodeURIComponent(query)}` : '#/';
+    }
   });
 
   const liveSearch = debounce((value) => {
-    if (parse().view !== 'feed') return;
-    state.mounted?.setQuery?.(value);
-  }, 250);
-  searchInput.addEventListener('input', (event) => liveSearch(event.target.value));
+    applySearchValue(value);
+  }, 220);
+  searchInput.addEventListener('input', (event) => {
+    syncSearchAffordance();
+    liveSearch(event.target.value);
+  });
+
+  searchClear?.addEventListener('click', () => {
+    searchInput.value = '';
+    syncSearchAffordance();
+    applySearchValue('');
+    searchInput.focus();
+  });
 
   document.getElementById('skip-link').addEventListener('click', () => {
     view.focus();

@@ -82,4 +82,7 @@ export const store = {
   has(key, id) {
     return this.list(key).includes(id);
   },
+  clear(key) {
+    this.set(key, []);
+  },
 };

@@ -22,42 +22,17 @@ export function renderComments(container, payload) {
   const comments = payload?.comments || [];
   container.replaceChildren();
 
-  const sortWrap = el('div', { class: 'comment-sort' });
-  container.append(
-    el('div', { class: 'comments-head' },
-      el('h2', {}, `${comments.length} 条讨论`),
-      sortWrap,
-    ),
-  );
-
   if (!comments.length) {
-    container.append(el('p', { class: 'muted' }, '这个视频还没有中文讨论。'));
+    container.append(
+      el('div', { class: 'comments-head' }, el('h2', {}, '讨论')),
+      el('p', { class: 'muted' }, '这个视频还没有中文讨论。'),
+    );
     return;
   }
 
   let sort = 'rec';
   let filter = 'all';
   const counts = countGroups(comments);
-
-  const sortButtons = [
-    ['rec', '推荐优先'],
-    ['new', '最新'],
-  ].map(([key, label]) => ({
-    key,
-    node: el('button', {
-      class: 'chip',
-      type: 'button',
-      'aria-pressed': key === sort ? 'true' : 'false',
-      on: {
-        click: () => {
-          sort = key;
-          syncButtons(sortButtons, sort);
-          draw();
-        },
-      },
-    }, label),
-  }));
-  sortWrap.append(...sortButtons.map((item) => item.node));
 
   const filters = el('div', { class: 'comment-filters' });
   const filterButtons = GROUPS
@@ -78,12 +53,39 @@ export function renderComments(container, payload) {
       }, `${label} ${key === 'all' ? comments.length : counts[key]}`),
     }));
   filters.append(...filterButtons.map((item) => item.node));
-  container.append(filters);
+
+  const sortWrap = el('div', { class: 'comment-sort' });
+  const sortButtons = [
+    ['rec', '推荐优先'],
+    ['new', '最新'],
+  ].map(([key, label]) => ({
+    key,
+    node: el('button', {
+      class: 'sort-pill',
+      type: 'button',
+      'aria-pressed': key === sort ? 'true' : 'false',
+      on: {
+        click: () => {
+          sort = key;
+          syncButtons(sortButtons, sort);
+          draw();
+        },
+      },
+    }, label),
+  }));
+  sortWrap.append(...sortButtons.map((item) => item.node));
+
+  container.append(
+    el('div', { class: 'comments-head' },
+      el('h2', {}, `${comments.length} 条讨论`),
+      el('span', { class: 'comments-sub' }, '摘自 Hacker News 历年讨论帖 · 机器翻译'),
+      sortWrap,
+    ),
+    filters,
+  );
 
   const list = el('div', { class: 'comment-list' });
   container.append(list);
-  container.append(el('p', { class: 'mt-note' },
-    '评论来自不同的 Hacker News 讨论帖，中文为机器翻译。'));
 
   draw();
 

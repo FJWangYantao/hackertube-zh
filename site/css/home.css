@@ -40,13 +40,14 @@
 
 .feed-head {
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 8px 24px 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 24px 0;
 }
 
 .feed-head h1 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -54,6 +55,25 @@
 .feed-head p {
   color: var(--text-2);
   font-size: 13px;
+}
+
+.head-actions {
+  margin-left: auto;
+}
+
+.head-reset {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--pill);
+  background: var(--bg);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.head-reset:hover {
+  background: var(--bg-hover);
+  color: var(--text);
 }
 
 .grid {
@@ -119,6 +139,59 @@
   font-size: 12px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+}
+
+.badge-visited {
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(15, 15, 15, 0.72);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.card-save {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(15, 15, 15, 0.72);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.15s var(--ease), background 0.15s var(--ease);
+}
+
+.card-save svg path {
+  fill: none;
+}
+
+.card:hover .card-save,
+.card:focus-within .card-save,
+.card-save.is-on {
+  opacity: 1;
+}
+
+.card-save:hover {
+  background: rgba(15, 15, 15, 0.9);
+}
+
+.card-save.is-on {
+  background: var(--brand-mark);
+  color: #fff;
+}
+
+.card-save.is-on svg path {
+  fill: currentColor;
 }
 
 .card-body {
@@ -205,6 +278,12 @@
   .card {
     margin: 0;
     padding: 0;
+  }
+
+  .card-save {
+    top: 8px;
+    right: 8px;
+    opacity: 1;
   }
 
   .card:hover {
