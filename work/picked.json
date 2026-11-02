@@ -1,0 +1,252 @@
+[
+  {
+    "vid": "fNk_zzaMoSs",
+    "title": "Vectors | Chapter 1, Essence of linear algebra",
+    "channel": "3Blue1Brown",
+    "score": 25.0,
+    "content_type": "course",
+    "summary": "The first chapter of 3Blue1Brown's Essence of Linear Algebra series, introducing vectors with animated geometric visuals. It begins a series that builds intuition for linear algebra from the basics.",
+    "why_hn": "HN's go-to recommendation for learning linear algebra intuition, repeatedly credited with making concepts click and complementing textbooks.",
+    "url": "https://www.youtube.com/watch?v=fNk_zzaMoSs"
+  },
+  {
+    "vid": "FITJMJjASUs",
+    "title": "Ruby Conf 12 - Y Not- Adventures in Functional Programming by Jim Weirich",
+    "channel": "Confreaks",
+    "score": 22.5,
+    "content_type": "talk",
+    "summary": "Jim Weirich's RubyConf 2012 talk derives the Y combinator step by step, live-coding in Ruby lambdas. It builds up an understanding of functional programming and lambda calculus from first principles.",
+    "why_hn": "HN recommends it repeatedly as one of the best and most entertaining programming talks, and as the talk that makes the Y combinator click, even for people who do not use Ruby.",
+    "url": "https://www.youtube.com/watch?v=FITJMJjASUs"
+  },
+  {
+    "vid": "NGFhc8R_uO4",
+    "title": "Indistinguishable From Magic: Manufacturing Modern Computer Chips",
+    "channel": "Andor Gafotas",
+    "score": 22.0,
+    "content_type": "talk",
+    "summary": "A HOPE09 talk on how modern computer chips are manufactured, from 22nm transistors to ultra-clean fabs and the tricks used to pattern tiny features with light. It frames chipmaking as hacking electrical engineering and physics.",
+    "why_hn": "HN repeatedly calls it the best in-depth introduction to IC manufacturing, a sense-of-awe talk by an independent engineer, while wishing for an updated version.",
+    "url": "https://www.youtube.com/watch?v=NGFhc8R_uO4"
+  },
+  {
+    "vid": "Unzc731iCUY",
+    "title": "How to Speak",
+    "channel": "MIT OpenCourseWare",
+    "score": 21.0,
+    "content_type": "lecture",
+    "summary": "Patrick Winston's long-running MIT lecture on public speaking teaches heuristic rules for talks. It covers how to start, use time and place, boards, props and slides, and how to inform, persuade and finish.",
+    "why_hn": "HN treats it as the canonical, near-universally recommended lecture on giving talks and presentations.",
+    "url": "https://www.youtube.com/watch?v=Unzc731iCUY"
+  },
+  {
+    "vid": "VMj-3S1tku0",
+    "title": "The spelled-out intro to neural networks and backpropagation: building micrograd",
+    "channel": "Andrej Karpathy",
+    "score": 21.0,
+    "content_type": "lecture",
+    "summary": "Andrej Karpathy's first Neural Networks: Zero to Hero lecture, which builds micrograd, a tiny autograd engine, from scratch in Python. It explains backpropagation and neural network training step by step, assuming only basic Python and some high-school calculus.",
+    "why_hn": "HN treats it as the best starting point for really understanding backprop and neural nets, because Karpathy explains the why with intuition and builds everything in code.",
+    "url": "https://www.youtube.com/watch?v=VMj-3S1tku0"
+  },
+  {
+    "vid": "aMcJ1Jvtef0",
+    "title": "8 Bit & '8 Bitish' Graphics-Outside the Box",
+    "channel": "GDC Festival of Gaming",
+    "score": 20.0,
+    "content_type": "talk",
+    "summary": "Mark Ferrari, the LucasArts background artist, explains in a GDC 2016 talk how he draws 8-bit graphics. He covers color cycling and palette shifting to create complex animated scenery without frame animation.",
+    "why_hn": "HN repeatedly recommends it as a master class in limited-palette pixel art and palette cycling, from an artist behind Loom and Monkey Island.",
+    "url": "https://www.youtube.com/watch?v=aMcJ1Jvtef0"
+  },
+  {
+    "vid": "qCGofLIzX6g",
+    "title": "How Python was Shaped by leaky Internals, Armin Ronacher, Flask framework",
+    "channel": "Видео с мероприятий {speach!",
+    "score": 19.5,
+    "content_type": "talk",
+    "summary": "Armin Ronacher, creator of Flask, explains how CPython's internals and C API leak into the language's semantics. Using examples like the complexity of the add operation, he shows why Python is hard to optimize or reimplement.",
+    "why_hn": "It is HN's standard answer to why Python cannot easily get much faster, and is recommended by people who work on JITs and alternative runtimes.",
+    "url": "https://www.youtube.com/watch?v=qCGofLIzX6g"
+  },
+  {
+    "vid": "DovunOxlY1k",
+    "title": "AT&T Archives: Similiarities of Wave Behavior (Bonus Edition)",
+    "channel": "AT&T Tech Channel",
+    "score": 19.0,
+    "content_type": "lecture",
+    "summary": "A Bell Labs film in which Dr. J.N. Shive uses a mechanical wave machine to demonstrate reflection, standing waves, resonance and impedance matching. He includes some equations but relies mostly on real-world examples a layperson can follow.",
+    "why_hn": "HN repeatedly calls it the clearest introduction to waves and transmission-line behavior, better than modern explainers.",
+    "url": "https://www.youtube.com/watch?v=DovunOxlY1k"
+  },
+  {
+    "vid": "JTfhYyTuT44",
+    "title": "In Search Of A Flat Earth",
+    "channel": "Folding Ideas",
+    "score": 19.0,
+    "content_type": "documentary",
+    "summary": "Dan Olson's 76-minute essay on flat earth belief, built around a hike to a lake to test earth's curvature. It examines the community, how YouTube promoted it, and how it connects to wider conspiracy thinking and QAnon.",
+    "why_hn": "HN treats it as the definitive, compassionate documentary on why people fall into conspiracy theories.",
+    "url": "https://www.youtube.com/watch?v=JTfhYyTuT44"
+  },
+  {
+    "vid": "NNnIGh9g6fA",
+    "title": "1. Introduction to Human Behavioral Biology",
+    "channel": "Stanford",
+    "score": 19.0,
+    "content_type": "lecture",
+    "summary": "The opening lecture of Robert Sapolsky's Stanford course on Human Behavioral Biology, explaining the course premise and how to avoid categorical thinking. It starts a roughly 25-lecture series on how biology, genes, hormones and environment shape behavior.",
+    "why_hn": "One of the most consistently recommended lecture series on HN, praised as fascinating, funny and eye-opening about human behavior across many scales.",
+    "url": "https://www.youtube.com/watch?v=NNnIGh9g6fA"
+  },
+  {
+    "vid": "PHe0bXAIuk0",
+    "title": "How The Economic Machine Works by Ray Dalio",
+    "channel": "Principles by Ray Dalio",
+    "score": 19.0,
+    "content_type": "explainer",
+    "summary": "Ray Dalio's 30-minute animated video explains how the economy works through credit, debt, interest rates, and short- and long-term cycles. It is based on his template for understanding the economy.",
+    "why_hn": "HN repeatedly recommends it as the best layperson overview of debt, credit and economic cycles.",
+    "url": "https://www.youtube.com/watch?v=PHe0bXAIuk0"
+  },
+  {
+    "vid": "8bZh5LMaSmE",
+    "title": "RailsConf 2014 - All the Little Things by Sandi Metz",
+    "channel": "Confreaks",
+    "score": 18.5,
+    "content_type": "talk",
+    "summary": "Sandi Metz takes an ugly section of conditional code and refactors it into a few simple objects, bridging object-oriented theory and practice. The talk includes her take on the Gilded Rose refactoring kata and the idea that duplication is cheaper than the wrong abstraction.",
+    "why_hn": "HN treats it as a top-tier programming talk for learning refactoring and for the wrong-abstraction principle, recommended repeatedly over a decade.",
+    "url": "https://www.youtube.com/watch?v=8bZh5LMaSmE"
+  },
+  {
+    "vid": "spUNpyF58BY",
+    "title": "But what is the Fourier Transform?  A visual introduction.",
+    "channel": "3Blue1Brown",
+    "score": 18.5,
+    "content_type": "explainer",
+    "summary": "3Blue1Brown's animated visual introduction to the Fourier Transform, showing how a signal breaks into frequency components.",
+    "why_hn": "HN's default recommendation for understanding the Fourier transform intuitively; many say it was the explanation that made it click.",
+    "url": "https://www.youtube.com/watch?v=spUNpyF58BY"
+  },
+  {
+    "vid": "yYAw79386WI",
+    "title": "Around The Corner - How Differential Steering Works (1937)",
+    "channel": "US Auto Industry",
+    "score": 18.5,
+    "content_type": "explainer",
+    "summary": "A 1937 GM-produced film explaining how the automobile differential lets wheels turn at different speeds around a corner. It uses clear animations and cutaway demonstrations to build the idea from first principles.",
+    "why_hn": "Held up as a marvel of pedagogy and the best explanation of differentials, recommended again and again.",
+    "url": "https://www.youtube.com/watch?v=yYAw79386WI"
+  },
+  {
+    "vid": "JvBT4XBdoUE",
+    "title": "The Soul of Erlang and Elixir • Sasa Juric • GOTO 2019",
+    "channel": "GOTO Conferences",
+    "score": 17.5,
+    "content_type": "talk",
+    "summary": "Sasa Juric explains what makes Erlang and Elixir suited to server-side systems, focusing on the BEAM concurrency model rather than syntax or ecosystem. He demonstrates processes, supervision, and fault tolerance.",
+    "why_hn": "It is HN's favorite pitch for Elixir and the BEAM, credited with convincing many people to adopt them.",
+    "url": "https://www.youtube.com/watch?v=JvBT4XBdoUE"
+  },
+  {
+    "vid": "SCAGc-rkIfo",
+    "title": "Essential Ideas for Parents",
+    "channel": "Jason Salotti",
+    "score": 17.0,
+    "content_type": "lecture",
+    "summary": "Dr. Russell Barkley's roughly three-hour lecture on ADHD for parents of affected children. It explains what ADHD is and how the ADHD brain differs.",
+    "why_hn": "Repeatedly called the best way to understand ADHD, and recommended to anyone before commenting on it.",
+    "url": "https://www.youtube.com/watch?v=SCAGc-rkIfo"
+  },
+  {
+    "vid": "SxdOUGdseq4",
+    "title": "\"Simple Made Easy\" - Rich Hickey (2011)",
+    "channel": "Strange Loop Conference",
+    "score": 17.0,
+    "content_type": "talk",
+    "summary": "Rich Hickey's Strange Loop 2011 keynote distinguishing 'simple' (not intertwined) from 'easy' (familiar or near at hand). It argues that software complexity comes from complecting things and that we should pick simple constructs.",
+    "why_hn": "HN treats it as the canonical talk on software complexity, shared constantly and recommended to every programmer regardless of language.",
+    "url": "https://www.youtube.com/watch?v=SxdOUGdseq4"
+  },
+  {
+    "vid": "dEaecUuEqfc",
+    "title": "The Quantum Conspiracy: What Popularizers of QM Don't Want You to Know",
+    "channel": "Google TechTalks",
+    "score": 17.0,
+    "content_type": "talk",
+    "summary": "Ron Garret's Google Tech Talk argues that quantum mechanics is no harder to understand than relativity and that popular accounts wrongly rely on the Copenhagen interpretation. He presents measurement as entanglement and explains phenomena like the quantum eraser.",
+    "why_hn": "HN commenters repeatedly recommend it as the talk that finally made quantum mechanics click, especially for programmers.",
+    "url": "https://www.youtube.com/watch?v=dEaecUuEqfc"
+  },
+  {
+    "vid": "rStL7niR7gs",
+    "title": "Try to Rule Fairly and You'll Be Overthrown",
+    "channel": "CGP Grey",
+    "score": 17.0,
+    "content_type": "explainer",
+    "summary": "CGP Grey's animated adaptation of The Dictator's Handbook, explaining how rulers stay in power by keeping a small group of key supporters happy rather than ruling fairly. It lays out selectorate theory and how resources shape regimes.",
+    "why_hn": "HN treats it as the standard short summary of how power and political incentives work, applied to governments, companies and workplaces.",
+    "url": "https://www.youtube.com/watch?v=rStL7niR7gs"
+  },
+  {
+    "vid": "vtIzMaLkCaM",
+    "title": "LEADERSHIP LAB: The Craft of Writing Effectively",
+    "channel": "UChicago Social Sciences",
+    "score": 17.0,
+    "content_type": "lecture",
+    "summary": "Larry McEnerney of the University of Chicago Writing Program gives a graduate-student session on writing effectively. His core idea is that readers care about value to them, not the writer's thinking process.",
+    "why_hn": "HN users repeatedly say it changed how they think about writing, calling it a masterclass useful far beyond academia.",
+    "url": "https://www.youtube.com/watch?v=vtIzMaLkCaM"
+  },
+  {
+    "vid": "8aGhZQkoFbQ",
+    "title": "What the heck is the event loop anyway? | Philip Roberts | JSConf EU",
+    "channel": "JSConf",
+    "score": 16.5,
+    "content_type": "talk",
+    "summary": "Philip Roberts explains the JavaScript event loop, call stack, callbacks and asynchronous behavior with live visualizations using a tool he built. It demystifies terms like non-blocking and single-threaded.",
+    "why_hn": "HN commenters repeatedly name it as the best explanation of the JS event loop and the first thing to watch before tackling async code.",
+    "url": "https://www.youtube.com/watch?v=8aGhZQkoFbQ"
+  },
+  {
+    "vid": "aircAruvnKk",
+    "title": "But what is a neural network? | Deep learning chapter 1",
+    "channel": "3Blue1Brown",
+    "score": 16.5,
+    "content_type": "explainer",
+    "summary": "3Blue1Brown's first chapter on deep learning explains what neurons and layers are and the math underlying a basic neural network, using handwritten digit recognition with visual animations.",
+    "why_hn": "HN treats it as the standard first stop for learning neural networks, praised for making the math intuitive.",
+    "url": "https://www.youtube.com/watch?v=aircAruvnKk"
+  },
+  {
+    "vid": "xAoljeRJ3lU",
+    "title": "A Better Default Colormap for Matplotlib | SciPy 2015 | Nathaniel Smith and Stéfan van der Walt",
+    "channel": "Enthought",
+    "score": 16.5,
+    "content_type": "talk",
+    "summary": "SciPy 2015 talk by Nathaniel Smith and Stefan van der Walt on choosing a new default colormap for Matplotlib. It covers why Jet misleads, how perceptual color spaces work, and how viridis was designed.",
+    "why_hn": "HN's go-to recommendation for colormap and color-perception questions; commenters call it funny, brief, clear and a favorite talk.",
+    "url": "https://www.youtube.com/watch?v=xAoljeRJ3lU"
+  },
+  {
+    "vid": "5f9R9MtkpqM",
+    "title": "George Lakoff: Moral Politics",
+    "channel": "University of California Television (UCTV)",
+    "score": 16.0,
+    "content_type": "lecture",
+    "summary": "Cognitive scientist George Lakoff lectures on how political debates are framed through language and metaphors tied to values, and on the moral worldviews behind progressive and conservative politics. It was given in 2005 at UC San Diego.",
+    "why_hn": "HN commenters repeatedly say it changed how they hear political speech and recommend it for understanding why opponents are not simply stupid.",
+    "url": "https://www.youtube.com/watch?v=5f9R9MtkpqM"
+  },
+  {
+    "vid": "7J52mDjZzto",
+    "title": "Heat Pumps: the Future of Home Heating",
+    "channel": "Technology Connections",
+    "score": 16.0,
+    "content_type": "explainer",
+    "summary": "Technology Connections explains how heat pumps work as reversed air conditioners and why they can deliver several times the heat of resistive heating per unit of energy. It also tackles common myths such as poor cold-weather performance.",
+    "why_hn": "HN's default recommendation for a friendly, thorough introduction to heat pumps and why they are so efficient.",
+    "url": "https://www.youtube.com/watch?v=7J52mDjZzto"
+  }
+]

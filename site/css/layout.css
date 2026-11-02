@@ -1,0 +1,283 @@
+.app-bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--header-h);
+  padding: 0 16px;
+  background: var(--bg);
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-right: 24px;
+  flex: none;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.brand-accent {
+  color: var(--brand-mark);
+}
+
+.brand-tag {
+  align-self: center;
+  margin-left: 6px;
+  padding: 1px 7px;
+  border: 1px solid var(--border);
+  border-radius: var(--pill);
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.search {
+  display: flex;
+  flex: 1;
+  max-width: 640px;
+  height: 40px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--pill);
+  background: var(--bg-subtle);
+}
+
+.search:focus-within {
+  border-color: var(--brand);
+  background: var(--bg);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 16px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+}
+
+.search-btn {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  border: 0;
+  border-left: 1px solid var(--border);
+  background: var(--bg-chip);
+  color: var(--text-2);
+}
+
+.search-btn:hover {
+  background: #e9e9e9;
+  color: var(--text);
+}
+
+.app-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex: none;
+}
+
+.shell {
+  padding-top: var(--header-h);
+}
+
+.sidebar {
+  position: fixed;
+  top: var(--header-h);
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  width: var(--sidebar-w);
+  padding: 12px;
+  overflow-y: auto;
+  background: var(--bg);
+  scrollbar-width: thin;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.nav-item:hover {
+  background: var(--bg-hover);
+}
+
+.nav-item[aria-current="page"] {
+  background: var(--bg-chip);
+  font-weight: 600;
+}
+
+.nav-heading {
+  padding: 10px 12px 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nav-sub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.nav-sub:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.nav-sub[aria-current="page"] {
+  background: var(--bg-chip);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.nav-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-count {
+  color: var(--text-3);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.nav-divider {
+  margin: 10px 4px;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.nav-note {
+  padding: 4px 12px 20px;
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.nav-note a {
+  color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.view {
+  margin-left: var(--sidebar-w);
+  min-width: 0;
+  min-height: calc(100vh - var(--header-h));
+}
+
+body.nav-collapsed .sidebar {
+  display: none;
+}
+
+body.nav-collapsed .view {
+  margin-left: 0;
+}
+
+.scrim {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    width: min(300px, 86vw);
+    transform: translateX(-100%);
+    transition: transform 0.2s var(--ease);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .sidebar.open {
+    transform: none;
+  }
+
+  .view {
+    margin-left: 0;
+  }
+
+  body.nav-collapsed .sidebar {
+    display: block;
+  }
+
+  .scrim {
+    display: block;
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    z-index: 35;
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .scrim[hidden] {
+    display: none;
+  }
+
+  body.drawer-open {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-bar {
+    gap: 4px;
+    padding: 0 8px;
+  }
+
+  .brand {
+    margin-right: 4px;
+    font-size: 17px;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .search {
+    height: 38px;
+  }
+
+  .search input {
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  .search-btn {
+    width: 48px;
+  }
+
+  .app-actions .icon-btn {
+    width: 36px;
+  }
+}

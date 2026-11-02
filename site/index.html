@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HackerTube 中文 · 值得看的技术视频</title>
+<meta name="description" content="Hacker News 反复推荐的技术视频，中文标题、中文导读与社区讨论。">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/watch.css">
+</head>
+<body>
+<button class="skip-link" type="button" id="skip-link">跳到主要内容</button>
+
+<header class="app-bar">
+  <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">
+    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+      <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <a class="brand" href="#/" aria-label="HackerTube 中文首页">
+    Hacker<span class="brand-accent">Tube</span><span class="brand-tag">中文</span>
+  </a>
+
+  <form class="search" id="search-form" role="search">
+    <label class="visually-hidden" for="search-input">搜索视频</label>
+    <input id="search-input" type="search" placeholder="搜索视频、频道、主题" autocomplete="off">
+    <button class="search-btn" type="submit" aria-label="搜索">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="m16 16 4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </form>
+
+  <nav class="app-actions" aria-label="快捷入口">
+    <a class="icon-btn" href="#/saved" aria-label="收藏" title="收藏">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </nav>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" id="sidebar" aria-label="主导航">
+    <nav class="nav">
+      <a class="nav-item" data-route="feed" href="#/">发现</a>
+      <a class="nav-item" data-route="saved" href="#/saved">收藏</a>
+      <a class="nav-item" data-route="history" href="#/history">已浏览</a>
+      <a class="nav-item" data-scope="all" href="#/feed?all=1">全部内容</a>
+
+      <hr class="nav-divider">
+      <p class="nav-heading">主题</p>
+      <div class="nav-group" id="area-nav"></div>
+
+      <hr class="nav-divider">
+      <p class="nav-note">
+        数据来自 <a href="https://hackertube.org" target="_blank" rel="noopener">HackerTube</a>
+        与 Hacker News。中文标题、导读和评论均由机器翻译。
+      </p>
+    </nav>
+  </aside>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <main class="view" id="view" tabindex="-1"></main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

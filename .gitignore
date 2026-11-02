@@ -1,0 +1,14 @@
+# Local Claude Code session config (absolute paths)
+.claude/
+
+# Original dataset archive (duplicate of data/)
+download/
+
+# YouTube subtitle transcripts (third-party content)
+work/subs/
+
+# Python / OS
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

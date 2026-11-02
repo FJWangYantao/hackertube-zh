@@ -1,0 +1,851 @@
+{
+ "version": "405edcef",
+ "areas": [
+  {
+   "id": "software",
+   "name": "Software Engineering & Languages",
+   "categories": [
+    {
+     "id": "programming-language-design",
+     "name": "Programming language design",
+     "description": "Programming language design: language semantics, type systems, type theory, syntax, language features, Jai, Haskell type classes, Rust design, language history, why languages succeed or fail."
+    },
+    {
+     "id": "functional-programming",
+     "name": "Functional programming",
+     "description": "Functional programming: Haskell, OCaml, Clojure, Erlang, Elixir, Scala, Lisp, Scheme, immutability, monads, purity, pattern matching, Rich Hickey, Simon Peyton Jones."
+    },
+    {
+     "id": "systems-programming-languages",
+     "name": "C, C++, Rust, Go & systems languages",
+     "description": "Systems programming languages: C, C++, Rust, Go, Zig, D, memory management, ownership, concurrency, goroutines, templates, CppCon talks, Herb Sutter, Rob Pike."
+    },
+    {
+     "id": "scripting-languages",
+     "name": "Python, Ruby & scripting languages",
+     "description": "Dynamic and scripting languages: Python, Ruby, Ruby on Rails, PHP, Perl, Lua, JavaScript language internals, Java, C#, .NET, language tutorials and PyCon talks."
+    },
+    {
+     "id": "web-development",
+     "name": "Web development",
+     "description": "Web development: JavaScript, TypeScript, React, frontend frameworks, CSS, HTML, web components, browsers, Chrome DevTools, Node.js, WebAssembly, web APIs, full-stack frameworks."
+    },
+    {
+     "id": "software-architecture-design",
+     "name": "Software architecture & design",
+     "description": "Software architecture and design: object-oriented programming, design patterns, clean architecture, API design, microservices vs monoliths, data-oriented design, versioning, abstraction, simplicity, Alan Kay, Uncle Bob."
+    },
+    {
+     "id": "software-performance",
+     "name": "Software performance & optimization",
+     "description": "Performance and optimization: profiling, benchmarks, cache efficiency, software bloat, latency, low-level optimization, SIMD, Casey Muratori, Handmade Hero, why software is slow."
+    },
+    {
+     "id": "compilers-interpreters",
+     "name": "Compilers, interpreters & program analysis",
+     "description": "Compilers and interpreters: parsing, building a compiler, LLVM, JIT, garbage collection, virtual machines, static analysis, abstract interpretation, optimization passes, live-coding a language."
+    },
+    {
+     "id": "testing-debugging-tools",
+     "name": "Testing, debugging & developer tools",
+     "description": "Developer tools and quality: debugging, debuggers, unit testing, TDD, fuzzing, version control, git, editors, vim, emacs, IDEs, build systems, CI, observability, refactoring."
+    },
+    {
+     "id": "software-practice-careers",
+     "name": "Software practice, open source & careers",
+     "description": "Software craft and profession: agile, code review, legacy code, open source maintenance, licensing, programmer careers, interviews, productivity, tech management, programming philosophy, live coding sessions."
+    },
+    {
+     "id": "software-other",
+     "name": "Software (other)",
+     "description": "Other software engineering topics that do not fit the categories above: miscellaneous programming talks, parody and humor about programming, general developer commentary."
+    }
+   ]
+  },
+  {
+   "id": "systems-security",
+   "name": "Systems, Networks & Security",
+   "categories": [
+    {
+     "id": "databases-storage",
+     "name": "Databases & storage",
+     "description": "Databases and storage: SQL, SQLite, Postgres, NoSQL, query engines, indexing, transactions, filesystems, storage engines, data modeling, stream processing, event sourcing."
+    },
+    {
+     "id": "distributed-systems",
+     "name": "Distributed systems",
+     "description": "Distributed systems: consensus, Paxos, Raft, replication, CAP theorem, Kafka, event logs, Erlang/OTP, scaling services across machines, fault tolerance, large-scale architectures at Google, Netflix, Facebook."
+    },
+    {
+     "id": "operating-systems",
+     "name": "Operating systems & kernels",
+     "description": "Operating systems: kernels, scheduling, virtual memory, Unix, BSD, Windows internals, microkernels, virtualization, containers, OS research, system calls, boot process."
+    },
+    {
+     "id": "linux-open-source-os",
+     "name": "Linux & open-source ecosystems",
+     "description": "Linux and open-source systems: Linux kernel development, Linus Torvalds, distributions, desktop Linux, packaging, FreeBSD, GNU, Qubes, free software philosophy, Git origins."
+    },
+    {
+     "id": "networking-internet",
+     "name": "Networking & internet infrastructure",
+     "description": "Networking and the internet: TCP/IP, DNS, HTTP, BGP, CDNs, protocols, WiFi, routing, undersea cables, internet architecture, web servers, nginx, how the internet works."
+    },
+    {
+     "id": "cloud-devops-sre",
+     "name": "Cloud, DevOps & reliability",
+     "description": "Cloud and operations: AWS, Kubernetes, Docker, DevOps, SRE, incident postmortems, outages, deployment, infrastructure as code, self-hosting, monitoring, scaling, mainframes and data centers."
+    },
+    {
+     "id": "security-hacking",
+     "name": "Security & hacking",
+     "description": "Computer security: vulnerabilities, exploits, malware, reverse engineering, CTF, penetration testing, Black Hat and DEF CON talks, OS security, memory safety, zero-days, responsible disclosure."
+    },
+    {
+     "id": "cryptography",
+     "name": "Cryptography",
+     "description": "Cryptography: encryption, public key, RSA, elliptic curves, TLS, hashing, zero-knowledge proofs, Bitcoin, blockchain, cryptocurrency, passwords, history of codes and ciphers, Enigma."
+    },
+    {
+     "id": "privacy-surveillance",
+     "name": "Privacy, surveillance & cybercrime",
+     "description": "Privacy and surveillance: mass surveillance, NSA, Snowden, facial recognition, tracking, data brokers, censorship, cybercrime investigations, carding, digital forensics, anonymity, Tor."
+    },
+    {
+     "id": "systems-other",
+     "name": "Systems & security (other)",
+     "description": "Other systems topics: miscellaneous infrastructure, enterprise computing, IT administration, hosting, general operations discussions not fitting above."
+    }
+   ]
+  },
+  {
+   "id": "ai-data",
+   "name": "AI, Machine Learning & Data",
+   "categories": [
+    {
+     "id": "machine-learning",
+     "name": "Machine learning & deep learning",
+     "description": "Machine learning: neural networks, deep learning, backpropagation, training, optimization, reinforcement learning, AlphaGo, ML research lectures, Karpathy, Hinton, LeCun, Stanford CS231n."
+    },
+    {
+     "id": "llms-generative-ai",
+     "name": "LLMs & generative AI",
+     "description": "Large language models and generative AI: GPT, ChatGPT, transformers, attention, diffusion, image generation, prompting, AI coding assistants, deepfakes, synthetic media, AI products and demos."
+    },
+    {
+     "id": "ai-safety-impact",
+     "name": "AI safety, AGI & impact",
+     "description": "AI safety and societal impact: AGI, alignment, existential risk, AI ethics, automation and jobs, AI regulation, AI in education, AI timelines, Bostrom, Yudkowsky, interviews on the future of AI."
+    },
+    {
+     "id": "robotics",
+     "name": "Robotics",
+     "description": "Robotics: humanoid robots, Boston Dynamics, Atlas, legged locomotion, drones, industrial robots, robot control, manipulation, robot demos, Figure, Tesla Optimus, drone delivery."
+    },
+    {
+     "id": "self-driving-cars",
+     "name": "Self-driving & autonomous vehicles",
+     "description": "Autonomous vehicles: self-driving cars, Waymo, Tesla Autopilot and FSD, Cruise, robotaxis, perception, lidar, safety and crashes, autonomous trucks, regulation."
+    },
+    {
+     "id": "computer-vision-speech",
+     "name": "Computer vision, speech & NLP",
+     "description": "Perception and language AI: image recognition, object detection, OCR, speech recognition, text-to-speech, machine translation, natural language processing, face recognition, classical AI and expert systems."
+    },
+    {
+     "id": "data-science-statistics",
+     "name": "Data science & statistics",
+     "description": "Data science and applied statistics: data analysis, pandas, scientific Python, regression, A/B testing, causal inference, Bayesian methods, statistical misconceptions, big data, data engineering."
+    },
+    {
+     "id": "data-visualization",
+     "name": "Data visualization & information design",
+     "description": "Data visualization: charts, maps, infographics, Edward Tufte, Hans Rosling, interactive visualization, D3, time-lapse data art, visual explanations of data."
+    },
+    {
+     "id": "ai-data-other",
+     "name": "AI & data (other)",
+     "description": "Other AI and data topics: miscellaneous AI demos, AI history, AI hype and criticism, chatbots, recommender systems, search engines and SEO."
+    }
+   ]
+  },
+  {
+   "id": "math-theory",
+   "name": "Mathematics & Theoretical CS",
+   "categories": [
+    {
+     "id": "algorithms-data-structures",
+     "name": "Algorithms & data structures",
+     "description": "Algorithms and data structures: sorting, graphs, hash tables, trees, dynamic programming, competitive programming, MIT 6.006, algorithm analysis, Big-O, clever algorithms."
+    },
+    {
+     "id": "computational-theory",
+     "name": "Computability & complexity theory",
+     "description": "Theory of computation: Turing machines, halting problem, P vs NP, complexity classes, lambda calculus, automata, Church-Turing, Goedel incompleteness, computability."
+    },
+    {
+     "id": "quantum-computing",
+     "name": "Quantum computing",
+     "description": "Quantum computing: qubits, quantum algorithms, Shor, Grover, quantum supremacy, error correction, IBM and Google quantum hardware, quantum information explained."
+    },
+    {
+     "id": "pure-mathematics",
+     "name": "Pure mathematics",
+     "description": "Pure mathematics: algebra, group theory, number theory, topology, analysis, geometry, calculus, linear algebra, Euler, prime numbers, Riemann hypothesis, mathematical proofs, famous theorems."
+    },
+    {
+     "id": "probability-game-theory",
+     "name": "Probability & game theory",
+     "description": "Probability and decision theory: combinatorics, Statistics 110, Bayes theorem, paradoxes, game theory, prisoner's dilemma, Nash equilibrium, randomness, expected value."
+    },
+    {
+     "id": "recreational-math",
+     "name": "Recreational & visual math",
+     "description": "Math explainers and recreation: 3Blue1Brown, Numberphile, Mathologer, puzzles, fractals, surreal numbers, math history, mathematicians, beautiful proofs, math in everyday life."
+    },
+    {
+     "id": "logic-formal-methods",
+     "name": "Logic & formal methods",
+     "description": "Logic and formal verification: proof assistants, Coq, Lean, TLA+, type theory and proofs, SAT solvers, model checking, program correctness, foundations of mathematics, set theory."
+    },
+    {
+     "id": "information-theory",
+     "name": "Information theory & signal processing",
+     "description": "Information theory and signals: entropy, Claude Shannon, compression, error-correcting codes, Fourier transform, signal processing, sampling, digital audio and video theory."
+    },
+    {
+     "id": "math-theory-other",
+     "name": "Math & theory (other)",
+     "description": "Other mathematical and theoretical computer science topics: math education, mathematical modeling, miscellaneous lectures."
+    }
+   ]
+  },
+  {
+   "id": "hardware",
+   "name": "Hardware & Electronics",
+   "categories": [
+    {
+     "id": "computer-architecture",
+     "name": "Computer architecture & CPUs",
+     "description": "Computer architecture: CPU design, pipelines, caches, RISC-V, ARM, x86, GPUs, memory, branch prediction, supercomputers, mainframes, benchmarks, Moore's law."
+    },
+    {
+     "id": "semiconductors-manufacturing",
+     "name": "Semiconductors & chip manufacturing",
+     "description": "Semiconductors: chip fabrication, lithography, ASML, TSMC, transistors, FPGAs, ASIC design, diodes and LEDs, solar cells, how chips are made."
+    },
+    {
+     "id": "electronics-circuits",
+     "name": "Electronics & circuit design",
+     "description": "Electronics: analog and digital circuits, PCB design, grounding and EMI, signal integrity, power supplies, oscilloscopes, EEVblog, Ben Eater, op-amps, RF and radio, test equipment."
+    },
+    {
+     "id": "embedded-diy-electronics",
+     "name": "Embedded systems & DIY electronics",
+     "description": "Embedded and maker electronics: microcontrollers, Arduino, Raspberry Pi, ESP32, firmware, home automation, hardware hacking, hobby projects, cheap chips, sensors."
+    },
+    {
+     "id": "repair-teardown",
+     "name": "Repair, teardowns & right to repair",
+     "description": "Repair and teardowns: electronics repair, soldering, board-level repair, Louis Rossmann, right to repair, product teardowns, how things are made, planned obsolescence, Apple hardware failures."
+    },
+    {
+     "id": "consumer-devices",
+     "name": "Consumer devices & gadgets",
+     "description": "Consumer tech devices: smartphones, laptops, wearables, displays, cameras, keyboards, e-readers, smart home gadgets, product reviews, startup hardware demos, wireless charging."
+    },
+    {
+     "id": "audio-video-engineering",
+     "name": "Audio & video engineering",
+     "description": "Audio and video technology: analog and digital audio, speakers, amplifiers, microphones, television standards, frame rates, codecs, streaming formats, display technology."
+    },
+    {
+     "id": "hardware-other",
+     "name": "Hardware (other)",
+     "description": "Other hardware and electronics topics: miscellaneous devices, data storage hardware, hard drives, memory technology, peripherals."
+    }
+   ]
+  },
+  {
+   "id": "computing-history-culture",
+   "name": "Computing History & Culture",
+   "categories": [
+    {
+     "id": "history-of-computing",
+     "name": "History of computing",
+     "description": "Computing history: early computers, mainframes, Bletchley Park, ENIAC, Xerox PARC, Unix history, minicomputers, personal computer revolution, historical lectures and museum restorations."
+    },
+    {
+     "id": "gui-hci-history",
+     "name": "GUI, HCI & interface history",
+     "description": "Interface history and human-computer interaction: Lisa, Macintosh, Engelbart mother of all demos, Smalltalk, Windows UI, Ribbon, Bret Victor, direct manipulation, future of interfaces."
+    },
+    {
+     "id": "hacker-culture-free-software",
+     "name": "Hacker culture & free software",
+     "description": "Hacker culture: free software movement, Richard Stallman, open source history, hacker ethic, MIT AI Lab, cypherpunks, hackathons, Aaron Swartz, internet freedom."
+    },
+    {
+     "id": "demoscene-retrocomputing",
+     "name": "Demoscene & retrocomputing",
+     "description": "Retro computing: demoscene, Commodore 64, Amiga, 8-bit machines, assembly programming, tracker music, vintage hardware tricks, old PC demos, emulation."
+    },
+    {
+     "id": "internet-culture",
+     "name": "Internet culture & memes",
+     "description": "Internet culture: early web, memes, viral videos, forums, social media history, Wikipedia, YouTube creators, online communities, nostalgia for Windows 95 and the 90s web."
+    },
+    {
+     "id": "tech-figures-interviews",
+     "name": "Tech pioneers & interviews",
+     "description": "Interviews and talks by tech figures: Steve Jobs, Bill Gates, Linus Torvalds, Alan Kay, Knuth, Carmack, Wozniak, Steve Yegge, keynotes and fireside chats about careers and ideas."
+    },
+    {
+     "id": "tech-company-stories",
+     "name": "Tech company stories & documentaries",
+     "description": "Tech company histories: Apple, Microsoft, Google, Facebook, Amazon, Yelp, Valve, documentaries about companies, product launches, advertising history, corporate culture and scandals."
+    },
+    {
+     "id": "computing-history-other",
+     "name": "Computing culture (other)",
+     "description": "Other computing-culture topics: nostalgia, tech satire (Silicon Valley), conference oddities, miscellaneous retro and culture clips."
+    }
+   ]
+  },
+  {
+   "id": "design-graphics-media",
+   "name": "Design, Graphics & Visual Media",
+   "categories": [
+    {
+     "id": "ux-ui-design",
+     "name": "UX & UI design",
+     "description": "User experience and interface design: usability, interaction design, user research, design systems, mobile and car UI, dark patterns, accessibility, Don Norman, design critiques."
+    },
+    {
+     "id": "product-industrial-design",
+     "name": "Product & industrial design",
+     "description": "Product and industrial design: design philosophy, Dieter Rams, Jony Ive, Steve Jobs on product, ergonomics, design of everyday things, packaging, design process, product thinking."
+    },
+    {
+     "id": "graphic-design-typography",
+     "name": "Graphic design & typography",
+     "description": "Graphic design: typography, fonts, logos, layout, color theory, kinetic typography, branding, Unicode and text rendering, calligraphy, visual identity."
+    },
+    {
+     "id": "computer-graphics-rendering",
+     "name": "Computer graphics & rendering",
+     "description": "Computer graphics: ray tracing, path tracing, shaders, GPU rendering, real-time graphics, SIGGRAPH, procedural generation, simulation, volumetric displays, physics-based rendering."
+    },
+    {
+     "id": "creative-coding-generative-art",
+     "name": "Creative coding & generative art",
+     "description": "Creative coding: generative art, Processing, shaders art, algorithmic art, live coding music and visuals, interactive installations, glitch art, computational creativity."
+    },
+    {
+     "id": "animation-vfx",
+     "name": "Animation & visual effects",
+     "description": "Animation and VFX: 3D animation, Blender, Pixar, motion tracking, compositing, CGI breakdowns, practical effects, virtual production, motion graphics, after effects."
+    },
+    {
+     "id": "film-video-production",
+     "name": "Filmmaking & video production",
+     "description": "Filmmaking craft: cinematography, film editing, directing, screenwriting technique, video essays on how movies are made, camera work, indie filmmaking, film history of techniques."
+    },
+    {
+     "id": "vr-ar-spatial",
+     "name": "VR, AR & spatial computing",
+     "description": "Virtual and augmented reality: VR headsets, metaverse, Oculus, HoloLens, Apple Vision Pro, 3D interfaces, telepresence, holographic displays, immersive experiences."
+    },
+    {
+     "id": "design-graphics-other",
+     "name": "Design & graphics (other)",
+     "description": "Other design and visual topics: architecture drawings, illustration, photography, miscellaneous design talks."
+    }
+   ]
+  },
+  {
+   "id": "business-economics",
+   "name": "Business, Startups & Economics",
+   "categories": [
+    {
+     "id": "startups-entrepreneurship",
+     "name": "Startups & entrepreneurship",
+     "description": "Startups: founders, Y Combinator, Startup School, Paul Graham, product-market fit, bootstrapping, fundraising, pivots, failure stories, small business, 37signals."
+    },
+    {
+     "id": "product-growth-marketing",
+     "name": "Product, marketing & sales",
+     "description": "Product and go-to-market: product management, growth, enterprise sales, SaaS pricing, marketing, advertising, SEO, branding, customer research, creator economy."
+    },
+    {
+     "id": "management-leadership",
+     "name": "Management, leadership & organizations",
+     "description": "Management: leadership, team building, company culture, flat organizations, hiring, remote work, meetings, organizational design, negotiation, decision making in companies."
+    },
+    {
+     "id": "tech-industry-business",
+     "name": "Tech industry & business models",
+     "description": "Tech business: platform economics, big tech antitrust, monopolies, business model analysis, tech layoffs, app stores, subscriptions, airline loyalty and fintech models, Silicon Valley economics."
+    },
+    {
+     "id": "investing-personal-finance",
+     "name": "Investing & personal finance",
+     "description": "Investing and money: stocks, valuation, index funds, retirement, personal finance, real estate investing, financial literacy, trading, venture capital, banking basics, taxes."
+    },
+    {
+     "id": "macroeconomics",
+     "name": "Macroeconomics & financial crises",
+     "description": "Macroeconomics: inflation, interest rates, central banks, debt, recessions, financial crisis of 2008, housing bubbles, China economy, trade, currencies, monetary policy, Varoufakis."
+    },
+    {
+     "id": "microeconomics-behavioral",
+     "name": "Microeconomics & behavioral economics",
+     "description": "Economic reasoning: markets, incentives, supply and demand, pricing, tipping, Dan Ariely, Kahneman, nudges, Freakonomics, Milton Friedman, Thomas Sowell, economics explainers."
+    },
+    {
+     "id": "labor-work-wealth",
+     "name": "Labor, work & inequality",
+     "description": "Work and wealth: wages, unions, universal basic income, automation of jobs, inequality, billionaires, cost of living, housing affordability, gig economy, immigration and labor."
+    },
+    {
+     "id": "business-economics-other",
+     "name": "Business & economics (other)",
+     "description": "Other business topics: industry case studies, logistics and supply chains, retail, bizarre business stories, publicity stunts and cautionary tales."
+    }
+   ]
+  },
+  {
+   "id": "politics-history-society",
+   "name": "Politics, History & Society",
+   "categories": [
+    {
+     "id": "us-politics",
+     "name": "US politics & elections",
+     "description": "US politics: elections, presidents, Congress, campaigns, debates, polling, Trump, Obama, Democrats and Republicans, political speeches, C-SPAN clips, political commentary."
+    },
+    {
+     "id": "geopolitics-foreign-policy",
+     "name": "Geopolitics & foreign policy",
+     "description": "International affairs: foreign policy, China, Russia, Ukraine, Middle East, Israel and Palestine, NATO, sanctions, diplomacy, Taiwan, wars and interventions, international organizations."
+    },
+    {
+     "id": "law-policing-justice",
+     "name": "Law, policing & justice",
+     "description": "Law and justice: criminal justice, police tactics, courts, Supreme Court, prisons, legal explainers, drug policy, intellectual property and patents, true crime investigations, regulation."
+    },
+    {
+     "id": "free-speech-censorship",
+     "name": "Free speech, censorship & civil liberties",
+     "description": "Civil liberties: free speech debates, censorship, content moderation, whistleblowers, privacy rights, political correctness, controversial debates, Buckley and Baldwin, activism."
+    },
+    {
+     "id": "world-history",
+     "name": "World history",
+     "description": "History: ancient civilizations, medieval, empires, 20th century history, Cold War, archival footage, history documentaries, historical lectures, Dan Carlin, history of ideas and places."
+    },
+    {
+     "id": "military-warfare",
+     "name": "Military history & warfare",
+     "description": "Military topics: World War II, Gulf War, air power, navies, submarines, weapons systems, nuclear weapons and testing, tactics, intelligence agencies, defense technology, aviation in war."
+    },
+    {
+     "id": "social-issues-culture",
+     "name": "Social issues & culture",
+     "description": "Society and culture: race, gender, identity politics, homelessness, education policy, demographics, birth rates, immigration, dating and relationships, religion in society, class."
+    },
+    {
+     "id": "media-journalism",
+     "name": "Media, journalism & propaganda",
+     "description": "Media: journalism, news analysis, propaganda, misinformation, news satire, Last Week Tonight, VICE documentaries, media criticism, advertising and persuasion, conspiracy theories, UFOs."
+    },
+    {
+     "id": "politics-history-other",
+     "name": "Politics & history (other)",
+     "description": "Other political, historical and societal topics: miscellaneous commentary, local politics, public policy debates."
+    }
+   ]
+  },
+  {
+   "id": "physics-space",
+   "name": "Physics, Space & Chemistry",
+   "categories": [
+    {
+     "id": "fundamental-physics",
+     "name": "Fundamental physics",
+     "description": "Physics: classical mechanics, relativity, thermodynamics, electromagnetism, Feynman lectures, physical law, physics courses, Walter Lewin, Veritasium, physics explainers and demonstrations."
+    },
+    {
+     "id": "quantum-physics",
+     "name": "Quantum physics",
+     "description": "Quantum mechanics: wave function, entanglement, double slit, quantum field theory, interpretations, Sean Carroll, PBS Space Time, quantum gravity, particle physics, CERN, Higgs."
+    },
+    {
+     "id": "cosmology-astrophysics",
+     "name": "Cosmology & astrophysics",
+     "description": "Cosmology and astrophysics: black holes, dark matter, dark energy, Big Bang, galaxies, stars, gravitational waves, exoplanets, the observable universe, Sabine Hossenfelder, Kurzgesagt."
+    },
+    {
+     "id": "space-exploration",
+     "name": "Space exploration & spaceflight",
+     "description": "Space exploration: NASA, SpaceX, Starship, rockets, Apollo, Mars missions, JWST, space stations, satellites, orbital mechanics, Carl Sagan, Kerbal-style explainers, space policy."
+    },
+    {
+     "id": "chemistry",
+     "name": "Chemistry",
+     "description": "Chemistry: reactions, organic chemistry, explosives, periodic table, home chemistry experiments, NileRed, polymers, chemical engineering, lab techniques, chemistry history."
+    },
+    {
+     "id": "materials-science",
+     "name": "Materials science",
+     "description": "Materials: metals, alloys, ceramics, composites, transparent wood, semiconductors materials, superconductors, nanotechnology, crystals, fabrication of new materials, strength of materials."
+    },
+    {
+     "id": "everyday-physics-demos",
+     "name": "Everyday physics & science demos",
+     "description": "Physics in everyday life: science demonstrations, Steve Mould, Smarter Every Day, slow-motion experiments, optics, sound and acoustics, fluid dynamics, counterintuitive science, citizen experiments."
+    },
+    {
+     "id": "physics-space-other",
+     "name": "Physics & space (other)",
+     "description": "Other physics and space topics: science history, philosophy of physics, metrology and units, miscellaneous science lectures."
+    }
+   ]
+  },
+  {
+   "id": "life-sciences-health",
+   "name": "Life Sciences, Mind & Health",
+   "categories": [
+    {
+     "id": "neuroscience-brain",
+     "name": "Neuroscience & the brain",
+     "description": "Neuroscience: brain function, neurons, memory, perception, sleep, Sapolsky, Huberman, split brain, brain-computer interfaces, biocomputing, human echolocation, cognitive neuroscience."
+    },
+    {
+     "id": "psychology-behavior",
+     "name": "Psychology & human behavior",
+     "description": "Psychology: cognitive biases, social psychology, decision making, motivation, habits, personality, experiments, happiness, relationships, behavioral science, persuasion."
+    },
+    {
+     "id": "mental-health-neurodiversity",
+     "name": "Mental health & neurodiversity",
+     "description": "Mental health: ADHD, autism, depression, anxiety, therapy, addiction, trauma, executive function, parenting, psychiatry, burnout, emotional regulation."
+    },
+    {
+     "id": "consciousness-mind",
+     "name": "Consciousness & cognition",
+     "description": "Mind and consciousness: theories of consciousness, free will, intelligence, artificial minds, Penrose, Dennett, cognitive science, perception illusions, qualia, hemispheric brain theories."
+    },
+    {
+     "id": "evolution-genetics",
+     "name": "Evolution & genetics",
+     "description": "Evolution and genetics: natural selection, Dawkins, DNA, genomics, heritability, CRISPR, human origins, paleontology, evolutionary biology, genetics of intelligence."
+    },
+    {
+     "id": "biology-biotech",
+     "name": "Biology & biotechnology",
+     "description": "Biology and biotech: cells, molecular biology, synthetic biology, mycology and fungi, microbiology, bioengineering, DIY biotech, protein folding, lab work, biochemistry."
+    },
+    {
+     "id": "medicine-disease",
+     "name": "Medicine & infectious disease",
+     "description": "Medicine: diseases, vaccines, pandemics, COVID-19, epidemiology, public health, WHO, cancer, surgery, medical technology, drug development, aging research, healthcare quality."
+    },
+    {
+     "id": "nutrition-diet",
+     "name": "Nutrition & diet science",
+     "description": "Nutrition: diets, metabolism, seed oils, sugar, fasting, gut microbiome, food science debunking, supplements, obesity, evidence-based eating, dietary controversies."
+    },
+    {
+     "id": "fitness-sleep-longevity",
+     "name": "Fitness, sleep & longevity",
+     "description": "Fitness and wellbeing: exercise science, strength training, running, sleep, meditation, longevity, biohacking, injury and rehab, sports science, motorcycle and sports safety."
+    },
+    {
+     "id": "animals-nature",
+     "name": "Animals & nature",
+     "description": "Animals and nature: animal behavior, bird and crow intelligence, insects, ocean life, wildlife documentaries, ecology, plants, zoology, David Attenborough, pets."
+    },
+    {
+     "id": "life-sciences-other",
+     "name": "Life sciences (other)",
+     "description": "Other life science and health topics: medical history, miscellaneous biology lectures, alternative medicine debates, public health policy."
+    }
+   ]
+  },
+  {
+   "id": "earth-energy-environment",
+   "name": "Earth, Energy & Environment",
+   "categories": [
+    {
+     "id": "climate-science",
+     "name": "Climate science & climate change",
+     "description": "Climate science: global warming, greenhouse gases, paleoclimate, ice ages, climate models, tipping points, IPCC, climate predictions and outlook, sea level."
+    },
+    {
+     "id": "climate-debate-policy",
+     "name": "Climate policy, solutions & debate",
+     "description": "Climate policy: carbon tax, emissions reduction, geoengineering, space sunshades, carbon capture, climate skepticism and alarmism debates, environmental activism, climate economics."
+    },
+    {
+     "id": "nuclear-energy",
+     "name": "Nuclear power & fusion",
+     "description": "Nuclear energy: fission reactors, Chernobyl, Fukushima, nuclear waste, small modular reactors, fusion, ITER, nuclear safety, uranium, energy policy debates about nuclear."
+    },
+    {
+     "id": "renewables-storage",
+     "name": "Renewables, batteries & storage",
+     "description": "Renewable energy: solar, wind, hydro, geothermal, batteries, lithium, hydrogen, grid storage, energy transition, solar panel technology, energy efficiency economics."
+    },
+    {
+     "id": "power-grid-heating",
+     "name": "Power grid, heating & buildings",
+     "description": "Electric power systems: power grid failures, Texas ERCOT, transmission, utilities, heat pumps, HVAC, home electrification, building efficiency, insulation, energy at home."
+    },
+    {
+     "id": "geology-earth-science",
+     "name": "Geology & earth science",
+     "description": "Earth science: geology, volcanoes, earthquakes, plate tectonics, oceans, atmosphere, weather, hurricanes, mining, minerals, natural disasters, geophysics, landscapes."
+    },
+    {
+     "id": "environment-agriculture",
+     "name": "Environment, agriculture & food systems",
+     "description": "Environment and farming: conservation, pollution, plastics, recycling, water, deforestation, farming, regenerative agriculture, fisheries, food supply, vertical farming, sustainability."
+    },
+    {
+     "id": "earth-energy-other",
+     "name": "Earth & energy (other)",
+     "description": "Other earth, energy and environment topics: oil and gas industry, fossil fuels, resource economics, miscellaneous environmental documentaries."
+    }
+   ]
+  },
+  {
+   "id": "engineering-making",
+   "name": "Engineering, Transport & Making",
+   "categories": [
+    {
+     "id": "aviation",
+     "name": "Aviation & aerospace engineering",
+     "description": "Aviation: airplanes, airlines, pilots, flight training, air traffic control, jet engines, aircraft design, crashes and investigations, paramotors, drones, helicopters, Boeing, aircraft history."
+    },
+    {
+     "id": "automotive-ev",
+     "name": "Cars, EVs & motorcycles",
+     "description": "Automotive: car engineering, electric vehicles, Tesla, engines, hybrids, thermal management, factory tours, car repair, motorcycles, safety gear, car design, racing, Munro teardowns."
+    },
+    {
+     "id": "transit-urbanism",
+     "name": "Transit, cities & urban planning",
+     "description": "Urbanism: public transit, trains, subways, high-speed rail, cycling infrastructure, Dutch road design, city planning, zoning, housing, road safety, hyperloop critiques, walkable cities."
+    },
+    {
+     "id": "civil-engineering-construction",
+     "name": "Civil engineering & construction",
+     "description": "Civil engineering: bridges, dams, skyscrapers, tunnels, building construction, infrastructure failures, structural engineering, architecture engineering, Practical Engineering, megaprojects."
+    },
+    {
+     "id": "mechanical-engineering",
+     "name": "Mechanical & precision engineering",
+     "description": "Mechanical engineering: machines, mechanisms, gears, precision design, flexures, hydraulics, thermodynamic machines, engineering failures, clever mechanical designs, how it works explainers."
+    },
+    {
+     "id": "manufacturing-industry",
+     "name": "Manufacturing & industrial processes",
+     "description": "Manufacturing: factories, how things are made, injection molding, casting, machining, supply chain, assembly lines, industrial automation, lean production, mass production tours."
+    },
+    {
+     "id": "making-woodworking-metalwork",
+     "name": "Woodworking, metalworking & workshop skills",
+     "description": "Making: woodworking, metalworking, welding, blacksmithing, machine shop, lathes, tool sharpening, knife making, workshop tips, hand tools, craftsmanship."
+    },
+    {
+     "id": "3d-printing-cnc",
+     "name": "3D printing, CNC & maker projects",
+     "description": "Digital fabrication: 3D printers, CNC machines, laser cutters, maker projects, hardware prototyping, DIY builds, mods and hacks, hobby engineering, Hackaday-style projects."
+    },
+    {
+     "id": "home-diy-repair",
+     "name": "Home, DIY & practical skills",
+     "description": "Practical life skills: home repair, plumbing, electrical wiring, tiny houses, gardening, tools, how-to guides, cleaning, bicycle repair, survival and outdoors skills."
+    },
+    {
+     "id": "cooking-food",
+     "name": "Cooking & food",
+     "description": "Cooking: recipes, bread baking, no-knead bread, kitchen techniques, food science, coffee, fermentation, restaurants, chefs, knives, cuisine, food history."
+    },
+    {
+     "id": "ships-ocean",
+     "name": "Ships, submarines & maritime",
+     "description": "Maritime topics: ships, shipping and container logistics, submarines, ocean engineering, sailing, naval architecture, deep sea exploration, ports."
+    },
+    {
+     "id": "engineering-making-other",
+     "name": "Engineering & making (other)",
+     "description": "Other engineering and hands-on topics: miscellaneous engineering explainers, product safety, inventions, patents and quirky devices."
+    }
+   ]
+  },
+  {
+   "id": "games",
+   "name": "Games & Game Development",
+   "categories": [
+    {
+     "id": "game-design",
+     "name": "Game design",
+     "description": "Game design: mechanics, level design, game feel and juice, balance, player psychology, monetization ethics, narrative design, Jonathan Blow, GDC talks, design theory and postmortems."
+    },
+    {
+     "id": "game-programming-engines",
+     "name": "Game programming & engines",
+     "description": "Game programming: game engines, physics engines, rendering for games, Unity, Unreal, ECS, networking for games, John Carmack, Handmade Hero, multithreading, GDC technical talks."
+    },
+    {
+     "id": "indie-game-development",
+     "name": "Indie game development",
+     "description": "Indie development: solo developers, small studios, game jams, shipping a game, Steam, game business, marketing indie games, devlogs, Vlambeer, Minecraft-like creators."
+    },
+    {
+     "id": "game-history-retro",
+     "name": "Game history & retro gaming",
+     "description": "Game history: arcade, Atari, NES, early PC games, Doom and Quake development, console history, retro gaming preservation, classic game postmortems, hardware of old consoles."
+    },
+    {
+     "id": "gaming-culture",
+     "name": "Gaming culture & analysis",
+     "description": "Gaming culture: video essays about games, MMORPG culture, World of Warcraft, esports, game communities, Folding Ideas, game criticism, horror games and mods, Let's Plays."
+    },
+    {
+     "id": "speedrunning-glitches",
+     "name": "Speedrunning, glitches & game hacking",
+     "description": "Speedrunning: tool-assisted speedruns, glitches, exploits, arbitrary code execution in games, game hacking, modding, reverse engineering games, Summoning Salt-style histories."
+    },
+    {
+     "id": "chess-board-games",
+     "name": "Chess, board games & puzzles",
+     "description": "Tabletop and abstract games: chess, Go, poker, board game design, card games, AlphaGo matches, puzzles, Rubik's cube, strategy and game AI."
+    },
+    {
+     "id": "games-other",
+     "name": "Games (other)",
+     "description": "Other game topics: gambling and casinos, gamification, sports and games trivia, miscellaneous game footage."
+    }
+   ]
+  },
+  {
+   "id": "arts-entertainment",
+   "name": "Arts, Comedy, Music & Film",
+   "categories": [
+    {
+     "id": "standup-sketch-comedy",
+     "name": "Stand-up & sketch comedy",
+     "description": "Comedy: stand-up specials, sketch comedy, Monty Python, Mr. Show, comedians, improv, comedy clubs, talk-show comedy, funny bits and absurdist humor."
+    },
+    {
+     "id": "satire-parody",
+     "name": "Satire & parody",
+     "description": "Satire: news satire, The Onion, tech parody, parody videos, mockumentary, TV satire clips like Silicon Valley, absurd skits mocking culture and politics, spoof commercials."
+    },
+    {
+     "id": "music-performance",
+     "name": "Music performance & songs",
+     "description": "Music performance and music videos: electronic music, Aphex Twin, IDM, 80s and 90s pop videos, DJ sets, classical music, Bach, jazz, rock, folk, concerts, live sessions, singer-songwriters, Leonard Cohen, Pink Floyd, opera, orchestras, famous songs and albums."
+    },
+    {
+     "id": "music-theory-production",
+     "name": "Music theory, synthesis & production",
+     "description": "Music making: music theory, synthesizers, sound synthesis, audio production, mixing, guitar tone and amps, DAWs, composition, music notation software, instruments, electronic music."
+    },
+    {
+     "id": "film-tv-clips",
+     "name": "Film & TV clips",
+     "description": "Movie and TV scenes: classic film clips, Movieclips, famous TV scenes, trailers, Star Trek, Coen brothers, sitcom moments, memorable dialogue, foreign film scenes."
+    },
+    {
+     "id": "film-criticism-analysis",
+     "name": "Film analysis & criticism",
+     "description": "Film criticism: video essays about movies and directors, film history, behind-the-scenes, Kubrick, Star Wars production, screenwriting analysis, cinema studies."
+    },
+    {
+     "id": "documentaries-storytelling",
+     "name": "Documentaries & storytelling",
+     "description": "Documentaries and narratives: short documentaries, investigative features, quirky true stories, sports history storytelling, Jon Bois, oral histories, strange events and mysteries."
+    },
+    {
+     "id": "literature-writing",
+     "name": "Literature & writing craft",
+     "description": "Writing and books: authors, Stephen King, George R.R. Martin, writing advice, poetry, book discussions, science fiction, storytelling technique, publishing, author interviews."
+    },
+    {
+     "id": "visual-arts",
+     "name": "Visual arts, photography & architecture",
+     "description": "Visual arts: painting, drawing tutorials, sculpture, photography, art history, museums, architecture, street art, illustration, art criticism."
+    },
+    {
+     "id": "sports-athletics",
+     "name": "Sports & athletics",
+     "description": "Sports: Olympics, running, marathons, sports history, extreme sports, climbing, cycling races, soccer, basketball, athletes, records and feats of human performance."
+    },
+    {
+     "id": "magic-performance-oddities",
+     "name": "Magic, puzzles & curiosities",
+     "description": "Curiosities: magic tricks, illusions, street performance, optical illusions, strange talents, Rube Goldberg machines, record attempts, oddities, mind-bending demos."
+    },
+    {
+     "id": "arts-entertainment-other",
+     "name": "Arts & entertainment (other)",
+     "description": "Other arts and entertainment: miscellaneous entertainment clips, commercials and ad history, talk shows, variety acts, vlogs."
+    }
+   ]
+  },
+  {
+   "id": "ideas-education",
+   "name": "Ideas, Learning & Language",
+   "categories": [
+    {
+     "id": "education-learning",
+     "name": "Education & learning",
+     "description": "Education: teaching methods, Khan Academy, learning how to learn, computers in education, Seymour Papert, Logo, constructionism, university system, school reform, AI tutoring, memory techniques."
+    },
+    {
+     "id": "university-lectures",
+     "name": "University lectures & courses",
+     "description": "Full university lectures and course series: MIT OpenCourseWare, Stanford, Harvard lectures, introductory course lecture 1, lecture series across subjects, professor lectures."
+    },
+    {
+     "id": "philosophy-ethics",
+     "name": "Philosophy & ethics",
+     "description": "Philosophy: ethics, metaphysics, epistemology, philosophy of science, Stoicism, moral philosophy, free will, meaning of life, political philosophy, philosophers, thought experiments."
+    },
+    {
+     "id": "religion-belief",
+     "name": "Religion, belief & skepticism",
+     "description": "Religion and belief: atheism, theology, comparative religion, Buddhism, cults, pseudoscience, skepticism, critical thinking, debates on God, spirituality, mythology."
+    },
+    {
+     "id": "language-linguistics",
+     "name": "Language & linguistics",
+     "description": "Language: linguistics, etymology, name origins, pronunciation, English history, language learning, translation, writing systems, dialects, constructed languages, onomastics."
+    },
+    {
+     "id": "productivity-self-improvement",
+     "name": "Productivity & self-improvement",
+     "description": "Self-improvement: productivity systems, habits, focus, time management, learning skills, career advice, motivation, daily routines, deep work, life advice, commencement speeches."
+    },
+    {
+     "id": "futurism-technology-society",
+     "name": "Futurism & technology and society",
+     "description": "Futurism: future of technology, transhumanism, technological progress, long-term thinking, singularity, effects of technology on society, social media impact, TED-style big ideas, techno-optimism and criticism."
+    },
+    {
+     "id": "science-method-communication",
+     "name": "Scientific method & science communication",
+     "description": "How science works: scientific method, nature of explanation, replication crisis, peer review, science communication, Feynman on explanation, popular science, history of science, scientific thinking."
+    },
+    {
+     "id": "ideas-education-other",
+     "name": "Ideas & learning (other)",
+     "description": "Other ideas and education topics: TED talks on varied subjects, general interest lectures, interdisciplinary talks, wisdom-of-crowds style curiosities."
+    }
+   ]
+  }
+ ]
+}
