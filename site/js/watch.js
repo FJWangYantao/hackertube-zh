@@ -1,6 +1,7 @@
 import { el, avatar, thumb, typeLabel, metaLine, toast } from './ui.js';
-import { comments as loadComments, load, store } from './data.js';
+import { comments as loadComments, load, store, subs as loadSubs } from './data.js';
 import { renderComments } from './comments.js';
+import { createOverlay, loadYouTubeApi, renderTranscript } from './subtitles.js';
 
 const RELATED_LIMIT = 12;
 const RELATED_MIN = 8;
@@ -22,8 +23,18 @@ export function show(container, route, ctx) {
     ? el('p', { class: 'watch-sub' }, video.title)
     : null;
   const commentCount = video.comment_count || 0;
-  const { row: channel, toggleSave } = buildChannel(video, commentCount);
+  const subtitleBtn = buildSubtitleButton(player);
+  const fullscreenBtn = buildFullscreenButton(player);
+  let canSync = true;
+  player.onFallback = () => {
+    canSync = false;
+    subtitleBtn.hidden = true;
+  };
+  const { row: channel, toggleSave } = buildChannel(
+    video, commentCount, [subtitleBtn, fullscreenBtn],
+  );
   const description = buildDescription(video, ctx);
+  const transcriptBox = el('div', { class: 'transcript-box' });
   const commentsBox = el('section', { class: 'comments' });
 
   if (commentCount > 0) {
@@ -35,9 +46,9 @@ export function show(container, route, ctx) {
     renderComments(commentsBox, null);
   }
 
-  const main = el('div', { class: 'watch-main' }, player, title);
+  const main = el('div', { class: 'watch-main' }, player.node, title);
   if (english) main.append(english);
-  main.append(channel, description, commentsBox);
+  main.append(channel, description, transcriptBox, commentsBox);
 
   const railList = el('div', { class: 'related-list' },
     ...pickRelated(video, {}, ctx).map(relatedItem),
@@ -54,6 +65,20 @@ export function show(container, route, ctx) {
 
   container.replaceChildren(el('div', { class: 'watch' }, main, rail));
 
+  loadSubs(video.vid).then((payload) => {
+    if (destroyed) return;
+    const cues = (payload?.cues || []).filter((cue) => cue.zh);
+    if (!cues.length) return;
+    player.setCues(cues);
+    subtitleBtn.hidden = !canSync;
+    transcriptBox.append(renderTranscript(cues, (seconds) => player.seek(seconds)));
+  });
+
+  const onFullscreen = () => {
+    fullscreenBtn.textContent = document.fullscreenElement ? '退出全屏' : '全屏';
+  };
+  document.addEventListener('fullscreenchange', onFullscreen);
+
   const onKeyDown = (event) => {
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
@@ -67,7 +92,9 @@ export function show(container, route, ctx) {
   return {
     destroy() {
       destroyed = true;
+      player.destroy();
       document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('fullscreenchange', onFullscreen);
     },
   };
 }
@@ -95,26 +122,138 @@ function buildPlayer(video) {
     else poster.remove();
   });
 
+  const overlay = createOverlay();
+  const host = el('div', { class: 'player-host' });
   const play = el('button', {
     class: 'play-btn',
     type: 'button',
     'aria-label': '播放视频',
   }, el('span'));
-  play.addEventListener('click', () => {
-    const frame = el('iframe', {
-      src: `https://www.youtube-nocookie.com/embed/${video.vid}?autoplay=1&rel=0`,
-      title: video.title_zh || video.title,
-      allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share',
-      allowFullscreen: true,
-    });
-    player.replaceChildren(frame);
-  });
 
-  player.append(poster, play);
-  return player;
+  let yt = null;
+  let timer = null;
+  let mounting = null;
+  let destroyed = false;
+  let fallbackFrame = null;
+  let onFallback = null;
+  let readyResolve;
+  const ready = new Promise((resolve) => { readyResolve = resolve; });
+
+  async function doMount() {
+    player.replaceChildren(host, overlay.layer);
+    try {
+      const YT = await loadYouTubeApi();
+      if (destroyed) return null;
+      yt = new YT.Player(host, {
+        videoId: video.vid,
+        host: 'https://www.youtube-nocookie.com',
+        playerVars: {
+          autoplay: 1,
+          rel: 0,
+          fs: 0,
+          playsinline: 1,
+          modestbranding: 1,
+        },
+        events: {
+          onReady: () => {
+            readyResolve();
+            if (!destroyed) yt.playVideo();
+          },
+          onStateChange: (event) => {
+            if (event.data === 0) overlay.clear();
+          },
+        },
+      });
+      timer = setInterval(tick, 250);
+    } catch {
+      if (destroyed) return null;
+      fallbackFrame = el('iframe', {
+        src: `https://www.youtube-nocookie.com/embed/${video.vid}?autoplay=1&rel=0`,
+        title: video.title_zh || video.title,
+        allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share',
+        allowFullscreen: true,
+      });
+      player.replaceChildren(fallbackFrame);
+      readyResolve();
+      onFallback?.();
+      return null;
+    }
+    return yt;
+  }
+
+  function mount() {
+    if (yt) return Promise.resolve(yt);
+    if (!mounting) mounting = doMount();
+    return mounting;
+  }
+
+  function tick() {
+    if (!yt || typeof yt.getCurrentTime !== 'function') return;
+    const state = yt.getPlayerState?.();
+    if (state !== 1 && state !== 2) return;
+    overlay.update(yt.getCurrentTime());
+  }
+
+  play.addEventListener('click', () => { mount(); });
+  player.append(poster, play, overlay.layer);
+
+  return {
+    node: player,
+    setCues: (cues) => overlay.setCues(cues),
+    setEnabled: (on) => overlay.setEnabled(on),
+    set onFallback(fn) { onFallback = fn; },
+    seek(seconds) {
+      mount().then(() => ready).then(() => {
+        if (yt) {
+          yt.seekTo(seconds, true);
+          yt.playVideo?.();
+        } else if (fallbackFrame) {
+          fallbackFrame.src = `https://www.youtube-nocookie.com/embed/${video.vid}`
+            + `?autoplay=1&rel=0&start=${Math.floor(seconds)}`;
+        }
+      });
+    },
+    destroy() {
+      destroyed = true;
+      clearInterval(timer);
+      overlay.clear();
+      yt?.destroy?.();
+      yt = null;
+    },
+  };
 }
 
-function buildChannel(video, commentCount) {
+function buildSubtitleButton(player) {
+  let on = store.get('subs', true);
+  const label = () => (on ? '字幕 开' : '字幕 关');
+  const button = el('button', {
+    class: 'btn',
+    type: 'button',
+    hidden: true,
+    'aria-pressed': on ? 'true' : 'false',
+  }, label());
+  player.setEnabled(on);
+  button.addEventListener('click', () => {
+    on = !on;
+    store.set('subs', on);
+    player.setEnabled(on);
+    button.textContent = label();
+    button.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  return button;
+}
+
+function buildFullscreenButton(player) {
+  const button = el('button', { class: 'btn', type: 'button' }, '全屏');
+  if (!document.fullscreenEnabled) button.hidden = true;
+  button.addEventListener('click', () => {
+    if (document.fullscreenElement) document.exitFullscreen?.();
+    else player.node.requestFullscreen?.();
+  });
+  return button;
+}
+
+function buildChannel(video, commentCount, extra = []) {
   const saved = store.has('saved', video.vid);
   const saveBtn = el('button', {
     class: 'btn' + (saved ? ' is-on' : ''),
@@ -163,6 +302,7 @@ function buildChannel(video, commentCount) {
     el('div', { class: 'actions' },
       saveBtn,
       shareBtn,
+      ...extra,
       el('a', {
         class: 'btn',
         href: watchUrl,

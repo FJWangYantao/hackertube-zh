@@ -16,6 +16,7 @@ import os
 import subprocess
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -77,28 +78,7 @@ def fetch(vid: str, retries: int = 3) -> bool:
     return False
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--limit", type=int, default=8)
-    parser.add_argument("--sleep", type=float, default=4.0)
-    args = parser.parse_args()
-
-    SUBS.mkdir(parents=True, exist_ok=True)
-    picked = pick(load_videos(), args.limit)
-    print(f"target {len(picked)} videos")
-
-    ok = 0
-    for index, video in enumerate(picked, 1):
-        vid = video["vid"]
-        if has_subs(vid):
-            print(f"[{index}/{len(picked)}] {vid} cached")
-            ok += 1
-            continue
-        print(f"[{index}/{len(picked)}] {vid} {video['title'][:56]}")
-        if fetch(vid):
-            ok += 1
-        time.sleep(args.sleep)
-
+def write_manifest(picked: list[dict]) -> None:
     manifest = [
         {key: v.get(key) for key in ("vid", "title", "channel", "score",
                                      "content_type", "summary", "why_hn", "url")}
@@ -109,6 +89,60 @@ def main() -> None:
     with (work / "picked.json").open("w", encoding="utf-8") as fh:
         json.dump(manifest, fh, ensure_ascii=False, indent=2)
 
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--limit", type=int, default=8)
+    parser.add_argument("--sleep", type=float, default=4.0)
+    parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument("--vid-file", default="")
+    args = parser.parse_args()
+
+    SUBS.mkdir(parents=True, exist_ok=True)
+    videos = load_videos()
+    if args.vid_file:
+        wanted = Path(args.vid_file).read_text(encoding="utf-8").split()
+        by_vid = {video["vid"]: video for video in videos}
+        unknown = [vid for vid in wanted if vid not in by_vid]
+        if unknown:
+            print(f"unknown vids ({len(unknown)}): {' '.join(unknown)}")
+        picked = [by_vid[vid] for vid in wanted if vid in by_vid]
+    else:
+        picked = pick(videos, args.limit)
+        # Write the manifest first so an interrupted run stays resumable.
+        write_manifest(picked)
+    print(f"target {len(picked)} videos")
+
+    cached = sum(1 for video in picked if has_subs(video["vid"]))
+    pending = [video for video in picked if not has_subs(video["vid"])]
+    print(f"cached {cached}, fetching {len(pending)}")
+
+    ok = cached
+    missing: list[str] = []
+    workers = max(1, args.workers)
+    done_count = 0
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        # Submit in batches so --sleep actually spaces out requests.
+        for start in range(0, len(pending), workers):
+            batch = pending[start:start + workers]
+            futures = {pool.submit(fetch, video["vid"]): video for video in batch}
+            for future in as_completed(futures):
+                video = futures[future]
+                done_count += 1
+                try:
+                    fetched = future.result()
+                except Exception:  # noqa: BLE001 - one bad video must not stop the run
+                    fetched = False
+                if fetched:
+                    ok += 1
+                else:
+                    missing.append(video["vid"])
+                print(f"[{done_count}/{len(pending)}] {video['vid']} "
+                      f"{'ok' if fetched else 'no captions'} {video['title'][:48]}")
+            time.sleep(args.sleep)
+
+    if missing:
+        print(f"no captions ({len(missing)}): {' '.join(missing)}")
     print(f"done: {ok}/{len(picked)}")
 
 

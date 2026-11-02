@@ -248,5 +248,1755 @@
     "summary": "Technology Connections explains how heat pumps work as reversed air conditioners and why they can deliver several times the heat of resistive heating per unit of energy. It also tackles common myths such as poor cold-weather performance.",
     "why_hn": "HN's default recommendation for a friendly, thorough introduction to heat pumps and why they are so efficient.",
     "url": "https://www.youtube.com/watch?v=7J52mDjZzto"
+  },
+  {
+    "vid": "XXBxV6-zamM",
+    "title": "Micro Men - 720p (2009)",
+    "channel": "gimpymoo",
+    "score": 16.0,
+    "content_type": "documentary",
+    "summary": "Micro Men is a 2009 BBC comic drama about the early 1980s British home computer boom. It follows the rivalry between Clive Sinclair and Acorn founder Chris Curry over the BBC Micro contract and the ZX Spectrum.",
+    "why_hn": "HN recommends it often as an entertaining and authentic dramatization of Sinclair versus Acorn, the story from which ARM grew.",
+    "url": "https://www.youtube.com/watch?v=XXBxV6-zamM"
+  },
+  {
+    "vid": "aVwxzDHniEw",
+    "title": "The Beauty of Bézier Curves",
+    "channel": "Freya Holmér",
+    "score": 16.0,
+    "content_type": "explainer",
+    "summary": "Freya Holmer explains how Bezier curves work, from the helper-line construction to their uses in animation, text rendering and shapes. It uses visuals from her Unity Shapes plugin and was a SoME1 contest winner.",
+    "why_hn": "HN repeatedly calls it one of the best math and graphics explainers on YouTube, praised for bridging game dev and math.",
+    "url": "https://www.youtube.com/watch?v=aVwxzDHniEw"
+  },
+  {
+    "vid": "eJ3RzGoQC4s",
+    "title": "The Century of the Self (Full Adam Curtis Documentary)",
+    "channel": "David Lessig",
+    "score": 16.0,
+    "content_type": "documentary",
+    "summary": "Adam Curtis' multi-part documentary on how Freud's ideas and Edward Bernays' public relations shaped consumer culture and political control. It argues that business and government learned to manufacture desires.",
+    "why_hn": "HN recommends it often and strongly as an eye-opening account of marketing psychology and the engineering of consumer society.",
+    "url": "https://www.youtube.com/watch?v=eJ3RzGoQC4s"
+  },
+  {
+    "vid": "o_AIw9bGogo",
+    "title": "The Tragedy of systemd",
+    "channel": "linux.conf.au",
+    "score": 16.0,
+    "content_type": "talk",
+    "summary": "FreeBSD developer Benno Rice traces the history of init and bootstrap systems at linux.conf.au 2019 to explain why systemd was seen as necessary and why it provokes such strong reactions. He also discusses why change is scary.",
+    "why_hn": "The most-recommended balanced take on systemd, from a BSD perspective, handed to anyone caught up in the systemd debate.",
+    "url": "https://www.youtube.com/watch?v=o_AIw9bGogo"
+  },
+  {
+    "vid": "AdNJ3fydeao",
+    "title": "Rich Harris - Rethinking reactivity",
+    "channel": "You Gotta Love Frontend",
+    "score": 15.5,
+    "content_type": "talk",
+    "summary": "Svelte creator Rich Harris explains moving reactivity into the compiler and language rather than tracking state at runtime, with a history of spreadsheets as reactive systems and comparisons to React.",
+    "why_hn": "The most recommended introduction to Svelte, credited with sparking its adoption.",
+    "url": "https://www.youtube.com/watch?v=AdNJ3fydeao"
+  },
+  {
+    "vid": "IcgmSRJHu_8",
+    "title": "\"Making Impossible States Impossible\" by Richard Feldman",
+    "channel": "elm-conf",
+    "score": 15.5,
+    "content_type": "talk",
+    "summary": "Richard Feldman's elm-conf talk on designing models so that bugs from impossible application states cannot occur, using Elm's compiler and types. It demonstrates techniques for making invalid states unrepresentable.",
+    "why_hn": "HN repeatedly recommends it as a talk that changed how people model data, with ideas that apply well beyond Elm to any typed language.",
+    "url": "https://www.youtube.com/watch?v=IcgmSRJHu_8"
+  },
+  {
+    "vid": "LQRAfJyEsko",
+    "title": "Dominion (2018) - full documentary [Official]",
+    "channel": "Farm Transparency Project",
+    "score": 15.5,
+    "content_type": "documentary",
+    "summary": "Dominion is a two-hour documentary using drones and hidden cameras to expose conditions in animal agriculture, including food, clothing, entertainment and research. It questions humanity's dominion over animals.",
+    "why_hn": "HN commenters push it, often forcefully, as the video to watch to see what factory farming really involves, and some say it changed their diet.",
+    "url": "https://www.youtube.com/watch?v=LQRAfJyEsko"
+  },
+  {
+    "vid": "cIQ9IXSUzuM",
+    "title": "D/A and A/D | Digital Show and Tell (Monty Montgomery @ xiph.org)",
+    "channel": "FL Studio",
+    "score": 15.5,
+    "content_type": "explainer",
+    "summary": "Monty Montgomery of Xiph.org gives real-time demonstrations of sampling, quantization, bit depth and dither using real audio equipment, including both digital analysis tools and vintage analog bench gear. It shows that sampled audio is not stair-stepped and corrects common misconceptions about digital audio.",
+    "why_hn": "HN calls it the gold-standard debunking of audiophile myths and the stair-step misconception, and recommends it as a primer on digital audio.",
+    "url": "https://www.youtube.com/watch?v=cIQ9IXSUzuM"
+  },
+  {
+    "vid": "kpk2tdsPh0A",
+    "title": "SM64 - Watch for Rolling Rocks - 0.5x A Presses (Commentated) [OUTDATED]",
+    "channel": "pannenkoek2012",
+    "score": 15.5,
+    "content_type": "explainer",
+    "summary": "Pannenkoek2012's commentated tool-assisted Super Mario 64 run collecting the Watch for Rolling Rocks star with half an A press, using parallel universes and QPU movement. The video is marked outdated in favor of a newer version.",
+    "why_hn": "Held up as a legendary deep dive into game internals, explained lucidly and with humor, and a gateway to the channel.",
+    "url": "https://www.youtube.com/watch?v=kpk2tdsPh0A"
+  },
+  {
+    "vid": "HyznrdDSSGM",
+    "title": "8-bit computer update",
+    "channel": "Ben Eater",
+    "score": 15.0,
+    "content_type": "other",
+    "summary": "Ben Eater's short update announcing his plan to build another 8-bit computer from scratch on camera. It kicks off the breadboard computer series that became widely known.",
+    "why_hn": "HN repeatedly recommends the series it launched as the best way to understand how a CPU works, praised for Eater's clear teaching.",
+    "url": "https://www.youtube.com/watch?v=HyznrdDSSGM"
+  },
+  {
+    "vid": "L0KuAx1COEk",
+    "title": "MIT's Pathway to Fusion Energy (IAP 2017) - Zach Hartwig",
+    "channel": "MIT Plasma Science and Fusion Center",
+    "score": 15.0,
+    "content_type": "lecture",
+    "summary": "Zach Hartwig of MIT introduces the key concepts of magnetic fusion energy and the state of fusion research. He then presents MIT's proposed pathway of using high-field superconducting magnets to build smaller, cheaper tokamaks on a climate-relevant timescale.",
+    "why_hn": "Recommended again and again as the best accessible overview of fusion physics, useful for judging fusion announcements and understanding why high-temperature superconducting magnets matter.",
+    "url": "https://www.youtube.com/watch?v=L0KuAx1COEk"
+  },
+  {
+    "vid": "NOAgplgTxfc",
+    "title": "Stanford's Sapolsky On Depression in U.S. (Full Lecture)",
+    "channel": "Stanford",
+    "score": 15.0,
+    "content_type": "lecture",
+    "summary": "Stanford professor Robert Sapolsky lectures on depression as a real biological disease. He covers its biological and psychological causes, how it differs from ordinary sadness, and ideas such as learned helplessness. He ties these together into one account.",
+    "why_hn": "HN returns to it repeatedly as the best single introduction to understanding clinical depression.",
+    "url": "https://www.youtube.com/watch?v=NOAgplgTxfc"
+  },
+  {
+    "vid": "jvPPXbo87ds",
+    "title": "The Continuity of Splines",
+    "channel": "Freya Holmér",
+    "score": 15.0,
+    "content_type": "explainer",
+    "summary": "Freya Holmer's 74-minute video essay on splines, covering Bezier curves, B-splines, derivatives and the different levels of continuity (C0, C1, C2), built with custom animation tools. She notes she did not cover non-uniform splines.",
+    "why_hn": "It is the go-to recommendation for anyone who wants to genuinely understand Bezier curves and splines, and commenters repeatedly call it one of the best programming-related educational videos.",
+    "url": "https://www.youtube.com/watch?v=jvPPXbo87ds"
+  },
+  {
+    "vid": "kBdfcR-8hEY",
+    "title": "Justice: What's The Right Thing To Do? Episode 01 \"THE MORAL SIDE OF MURDER\"",
+    "channel": "Harvard University",
+    "score": 15.0,
+    "content_type": "lecture",
+    "summary": "The first episode of Michael Sandel's Harvard course on moral reasoning, opening with the trolley problem and the choice between killing one to save five. Sandel draws out student arguments and introduces utilitarian and other approaches to justice.",
+    "why_hn": "One of the most frequently recommended online lecture series on HN, praised for giving people vocabulary to examine ethical positions and for Sandel's skilled teaching.",
+    "url": "https://www.youtube.com/watch?v=kBdfcR-8hEY"
+  },
+  {
+    "vid": "5SaFTm2bcac",
+    "title": "Video explains the world's most important 6-sec drum loop",
+    "channel": "Landon Proctor",
+    "score": 14.5,
+    "content_type": "documentary",
+    "summary": "Nate Harrison's 2004 video history of the Amen Break, a six-second drum sample from a 1969 b-side that became the basis of hip-hop sampling, jungle and drum and bass. It is also a meditation on cultural ownership and creativity.",
+    "why_hn": "A perennial HN recommendation, brought up whenever sampling, copyright or music history comes up, often described as a must-watch.",
+    "url": "https://www.youtube.com/watch?v=5SaFTm2bcac"
+  },
+  {
+    "vid": "LIb3L4vKZ7U",
+    "title": "CppCon 2015: Andrei Alexandrescu “std::allocator...”",
+    "channel": "CppCon",
+    "score": 14.5,
+    "content_type": "talk",
+    "summary": "Andrei Alexandrescu's CppCon 2015 talk argues that std::allocator is badly designed. He proposes building high-performance allocators from small composable, templated pieces.",
+    "why_hn": "HN repeatedly recommends it as an entertaining, mind-opening talk on allocator design and composable generic programming.",
+    "url": "https://www.youtube.com/watch?v=LIb3L4vKZ7U"
+  },
+  {
+    "vid": "QNznD9hMEh0",
+    "title": "Jim Simons (full length interview) - Numberphile",
+    "channel": "Numberphile2",
+    "score": 14.5,
+    "content_type": "interview",
+    "summary": "The full-length Numberphile interview with mathematician and hedge fund founder Jim Simons. He discusses his path from mathematics and codebreaking to founding Renaissance Technologies, his use of algorithms in markets, and his philanthropy.",
+    "why_hn": "HN recommends it as the best readily available interview with Simons, notable for his emphasis on luck and a humble approach to success.",
+    "url": "https://www.youtube.com/watch?v=QNznD9hMEh0"
+  },
+  {
+    "vid": "ar9WRwCiSr0",
+    "title": "Reverse emulating the NES to give it SUPER POWERS!",
+    "channel": "suckerpinch",
+    "score": 14.5,
+    "content_type": "talk",
+    "summary": "Tom Murphy (suckerpinch) shows 'reverse emulation', using a Raspberry Pi in an NES cartridge to give an unmodified NES new abilities such as playing SNES games. The video starts in a strange way and gets stranger.",
+    "why_hn": "Praised as a brilliant, deadpan and inventive hardware hack, and a good starting point for Tom7's videos.",
+    "url": "https://www.youtube.com/watch?v=ar9WRwCiSr0"
+  },
+  {
+    "vid": "dBnniua6-oM",
+    "title": "Sugar: THE BITTER TRUTH",
+    "channel": "University of California Television (UCTV)",
+    "score": 14.5,
+    "content_type": "lecture",
+    "summary": "Robert Lustig of UCSF lectures on the biochemistry of sugar, arguing that fructose and lack of fiber drive the obesity epidemic via insulin. It is the widely viewed 90-minute talk that popularized the anti-sugar case.",
+    "why_hn": "The most-linked YouTube video on HN, recommended as an in-depth explanation of fructose metabolism.",
+    "url": "https://www.youtube.com/watch?v=dBnniua6-oM"
+  },
+  {
+    "vid": "otbnC2zE2rw",
+    "title": "Designing the Ideal Bootstrapped Business with Jason Cohen",
+    "channel": "Rob Walling",
+    "score": 14.5,
+    "content_type": "talk",
+    "summary": "Jason Cohen's MicroConf talk on designing a bootstrapped business by starting from your own strengths, goals and constraints. He works backward to the business model, pricing, market and product that fit, with practical points like annual prepay and pricing tiers.",
+    "why_hn": "It is the go-to talk HN commenters recommend to anyone asking about bootstrapping, SaaS pricing, or choosing bootstrapping over VC.",
+    "url": "https://www.youtube.com/watch?v=otbnC2zE2rw"
+  },
+  {
+    "vid": "040ejWnFkj0",
+    "title": "How Self-Driving Cars will Destroy Cities (and what to do about it)",
+    "channel": "Not Just Bikes",
+    "score": 14.0,
+    "content_type": "commentary",
+    "summary": "Not Just Bikes argues that self-driving cars will worsen sprawl and car dependence and harm cities. The video compares car-centered and people-centered urban design and weighs what cities should do instead.",
+    "why_hn": "Frequently recommended in autonomous vehicle and Waymo threads as the main counterargument, a long but worthwhile video essay on how self-driving cars could affect cities.",
+    "url": "https://www.youtube.com/watch?v=040ejWnFkj0"
+  },
+  {
+    "vid": "B1J2RMorJXM",
+    "title": "Light Years Ahead | The 1969 Apollo Guidance Computer",
+    "channel": "TNMoC",
+    "score": 14.0,
+    "content_type": "lecture",
+    "summary": "Robert Wills of TNMoC explains the Apollo Guidance Computer hardware and software, then walks through the Apollo 11 landing procedure step by step, including the 1202 alarms.",
+    "why_hn": "HN calls it mandatory viewing on the AGC, praising the speaker's enthusiasm and the clear account of restartable, robust software design.",
+    "url": "https://www.youtube.com/watch?v=B1J2RMorJXM"
+  },
+  {
+    "vid": "D1R-jKKp3NA",
+    "title": "Steve Jobs Stanford Commencement Speech 2005",
+    "channel": "JoshuaG",
+    "score": 14.0,
+    "content_type": "talk",
+    "summary": "Steve Jobs's 2005 Stanford commencement address, built around three stories: connecting the dots, love and loss including being fired from Apple, and death. It is a 15-minute talk on finding work you love.",
+    "why_hn": "HN returns to it for years as an inspirational talk to send to graduates, founders and anyone at a career crossroads.",
+    "url": "https://www.youtube.com/watch?v=D1R-jKKp3NA"
+  },
+  {
+    "vid": "F_Riqjdh2oM",
+    "title": "Quantum Computing for Computer Scientists",
+    "channel": "Microsoft Research",
+    "score": 14.0,
+    "content_type": "talk",
+    "summary": "An 88-minute Microsoft Research talk that explains how quantum computers beat classical ones using basic linear algebra, qubits, superposition and gates. It works through the Deutsch oracle problem and ends with entanglement, teleportation and a live demo.",
+    "why_hn": "It is HN's most frequently recommended starting point for quantum computing because it avoids pop-science hand-waving and needs only basic linear algebra.",
+    "url": "https://www.youtube.com/watch?v=F_Riqjdh2oM"
+  },
+  {
+    "vid": "Fy0aCDmgnxg",
+    "title": "Juice it or lose it - a talk by Martin Jonasson & Petri Purho",
+    "channel": "grapefrukt",
+    "score": 14.0,
+    "content_type": "talk",
+    "summary": "Martin Jonasson and Petri Purho take a bland Breakout clone and add layer after layer of 'juice' such as easing, particles, screen shake and sound until it feels alive. A live demo makes the effect of small feedback details obvious.",
+    "why_hn": "The go-to recommendation on game feel and polish, cited by HN as one of the best talks for anyone making interactive things feel good.",
+    "url": "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+  },
+  {
+    "vid": "HxaD_trXwRE",
+    "title": "Lexical Scanning in Go - Rob Pike",
+    "channel": "GoogleFOSSSydney",
+    "score": 14.0,
+    "content_type": "talk",
+    "summary": "Rob Pike shows how the Go text/template lexer is built, using state functions, goroutines and channels. The talk was given at a Google Technology User Group in Sydney in 2011.",
+    "why_hn": "HN returns to it for years as an elegant introduction to writing a lexer that is easy to follow even without a parsing background.",
+    "url": "https://www.youtube.com/watch?v=HxaD_trXwRE"
+  },
+  {
+    "vid": "LnzuMJLZRdU",
+    "title": "“Hello, world” from scratch on a 6502 — Part 1",
+    "channel": "Ben Eater",
+    "score": 14.0,
+    "content_type": "tutorial",
+    "summary": "Ben Eater starts a series building a working computer on breadboards around the 6502 microprocessor. In this first part he gets a 'hello world' running from scratch.",
+    "why_hn": "HN repeatedly recommends it as the best hands-on way to understand how a CPU and a computer work from first principles.",
+    "url": "https://www.youtube.com/watch?v=LnzuMJLZRdU"
+  },
+  {
+    "vid": "OyfBQmvr2Hc",
+    "title": "William Byrd on \"The Most Beautiful Program Ever Written\" [PWL NYC]",
+    "channel": "PapersWeLove",
+    "score": 14.0,
+    "content_type": "talk",
+    "summary": "William Byrd presents at Papers We Love NYC on what he calls the most beautiful program ever written, a Lisp interpreter written in Lisp. He walks through the metacircular interpreter and related ideas, and demos relational programming and program synthesis near the end.",
+    "why_hn": "HN repeatedly recommends it as an amazing talk that derives the essence of Lisp and shows miniKanren-style program synthesis.",
+    "url": "https://www.youtube.com/watch?v=OyfBQmvr2Hc"
+  },
+  {
+    "vid": "RjD1aLm4Thg",
+    "title": "What Bodies Think About: Bioelectric Computation Outside the Nervous System - NeurIPS 2018",
+    "channel": "The Artificial Intelligence Channel",
+    "score": 14.0,
+    "content_type": "talk",
+    "summary": "Michael Levin's NeurIPS 2018 talk on bioelectric computation outside the nervous system, showing how cell electrical networks shape development and regeneration. It covers morphological information processing in living tissue.",
+    "why_hn": "HN regularly calls it mind-blowing and recommends it as an introduction to Levin's work on bioelectricity and regeneration.",
+    "url": "https://www.youtube.com/watch?v=RjD1aLm4Thg"
+  },
+  {
+    "vid": "ZK3O402wf1c",
+    "title": "Lec 1 | MIT 18.06 Linear Algebra, Spring 2005",
+    "channel": "MIT OpenCourseWare",
+    "score": 14.0,
+    "content_type": "lecture",
+    "summary": "The first lecture of Gilbert Strang's MIT 18.06 Linear Algebra course, covering the geometry of linear equations. It opens a full 35-lecture university course.",
+    "why_hn": "It is HN's default recommendation for learning linear algebra, praised for Strang's teaching and for building real understanding useful in machine learning.",
+    "url": "https://www.youtube.com/watch?v=ZK3O402wf1c"
+  },
+  {
+    "vid": "_rBO8neWw04",
+    "title": "Detergent packs are kinda wishy-washy (Dishwashers Explained)",
+    "channel": "Technology Connections",
+    "score": 14.0,
+    "content_type": "explainer",
+    "summary": "Technology Connections explains how dishwashers work, why detergent pods underperform powder, and how to use the pre-wash and main-wash compartments. It argues you don't need to pre-rinse dishes.",
+    "why_hn": "HN repeatedly recommends it as the definitive, mind-changing explanation of dishwasher use, even though it runs over 30 minutes.",
+    "url": "https://www.youtube.com/watch?v=_rBO8neWw04"
+  },
+  {
+    "vid": "4fFDFbi3toc",
+    "title": "\"Testing Distributed Systems w/ Deterministic Simulation\" by Will Wilson",
+    "channel": "Strange Loop Conference",
+    "score": 13.5,
+    "content_type": "talk",
+    "summary": "Will Wilson of FoundationDB explains how the team tested their distributed database using deterministic simulation. By running the whole system in a simulator with injected faults and reproducible seeds, they could find rare concurrency and network bugs.",
+    "why_hn": "HN treats it as the canonical talk on simulation testing and a mind-blowing example of how far rigorous testing can go.",
+    "url": "https://www.youtube.com/watch?v=4fFDFbi3toc"
+  },
+  {
+    "vid": "7Pq-S557XQU",
+    "title": "What Happened to Horses Is Happening to Us",
+    "channel": "CGP Grey",
+    "score": 13.5,
+    "content_type": "explainer",
+    "summary": "CGP Grey's video \"Humans Need Not Apply\" argues that automation will make a large part of the workforce economically obsolete, much as engines did for horses. It surveys robots and software replacing both physical and mental labor.",
+    "why_hn": "HN has recommended it for a decade as the standard explainer on automation and unemployment, though skeptics later cite it as an example of overconfident predictions.",
+    "url": "https://www.youtube.com/watch?v=7Pq-S557XQU"
+  },
+  {
+    "vid": "BLGFriOKz6U",
+    "title": "Behind the Scenes of iOS Security",
+    "channel": "Black Hat",
+    "score": 13.5,
+    "content_type": "talk",
+    "summary": "Apple security head Ivan Krstic gives a Black Hat 2016 talk on iOS security, covering HomeKit, Auto Unlock and iCloud Keychain. He explains key hierarchies and how data can stay safe even in adversarial clouds.",
+    "why_hn": "HN repeatedly recommends it as the deepest public look at how iCloud Keychain and Apple's device and cloud security are designed.",
+    "url": "https://www.youtube.com/watch?v=BLGFriOKz6U"
+  },
+  {
+    "vid": "EZ05e7EMOLM",
+    "title": "🚀  TDD, Where Did It All Go Wrong (Ian Cooper)",
+    "channel": "DevTernity Conference",
+    "score": 13.5,
+    "content_type": "talk",
+    "summary": "Ian Cooper's DevTernity talk revisits Kent Beck's original TDD ideas and shows where misunderstandings crept in. It argues tests should target behaviors through public interfaces rather than implementation details, so suites support refactoring instead of resisting it.",
+    "why_hn": "HN repeatedly calls it the best talk on testing, and many say it changed how they approach tests, mocks and the meaning of a unit.",
+    "url": "https://www.youtube.com/watch?v=EZ05e7EMOLM"
+  },
+  {
+    "vid": "PUv66718DII",
+    "title": "Bret Victor - Inventing on Principle",
+    "channel": "Rui Oliveira",
+    "score": 13.5,
+    "content_type": "talk",
+    "summary": "Bret Victor's talk at CUSEC 2012 in which he argues that creators need immediate feedback and should organize their work around a guiding principle. He demonstrates live-coding and animation tools that show results as you type, and describes his own principle that creators must see what they are making.",
+    "why_hn": "It is HN's go-to recommendation for the case that programming environments should give instant feedback, and it appears in nearly every thread on live coding, visual programming or developer tools.",
+    "url": "https://www.youtube.com/watch?v=PUv66718DII"
+  },
+  {
+    "vid": "PmTUW-owa2w",
+    "title": "This Is Phil Fish",
+    "channel": "Innuendo Studios",
+    "score": 13.5,
+    "content_type": "commentary",
+    "summary": "Innuendo Studios uses Phil Fish, creator of the game Fez, as a case study in internet celebrity. The essay argues that fame online works differently from traditional fame, and shows how audiences turn on the people they have elevated.",
+    "why_hn": "Commenters repeatedly name it the best explanation of how internet fame, mobs and outrage work, and cite it in threads about harassment and public figures.",
+    "url": "https://www.youtube.com/watch?v=PmTUW-owa2w"
+  },
+  {
+    "vid": "XetplHcM7aQ",
+    "title": "James Burke Connections, Ep. 1 \"The Trigger Effect\"",
+    "channel": "DRS_Education",
+    "score": 13.5,
+    "content_type": "documentary",
+    "summary": "The first episode of James Burke's 1978 BBC series Connections traces modern dependence on complex technological networks, starting with the 1965 New York blackout, and moves through ancient agriculture to Kuwait's oil-driven leap.",
+    "why_hn": "Heavily recommended as a masterpiece of popular science and the classic illustration of how fragile interdependent systems are, trotted out in every blackout or supply chain thread.",
+    "url": "https://www.youtube.com/watch?v=XetplHcM7aQ"
+  },
+  {
+    "vid": "aAb7hSCtvGw",
+    "title": "How To Design A Good API and Why it Matters",
+    "channel": "Google TechTalks",
+    "score": 13.5,
+    "content_type": "talk",
+    "summary": "Joshua Bloch's Google Tech Talk on how to design good APIs and why it matters, with concrete principles and examples. It treats every programmer as an occasional API designer.",
+    "why_hn": "HN repeatedly names it the best resource on API design, a staple answer to any 'how do I design an API' question.",
+    "url": "https://www.youtube.com/watch?v=aAb7hSCtvGw"
+  },
+  {
+    "vid": "jB0vBmiTr6o",
+    "title": "elevated by Rgba & TBC | 4k intro (FullHD 1080p demoscene demo)",
+    "channel": "Demoscene High-Quality Videos (Annikras)",
+    "score": 13.5,
+    "content_type": "demo",
+    "summary": "Elevated by Rgba and TBC, the winner of the 4k intro compo at Breakpoint 2009. It is a realtime procedurally generated 3D flythrough with music, all in a 4096-byte executable.",
+    "why_hn": "Held up as the landmark demoscene production and a counterpoint to software bloat.",
+    "url": "https://www.youtube.com/watch?v=jB0vBmiTr6o"
+  },
+  {
+    "vid": "jbkSRLYSojo",
+    "title": "Hans Rosling's 200 Countries, 200 Years, 4 Minutes - The Joy of Stats - BBC",
+    "channel": "BBC",
+    "score": 13.5,
+    "content_type": "explainer",
+    "summary": "Hans Rosling uses augmented-reality animation to show 200 countries over 200 years in four minutes, built from 120,000 data points. It tracks life expectancy and income to show the world's development.",
+    "why_hn": "HN commenters send it as a short antidote to cynicism, showing long-term global progress and the shrinking gap between rich and poor countries.",
+    "url": "https://www.youtube.com/watch?v=jbkSRLYSojo"
+  },
+  {
+    "vid": "s1i-dnAH9Y4",
+    "title": "Mechanical Computer (All Parts) - Basic Mechanisms In Fire Control Computers",
+    "channel": "Excelsior10000",
+    "score": 13.5,
+    "content_type": "documentary",
+    "summary": "A 1953 US Navy training film explaining the basic mechanisms in mechanical fire control computers aboard ships. It shows how gears, differentials and cams solved mathematical problems in permanent mechanical form.",
+    "why_hn": "HN commenters repeatedly recommend it as a beautiful, approachable explanation of analog mechanical computation, and many have rewatched it.",
+    "url": "https://www.youtube.com/watch?v=s1i-dnAH9Y4"
+  },
+  {
+    "vid": "-5wpm-gesOY",
+    "title": "The Problem with Time & Timezones - Computerphile",
+    "channel": "Computerphile",
+    "score": 13.0,
+    "content_type": "explainer",
+    "summary": "Tom Scott explains for Computerphile why handling time and timezones in code is so hard, walking through a simple web app that computes how long ago something happened. It covers the quirks of timezones and calendars and ends in an exasperated rant.",
+    "why_hn": "It is the go-to funny, accessible explanation of why you should never implement datetime handling yourself, linked in nearly every timezone thread.",
+    "url": "https://www.youtube.com/watch?v=-5wpm-gesOY"
+  },
+  {
+    "vid": "-6BsiVyC1kM",
+    "title": "The Value of Values with Rich Hickey",
+    "channel": "InfoQ",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Rich Hickey's JaxConf 2012 keynote examines what values are and why immutable values matter as information systems grow more complex and data gets bigger. It contrasts places with values and builds the case for immutability.",
+    "why_hn": "HN commenters cite it as the talk that convinced them of immutability and functional programming.",
+    "url": "https://www.youtube.com/watch?v=-6BsiVyC1kM"
+  },
+  {
+    "vid": "4Q7FTjhvZ7Y",
+    "title": "Project Code Rush - The Beginnings of Netscape / Mozilla Documentary",
+    "channel": "The Documentary Network",
+    "score": 13.0,
+    "content_type": "documentary",
+    "summary": "Code Rush is a one-hour documentary following Netscape engineers in Silicon Valley through the company's last year as an independent firm. It covers the Mozilla open-source announcement, the frantic push to ready the source for release by March 31, 1998, and the toll on engineers' lives before the AOL acquisition.",
+    "why_hn": "HN commenters recommend it as an intimate, embedded look at late-90s web history and the spirit of building something important under pressure.",
+    "url": "https://www.youtube.com/watch?v=4Q7FTjhvZ7Y"
+  },
+  {
+    "vid": "8pTEmbeENF4",
+    "title": "Bret Victor   The Future of Programming",
+    "channel": "Joey Reid",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Bret Victor's DBX 2013 talk, delivered in the guise of a 1973 IBM engineer with an overhead projector. It surveys forgotten ideas from 1960s and early 70s computing and warns against assuming you know what you're doing.",
+    "why_hn": "HN treats it as a classic, near-mandatory talk on how programming tools and paradigms stagnated and which older ideas deserve revival.",
+    "url": "https://www.youtube.com/watch?v=8pTEmbeENF4"
+  },
+  {
+    "vid": "AJdEqssNZ-U",
+    "title": "Jan Willem Nijman - Vlambeer - \"The art of screenshake\" at INDIGO Classes 2013",
+    "channel": "Dutch Game Garden",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Vlambeer's Jan Willem Nijman shows how to make an action game feel great by stacking small effects like screenshake, recoil and particles onto a basic shooter. It was presented at INDIGO Classes 2013.",
+    "why_hn": "A perennial recommendation for anyone learning game feel and juice, praised for showing concrete steps that turn a bland prototype into a satisfying game.",
+    "url": "https://www.youtube.com/watch?v=AJdEqssNZ-U"
+  },
+  {
+    "vid": "FACK2knC08E",
+    "title": "DON'T PANIC — Hans Rosling showing the facts about population",
+    "channel": "Gapminder Foundation",
+    "score": 13.0,
+    "content_type": "lecture",
+    "summary": "Hans Rosling uses data and animated statistics to show how world population is changing, why birth rates fall as child survival and wealth rise, and why population is expected to peak around 11 billion. It also tackles common misconceptions about Africa and family planning.",
+    "why_hn": "HN repeatedly recommends it to counter overpopulation alarm with data on falling birth rates.",
+    "url": "https://www.youtube.com/watch?v=FACK2knC08E"
+  },
+  {
+    "vid": "Kr3quGh7pJA",
+    "title": "Music Theory and White Supremacy",
+    "channel": "Adam Neely",
+    "score": 13.0,
+    "content_type": "commentary",
+    "summary": "Adam Neely examines Phil Ewell's paper arguing Western music theory is framed by a white racial perspective. He covers North Indian theory, alternative frameworks, Schenker and responses to the paper.",
+    "why_hn": "HN recommends it as the canonical video on how music theory is really the theory of one Western tradition, with the raga example.",
+    "url": "https://www.youtube.com/watch?v=Kr3quGh7pJA"
+  },
+  {
+    "vid": "LkH2r-sNjQs",
+    "title": "Why Electronic Voting Is Still A Bad Idea",
+    "channel": "Tom Scott",
+    "score": 13.0,
+    "content_type": "explainer",
+    "summary": "Tom Scott explains why electronic voting is a bad idea. Elections must be trusted by everyone and attacks on software scale in ways attacks on paper do not, so open source or blockchain fixes do not solve it.",
+    "why_hn": "HN treats it as the go-to layperson-friendly argument against e-voting and links it in nearly every voting-technology thread.",
+    "url": "https://www.youtube.com/watch?v=LkH2r-sNjQs"
+  },
+  {
+    "vid": "PGLYEDpNu60",
+    "title": "Velocity NY 2013:   Richard Cook, \"Resilience In Complex Adaptive Systems\"",
+    "channel": "O'Reilly",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Richard Cook's short Velocity 2013 talk on resilience in complex adaptive systems, arguing systems operate near the edge of failure and that the surprise is how rarely they fail. He presents a model of how pressures push systems toward failure boundaries.",
+    "why_hn": "HN people cite it constantly as the clearest explanation of normalization of deviance and how complex systems drift toward failure.",
+    "url": "https://www.youtube.com/watch?v=PGLYEDpNu60"
+  },
+  {
+    "vid": "QyJZzq0v7Z4",
+    "title": "Why Isn't Functional Programming the Norm? – Richard Feldman",
+    "channel": "Metosin",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Richard Feldman argues that functional programming is not the norm largely because of historical accidents, such as C++ popularity, platform exclusivity, marketing spend and network effects, rather than merit. He traces the history of how languages become mainstream.",
+    "why_hn": "HN treats it as the standard answer to why FP isn't mainstream and why languages succeed.",
+    "url": "https://www.youtube.com/watch?v=QyJZzq0v7Z4"
+  },
+  {
+    "vid": "W3aieHjyNvw",
+    "title": "Overwatch Gameplay Architecture and Netcode",
+    "channel": "GDC Festival of Gaming",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Blizzard's Timothy Ford explains in this 2017 GDC session how Overwatch uses an Entity Component System architecture for layered gameplay. He also covers its server-authoritative netcode with client-side prediction and how they keep the game responsive and fair.",
+    "why_hn": "HN treats it as the best real-world AAA example of ECS and game netcode, and cites it constantly in discussions of data-oriented design.",
+    "url": "https://www.youtube.com/watch?v=W3aieHjyNvw"
+  },
+  {
+    "vid": "WXuK6gekU1Y",
+    "title": "AlphaGo - The Movie | Full award-winning documentary",
+    "channel": "Google DeepMind",
+    "score": 13.0,
+    "content_type": "documentary",
+    "summary": "Feature-length documentary following DeepMind's AlphaGo program as it prepares for and plays the 2016 match against Go champion Lee Sedol. It covers the team, the games, and the emotional reaction of the Go world to an AI beating a top human.",
+    "why_hn": "HN commenters call it a moving, well-made human story about AI and Go that works for non-technical viewers and does not date.",
+    "url": "https://www.youtube.com/watch?v=WXuK6gekU1Y"
+  },
+  {
+    "vid": "YR5WdGrpoug",
+    "title": "Maybe Not - Rich Hickey",
+    "channel": "ClojureTV",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Rich Hickey's Clojure/Conj 2018 keynote argues that Maybe/Option types and rigid type signatures are a poor way to model data that changes over time. He builds the case around optionality, schema growth and compatibility, and presents the ideas behind Clojure spec as an alternative.",
+    "why_hn": "HN commenters send people to it whenever nulls, Maybe/Option or static typing come up, as a thoughtful dissent from the type-system orthodoxy that changes how some people model data.",
+    "url": "https://www.youtube.com/watch?v=YR5WdGrpoug"
+  },
+  {
+    "vid": "bBC-nXj3Ng4",
+    "title": "But how does bitcoin actually work?",
+    "channel": "3Blue1Brown",
+    "score": 13.0,
+    "content_type": "explainer",
+    "summary": "3Blue1Brown explains the math and mechanics behind Bitcoin visually: ledgers, digital signatures, proof of work and the blockchain, building up a decentralized payment system from first principles.",
+    "why_hn": "The go-to recommended video for newcomers wanting a clear, visual explanation of how Bitcoin and blockchains work.",
+    "url": "https://www.youtube.com/watch?v=bBC-nXj3Ng4"
+  },
+  {
+    "vid": "cZYNADOHhVY",
+    "title": "We Were Taught to Call Death a Blessing",
+    "channel": "CGP Grey",
+    "score": 13.0,
+    "content_type": "explainer",
+    "summary": "CGP Grey narrates an animated adaptation of Nick Bostrom's Fable of the Dragon-Tyrant. The story uses a dragon that demands a daily toll of lives as a metaphor for aging and society's acceptance of death.",
+    "why_hn": "HN commenters repeatedly recommend it in longevity and aging threads as a concise, fun case for fighting aging.",
+    "url": "https://www.youtube.com/watch?v=cZYNADOHhVY"
+  },
+  {
+    "vid": "d-7o9xYp7eE",
+    "title": "Don't Talk to the Police",
+    "channel": "Regent University School of Law",
+    "score": 13.0,
+    "content_type": "lecture",
+    "summary": "Regent Law professor James Duane gives startling reasons why people, even innocent ones, should always exercise their Fifth Amendment rights rather than talk to police. It is based on his article and book on the subject.",
+    "why_hn": "HN treats it as the canonical video to link whenever talking to police or interrogations come up.",
+    "url": "https://www.youtube.com/watch?v=d-7o9xYp7eE"
+  },
+  {
+    "vid": "ji5_MqicxSo",
+    "title": "Randy Pausch's Last Lecture: Achieving Your Childhood Dreams",
+    "channel": "Carnegie Mellon University",
+    "score": 13.0,
+    "content_type": "lecture",
+    "summary": "Randy Pausch's 2007 last lecture at Carnegie Mellon, given as he was dying of pancreatic cancer. He reflects on achieving childhood dreams, overcoming obstacles and helping others reach theirs.",
+    "why_hn": "Perennially recommended as an inspirational talk for people facing setbacks or choosing a direction, and a source of oft-quoted lines like the brick wall.",
+    "url": "https://www.youtube.com/watch?v=ji5_MqicxSo"
+  },
+  {
+    "vid": "uD4izuDMUQA",
+    "title": "TIMELAPSE OF THE FUTURE: A Journey to the End of Time (4K)",
+    "channel": "melodysheep",
+    "score": 13.0,
+    "content_type": "documentary",
+    "summary": "A 29-minute cinematic timelapse by melodysheep that journeys trillions of years into the future, covering the death of the sun, the end of stars, proton decay, black hole evaporation and the fate of the cosmos.",
+    "why_hn": "HN people recommend it as a stunning, mind-bending and existentially humbling view of deep time, and it appears on lists of favorite YouTube videos.",
+    "url": "https://www.youtube.com/watch?v=uD4izuDMUQA"
+  },
+  {
+    "vid": "uUmIdq0D6-A",
+    "title": "Treating the Farm as an Ecosystem with Gabe Brown Part 1, The 5 Tenets of Soil Health",
+    "channel": "Living Web Farms",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "A long talk by rancher Gabe Brown on turning his North Dakota farm into a regenerative ecosystem using no-till, cover crops and integrated livestock. It covers the five principles of soil health and how they pay off financially.",
+    "why_hn": "HN commenters call it their favorite introduction to regenerative agriculture, and several say it changed how they garden or farm.",
+    "url": "https://www.youtube.com/watch?v=uUmIdq0D6-A"
+  },
+  {
+    "vid": "vK1DazRK_a0",
+    "title": "Solving Problems the Clojure Way - Rafal Dittwald",
+    "channel": "Clojure/north",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Rafal Dittwald's Clojure/north talk shows how to move from writing Java-style code in Clojure to thinking in data-driven, functional terms. He walks through a JavaScript example, refactoring imperative code step by step into a functional core.",
+    "why_hn": "HN repeatedly recommends it as a fantastic demonstration of procedural, OOP and FP approaches to the same problem, and of functional core and imperative shell.",
+    "url": "https://www.youtube.com/watch?v=vK1DazRK_a0"
+  },
+  {
+    "vid": "wSF82AwSDiU",
+    "title": "The great porn experiment | Gary Wilson | TEDxGlasgow",
+    "channel": "TEDx Talks",
+    "score": 13.0,
+    "content_type": "talk",
+    "summary": "Gary Wilson's TEDxGlasgow talk argues that internet pornography hyperstimulates the brain's reward system and can cause symptoms that reverse when people stop. TED notes that several claims are not supported by respected academic studies.",
+    "why_hn": "HN commenters frequently recommend it as an eye-opening case against heavy porn use, though it is contested science.",
+    "url": "https://www.youtube.com/watch?v=wSF82AwSDiU"
+  },
+  {
+    "vid": "wjZofJX0v4M",
+    "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5",
+    "channel": "3Blue1Brown",
+    "score": 13.0,
+    "content_type": "explainer",
+    "summary": "3Blue1Brown's visual explanation of how transformers and GPT-style language models work, tracing data through tokens, embeddings and attention.",
+    "why_hn": "HN treats it as the go-to visual introduction to transformers, and many say it finally made attention and embeddings click.",
+    "url": "https://www.youtube.com/watch?v=wjZofJX0v4M"
+  },
+  {
+    "vid": "xguam0TKMw8",
+    "title": "Principles for Dealing with the Changing World Order by Ray Dalio",
+    "channel": "Principles by Ray Dalio",
+    "score": 13.0,
+    "content_type": "explainer",
+    "summary": "An animated 44-minute summary of Ray Dalio's book Principles for Dealing with the Changing World Order. It lays out the Big Cycle of rising and declining nations, covering debt cycles, internal conflict, and shifts in global power over the past 500 years.",
+    "why_hn": "HN commenters recommend it as a clear framework for placing the current US and world situation within historical debt and empire cycles.",
+    "url": "https://www.youtube.com/watch?v=xguam0TKMw8"
+  },
+  {
+    "vid": "-J_xL4IGhJA",
+    "title": "Lecture 1A: Overview and Introduction to Lisp",
+    "channel": "MIT OpenCourseWare",
+    "score": 12.5,
+    "content_type": "lecture",
+    "summary": "The first lecture of MIT's 6.001 (SICP) with Abelson and Sussman, giving an overview of the course and an introduction to Lisp. It argues that computer science is about managing complexity and abstraction, not computers.",
+    "why_hn": "HN people recommend the SICP lectures as a deeper, livelier route into the book and a formative course even for seasoned programmers.",
+    "url": "https://www.youtube.com/watch?v=-J_xL4IGhJA"
+  },
+  {
+    "vid": "1Jwo5qc78QU",
+    "title": "YouTube's copyright system isn't broken. The world's is.",
+    "channel": "Tom Scott",
+    "score": 12.5,
+    "content_type": "explainer",
+    "summary": "Tom Scott's long explainer on YouTube's copyright system, Content ID and the DMCA. He argues the platform's system is a workaround for a broader copyright system that does not fit the modern world.",
+    "why_hn": "The default link in copyright and takedown threads, recommended as an excellent, comprehensive explanation of why automated enforcement and the law work as they do.",
+    "url": "https://www.youtube.com/watch?v=1Jwo5qc78QU"
+  },
+  {
+    "vid": "30jNsCVLpAE",
+    "title": "Debugging Under Fire: Keep your Head when Systems have Lost their Mind • Bryan Cantrill • GOTO 2017",
+    "channel": "GOTO Conferences",
+    "score": 12.5,
+    "content_type": "talk",
+    "summary": "Bryan Cantrill's GOTO Chicago 2017 talk on debugging production systems under pressure, centered on the incident where an operator's mistyped command rebooted an entire Joyent datacenter. It covers human factors, automation and architecture.",
+    "why_hn": "A perennial HN recommendation for outage and postmortem threads, praised as funny, educational and one of the best postmortems anyone has seen.",
+    "url": "https://www.youtube.com/watch?v=30jNsCVLpAE"
+  },
+  {
+    "vid": "5ESJH1NLMLs",
+    "title": "Children Of The Magenta Line",
+    "channel": "Mossie Fly",
+    "score": 12.5,
+    "content_type": "lecture",
+    "summary": "A re-upload of American Airlines captain Warren Vanderburgh's 1997 presentation warning that pilots who over-rely on cockpit automation lose manual flying skills and awareness. The uploader adds context from his own flying.",
+    "why_hn": "HN brings it up in any thread about autopilot, Tesla FSD, self-driving cars and crashes as the classic lecture on automation dependency.",
+    "url": "https://www.youtube.com/watch?v=5ESJH1NLMLs"
+  },
+  {
+    "vid": "Ik1AK56FtVc",
+    "title": "Republic, Lost | Lawrence Lessig | Talks at Google",
+    "channel": "Talks at Google",
+    "score": 12.5,
+    "content_type": "talk",
+    "summary": "Lawrence Lessig's Talks at Google presentation based on his book Republic, Lost, arguing that money in politics corrupts Congress and eroded public trust, and outlining what could be done about it. It supports the argument with data on political donations.",
+    "why_hn": "A perennial HN recommendation whenever lobbying, SOPA, taxes or political corruption come up, with several commenters saying it changed their views.",
+    "url": "https://www.youtube.com/watch?v=Ik1AK56FtVc"
+  },
+  {
+    "vid": "LrObZ_HZZUc",
+    "title": "London Swallowed a City but Couldn't Digest It.",
+    "channel": "CGP Grey",
+    "score": 12.5,
+    "content_type": "explainer",
+    "summary": "CGP Grey explains that the City of London is a tiny, separate entity with its own governance, history and privileges, distinct from the city called London. He covers its financial role and how it is run.",
+    "why_hn": "HN's go-to short explainer for the City of London versus London, cited in many finance and UK threads.",
+    "url": "https://www.youtube.com/watch?v=LrObZ_HZZUc"
+  },
+  {
+    "vid": "ZSRHeXYDLko",
+    "title": "Preventing the Collapse of Civilization / Jonathan Blow (Thekla, Inc)",
+    "channel": "DevGAMM",
+    "score": 12.5,
+    "content_type": "talk",
+    "summary": "A DevGAMM talk by Jonathan Blow arguing that civilizations can lose technological capability and that software quality is already deteriorating. He discusses how knowledge fails to transfer between generations.",
+    "why_hn": "It is the standard link in HN threads about software decay, lost knowledge and fragile technological civilization.",
+    "url": "https://www.youtube.com/watch?v=ZSRHeXYDLko"
+  },
+  {
+    "vid": "a9xAKttWgP4",
+    "title": "Conway's Game Of Life in APL",
+    "channel": "Dyalog",
+    "score": 12.5,
+    "content_type": "demo",
+    "summary": "A short Dyalog demonstration building Conway's Game of Life in a single line of APL, step by step. It shows how array operations replace loops.",
+    "why_hn": "Recommended whenever APL or array languages come up as the quickest way to see why the paradigm is so striking.",
+    "url": "https://www.youtube.com/watch?v=a9xAKttWgP4"
+  },
+  {
+    "vid": "bKGhvKyjgLY",
+    "title": "Finding the Missing Memristor - R. Stanley Williams",
+    "channel": "The Qualcomm Institute",
+    "score": 12.5,
+    "content_type": "talk",
+    "summary": "R. Stanley Williams of HP Labs gives a keynote on the memristor, covering the physics, crossbar computation, and potential for memory and new computer architectures.",
+    "why_hn": "Recommended for years as the best technical introduction to memristors from the person who found the physical device.",
+    "url": "https://www.youtube.com/watch?v=bKGhvKyjgLY"
+  },
+  {
+    "vid": "d_zt3kGW1NM",
+    "title": "Winners Take All | Anand Giridharadas | Talks at Google",
+    "channel": "Talks at Google",
+    "score": 12.5,
+    "content_type": "talk",
+    "summary": "Anand Giridharadas presents his book Winners Take All at Google, arguing that the global elite's philanthropy and 'win-win' framing preserve the systems that create inequity. He challenges the audience, including Google employees, to examine their own role in that system.",
+    "why_hn": "HN commenters recommend it as a pointed critique of philanthropy and win-win thinking, delivered inside Google itself, and cite it across threads on wealth, tax and tech power.",
+    "url": "https://www.youtube.com/watch?v=d_zt3kGW1NM"
+  },
+  {
+    "vid": "k2h2lvhzMDc",
+    "title": "Ed Catmull, Pixar: Keep Your Crises Small",
+    "channel": "Stanford Graduate School of Business",
+    "score": 12.5,
+    "content_type": "talk",
+    "summary": "Ed Catmull of Pixar speaks at Stanford's 2007 Entrepreneurship Conference on running a creative company. He argues for surfacing small problems early and building good teams, with stories like the Toy Story 2 crunch.",
+    "why_hn": "Repeatedly called one of the most useful talks on building organizations and managing creative teams.",
+    "url": "https://www.youtube.com/watch?v=k2h2lvhzMDc"
+  },
+  {
+    "vid": "r-TLSBdHe1A",
+    "title": "\"Performance Matters\" by Emery Berger",
+    "channel": "Strange Loop Conference",
+    "score": 12.5,
+    "content_type": "talk",
+    "summary": "Emery Berger explains why performance is hard to measure and deliver on modern hardware, showing how code layout and alignment can swamp optimization effects. He presents Stabilizer for statistically sound evaluation and Coz, a causal profiler.",
+    "why_hn": "It is the standard recommendation for anyone puzzled by unexplained benchmark changes from tiny code edits, and for learning about causal profiling.",
+    "url": "https://www.youtube.com/watch?v=r-TLSBdHe1A"
+  },
+  {
+    "vid": "t1MqJPHxy6g",
+    "title": "Alain de Botton: Status Anxiety",
+    "channel": "Alain de Botton",
+    "score": 12.5,
+    "content_type": "documentary",
+    "summary": "Alain de Botton's 2004 documentary based on his book Status Anxiety, running over two hours. It asks why people in rich societies are still unhappy, and examines how worries about success, snobbery and meritocracy drive that anxiety.",
+    "why_hn": "HN recommends it as an illuminating, eye-opening long-form take on status, luck and how we judge the successful and unsuccessful.",
+    "url": "https://www.youtube.com/watch?v=t1MqJPHxy6g"
+  },
+  {
+    "vid": "ySuUZEjARPY",
+    "title": "[LIVE] How to Achieve Proper Grounding - Rick Hartley - Expert Live Training (US)",
+    "channel": "Altium",
+    "score": 12.5,
+    "content_type": "lecture",
+    "summary": "Rick Hartley gives a roughly two-hour live training on proper grounding in PCB design. He explains how energy actually flows in the space between conductors, and how that governs noise, EMI, return paths and signal reflections.",
+    "why_hn": "Hailed as the best video on electrical engineering and an essential, eye-opening watch for anyone designing high-speed boards.",
+    "url": "https://www.youtube.com/watch?v=ySuUZEjARPY"
+  },
+  {
+    "vid": "1OfxlSG6q5Y",
+    "title": "The Antique Toaster that's Better than Yours",
+    "channel": "Technology Connections",
+    "score": 12.0,
+    "content_type": "explainer",
+    "summary": "Technology Connections takes apart a 1940s Sunbeam Radiant Control toaster. It senses the toast's own browning and lowers and raises it automatically using purely mechanical parts and no electronics.",
+    "why_hn": "HN returns to it again and again as a favorite example of elegant, chip-free mechanical engineering that beats modern toasters.",
+    "url": "https://www.youtube.com/watch?v=1OfxlSG6q5Y"
+  },
+  {
+    "vid": "2Op3QLzMgSY",
+    "title": "Lecture 1A | MIT 6.001 Structure and Interpretation, 1986",
+    "channel": "MIT OpenCourseWare",
+    "score": 12.0,
+    "content_type": "lecture",
+    "summary": "The first lecture of MIT's 1986 6.001 Structure and Interpretation of Computer Programs, given by Harold Abelson, introducing Lisp and the idea of computer science as the study of process.",
+    "why_hn": "Seen as a classic and often the moment programming 'clicks'; commenters praise Abelson's opening that computer science is not about computers.",
+    "url": "https://www.youtube.com/watch?v=2Op3QLzMgSY"
+  },
+  {
+    "vid": "4Z2uzEM0ugY",
+    "title": "Christopher Hitchens - Free Speech",
+    "channel": "hitch archive",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Christopher Hitchens delivers a speech defending freedom of speech, including the right of audiences to hear offensive speakers and a take on the fire-in-a-crowded-theatre line. It is framed around the Charlie Hebdo attack.",
+    "why_hn": "HN invokes it in nearly every content moderation and censorship thread as the most eloquent case for free speech.",
+    "url": "https://www.youtube.com/watch?v=4Z2uzEM0ugY"
+  },
+  {
+    "vid": "8--5LwHRhjk",
+    "title": "Painting a Character with Maths",
+    "channel": "Inigo Quilez",
+    "score": 12.0,
+    "content_type": "tutorial",
+    "summary": "Inigo Quilez live-codes a cartoon character painting entirely from math, using signed distance fields in a Shadertoy shader. He explains each step of building the image from formulas.",
+    "why_hn": "HN repeatedly calls it a mind-blowing and accessible introduction to SDFs and procedural art from a master explainer.",
+    "url": "https://www.youtube.com/watch?v=8--5LwHRhjk"
+  },
+  {
+    "vid": "F-QA2rkpBSY",
+    "title": "The Most IMPORTANT Video You'll Ever See (part 1 of 8)",
+    "channel": "wonderingmind42",
+    "score": 12.0,
+    "content_type": "lecture",
+    "summary": "Part 1 of a lecture by physicist Albert Bartlett on the exponential function and its consequences for population growth, resource use and energy. It argues that steady growth rates quickly lead to enormous quantities.",
+    "why_hn": "A perennial HN recommendation for building intuition about exponential growth, cited whenever endless growth, energy or population come up.",
+    "url": "https://www.youtube.com/watch?v=F-QA2rkpBSY"
+  },
+  {
+    "vid": "FvmTSpJU-Xc",
+    "title": "Alan Kay - Normal Considered Harmful",
+    "channel": "powerfuloutlet",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Alan Kay's 2009 UIUC talk arguing that computing is more a pop culture than a science and that ignoring history and fundamentals leads to inferior solutions. He touches on the history of interactive environments and what the web should have been.",
+    "why_hn": "A staple on must-watch lists, recommended as a starting point for Kay's thinking and for why software is often poor and ahistorical.",
+    "url": "https://www.youtube.com/watch?v=FvmTSpJU-Xc"
+  },
+  {
+    "vid": "Ggz_gd--UO0",
+    "title": "Antonin Scalia - On American Exceptionalism",
+    "channel": "AmericanRhetoric.com",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Justice Antonin Scalia's opening statement at a 2011 Senate Judiciary hearing on the role of judges. He argues that the Constitution's separation of powers is what protects liberty, and that gridlock is by design.",
+    "why_hn": "Recommended often as a clear explanation of why the US system is built to be slow and why gridlock protects minorities.",
+    "url": "https://www.youtube.com/watch?v=Ggz_gd--UO0"
+  },
+  {
+    "vid": "HyzD8pNlpwI",
+    "title": "The Ultimate Game Boy Talk (33c3)",
+    "channel": "media.ccc.de",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Michael Steil's 33c3 talk explains essentially everything about the Game Boy: CPU, video hardware, peripherals, and the tricks used by games and demos. It revives the era of counting clock cycles around hardware limits.",
+    "why_hn": "HN treats it as the standard starting point for Game Boy emulator writers and homebrew developers, with several calling it one of their favorite talks.",
+    "url": "https://www.youtube.com/watch?v=HyzD8pNlpwI"
+  },
+  {
+    "vid": "JxAXlJEmNMg",
+    "title": "Crockford on JavaScript - Volume 1: The Early Years",
+    "channel": "YUI Library",
+    "score": 12.0,
+    "content_type": "lecture",
+    "summary": "Douglas Crockford's first Yahoo lecture puts JavaScript in historical context. He traces the language's structure and quirks back through the early decades of computer science and programming language history.",
+    "why_hn": "HN repeatedly recommends the Crockford series as a must-watch history of computing and programming languages, and as a way to learn to think in JavaScript.",
+    "url": "https://www.youtube.com/watch?v=JxAXlJEmNMg"
+  },
+  {
+    "vid": "ORzNZUeUHAM",
+    "title": "Stroads are Ugly, Expensive, and Dangerous (and they're everywhere) [ST05]",
+    "channel": "Not Just Bikes",
+    "score": 12.0,
+    "content_type": "explainer",
+    "summary": "Not Just Bikes introduces the \"stroad\", a street-road hybrid common in the US and Canada that fails at both jobs. He contrasts it with Dutch design, where each road has a single purpose, and covers cost, danger and ugliness.",
+    "why_hn": "HN links it constantly as the standard introduction to stroads and Strong Towns-style arguments about car-centric design.",
+    "url": "https://www.youtube.com/watch?v=ORzNZUeUHAM"
+  },
+  {
+    "vid": "QmOF0crdyRU",
+    "title": "Controlling Your Dopamine For Motivation, Focus & Satisfaction",
+    "channel": "Andrew Huberman",
+    "score": 12.0,
+    "content_type": "podcast",
+    "summary": "Andrew Huberman's long Huberman Lab episode is a masterclass on dopamine. It covers the neural circuits, peaks and baselines, dopamine depletion, and 14 tools for motivation, focus and avoiding addiction.",
+    "why_hn": "HN recommends it repeatedly to people struggling with motivation, distraction or phone and internet addiction, as a science-based guide to dopamine.",
+    "url": "https://www.youtube.com/watch?v=QmOF0crdyRU"
+  },
+  {
+    "vid": "SWEts0rlezA",
+    "title": "RailsConf 2016 -  Turbolinks 5: I Can’t Believe It’s Not Native! by Sam Stephenson",
+    "channel": "Confreaks",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Sam Stephenson's RailsConf 2016 talk on Turbolinks 5, showing how small teams can ship fast Rails apps in the browser and hybrid iOS and Android apps sharing one set of web views.",
+    "why_hn": "Repeatedly urged on people choosing a stack, as a case against heavy SPA complexity and for shared web and native code.",
+    "url": "https://www.youtube.com/watch?v=SWEts0rlezA"
+  },
+  {
+    "vid": "YSfCdBBqNXY",
+    "title": "ADHD: Essential Ideas for Parents - Dr. Russell Barkely",
+    "channel": "ADHDtips",
+    "score": 12.0,
+    "content_type": "lecture",
+    "summary": "Dr. Russell Barkley gives a nearly three-hour lecture of essential ideas about ADHD for parents, covering what ADHD is, its effects on executive function, motivation and emotion, and how it affects children.",
+    "why_hn": "HN readers recommend it as the best primer for understanding ADHD at a neurological level, often suggesting that even the first 10 to 20 minutes are enlightening.",
+    "url": "https://www.youtube.com/watch?v=YSfCdBBqNXY"
+  },
+  {
+    "vid": "_ahvzDzKdB0",
+    "title": "Growing a Language, by Guy Steele",
+    "channel": "Bill Pugh",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Guy Steele's 1998 OOPSLA keynote on designing a programming language that its users can grow. He builds the talk using only one-syllable words and terms he has defined, to demonstrate the idea.",
+    "why_hn": "HN considers it one of the best technical talks ever and cites it in discussions of language design, small cores and extensibility.",
+    "url": "https://www.youtube.com/watch?v=_ahvzDzKdB0"
+  },
+  {
+    "vid": "ajGX7odA87k",
+    "title": "USENIX Security '18-Q: Why Do Keynote Speakers Keep Suggesting That Improving Security Is Possible?",
+    "channel": "USENIX",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "James Mickens's humorous USENIX Security keynote argues that improving security and trusting opaque technology like machine learning is far harder than the industry admits.",
+    "why_hn": "HN considers it a classic, hilarious and sobering talk on ML inscrutability and tech hubris, often rewatched.",
+    "url": "https://www.youtube.com/watch?v=ajGX7odA87k"
+  },
+  {
+    "vid": "bmSAYlu0NcY",
+    "title": "A Philosophy of Software Design | John Ousterhout | Talks at Google",
+    "channel": "Talks at Google",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "John Ousterhout, Stanford professor and creator of Tcl, presents the ideas of his book A Philosophy of Software Design in a Talks at Google session. He covers managing complexity, deep modules and interfaces, and what he teaches in his Stanford software design course.",
+    "why_hn": "HN treats it as the standard one-hour teaser for the book and recommends it for its deep-modules thinking before buying or reading the book.",
+    "url": "https://www.youtube.com/watch?v=bmSAYlu0NcY"
+  },
+  {
+    "vid": "eG0KrT6pBPk",
+    "title": "Defcon 18   Changing threats to privacy   Moxie Marlinspike   Part ",
+    "channel": "killab66661",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Moxie Marlinspike's DEF CON 18 talk on changing threats to privacy argues that surveillance arrived through convenient services and network effects, so opting out is not a real solution. It also includes his framing of getting social democracy rather than the fascism people feared.",
+    "why_hn": "Cited repeatedly to rebut 'just don't use Facebook' arguments and to explain why tracking becomes hard to escape at critical mass.",
+    "url": "https://www.youtube.com/watch?v=eG0KrT6pBPk"
+  },
+  {
+    "vid": "ecIWPzGEbFc",
+    "title": "\"Uncle\" Bob Martin - \"The Future of Programming\"",
+    "channel": "Paul Stringer's Mobile Tech",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Robert C. Martin (Uncle Bob) traces the history of software from 1948 to today, looking at the problems programmers faced, how they were solved, and what mistakes the profession made. He then projects where the field is going, including professionalism and regulation.",
+    "why_hn": "HN recommends it as an engaging overview of programming history and an argument for professional standards, citing the agile manifesto section and the claim that software has advanced little since the 1950s.",
+    "url": "https://www.youtube.com/watch?v=ecIWPzGEbFc"
+  },
+  {
+    "vid": "kZRE7HIO3vk",
+    "title": "The Thirty Million Line Problem",
+    "channel": "Molly Rocket",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Casey Muratori's long talk arguing that modern software has ballooned to tens of millions of lines because of hardware and OS diversity. He proposes a stable ISA for entire system-on-a-chip packages and recalls when games shipped with their own boot disk.",
+    "why_hn": "HN recommends it, long as it is, as an eye-opening rant on software complexity and why systems became so complicated.",
+    "url": "https://www.youtube.com/watch?v=kZRE7HIO3vk"
+  },
+  {
+    "vid": "ncHmEUmJZf4",
+    "title": "CppCon 2017: Matt Kulukundis “Designing a Fast, Efficient, Cache-friendly Hash Table, Step by Step”",
+    "channel": "CppCon",
+    "score": 12.0,
+    "content_type": "talk",
+    "summary": "Matt Kulukundis explains how Google designed SwissTable, a fast, cache-friendly hash table, step by step from std::unordered_map. The talk covers open addressing, SIMD probing and the tradeoffs of changing a fundamental data structure.",
+    "why_hn": "HN repeatedly cites it as the definitive explanation of SwissTable, the design behind Abseil, Rust's hash map and Go's maps.",
+    "url": "https://www.youtube.com/watch?v=ncHmEUmJZf4"
+  },
+  {
+    "vid": "1gEz__sMVaY",
+    "title": "The Cardboard Box Reform - Nixon's Ghost Bill & A Crucial Flaw in Democracy",
+    "channel": "CRI",
+    "score": 11.5,
+    "content_type": "lecture",
+    "summary": "James D'Angelo argues that the 1970 Legislative Reorganization Act made congressional votes public, opening the door to lobbyists and special interests. He proposes restoring secret voting as a cheap fix for corruption and many social ills.",
+    "why_hn": "HN commenters recommend it as a long, evidence-backed theory for what changed in the 1970s and why Congress is broken, even when they are unsure they agree.",
+    "url": "https://www.youtube.com/watch?v=1gEz__sMVaY"
+  },
+  {
+    "vid": "2V1FtfBDsLU",
+    "title": "Effective Programs - 10 Years of Clojure - Rich Hickey",
+    "channel": "ClojureTV",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Rich Hickey's talk at Clojure's tenth anniversary on the kind of programs Clojure is designed for. He argues for situated programs that deal with changing requirements, and for dynamic typing and data over static types.",
+    "why_hn": "HN's go-to link in typing debates and for talk lists, and several call it their favorite programming talk even for non-Clojure users.",
+    "url": "https://www.youtube.com/watch?v=2V1FtfBDsLU"
+  },
+  {
+    "vid": "2y5Pv4yN0b0",
+    "title": "Brian Goetz - Stewardship: the Sobering Parts",
+    "channel": "ClojureTV",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Java Language Architect Brian Goetz talks at a Clojure conference about the challenges of evolving a mature language like Java while preserving compatibility with existing code and developer expectations. It also gives a look at where the platform is headed.",
+    "why_hn": "HN repeatedly recommends it as the definitive explanation of why Java evolves cautiously and why compatibility matters in language design.",
+    "url": "https://www.youtube.com/watch?v=2y5Pv4yN0b0"
+  },
+  {
+    "vid": "ERbvKrH-GC4",
+    "title": "Music and Life - Alan Watts",
+    "channel": "seandulac",
+    "score": 11.5,
+    "content_type": "explainer",
+    "summary": "A two-minute animation of an Alan Watts talk arguing that life is like music: it is meant to be danced to in the moment, not rushed toward a final goal. It is a short, accessible take on living in the present.",
+    "why_hn": "HN commenters post it in threads about purpose, ambition, burnout and career anxiety as a reframing that life is a dance, not a march toward eventual happiness.",
+    "url": "https://www.youtube.com/watch?v=ERbvKrH-GC4"
+  },
+  {
+    "vid": "EY6q5dv_B-o",
+    "title": "VCF East: Ken Thompson interviewed by Brian Kernighan",
+    "channel": "Vintage Computer Federation",
+    "score": 11.5,
+    "content_type": "interview",
+    "summary": "Brian Kernighan interviews Unix co-creator Ken Thompson at VCF East 2019. Thompson recounts how he was hired at Bell Labs, writing the Unix kernel in about three weeks, the origins of B and TMG, pipes, and other anecdotes.",
+    "why_hn": "HN commenters recommend it for Thompson's funny, first-hand Unix history stories, some of which even Kernighan had not heard.",
+    "url": "https://www.youtube.com/watch?v=EY6q5dv_B-o"
+  },
+  {
+    "vid": "HaEPXoXVf2k",
+    "title": "AWS re:Invent 2018: Amazon DynamoDB Deep Dive: Advanced Design Patterns for DynamoDB (DAT401)",
+    "channel": "Amazon Web Services",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Rick Houlihan's AWS re:Invent 2018 deep dive on advanced DynamoDB design patterns. It covers index overloading, GSI sharding, composite keys, graph processing and transactions.",
+    "why_hn": "The go-to recommendation for learning DynamoDB data modeling, with many saying it made access-pattern-driven design click.",
+    "url": "https://www.youtube.com/watch?v=HaEPXoXVf2k"
+  },
+  {
+    "vid": "JcJSW7Rprio",
+    "title": "Harder Drive: Hard drives we didn't want or need",
+    "channel": "suckerpinch",
+    "score": 11.5,
+    "content_type": "demo",
+    "summary": "Tom7 (suckerpinch) builds and evaluates a series of absurd hard drives, including storage made from ping packets across the internet. The video accompanies his paper and mixes deep technical hacking with comedic storytelling.",
+    "why_hn": "HN treats it as a favorite example of silly but educational computer science, recommended often when threads touch odd storage hacks.",
+    "url": "https://www.youtube.com/watch?v=JcJSW7Rprio"
+  },
+  {
+    "vid": "KkpqA8yG9T4",
+    "title": "Breakthrough in  Nuclear Fusion? - Prof. Dennis Whyte",
+    "channel": "MIT Club of Northern California",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "MIT's Prof. Dennis Whyte explains the ARC/SPARC compact tokamak approach, in which new high-temperature superconducting magnets allow smaller and cheaper fusion reactors. He covers fusion physics, performance trends and the engineering path to net energy.",
+    "why_hn": "HN points to it as the grounded, approachable explanation of why REBCO magnets changed the outlook for fusion.",
+    "url": "https://www.youtube.com/watch?v=KkpqA8yG9T4"
+  },
+  {
+    "vid": "NQFqDKRAROI",
+    "title": "The Solar Gravitational Lens will Map Exoplanets. Seriously.",
+    "channel": "Launch Pad Astronomy",
+    "score": 11.5,
+    "content_type": "explainer",
+    "summary": "Explains the proposed NASA JPL plan to use the Sun as a gravitational lens, sending solar sail craft to its focal region to image an exoplanet's surface. It covers the distances involved, how imaging with the Sun would work and the mission design.",
+    "why_hn": "HN strongly recommends it as the clearest, best-illustrated explanation of the solar gravitational lens idea, and links it whenever exoplanet imaging comes up.",
+    "url": "https://www.youtube.com/watch?v=NQFqDKRAROI"
+  },
+  {
+    "vid": "RIctzAQOe44",
+    "title": "The Real Story Behind Wayland and X - Daniel Stone (linux.conf.au 2013)",
+    "channel": "Mladen Mijatov",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Daniel Stone, a longtime X and Wayland developer, explains at linux.conf.au 2013 why X11's design became untenable and what motivated Wayland. The talk walks through X's history and accumulated cruft.",
+    "why_hn": "HN treats it as the definitive, funny and educational answer to why X could not be fixed, and links it in almost every Wayland vs X argument.",
+    "url": "https://www.youtube.com/watch?v=RIctzAQOe44"
+  },
+  {
+    "vid": "UzxYlbK2c7E",
+    "title": "Lecture 1 | Machine Learning (Stanford)",
+    "channel": "Stanford",
+    "score": 11.5,
+    "content_type": "course",
+    "summary": "The first lecture of Andrew Ng's Stanford CS229 Machine Learning course, giving an overview of the course. It introduces supervised and unsupervised learning, learning theory and reinforcement learning.",
+    "why_hn": "Recommended as the rigorous, math-heavy original course, deeper than the Coursera version, for learning machine learning.",
+    "url": "https://www.youtube.com/watch?v=UzxYlbK2c7E"
+  },
+  {
+    "vid": "WpkDN78P884",
+    "title": "Ruby Midwest 2011 - Keynote: Architecture the Lost Years by Robert Martin",
+    "channel": "Confreaks",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Robert C. Martin's Ruby Midwest 2011 keynote argues that software architecture should express the application's intent rather than its framework. He covers separating entities, interactors and boundaries so the web, database and framework are details.",
+    "why_hn": "Frequently recommended as an influential talk on decoupled, testable architecture, though some commenters push back on Martin's TDD advocacy.",
+    "url": "https://www.youtube.com/watch?v=WpkDN78P884"
+  },
+  {
+    "vid": "WwslBPj8GgI",
+    "title": "Confessions of a Converted Lecturer: Eric Mazur",
+    "channel": "UMBCtube",
+    "score": 11.5,
+    "content_type": "lecture",
+    "summary": "Harvard physicist Eric Mazur explains how he realized his students were memorizing rather than understanding, and how he changed his teaching. He presents peer instruction and data showing improved student performance.",
+    "why_hn": "Repeatedly recommended in education threads as the definitive talk on why lectures fail and what works better.",
+    "url": "https://www.youtube.com/watch?v=WwslBPj8GgI"
+  },
+  {
+    "vid": "a1zDuOPkMSw",
+    "title": "Hamming, \"You and Your Research\" (June 6, 1995)",
+    "channel": "securitylectures",
+    "score": 11.5,
+    "content_type": "lecture",
+    "summary": "Richard Hamming's 1995 recording of his talk 'You and Your Research', drawn from his graduate engineering course. He discusses how great scientists pick important problems and build careers, drawing on his years at Bell Labs.",
+    "why_hn": "HN recommends it as career and research advice on choosing important problems and doing first-class work.",
+    "url": "https://www.youtube.com/watch?v=a1zDuOPkMSw"
+  },
+  {
+    "vid": "aKLntZcp27M",
+    "title": "RustConf 2018 - Closing Keynote - Using Rust For Game Development by Catherine West",
+    "channel": "Rust Programming Language",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Catherine West's RustConf 2018 closing keynote on building a game in Rust and organizing a large codebase. It builds up an entity component system and generational indices step by step.",
+    "why_hn": "HN treats it as the go-to explanation of ECS, valuable even for people who don't use Rust.",
+    "url": "https://www.youtube.com/watch?v=aKLntZcp27M"
+  },
+  {
+    "vid": "c12cYAUTXXs",
+    "title": "Erlang Factory 2014 - That's 'Billion' with a 'B': Scaling to the Next Level at WhatsApp",
+    "channel": "Erlang Solutions",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Rick Reed of WhatsApp explains at Erlang Factory 2014 how the service scaled to billions of messages with a very small engineering team. He covers the FreeBSD and Erlang stack, Mnesia usage, server counts and bottleneck work.",
+    "why_hn": "The go-to talk showing how Erlang let a tiny team run a massive messaging system.",
+    "url": "https://www.youtube.com/watch?v=c12cYAUTXXs"
+  },
+  {
+    "vid": "d0nERTFo-Sk",
+    "title": "Fear the Boom and Bust: Keynes vs. Hayek - The Original Economics Rap Battle!",
+    "channel": "Radical Discourse",
+    "score": 11.5,
+    "content_type": "explainer",
+    "summary": "A rap battle in which John Maynard Keynes and F. A. Hayek debate the causes of boom and bust, stimulus, and bailouts. It was produced by Econstories to teach the two schools of thought.",
+    "why_hn": "HN recommends it as a funny, accurate and easy primer on Keynesian versus Austrian views of the business cycle.",
+    "url": "https://www.youtube.com/watch?v=d0nERTFo-Sk"
+  },
+  {
+    "vid": "dP1xVpMPn8M",
+    "title": "A Tour of the Acme Editor",
+    "channel": "Russ Cox",
+    "score": 11.5,
+    "content_type": "tutorial",
+    "summary": "Russ Cox gives a 23-minute tour of the Acme text editor from Plan 9, showing its mouse-driven interface, executing commands from text, and its filesystem-based interface to other programs.",
+    "why_hn": "HN points people to it as the best introduction to Acme and its very different take on editors, shells, and GUIs.",
+    "url": "https://www.youtube.com/watch?v=dP1xVpMPn8M"
+  },
+  {
+    "vid": "eviSykqSUUw",
+    "title": "A Deep Dive into Nanite Virtualized Geometry",
+    "channel": "SIGGRAPH Advances in Real-Time Rendering",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Brian Karis's SIGGRAPH 2021 talk explains how Unreal Engine 5's Nanite virtualized geometry works. It covers mesh import, the data structures, streaming, decompression, culling, software and hardware rasterization, and shading.",
+    "why_hn": "HN treats it as the definitive deep dive on Nanite, admired for the engineering ambition behind pixel-sized triangles and compute-driven rendering.",
+    "url": "https://www.youtube.com/watch?v=eviSykqSUUw"
+  },
+  {
+    "vid": "f84n5oFoZBc",
+    "title": "Hammock Driven Development - Rich Hickey",
+    "channel": "ClojureTV",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Rich Hickey's philosophical talk from the first Clojure Conj in 2010. He argues that good design comes from deliberate, away-from-keyboard thinking, and describes how to feed the background mind so it solves problems.",
+    "why_hn": "HN returns to it constantly as permission and method for thinking deeply before coding, and as an antidote to always-working anxiety.",
+    "url": "https://www.youtube.com/watch?v=f84n5oFoZBc"
+  },
+  {
+    "vid": "gwf5mAlI7Ug",
+    "title": "U.S. NAVY  BASIC MECHANISMS OF FIRE CONTROL COMPUTERS  MECHANICAL COMPUTER INSTRUCTIONAL FILM  27794",
+    "channel": "PeriscopeFilm",
+    "score": 11.5,
+    "content_type": "tutorial",
+    "summary": "A 1953 US Navy training film on the basic mechanisms in fire control computers: shafts, gears, cams and differentials. It shows how these mechanical parts compute ship and target firing solutions.",
+    "why_hn": "HN treats it as the classic demonstration of how analog mechanical computation works, especially the differential gear section.",
+    "url": "https://www.youtube.com/watch?v=gwf5mAlI7Ug"
+  },
+  {
+    "vid": "hQVTIJBZook",
+    "title": "JavaScript: The Good Parts",
+    "channel": "Google TechTalks",
+    "score": 11.5,
+    "content_type": "talk",
+    "summary": "Douglas Crockford's 2009 Google tech talk on the good and bad parts of JavaScript, based on his book. He argues for using a reliable subset of the language and avoiding its flawed features.",
+    "why_hn": "A classic recommended to people learning JavaScript, even though some find it dogmatic and dated.",
+    "url": "https://www.youtube.com/watch?v=hQVTIJBZook"
+  },
+  {
+    "vid": "hUhisi2FBuw",
+    "title": "The Ingenious Design of the Aluminum Beverage Can",
+    "channel": "engineerguy",
+    "score": 11.5,
+    "content_type": "explainer",
+    "summary": "Bill Hammack of Engineer Guy explains the engineering behind the aluminum beverage can: why it is cylindrical, how it is manufactured, why it narrows at the top, the double seam, and how the pull tab works.",
+    "why_hn": "It is a go-to recommendation whenever cans, good design or mass-produced objects come up, and many also recommend the whole channel.",
+    "url": "https://www.youtube.com/watch?v=hUhisi2FBuw"
+  },
+  {
+    "vid": "izxXGuVL21o",
+    "title": "How Crash Bandicoot Hacked The Original Playstation | War Stories | Ars Technica",
+    "channel": "Ars Technica",
+    "score": 11.5,
+    "content_type": "interview",
+    "summary": "In Ars Technica's War Stories, Naughty Dog co-founder Andy Gavin explains how the team squeezed Crash Bandicoot onto the original PlayStation. They overwrote Sony library code in RAM, built custom animation compression, and streamed assets around slow seek times.",
+    "why_hn": "It is one of the most frequently recommended videos on HN for old-school game development hacks under tight hardware constraints.",
+    "url": "https://www.youtube.com/watch?v=izxXGuVL21o"
+  },
+  {
+    "vid": "qv6UVOQ0F44",
+    "title": "MarI/O - Machine Learning for Video Games",
+    "channel": "SethBling",
+    "score": 11.5,
+    "content_type": "demo",
+    "summary": "SethBling shows MarI/O, a program using neural networks and the NEAT genetic algorithm to learn to play Super Mario World. The description links the source code, the paper and background reading.",
+    "why_hn": "The go-to accessible introduction to neuroevolution and NEAT, praised for crediting prior research.",
+    "url": "https://www.youtube.com/watch?v=qv6UVOQ0F44"
+  },
+  {
+    "vid": "sWblpsLZ-O8",
+    "title": "A Mind Is Born (256 bytes)",
+    "channel": "lftkryo",
+    "score": 11.5,
+    "content_type": "demo",
+    "summary": "A Commodore 64 demo by Linus Akesson that fits video and music into 256 bytes, winning the Oldskool 4K Intro compo at Revision 2017. A technical write-up accompanies it.",
+    "why_hn": "It is HN's favorite example of extreme code compression, a compelling song and visuals from a program smaller than a tweet.",
+    "url": "https://www.youtube.com/watch?v=sWblpsLZ-O8"
+  },
+  {
+    "vid": "uxykI30fS54",
+    "title": "Why This Channel Exists (and why I hate Houston)",
+    "channel": "Not Just Bikes",
+    "score": 11.5,
+    "content_type": "commentary",
+    "summary": "Not Just Bikes explains why the channel exists, through the creator's walk in suburban Houston. It shows how car-dependent design makes cities hostile to pedestrians.",
+    "why_hn": "Strongly recommended as the entry point to a channel on urban planning and car dependency in North America.",
+    "url": "https://www.youtube.com/watch?v=uxykI30fS54"
+  },
+  {
+    "vid": "x1bX3F7uTrg",
+    "title": "The Loving Trap",
+    "channel": "Ben Woodhams",
+    "score": 11.5,
+    "content_type": "comedy",
+    "summary": "A three-minute parody of Adam Curtis's documentary style, assembled from archive footage with his typical narration and leaps of logic.",
+    "why_hn": "Recommended as the standard companion to any Adam Curtis film, since it lampoons the style and gives reasons to take his claims with skepticism.",
+    "url": "https://www.youtube.com/watch?v=x1bX3F7uTrg"
+  },
+  {
+    "vid": "-zRN7XLCRhc",
+    "title": "LISA11 - Fork Yeah! The Rise and Development of illumos",
+    "channel": "USENIX",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Bryan Cantrill's LISA11 talk on how illumos arose after Oracle closed OpenSolaris. It covers the history of Sun, ZFS, DTrace and Zones, and the diaspora of kernel engineers, with a famous rant about Oracle and Larry Ellison.",
+    "why_hn": "HN points to it as the definitive, entertaining account of Sun's fate under Oracle, and quotes its Ellison lawnmower advice whenever Oracle behaves badly.",
+    "url": "https://www.youtube.com/watch?v=-zRN7XLCRhc"
+  },
+  {
+    "vid": "4XpnKHJAok8",
+    "title": "Tech Talk: Linus Torvalds on git",
+    "channel": "Google",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Linus Torvalds gives a Google tech talk on git, the source control system he created two years earlier. He argues for distributed version control over centralized systems such as CVS and Subversion.",
+    "why_hn": "HN repeatedly recommends it as the iconic explanation of why git is designed as it is and why distributed VCS beats centralized ones.",
+    "url": "https://www.youtube.com/watch?v=4XpnKHJAok8"
+  },
+  {
+    "vid": "7IsMeKl-Sv0",
+    "title": "Why American Cities Are Broke - The Growth Ponzi Scheme [ST03]",
+    "channel": "Not Just Bikes",
+    "score": 11.0,
+    "content_type": "explainer",
+    "summary": "Not Just Bikes explains the Strong Towns argument that car-dependent American suburbs cost more to maintain than they generate in taxes. It describes the growth Ponzi scheme that props up municipal finances.",
+    "why_hn": "HN keeps pointing to it as the clearest explanation of how low-density infrastructure is financed and why it is unsustainable.",
+    "url": "https://www.youtube.com/watch?v=7IsMeKl-Sv0"
+  },
+  {
+    "vid": "7xTGNNLPyMI",
+    "title": "Deep Dive into LLMs like ChatGPT",
+    "channel": "Andrej Karpathy",
+    "score": 11.0,
+    "content_type": "lecture",
+    "summary": "Andrej Karpathy's three-hour-plus general-audience deep dive into how ChatGPT-style LLMs are built, covering the full training stack from pretraining to post-training. It also gives mental models for their quirks, like hallucination, and how to use them well.",
+    "why_hn": "HN's most frequent recommendation for a clear, approachable foundation in how LLMs work without heavy math.",
+    "url": "https://www.youtube.com/watch?v=7xTGNNLPyMI"
+  },
+  {
+    "vid": "AnrlSqtpOkw",
+    "title": "Alan Kay's tribute to Ted Nelson at \"Intertwingled\" Festival",
+    "channel": "TheTedNelson",
+    "score": 11.0,
+    "content_type": "demo",
+    "summary": "Alan Kay's tribute to Ted Nelson at the Intertwingled festival, presented using a revived Smalltalk-78 system running on emulated 1970s Xerox PARC hardware. It shows live, user-programmable software from that era.",
+    "why_hn": "HN returns to it again and again as a demonstration of how programmable and composable 1970s systems were compared with today's.",
+    "url": "https://www.youtube.com/watch?v=AnrlSqtpOkw"
+  },
+  {
+    "vid": "DnPmg0R1M04",
+    "title": "The Century of the Self - Part 1: \"Happiness Machines\"",
+    "channel": "JustAdamCurtis",
+    "score": 11.0,
+    "content_type": "documentary",
+    "summary": "The first part of Adam Curtis' documentary series on Sigmund Freud and his nephew Edward Bernays, who invented public relations. It shows how Bernays used Freud's ideas to link mass-produced goods to unconscious desires and create modern consumer persuasion.",
+    "why_hn": "HN commenters recommend it constantly in threads about advertising, propaganda and manipulation as the origin story of the consumer society.",
+    "url": "https://www.youtube.com/watch?v=DnPmg0R1M04"
+  },
+  {
+    "vid": "JjDsP5n2kSM",
+    "title": "Jonathan Blow - How to program independent games -  CSUA Speech",
+    "channel": "Alexandre Franco",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Jonathan Blow speaks at UC Berkeley's CSUA about how to program independent games. He argues for keeping code simple, avoiding unnecessary work, and shipping.",
+    "why_hn": "HN recommends it as a talk whose advice on simplicity and avoiding unnecessary work applies well beyond games.",
+    "url": "https://www.youtube.com/watch?v=JjDsP5n2kSM"
+  },
+  {
+    "vid": "O5BJVO3PDeQ",
+    "title": "The Engoodening of No Man's Sky",
+    "channel": "Internet Historian",
+    "score": 11.0,
+    "content_type": "documentary",
+    "summary": "Internet Historian tells the story of No Man's Sky, from its over-hyped and badly received launch to years of updates by Hello Games that redeemed the game. It is a long, comedic mini-documentary.",
+    "why_hn": "Frequently recommended as an entertaining account of a failed launch and recovery, especially in threads about Star Citizen and over-promising.",
+    "url": "https://www.youtube.com/watch?v=O5BJVO3PDeQ"
+  },
+  {
+    "vid": "ShEez0JkOFw",
+    "title": "Tim Ewald - Clojure: Programming with Hand Tools",
+    "channel": "ClojureTV",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Tim Ewald's Clojure/conj talk uses furniture making with hand tools versus machine tools as an allegory for software. It explores how automation changes what we make and how we think about our work, and why Clojure's small set of simple tools matters.",
+    "why_hn": "HN repeatedly names it among the best programming talks, loved for its craftsmanship message that complex tooling can hide simpler solutions.",
+    "url": "https://www.youtube.com/watch?v=ShEez0JkOFw"
+  },
+  {
+    "vid": "ZhuHCtR3xq8",
+    "title": "Brian Beckman: Don't fear the Monad",
+    "channel": "jasonofthel33t",
+    "score": 11.0,
+    "content_type": "lecture",
+    "summary": "Microsoft's Brian Beckman gives an hour-long, whiteboard-style walk through monads, building from function composition and monoids using school-level math. It is aimed at practicing programmers rather than category theorists.",
+    "why_hn": "HN repeatedly recommends it as the clearest and most correct beginner explanation of monads, with several commenters saying it finally made them click.",
+    "url": "https://www.youtube.com/watch?v=ZhuHCtR3xq8"
+  },
+  {
+    "vid": "akVL7QY0S8A",
+    "title": "The Coming Collapse of the Middle Class with Elizabeth Warren",
+    "channel": "University of California Television (UCTV)",
+    "score": 11.0,
+    "content_type": "lecture",
+    "summary": "Elizabeth Warren's 2007 Berkeley lecture, when she was a Harvard law professor, on why middle-class families are under growing financial strain. She draws on bankruptcy research to examine rising costs of housing, health care and education.",
+    "why_hn": "HN cites it often in debates on inequality, cost disease and stagnant middle-class income, praising its data-driven approach.",
+    "url": "https://www.youtube.com/watch?v=akVL7QY0S8A"
+  },
+  {
+    "vid": "fU9hR3kiOK0",
+    "title": "\"Turning the database inside out with Apache Samza\" by Martin Kleppmann",
+    "channel": "Strange Loop Conference",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Martin Kleppmann argues that databases are global shared mutable state and proposes treating them as an ever-growing log of immutable facts. Derived data such as caches, indexes and views is then built by stream processors like Apache Samza. The talk draws on Kafka and LinkedIn's experience with commit logs.",
+    "why_hn": "Commenters repeatedly cite it as the talk that reframed how they think about caching, derived data and event sourcing.",
+    "url": "https://www.youtube.com/watch?v=fU9hR3kiOK0"
+  },
+  {
+    "vid": "l9ZqXlHl65g",
+    "title": "The Problem With Facebook",
+    "channel": "2veritasium",
+    "score": 11.0,
+    "content_type": "explainer",
+    "summary": "Veritasium's Derek Muller argues that Facebook's business model works against pages and creators, because it charges them to reach the audiences they built. He explains how filtering and paid promotion undermine the value of likes.",
+    "why_hn": "HN commenters recommend it, with its follow-up, as an exposé of fake likes and bot activity, and as a warning before spending on Facebook ads.",
+    "url": "https://www.youtube.com/watch?v=l9ZqXlHl65g"
+  },
+  {
+    "vid": "lJ8ydIuPFeU",
+    "title": "\"How NOT to Measure Latency\" by Gil Tene",
+    "channel": "Strange Loop Conference",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Gil Tene of Azul Systems explains common pitfalls in measuring latency and response time, including why averages mislead and the problem of coordinated omission. He introduces open source tools like HdrHistogram for better measurement and reporting.",
+    "why_hn": "The canonical recommendation whenever percentiles, tail latency, load testing or averages come up, described by some as life changing.",
+    "url": "https://www.youtube.com/watch?v=lJ8ydIuPFeU"
+  },
+  {
+    "vid": "mPqWstVnRjQ",
+    "title": "Joe Rogan Experience #1035 - Paul Stamets",
+    "channel": "PowerfulJRE",
+    "score": 11.0,
+    "content_type": "podcast",
+    "summary": "A two-hour Joe Rogan Experience conversation with mycologist Paul Stamets about fungi, mycelium, bioremediation and medicinal mushrooms. It touches on Lion's Mane, psilocybin and the many uses of fungi.",
+    "why_hn": "Commenters offer it as a fascinating, accessible introduction to the world of fungi whenever mushrooms or mycelium come up.",
+    "url": "https://www.youtube.com/watch?v=mPqWstVnRjQ"
+  },
+  {
+    "vid": "u6XAPnuFjJc",
+    "title": "RSA ANIMATE: Drive: The surprising truth about what motivates us",
+    "channel": "Royal Society of Arts",
+    "score": 11.0,
+    "content_type": "explainer",
+    "summary": "An RSA Animate whiteboard adaptation of Dan Pink's talk on what motivates people at work. It argues that beyond simple tasks, autonomy, mastery and purpose drive performance more than money.",
+    "why_hn": "HN uses it in discussions of pay, management, and motivation as the standard short explanation of autonomy, mastery and purpose.",
+    "url": "https://www.youtube.com/watch?v=u6XAPnuFjJc"
+  },
+  {
+    "vid": "xOCurBYI_gY",
+    "title": "Computer program that learns to play classic NES games",
+    "channel": "suckerpinch",
+    "score": 11.0,
+    "content_type": "demo",
+    "summary": "Tom7 explains and demos software that learns to play NES games by finding score patterns in memory and then searching for inputs that raise it. It is the video companion to his SIGBOVIK paper.",
+    "why_hn": "Loved on HN as a hilarious, brilliant example of hacker-academic work and cited whenever game-playing AI or fuzzing comes up.",
+    "url": "https://www.youtube.com/watch?v=xOCurBYI_gY"
+  },
+  {
+    "vid": "yTkzNHF6rMs",
+    "title": "Ruby Conf 12 - Boundaries by Gary Bernhardt",
+    "channel": "Confreaks",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Gary Bernhardt's RubyConf 2012 talk on testing in isolation without mocking everything. It goes through behavior versus data, mutation versus immutability, and how a functional core with an imperative shell yields natural isolation and parallelism.",
+    "why_hn": "HN recommends it as the canonical presentation of 'functional core, imperative shell' and a practical answer to unit versus integration testing.",
+    "url": "https://www.youtube.com/watch?v=yTkzNHF6rMs"
+  },
+  {
+    "vid": "zBkNBP00wJE",
+    "title": "CppCon 2016: Jason Turner “Rich Code for Tiny Computers: A Simple Commodore 64 Game in C++17”",
+    "channel": "CppCon",
+    "score": 11.0,
+    "content_type": "talk",
+    "summary": "Jason Turner's CppCon 2016 talk builds a simple Commodore 64 game using C++17, showing how constexpr and const let a modern compiler produce tight 6502 code. He walks through assembly output to show abstractions being optimized away.",
+    "why_hn": "A perennial favorite, recommended as proof that expressive modern C++ can compile to efficient code even on tiny retro hardware.",
+    "url": "https://www.youtube.com/watch?v=zBkNBP00wJE"
+  },
+  {
+    "vid": "36myc8wQhLo",
+    "title": "USENIX ATC '21/OSDI '21 Joint Keynote Address-It's Time for Operating Systems to Rediscover Hardware",
+    "channel": "USENIX",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Timothy Roscoe of ETH Zurich delivers the joint USENIX ATC/OSDI 2021 keynote arguing that operating systems must reckon with modern hardware, which is a heterogeneous collection of processors, firmware and coprocessors rather than a simple machine. It shows how much runs below and beside Linux.",
+    "why_hn": "Repeatedly recommended as a revelatory talk on how little control the main OS has over modern SoCs and PCs.",
+    "url": "https://www.youtube.com/watch?v=36myc8wQhLo"
+  },
+  {
+    "vid": "3LopI4YeC4I",
+    "title": "Why Being Delusional is a Superpower",
+    "channel": "Veritasium",
+    "score": 10.5,
+    "content_type": "explainer",
+    "summary": "Veritasium examines the role of luck in success, with simulations and examples showing how small advantages and chance can compound. It argues that top outcomes are disproportionately luck-driven while still crediting effort.",
+    "why_hn": "Linked in threads about meritocracy, careers and startups as a reminder that luck shapes who ends up on top.",
+    "url": "https://www.youtube.com/watch?v=3LopI4YeC4I"
+  },
+  {
+    "vid": "5IUj1EZwpJY",
+    "title": "The Only Unbreakable Law",
+    "channel": "Molly Rocket",
+    "score": 10.5,
+    "content_type": "lecture",
+    "summary": "Casey Muratori's lecture, originally given at the Technical University of Madrid, arguing that Conway's Law is the only viable candidate for a true law of software architecture. He explains how software mimics the organization over time, using examples like Windows' multiple volume controls.",
+    "why_hn": "HN treats it as the definitive explanation of Conway's Law and links it in almost any thread about org structure shaping software.",
+    "url": "https://www.youtube.com/watch?v=5IUj1EZwpJY"
+  },
+  {
+    "vid": "7rNY7xKyGCQ",
+    "title": "Dr. Michael Greger | How Not To Die | Talks at Google",
+    "channel": "Talks at Google",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Dr. Michael Greger presents his book How Not to Die at Google NYC, arguing that diet and lifestyle changes can prevent or reverse many of the top causes of death. He walks through evidence on whole-food plant-based eating.",
+    "why_hn": "Frequently recommended in threads on nutrition, cancer and veganism as a science-focused case for plant-based diets, with at least one commenter saying it made them go vegan.",
+    "url": "https://www.youtube.com/watch?v=7rNY7xKyGCQ"
+  },
+  {
+    "vid": "8SkdfdXWYaI",
+    "title": "Using Python to Code by Voice",
+    "channel": "Next Day Video",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Tavis Rudd describes how RSI forced him to program by voice, and shows the Python and Emacs Lisp system he built with voice recognition. A live demo creates and deploys a small system without touching the keyboard.",
+    "why_hn": "Recurs in threads about RSI, accessibility and voice coding as the go-to demo of a custom spoken command language.",
+    "url": "https://www.youtube.com/watch?v=8SkdfdXWYaI"
+  },
+  {
+    "vid": "8X69_42Mj-g",
+    "title": "Clasp: Common Lisp using LLVM and C++ for Molecular Metaprogramming",
+    "channel": "Google TechTalks",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Christian Schafmeister's Google Tech Talk on designing spiroligomer molecules and building Clasp, a Common Lisp on LLVM that interoperates with C++, to program molecular design. It covers the chemistry, automatic differentiation for force fields, and how the compiler is built.",
+    "why_hn": "HN repeatedly cites it as a striking example of Common Lisp used to push the frontier of science, and as one of the most inspiring tech talks.",
+    "url": "https://www.youtube.com/watch?v=8X69_42Mj-g"
+  },
+  {
+    "vid": "8hAw1z8GdE8",
+    "title": "Personal Growth Series: Dr. William Dement on Healthy Sleep and Optimal Perfo...",
+    "channel": "Google TechTalks",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "A Google Tech Talk by sleep researcher Dr. William Dement on healthy sleep and performance. He argues sleep debt must be repaid and describes the three characteristics of healthy sleep.",
+    "why_hn": "HN has recommended it for years as the most useful and entertaining talk on sleep, often to people struggling with tiredness or productivity.",
+    "url": "https://www.youtube.com/watch?v=8hAw1z8GdE8"
+  },
+  {
+    "vid": "IlU-zDU6aQ0",
+    "title": "Marty Lobdell - Study Less Study Smart",
+    "channel": "Pierce College District WA",
+    "score": 10.5,
+    "content_type": "lecture",
+    "summary": "Psychology professor Marty Lobdell gives a one-hour lecture on how to study effectively, covering short focused sessions with breaks, study environment, note-taking and memory techniques. It was aimed at students who cram without improving.",
+    "why_hn": "HN recommends it for productivity, focus and working-from-home threads, since its advice on breaks and mental modes applies beyond studying.",
+    "url": "https://www.youtube.com/watch?v=IlU-zDU6aQ0"
+  },
+  {
+    "vid": "LKtk3HCgTa8",
+    "title": "\"Simple Made Easy\" - Rich Hickey (2011)",
+    "channel": "ClojureTV",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Rich Hickey's Strange Loop 2011 keynote separates 'simple' (not intertwined) from 'easy' (familiar or near at hand) and argues that software complexity comes from complecting things. It offers a vocabulary for judging designs and abstractions.",
+    "why_hn": "It is one of HN's most frequently recommended programming talks, cited whenever people debate complexity, simplicity and abstraction, and valued well beyond Clojure.",
+    "url": "https://www.youtube.com/watch?v=LKtk3HCgTa8"
+  },
+  {
+    "vid": "NVGuFdX5guE",
+    "title": "You Need a Theme, Not a Goal",
+    "channel": "CGP Grey",
+    "score": 10.5,
+    "content_type": "explainer",
+    "summary": "CGP Grey argues for picking a theme for the year or season instead of setting goals or new year's resolutions. He explains how a theme gives direction without a pass/fail target.",
+    "why_hn": "A staple recommendation in new year and goal-setting threads, with many commenters adopting yearly themes.",
+    "url": "https://www.youtube.com/watch?v=NVGuFdX5guE"
+  },
+  {
+    "vid": "OSGv2VnC0go",
+    "title": "Transforming Code into Beautiful, Idiomatic Python",
+    "channel": "Next Day Video",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Raymond Hettinger's PyCon 2013 talk on transforming code into idiomatic Python through a series of before-and-after refactorings. It shows how to use iterators, dictionaries, named tuples and other language features well.",
+    "why_hn": "HN treats it as a must-watch classic for writing Pythonic code, though somewhat dated for modern Python.",
+    "url": "https://www.youtube.com/watch?v=OSGv2VnC0go"
+  },
+  {
+    "vid": "SGJ5cZnoodY",
+    "title": "Shenzhen: The Silicon Valley of Hardware (Full Documentary) | Future Cities | WIRED",
+    "channel": "WIRED Investigations",
+    "score": 10.5,
+    "content_type": "documentary",
+    "summary": "A WIRED Future Cities documentary on Shenzhen, covering its hardware-prototyping culture and shanzhai copycat manufacturing. It looks at how the city's ecosystem evolved and what the rest of the world can learn.",
+    "why_hn": "Strongly recommended in Shenzhen and hardware threads for its view of fast cycles, loose IP and the maker ecosystem.",
+    "url": "https://www.youtube.com/watch?v=SGJ5cZnoodY"
+  },
+  {
+    "vid": "TH9VCN6UkyQ",
+    "title": "Ideas about a new programming language for games.",
+    "channel": "Jonathan Blow",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Jonathan Blow's first talk on designing a new programming language for games, which became Jai. He explains the problems with C++ and why Go, Rust and D do not fit game development.",
+    "why_hn": "HN programmers recommend it, and the Jai series that followed, for the game-industry view on replacing C++ and for watching a language being invented.",
+    "url": "https://www.youtube.com/watch?v=TH9VCN6UkyQ"
+  },
+  {
+    "vid": "WUvTyaaNkzM",
+    "title": "The essence of calculus",
+    "channel": "3Blue1Brown",
+    "score": 10.5,
+    "content_type": "course",
+    "summary": "The first video of 3Blue1Brown's Essence of Calculus series, which builds toward integrals, derivatives, and the fundamental theorem of calculus from a simple geometry question. It aims to make viewers feel they could have invented calculus themselves.",
+    "why_hn": "A staple recommendation for anyone learning math, praised for visual intuition that makes memorized formulas make sense.",
+    "url": "https://www.youtube.com/watch?v=WUvTyaaNkzM"
+  },
+  {
+    "vid": "XA2WjJbmmoM",
+    "title": "How to Do 90% of What Plugins Do (With Just Vim)",
+    "channel": "thoughtbot",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "A thoughtbot meetup talk by Max Cantor on getting most of what popular plugins provide using only built-in Vim features. It covers autocomplete, file jumping, filesystem navigation, build integration and snippets, with slides and a vimrc available.",
+    "why_hn": "HN treats it as the canonical talk for the case that vanilla Vim goes a long way and plugin dependencies are a burden.",
+    "url": "https://www.youtube.com/watch?v=XA2WjJbmmoM"
+  },
+  {
+    "vid": "bglWCuCMSWc",
+    "title": "The Wrong Way to Set Speed Limits [ST06]",
+    "channel": "Not Just Bikes",
+    "score": 10.5,
+    "content_type": "explainer",
+    "summary": "Not Just Bikes explains how North American speed limits are set and why posted limits matter far less than street design. It argues that drivers follow the road's cues, so safe speeds have to be built into the street.",
+    "why_hn": "Recommended again and again in traffic-safety threads as an eye-opener on road design versus posted limits and driver behavior.",
+    "url": "https://www.youtube.com/watch?v=bglWCuCMSWc"
+  },
+  {
+    "vid": "h7apO7q16V0",
+    "title": "The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?",
+    "channel": "Reducible",
+    "score": 10.5,
+    "content_type": "explainer",
+    "summary": "Reducible's visual walkthrough of the Fast Fourier Transform, motivated by polynomial multiplication. It shows how the FFT's key ideas can be discovered by asking the right questions.",
+    "why_hn": "HN repeatedly calls it a fantastic explanation that made FFT click, with some rewatching it periodically.",
+    "url": "https://www.youtube.com/watch?v=h7apO7q16V0"
+  },
+  {
+    "vid": "iYJKd0rkKss",
+    "title": "Dick Proenneke in Alone in the Wilderness",
+    "channel": "swererbob",
+    "score": 10.5,
+    "content_type": "documentary",
+    "summary": "A condensed film of Dick Proenneke's footage of building a cabin and living alone in the Alaskan wilderness, using hand tools and local materials. It draws on the 8mm films he shot himself.",
+    "why_hn": "HN recommends it often and warmly, as an inspiring and peaceful view of self-reliance and handcraft, in threads on cabins, solitude and woodworking.",
+    "url": "https://www.youtube.com/watch?v=iYJKd0rkKss"
+  },
+  {
+    "vid": "jVkLVRt6c1U",
+    "title": "Mike Monteiro: F*ck You, Pay Me",
+    "channel": "CreativeMornings HQ",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Mike Monteiro's CreativeMornings talk on getting paid for creative and freelance work, covering contracts, working with lawyers, and refusing to work for free. It is delivered with blunt humor.",
+    "why_hn": "HN regulars send freelancers and consultants to it whenever clients don't pay or contracts come up.",
+    "url": "https://www.youtube.com/watch?v=jVkLVRt6c1U"
+  },
+  {
+    "vid": "mw2z9lV3W1g",
+    "title": "We the People, and the Republic we must reclaim | Lawrence Lessig",
+    "channel": "TED",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "In this TED talk, Lawrence Lessig argues that American politics is corrupted by Congress's dependence on funding from a tiny fraction of citizens. He uses rapid-fire visuals and calls for a bipartisan push to reclaim the Republic.",
+    "why_hn": "HN cites it repeatedly as the root-cause argument that money in politics must be fixed before other issues, and as background for his Mayday PAC.",
+    "url": "https://www.youtube.com/watch?v=mw2z9lV3W1g"
+  },
+  {
+    "vid": "oyLBGkS5ICk",
+    "title": "Spec-ulation Keynote - Rich Hickey",
+    "channel": "ClojureTV",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Rich Hickey's keynote on software versioning, arguing that breaking changes are the real problem and that libraries should only grow by providing more and requiring less. It critiques semantic versioning and ties into Clojure spec.",
+    "why_hn": "HN returns to it in every versioning and API stability debate as a challenging, contrarian talk worth watching.",
+    "url": "https://www.youtube.com/watch?v=oyLBGkS5ICk"
+  },
+  {
+    "vid": "p33CVV29OG8",
+    "title": "Modern Dictionaries by Raymond Hettinger",
+    "channel": "SF Python",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Python core developer Raymond Hettinger explains how Python's dictionary implementation evolved into the compact, ordered dict in Python 3.6. He uses pictures and small bits of pure Python, and covers key-sharing, compaction and versioning.",
+    "why_hn": "HN treats it as the definitive, engaging talk on hash table internals and Python dict ordering, and recommends it in tech-talk lists.",
+    "url": "https://www.youtube.com/watch?v=p33CVV29OG8"
+  },
+  {
+    "vid": "pgoetgxecw8",
+    "title": "Refterm Lecture Part 1 - Philosophies of Optimization",
+    "channel": "Molly Rocket",
+    "score": 10.5,
+    "content_type": "lecture",
+    "summary": "Casey Muratori's first refterm lecture lays out philosophies of optimization, distinguishing optimization from non-pessimization, which means avoiding needless work. It uses his fast terminal renderer project to show how fast computers really are.",
+    "why_hn": "HN returns to it constantly in software performance debates as the primer on non-pessimization and why modern software is slow.",
+    "url": "https://www.youtube.com/watch?v=pgoetgxecw8"
+  },
+  {
+    "vid": "qJEWOTZnFeg",
+    "title": "\"Money doesn't interest me\" - Ton Roosendaal 2017 Interview",
+    "channel": "Blender Guru",
+    "score": 10.5,
+    "content_type": "interview",
+    "summary": "A long interview by Blender Guru with Ton Roosendaal, creator of Blender. They cover Blender's origins, the move to open source, why Ton is not driven by money, Autodesk, and what sets Blender apart from other open source projects.",
+    "why_hn": "Recommended as the best account of Blender's history and its user-focused approach as a free software success story.",
+    "url": "https://www.youtube.com/watch?v=qJEWOTZnFeg"
+  },
+  {
+    "vid": "rX0ItVEVjHc",
+    "title": "CppCon 2014: Mike Acton \"Data-Oriented Design and C++\"",
+    "channel": "CppCon",
+    "score": 10.5,
+    "content_type": "talk",
+    "summary": "Mike Acton of Insomniac Games argues that a program's purpose is transforming data, and shows how common C++ approaches work against that in performance-critical game development. He covers cache behavior, data layout and the limits of compilers.",
+    "why_hn": "It is the go-to talk HN points to for data-oriented design and hardware-aware performance thinking, despite Acton's blunt style.",
+    "url": "https://www.youtube.com/watch?v=rX0ItVEVjHc"
+  },
+  {
+    "vid": "s7tWHJfhiyo",
+    "title": "Why Your Vote Doesn't Count",
+    "channel": "CGP Grey",
+    "score": 10.5,
+    "content_type": "explainer",
+    "summary": "CGP Grey explains first-past-the-post voting and why it pushes elections toward two dominant parties. It is the first in his series on electoral systems.",
+    "why_hn": "HN's go-to explainer for why FPTP leads to a two-party system, linked in countless voting-reform and US politics threads.",
+    "url": "https://www.youtube.com/watch?v=s7tWHJfhiyo"
+  },
+  {
+    "vid": "tX4H_ctggYo",
+    "title": "Siggraph2019 Geometric Algebra",
+    "channel": "Bivector",
+    "score": 10.5,
+    "content_type": "lecture",
+    "summary": "A SIGGRAPH 2019 course on geometric algebra. Charles Gunn gives an intro, then Steven De Keninck gives a programmer-focused course with live examples in ganja.js.",
+    "why_hn": "HN commenters repeatedly point people to it as the most accessible, developer-friendly introduction to geometric algebra and its use in graphics and physics.",
+    "url": "https://www.youtube.com/watch?v=tX4H_ctggYo"
+  },
+  {
+    "vid": "yJDv-zdhzMY",
+    "title": "The Mother of All Demos, presented by Douglas Engelbart (1968)",
+    "channel": "Marcel",
+    "score": 10.5,
+    "content_type": "demo",
+    "summary": "The full recording of Douglas Engelbart's 1968 demonstration, which introduced the mouse, hypertext, video conferencing, word processing, and real-time collaborative editing. It runs about 100 minutes.",
+    "why_hn": "HN treats it as an essential piece of computing history that shows how many modern interface ideas were already solved in 1968.",
+    "url": "https://www.youtube.com/watch?v=yJDv-zdhzMY"
+  },
+  {
+    "vid": "zDZFcDGpL4U",
+    "title": "RSA ANIMATE: Changing Education Paradigms",
+    "channel": "Royal Society of Arts",
+    "score": 10.5,
+    "content_type": "lecture",
+    "summary": "An RSA Animate drawn from a Sir Ken Robinson talk arguing that current education systems are modeled on the industrial age. It discusses divergent thinking, standardization, and how schools disengage kids.",
+    "why_hn": "HN recommends it as an accessible, widely shared critique of schooling, and cites it in threads on ADHD, creativity and education reform.",
+    "url": "https://www.youtube.com/watch?v=zDZFcDGpL4U"
   }
 ]

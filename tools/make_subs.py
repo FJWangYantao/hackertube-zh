@@ -17,6 +17,8 @@ import html
 import json
 import re
 import sys
+import time
+import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -58,6 +60,7 @@ if hasattr(sys.stdout, "reconfigure"):
 
 TS = re.compile(r"(?:(\d+):)?(\d{1,2}):(\d{2})[.,](\d{1,3})")
 TAG = re.compile(r"<[^>]+>")
+BRIDGE_SECONDS = 0.05
 
 
 def parse_ts(value: str) -> float:
@@ -74,26 +77,40 @@ def clean(text: str) -> str:
 
 
 def parse_vtt(path: Path) -> list[dict]:
-    """Return cues as [{s, e, en}], collapsing YouTube's rolling captions."""
+    """Return cues as [{s, e, en}], collapsing YouTube's rolling captions.
+
+    Auto-captions repeat the previous cue's last line as their first line,
+    and insert 10ms bridge cues that repeat it again.
+    """
     raw = path.read_text(encoding="utf-8", errors="replace")
     cues: list[dict] = []
-    previous = ""
-    for block in re.split(r"\n\s*\n", raw):
+    previous_line = ""
+    saw_bridge = False
+    for block in re.split(r"\r?\n\r?\n", raw):
         lines = [line for line in block.strip().splitlines() if line.strip()]
         index = next((i for i, line in enumerate(lines) if "-->" in line), None)
         if index is None:
             continue
         start_raw, end_raw = lines[index].split("-->", 1)
-        text = clean(" ".join(lines[index + 1:]))
-        if not text:
+        start = parse_ts(start_raw)
+        end = parse_ts(end_raw)
+        if end - start <= BRIDGE_SECONDS:
+            # YouTube emits 10ms cues that repeat the previous line.
+            saw_bridge = True
             continue
-        if previous and text.startswith(previous):
-            text = text[len(previous):].strip()
-        elif text == previous:
-            text = ""
-        previous = clean(" ".join(lines[index + 1:]))
-        if text and not re.fullmatch(r"\[[^\]]*\]", text):
-            cues.append({"s": parse_ts(start_raw), "e": parse_ts(end_raw), "en": text})
+        text_lines = [clean(line) for line in lines[index + 1:]]
+        text_lines = [line for line in text_lines if line]
+        # Only rolling auto-captions (signalled by a preceding bridge cue)
+        # repeat the previous line; manual tracks may repeat lines verbatim.
+        if saw_bridge and previous_line and text_lines and text_lines[0] == previous_line:
+            text_lines = text_lines[1:]
+        saw_bridge = False
+        if not text_lines:
+            continue
+        text = " ".join(text_lines)
+        previous_line = text_lines[-1]
+        if not re.fullmatch(r"\[[^\]]*\]", text):
+            cues.append({"s": start, "e": end, "en": text})
     return cues
 
 
@@ -115,7 +132,7 @@ def group_cues(cues: list[dict]) -> list[list[dict]]:
 
 # --- translation ----------------------------------------------------------
 
-def call_gateway(sentences: list[str], timeout: int = 180) -> list[str]:
+def call_gateway(sentences: list[str], timeout: int = 180, attempts: int = 3) -> list[str]:
     body = {
         "model": MODEL,
         "max_tokens": 8192,
@@ -130,8 +147,16 @@ def call_gateway(sentences: list[str], timeout: int = 180) -> list[str]:
         data=json.dumps(body).encode("utf-8"),
         headers={"Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        payload = json.load(response)
+    payload = None
+    for attempt in range(1, attempts + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                payload = json.load(response)
+            break
+        except (urllib.error.URLError, TimeoutError, OSError):
+            if attempt == attempts:
+                raise
+            time.sleep(1.5 * attempt)
     content = payload["choices"][0]["message"]["content"].strip()
     content = re.sub(r"^```.*?$|```$", "", content, flags=re.M).strip()
     parts = [part.strip() for part in content.split("@@@")]
@@ -147,7 +172,9 @@ def translate_batch(sentences: list[str]) -> list[str]:
         if all(result):
             return result
         raise ValueError("empty translation")
-    except Exception:  # noqa: BLE001 - divide and retry
+    except ValueError:
+        # Misaligned or empty output: halve and retry. Network errors propagate
+        # so a dead gateway fails the video instead of writing empty captions.
         if len(sentences) <= 1:
             return [""]
         mid = len(sentences) // 2
@@ -179,29 +206,44 @@ def build(vid: str, force: bool = False) -> bool:
     print(f"  {vid}: {len(cues)} cues -> {len(groups)} chunks ({source.name})")
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         translated = [cue for part in pool.map(translate_group, groups) for cue in part]
+    missing = sum(1 for c in translated if not c["zh"])
+    if translated and missing == len(translated):
+        raise RuntimeError("all cues untranslated; not writing an empty file")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     payload = {
         "vid": vid,
         "model": MODEL,
         "source": source.name,
         "cues": [{"s": round(c["s"], 2), "e": round(c["e"], 2),
-                  "en": c["en"], "zh": c["zh"]} for c in translated],
+                  "zh": c["zh"]} for c in translated],
     }
     with out_path.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False)
-    missing = sum(1 for c in translated if not c["zh"])
     print(f"  {vid}: wrote {len(translated)} cues, {missing} untranslated")
     return True
 
 
 def main() -> None:
+    global WORKERS, MODEL, MAX_CHARS
     parser = argparse.ArgumentParser()
     parser.add_argument("--vids", nargs="*", default=[])
+    parser.add_argument("--vid-file", default="")
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--workers", type=int, default=WORKERS)
+    parser.add_argument("--model", default=MODEL)
+    parser.add_argument("--max-chars", type=int, default=MAX_CHARS)
     args = parser.parse_args()
+    WORKERS = max(1, args.workers)
+    MODEL = args.model
+    MAX_CHARS = max(200, args.max_chars)
 
     vids = args.vids
+    if args.vid_file:
+        vids = Path(args.vid_file).read_text(encoding="utf-8").split()
+        if not vids:
+            print(f"empty --vid-file: {args.vid_file}")
+            return
     if args.all and PICKED.exists():
         vids = [item["vid"] for item in json.loads(PICKED.read_text(encoding="utf-8"))]
     if not vids:

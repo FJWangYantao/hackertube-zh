@@ -1,5 +1,6 @@
 const cache = new Map();
 const commentCache = new Map();
+const subtitleCache = new Map();
 let videoIndexPromise = null;
 
 async function fetchJSON(path) {
@@ -32,6 +33,18 @@ export async function comments(vid) {
     return payload;
   } catch {
     commentCache.set(vid, null);
+    return null;
+  }
+}
+
+export async function subs(vid) {
+  if (subtitleCache.has(vid)) return subtitleCache.get(vid);
+  try {
+    const payload = await fetchJSON(`data/subs/${vid}.json`);
+    subtitleCache.set(vid, payload);
+    return payload;
+  } catch {
+    subtitleCache.set(vid, null);
     return null;
   }
 }

@@ -56,6 +56,27 @@ python -I -m http.server 8765 --bind 127.0.0.1 --directory site
 
 `build_site.py` 会额外生成 `site/data/feed.json`（首页卡片与筛选）、`related.json`（相关视频）和 `meta.json`（领域中文名与评论计数）。`site/data/comments/` 仍由 `translate_comments.py` 单独生成，不会被覆盖。
 
+## 中文字幕
+
+观看页支持站内中文字幕：播放器底部叠加同步字幕，简介下方提供可点击跳转的「字幕文稿」面板。字幕按视频拆分为 `site/data/subs/<vid>.json`，点开观看页时才加载：
+
+```json
+{ "vid": "…", "model": "…", "source": "….en.vtt",
+  "cues": [{ "s": 0.0, "e": 10.92, "zh": "…" }] }
+```
+
+生成分两步（都需要外网，`HT_PROXY` 默认 `http://127.0.0.1:7890`）：
+
+```bash
+# 1. 抓英文字幕到 work/subs/（--workers 并发，已缓存的自动跳过）
+python -I tools/fetch_subs.py --limit 200 --workers 4 --sleep 0.5
+
+# 2. 翻译成中文（--all 读 work/picked.json；也可 --vid-file 指定列表）
+python -I tools/make_subs.py --all --workers 8
+```
+
+`make_subs.py` 调用本地网关 `http://127.0.0.1:3425/v1/chat/completions`，默认模型 `workbuddy-vps/cn:deepseek-v4.1-flash`，可用 `--model` 换成其他上游并行跑。没有英文字幕的视频会被跳过；要补这类视频需要先下载音频并用 Whisper 转写，本仓库暂未包含这一步。
+
 ## 语义检索示例
 
 ```python
