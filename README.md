@@ -73,9 +73,31 @@ python -I tools/fetch_subs.py --limit 200 --workers 4 --sleep 0.5
 
 # 2. 翻译成中文（--all 读 work/picked.json；也可 --vid-file 指定列表）
 python -I tools/make_subs.py --all --workers 8
+
+# 3. 校验时间轴（--fix 会排序、补零时长、删空句）
+python -I tools/check_subs.py
 ```
 
-`make_subs.py` 调用本地网关 `http://127.0.0.1:3425/v1/chat/completions`，默认模型 `workbuddy-vps/cn:deepseek-v4.1-flash`，可用 `--model` 换成其他上游并行跑。没有英文字幕的视频会被跳过；要补这类视频需要先下载音频并用 Whisper 转写，本仓库暂未包含这一步。
+`make_subs.py` 调用本地网关 `http://127.0.0.1:3425/v1/chat/completions`，默认模型 `workbuddy-vps/cn:deepseek-v4.1-flash`，可用 `--model` 换成其他上游并行跑。没有英文字幕的视频会被跳过。
+
+### 没有英文字幕的视频
+
+对 YouTube 没有英文字幕的视频，用 Google AI Studio 的 Gemini 做语音转写，再复用上面的翻译逻辑：
+
+1. 把 API key 写到 `work/.gemini_key`（已 gitignore，不要提交）。
+2. 运行：
+
+```bash
+python -I tools/transcribe_gemini.py --vid-file work/missing_subs.txt
+```
+
+脚本会用 yt-dlp 下载 m4a（走 `HT_PROXY`），通过 Gemini Files API 上传，用 `gemini-3.1-flash-lite` 返回 `{start, end, text}` 分句，再调用本地网关翻译并写入 `site/data/subs/<vid>.json`。转写结果缓存在 `work/audio/<vid>.gemini.json`，可重复翻译而不必重新转写。年龄限制或已删除的视频拿不到音频，会被跳过。
+
+长视频整段转写时，Gemini 偶尔会把整篇稿子压进开头几秒（时间轴塌缩）。脚本检测到每秒超过 6 个词就判定为塌缩，改用 ffmpeg 切成 10 分钟片段逐段转写、再按偏移拼回去。ffmpeg 可用 `HT_FFMPEG` 指定路径，或装一份到本地目录：
+
+```bash
+python -m pip install --target work/vendor imageio-ffmpeg --no-deps
+```
 
 ## 语义检索示例
 

@@ -60,7 +60,8 @@ if hasattr(sys.stdout, "reconfigure"):
 
 TS = re.compile(r"(?:(\d+):)?(\d{1,2}):(\d{2})[.,](\d{1,3})")
 TAG = re.compile(r"<[^>]+>")
-BRIDGE_SECONDS = 0.05
+# YouTube's bridge cues are usually 10ms, but some tracks use 60ms.
+BRIDGE_SECONDS = 0.10
 
 
 def parse_ts(value: str) -> float:
@@ -98,11 +99,13 @@ def parse_vtt(path: Path) -> list[dict]:
             # YouTube emits 10ms cues that repeat the previous line.
             saw_bridge = True
             continue
+        raw_text = "\n".join(lines[index + 1:])
+        # Rolling auto-captions carry inline word timings (<c> tags) or bridge
+        # cues; manual tracks have neither and may repeat a line on purpose.
+        rolling = saw_bridge or "<c>" in raw_text
         text_lines = [clean(line) for line in lines[index + 1:]]
         text_lines = [line for line in text_lines if line]
-        # Only rolling auto-captions (signalled by a preceding bridge cue)
-        # repeat the previous line; manual tracks may repeat lines verbatim.
-        if saw_bridge and previous_line and text_lines and text_lines[0] == previous_line:
+        if rolling and previous_line and text_lines and text_lines[0] == previous_line:
             text_lines = text_lines[1:]
         saw_bridge = False
         if not text_lines:
@@ -187,14 +190,42 @@ def translate_group(group: list[dict]) -> list[dict]:
     return [{**cue, "zh": piece} for cue, piece in zip(group, translated)]
 
 
+def track_end(path: Path) -> float:
+    cues = parse_vtt(path)
+    return cues[-1]["e"] if cues else 0.0
+
+
+def pick_source(vid: str) -> Path | None:
+    """Pick the track that reaches furthest into the video.
+
+    A manual ``en`` track sometimes only covers the opening seconds, while the
+    auto-generated ``en-orig`` track has the whole talk; coverage beats order.
+    """
+    candidates = [
+        SUBS_DIR / f"{vid}.{lang}.vtt"
+        for lang in ("en", "en-orig")
+        if (SUBS_DIR / f"{vid}.{lang}.vtt").exists()
+        and (SUBS_DIR / f"{vid}.{lang}.vtt").stat().st_size > 500
+    ]
+    if not candidates:
+        return None
+    if len(candidates) == 1:
+        return candidates[0]
+    ends = {path.name: track_end(path) for path in candidates}
+    best = max(ends, key=ends.get)
+    preferred = f"{vid}.en.vtt"
+    # Only leave the cleaned track when it covers a small part of the video.
+    if preferred in ends and ends[preferred] >= ends[best] * 0.8:
+        return SUBS_DIR / preferred
+    return SUBS_DIR / best
+
+
 def build(vid: str, force: bool = False) -> bool:
     out_path = OUT_DIR / f"{vid}.json"
     if out_path.exists() and not force:
         print(f"  {vid}: already translated, skipped")
         return False
-    source = next((SUBS_DIR / f"{vid}.{lang}.vtt" for lang in ("en", "en-orig")
-                   if (SUBS_DIR / f"{vid}.{lang}.vtt").exists()
-                   and (SUBS_DIR / f"{vid}.{lang}.vtt").stat().st_size > 500), None)
+    source = pick_source(vid)
     if source is None:
         print(f"  {vid}: no vtt, skipped")
         return False

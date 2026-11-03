@@ -11,7 +11,20 @@ work/subs/
 work/*.log
 work/shard_*.txt
 work/missing_subs.txt
-work/retry_translate*.txt
+work/retry*.txt
+work/gemini_*.txt
+
+# Downloaded audio and the local Gemini key
+work/audio/
+work/vendor/
+work/.gemini_key
+
+# One-off probe and scratch files
+work/*.html
+work/*.wav
+work/gemini_*.json
+work/gemini_test.txt
+work/resp*.json
 
 # Python / OS
 __pycache__/
