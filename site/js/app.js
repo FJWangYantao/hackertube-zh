@@ -53,6 +53,17 @@ async function boot() {
   buildAreaNav();
   window.addEventListener('hashchange', render);
   render();
+  loadRemainingFeed();
+}
+
+/** Pull the rest of the catalogue in after the first paint. */
+async function loadRemainingFeed() {
+  const rest = await load.feedRest();
+  if (!rest.length) return;
+  state.feed = [...state.feed, ...rest];
+  state.feedIndex = indexByVid(state.feed);
+  buildAreaNav();
+  state.mounted?.refresh?.();
 }
 
 function buildAreaNav() {

@@ -20,6 +20,7 @@ async function fetchJSON(path) {
 
 export const load = {
   feed: () => fetchJSON('data/feed.json'),
+  feedRest: () => fetchJSON('data/feed-rest.json').catch(() => []),
   videos: () => fetchJSON('data/videos.json'),
   meta: () => fetchJSON('data/meta.json'),
   related: () => fetchJSON('data/related.json'),

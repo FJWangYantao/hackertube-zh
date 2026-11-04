@@ -88,6 +88,76 @@
   grid-column: 1 / -1;
 }
 
+/* First-paint placeholders, replaced as soon as feed.json arrives. */
+.is-skeleton {
+  pointer-events: none;
+}
+
+.sk-thumb {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+}
+
+.sk-body {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.sk-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.sk-text {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding-top: 2px;
+}
+
+.sk-line {
+  height: 12px;
+  border-radius: 4px;
+}
+
+.sk-short {
+  width: 68%;
+}
+
+.sk-tiny {
+  width: 42%;
+  height: 10px;
+}
+
+.sk-thumb,
+.sk-avatar,
+.sk-line {
+  background: linear-gradient(
+    90deg,
+    var(--bg-chip) 25%,
+    #e8e8e8 37%,
+    var(--bg-chip) 63%
+  );
+  background-size: 400% 100%;
+  animation: sk-shimmer 1.4s ease infinite;
+}
+
+@keyframes sk-shimmer {
+  from { background-position: 100% 50%; }
+  to { background-position: 0 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk-thumb,
+  .sk-avatar,
+  .sk-line {
+    animation: none;
+  }
+}
+
 .card {
   position: relative;
   margin: -8px;

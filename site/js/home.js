@@ -42,7 +42,7 @@ export function show(viewEl, route, context, restored = null) {
     if (entries[0]?.isIntersecting && shown < list.length) renderBatch();
   }, { rootMargin: '600px' });
   apply(restored?.shown || PAGE);
-  return { setQuery, getShown: () => shown, destroy };
+  return { setQuery, getShown: () => shown, destroy, refresh };
 }
 
 function renderShell() {
@@ -85,6 +85,17 @@ function apply(initialCount = PAGE) {
   observer.disconnect();
   observer.observe(sentinel);
   ctx.syncNav?.(viewName, params);
+}
+
+/** Recompute the list after more rows arrive, keeping the current position. */
+function refresh() {
+  const keep = Math.max(shown, PAGE);
+  list = buildList();
+  shown = 0;
+  renderBatch(true, keep);
+  updateHead();
+  observer.disconnect();
+  observer.observe(sentinel);
 }
 
 function buildChips() {

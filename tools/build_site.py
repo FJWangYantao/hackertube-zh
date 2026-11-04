@@ -44,6 +44,9 @@ AREA_ZH: dict[str, str] = {
     "ideas-education": "思想、学习与语言",
 }
 
+# How many top-scoring rows ship in feed.json before the rest streams in.
+FEED_FIRST = 600
+
 FEED_KEYS = (
     "vid",
     "title",
@@ -170,7 +173,10 @@ def main() -> None:
                 related[vid] = picked
 
     write_json(OUT_DIR / "videos.json", output)
-    write_json(OUT_DIR / "feed.json", feed)
+    # The first slice renders the home page; the rest streams in afterwards so
+    # the first paint does not wait on the whole catalogue.
+    write_json(OUT_DIR / "feed.json", feed[:FEED_FIRST])
+    write_json(OUT_DIR / "feed-rest.json", feed[FEED_FIRST:])
     write_json(OUT_DIR / "related.json", related)
     write_json(OUT_DIR / "meta.json", {"areas": areas, "commentCounts": comment_counts})
 
