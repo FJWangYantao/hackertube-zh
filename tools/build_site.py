@@ -22,6 +22,8 @@ TAXONOMY = ROOT / "data" / "taxonomy.json"
 RELATED = ROOT / "data" / "related.jsonl"
 OUT_DIR = ROOT / "site" / "data"
 COMMENTS_DIR = OUT_DIR / "comments"
+# One video id per line; lines starting with # are notes.
+BLOCKLIST = ROOT / "tools" / "blocklist.txt"
 
 RELATED_LIMIT = 12
 
@@ -102,6 +104,18 @@ def load_area_map() -> tuple[dict[str, str], list[dict[str, Any]]]:
     return category_area, areas
 
 
+def load_blocklist() -> set[str]:
+    """Videos kept out of the site entirely (see tools/blocklist.txt)."""
+    if not BLOCKLIST.exists():
+        return set()
+    ids = set()
+    for line in BLOCKLIST.read_text(encoding="utf-8").splitlines():
+        vid = line.split("#", 1)[0].strip()
+        if vid:
+            ids.add(vid)
+    return ids
+
+
 def main() -> None:
     translations: dict[str, dict] = {}
     if ZH.exists():
@@ -142,6 +156,12 @@ def main() -> None:
 
     output.sort(key=lambda row: float(row["score"] or 0), reverse=True)
 
+    blocked = load_blocklist()
+    if blocked:
+        before = len(output)
+        output = [row for row in output if row["vid"] not in blocked]
+        sys.stdout.write(f"blocked {before - len(output)} videos\n")
+
     feed: list[dict[str, Any]] = []
     for row in output:
         entry = {key: row[key] for key in FEED_KEYS}
@@ -178,7 +198,12 @@ def main() -> None:
     write_json(OUT_DIR / "feed.json", feed[:FEED_FIRST])
     write_json(OUT_DIR / "feed-rest.json", feed[FEED_FIRST:])
     write_json(OUT_DIR / "related.json", related)
-    write_json(OUT_DIR / "meta.json", {"areas": areas, "commentCounts": comment_counts})
+    write_json(OUT_DIR / "meta.json", {
+        "areas": areas,
+        "commentCounts": {
+            vid: count for vid, count in comment_counts.items() if vid not in blocked
+        },
+    })
 
     translated = sum(1 for row in output if row["title_zh"])
     sys.stdout.write(

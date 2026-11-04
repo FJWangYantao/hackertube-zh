@@ -54,7 +54,11 @@ python -I -m http.server 8765 --bind 127.0.0.1 --directory site
 
 打开 <http://127.0.0.1:8765/>。前端使用原生 ES modules，必须通过 HTTP 访问，直接双击 `index.html` 无法加载数据。
 
-`build_site.py` 会额外生成 `site/data/feed.json`（首页卡片与筛选）、`related.json`（相关视频）和 `meta.json`（领域中文名与评论计数）。`site/data/comments/` 仍由 `translate_comments.py` 单独生成，不会被覆盖。
+`build_site.py` 会额外生成 `site/data/feed.json`（首页前 600 条）、`feed-rest.json`（其余条目，首屏渲染后后台加载）、`related.json`（相关视频）和 `meta.json`（领域中文名与评论计数）。`site/data/comments/` 仍由 `translate_comments.py` 单独生成，不会被覆盖。
+
+### 屏蔽某些视频
+
+`tools/blocklist.txt` 每行一个 video id（`#` 之后是注释）。`build_site.py` 会在生成前过滤掉这些视频，并从 `feed.json`、`related.json` 和评论计数里一并移除。删掉对应行再重新构建即可恢复。
 
 ## 中文字幕
 
