@@ -34,6 +34,8 @@ KEY_FILE = ROOT / "work" / ".gemini_key"
 PROXY = os.environ.get("HT_PROXY", "http://127.0.0.1:7890")
 DEFAULT_MODEL = "gemini-3.1-flash-lite"
 CHUNK_SECONDS = 600
+# Smallest slice worth splitting to when a chunk's timestamps collapse.
+MIN_CHUNK_SECONDS = 150
 API = "https://generativelanguage.googleapis.com"
 UPLOAD = f"{API}/upload/v1beta/files"
 
@@ -321,6 +323,43 @@ def probe_duration(exe: str, path: Path) -> float:
     return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
 
 
+def transcribe_span(vid: str, audio: Path, exe: str, key: str, model: str,
+                    chunk_dir: Path, start: float, end: float) -> list[dict]:
+    """Transcribe one slice, splitting it when the timestamps collapse."""
+    part = chunk_dir / f"{vid}.{int(start)}_{int(end)}{audio.suffix}"
+    subprocess.run([
+        exe, "-hide_banner", "-loglevel", "error", "-y",
+        "-ss", str(start), "-t", str(end - start), "-i", str(audio),
+        "-c", "copy", str(part),
+    ], check=False, capture_output=True)
+    if not part.exists() or part.stat().st_size == 0:
+        raise RuntimeError(f"ffmpeg produced no audio for {int(start)}s")
+    try:
+        print(f"  {vid}: chunk {int(start)}-{int(end)}s "
+              f"({part.stat().st_size // 1024} KiB)")
+        file = upload(part, key)
+        last: ValueError | None = None
+        for attempt in range(2):
+            chunk = transcribe(file, key, model)
+            try:
+                check_timeline(segments_to_cues(chunk))
+                return [{"start": segment["start"] + start,
+                         "end": segment["end"] + start,
+                         "text": segment["text"]} for segment in chunk]
+            except ValueError as exc:
+                last = exc
+                if attempt == 0:
+                    print(f"  {vid}: chunk at {int(start)}s collapsed; retrying")
+        if end - start <= MIN_CHUNK_SECONDS:
+            raise RuntimeError(f"chunk at {int(start)}s: {last}") from last
+        print(f"  {vid}: chunk at {int(start)}s still collapsed; splitting")
+        middle = start + (end - start) / 2
+        return (transcribe_span(vid, audio, exe, key, model, chunk_dir, start, middle)
+                + transcribe_span(vid, audio, exe, key, model, chunk_dir, middle, end))
+    finally:
+        part.unlink(missing_ok=True)
+
+
 def transcribe_chunked(vid: str, audio: Path, key: str, model: str,
                        chunk_seconds: int = 600) -> list[dict]:
     """Transcribe in slices so long talks keep usable timestamps."""
@@ -333,35 +372,12 @@ def transcribe_chunked(vid: str, audio: Path, key: str, model: str,
     chunk_dir = AUDIO_DIR / "chunks"
     chunk_dir.mkdir(parents=True, exist_ok=True)
     segments: list[dict] = []
-    offset = 0.0
-    while offset < duration:
-        part = chunk_dir / f"{vid}.{int(offset)}{audio.suffix}"
-        subprocess.run([
-            exe, "-hide_banner", "-loglevel", "error", "-y",
-            "-ss", str(offset), "-t", str(chunk_seconds), "-i", str(audio),
-            "-c", "copy", str(part),
-        ], check=False, capture_output=True)
-        if not part.exists() or part.stat().st_size == 0:
-            raise RuntimeError(f"ffmpeg produced no audio for {int(offset)}s")
-        print(f"  {vid}: chunk {int(offset)}s ({part.stat().st_size // 1024} KiB)")
-        file = upload(part, key)
-        for attempt in range(2):
-            chunk = transcribe(file, key, model)
-            try:
-                check_timeline(segments_to_cues(chunk))
-                break
-            except ValueError as exc:
-                if attempt == 1:
-                    raise RuntimeError(f"chunk at {int(offset)}s: {exc}") from exc
-                print(f"  {vid}: chunk at {int(offset)}s collapsed; retrying")
-        for segment in chunk:
-            segments.append({
-                "start": segment["start"] + offset,
-                "end": segment["end"] + offset,
-                "text": segment["text"],
-            })
-        part.unlink(missing_ok=True)
-        offset += chunk_seconds
+    start = 0.0
+    while start < duration:
+        end = min(start + chunk_seconds, duration)
+        segments.extend(
+            transcribe_span(vid, audio, exe, key, model, chunk_dir, start, end))
+        start = end
     check_gaps(segments, chunk_seconds)
     return segments
 
