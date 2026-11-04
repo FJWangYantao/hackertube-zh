@@ -58,7 +58,7 @@ python -I -m http.server 8765 --bind 127.0.0.1 --directory site
 
 ### 屏蔽某些视频
 
-`tools/blocklist.txt` 每行一个 video id（`#` 之后是注释）。`build_site.py` 会在生成前过滤掉这些视频，并从 `feed.json`、`related.json` 和评论计数里一并移除。删掉对应行再重新构建即可恢复。
+`tools/blocklist.txt` 每行一个 video id（`#` 之后是注释），也可以用 `area:<领域 id>` 整块屏蔽，例如 `area:politics-history-society`。`build_site.py` 会在生成前过滤掉这些视频，并从 `feed.json`、`related.json` 和评论计数里一并移除，同时删掉它们的字幕与评论文件。删掉对应行再重新构建即可恢复。
 
 ## 中文字幕
 

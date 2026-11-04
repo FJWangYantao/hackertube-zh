@@ -104,16 +104,21 @@ def load_area_map() -> tuple[dict[str, str], list[dict[str, Any]]]:
     return category_area, areas
 
 
-def load_blocklist() -> set[str]:
-    """Videos kept out of the site entirely (see tools/blocklist.txt)."""
+def load_blocklist() -> tuple[set[str], set[str]]:
+    """Videos and whole areas kept out of the site (tools/blocklist.txt)."""
     if not BLOCKLIST.exists():
-        return set()
-    ids = set()
+        return set(), set()
+    ids: set[str] = set()
+    areas: set[str] = set()
     for line in BLOCKLIST.read_text(encoding="utf-8").splitlines():
-        vid = line.split("#", 1)[0].strip()
-        if vid:
-            ids.add(vid)
-    return ids
+        entry = line.split("#", 1)[0].strip()
+        if not entry:
+            continue
+        if entry.startswith("area:"):
+            areas.add(entry.split(":", 1)[1].strip())
+        else:
+            ids.add(entry)
+    return ids, areas
 
 
 def main() -> None:
@@ -156,14 +161,20 @@ def main() -> None:
 
     output.sort(key=lambda row: float(row["score"] or 0), reverse=True)
 
-    blocked = load_blocklist()
-    if blocked:
-        before = len(output)
-        output = [row for row in output if row["vid"] not in blocked]
-        sys.stdout.write(f"blocked {before - len(output)} videos\n")
+    blocked, blocked_areas = load_blocklist()
+    removed: set[str] = set()
+    if blocked or blocked_areas:
+        kept_rows: list[dict[str, Any]] = []
+        for row in output:
+            if row["vid"] in blocked or row["area"] in blocked_areas:
+                removed.add(row["vid"])
+            else:
+                kept_rows.append(row)
+        output = kept_rows
+        sys.stdout.write(f"blocked {len(removed)} videos\n")
         # Their subtitles and comments must not stay reachable by URL either.
         for folder in ("subs", "comments"):
-            for vid in blocked:
+            for vid in removed:
                 (OUT_DIR / folder / f"{vid}.json").unlink(missing_ok=True)
 
     feed: list[dict[str, Any]] = []
@@ -202,10 +213,15 @@ def main() -> None:
     write_json(OUT_DIR / "feed.json", feed[:FEED_FIRST])
     write_json(OUT_DIR / "feed-rest.json", feed[FEED_FIRST:])
     write_json(OUT_DIR / "related.json", related)
+    area_counts: dict[str, int] = {}
+    for row in output:
+        area_counts[row["area"]] = area_counts.get(row["area"], 0) + 1
+    areas = [area for area in areas if area_counts.get(area["id"], 0) > 0]
+
     write_json(OUT_DIR / "meta.json", {
         "areas": areas,
         "commentCounts": {
-            vid: count for vid, count in comment_counts.items() if vid not in blocked
+            vid: count for vid, count in comment_counts.items() if vid not in removed
         },
     })
 

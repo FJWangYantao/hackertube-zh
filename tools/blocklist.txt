@@ -1,7 +1,11 @@
 # Videos kept out of the site entirely.
-# One video id per line; lines starting with # are notes.
+# One video id per line, or `area:<id>` to drop a whole area.
 # build_site.py filters these out of videos.json, feed.json, feed-rest.json,
-# related.json and the comment counts. Delete a line and rebuild to restore.
+# related.json and the comment counts, and deletes their subtitle and comment
+# files. Delete a line and rebuild to restore.
+
+# 整个「政治、历史与社会」领域（532 条时政、战争、意识形态内容）
+area:politics-history-society
 
 # 涉华政治：新疆、香港、领导人
 17oCQakzIl8   # 中国与维吾尔人（Last Week Tonight）
