@@ -31,3 +31,6 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# Scratch reports
+work/*.md
