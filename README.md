@@ -1,4 +1,12 @@
-# HackerTube 数据整理
+# HackerTube 中文
+
+把 [HackerTube](https://hackertube.org) 收录的 Hacker News 高推荐技术视频做成中文站：中文标题、中文导读、HN 讨论的译文，以及中英对照字幕。
+
+- 在线站点：<https://fjwangyantao.github.io/hackertube-zh/>
+- 数据来源：HackerTube（ODC-By 1.0）与 Hacker News
+- 本项目在 [LINUX DO](https://linux.do) 社区发布与交流，欢迎在那里反馈问题、提建议
+
+## 数据整理
 
 本地副本，用于离线分析。原站 <https://hackertube.org>，数据导出日期 **2026-10-31**。
 
@@ -128,6 +136,8 @@ print([ids[i] for i in np.argsort(-sims)[1:6]])
 YouTube 自身的元数据（观看数、时长、发布日期、是否已删除）**不在包内**——YouTube API 条款不允许再分发。需要的话用自己的 YouTube Data API v3 密钥补齐，6,454 个视频约 130 次请求。作者说原始链接中约 6% 的视频已被删除或转为私有。缩略图无需 API：`https://i.ytimg.com/vi/<vid>/hqdefault.jpg`。
 
 ## 许可与署名
+
+本站代码以 [MIT](LICENSE) 许可开源。
 
 数据以 **ODC-By 1.0** 发布，可自由使用，但需署名：
 
