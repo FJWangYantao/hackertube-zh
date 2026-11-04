@@ -161,6 +161,10 @@ def main() -> None:
         before = len(output)
         output = [row for row in output if row["vid"] not in blocked]
         sys.stdout.write(f"blocked {before - len(output)} videos\n")
+        # Their subtitles and comments must not stay reachable by URL either.
+        for folder in ("subs", "comments"):
+            for vid in blocked:
+                (OUT_DIR / folder / f"{vid}.json").unlink(missing_ok=True)
 
     feed: list[dict[str, Any]] = []
     for row in output:
