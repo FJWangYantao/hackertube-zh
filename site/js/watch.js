@@ -201,6 +201,7 @@ function buildPlayer(video) {
     node: player,
     setCues: (cues) => overlay.setCues(cues),
     setEnabled: (on) => overlay.setEnabled(on),
+    setBilingual: (on) => overlay.setBilingual(on),
     set onFallback(fn) { onFallback = fn; },
     seek(seconds) {
       mount().then(() => ready).then(() => {
@@ -223,22 +224,33 @@ function buildPlayer(video) {
   };
 }
 
+const SUBTITLE_MODES = ['off', 'zh', 'both'];
+const SUBTITLE_LABELS = { off: '字幕 关', zh: '字幕 中', both: '字幕 中英' };
+
 function buildSubtitleButton(player) {
-  let on = store.get('subs', true);
-  const label = () => (on ? '字幕 开' : '字幕 关');
+  let mode = store.get('subs_mode', null);
+  if (!SUBTITLE_MODES.includes(mode)) {
+    mode = store.get('subs', true) ? 'zh' : 'off';
+  }
   const button = el('button', {
     class: 'btn',
     type: 'button',
     hidden: true,
-    'aria-pressed': on ? 'true' : 'false',
-  }, label());
-  player.setEnabled(on);
+    'aria-pressed': mode === 'off' ? 'false' : 'true',
+  }, SUBTITLE_LABELS[mode]);
+
+  const apply = () => {
+    player.setEnabled(mode !== 'off');
+    player.setBilingual(mode === 'both');
+    button.textContent = SUBTITLE_LABELS[mode];
+    button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
+  };
+  apply();
+
   button.addEventListener('click', () => {
-    on = !on;
-    store.set('subs', on);
-    player.setEnabled(on);
-    button.textContent = label();
-    button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    mode = SUBTITLE_MODES[(SUBTITLE_MODES.indexOf(mode) + 1) % SUBTITLE_MODES.length];
+    store.set('subs_mode', mode);
+    apply();
   });
   return button;
 }

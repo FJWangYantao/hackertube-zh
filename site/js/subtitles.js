@@ -41,42 +41,53 @@ export function findCue(cues, time) {
 }
 
 export function createOverlay() {
-  const line = el('span', { class: 'sub-line', hidden: true });
+  const enLine = el('span', { class: 'sub-en', hidden: true });
+  const zhLine = el('span', { class: 'sub-zh' });
+  const line = el('span', { class: 'sub-line', hidden: true }, enLine, zhLine);
   const layer = el('div', { class: 'sub-layer', 'aria-hidden': 'true' }, line);
   let cues = [];
   let enabled = true;
+  let bilingual = false;
   let index = -1;
+
+  function render(cue) {
+    const zh = cue?.zh || '';
+    const en = bilingual ? (cue?.en || '') : '';
+    zhLine.textContent = zh;
+    enLine.textContent = en;
+    enLine.hidden = !en;
+    line.hidden = !zh && !en;
+  }
+
+  function reset() {
+    index = -1;
+    line.hidden = true;
+    zhLine.textContent = '';
+    enLine.textContent = '';
+  }
 
   return {
     layer,
     setCues(next) {
       cues = Array.isArray(next) ? next : [];
-      index = -1;
-      line.hidden = true;
-      line.textContent = '';
+      reset();
     },
     setEnabled(on) {
       enabled = on;
-      index = -1;
-      if (!on) {
-        line.hidden = true;
-        line.textContent = '';
-      }
+      if (!on) reset();
+    },
+    setBilingual(on) {
+      bilingual = on;
+      if (enabled && index >= 0) render(cues[index]);
     },
     update(time) {
       if (!enabled) return;
       const next = findCue(cues, time);
       if (next === index) return;
       index = next;
-      const text = next >= 0 ? cues[next].zh : '';
-      line.textContent = text;
-      line.hidden = !text;
+      render(next >= 0 ? cues[next] : null);
     },
-    clear() {
-      index = -1;
-      line.hidden = true;
-      line.textContent = '';
-    },
+    clear: reset,
   };
 }
 
@@ -86,16 +97,22 @@ export function groupTranscript(cues, maxChars = TRANSCRIPT_CHARS) {
   for (const cue of cues) {
     if (!cue?.zh) continue;
     if (!current) {
-      current = { s: cue.s, e: cue.e, text: cue.zh };
+      current = { s: cue.s, e: cue.e, text: cue.zh, en: cue.en || '' };
       continue;
     }
     const gap = cue.s - current.e;
     if (gap > TRANSCRIPT_GAP || current.text.length + cue.zh.length > maxChars) {
       blocks.push(current);
-      current = { s: cue.s, e: cue.e, text: cue.zh };
+      current = { s: cue.s, e: cue.e, text: cue.zh, en: cue.en || '' };
     } else {
       const joiner = /[A-Za-z0-9]$/.test(current.text) ? ' ' : '';
-      current = { ...current, e: cue.e, text: current.text + joiner + cue.zh };
+      const enJoiner = current.en && cue.en ? ' ' : '';
+      current = {
+        ...current,
+        e: cue.e,
+        text: current.text + joiner + cue.zh,
+        en: current.en + enJoiner + (cue.en || ''),
+      };
     }
   }
   if (current) blocks.push(current);
@@ -120,7 +137,10 @@ export function renderTranscript(cues, onSeek) {
       on: { click: () => onSeek(block.s) },
     },
       el('span', { class: 'transcript-ts' }, stamp(block.s)),
-      el('span', {}, block.text),
+      el('span', { class: 'transcript-text' },
+        block.en ? el('span', { class: 'transcript-en' }, block.en) : null,
+        el('span', { class: 'transcript-zh' }, block.text),
+      ),
     ));
   }
   return el('details', { class: 'transcript' },

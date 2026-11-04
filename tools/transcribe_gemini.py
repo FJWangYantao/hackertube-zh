@@ -468,7 +468,7 @@ def build(vid: str, key: str, model: str, force: bool,
         "model": model,
         "source": "gemini",
         "cues": [{"s": round(cue["s"], 2), "e": round(cue["e"], 2),
-                  "zh": cue["zh"]} for cue in kept],
+                  "zh": cue["zh"], "en": cue["en"]} for cue in kept],
     }
     out_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     print(f"  {vid}: wrote {len(kept)} cues, "

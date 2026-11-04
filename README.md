@@ -58,11 +58,13 @@ python -I -m http.server 8765 --bind 127.0.0.1 --directory site
 
 ## 中文字幕
 
-观看页支持站内中文字幕：播放器底部叠加同步字幕，简介下方提供可点击跳转的「字幕文稿」面板。字幕按视频拆分为 `site/data/subs/<vid>.json`，点开观看页时才加载：
+观看页支持站内中文字幕：播放器底部叠加同步字幕，简介下方提供可点击跳转的「字幕文稿」面板。字幕按钮三态循环：**字幕 关 → 字幕 中 → 字幕 中英**，选择存在 `localStorage`；「字幕文稿」始终中英对照。
+
+字幕按视频拆分为 `site/data/subs/<vid>.json`，点开观看页时才加载：
 
 ```json
 { "vid": "…", "model": "…", "source": "….en.vtt",
-  "cues": [{ "s": 0.0, "e": 10.92, "zh": "…" }] }
+  "cues": [{ "s": 0.0, "e": 10.92, "zh": "…", "en": "…" }] }
 ```
 
 生成分两步（都需要外网，`HT_PROXY` 默认 `http://127.0.0.1:7890`）：
@@ -76,6 +78,9 @@ python -I tools/make_subs.py --all --workers 8
 
 # 3. 校验时间轴（--fix 会排序、补零时长、删空句）
 python -I tools/check_subs.py
+
+# 4. 给已有字幕补英文原文（按起始时间对齐，不重新翻译）
+python -I tools/add_english.py
 ```
 
 `make_subs.py` 调用本地网关 `http://127.0.0.1:3425/v1/chat/completions`，默认模型 `workbuddy-vps/cn:deepseek-v4.1-flash`，可用 `--model` 换成其他上游并行跑。没有英文字幕的视频会被跳过。

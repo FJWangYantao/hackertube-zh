@@ -93,7 +93,7 @@ def main() -> None:
             print(f"{path.stem}: {', '.join(problems)}")
             if args.fix:
                 payload["cues"] = [
-                    {"s": round(cue["s"], 2), "e": round(cue["e"], 2), "zh": cue["zh"]}
+                    {**cue, "s": round(cue["s"], 2), "e": round(cue["e"], 2)}
                     for cue in normalize(cues)
                 ]
                 path.write_text(

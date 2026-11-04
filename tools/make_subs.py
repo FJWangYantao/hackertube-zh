@@ -246,7 +246,7 @@ def build(vid: str, force: bool = False) -> bool:
         "model": MODEL,
         "source": source.name,
         "cues": [{"s": round(c["s"], 2), "e": round(c["e"], 2),
-                  "zh": c["zh"]} for c in translated],
+                  "zh": c["zh"], "en": c["en"]} for c in translated],
     }
     with out_path.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False)
