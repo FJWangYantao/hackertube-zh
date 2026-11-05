@@ -128,23 +128,212 @@ export function stamp(seconds) {
   return `${hours ? `${hours}:` : ''}${mm}:${String(secs).padStart(2, '0')}`;
 }
 
+export function findBlock(blocks, time) {
+  let low = 0;
+  let high = blocks.length - 1;
+  let candidate = -1;
+  while (low <= high) {
+    const mid = (low + high) >> 1;
+    if (blocks[mid].s <= time + 0.15) {
+      candidate = mid;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  if (candidate < 0) return -1;
+  const block = blocks[candidate];
+  if (time <= block.e + TRANSCRIPT_GAP) return candidate;
+  return -1;
+}
+
+function escapeRegExp(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function renderHighlighted(container, text, regex) {
+  container.replaceChildren();
+  if (!text) return;
+  if (!regex) {
+    container.textContent = text;
+    return;
+  }
+  let lastIndex = 0;
+  for (const match of text.matchAll(regex)) {
+    const start = match.index;
+    if (start > lastIndex) {
+      container.append(document.createTextNode(text.slice(lastIndex, start)));
+    }
+    container.append(el('mark', { class: 'sub-mark' }, match[0]));
+    lastIndex = start + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    container.append(document.createTextNode(text.slice(lastIndex)));
+  }
+}
+
 export function renderTranscript(cues, onSeek) {
+  const blocks = groupTranscript(cues);
   const list = el('div', { class: 'transcript-list' });
-  for (const block of groupTranscript(cues)) {
-    list.append(el('button', {
+  const items = [];
+  let activeIndex = -1;
+  let autoFollow = true;
+  let hasQuery = false;
+
+  function setActive(nextIndex, shouldScroll = true) {
+    if (nextIndex === activeIndex) return;
+    if (activeIndex >= 0 && items[activeIndex]) {
+      items[activeIndex].node.classList.remove('is-active');
+    }
+    activeIndex = nextIndex;
+    if (activeIndex >= 0 && items[activeIndex]) {
+      items[activeIndex].node.classList.add('is-active');
+      if (shouldScroll && autoFollow && details.open && !hasQuery) {
+        scrollToActive(true);
+      }
+    }
+  }
+
+  function scrollToActive(smooth = true) {
+    if (activeIndex < 0) return;
+    const target = items[activeIndex]?.node;
+    if (!target || target.hidden) return;
+    const top = target.offsetTop - list.offsetTop - (list.clientHeight / 2) + (target.offsetHeight / 2);
+    list.scrollTo({ top: Math.max(0, top), behavior: smooth ? 'smooth' : 'auto' });
+  }
+
+  blocks.forEach((block, idx) => {
+    const enEl = block.en ? el('span', { class: 'transcript-en' }, block.en) : null;
+    const zhEl = el('span', { class: 'transcript-zh' }, block.text);
+    const node = el('button', {
       class: 'transcript-line',
       type: 'button',
-      on: { click: () => onSeek(block.s) },
+      on: {
+        click: () => {
+          setActive(idx, false);
+          onSeek(block.s);
+        },
+      },
     },
       el('span', { class: 'transcript-ts' }, stamp(block.s)),
-      el('span', { class: 'transcript-text' },
-        block.en ? el('span', { class: 'transcript-en' }, block.en) : null,
-        el('span', { class: 'transcript-zh' }, block.text),
-      ),
-    ));
+      el('span', { class: 'transcript-text' }, enEl, zhEl),
+    );
+    items.push({
+      block,
+      node,
+      enEl,
+      zhEl,
+      haystack: `${block.text} ${block.en || ''}`.toLowerCase(),
+    });
+    list.append(node);
+  });
+
+  const emptyEl = el('p', { class: 'transcript-empty muted', hidden: true }, '没有匹配的字幕段落');
+  list.append(emptyEl);
+
+  const searchInput = el('input', {
+    class: 'transcript-input',
+    type: 'search',
+    placeholder: '搜索字幕内容（中 / 英）…',
+    autocomplete: 'off',
+    'aria-label': '搜索字幕内容',
+  });
+  const matchCountEl = el('span', { class: 'transcript-match', hidden: true });
+  const clearBtn = el('button', {
+    class: 'transcript-clear',
+    type: 'button',
+    'aria-label': '清除字幕搜索',
+    hidden: true,
+  }, '×');
+
+  const followBtn = el('button', {
+    class: 'transcript-follow',
+    type: 'button',
+    'aria-pressed': 'true',
+    title: '播放时自动滚动到当前字幕段落',
+  }, '自动跟随');
+
+  followBtn.addEventListener('click', () => {
+    autoFollow = !autoFollow;
+    followBtn.setAttribute('aria-pressed', autoFollow ? 'true' : 'false');
+    if (autoFollow && !hasQuery) scrollToActive(true);
+  });
+
+  function applyFilter() {
+    const raw = searchInput.value.trim();
+    const terms = raw.toLowerCase().split(/\s+/).filter(Boolean);
+    hasQuery = terms.length > 0;
+    clearBtn.hidden = !hasQuery;
+    matchCountEl.hidden = !hasQuery;
+
+    if (!hasQuery) {
+      for (const item of items) {
+        item.node.hidden = false;
+        item.zhEl.textContent = item.block.text;
+        if (item.enEl) item.enEl.textContent = item.block.en;
+      }
+      emptyEl.hidden = true;
+      if (autoFollow && details.open) scrollToActive(false);
+      return;
+    }
+
+    const regex = new RegExp(terms.map(escapeRegExp).join('|'), 'gi');
+    let matches = 0;
+    for (const item of items) {
+      const matched = terms.every((t) => item.haystack.includes(t));
+      item.node.hidden = !matched;
+      if (matched) {
+        matches += 1;
+        renderHighlighted(item.zhEl, item.block.text, regex);
+        if (item.enEl) renderHighlighted(item.enEl, item.block.en, regex);
+      }
+    }
+    matchCountEl.textContent = `${matches} 段`;
+    emptyEl.hidden = matches > 0;
   }
-  return el('details', { class: 'transcript' },
-    el('summary', {}, `字幕文稿 · ${cues.length} 句`),
+
+  searchInput.addEventListener('input', applyFilter);
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && searchInput.value) {
+      event.stopPropagation();
+      searchInput.value = '';
+      applyFilter();
+    }
+  });
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    applyFilter();
+    searchInput.focus();
+  });
+
+  const toolbar = el('div', { class: 'transcript-bar' },
+    el('div', { class: 'transcript-search' }, searchInput, matchCountEl, clearBtn),
+    followBtn,
+  );
+
+  const details = el('details', { class: 'transcript' },
+    el('summary', {},
+      el('span', {}, `字幕文稿 · ${cues.length} 句`),
+      el('span', { class: 'transcript-hint' }, `共 ${blocks.length} 段 · 点击时间轴可跳转`),
+    ),
+    toolbar,
     list,
   );
+
+  details.addEventListener('toggle', () => {
+    if (details.open && autoFollow && !hasQuery) {
+      requestAnimationFrame(() => scrollToActive(false));
+    }
+  });
+
+  return {
+    node: details,
+    update(time) {
+      const idx = findBlock(blocks, time);
+      setActive(idx, true);
+    },
+    clear() {
+      setActive(-1, false);
+    },
+  };
 }

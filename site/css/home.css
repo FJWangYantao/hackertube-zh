@@ -198,6 +198,15 @@
   font-weight: 600;
 }
 
+.thumb-badges {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .badge {
   position: absolute;
   right: 6px;
@@ -209,6 +218,18 @@
   font-size: 12px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
+}
+
+.thumb-badges .badge {
+  position: static;
+}
+
+.badge-sub {
+  background: rgba(194, 65, 12, 0.92);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .badge-visited {
@@ -295,8 +316,62 @@
 }
 
 .card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 3px;
   color: var(--text-2);
-  font-size: 14px;
+  font-size: 13px;
+}
+
+.meta-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--bg-chip);
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.card:hover .meta-tag {
+  background: #e6e6e6;
+}
+
+.meta-tag.is-intro {
+  background: #e8f5ec;
+  color: #166534;
+}
+
+.meta-tag.is-intermediate {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.meta-tag.is-advanced {
+  background: #fdeee3;
+  color: #9a3412;
+}
+
+.card-why {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-top: 6px;
+  padding-left: 8px;
+  border-left: 2px solid var(--border);
+  color: var(--text-2);
+  font-size: 12.5px;
+  line-height: 1.5;
+  transition: border-color 0.15s var(--ease);
+}
+
+.card:hover .card-why {
+  border-left-color: var(--brand);
 }
 
 .sentinel {

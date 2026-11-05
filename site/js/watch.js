@@ -1,4 +1,4 @@
-import { el, avatar, thumb, typeLabel, metaLine, toast } from './ui.js';
+import { el, avatar, thumb, typeLabel, levelLabel, metaLine, toast } from './ui.js';
 import { comments as loadComments, load, store, subs as loadSubs } from './data.js';
 import { renderComments } from './comments.js';
 import { createOverlay, loadYouTubeApi, renderTranscript } from './subtitles.js';
@@ -9,15 +9,32 @@ const RELATED_MIN = 8;
 export function show(container, route, ctx) {
   const video = ctx.feedIndex.get(route.vid);
   if (!video) {
+    if (!ctx.feedComplete) {
+      container.replaceChildren(el('div', { class: 'loading' }, '正在加载视频信息…'));
+      let deferred = null;
+      return {
+        refresh() {
+          deferred?.destroy?.();
+          deferred = show(container, route, ctx);
+        },
+        destroy() {
+          deferred?.destroy?.();
+        },
+      };
+    }
     showError(container, '找不到这个视频', '链接可能已经失效。');
     return null;
   }
 
   let destroyed = false;
+  let transcript = null;
+  let cachedRelatedMap = {};
   ctx.setTitle(`${video.title_zh || video.title} · HackerTube 中文`);
   markVisited(video.vid);
 
   const player = buildPlayer(video);
+  player.onTimeUpdate = (time) => transcript?.update(time);
+
   const title = el('h1', { class: 'watch-title' }, video.title_zh || video.title);
   const english = video.title && video.title_zh && video.title !== video.title_zh
     ? el('p', { class: 'watch-sub' }, video.title)
@@ -59,8 +76,9 @@ export function show(container, route, ctx) {
   );
 
   load.related().catch(() => ({})).then((relatedMap) => {
-    if (destroyed || !relatedMap[video.vid]) return;
-    railList.replaceChildren(...pickRelated(video, relatedMap, ctx).map(relatedItem));
+    cachedRelatedMap = relatedMap || {};
+    if (destroyed || !cachedRelatedMap[video.vid]) return;
+    railList.replaceChildren(...pickRelated(video, cachedRelatedMap, ctx).map(relatedItem));
   });
 
   container.replaceChildren(el('div', { class: 'watch' }, main, rail));
@@ -71,7 +89,8 @@ export function show(container, route, ctx) {
     if (!cues.length) return;
     player.setCues(cues);
     subtitleBtn.hidden = !canSync;
-    transcriptBox.append(renderTranscript(cues, (seconds) => player.seek(seconds)));
+    transcript = renderTranscript(cues, (seconds) => player.seek(seconds));
+    transcriptBox.replaceChildren(transcript.node);
   });
 
   const onFullscreen = () => {
@@ -90,6 +109,10 @@ export function show(container, route, ctx) {
   document.addEventListener('keydown', onKeyDown);
 
   return {
+    refresh() {
+      if (destroyed) return;
+      railList.replaceChildren(...pickRelated(video, cachedRelatedMap, ctx).map(relatedItem));
+    },
     destroy() {
       destroyed = true;
       player.destroy();
@@ -136,6 +159,7 @@ function buildPlayer(video) {
   let destroyed = false;
   let fallbackFrame = null;
   let onFallback = null;
+  let onTimeUpdate = null;
   let readyResolve;
   const ready = new Promise((resolve) => { readyResolve = resolve; });
 
@@ -191,7 +215,9 @@ function buildPlayer(video) {
     if (!yt || typeof yt.getCurrentTime !== 'function') return;
     const state = yt.getPlayerState?.();
     if (state !== 1 && state !== 2) return;
-    overlay.update(yt.getCurrentTime());
+    const currentTime = yt.getCurrentTime();
+    overlay.update(currentTime);
+    onTimeUpdate?.(currentTime);
   }
 
   play.addEventListener('click', () => { mount(); });
@@ -203,7 +229,9 @@ function buildPlayer(video) {
     setEnabled: (on) => overlay.setEnabled(on),
     setBilingual: (on) => overlay.setBilingual(on),
     set onFallback(fn) { onFallback = fn; },
+    set onTimeUpdate(fn) { onTimeUpdate = fn; },
     seek(seconds) {
+      onTimeUpdate?.(seconds);
       mount().then(() => ready).then(() => {
         if (yt) {
           yt.seekTo(seconds, true);
@@ -340,6 +368,13 @@ function buildDescription(video, ctx) {
   }
 
   const tagNodes = [];
+  if (video.has_sub) {
+    tagNodes.push(el('a', {
+      class: 'mini-chip is-sub',
+      href: '#/feed?sub=1',
+      title: '查看所有带中文字幕的视频',
+    }, '中英字幕'));
+  }
   if (video.area && ctx.areaName(video.area)) {
     tagNodes.push(el('a', {
       class: 'mini-chip',
@@ -352,25 +387,45 @@ function buildDescription(video, ctx) {
       href: `#/feed?type=${encodeURIComponent(video.content_type)}`,
     }, typeLabel(video.content_type)));
   }
+  const lvlText = levelLabel(video.level, { includeGeneral: true });
+  if (video.level && lvlText) {
+    tagNodes.push(el('a', {
+      class: `mini-chip is-level is-${video.level}`,
+      href: `#/feed?level=${encodeURIComponent(video.level)}`,
+      title: `按「${lvlText}」难度筛选`,
+    }, `难度：${lvlText}`));
+  }
+  if (video.topic) {
+    tagNodes.push(el('a', {
+      class: 'mini-chip',
+      href: `#/feed?q=${encodeURIComponent(video.topic)}`,
+    }, video.topic));
+  }
+  const seenLower = new Set([String(video.topic || '').toLowerCase()]);
   for (const cat of (video.categories || []).slice(0, 3)) {
-    if (!cat) continue;
+    if (!cat || seenLower.has(cat.toLowerCase())) continue;
+    seenLower.add(cat.toLowerCase());
     tagNodes.push(el('a', {
       class: 'mini-chip',
       href: `#/feed?q=${encodeURIComponent(cat)}`,
     }, cat));
   }
 
-  const chips = el('div', { class: 'desc-chips', hidden: true }, ...tagNodes);
+  const chips = tagNodes.length ? el('div', { class: 'desc-chips' }, ...tagNodes) : null;
+  const isLong = (why.length + summary.length) > 130 && Boolean(why && summary);
+  if (!isLong) {
+    return el('div', { class: 'description' }, body, chips);
+  }
+
   const toggle = el('button', {
     class: 'desc-toggle',
     type: 'button',
     'aria-expanded': 'false',
   }, '展开简介');
-  const description = el('div', { class: 'description is-collapsed' }, body, chips, toggle);
+  const description = el('div', { class: 'description is-collapsed' }, body, toggle, chips);
 
   const setExpanded = (expanded) => {
     description.classList.toggle('is-collapsed', !expanded);
-    chips.hidden = !expanded;
     toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     toggle.textContent = expanded ? '收起' : '展开简介';
   };
@@ -416,11 +471,24 @@ function pickRelated(video, relatedMap, ctx) {
 }
 
 function relatedItem(video) {
+  const thumbNode = thumb(video, { className: 'related-thumb' });
+  if (video.has_sub || video.comment_count > 0) {
+    const badges = el('div', { class: 'thumb-badges' });
+    if (video.has_sub) {
+      badges.append(el('span', { class: 'badge badge-sub' }, '中字'));
+    }
+    if (video.comment_count > 0) {
+      badges.append(el('span', { class: 'badge' }, `${video.comment_count} 条讨论`));
+    }
+    thumbNode.append(badges);
+  }
+  const typeText = typeLabel(video.content_type);
+  const metaParts = [video.channel, typeText, metaLine(video)].filter(Boolean);
   return el('a', { class: 'related-item', href: `#/video/${video.vid}` },
-    thumb(video, { className: 'related-thumb' }),
+    thumbNode,
     el('div', {},
       el('p', { class: 'related-title' }, video.title_zh || video.title),
-      el('p', { class: 'related-meta' }, `${video.channel} · ${metaLine(video)}`),
+      el('p', { class: 'related-meta' }, metaParts.join(' · ')),
     ),
   );
 }

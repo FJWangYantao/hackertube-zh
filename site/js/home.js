@@ -1,4 +1,4 @@
-import { el, thumb, avatar, metaLine, typeLabel, toast } from './ui.js';
+import { el, thumb, avatar, metaLine, typeLabel, levelLabel, toast } from './ui.js';
 import { store } from './data.js';
 import { replace } from './router.js';
 
@@ -101,15 +101,19 @@ function refresh() {
 function buildChips() {
   const area = params.get('area') || '';
   const type = params.get('type') || '';
+  const level = params.get('level') || '';
   const discussed = params.get('discussed') === '1';
+  const sub = params.get('sub') === '1';
   const channel = params.get('channel') || '';
-  const hasFilter = Boolean(area || type || discussed || channel);
+  const hasFilter = Boolean(area || type || level || discussed || sub || channel);
 
   const chips = [
     chipButton('全部', !hasFilter, () => {
       params.delete('area');
       params.delete('type');
+      params.delete('level');
       params.delete('discussed');
+      params.delete('sub');
       params.delete('channel');
       sync();
     }),
@@ -129,7 +133,19 @@ function buildChips() {
     }));
   }
 
+  if (level) {
+    chips.push(chipButton(`难度：${levelLabel(level, { includeGeneral: true }) || level} ×`, true, () => {
+      params.delete('level');
+      sync();
+    }));
+  }
+
   chips.push(
+    chipButton('有中文字幕', sub, () => {
+      if (sub) params.delete('sub');
+      else params.set('sub', '1');
+      sync();
+    }),
     chipButton('有中文讨论', discussed, () => {
       if (discussed) params.delete('discussed');
       else params.set('discussed', '1');
@@ -181,9 +197,11 @@ function buildList() {
     : null;
   const area = params.get('area') || '';
   const type = params.get('type') || '';
+  const level = params.get('level') || '';
   const channel = params.get('channel') || '';
   const discussed = params.get('discussed') === '1';
-  const query = (params.get('q') || '').trim().toLowerCase();
+  const sub = params.get('sub') === '1';
+  const terms = (params.get('q') || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
 
   let rows;
   if (orderedIds) {
@@ -198,9 +216,16 @@ function buildList() {
   }
   if (area) rows = rows.filter((video) => video.area === area);
   if (type) rows = rows.filter((video) => video.content_type === type);
+  if (level) rows = rows.filter((video) => video.level === level);
   if (channel) rows = rows.filter((video) => video.channel === channel);
   if (discussed) rows = rows.filter((video) => (video.comment_count || 0) > 0);
-  if (query) rows = rows.filter((video) => haystack(video).includes(query));
+  if (sub) rows = rows.filter((video) => Boolean(video.has_sub));
+  if (terms.length) {
+    rows = rows.filter((video) => {
+      const text = haystack(video);
+      return terms.every((term) => text.includes(term));
+    });
+  }
 
   if (orderedIds && !params.get('sort')) return rows;
   return [...rows].sort(comparator(params.get('sort') || 'score'));
@@ -211,9 +236,12 @@ function haystack(video) {
     video.title,
     video.title_zh,
     video.summary_zh,
+    video.why_zh,
     video.channel,
+    video.topic,
     ctx.areaName(video.area),
     typeLabel(video.content_type),
+    levelLabel(video.level, { includeGeneral: true }),
     ...(video.categories || []),
   ].filter(Boolean).join(' ').toLowerCase();
 }
@@ -247,9 +275,28 @@ function card(video) {
   if (visitedSet.has(video.vid) && viewName !== 'history') {
     thumbNode.append(el('span', { class: 'badge-visited' }, '已看'));
   }
-  if (video.comment_count > 0) {
-    thumbNode.append(el('span', { class: 'badge' }, `${video.comment_count} 条讨论`));
+  if (video.has_sub || video.comment_count > 0) {
+    const badges = el('div', { class: 'thumb-badges' });
+    if (video.has_sub) {
+      badges.append(el('span', { class: 'badge badge-sub', title: '站内提供中英双语字幕' }, '中字'));
+    }
+    if (video.comment_count > 0) {
+      badges.append(el('span', { class: 'badge' }, `${video.comment_count} 条讨论`));
+    }
+    thumbNode.append(badges);
   }
+
+  const typeText = typeLabel(video.content_type);
+  const levelText = levelLabel(video.level);
+  const metaRow = el('p', { class: 'card-meta' });
+  if (typeText) {
+    metaRow.append(el('span', { class: 'meta-tag' }, typeText));
+  }
+  if (levelText) {
+    metaRow.append(el('span', { class: `meta-tag is-level is-${video.level}` }, levelText));
+  }
+  metaRow.append(el('span', {}, metaLine(video)));
+
   link.append(
     thumbNode,
     el('div', { class: 'card-body' },
@@ -257,7 +304,8 @@ function card(video) {
       el('div', { class: 'card-text' },
         el('h3', { class: 'card-title' }, video.title_zh || video.title),
         el('p', { class: 'card-channel' }, video.channel || ''),
-        el('p', { class: 'card-meta' }, metaLine(video)),
+        metaRow,
+        video.why_zh ? el('p', { class: 'card-why' }, video.why_zh) : null,
       ),
     ),
   );
@@ -329,11 +377,14 @@ function emptyState() {
 function updateHead() {
   const area = params.get('area') || '';
   const type = params.get('type') || '';
+  const level = params.get('level') || '';
   const channel = params.get('channel') || '';
   const query = (params.get('q') || '').trim();
   const discussed = params.get('discussed') === '1';
+  const sub = params.get('sub') === '1';
   const all = params.get('all') === '1';
-  const isFilteredFeed = viewName === 'feed' && (area || type || channel || query || discussed || all);
+  const isFilteredFeed = viewName === 'feed'
+    && (area || type || level || channel || query || discussed || sub || all);
 
   if (viewName === 'feed' && !isFilteredFeed) {
     headEl.hidden = true;
@@ -351,9 +402,11 @@ function updateHead() {
       area ? ctx.areaName(area) : '',
       channel,
       type ? typeLabel(type) : '',
+      level ? levelLabel(level, { includeGeneral: true }) : '',
+      sub ? '有中文字幕' : '',
       discussed ? '有中文讨论' : '',
       query ? `“${query}”` : '',
-      !area && !type && !channel && !discussed && !query && all ? '全部内容' : '',
+      !area && !type && !level && !channel && !discussed && !sub && !query && all ? '全部内容' : '',
     ].filter(Boolean);
     label = parts.join(' · ') || '发现';
   }

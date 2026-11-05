@@ -18,6 +18,7 @@ const mobile = window.matchMedia('(max-width: 1000px)');
 const state = {
   feed: [],
   feedIndex: new Map(),
+  feedComplete: false,
   meta: { areas: [] },
   areaNames: new Map(),
   mounted: null,
@@ -29,6 +30,7 @@ const state = {
 const context = {
   get feed() { return state.feed; },
   get feedIndex() { return state.feedIndex; },
+  get feedComplete() { return state.feedComplete; },
   get meta() { return state.meta; },
   areaName: (id) => state.areaNames.get(id) || '',
   setTitle: (title) => { document.title = title; },
@@ -58,12 +60,17 @@ async function boot() {
 
 /** Pull the rest of the catalogue in after the first paint. */
 async function loadRemainingFeed() {
-  const rest = await load.feedRest();
-  if (!rest.length) return;
-  state.feed = [...state.feed, ...rest];
-  state.feedIndex = indexByVid(state.feed);
-  buildAreaNav();
-  state.mounted?.refresh?.();
+  try {
+    const rest = await load.feedRest();
+    if (rest.length) {
+      state.feed = [...state.feed, ...rest];
+      state.feedIndex = indexByVid(state.feed);
+      buildAreaNav();
+    }
+  } finally {
+    state.feedComplete = true;
+    state.mounted?.refresh?.();
+  }
 }
 
 function buildAreaNav() {

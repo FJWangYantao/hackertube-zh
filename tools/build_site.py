@@ -22,6 +22,7 @@ TAXONOMY = ROOT / "data" / "taxonomy.json"
 RELATED = ROOT / "data" / "related.jsonl"
 OUT_DIR = ROOT / "site" / "data"
 COMMENTS_DIR = OUT_DIR / "comments"
+SUBS_DIR = OUT_DIR / "subs"
 # One video id per line; lines starting with # are notes.
 BLOCKLIST = ROOT / "tools" / "blocklist.txt"
 
@@ -58,6 +59,8 @@ FEED_KEYS = (
     "channel",
     "score",
     "content_type",
+    "level",
+    "topic",
     "recommenders",
     "first_year",
     "last_year",
@@ -85,6 +88,12 @@ def load_comment_counts() -> dict[str, int]:
             continue
         counts[path.stem] = len(payload.get("comments") or [])
     return counts
+
+
+def load_sub_ids() -> set[str]:
+    if not SUBS_DIR.exists():
+        return set()
+    return {path.stem for path in SUBS_DIR.glob("*.json") if path.stat().st_size > 20}
 
 
 def load_area_map() -> tuple[dict[str, str], list[dict[str, Any]]]:
@@ -177,6 +186,7 @@ def main() -> None:
             for vid in removed:
                 (OUT_DIR / folder / f"{vid}.json").unlink(missing_ok=True)
 
+    sub_ids = load_sub_ids()
     feed: list[dict[str, Any]] = []
     for row in output:
         entry = {key: row[key] for key in FEED_KEYS}
@@ -184,6 +194,8 @@ def main() -> None:
         entry["categories"] = (row["categories"] or [])[:3]
         entry["area"] = row["area"]
         entry["comment_count"] = comment_counts.get(row["vid"], 0)
+        if row["vid"] in sub_ids:
+            entry["has_sub"] = 1
         feed.append(entry)
 
     ids = {row["vid"] for row in output}

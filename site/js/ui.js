@@ -15,6 +15,13 @@ const TYPE_LABELS = {
   other: '其他',
 };
 
+const LEVEL_LABELS = {
+  intro: '入门',
+  intermediate: '进阶',
+  advanced: '深入',
+  general: '通识',
+};
+
 export function el(tag, props = {}, ...children) {
   const node = document.createElement(tag);
   for (const [key, value] of Object.entries(props)) {
@@ -89,6 +96,11 @@ export function thumb(video, { className = '', size = 'hqdefault' } = {}) {
 
 export function typeLabel(value) {
   return TYPE_LABELS[value] || value || '';
+}
+
+export function levelLabel(value, { includeGeneral = false } = {}) {
+  if (!includeGeneral && value === 'general') return '';
+  return LEVEL_LABELS[value] || '';
 }
 
 export function yearRange(video) {
