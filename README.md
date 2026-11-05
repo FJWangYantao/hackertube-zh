@@ -3,6 +3,7 @@
 把 [HackerTube](https://hackertube.org) 收录的 Hacker News 高推荐技术视频做成中文站：中文标题、中文导读、HN 讨论的译文，以及中英对照字幕。
 
 - 在线站点：<https://fjwangyantao.github.io/hackertube-zh/>
+- 更新日志：[CHANGELOG.md](CHANGELOG.md)
 - 数据来源：HackerTube（ODC-By 1.0）与 Hacker News
 - 本项目在 [LINUX DO](https://linux.do) 社区发布与交流，欢迎在那里反馈问题、提建议
 
