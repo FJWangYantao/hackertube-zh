@@ -78,18 +78,24 @@ export function thumb(video, { className = '', size = 'hqdefault' } = {}) {
     return box;
   }
   const img = el('img', {
+    class: 'is-loading',
     src: `https://i.ytimg.com/vi/${video.vid}/${size}.jpg`,
     alt: '',
     loading: 'lazy',
+    decoding: 'async',
     width: 480,
     height: 270,
   });
+  const markReady = () => img.classList.remove('is-loading');
+  img.addEventListener('load', markReady, { once: true });
   img.addEventListener('error', () => {
     img.remove();
     box.classList.add('thumb-fallback');
     box.append(el('span', {}, initial(video.channel)));
   }, { once: true });
   box.append(img);
+  // Cached images can finish before the load listener is attached.
+  if (img.complete && img.naturalWidth > 0) markReady();
   return box;
 }
 

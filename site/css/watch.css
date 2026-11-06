@@ -6,6 +6,7 @@
   max-width: 1754px;
   margin: 0 auto;
   padding: 24px;
+  overflow-x: clip;
 }
 
 .watch-main {
@@ -64,6 +65,13 @@
   height: 100%;
   object-fit: cover;
   opacity: 0.92;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s var(--ease);
+}
+
+.player:hover img {
+  opacity: 0.98;
+  transform: scale(1.02);
 }
 
 .player iframe {
@@ -75,33 +83,50 @@
 .play-btn {
   position: absolute;
   inset: 0;
+  z-index: 1;
   display: grid;
   place-items: center;
   border: 0;
-  background: transparent;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.22) 0%,
+    rgba(0, 0, 0, 0.05) 60%,
+    transparent 100%
+  );
 }
 
 .play-btn span {
   display: grid;
   place-items: center;
-  width: 68px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.76);
+  width: 72px;
+  height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  background: rgba(15, 15, 15, 0.72);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
   color: #fff;
-  transition: background 0.15s var(--ease);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.2s var(--ease), border-color 0.2s var(--ease),
+    box-shadow 0.22s var(--ease);
 }
 
 .play-btn span::before {
   content: "";
   margin-left: 4px;
-  border-top: 14px solid transparent;
-  border-bottom: 14px solid transparent;
-  border-left: 20px solid currentColor;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 19px solid currentColor;
 }
 
-.play-btn:hover span {
+.play-btn:hover span,
+.play-btn:focus-visible span {
+  border-color: rgba(255, 255, 255, 0.38);
   background: var(--brand-mark);
+  box-shadow: 0 10px 28px rgba(255, 102, 0, 0.45),
+    0 0 0 6px rgba(255, 102, 0, 0.18);
+  transform: scale(1.07);
 }
 
 .player-resume {
@@ -348,7 +373,7 @@
   position: relative;
   display: flex;
   gap: 12px;
-  margin: -12px -12px 8px;
+  margin: 0 -12px 8px;
   padding: 12px;
   border: 1px solid transparent;
   border-radius: var(--radius);
@@ -652,17 +677,43 @@
 
 .related-thumb {
   position: relative;
+  isolation: isolate;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--radius-sm);
   background: var(--bg-chip);
 }
 
+.related-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.42) 0%,
+    rgba(0, 0, 0, 0) 42%
+  );
+  opacity: 0.65;
+  pointer-events: none;
+  transition: opacity 0.22s var(--ease);
+}
+
+.related-item:hover .related-thumb::after {
+  opacity: 1;
+}
+
 .related-thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s var(--ease);
+}
+
+.related-thumb img.is-loading {
+  opacity: 0;
 }
 
 .related-item:hover .related-thumb img {
@@ -711,28 +762,35 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
-  max-width: 100%;
-  padding: 2px 10px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.72);
-  color: #fff;
+  gap: 2px;
+  max-width: 92%;
+  padding: 5px 14px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(12, 12, 12, 0.68);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  color: #fafafa;
   font-size: clamp(15px, 1.6vw, 26px);
-  line-height: 1.45;
+  line-height: 1.42;
   text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
   white-space: pre-wrap;
 }
 
 .sub-en {
-  font-size: 0.74em;
+  font-size: 0.72em;
   font-weight: 400;
+  letter-spacing: 0.01em;
   line-height: 1.35;
-  color: #d6d6d6;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .sub-zh {
   display: block;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .player:fullscreen {
@@ -1022,6 +1080,12 @@
     padding: 0 12px 32px;
   }
 
+  .watch-main::before {
+    right: 0;
+    left: 0;
+    filter: blur(36px) saturate(1.5);
+  }
+
   .player {
     margin: 0 -12px;
     border-radius: 0;
@@ -1036,6 +1100,11 @@
   .actions {
     width: 100%;
     margin-left: 0;
+  }
+
+  .comment {
+    margin: 0 -6px 8px;
+    padding: 10px;
   }
 
   .related-item {

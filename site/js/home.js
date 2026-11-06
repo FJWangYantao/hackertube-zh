@@ -384,13 +384,39 @@ function bookmarkIcon() {
   return svg;
 }
 
+function emptyIllustration(kind) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('width', '28');
+  svg.setAttribute('height', '28');
+  svg.setAttribute('aria-hidden', 'true');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke', 'currentColor');
+  path.setAttribute('stroke-width', '1.6');
+  path.setAttribute('stroke-linecap', 'round');
+  path.setAttribute('stroke-linejoin', 'round');
+  if (kind === 'saved') {
+    path.setAttribute('d', 'M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1Z');
+  } else if (kind === 'history') {
+    path.setAttribute('d', 'M12 7.5V12l3.2 2M20.5 12a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z');
+  } else {
+    path.setAttribute('d', 'M11 17.5a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Zm5-1.5 4.5 4.5');
+  }
+  svg.append(path);
+  return el('div', { class: 'empty-art', 'aria-hidden': 'true' }, svg);
+}
+
 function emptyState() {
   const copy = {
     saved: ['还没有收藏', '把鼠标移到视频卡片右上角，或进入观看页点「收藏」即可保存。'],
     history: ['还没有浏览记录', '点开过的视频会自动记录在这里。'],
     feed: ['没有匹配的内容', '换一个关键词，或清除当前的筛选条件。'],
   }[viewName] || ['没有内容', ''];
-  const wrap = el('div', { class: 'empty' }, el('h2', {}, copy[0]), el('p', {}, copy[1]));
+  const wrap = el('div', { class: 'empty' },
+    emptyIllustration(viewName),
+    el('h2', {}, copy[0]),
+    el('p', {}, copy[1]));
   if (viewName === 'feed') {
     wrap.append(el('button', {
       class: 'btn',
