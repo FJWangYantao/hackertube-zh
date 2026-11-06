@@ -101,6 +101,11 @@ export function show(container, route, ctx) {
   }
 
   const main = el('div', { class: 'watch-main' }, player.node, title);
+  // Poster bleed for the CSS ambient glow around the player.
+  main.style.setProperty(
+    '--ambient-img',
+    `url("https://i.ytimg.com/vi/${video.vid}/hqdefault.jpg")`,
+  );
   if (english) main.append(english);
   main.append(channel, description);
 

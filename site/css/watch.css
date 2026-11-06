@@ -9,8 +9,29 @@
 }
 
 .watch-main {
+  position: relative;
+  isolation: isolate;
   grid-column: 1;
   min-width: 0;
+}
+
+/* Cinema ambient light: the poster blurred and bled around the player */
+.watch-main::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -32px;
+  right: -24px;
+  left: -24px;
+  aspect-ratio: 16 / 9;
+  border-radius: 36px;
+  background-image: var(--ambient-img, none);
+  background-position: center;
+  background-size: cover;
+  filter: blur(52px) saturate(1.6);
+  opacity: var(--ambient-opacity);
+  pointer-events: none;
+  transform: scale(1.04);
 }
 
 .comments {
@@ -324,9 +345,51 @@
 }
 
 .comment {
+  position: relative;
   display: flex;
   gap: 12px;
-  margin-bottom: 20px;
+  margin: -12px -12px 8px;
+  padding: 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.comment:hover {
+  border-color: var(--border-subtle);
+  background: var(--bg-subtle);
+}
+
+/* 力荐 comment gets a warm spine so the standout review reads at a glance */
+.comment:has(.s-strong) {
+  border-color: rgba(234, 88, 12, 0.16);
+  background: linear-gradient(
+    100deg,
+    rgba(234, 88, 12, 0.07),
+    rgba(234, 88, 12, 0.015) 55%,
+    transparent
+  );
+}
+
+.comment:has(.s-strong)::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  left: 0;
+  width: 2px;
+  border-radius: var(--pill);
+  background: var(--brand-mark);
+}
+
+.comment:has(.s-strong):hover {
+  border-color: rgba(234, 88, 12, 0.3);
+  background: linear-gradient(
+    100deg,
+    rgba(234, 88, 12, 0.11),
+    rgba(234, 88, 12, 0.03) 55%,
+    transparent
+  );
 }
 
 .comment .avatar {
@@ -533,6 +596,24 @@
   box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.22);
 }
 
+@keyframes live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.38);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 102, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 102, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rail-tab[aria-selected="true"] .rail-live-dot {
+    animation: live-pulse 2.4s var(--ease) infinite;
+  }
+}
+
 .rail-tab-count {
   padding: 0 6px;
   border-radius: var(--pill);
@@ -562,6 +643,7 @@
   margin: -4px;
   padding: 4px;
   border-radius: var(--radius-sm);
+  transition: background 0.18s var(--ease);
 }
 
 .related-item:hover {
@@ -580,6 +662,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.related-item:hover .related-thumb img {
+  transform: scale(1.05);
 }
 
 .related-title {
@@ -775,7 +862,20 @@
   overflow-y: auto;
   padding: 12px 8px 40px;
   scroll-behavior: smooth;
-  scrollbar-width: thin;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 40px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 40px),
+    transparent 100%
+  );
 }
 
 .transcript-list.hide-en .transcript-en {

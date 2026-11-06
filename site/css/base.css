@@ -21,6 +21,18 @@
   --font: system-ui, -apple-system, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Depth & glass layer */
+  --border-subtle: rgba(15, 15, 15, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --card-shadow: 0 4px 16px rgba(15, 15, 15, 0.07);
+  --card-shadow-hover: 0 10px 28px rgba(15, 15, 15, 0.12);
+  --ambient-opacity: 0.14;
+
+  /* Scrollbars */
+  --scroll-thumb: rgba(15, 15, 15, 0.18);
+  --scroll-thumb-hover: rgba(15, 15, 15, 0.34);
+
   color-scheme: light;
 }
 
@@ -40,6 +52,16 @@
     --brand-mark: #ff6600;
     --avatar-l-bg: 24%;
     --avatar-l-fg: 82%;
+
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.62);
+    --ambient-opacity: 0.32;
+
+    --scroll-thumb: rgba(255, 255, 255, 0.16);
+    --scroll-thumb-hover: rgba(255, 255, 255, 0.3);
+
     color-scheme: dark;
   }
 }
@@ -59,6 +81,16 @@
   --brand-mark: #ff6600;
   --avatar-l-bg: 24%;
   --avatar-l-fg: 82%;
+
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --card-shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.62);
+  --ambient-opacity: 0.32;
+
+  --scroll-thumb: rgba(255, 255, 255, 0.16);
+  --scroll-thumb-hover: rgba(255, 255, 255, 0.3);
+
   color-scheme: dark;
 }
 
@@ -268,6 +300,42 @@ p {
   font-size: 13px;
   transform: translateX(-50%);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Slim, rounded scrollbars. Chromium ignores ::-webkit-scrollbar as soon as
+   scrollbar-width/scrollbar-color are set, so the Firefox fallback is scoped. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  border-radius: var(--pill);
+  background: var(--scroll-thumb);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html,
+  .sidebar,
+  .transcript-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

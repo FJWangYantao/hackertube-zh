@@ -7,7 +7,10 @@
   gap: 8px;
   height: var(--header-h);
   padding: 0 16px;
-  background: var(--bg);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-glass);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
 }
 
 .brand {
@@ -143,8 +146,8 @@
   width: var(--sidebar-w);
   padding: 12px;
   overflow-y: auto;
+  border-right: 1px solid var(--border-subtle);
   background: var(--bg);
-  scrollbar-width: thin;
 }
 
 .nav {
@@ -154,12 +157,14 @@
 }
 
 .nav-item {
+  position: relative;
   display: flex;
   align-items: center;
   height: 40px;
   padding: 0 12px;
   border-radius: 10px;
   font-size: 14px;
+  transition: background 0.15s var(--ease);
 }
 
 .nav-item:hover {
@@ -168,6 +173,26 @@
 
 .nav-item[aria-current="page"] {
   background: var(--bg-chip);
+  font-weight: 600;
+}
+
+/* Brand mark on the selected nav entry (top-level and channel rows) */
+.nav-item[aria-current="page"]::before,
+.nav-sub[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  width: 3px;
+  height: 18px;
+  border-radius: var(--pill);
+  background: var(--brand-mark);
+  transform: translateY(-50%);
+}
+
+.nav-item[aria-current="page"] .nav-count,
+.nav-sub[aria-current="page"] .nav-count {
+  color: var(--brand);
   font-weight: 600;
 }
 
@@ -184,6 +209,7 @@
 }
 
 .nav-sub {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -193,6 +219,7 @@
   border-radius: 10px;
   color: var(--text-2);
   font-size: 13px;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
 }
 
 .nav-sub:hover {

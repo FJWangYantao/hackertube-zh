@@ -10,8 +10,10 @@
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
+  border-bottom: 1px solid var(--border-subtle);
   background: var(--bg-glass);
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  backdrop-filter: blur(14px) saturate(1.5);
 }
 
 .chips {
@@ -165,11 +167,17 @@
   position: relative;
   margin: -8px;
   padding: 8px;
+  border: 1px solid transparent;
   border-radius: var(--radius);
+  transition: transform 0.22s var(--ease), background 0.2s var(--ease),
+    box-shadow 0.22s var(--ease), border-color 0.2s var(--ease);
 }
 
 .card:hover {
+  border-color: var(--border-subtle);
   background: var(--bg-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
 }
 
 .card-link {
@@ -178,6 +186,7 @@
 
 .thumb {
   position: relative;
+  isolation: isolate;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 10px;
@@ -188,6 +197,33 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card:hover .thumb img,
+.card:focus-within .thumb img {
+  transform: scale(1.04);
+}
+
+/* Bottom vignette so the glass badges stay legible over any thumbnail */
+.thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0) 42%
+  );
+  opacity: 0.65;
+  pointer-events: none;
+  transition: opacity 0.22s var(--ease);
+}
+
+.card:hover .thumb::after,
+.card:focus-within .thumb::after {
+  opacity: 1;
 }
 
 .thumb-fallback {
@@ -214,9 +250,13 @@
   position: absolute;
   right: 6px;
   bottom: 7px;
-  padding: 2px 5px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.78);
+  z-index: 1;
+  padding: 2px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: rgba(15, 15, 15, 0.62);
+  -webkit-backdrop-filter: blur(8px) saturate(1.4);
+  backdrop-filter: blur(8px) saturate(1.4);
   color: #fff;
   font-size: 12px;
   font-weight: 500;
@@ -228,7 +268,12 @@
 }
 
 .badge-sub {
-  background: rgba(194, 65, 12, 0.92);
+  border-color: rgba(255, 237, 213, 0.28);
+  background: linear-gradient(
+    135deg,
+    rgba(234, 88, 12, 0.92),
+    rgba(194, 65, 12, 0.94)
+  );
   color: #fff;
   font-size: 11px;
   font-weight: 600;
@@ -239,9 +284,13 @@
   position: absolute;
   left: 6px;
   bottom: 7px;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: rgba(15, 15, 15, 0.76);
+  z-index: 1;
+  padding: 1px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: rgba(15, 15, 15, 0.6);
+  -webkit-backdrop-filter: blur(8px) saturate(1.4);
+  backdrop-filter: blur(8px) saturate(1.4);
   color: rgba(255, 255, 255, 0.92);
   font-size: 11px;
   font-weight: 500;
@@ -251,6 +300,7 @@
 .thumb-progress {
   position: absolute;
   inset: auto 0 0 0;
+  z-index: 1;
   height: 3px;
   background: rgba(255, 255, 255, 0.28);
 }
@@ -479,7 +529,14 @@
   }
 
   .card:hover {
+    border-color: transparent;
     background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .card:hover .thumb img {
+    transform: none;
   }
 
   .card-title {
