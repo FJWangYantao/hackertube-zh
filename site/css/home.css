@@ -12,8 +12,8 @@
   padding: 12px 24px;
   border-bottom: 1px solid var(--border-subtle);
   background: var(--bg-glass);
-  -webkit-backdrop-filter: blur(14px) saturate(1.5);
-  backdrop-filter: blur(14px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  backdrop-filter: blur(16px) saturate(1.5);
 }
 
 .chips {
@@ -83,8 +83,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-  gap: 24px 16px;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px 20px;
   max-width: 1760px;
   padding: 16px 24px 0;
 }
@@ -104,16 +104,8 @@
 }
 
 .sk-body {
-  display: grid;
-  grid-template-columns: 36px 1fr;
-  gap: 12px;
+  display: block;
   padding-top: 12px;
-}
-
-.sk-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
 }
 
 .sk-text {
@@ -138,7 +130,6 @@
 }
 
 .sk-thumb,
-.sk-avatar,
 .sk-line {
   background: linear-gradient(
     90deg,
@@ -157,7 +148,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .sk-thumb,
-  .sk-avatar,
   .sk-line {
     animation: none;
   }
@@ -165,18 +155,19 @@
 
 .card {
   position: relative;
-  margin: -8px;
-  padding: 8px;
-  border: 1px solid transparent;
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--card-highlight), var(--card-shadow);
   transition: transform 0.22s var(--ease), background 0.2s var(--ease),
     box-shadow 0.22s var(--ease), border-color 0.2s var(--ease);
 }
 
 .card:hover {
-  border-color: var(--border-subtle);
-  background: var(--bg-hover);
-  box-shadow: var(--card-shadow-hover);
+  border-color: var(--border);
+  background: var(--bg-card);
+  box-shadow: var(--card-highlight), var(--card-shadow-hover);
   transform: translateY(-2px);
 }
 
@@ -361,8 +352,6 @@
 }
 
 .card-body {
-  display: flex;
-  gap: 12px;
   padding-top: 12px;
 }
 
@@ -382,12 +371,29 @@
 }
 
 .card-channel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin-top: 6px;
   overflow: hidden;
   color: var(--text-2);
   font-size: 14px;
-  text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Inline 18px channel mark replaces the old full-size avatar column */
+.card-channel .avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.card-channel-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-meta {
@@ -545,6 +551,9 @@
   .card {
     margin: 0;
     padding: 0;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
   }
 
   .card-save {
@@ -568,3 +577,130 @@
     font-size: 15px;
   }
 }
+
+/* Full-text subtitle search hits (under the feed head) */
+.sub-hits {
+  margin: 0 12px 18px;
+  padding: 14px 16px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-subtle);
+}
+
+.sub-hits-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.sub-hits-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.sub-hits-meta {
+  font-size: 12px;
+}
+
+.sub-hits-more {
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.sub-hits-note {
+  padding: 2px 0 4px;
+  font-size: 12.5px;
+}
+
+.sub-hits-list {
+  display: grid;
+  gap: 2px;
+}
+
+.sub-hit {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 12px;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s var(--ease);
+}
+
+.sub-hit:hover {
+  background: var(--bg-hover);
+}
+
+.sub-hit-thumb {
+  align-self: start;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.sub-hit-body {
+  min-width: 0;
+}
+
+.sub-hit-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.sub-hit-snippet {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 3px;
+}
+
+.sub-hit-ts {
+  flex: none;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: rgba(234, 88, 12, 0.12);
+  color: var(--brand);
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.sub-hit-line {
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  color: var(--text-2);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  .sub-hits {
+    margin: 0 12px 14px;
+  }
+
+  .sub-hit {
+    grid-template-columns: 96px 1fr;
+    gap: 10px;
+  }
+}
+
+/* Geek mono readouts: counts, years, timestamps */
+.card-meta,
+.badge,
+.badge-visited,
+.sub-hit-ts {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-visited {
+  letter-spacing: -0.01em;
+}
+
