@@ -815,7 +815,8 @@
   flex-direction: column;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--bg);
+  background: var(--bg-card);
+  box-shadow: var(--card-highlight);
   overflow: hidden;
 }
 
@@ -1111,3 +1112,279 @@
     grid-template-columns: 140px 1fr;
   }
 }
+
+/* Subtitle export dropdown (SRT / VTT / TXT / Markdown) */
+.export-wrap {
+  position: relative;
+  flex: none;
+}
+
+.export-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 8;
+  min-width: 196px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+.export-item {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--text);
+  font-size: 12.5px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.export-item:hover {
+  background: var(--bg-hover);
+}
+
+/* Chapter dividers interleaved with the live subtitle stream */
+.transcript-chapter {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  margin: 10px 0 4px;
+  padding: 6px 10px 6px 9px;
+  border: 0;
+  border-left: 3px solid var(--border);
+  border-radius: 0 8px 8px 0;
+  background: var(--bg-subtle);
+  color: var(--text);
+  text-align: left;
+  transition: border-color 0.15s var(--ease), background 0.15s var(--ease);
+}
+
+.transcript-chapter:hover {
+  border-left-color: var(--brand);
+  background: var(--bg-hover);
+}
+
+.transcript-chapter-ts {
+  flex: none;
+  color: var(--brand);
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.transcript-chapter-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.transcript-chapter:hover .transcript-chapter-title {
+  color: var(--text);
+}
+
+/* Chapter strip right under the player */
+.chapter-bar {
+  display: flex;
+  gap: 3px;
+  margin-top: 10px;
+}
+
+.chapter-seg {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  min-width: 0;
+  padding: 5px 8px 4px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-subtle);
+  text-align: left;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.chapter-seg:hover {
+  background: var(--bg-hover);
+  border-color: var(--text-3);
+}
+
+.chapter-seg.is-active {
+  border-color: rgba(234, 88, 12, 0.45);
+  background: rgba(234, 88, 12, 0.1);
+}
+
+.chapter-seg-time {
+  color: var(--text-3);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chapter-seg.is-active .chapter-seg-time {
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.chapter-seg-title {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-2);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+.chapter-seg.is-active .chapter-seg-title {
+  color: var(--text);
+}
+
+/* AI outline card (TL;DR + chapter chips) */
+.watch-outline {
+  margin: 12px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--card-highlight);
+}
+
+.outline-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.outline-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.outline-badge {
+  padding: 1px 8px;
+  border: 1px solid rgba(234, 88, 12, 0.35);
+  border-radius: var(--pill);
+  background: rgba(234, 88, 12, 0.1);
+  color: var(--brand);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.outline-tldr {
+  color: var(--text-2);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+.outline-chapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.outline-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--pill);
+  background: var(--bg);
+  color: var(--text-2);
+  font-size: 12px;
+  transition: border-color 0.15s var(--ease), color 0.15s var(--ease),
+    background 0.15s var(--ease);
+}
+
+.outline-chip:hover {
+  border-color: rgba(234, 88, 12, 0.4);
+  background: rgba(234, 88, 12, 0.06);
+  color: var(--text);
+}
+
+.outline-chip-ts {
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 900px) {
+  .chapter-bar {
+    flex-wrap: wrap;
+  }
+
+  .chapter-seg-title {
+    display: none;
+  }
+
+  .chapter-seg {
+    padding: 4px 7px;
+  }
+}
+
+/* ── Theater / wide mode (W) ─────────────────────────────────────────────
+   Collapses the two-column layout at wide viewports: the player stretches to
+   the full container and the rail drops below the main column. */
+@media (min-width: 1101px) {
+  .watch.is-theater {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 1440px;
+  }
+
+  .watch.is-theater .watch-main,
+  .watch.is-theater .comments {
+    grid-column: 1;
+  }
+
+  .watch.is-theater .related,
+  .watch.is-theater .related.is-stream-active {
+    position: static;
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 24px;
+  }
+
+  .watch.is-theater .player {
+    max-height: calc(100vh - var(--header-h) - 88px);
+  }
+
+  .watch.is-theater .watch-main::before {
+    top: -40px;
+    right: -40px;
+    left: -40px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .theater-btn {
+    display: none;
+  }
+}
+
+/* Geek mono readouts: timestamps and counters */
+.comment-ts,
+.comment-date,
+.transcript-ts,
+.chapter-seg-time,
+.transcript-chapter-ts,
+.outline-chip-ts,
+.player-resume,
+.rail-tab-count {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+
