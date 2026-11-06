@@ -1,7 +1,7 @@
 import {
   el, avatar, thumb, typeLabel, levelLabel, metaLine, toast, formatClock, thumbProgress,
 } from './ui.js';
-import { comments as loadComments, load, store, subs as loadSubs } from './data.js';
+import { comments as loadComments, load, store, subs as loadSubs, chapters as loadChapters } from './data.js';
 import { renderComments } from './comments.js';
 import { createOverlay, loadYouTubeApi, renderTranscript } from './subtitles.js';
 
@@ -48,6 +48,7 @@ export function show(container, route, ctx) {
   let destroyed = false;
   let transcript = null;
   let toggleRailTab = null;
+  let chapterBar = null;
   let cachedRelatedMap = {};
   ctx.setTitle(`${video.title_zh || video.title} · HackerTube 中文`);
   markVisited(video.vid);
@@ -60,8 +61,10 @@ export function show(container, route, ctx) {
   const initialStart = urlTime || (canResumeSaved ? savedProgress.t : 0);
 
   const player = buildPlayer(video, initialStart, canResumeSaved);
+  const chaptersPromise = loadChapters(video.vid).catch(() => null);
   player.onTimeUpdate = (time, duration, force = false) => {
     transcript?.update(time);
+    chapterBar?.update(time);
     store.setProgress(video.vid, time, duration, force);
   };
 
@@ -79,14 +82,27 @@ export function show(container, route, ctx) {
     : null;
   const commentCount = video.comment_count || 0;
   const subtitleBtn = buildSubtitleButton(player);
+  const theaterBtn = buildTheaterButton();
   const fullscreenBtn = buildFullscreenButton(player);
+  let watchRoot = null;
+  const setTheater = (on, announce = false) => {
+    watchRoot?.classList.toggle('is-theater', on);
+    theaterBtn.classList.toggle('is-on', on);
+    theaterBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    theaterBtn.textContent = on ? '标准屏' : '宽屏';
+    store.set('theater', on);
+    if (announce) toast(on ? '已切换到宽屏' : '已恢复标准布局');
+  };
+  theaterBtn.addEventListener('click', () => {
+    setTheater(!(watchRoot?.classList.contains('is-theater')), true);
+  });
   let canSync = true;
   player.onFallback = () => {
     canSync = false;
     subtitleBtn.hidden = true;
   };
   const { row: channel, toggleSave } = buildChannel(
-    video, commentCount, player, [subtitleBtn, fullscreenBtn],
+    video, commentCount, player, [subtitleBtn, theaterBtn, fullscreenBtn],
   );
   const description = buildDescription(video, ctx);
   const commentsBox = el('section', { class: 'comments' });
@@ -108,6 +124,17 @@ export function show(container, route, ctx) {
   );
   if (english) main.append(english);
   main.append(channel, description);
+
+  // AI outline: chapter strip under the player + TL;DR card above the description.
+  chaptersPromise.then((data) => {
+    if (destroyed) return;
+    const chapters = data?.chapters || [];
+    if (!chapters.length) return;
+    chapterBar = buildChapterBar(chapters, data.dur || 0, seekAndScroll);
+    main.insertBefore(chapterBar.node, title);
+    main.insertBefore(buildOutline(data, seekAndScroll), description);
+    chapterBar.update(initialStart);
+  });
 
   const initialRelated = pickRelated(video, {}, ctx);
   const relatedCountEl = el('span', { class: 'rail-tab-count' }, String(initialRelated.length));
@@ -131,15 +158,22 @@ export function show(container, route, ctx) {
     updateRelatedList();
   });
 
-  container.replaceChildren(el('div', { class: 'watch' }, main, rail, commentsBox));
+  watchRoot = el('div', { class: 'watch' }, main, rail, commentsBox);
+  container.replaceChildren(watchRoot);
+  setTheater(store.get('theater', false) === true);
 
-  loadSubs(video.vid).then((payload) => {
+  loadSubs(video.vid).then(async (payload) => {
     if (destroyed) return;
     const cues = (payload?.cues || []).filter((cue) => cue.zh);
     if (!cues.length) return;
     player.setCues(cues);
     subtitleBtn.hidden = !canSync;
-    transcript = renderTranscript(cues, seekAndScroll);
+    const chapterData = await chaptersPromise;
+    if (destroyed) return;
+    transcript = renderTranscript(cues, seekAndScroll, {
+      chapters: chapterData?.chapters || [],
+      meta: { vid: video.vid, title: video.title_zh || video.title },
+    });
     if (initialStart > 0) transcript.update(initialStart);
 
     let activeTab = 'stream';
@@ -213,6 +247,10 @@ export function show(container, route, ctx) {
     } else if ((event.key === 'f' || event.key === 'F') && !fullscreenBtn.hidden) {
       event.preventDefault();
       fullscreenBtn.click();
+    } else if ((event.key === 'w' || event.key === 'W')
+      && window.matchMedia('(min-width: 1101px)').matches) {
+      event.preventDefault();
+      theaterBtn.click();
     }
   };
   document.addEventListener('keydown', onKeyDown);
@@ -224,11 +262,73 @@ export function show(container, route, ctx) {
     },
     destroy() {
       destroyed = true;
+      transcript?.destroy?.();
       player.destroy();
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('fullscreenchange', onFullscreen);
     },
   };
+}
+
+/** Chapter strip right under the player; segments sized by chapter length. */
+function buildChapterBar(chapters, duration, onSeek) {
+  const last = chapters[chapters.length - 1];
+  const total = Math.max(1, duration || (last ? last.s + 60 : 1));
+  const segments = chapters.map((chapter, i) => {
+    const end = i + 1 < chapters.length ? chapters[i + 1].s : total;
+    const span = Math.max(2, end - chapter.s);
+    const node = el('button', {
+      class: 'chapter-seg',
+      type: 'button',
+      style: { flexGrow: String(span) },
+      title: `${formatClock(chapter.s)} · ${chapter.t}`,
+      on: { click: () => onSeek(chapter.s) },
+    },
+      el('span', { class: 'chapter-seg-time' }, formatClock(chapter.s)),
+      el('span', { class: 'chapter-seg-title' }, chapter.t),
+    );
+    return { chapter, node };
+  });
+
+  const bar = el('div', { class: 'chapter-bar', role: 'navigation', 'aria-label': '章节导航' },
+    ...segments.map((segment) => segment.node));
+
+  let active = -1;
+  return {
+    node: bar,
+    update(time) {
+      let next = -1;
+      for (let i = 0; i < segments.length; i++) {
+        if (time + 0.01 >= segments[i].chapter.s) next = i;
+      }
+      if (next === active) return;
+      if (active >= 0) segments[active].node.classList.remove('is-active');
+      active = next;
+      if (next >= 0) segments[next].node.classList.add('is-active');
+    },
+  };
+}
+
+/** TL;DR card with clickable chapter chips, placed above the description. */
+function buildOutline(data, onSeek) {
+  return el('section', { class: 'watch-outline', 'aria-label': 'AI 内容大纲' },
+    el('div', { class: 'outline-head' },
+      el('h2', { class: 'outline-title' }, '内容大纲'),
+      el('span', { class: 'outline-badge', title: '由 AI 根据字幕生成，仅供参考' }, 'AI 生成'),
+    ),
+    el('p', { class: 'outline-tldr' }, data.tldr || ''),
+    el('div', { class: 'outline-chapters' },
+      ...(data.chapters || []).map((chapter) => el('button', {
+        class: 'outline-chip',
+        type: 'button',
+        title: `跳到 ${formatClock(chapter.s)}`,
+        on: { click: () => onSeek(chapter.s) },
+      },
+        el('span', { class: 'outline-chip-ts' }, formatClock(chapter.s)),
+        el('span', {}, chapter.t),
+      )),
+    ),
+  );
 }
 
 function showError(container, heading, message) {
@@ -445,6 +545,15 @@ function buildSubtitleButton(player) {
     apply();
   });
   return button;
+}
+
+function buildTheaterButton() {
+  return el('button', {
+    class: 'btn theater-btn',
+    type: 'button',
+    title: '切换宽屏（快捷键 W）',
+    'aria-pressed': 'false',
+  }, '宽屏');
 }
 
 function buildFullscreenButton(player) {

@@ -303,7 +303,7 @@ function bindChrome() {
 }
 
 function setSearchPlaceholder() {
-  searchInput.placeholder = mobile.matches ? '搜索' : '搜索视频、频道、主题';
+  searchInput.placeholder = mobile.matches ? '搜索' : '搜索视频、频道、字幕';
 }
 
 function syncSidebarInert() {

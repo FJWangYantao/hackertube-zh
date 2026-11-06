@@ -63,7 +63,7 @@ python -I -m http.server 8765 --bind 127.0.0.1 --directory site
 
 打开 <http://127.0.0.1:8765/>。前端使用原生 ES modules，必须通过 HTTP 访问，直接双击 `index.html` 无法加载数据。
 
-`build_site.py` 会额外生成 `site/data/feed.json`（首页前 600 条）、`feed-rest.json`（其余条目，首屏渲染后后台加载）、`related.json`（相关视频）和 `meta.json`（领域中文名与评论计数）。`site/data/comments/` 仍由 `translate_comments.py` 单独生成，不会被覆盖。
+`build_site.py` 会额外生成 `site/data/feed.json`（首页前 600 条）、`feed-rest.json`（其余条目，首屏渲染后后台加载）、`related.json`（相关视频）、`meta.json`（领域中文名与评论计数）和 `subs-index.json`（字幕全文搜索的倒排索引，约 7 MB、gzip 后约 3 MB，用户搜索时才会加载）。`site/data/comments/` 仍由 `translate_comments.py` 单独生成，不会被覆盖。
 
 ### 屏蔽某些视频
 
@@ -71,7 +71,7 @@ python -I -m http.server 8765 --bind 127.0.0.1 --directory site
 
 ## 中文字幕
 
-观看页支持站内中文字幕：播放器底部叠加同步字幕，简介下方提供可点击跳转的「字幕文稿」面板。字幕按钮三态循环：**字幕 关 → 字幕 中 → 字幕 中英**，选择存在 `localStorage`；「字幕文稿」始终中英对照。
+观看页支持站内中文字幕：播放器底部叠加同步字幕，简介下方提供可点击跳转的「字幕文稿」面板。字幕按钮三态循环：**字幕 关 → 字幕 中 → 字幕 中英**，选择存在 `localStorage`；「字幕文稿」始终中英对照，工具栏支持关键词搜索、一键复制与**导出 SRT / VTT / TXT / Markdown**。有 AI 章节的数据时（见下），播放器下方会显示章节导航条，「内容大纲」卡片展示 TL;DR，字幕流按章节分组。
 
 字幕按视频拆分为 `site/data/subs/<vid>.json`，点开观看页时才加载：
 
@@ -116,6 +116,25 @@ python -I tools/transcribe_gemini.py --vid-file work/missing_subs.txt
 ```bash
 python -m pip install --target work/vendor imageio-ffmpeg --no-deps
 ```
+
+### AI 章节大纲
+
+对已有字幕的视频，用本地网关生成中文 TL;DR 与时间轴章节（`site/data/chapters/<vid>.json`）。观看页会展示「内容大纲」卡片、播放器下方的章节导航条，字幕流面板按章节分组：
+
+```bash
+# 按评分从高到低，为前 20 个有字幕的视频生成
+python -I tools/make_chapters.py --limit 20 --workers 4
+# 批量补齐全部（跳过已有章节的）
+python -I tools/make_chapters.py --all --only-missing
+```
+
+不带 `--vids / --vid-file / --all / --limit` 时会直接报错退出，避免误对全部视频调用网关。
+
+模型回复缓存在 `work/chapters/`，`--force` 重新生成。`build_site.py` 不调用它（需要网关在线），按需手动跑。
+
+### 字幕全文搜索
+
+`build_site.py` 会调用 `tools/subindex.py` 生成 `site/data/subs-index.json`：视频级倒排索引，token 为英文词（≥2 字符、去停用词）与中文字符 bigram，postings 用 delta-base36 编码。前端在搜索时才加载它，先按 token 交集筛出候选视频，再懒加载候选视频的字幕文件，精确定位到句和时间戳，点击直达 `#/video/<vid>?t=<秒>`。停用词表在 `tools/subindex.py` 与 `site/js/subsearch.js` 各有一份，修改时保持同步。
 
 ## 语义检索示例
 

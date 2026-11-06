@@ -1,5 +1,6 @@
 import { el, toast } from './ui.js';
 import { store } from './data.js';
+import { buildExportMenu } from './subexport.js';
 
 const YT_API = 'https://www.youtube.com/iframe_api';
 const STREAM_GAP = 2.5;
@@ -119,11 +120,11 @@ export function stamp(seconds) {
   return `${hours ? `${hours}:` : ''}${mm}:${String(secs).padStart(2, '0')}`;
 }
 
-function escapeRegExp(str) {
+export function escapeRegExp(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function renderHighlighted(container, text, regex) {
+export function renderHighlighted(container, text, regex) {
   container.replaceChildren();
   if (!text) return;
   if (!regex) {
@@ -144,7 +145,14 @@ function renderHighlighted(container, text, regex) {
   }
 }
 
-export function renderTranscript(cues, onSeek) {
+/**
+ * Build the live subtitle stream panel.
+ * @param {Array<{s: number, e: number, zh: string, en: string}>} cues
+ * @param {(seconds: number) => void} onSeek
+ * @param {{ chapters?: Array<{s: number, t: string}>, meta?: {vid: string, title: string} }} [opts]
+ */
+export function renderTranscript(cues, onSeek, opts = {}) {
+  const { chapters = [], meta = {} } = opts;
   let showEn = store.get('stream_en', true) !== false;
   const list = el('div', { class: 'transcript-list' + (showEn ? '' : ' hide-en') });
   const items = [];
@@ -221,7 +229,34 @@ export function renderTranscript(cues, onSeek) {
   list.addEventListener('wheel', pauseByUserScroll, { passive: true });
   list.addEventListener('touchmove', pauseByUserScroll, { passive: true });
 
+  // Optional chapter dividers interleaved with the cue lines.
+  const chapterNodes = [];
+  let chapterPos = 0;
+  const addChapterHeader = (chapter) => {
+    const node = el('button', {
+      class: 'transcript-chapter',
+      type: 'button',
+      title: `跳到 ${stamp(chapter.s)}`,
+      on: {
+        click: () => {
+          userPausedUntil = 0;
+          syncResumeBtn.hidden = true;
+          onSeek(chapter.s);
+        },
+      },
+    },
+      el('span', { class: 'transcript-chapter-ts' }, stamp(chapter.s)),
+      el('span', { class: 'transcript-chapter-title' }, chapter.t),
+    );
+    chapterNodes.push(node);
+    list.append(node);
+  };
+
   cues.forEach((cue, idx) => {
+    while (chapterPos < chapters.length && cue.s >= chapters[chapterPos].s - 0.01) {
+      addChapterHeader(chapters[chapterPos]);
+      chapterPos += 1;
+    }
     const enText = (cue.en || '').trim();
     const zhText = (cue.zh || '').trim();
     const enEl = enText ? el('span', { class: 'transcript-en' }, enText) : null;
@@ -337,6 +372,7 @@ export function renderTranscript(cues, onSeek) {
         item.zhEl.textContent = item.cue.zh;
         if (item.enEl) item.enEl.textContent = item.cue.en;
       }
+      for (const node of chapterNodes) node.hidden = false;
       emptyEl.hidden = true;
       if (autoFollow) scrollToActive(false);
       return;
@@ -353,6 +389,8 @@ export function renderTranscript(cues, onSeek) {
         if (item.enEl) renderHighlighted(item.enEl, item.cue.en, regex);
       }
     }
+    // Searching is about the matching lines; chapter dividers only add noise.
+    for (const node of chapterNodes) node.hidden = true;
     matchCountEl.textContent = `${matches} 句`;
     emptyEl.hidden = matches > 0;
   }
@@ -371,11 +409,13 @@ export function renderTranscript(cues, onSeek) {
     searchInput.focus();
   });
 
+  const exportMenu = buildExportMenu(cues, meta);
   const toolbar = el('div', { class: 'transcript-bar' },
     el('div', { class: 'transcript-search' }, searchInput, matchCountEl, clearBtn),
     biBtn,
     followBtn,
     copyBtn,
+    exportMenu.node,
   );
 
   const panel = el('div', { class: 'stream-panel' },
@@ -395,6 +435,9 @@ export function renderTranscript(cues, onSeek) {
     },
     clear() {
       setActive(-1, false);
+    },
+    destroy() {
+      exportMenu.destroy();
     },
   };
 }

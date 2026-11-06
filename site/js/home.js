@@ -3,6 +3,8 @@ import {
 } from './ui.js';
 import { store } from './data.js';
 import { replace } from './router.js';
+import { renderHighlighted, escapeRegExp } from './subtitles.js';
+import { searchSubtitles } from './subsearch.js';
 
 const PAGE = 48;
 
@@ -34,6 +36,8 @@ let headActionEl;
 let grid;
 let sentinel;
 let observer;
+let subHitsEl;
+let subHitsToken = 0;
 
 export function show(viewEl, route, context, restored = null) {
   ctx = context;
@@ -81,12 +85,14 @@ function renderShell() {
   countEl = el('p', { class: 'count' });
   headActionEl = el('div', { class: 'head-actions' });
   headEl = el('div', { class: 'feed-head' }, titleEl, countEl, headActionEl);
+  subHitsEl = el('section', { class: 'sub-hits', hidden: true, 'aria-label': '字幕全文搜索结果' });
   grid = el('div', { class: 'grid' });
   sentinel = el('div', { class: 'sentinel' });
   container.replaceChildren(
     el('section', { class: 'feed' },
       chipsBarEl,
       headEl,
+      subHitsEl,
       grid,
       sentinel,
     ),
@@ -104,6 +110,7 @@ function apply(initialCount = PAGE) {
   shown = 0;
   renderBatch(true, initialCount);
   updateHead();
+  scheduleSubHits();
   observer.disconnect();
   observer.observe(sentinel);
   ctx.syncNav?.(viewName, params);
@@ -116,6 +123,9 @@ function refresh() {
   shown = 0;
   renderBatch(true, keep);
   updateHead();
+  // renderBatch rebuilt the grid (and its empty state), so re-run the
+  // subtitle search to restore its results and empty-state copy.
+  scheduleSubHits();
   observer.disconnect();
   observer.observe(sentinel);
 }
@@ -332,10 +342,12 @@ function card(video) {
   link.append(
     thumbNode,
     el('div', { class: 'card-body' },
-      avatar(video.channel),
       el('div', { class: 'card-text' },
         el('h3', { class: 'card-title' }, video.title_zh || video.title),
-        el('p', { class: 'card-channel' }, video.channel || ''),
+        el('p', { class: 'card-channel' },
+          avatar(video.channel, 'xs'),
+          el('span', { class: 'card-channel-name' }, video.channel || ''),
+        ),
         metaRow,
         video.why_zh ? el('p', { class: 'card-why' }, video.why_zh) : null,
       ),
@@ -572,6 +584,92 @@ function updateHead() {
       }, '清空记录'),
     );
   }
+}
+
+/** Full-text subtitle search box under the feed head; stale async runs are fenced off. */
+function scheduleSubHits() {
+  const token = ++subHitsToken;
+  const query = (params.get('q') || '').trim();
+  if (viewName !== 'feed' || query.length < 2) {
+    subHitsEl.hidden = true;
+    subHitsEl.replaceChildren();
+    return;
+  }
+  subHitsEl.hidden = false;
+  subHitsEl.replaceChildren(el('p', { class: 'sub-hits-note muted' }, '正在检索字幕全文…'));
+  searchSubtitles(query, ctx)
+    .then((result) => {
+      if (token !== subHitsToken) return;
+      renderSubHits(query, result);
+    })
+    .catch(() => {
+      if (token !== subHitsToken) return;
+      subHitsEl.hidden = true;
+    });
+}
+
+/** Keep the grid's empty state honest when only subtitles matched. */
+function syncEmptyStateForSubHits(result) {
+  const empty = grid.querySelector('.empty');
+  if (!empty || !result.hits.length) return;
+  empty.querySelector('h2').textContent = '标题与导读中没有匹配';
+  empty.querySelector('p').textContent = '字幕里找到了相关内容，见上方「字幕命中」。';
+  empty.querySelector('.btn')?.remove();
+}
+
+function renderSubHits(query, result) {
+  const { hits, videoCount, loadedVideos, truncated, unsupported } = result;
+  syncEmptyStateForSubHits(result);
+  if (!hits.length) {
+    subHitsEl.replaceChildren(el('p', { class: 'sub-hits-note muted' },
+      unsupported
+        ? '关键词太短或为符号，试试更长的英文单词或中文词组'
+        : videoCount
+          ? `已扫描评分前 ${loadedVideos} 个相关视频的字幕，没有整句同时包含「${query}」`
+          : `字幕全文中没有找到「${query}」`));
+    return;
+  }
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const regex = new RegExp(terms.map(escapeRegExp).join('|'), 'gi');
+  subHitsEl.replaceChildren(
+    el('div', { class: 'sub-hits-head' },
+      el('h2', { class: 'sub-hits-title' }, '字幕命中'),
+      el('span', { class: 'sub-hits-meta muted' },
+        `${videoCount} 个视频的字幕提到 · 点击直达时间点`),
+      truncated
+        ? el('span', { class: 'sub-hits-more muted' }, `按评分扫描前 ${loadedVideos} 个`)
+        : null,
+    ),
+    el('div', { class: 'sub-hits-list' },
+      ...hits.map((hit) => subHitRow(hit, regex, terms))),
+  );
+}
+
+function subHitRow({ video, cue }, regex, terms) {
+  // Show the language line that actually contains the query terms (an English
+  // query hits the English cue even though the panel is Chinese-first).
+  const zh = (cue.zh || '').trim();
+  const en = (cue.en || '').trim();
+  const hits = (text) => terms.filter((term) => text.toLowerCase().includes(term)).length;
+  const zhScore = zh ? hits(zh) : 0;
+  const enScore = en ? hits(en) : 0;
+  const text = enScore > zhScore ? en : (zhScore > 0 ? zh : (zh || en));
+  const line = el('p', { class: 'sub-hit-line' });
+  renderHighlighted(line, text, regex);
+  return el('a', {
+    class: 'sub-hit',
+    href: `#/video/${video.vid}?t=${Math.max(0, Math.floor(cue.s || 0))}`,
+    title: `${video.title_zh || video.title} · ${formatClock(cue.s || 0)}`,
+  },
+    thumb(video, { className: 'sub-hit-thumb' }),
+    el('div', { class: 'sub-hit-body' },
+      el('p', { class: 'sub-hit-title' }, video.title_zh || video.title),
+      el('p', { class: 'sub-hit-snippet' },
+        el('span', { class: 'sub-hit-ts' }, formatClock(cue.s || 0)),
+        line,
+      ),
+    ),
+  );
 }
 
 export function destroy() {
