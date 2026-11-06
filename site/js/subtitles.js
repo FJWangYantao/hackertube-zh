@@ -1,8 +1,8 @@
-import { el } from './ui.js';
+import { el, toast } from './ui.js';
+import { store } from './data.js';
 
 const YT_API = 'https://www.youtube.com/iframe_api';
-const TRANSCRIPT_CHARS = 140;
-const TRANSCRIPT_GAP = 3;
+const STREAM_GAP = 2.5;
 
 let apiPromise = null;
 
@@ -37,6 +37,25 @@ export function findCue(cues, time) {
     else if (cues[mid].s > time) high = mid - 1;
     else return mid;
   }
+  return -1;
+}
+
+export function findActiveStreamCue(cues, time) {
+  let low = 0;
+  let high = cues.length - 1;
+  let candidate = -1;
+  while (low <= high) {
+    const mid = (low + high) >> 1;
+    if (cues[mid].s <= time + 0.12) {
+      candidate = mid;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  if (candidate < 0) return -1;
+  const cue = cues[candidate];
+  if (time <= cue.e + STREAM_GAP) return candidate;
   return -1;
 }
 
@@ -91,34 +110,6 @@ export function createOverlay() {
   };
 }
 
-export function groupTranscript(cues, maxChars = TRANSCRIPT_CHARS) {
-  const blocks = [];
-  let current = null;
-  for (const cue of cues) {
-    if (!cue?.zh) continue;
-    if (!current) {
-      current = { s: cue.s, e: cue.e, text: cue.zh, en: cue.en || '' };
-      continue;
-    }
-    const gap = cue.s - current.e;
-    if (gap > TRANSCRIPT_GAP || current.text.length + cue.zh.length > maxChars) {
-      blocks.push(current);
-      current = { s: cue.s, e: cue.e, text: cue.zh, en: cue.en || '' };
-    } else {
-      const joiner = /[A-Za-z0-9]$/.test(current.text) ? ' ' : '';
-      const enJoiner = current.en && cue.en ? ' ' : '';
-      current = {
-        ...current,
-        e: cue.e,
-        text: current.text + joiner + cue.zh,
-        en: current.en + enJoiner + (cue.en || ''),
-      };
-    }
-  }
-  if (current) blocks.push(current);
-  return blocks;
-}
-
 export function stamp(seconds) {
   const total = Math.max(0, Math.floor(seconds));
   const hours = Math.floor(total / 3600);
@@ -126,25 +117,6 @@ export function stamp(seconds) {
   const secs = total % 60;
   const mm = hours ? String(minutes).padStart(2, '0') : String(minutes);
   return `${hours ? `${hours}:` : ''}${mm}:${String(secs).padStart(2, '0')}`;
-}
-
-export function findBlock(blocks, time) {
-  let low = 0;
-  let high = blocks.length - 1;
-  let candidate = -1;
-  while (low <= high) {
-    const mid = (low + high) >> 1;
-    if (blocks[mid].s <= time + 0.15) {
-      candidate = mid;
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
-  if (candidate < 0) return -1;
-  const block = blocks[candidate];
-  if (time <= block.e + TRANSCRIPT_GAP) return candidate;
-  return -1;
 }
 
 function escapeRegExp(str) {
@@ -173,12 +145,41 @@ function renderHighlighted(container, text, regex) {
 }
 
 export function renderTranscript(cues, onSeek) {
-  const blocks = groupTranscript(cues);
-  const list = el('div', { class: 'transcript-list' });
+  let showEn = store.get('stream_en', true) !== false;
+  const list = el('div', { class: 'transcript-list' + (showEn ? '' : ' hide-en') });
   const items = [];
   let activeIndex = -1;
+  let pastBound = 0;
   let autoFollow = true;
   let hasQuery = false;
+  let userPausedUntil = 0;
+
+  const syncResumeBtn = el('button', {
+    class: 'stream-resume-btn',
+    type: 'button',
+    hidden: true,
+    on: {
+      click: () => {
+        userPausedUntil = 0;
+        syncResumeBtn.hidden = true;
+        scrollToActive(true);
+      },
+    },
+  }, '回到当前播放处');
+
+  function updatePastStates(nextIndex) {
+    const targetBound = nextIndex >= 0 ? nextIndex : 0;
+    if (targetBound > pastBound) {
+      for (let i = pastBound; i < targetBound; i++) {
+        items[i]?.node.classList.add('is-past');
+      }
+    } else if (targetBound < pastBound) {
+      for (let i = targetBound; i < pastBound; i++) {
+        items[i]?.node.classList.remove('is-past');
+      }
+    }
+    pastBound = targetBound;
+  }
 
   function setActive(nextIndex, shouldScroll = true) {
     if (nextIndex === activeIndex) return;
@@ -186,55 +187,77 @@ export function renderTranscript(cues, onSeek) {
       items[activeIndex].node.classList.remove('is-active');
     }
     activeIndex = nextIndex;
+    updatePastStates(activeIndex);
+
     if (activeIndex >= 0 && items[activeIndex]) {
+      items[activeIndex].node.classList.remove('is-past');
       items[activeIndex].node.classList.add('is-active');
-      if (shouldScroll && autoFollow && details.open && !hasQuery) {
-        scrollToActive(true);
+      if (shouldScroll && autoFollow && !hasQuery) {
+        if (Date.now() < userPausedUntil) {
+          syncResumeBtn.hidden = false;
+        } else {
+          syncResumeBtn.hidden = true;
+          scrollToActive(true);
+        }
       }
+    } else {
+      syncResumeBtn.hidden = true;
     }
   }
 
   function scrollToActive(smooth = true) {
     if (activeIndex < 0) return;
     const target = items[activeIndex]?.node;
-    if (!target || target.hidden) return;
-    const top = target.offsetTop - list.offsetTop - (list.clientHeight / 2) + (target.offsetHeight / 2);
+    if (!target || target.hidden || !list.clientHeight) return;
+    const top = target.offsetTop - list.offsetTop - (list.clientHeight * 0.36) + (target.offsetHeight / 2);
     list.scrollTo({ top: Math.max(0, top), behavior: smooth ? 'smooth' : 'auto' });
   }
 
-  blocks.forEach((block, idx) => {
-    const enEl = block.en ? el('span', { class: 'transcript-en' }, block.en) : null;
-    const zhEl = el('span', { class: 'transcript-zh' }, block.text);
+  const pauseByUserScroll = () => {
+    if (!autoFollow || activeIndex < 0 || hasQuery) return;
+    userPausedUntil = Date.now() + 5500;
+    syncResumeBtn.hidden = false;
+  };
+  list.addEventListener('wheel', pauseByUserScroll, { passive: true });
+  list.addEventListener('touchmove', pauseByUserScroll, { passive: true });
+
+  cues.forEach((cue, idx) => {
+    const enText = (cue.en || '').trim();
+    const zhText = (cue.zh || '').trim();
+    const enEl = enText ? el('span', { class: 'transcript-en' }, enText) : null;
+    const zhEl = el('span', { class: 'transcript-zh' }, zhText);
     const node = el('button', {
       class: 'transcript-line',
       type: 'button',
       on: {
         click: () => {
+          userPausedUntil = 0;
+          syncResumeBtn.hidden = true;
           setActive(idx, false);
-          onSeek(block.s);
+          onSeek(cue.s);
         },
       },
     },
-      el('span', { class: 'transcript-ts' }, stamp(block.s)),
-      el('span', { class: 'transcript-text' }, enEl, zhEl),
+      el('span', { class: 'transcript-ts' }, stamp(cue.s)),
+      el('span', { class: 'transcript-text' }, zhEl, enEl),
     );
     items.push({
-      block,
+      cue,
       node,
       enEl,
       zhEl,
-      haystack: `${block.text} ${block.en || ''}`.toLowerCase(),
+      haystack: `${zhText} ${enText}`.toLowerCase(),
     });
     list.append(node);
   });
 
-  const emptyEl = el('p', { class: 'transcript-empty muted', hidden: true }, '没有匹配的字幕段落');
+  const emptyEl = el('p', { class: 'transcript-empty muted', hidden: true }, '没有匹配的字幕句');
   list.append(emptyEl);
 
   const searchInput = el('input', {
     class: 'transcript-input',
     type: 'search',
-    placeholder: '搜索字幕内容（中 / 英）…',
+    placeholder: '搜索字幕（中 / 英）…',
     autocomplete: 'off',
     'aria-label': '搜索字幕内容',
   });
@@ -246,17 +269,59 @@ export function renderTranscript(cues, onSeek) {
     hidden: true,
   }, '×');
 
+  const biBtn = el('button', {
+    class: 'transcript-follow',
+    type: 'button',
+    'aria-pressed': showEn ? 'true' : 'false',
+    title: '切换显示中英对照或仅中文',
+  }, showEn ? '中英' : '仅中');
+
+  biBtn.addEventListener('click', () => {
+    showEn = !showEn;
+    store.set('stream_en', showEn);
+    list.classList.toggle('hide-en', !showEn);
+    biBtn.textContent = showEn ? '中英' : '仅中';
+    biBtn.setAttribute('aria-pressed', showEn ? 'true' : 'false');
+    if (autoFollow && !hasQuery) requestAnimationFrame(() => scrollToActive(false));
+  });
+
   const followBtn = el('button', {
     class: 'transcript-follow',
     type: 'button',
     'aria-pressed': 'true',
-    title: '播放时自动滚动到当前字幕段落',
-  }, '自动跟随');
+    title: '播放时自动滚动字幕流',
+  }, '跟随');
 
   followBtn.addEventListener('click', () => {
     autoFollow = !autoFollow;
+    userPausedUntil = 0;
+    syncResumeBtn.hidden = true;
     followBtn.setAttribute('aria-pressed', autoFollow ? 'true' : 'false');
     if (autoFollow && !hasQuery) scrollToActive(true);
+  });
+
+  const copyBtn = el('button', {
+    class: 'transcript-copy',
+    type: 'button',
+    title: '复制字幕文稿到剪贴板',
+  }, '复制');
+
+  copyBtn.addEventListener('click', async () => {
+    const visible = items.filter((item) => !item.node.hidden);
+    if (!visible.length) {
+      toast('没有可复制的字幕');
+      return;
+    }
+    const text = visible.map(({ cue }) => {
+      const ts = `[${stamp(cue.s)}]`;
+      return showEn && cue.en ? `${ts} ${cue.zh}\n${cue.en}` : `${ts} ${cue.zh}`;
+    }).join('\n');
+    try {
+      await navigator.clipboard.writeText(text);
+      toast(hasQuery ? `已复制 ${visible.length} 句匹配字幕` : '已复制全部字幕');
+    } catch {
+      toast('复制失败，请检查浏览器权限');
+    }
   });
 
   function applyFilter() {
@@ -269,11 +334,11 @@ export function renderTranscript(cues, onSeek) {
     if (!hasQuery) {
       for (const item of items) {
         item.node.hidden = false;
-        item.zhEl.textContent = item.block.text;
-        if (item.enEl) item.enEl.textContent = item.block.en;
+        item.zhEl.textContent = item.cue.zh;
+        if (item.enEl) item.enEl.textContent = item.cue.en;
       }
       emptyEl.hidden = true;
-      if (autoFollow && details.open) scrollToActive(false);
+      if (autoFollow) scrollToActive(false);
       return;
     }
 
@@ -284,11 +349,11 @@ export function renderTranscript(cues, onSeek) {
       item.node.hidden = !matched;
       if (matched) {
         matches += 1;
-        renderHighlighted(item.zhEl, item.block.text, regex);
-        if (item.enEl) renderHighlighted(item.enEl, item.block.en, regex);
+        renderHighlighted(item.zhEl, item.cue.zh, regex);
+        if (item.enEl) renderHighlighted(item.enEl, item.cue.en, regex);
       }
     }
-    matchCountEl.textContent = `${matches} 段`;
+    matchCountEl.textContent = `${matches} 句`;
     emptyEl.hidden = matches > 0;
   }
 
@@ -308,29 +373,25 @@ export function renderTranscript(cues, onSeek) {
 
   const toolbar = el('div', { class: 'transcript-bar' },
     el('div', { class: 'transcript-search' }, searchInput, matchCountEl, clearBtn),
+    biBtn,
     followBtn,
+    copyBtn,
   );
 
-  const details = el('details', { class: 'transcript' },
-    el('summary', {},
-      el('span', {}, `字幕文稿 · ${cues.length} 句`),
-      el('span', { class: 'transcript-hint' }, `共 ${blocks.length} 段 · 点击时间轴可跳转`),
-    ),
+  const panel = el('div', { class: 'stream-panel' },
     toolbar,
     list,
+    syncResumeBtn,
   );
 
-  details.addEventListener('toggle', () => {
-    if (details.open && autoFollow && !hasQuery) {
-      requestAnimationFrame(() => scrollToActive(false));
-    }
-  });
-
   return {
-    node: details,
+    node: panel,
     update(time) {
-      const idx = findBlock(blocks, time);
+      const idx = findActiveStreamCue(cues, time);
       setActive(idx, true);
+    },
+    scrollToCurrent() {
+      requestAnimationFrame(() => scrollToActive(false));
     },
     clear() {
       setActive(-1, false);

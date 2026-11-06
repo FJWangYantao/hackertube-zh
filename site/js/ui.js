@@ -66,8 +66,7 @@ export function avatar(name, extraClass = '') {
     'aria-hidden': 'true',
   }, initial(name));
   const hue = hueFor(name);
-  node.style.background = `hsl(${hue} 62% 91%)`;
-  node.style.color = `hsl(${hue} 45% 30%)`;
+  node.style.setProperty('--avatar-hue', String(hue));
   return node;
 }
 
@@ -92,6 +91,37 @@ export function thumb(video, { className = '', size = 'hqdefault' } = {}) {
   }, { once: true });
   box.append(img);
   return box;
+}
+
+export function formatClock(seconds) {
+  const total = Math.max(0, Math.floor(Number(seconds) || 0));
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+  const mm = hours ? String(minutes).padStart(2, '0') : String(minutes);
+  return `${hours ? `${hours}:` : ''}${mm}:${String(secs).padStart(2, '0')}`;
+}
+
+export function progressPercent(progress) {
+  if (!progress || !progress.t || progress.t < 5) return 0;
+  if (progress.d && progress.d > 0) {
+    if (progress.t >= progress.d - 10) return 100;
+    return Math.min(98, Math.max(4, Math.round((progress.t / progress.d) * 100)));
+  }
+  return Math.min(85, Math.max(8, Math.round((progress.t / 1800) * 100)));
+}
+
+export function thumbProgress(progress) {
+  const pct = progressPercent(progress);
+  if (!pct) return null;
+  const label = pct >= 100 ? '已看完' : `已看到 ${formatClock(progress.t)}`;
+  const fill = el('span', { class: 'thumb-progress-fill' });
+  fill.style.width = `${pct}%`;
+  return el('div', {
+    class: 'thumb-progress',
+    title: label,
+    'aria-hidden': 'true',
+  }, fill);
 }
 
 export function typeLabel(value) {

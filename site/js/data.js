@@ -66,6 +66,16 @@ export function indexByVid(rows) {
   return new Map(rows.map((row) => [row.vid, row]));
 }
 
+let progressCache = null;
+
+function loadProgressMap() {
+  if (!progressCache) {
+    const raw = store.get('progress', {});
+    progressCache = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+  }
+  return progressCache;
+}
+
 export const store = {
   get(key, fallback) {
     try {
@@ -98,5 +108,37 @@ export const store = {
   },
   clear(key) {
     this.set(key, []);
+  },
+  getProgress(vid) {
+    if (!vid) return null;
+    const map = loadProgressMap();
+    return map[vid] || null;
+  },
+  setProgress(vid, seconds, duration = 0, force = false) {
+    if (!vid || !Number.isFinite(seconds) || seconds < 5) return;
+    const t = Math.floor(seconds);
+    const d = Number.isFinite(duration) && duration > 0 ? Math.floor(duration) : 0;
+    const map = loadProgressMap();
+    const prev = map[vid];
+    if (!force && prev && Math.abs((prev.t || 0) - t) < 4) return;
+    delete map[vid];
+    map[vid] = { t, d: d || prev?.d || 0, u: Date.now() };
+    const keys = Object.keys(map);
+    if (keys.length > 400) {
+      for (const oldKey of keys.slice(0, keys.length - 400)) {
+        delete map[oldKey];
+      }
+    }
+    this.set('progress', map);
+  },
+  clearProgress(vid) {
+    const map = loadProgressMap();
+    if (vid) {
+      delete map[vid];
+      this.set('progress', map);
+    } else {
+      progressCache = {};
+      this.set('progress', {});
+    }
   },
 };

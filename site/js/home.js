@@ -1,4 +1,6 @@
-import { el, thumb, avatar, metaLine, typeLabel, levelLabel, toast } from './ui.js';
+import {
+  el, thumb, avatar, metaLine, typeLabel, levelLabel, toast, formatClock, thumbProgress,
+} from './ui.js';
 import { store } from './data.js';
 import { replace } from './router.js';
 
@@ -23,6 +25,7 @@ let savedSet = new Set();
 let visitedSet = new Set();
 let chipsBarEl;
 let chipsEl;
+let levelEl;
 let sortEl;
 let headEl;
 let titleEl;
@@ -42,11 +45,28 @@ export function show(viewEl, route, context, restored = null) {
     if (entries[0]?.isIntersecting && shown < list.length) renderBatch();
   }, { rootMargin: '600px' });
   apply(restored?.shown || PAGE);
-  return { setQuery, getShown: () => shown, destroy, refresh };
+  return {
+    setQuery,
+    getShown: () => shown,
+    getList: () => list,
+    destroy,
+    refresh,
+  };
 }
 
 function renderShell() {
   chipsEl = el('div', { class: 'chips', role: 'group', 'aria-label': '按类型与讨论筛选' });
+  levelEl = el('select', { class: 'sort', id: 'level-filter', name: 'level', 'aria-label': '按难度筛选' },
+    el('option', { value: '' }, '全部难度'),
+    el('option', { value: 'intro' }, '难度：入门'),
+    el('option', { value: 'intermediate' }, '难度：进阶'),
+    el('option', { value: 'advanced' }, '难度：深入'),
+    el('option', { value: 'general' }, '难度：通识'),
+  );
+  levelEl.addEventListener('change', () => {
+    setParam('level', levelEl.value);
+  });
+
   sortEl = el('select', { class: 'sort', id: 'sort', name: 'sort', 'aria-label': '排序' },
     el('option', { value: 'score' }, '综合排序'),
     el('option', { value: 'recommenders' }, '推荐人数'),
@@ -55,7 +75,8 @@ function renderShell() {
   sortEl.addEventListener('change', () => {
     setParam('sort', sortEl.value === 'score' ? '' : sortEl.value);
   });
-  chipsBarEl = el('div', { class: 'chips-bar' }, chipsEl, sortEl);
+
+  chipsBarEl = el('div', { class: 'chips-bar' }, chipsEl, levelEl, sortEl);
   titleEl = el('h1', {});
   countEl = el('p', { class: 'count' });
   headActionEl = el('div', { class: 'head-actions' });
@@ -77,6 +98,7 @@ function apply(initialCount = PAGE) {
   visitedSet = new Set(store.list('visited'));
   chipsBarEl.hidden = viewName !== 'feed';
   buildChips();
+  levelEl.value = params.get('level') || '';
   sortEl.value = params.get('sort') || 'score';
   list = buildList();
   shown = 0;
@@ -272,9 +294,16 @@ function renderBatch(reset = false, batchSize = PAGE) {
 function card(video) {
   const link = el('a', { class: 'card-link', href: `#/video/${video.vid}` });
   const thumbNode = thumb(video);
-  if (visitedSet.has(video.vid) && viewName !== 'history') {
-    thumbNode.append(el('span', { class: 'badge-visited' }, '已看'));
+  const progress = store.getProgress(video.vid);
+  const hasResume = progress?.t >= 5 && (!progress.d || progress.t < progress.d - 12);
+
+  if (viewName === 'history' && hasResume) {
+    thumbNode.append(el('span', { class: 'badge-visited' }, `看到 ${formatClock(progress.t)}`));
+  } else if (visitedSet.has(video.vid) && viewName !== 'history') {
+    thumbNode.append(el('span', { class: 'badge-visited' },
+      hasResume ? `已看 ${formatClock(progress.t)}` : '已看'));
   }
+
   if (video.has_sub || video.comment_count > 0) {
     const badges = el('div', { class: 'thumb-badges' });
     if (video.has_sub) {
@@ -285,6 +314,9 @@ function card(video) {
     }
     thumbNode.append(badges);
   }
+
+  const progBar = thumbProgress(progress);
+  if (progBar) thumbNode.append(progBar);
 
   const typeText = typeLabel(video.content_type);
   const levelText = levelLabel(video.level);
@@ -374,6 +406,57 @@ function emptyState() {
   return wrap;
 }
 
+function exportUserData() {
+  const payload = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    saved: store.list('saved'),
+    visited: store.list('visited'),
+    progress: store.get('progress', {}),
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = el('a', {
+    href: url,
+    download: `hackertube-zh-backup-${new Date().toISOString().slice(0, 10)}.json`,
+  });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  toast('已导出个人数据备份');
+}
+
+function triggerImportUserData() {
+  const input = el('input', { type: 'file', accept: 'application/json,.json', hidden: true });
+  input.addEventListener('change', async () => {
+    const file = input.files?.[0];
+    input.remove();
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      if (Array.isArray(data.saved)) {
+        const mergedSaved = [...new Set([...data.saved, ...store.list('saved')])];
+        store.set('saved', mergedSaved.slice(0, 1000));
+      }
+      if (Array.isArray(data.visited)) {
+        const mergedVisited = [...new Set([...data.visited, ...store.list('visited')])];
+        store.set('visited', mergedVisited.slice(0, 500));
+      }
+      if (data.progress && typeof data.progress === 'object') {
+        const currentProg = store.get('progress', {});
+        store.set('progress', { ...data.progress, ...currentProg });
+      }
+      toast('已恢复收藏与浏览记录');
+      apply(shown);
+    } catch {
+      toast('备份文件格式有误');
+    }
+  });
+  document.body.append(input);
+  input.click();
+}
+
 function updateHead() {
   const area = params.get('area') || '';
   const type = params.get('type') || '';
@@ -426,18 +509,42 @@ function updateHead() {
         },
       },
     }, '清除筛选'));
-  } else if (viewName === 'history' && list.length > 0) {
+  } else if (viewName === 'saved') {
+    if (list.length > 0) {
+      headActionEl.append(el('button', {
+        class: 'head-reset',
+        type: 'button',
+        title: '导出收藏与观看记录（JSON）',
+        on: { click: exportUserData },
+      }, '导出备份'));
+    }
     headActionEl.append(el('button', {
       class: 'head-reset',
       type: 'button',
-      on: {
-        click: () => {
-          store.clear('visited');
-          toast('已清空浏览记录');
-          apply();
+      title: '从备份 JSON 文件恢复收藏与记录',
+      on: { click: triggerImportUserData },
+    }, '导入恢复'));
+  } else if (viewName === 'history' && list.length > 0) {
+    headActionEl.append(
+      el('button', {
+        class: 'head-reset',
+        type: 'button',
+        title: '导出收藏与观看记录（JSON）',
+        on: { click: exportUserData },
+      }, '导出备份'),
+      el('button', {
+        class: 'head-reset',
+        type: 'button',
+        on: {
+          click: () => {
+            store.clear('visited');
+            store.clearProgress();
+            toast('已清空浏览记录与播放进度');
+            apply();
+          },
         },
-      },
-    }, '清空记录'));
+      }, '清空记录'),
+    );
   }
 }
 

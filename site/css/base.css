@@ -1,7 +1,9 @@
 :root {
   --bg: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.95);
   --bg-subtle: #f9f9f9;
   --bg-chip: #f2f2f2;
+  --bg-chip-hover: #e6e6e6;
   --bg-hover: #f2f2f2;
   --border: #e5e5e5;
   --text: #0f0f0f;
@@ -9,6 +11,8 @@
   --text-3: #909090;
   --brand: #c2410c;
   --brand-mark: #ff6600;
+  --avatar-l-bg: 91%;
+  --avatar-l-fg: 30%;
   --radius-sm: 8px;
   --radius: 12px;
   --pill: 999px;
@@ -17,6 +21,45 @@
   --font: system-ui, -apple-system, "Segoe UI", "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --ease: cubic-bezier(0.2, 0, 0, 1);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f0f0f;
+    --bg-glass: rgba(15, 15, 15, 0.94);
+    --bg-subtle: #181818;
+    --bg-chip: #222222;
+    --bg-chip-hover: #2f2f2f;
+    --bg-hover: #1f1f1f;
+    --border: #2e2e2e;
+    --text: #f1f1f1;
+    --text-2: #aaaaaa;
+    --text-3: #757575;
+    --brand: #fb923c;
+    --brand-mark: #ff6600;
+    --avatar-l-bg: 24%;
+    --avatar-l-fg: 82%;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f0f0f;
+  --bg-glass: rgba(15, 15, 15, 0.94);
+  --bg-subtle: #181818;
+  --bg-chip: #222222;
+  --bg-chip-hover: #2f2f2f;
+  --bg-hover: #1f1f1f;
+  --border: #2e2e2e;
+  --text: #f1f1f1;
+  --text-2: #aaaaaa;
+  --text-3: #757575;
+  --brand: #fb923c;
+  --brand-mark: #ff6600;
+  --avatar-l-bg: 24%;
+  --avatar-l-fg: 82%;
+  color-scheme: dark;
 }
 
 * {
@@ -120,6 +163,28 @@ p {
   background: var(--bg-hover);
 }
 
+.theme-icon-sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-moon {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .theme-icon-sun {
+    display: block;
+  }
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -142,17 +207,13 @@ p {
 .btn-primary {
   border-color: var(--text);
   background: var(--text);
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background: #000;
+  color: var(--bg);
 }
 
 .btn.is-on {
   border-color: var(--text);
   background: var(--text);
-  color: #fff;
+  color: var(--bg);
 }
 
 .chip {
@@ -167,22 +228,25 @@ p {
 }
 
 .chip:hover {
-  background: #e9e9e9;
+  background: var(--bg-chip-hover);
 }
 
 .chip[aria-pressed="true"] {
   border-color: var(--text);
   background: var(--text);
-  color: #fff;
+  color: var(--bg);
 }
 
 .avatar {
+  --avatar-hue: 210;
   display: grid;
   place-items: center;
   width: 36px;
   height: 36px;
   border-radius: 50%;
   flex: none;
+  background: hsl(var(--avatar-hue) 62% var(--avatar-l-bg));
+  color: hsl(var(--avatar-hue) 48% var(--avatar-l-fg));
   font-size: 14px;
   font-weight: 600;
   user-select: none;
@@ -200,10 +264,10 @@ p {
   padding: 10px 16px;
   border-radius: var(--radius-sm);
   background: var(--text);
-  color: #fff;
+  color: var(--bg);
   font-size: 13px;
   transform: translateX(-50%);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 @media (prefers-reduced-motion: reduce) {

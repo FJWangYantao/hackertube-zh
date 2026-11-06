@@ -18,7 +18,47 @@ const GROUPS = [
   ['joke', '玩笑'],
 ];
 
-export function renderComments(container, payload) {
+const TS_RE = /(?<![0-9:/-])\b(?:(\d{1,2}):)?([0-5]?\d):([0-5]\d)\b(?![0-9:/-])/g;
+
+function renderCommentText(container, text, onSeek) {
+  if (!text || typeof onSeek !== 'function') {
+    container.textContent = text || '';
+    return;
+  }
+  TS_RE.lastIndex = 0;
+  let last = 0;
+  let match;
+  while ((match = TS_RE.exec(text)) !== null) {
+    if (match.index > last) {
+      container.append(document.createTextNode(text.slice(last, match.index)));
+    }
+    const label = match[0];
+    const hours = Number(match[1] || 0);
+    const minutes = Number(match[2] || 0);
+    const seconds = Number(match[3] || 0);
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    const btn = el('button', {
+      class: 'comment-ts',
+      type: 'button',
+      title: `跳转到视频 ${label}`,
+      on: {
+        click: (event) => {
+          event.stopPropagation();
+          onSeek(totalSeconds);
+        },
+      },
+    }, label);
+    container.append(btn);
+    last = match.index + label.length;
+  }
+  if (last === 0) {
+    container.textContent = text;
+  } else if (last < text.length) {
+    container.append(document.createTextNode(text.slice(last)));
+  }
+}
+
+export function renderComments(container, payload, onSeek = null) {
   const comments = payload?.comments || [];
   container.replaceChildren();
 
@@ -97,7 +137,7 @@ export function renderComments(container, payload) {
         return (ORDER[a.stance] ?? 9) - (ORDER[b.stance] ?? 9)
           || String(b.month).localeCompare(String(a.month));
       });
-    list.replaceChildren(...rows.map(commentCard));
+    list.replaceChildren(...rows.map((comment) => commentCard(comment, onSeek)));
     if (!rows.length) list.append(el('p', { class: 'muted' }, '这一组没有评论。'));
   }
 }
@@ -123,7 +163,7 @@ function countGroups(comments) {
   return counts;
 }
 
-function commentCard(comment) {
+function commentCard(comment, onSeek) {
   const meta = STANCE[comment.stance] || { label: comment.stance || '评论', cls: 's-ref' };
   const text = comment.text_zh || comment.text || '';
   const english = comment.text || '';
@@ -137,12 +177,14 @@ function commentCard(comment) {
     ),
   );
 
-  const zh = el('p', { class: 'comment-text' + (long ? ' clamped' : '') }, text);
+  const zh = el('p', { class: 'comment-text' + (long ? ' clamped' : '') });
+  renderCommentText(zh, text, onSeek);
   body.append(zh);
 
   let en = null;
   if (english && english !== text) {
-    en = el('p', { class: 'comment-text', hidden: true }, english);
+    en = el('p', { class: 'comment-text', hidden: true });
+    renderCommentText(en, english, onSeek);
     body.append(en);
   }
 

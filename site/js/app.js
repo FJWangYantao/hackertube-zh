@@ -1,5 +1,5 @@
-import { el, debounce } from './ui.js';
-import { load, indexByVid } from './data.js';
+import { el, debounce, toast } from './ui.js';
+import { load, indexByVid, store } from './data.js';
 import { parse } from './router.js';
 import * as home from './home.js';
 import * as watch from './watch.js';
@@ -10,10 +10,13 @@ const searchInput = document.getElementById('search-input');
 const searchClear = document.getElementById('search-clear');
 const searchKbd = document.getElementById('search-kbd');
 const menuBtn = document.getElementById('menu-btn');
+const randomBtn = document.getElementById('random-btn');
+const themeBtn = document.getElementById('theme-btn');
 const sidebar = document.getElementById('sidebar');
 const scrim = document.getElementById('scrim');
 const areaNav = document.getElementById('area-nav');
 const mobile = window.matchMedia('(max-width: 1000px)');
+const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 const state = {
   feed: [],
@@ -179,10 +182,41 @@ function applySearchValue(raw) {
   }
 }
 
+function currentTheme() {
+  const explicit = document.documentElement.dataset.theme;
+  if (explicit === 'dark' || explicit === 'light') return explicit;
+  return systemDark.matches ? 'dark' : 'light';
+}
+
+function toggleTheme() {
+  const next = currentTheme() === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  store.set('theme', next);
+  toast(next === 'dark' ? '已切换为深色外观' : '已切换为浅色外观');
+}
+
+function openRandomVideo() {
+  const current = parse();
+  const activeList = state.mounted?.getList?.();
+  let pool = Array.isArray(activeList) && activeList.length > 1
+    ? activeList
+    : state.feed.filter((v) => (v.recommenders || 0) > 0 && v.shelf_life !== 'news');
+  if (current.view === 'watch' && current.vid) {
+    pool = pool.filter((v) => v.vid !== current.vid);
+  }
+  if (!pool.length) return;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  toast(`随机漫游：${pick.title_zh || pick.title}`);
+  location.hash = `#/video/${pick.vid}`;
+}
+
 function bindChrome() {
   menuBtn.setAttribute('aria-expanded', mobile.matches ? 'false' : 'true');
   setSearchPlaceholder();
   syncSidebarInert();
+
+  randomBtn?.addEventListener('click', openRandomVideo);
+  themeBtn?.addEventListener('click', toggleTheme);
 
   menuBtn.addEventListener('click', () => {
     if (mobile.matches) {
