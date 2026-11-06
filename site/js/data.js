@@ -25,7 +25,26 @@ export const load = {
   videos: () => fetchJSON('data/videos.json'),
   meta: () => fetchJSON('data/meta.json'),
   related: () => fetchJSON('data/related.json'),
+  series: () => fetchJSON('data/series.json'),
 };
+
+let seriesCache = null;
+
+/** 合集索引（series.json）：vid → 所属合集。加载失败时静默禁用合集功能。 */
+export function seriesData() {
+  if (!seriesCache) {
+    seriesCache = load.series()
+      .then((payload) => ({
+        byVid: new Map(Object.entries(payload?.byVid || {})),
+        byId: new Map((payload?.series || []).map((row) => [row.id, row])),
+      }))
+      .catch(() => {
+        seriesCache = null;
+        return { byVid: new Map(), byId: new Map() };
+      });
+  }
+  return seriesCache;
+}
 
 export async function comments(vid) {
   if (commentCache.has(vid)) return commentCache.get(vid);

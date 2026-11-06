@@ -695,3 +695,66 @@
   letter-spacing: -0.01em;
 }
 
+/* 首页个性化横排：继续观看 / 猜你想看（仅默认首页显示） */
+.home-rails {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 1760px;
+  padding: 18px 24px 0;
+}
+
+.home-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rail-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.rail-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.rail-note {
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.rail-more {
+  margin-left: auto;
+  color: var(--text-2);
+  font-size: 12.5px;
+}
+
+.rail-more:hover {
+  color: var(--brand);
+}
+
+.rail-scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.rail-scroll .card {
+  flex: 0 0 248px;
+  scroll-snap-align: start;
+}
+
+@media (max-width: 700px) {
+  .rail-scroll .card {
+    flex-basis: 212px;
+  }
+}
+
+

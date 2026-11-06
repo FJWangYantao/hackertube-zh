@@ -4,9 +4,19 @@ import {
 import { comments as loadComments, load, store, subs as loadSubs, chapters as loadChapters } from './data.js';
 import { renderComments } from './comments.js';
 import { createOverlay, loadYouTubeApi, renderTranscript } from './subtitles.js';
+import { go } from './router.js';
+import { loadSeriesFor, buildSeriesPanel, nextEpisode } from './series.js';
 
 const RELATED_LIMIT = 12;
 const RELATED_MIN = 8;
+const NEXT_COUNTDOWN_SECONDS = 5;
+
+/**
+ * Video id of an in-flight auto-advance: set right before navigating to the
+ * next video so the incoming watch view mounts the player without waiting
+ * for a click. Consumed (reset to null) by the first show() that reads it.
+ */
+let autoAdvanceVid = null;
 
 function parseTimeParam(raw) {
   if (!raw) return 0;
@@ -59,8 +69,10 @@ export function show(container, route, ctx) {
     && savedProgress?.t >= 5
     && (!savedProgress.d || savedProgress.t < savedProgress.d - 12);
   const initialStart = urlTime || (canResumeSaved ? savedProgress.t : 0);
+  const autoMount = autoAdvanceVid === video.vid;
+  if (autoMount) autoAdvanceVid = null;
 
-  const player = buildPlayer(video, initialStart, canResumeSaved);
+  const player = buildPlayer(video, initialStart, canResumeSaved, autoMount);
   const chaptersPromise = loadChapters(video.vid).catch(() => null);
   player.onTimeUpdate = (time, duration, force = false) => {
     transcript?.update(time);
@@ -83,6 +95,7 @@ export function show(container, route, ctx) {
   const commentCount = video.comment_count || 0;
   const subtitleBtn = buildSubtitleButton(player);
   const theaterBtn = buildTheaterButton();
+  const autoplayBtn = buildAutoplayButton();
   const fullscreenBtn = buildFullscreenButton(player);
   let watchRoot = null;
   const setTheater = (on, announce = false) => {
@@ -102,7 +115,7 @@ export function show(container, route, ctx) {
     subtitleBtn.hidden = true;
   };
   const { row: channel, toggleSave } = buildChannel(
-    video, commentCount, player, [subtitleBtn, theaterBtn, fullscreenBtn],
+    video, commentCount, player, [subtitleBtn, theaterBtn, autoplayBtn, fullscreenBtn],
   );
   const description = buildDescription(video, ctx);
   const commentsBox = el('section', { class: 'comments' });
@@ -157,6 +170,87 @@ export function show(container, route, ctx) {
     if (destroyed || !cachedRelatedMap[video.vid]) return;
     updateRelatedList();
   });
+
+  // 合集：当前视频属于某个系列时，在简介上方插入集数导航，连播优先按合集顺序。
+  let seriesInfo = null;
+  loadSeriesFor(video.vid).then((info) => {
+    if (destroyed || !info) return;
+    seriesInfo = info;
+    main.insertBefore(buildSeriesPanel(info, ctx), description);
+  });
+
+  // Autoplay: when the video ends and 连播 is on, offer the top related pick
+  // with a short countdown, then navigate. Playing again dismisses the panel.
+  let nextPanel = null;
+  let nextTimer = null;
+  const clearNextPanel = () => {
+    if (nextTimer) {
+      clearInterval(nextTimer);
+      nextTimer = null;
+    }
+    nextPanel?.remove();
+    nextPanel = null;
+  };
+  /** 连播下一集：在合集中则按集数顺序，否则取相关推荐首位。 */
+  const pickNext = () => {
+    const seriesVid = seriesInfo ? nextEpisode(seriesInfo) : null;
+    return (seriesVid && ctx.feedIndex.get(seriesVid))
+      || pickRelated(video, cachedRelatedMap, ctx)[0];
+  };
+  const advanceToNext = () => {
+    clearNextPanel();
+    const next = pickNext();
+    if (!next) {
+      toast('没有可连播的推荐视频');
+      return;
+    }
+    autoAdvanceVid = next.vid;
+    go(`/video/${next.vid}`);
+  };
+  player.onEnded = () => {
+    if (store.get('autoplay', false) !== true || destroyed || nextPanel) return;
+    const next = pickNext();
+    if (!next) {
+      toast('没有可连播的推荐视频');
+      return;
+    }
+    const nextLabel = seriesInfo && nextEpisode(seriesInfo) === next.vid
+      ? '下一集' : '接下来';
+    let secondsLeft = NEXT_COUNTDOWN_SECONDS;
+    const countdown = el(
+      'span',
+      { class: 'next-count' },
+      `${secondsLeft} 秒后自动播放`,
+    );
+    const cancelBtn = el('button', {
+      class: 'next-cancel',
+      type: 'button',
+      on: { click: clearNextPanel },
+    }, '取消');
+    const playNowBtn = el('button', {
+      class: 'next-play',
+      type: 'button',
+      on: { click: advanceToNext },
+    }, '立即播放');
+    nextPanel = el('div', { class: 'player-next', role: 'status' },
+      el('div', { class: 'next-info' },
+        el('p', { class: 'next-label' }, nextLabel),
+        el('p', { class: 'next-title' }, next.title_zh || next.title),
+        countdown,
+      ),
+      el('div', { class: 'next-actions' }, playNowBtn, cancelBtn),
+    );
+    player.node.append(nextPanel);
+    nextTimer = setInterval(() => {
+      secondsLeft -= 1;
+      if (secondsLeft > 0) {
+        countdown.textContent = `${secondsLeft} 秒后自动播放`;
+        return;
+      }
+      advanceToNext();
+    }, 1000);
+  };
+  player.onPlaying = () => clearNextPanel();
 
   watchRoot = el('div', { class: 'watch' }, main, rail, commentsBox);
   container.replaceChildren(watchRoot);
@@ -247,6 +341,9 @@ export function show(container, route, ctx) {
     } else if ((event.key === 'f' || event.key === 'F') && !fullscreenBtn.hidden) {
       event.preventDefault();
       fullscreenBtn.click();
+    } else if (event.key === 'a' || event.key === 'A') {
+      event.preventDefault();
+      autoplayBtn.click();
     } else if ((event.key === 'w' || event.key === 'W')
       && window.matchMedia('(min-width: 1101px)').matches) {
       event.preventDefault();
@@ -262,6 +359,7 @@ export function show(container, route, ctx) {
     },
     destroy() {
       destroyed = true;
+      clearNextPanel();
       transcript?.destroy?.();
       player.destroy();
       document.removeEventListener('keydown', onKeyDown);
@@ -339,7 +437,7 @@ function showError(container, heading, message) {
   ));
 }
 
-function buildPlayer(video, initialStart = 0, isSavedResume = false) {
+function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount = false) {
   const player = el('div', { class: 'player' });
   const poster = el('img', {
     src: `https://i.ytimg.com/vi/${video.vid}/maxresdefault.jpg`,
@@ -394,6 +492,8 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false) {
   let fallbackFrame = null;
   let onFallback = null;
   let onTimeUpdate = null;
+  let onEnded = null;
+  let onPlaying = null;
   let lastKnownTime = startAt || 0;
   let lastKnownDuration = 0;
   let readyResolve;
@@ -431,6 +531,9 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false) {
               if (lastKnownDuration > 0) {
                 onTimeUpdate?.(lastKnownDuration, lastKnownDuration, true);
               }
+              onEnded?.();
+            } else if (event.data === 1) {
+              onPlaying?.();
             } else if (event.data === 2) {
               tick(true);
             }
@@ -475,6 +578,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false) {
 
   play.addEventListener('click', () => { mount(startAt); });
   player.append(poster, play, resumePill, overlay.layer);
+  if (autoMount) mount(startAt);
 
   return {
     node: player,
@@ -483,6 +587,8 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false) {
     setBilingual: (on) => overlay.setBilingual(on),
     set onFallback(fn) { onFallback = fn; },
     set onTimeUpdate(fn) { onTimeUpdate = fn; },
+    set onEnded(fn) { onEnded = fn; },
+    set onPlaying(fn) { onPlaying = fn; },
     getCurrentTime() {
       if (yt && typeof yt.getCurrentTime === 'function') {
         const t = yt.getCurrentTime();
@@ -554,6 +660,25 @@ function buildTheaterButton() {
     title: '切换宽屏（快捷键 W）',
     'aria-pressed': 'false',
   }, '宽屏');
+}
+
+function buildAutoplayButton() {
+  let on = store.get('autoplay', false) === true;
+  const button = el('button', {
+    class: 'btn autoplay-btn' + (on ? ' is-on' : ''),
+    type: 'button',
+    title: '播放完自动播放下一个推荐视频（快捷键 A）',
+    'aria-pressed': on ? 'true' : 'false',
+  }, on ? '连播 开' : '连播 关');
+  button.addEventListener('click', () => {
+    on = !on;
+    store.set('autoplay', on);
+    button.classList.toggle('is-on', on);
+    button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    button.textContent = on ? '连播 开' : '连播 关';
+    toast(on ? '连播已开：播完自动播放下一个推荐' : '连播已关');
+  });
+  return button;
 }
 
 function buildFullscreenButton(player) {

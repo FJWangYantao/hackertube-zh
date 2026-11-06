@@ -38,6 +38,7 @@ let sentinel;
 let observer;
 let subHitsEl;
 let subHitsToken = 0;
+let railsEl;
 
 export function show(viewEl, route, context, restored = null) {
   ctx = context;
@@ -86,12 +87,14 @@ function renderShell() {
   headActionEl = el('div', { class: 'head-actions' });
   headEl = el('div', { class: 'feed-head' }, titleEl, countEl, headActionEl);
   subHitsEl = el('section', { class: 'sub-hits', hidden: true, 'aria-label': '字幕全文搜索结果' });
+  railsEl = el('div', { class: 'home-rails', hidden: true });
   grid = el('div', { class: 'grid' });
   sentinel = el('div', { class: 'sentinel' });
   container.replaceChildren(
     el('section', { class: 'feed' },
       chipsBarEl,
       headEl,
+      railsEl,
       subHitsEl,
       grid,
       sentinel,
@@ -104,6 +107,7 @@ function apply(initialCount = PAGE) {
   visitedSet = new Set(store.list('visited'));
   chipsBarEl.hidden = viewName !== 'feed';
   buildChips();
+  renderHomeRails();
   levelEl.value = params.get('level') || '';
   sortEl.value = params.get('sort') || 'score';
   list = buildList();
@@ -288,6 +292,90 @@ function comparator(sort) {
       || (b.score || 0) - (a.score || 0);
   }
   return (a, b) => (b.score || 0) - (a.score || 0);
+}
+
+/** 首页个性化横排：继续观看 + 猜你想看（仅未筛选的默认 feed 显示）。 */
+function renderHomeRails() {
+  railsEl.hidden = true;
+  railsEl.replaceChildren();
+  const isDefaultFeed = viewName === 'feed'
+    && ![...params.keys()].some((key) => key !== 'sort');
+  if (!isDefaultFeed) return;
+  const sections = [buildContinueRail(), buildForYouRail()].filter(Boolean);
+  if (!sections.length) return;
+  railsEl.replaceChildren(...sections);
+  railsEl.hidden = false;
+}
+
+/** 没看完的视频，按最近观看排序。 */
+function buildContinueRail() {
+  const entries = store.list('visited')
+    .map((vid) => {
+      const progress = store.getProgress(vid);
+      const video = ctx.feedIndex.get(vid);
+      return video && progress?.t >= 60 && (!progress.d || progress.t < progress.d - 30)
+        ? { video, updated: progress.u || 0 } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.updated - a.updated)
+    .slice(0, 8);
+  if (!entries.length) return null;
+  return homeRail('继续观看', entries.map(({ video }) => card(video)),
+    { href: '#/history', label: '查看全部' });
+}
+
+/** 基于最近浏览的频道/领域/类型亲和度，给没看过的视频打分（全部本地计算）。 */
+function buildForYouRail() {
+  const visitedIds = store.list('visited');
+  if (visitedIds.length < 3) return null;
+  const recent = visitedIds.slice(-40);
+  const step = 1 / Math.max(1, recent.length);
+  const affinity = new Map();
+  const bump = (key, weight) => {
+    if (key) affinity.set(key, (affinity.get(key) || 0) + weight);
+  };
+  recent.forEach((vid, i) => {
+    const video = ctx.feedIndex.get(vid);
+    if (!video) return;
+    const w = 1 + i * step; // 越近期权重越高
+    bump(`c:${video.channel}`, 3 * w);
+    bump(`a:${video.area}`, 2 * w);
+    bump(`t:${video.content_type}`, 1 * w);
+    bump(`l:${video.level}`, 1 * w);
+  });
+  const affinityOf = (video) => (affinity.get(`c:${video.channel}`) || 0)
+    + (affinity.get(`a:${video.area}`) || 0)
+    + (affinity.get(`t:${video.content_type}`) || 0)
+    + (affinity.get(`l:${video.level}`) || 0);
+  const picks = ctx.feed
+    .filter((video) => (video.recommenders || 0) > 0
+      && video.shelf_life !== 'news' && !visitedSet.has(video.vid))
+    .map((video) => {
+      const hit = affinityOf(video);
+      return {
+        video,
+        hit,
+        rank: hit + (video.has_sub ? 2 : 0) + Math.log10(1 + (video.score || 0)) * 0.5,
+      };
+    })
+    .filter((row) => row.hit > 0)
+    .sort((a, b) => b.rank - a.rank)
+    .slice(0, 12);
+  if (picks.length < 4) return null;
+  return homeRail('猜你想看', picks.map(({ video }) => card(video)),
+    { note: '按浏览记录本地生成' });
+}
+
+/** 一条横向滚动的卡片栏。 */
+function homeRail(title, cards, { href = '', label = '', note = '' } = {}) {
+  return el('section', { class: 'home-rail', 'aria-label': title },
+    el('div', { class: 'rail-head' },
+      el('h2', { class: 'rail-title' }, title),
+      note ? el('span', { class: 'rail-note' }, note) : null,
+      href ? el('a', { class: 'rail-more', href }, label) : null,
+    ),
+    el('div', { class: 'rail-scroll' }, ...cards),
+  );
 }
 
 function renderBatch(reset = false, batchSize = PAGE) {
