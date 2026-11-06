@@ -1,0 +1,170 @@
+{
+ "vid": "BzB5xtGGsTc",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 0.34,
+   "e": 28.42,
+   "en": "This is a Wendover Productions video made possible by Squarespace. Make your next move with a beautiful website from Squarespace. This video is a bit of a continuation of my last one, Why Planes Don't Fly Faster. I ended up talking a lot about the Concorde, the supersonic plane, but part of the story was left untold. Even though the Concorde failed, even though it wasn't commercially viable, it still had a profound effect on how we fly today. Let me explain.",
+   "zh": "本期 Wendover Productions 视频由 Squarespace 赞助播出。用 Squarespace 打造精美网站，迈出你的下一步。这期视频算是上一期《飞机为什么不能飞得更快》的续集。上次我花了不少篇幅讲协和号超音速客机，但有些故事还没讲完。尽管协和号失败了，尽管它在商业上并不可行，但它依然对我们今天的飞行方式产生了深远影响。且听我慢慢道来。"
+  },
+  {
+   "s": 28.86,
+   "e": 53.98,
+   "en": "Economy class is not how airlines make money. The real money, at least for the traditional airlines, is in premium cabins. Let's take, for example, this British Airways 777. There are 224 total seats on this plane and it flies daily between London Heathrow and Washington Dulles Airport. A roundtrip economy class ticket leaving March 15th and returning on March 22nd costs, at the time of writing, $876.",
+   "zh": "经济舱并不是航空公司的赚钱之道。真正的摇钱树——至少对传统航司来说——是高端舱位。以这架英国航空的 777 为例。这架飞机共有 224 个座位，每天往返于伦敦希思罗机场和华盛顿杜勒斯机场之间。在撰写本文时，一张 3 月 15 日出发、3 月 22 日返回的经济舱往返机票，售价为 876 美元。"
+  },
+  {
+   "s": 54.82,
+   "e": 78.42,
+   "en": "That means that, if each one of the 122 economy class seats is filled, the entire back section of the plane will make the airline round trip $106,872. Meanwhile, the going rate for one of their premium economy seats is $2,633 round trip, meaning the entire cabin will make $105,320.",
+   "zh": "这意味着，如果122个经济舱座位全坐满，后舱总共能为航空公司带来106,872美元的往返收入。同时，高端经济舱的往返市价是2,633美元，也就是说整个超经舱能入账105,320美元。"
+  },
+  {
+   "s": 79.07,
+   "e": 105.35,
+   "en": "Already, you can see that the entire 40 seat premium economy section makes British Airways roughly as much as the entire economy class section. Going up to business class, there are 48 seats sold each for $6,723 making the airline $322,704. The 14 first class seats are sold for $8,715 each or $122,010 total.",
+   "zh": "由此可见，仅有40座的高端经济舱，为英国航空带来的收入就已经和整个经济舱差不多了。再看商务舱，48个座位每个售价6,723美元，能带来322,704美元。而14个头等舱座位每个售价8,715美元，总共是122,010美元。"
+  },
+  {
+   "s": 105.76,
+   "e": 134.28,
+   "en": "So, once again, the 14 passengers at the front of the plane make the airline more money than the 122 at the back of the plane. In total, the three premium cabins—premium economy, business, and first—make the airline on this flight $550,034. That means that 45% of the passengers account for 84% of the airline's revenue. Now, I need to add some caveats. There is no airline on",
+   "zh": "所以你看，机头这14名乘客贡献的收入，再次超过了机尾的122名乘客。算下来，超经、商务和头等这三个高端客舱，在这一趟航班上就带来了550,034美元的收入。这意味着45%的乘客贡献了84%的航空公司收入。不过，这里需要做一些说明。世界上没有任何一家"
+  },
+  {
+   "s": 134.46,
+   "e": 158.26,
+   "en": "earth that makes half a million dollars for a six hour flight over the Atlantic. If they did they would be swimming in money. The fares for this particular routing are significantly higher than the average fare paid for that flight because they're nonstop fares between two high income high demand cities. Of course, a majority of passengers on that flight will not be traveling between London and Washington. They'll have connected.",
+   "zh": "航空公司能靠一次六小时的跨大西洋飞行净赚50万美元。如果真能这样，他们早就赚翻了。这条特定航线的票价之所以显著高于该航班的平均票价，是因为这是两个高收入、高需求城市之间的直飞票价。当然，那趟航班上的大部分乘客并不是在伦敦和华盛顿之间往返，他们都是转机的。"
+  },
+  {
+   "s": 158.69,
+   "e": 184.15,
+   "en": "If you originate the ticket in say, Stockholm and connect onto that 777 flight to Washington, the economy class price drops to $392, the premium economy to $1,150, the business class to $3,025, and the first class to $5,564. But the proportions are still roughly the same—a vast majority of the revenue comes from a minority of passengers.",
+   "zh": "如果你从斯德哥尔摩等地出发，中转搭乘那趟飞往华盛顿的 777 航班，经济舱价格会降到 392 美元，超级经济舱降到 1150 美元，商务舱降到 3025 美元，头等舱降到 5564 美元。但各舱位的比例大致未变——绝大部分收入依然来自少数乘客。"
+  },
+  {
+   "s": 184.62,
+   "e": 203.1,
+   "en": "This particular British Airways 777 is also a very premium heavy configuration because British Airways is an airline that focuses a lot on premium travel. But still, on average, two thirds of any airline's revenue comes from passengers in first, business, or premium economy class. But this wasn't always the case.",
+   "zh": "这架英国航空的 777 也是偏重高端舱位的布局，因为英航本身就非常侧重高端出行。但即便如此，通常任何航空公司三分之二的收入，也都来自头等舱、商务舱或超经舱的乘客。不过情况并非向来如此。"
+  },
+  {
+   "s": 203.6,
+   "e": 233.26,
+   "en": "In the beginning of commercial aviation there weren't really any classes because everything was premium. That's not to say that planes were very luxurious, a 1920s plane looked like this, but flying was just so expensive that the experience of flying was the luxury itself. It's kind of like how you don't see Virgin Galactic selling first business and economy class seats on their planned tourist flights to space. The experience itself is the luxury. Once commercial space travel becomes commonplace we'll almost certainly see a classification of the experience.",
+   "zh": "在民航发展初期，其实并没有舱位之分，因为所有体验都是顶级的。这倒不是说当时的飞机有多奢华，20 年代的飞机长这样，而是坐飞机本身就极其昂贵，飞行这一体验本身就是一种奢华。这就像 Virgin Galactic 在其规划的太空观光飞行中，并没有分设头等舱、商务舱和经济舱一样。这种体验本身就是奢华所在。一旦商业太空旅行普及，我们几乎肯定会看到体验被划分为不同等级。"
+  },
+  {
+   "s": 233.54,
+   "e": 257.52,
+   "en": "But until a transport method is at a cost where it's attainable to the normal person, it's all first class. In 1950 a round trip coach fare between New York and London was $675, adjusted for inflation that's $6,800 today—roughly the same price as a first class ticket on the same route nowadays. It's the exact same type of passenger flying in both these seats.",
+   "zh": "但在一种交通方式的价格降到普通人负担得起之前，它就全都等同于头等舱。1950年，纽约到伦敦的经济舱往返票价是675美元，算上通胀相当于现在的6800美元——跟如今同一航线的头等舱票价差不多。当年和现在坐这些座位的，其实完全是同一类乘客。"
+  },
+  {
+   "s": 257.84,
+   "e": 287.02,
+   "en": "What's changed is who's flying further back in the plane. So the story of the development of airline classes really isn't the story of how airlines developed more and more luxurious seats. It's how they cut costs to allow more and more people to fly. It's also a fascinating demonstration of economics. Airlines have figured out a way to sell the same product for different prices to different people. The overall product the airline is selling is the same no matter which class you're flying—a flight from point A to point B.",
+   "zh": "真正改变的是，谁坐在了飞机的后半部分。所以航司舱位的发展历程，根本不是如何打造越来越奢华座椅的故事，而是如何降低成本让更多人坐得起飞机的历程。它也是经济学的一个精彩绝伦的范例。航司摸索出了一套方法，能把同一件产品以不同的价格卖给不同的人。无论你坐什么舱位，航司卖的核心产品都一样——就是一趟从A点到B点的飞行。"
+  },
+  {
+   "s": 287.18,
+   "e": 307.56,
+   "en": "What's different is the experience within the plane. The first classification of air travel happened in the 40s and 50s. A significant amount of revenue for airlines at the time came from contracts for air mail routes with the US Postal Service. These flights flew with many stops often overnight or at odd hours. While the planes mostly carried mail, they still had a passenger section.",
+   "zh": "不同之处在于机舱内的体验。航空旅行的最初分级发生在四五十年代。当时航空公司很大一部分收入来自与美国邮政署签订的航空邮件航线合同。这些航班经停频繁，且往往在夜间或非高峰时段飞行。虽然飞机主要运送邮件，但依然设有客舱区。"
+  },
+  {
+   "s": 307.9,
+   "e": 330.04,
+   "en": "The first class fares got you, for example, on a nonstop flight between New York and Chicago while the coach fare might get you on a mail flight that left at 2am and stopped in Pittsburgh and Cleveland on the way to Chicago. While the fare was cheaper and the flight took longer, the experience on board the plane was largely the same. It wasn't until 1952 that airlines started selling the same flights for different prices.",
+   "zh": "举例来说，买头等舱机票能坐上纽约直飞芝加哥的航班；而经济舱机票可能只能让你搭上一班凌晨2点起飞的邮运航班，去芝加哥的途中还得经停匹兹堡和克利夫兰。尽管票价更便宜、飞行时间更长，但机上的体验其实大同小异。直到1952年，航空公司才开始为同一趟航班定出不同的价格进行销售。"
+  },
+  {
+   "s": 330.43,
+   "e": 355.93,
+   "en": "One airline, for example, sold standard class one-way tickets between New York and London for $395 and tourist class tickets for $270. It was the exact same flight on the exact same plane. The difference was in the ticket. Tourist class tickets had to be purchased in advance and had no flexibility. You had to fly on the exact flight the tickets were purchased for. As the name suggests, these tickets were primarily for tourists.",
+   "zh": "举个例子，某家航空公司纽约到伦敦的标准舱单程票卖395美元，而旅游舱只要270美元。这完全是同一架飞机上的同一趟航班。区别全在机票上。旅游舱机票必须提前购买，而且没有任何灵活性。你必须严格乘坐所购票的那一趟航班。顾名思义，这种票主要是卖给游客的。"
+  },
+  {
+   "s": 356.43,
+   "e": 383.41,
+   "en": "Tourists plan trips far in advance and don't really need flexibility so it was no problem for them to commit to one flight. The full fare tickets were for the other type of traveler, the business person. Business travelers, first off, don't typically pay for their own tickets. They're paid for by their employer so they individually don't really care what the ticket costs. Business travelers also require flexibility and generally don't purchase tickets until the last minute.",
+   "zh": "游客会很早规划行程，并不太需要改签灵活性，所以固定坐某一趟航班对他们来说毫无问题。而全价票则是针对另一类出行者：商务人士。首先，商务旅客通常不用自己掏钱买机票。费用由雇主承担，所以他们个人根本不在乎票价是多少。此外，商务旅客还需要很高的灵活性，而且通常都是在最后一刻才买票。"
+  },
+  {
+   "s": 383.65,
+   "e": 412.89,
+   "en": "At the time, it was a common practice to just walk up to the counter an hour before a flight and buy a ticket. That's what these full fare tickets were for. Through this system, the airline segmented the market into two categories based on what people were willing to pay. Over the coming decades, this was the only large classification system in air travel. Then, between 1969 and 1978, three things happened. The 747 flew for the first time, the Concorde flew for the first time,",
+   "zh": "在当时，起飞前一小时直接走到柜台买票是很常见的做法。这种全价票就是为这种情况准备的。航空公司通过这套系统，根据旅客的支付意愿将市场分成了两类。在接下来的几十年里，这都是航空旅行中唯一的大型分类系统。随后，在1969年至1978年间，发生了三件事。波音747迎来了首飞，协和式客机迎来了首飞，"
+  },
+  {
+   "s": 413.12,
+   "e": 440.44,
+   "en": "and airlines were deregulated in the US. The 747 gave airlines this space to experiment with luxury, the Concorde gave them the reason to, and deregulation gave them the ability to. Previously, all airlines were heavily regulated in the US and it was difficult for airlines to charge the costs they wanted for different classes but with deregulation, airlines now had full control over their ticket prices. Now, at the time, much of the difference was still in the ticket.",
+   "zh": "美国航空业也迎来了反管制松绑。747为航空公司提供了尝试奢华体验的空间，协和客机给了他们这样做的理由，而反管制则赋予了他们这样做的能力。此前，美国所有航空公司都受到严格监管，航司很难按自己的意愿对不同舱位收费，但在放松管制后，航空公司终于完全掌握了机票定价权。不过在当时，大部分区别仍然体现在机票本身上。"
+  },
+  {
+   "s": 440.67,
+   "e": 468.77,
+   "en": "Some airlines had introduced first class fares with nicer seats, but airlines realized that they had to start treating the business people who bought a full fare coach ticket differently than the tourists paying a discounted fare. More and more of the business travelers were just paying the tourist class fare. It began by just physically separating the passengers. The full fare passengers would be seated up front while the discounted fare passengers would be put at the back. Then, some airlines began blocking out the middle seat next to the full fare passengers.",
+   "zh": "一些航空公司推出了座椅更舒适的头等舱机票，但他们意识到，必须把购买全价经济舱的商务客和享受折扣价的游客区分对待了。越来越多的商务旅客开始只买旅游折扣票。最初的做法只是把两类乘客物理隔开。买全价票的乘客坐前面，而买折扣票的乘客则被安排在后面。接着，一些航空公司开始空出全价票乘客旁边的中间座位。"
+  },
+  {
+   "s": 469.2,
+   "e": 495.72,
+   "en": "Finally, some airlines started to build cabins with slightly nicer seats and better amenities. But, with exceptions, airlines avoided first class. Most focused on capturing that middle tier of traveler because the Concord was going to be the first class plane for the rich and famous. Regular planes would be the business and economy class. At least, that's what they thought. Of course, as you heard about in my last video, the Concord failed spectacularly.",
+   "zh": "最后，一些航空公司开始打造客舱，配备稍好一些的座椅和更优质的设施。不过除少数例外，航空公司大多避开了头等舱。大多数航司都专注于抓住这部分中间层级的旅客，因为 Concorde 协和客机本应成为富豪和名流的头等舱座驾。普通飞机则用来承载商务舱和经济舱。至少他们当时是这么想的。当然，正如你们在我上期视频中听到的那样，Concorde 遭遇了惨痛的失败。"
+  },
+  {
+   "s": 495.94,
+   "e": 524.22,
+   "en": "Airlines avoided first class in the 70s and 80s because of the Concorde but as they started to catch on to the failure of supersonic flight, select airlines slowly reintroduced first class to subsonic planes. But the effect is still seen today. Of the dozens of airlines flying transatlantic, only six have a first class cabin. Back in the 60s and 70s, the imminent perceived competition of the Concorde really invigorated airlines to optimize that middle class, business class.",
+   "zh": "受协和客机的影响，各大航司在七八十年代都取消了头等舱，但当他们意识到超音速飞行的失败后，一些航司又慢慢在亚音速客机上重新引入了头等舱。这种影响至今仍在延续。在执飞跨大西洋航线的数十家航司中，只有六家设有头等舱。回到六七十年代，协和客机逼近的竞争压力，切实推动了航司去优化介于中间的商务舱。"
+  },
+  {
+   "s": 524.72,
+   "e": 550.32,
+   "en": "but we likely would not have seen it as early as we did without the looming disruption to the industry. But there's another trend to explain. First class is going away. Again, let's take a look at this seat map of Etihad A380. Each economy class seat on this plane takes up 3.77 square feet of floor space, the business class seats take up 10.14 square feet of floor space, and the first class seats take up 35 square feet of floor space.",
+   "zh": "但如果不是整个行业面临这种潜在颠覆，这可能不会发生得这么早。但还有另一种趋势需要解释：头等舱正在逐渐消失。我们再来看一下阿提哈德航空 A380 的座位图。这架客机上的每个经济舱座位占用 3.77 平方英尺的空间，商务舱座位占用 10.14 平方英尺，而头等舱座位则要占到 35 平方英尺。"
+  },
+  {
+   "s": 550.64,
+   "e": 578.84,
+   "en": "On a flight from Abu Dhabi to New York, economy class tickets are $1,253 roundtrip, business class tickets are $6,140, and first class tickets are $14,128. That means that economy class seats make $332 per square foot, business class seats $605 per square foot, and first class seats $403 per square foot. The difference between economy class and business class is huge.",
+   "zh": "从阿布扎比飞往纽约的航班，经济舱往返票价是1253美元，商务舱是6140美元，而头等舱是14128美元。这意味着经济舱座位每平方英尺能赚332美元，商务舱每平方英尺赚605美元，而头等舱则是403美元。经济舱和商务舱的差距可以说是天壤之别。"
+  },
+  {
+   "s": 579.18,
+   "e": 608.06,
+   "en": "It's a cramped seat versus a bed, but the difference between business class and first class is just a bit more room and some better food. It's very hard for airlines to sell first class for much more than business class since the experience is largely the same, but the cost for airlines to run a first class cabin is significantly more. Therefore, more and more airlines are taking out their first class to just put in more business class, it just makes more money. If an airline could fill a plane full of business class passengers, it would.",
+   "zh": "那是拥挤的座位与平躺大床的差距，但商务舱和头等舱的区别，无非就是空间稍微大一点、餐食稍微好一点。对航空公司来说，头等舱很难卖出远高于商务舱的价钱，因为体验大同小异，但运营头等舱机舱的成本却要高得多。因此，越来越多的航空公司正在取消头等舱，换成更多的商务舱，毕竟这样更能赚钱。如果航空公司能让整架飞机都坐满商务舱乘客，他们绝对会这么做。"
+  },
+  {
+   "s": 608.38,
+   "e": 633.14,
+   "en": "It's been tried, but pretty much no route has the premium demand to fill a plane full of business class. Everyone in economy, in the end, is just there to fill the plane. This video was made possible by Squarespace. Squarespace is the absolute easiest way to make your website. I've used them for a few different sites including WendoverProductions.com. As I said last time, I basically bought that domain to be sure nobody else could.",
+   "zh": "有人试过这么做，但几乎没有哪条航线的商务需求，大到能坐满一整架全商务舱的飞机。经济舱的每位乘客，说到底不过是用来填满飞机的。本期视频由 Squarespace 赞助播出。Squarespace 绝对是搭建网站最轻松的方式。我已经用它建了好几个网站，包括 WendoverProductions.com。就像我上次说的，我买这个域名基本上就是为了防止被别人抢注。"
+  },
+  {
+   "s": 633.39,
+   "e": 656.23,
+   "en": "I didn't really have the time or need to create a fancy website so I just spent about 15 minutes to throw together a landing page. It was incredibly easy with the Squarespace templates and, in my opinion at least, it looks great. Now I can give people one link that takes them to a page with the links to all my different social media profiles. You can create a landing page like this, a blog, a store, really anything with Squarespace.",
+   "zh": "我既没时间也没必要搞一个花哨的网站，所以就花了大概15分钟随手搭了个着陆页。借助 Squarespace 的模板，这简直易如反掌，而且至少在我看来，效果非常棒。现在我只要给别人一个链接，他们就能访问到一个汇集了我所有社交媒体主页的页面。你也可以用 Squarespace 搭建这样的着陆页、博客、网店，真的做啥都行。"
+  },
+  {
+   "s": 656.59,
+   "e": 682.13,
+   "en": "and what's best is that you can get 10% off your first order by using the code Wendover over at squarespace.com slash Wendover. That also helps you help the channel, so please do go check out Squarespace at squarespace.com slash Wendover. Other than that, you can support Wendover Productions at patreon.com slash Wendover Productions, follow me on Twitter at WendoverPro, watch my last video on why planes don't fly faster here.",
+   "zh": "更棒的是，在 squarespace.com/Wendover 输入优惠码 Wendover，首单即可立减 10%。这也能帮到我们频道，所以请务必去 squarespace.com/Wendover 看看 Squarespace。此外，你还可以在 patreon.com/Wendover Productions 上支持 Wendover Productions，在 Twitter 上关注 @WendoverPro，或者点击这里观看我上一期关于飞机为什么不能飞得更快的视频。"
+  },
+  {
+   "s": 682.43,
+   "e": 694.77,
+   "en": "Check out my fan-moderated subreddit here and most of all subscribe to this channel to receive all my future videos right when they come out. Thanks again for watching and I'll see you in two weeks for another Wendover Productions video.",
+   "zh": "点击这里查看粉丝管理的 Subreddit，最重要的是订阅本频道，以便第一时间收看我未来的所有视频。再次感谢大家的观看，两周后的下一期 Wendover Productions 视频再见！"
+  }
+ ]
+}

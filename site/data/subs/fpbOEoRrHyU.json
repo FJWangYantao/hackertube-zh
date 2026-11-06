@@ -1,0 +1,176 @@
+{
+ "vid": "fpbOEoRrHyU",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 3.89,
+   "e": 33.51,
+   "en": "Our top story tonight concerns the internet, aka the electronic cat database. But first, let's take just a moment together and appreciate how amazing the internet is. You can use it to file your taxes, apply for jobs. You can go online right now and buy a case of coyote urine. Do you know how difficult it used to be to obtain coyote urine? You literally had to give a coyote gatorade and just wait. It was a mess.",
+   "zh": "今晚的头条新闻与互联网有关，也就是所谓的“电子猫咪数据库”。但首先，让我们花点时间一起感叹一下互联网有多神奇。你可以用它来报税、申请工作。你现在就可以上网买一整箱郊狼尿。你知道以前弄到郊狼尿有多难吗？你真得给郊狼喂佳得乐，然后干等着。简直是一团糟。"
+  },
+  {
+   "s": 33.82,
+   "e": 62.32,
+   "en": "The system was a mess. But if you've turned on the news lately, you may have heard some worrying references to the internet changing. The Federal Communications Commission has agreed to move forward on a proposal that could change the way we use the internet. At risk, the basic principle of net neutrality. Net neutrality. Net neutrality. Yes, net neutrality. The only two words that promise more boredom in the English language are featuring sting.",
+   "zh": "这套机制以前就是一团糟。但如果你最近看了新闻，可能听到了一些关于互联网变革的令人担忧的消息。美国联邦通信委员会已同意推进一项可能改变我们使用互联网方式的提案。处于危险之中的，是网络中立性的基本原则。网络中立性。网络中立性。没错，网络中立性。英语里唯一听起来比它更无聊的词组，大概只有“Featuring Sting”了。"
+  },
+  {
+   "s": 65.54,
+   "e": 95.14,
+   "en": "Hearing three people talk about it is somehow even worse. As anticipated, the notice proposes to ground the net neutrality rules in section 706 of the Telecommunications Act of 1996. Oh, my God, that is the most boring thing I've ever seen. That is even boring by C-SPAN standards. I would rather read a book by Thomas Friedman than sit through that hearing. I would rather listen to a pair of dockers tell me about the weird dream it had.",
+   "zh": "听三个人在那讨论，感觉甚至更糟了。正如预期的那样，该通告提议将网络中立性规则建立在1996年《电信法》第706条的基础上。天哪，这是我见过最无聊的东西了。以 C-SPAN 的标准来看都无聊透顶。我宁愿去读 Thomas Friedman 写的书，也不想听完那场听证会。我宁愿听一条卡其裤跟我讲它做过的怪梦。"
+  },
+  {
+   "s": 96.66,
+   "e": 122.6,
+   "en": "I would rather sit down with my niece and watch Caillou, a children's show about a bald Canadian child who lives a life devoid of any incident. F*** you, Caillou. And leave the house. Don't want the world's aboot. Come on. But here's the thing. Net neutrality is actually hugely important. Essentially, it means that all data...",
+   "zh": "我宁愿陪我侄女坐下来看《卡由》，那是一部儿童剧，讲一个生活平淡得毫无波澜的加拿大秃头小孩。去你的，Caillou。快滚出家门。这世界没你想的那么太平。拜托。但关键在于，网络中立性实际上至关重要。从本质上讲，这意味着所有数据……"
+  },
+  {
+   "s": 122.6,
+   "e": 149.6,
+   "en": "has to be treated equally, no matter who creates it. It's why the Internet is a weirdly leveled playing field. And startups can supplant established brands. That's how Facebook supplanted MySpace. Which supplanted Friendster? Which supplanted actually having any friends? Do you remember physically having friends? It was awful. You couldn't tap people's faces to make them go away. The point is, the Internet in its current form is not broken.",
+   "zh": "都必须被一视同仁，不管它是由谁创造的。这就是为什么互联网是一个奇妙的公平竞技场，初创公司能够取代老牌品牌。Facebook 就是这样取代了 MySpace。而 MySpace 当初取代了 Friendster，Friendster 又取代了现实中拥有朋友？你还记得现实中交朋友是什么样吗？太糟糕了。你没办法轻点别人的脸来让他们走开。重点是，互联网目前的形态并没有坏。"
+  },
+  {
+   "s": 150.04,
+   "e": 179.16,
+   "en": "and the FCC is currently taking steps to fix that. The FCC is endorsing new rules that could clear the way for a two-tier system. The rules would open the door for the first time for internet providers like Comcast and Verizon to charge tech companies to send content to consumers more quickly. Netflix, for example, might pay a premium to ensure that its customers can stream movies more reliably. At a cost, a startup competitor might not be able to afford.",
+   "zh": "而 FCC 目前正采取措施去“修复”它。FCC 正在支持新规则，这些规则可能会为双层体系铺平道路。这些规则将首次为 Comcast 和 Verizon 等互联网服务提供商打开大门，允许它们向科技公司收费，以便更快地向消费者发送内容。例如，Netflix 可能会支付额外费用，以确保其用户能更稳定地流式传输电影。但这笔费用，是初创竞争对手可能无法承受的。"
+  },
+  {
+   "s": 179.58,
+   "e": 210.04,
+   "en": "No. This cannot happen. How else is my startup streaming video service, Nutflix, going to compete? It's going to be America's one-stop resource for videos of men getting hit in the nuts. You don't even know you want it yet. That's why it's brilliant. Ending net neutrality would allow big companies to buy their way into the fast lane, leaving everyone else in the slow lane. Although, telecom companies would prefer that you put it in a slightly different way.",
+   "zh": "不行，这绝对不行。不然我的初创流媒体视频网站 Nutflix 怎么去竞争？它可是要成为全美看男人蛋疼视频的一站式平台的。你现在甚至都不知道自己需要它，所以这创意才绝妙啊。终结网络中立性会让大公司花钱插进快车道，而把其他人全都丢在慢车道上。不过，电信公司更希望你们换一种稍微委婉点的说法。"
+  },
+  {
+   "s": 210.57,
+   "e": 238.34,
+   "en": "When you say fast lane and slow lane, it's a good illustration. But what you really should be talking about is a fast lane for everybody and a hyper speed lane for others. Bullshit. If we let cable companies offer two speeds of service, they won't be Usain Bolt and Usain Bolt on a motorbike. They'll be Usain Bolt and Usain Bolted to an anchor. And telecom companies will say...",
+   "zh": "你说快车道和慢车道，这个比喻很形象。但你真正应该谈论的，其实是所有人的快车道，以及某些人的超快车道。纯属胡扯。如果我们允许有线电视公司提供两种档速的服务，那绝不会是博尔特和骑摩托车的博尔特。而是博尔特和被锚死死拴住的博尔特。然后电信公司又会说……"
+  },
+  {
+   "s": 238.34,
+   "e": 268.22,
+   "en": "They would never slow down a website speed in order to get more money out of them. But let me tell you a little story. Recently, Comcast was negotiating with Netflix. This graph shows Netflix download speeds on various providers. That black line plummeting downwards was their speed on Comcast during the negotiation. See if you can guess when Netflix agreed to Comcast demands. I'll give you a hint. It's right there. That has all the ingredients of a mob shakedown.",
+   "zh": "他们绝不会为了多捞钱而去降低某个网站的网速。但让我来给你们讲个小故事。最近，Comcast 正在和 Netflix 谈判。这张图表展示了 Netflix 在各家运营商的网络下载速度。那条一路暴跌的黑线，就是谈判期间在 Comcast 上的网速。看看你们能不能猜出 Netflix 是什么时候向 Comcast 的要求妥协的。我给你们个提示。就在那儿。这活脱脱就是黑帮敲诈勒索的套路。"
+  },
+  {
+   "s": 268.73,
+   "e": 293.89,
+   "en": "Oh, Netflix, nice show about life in a lady's prison. Such a shame if there was gonna be something happen to your connection there. So frustrating that would be. And it's not just anti-corporate hippies who think that abandoning net neutrality is a bad idea. The net neutrality movement is leery of big corporate players, but in this debate, it's on the same side as some of them.",
+   "zh": "“哟，Netflix，女子监狱题材的剧拍得不错嘛。要是你们的网络连接出了点什么差错，那可就太遗憾了。那得多让人抓狂啊。”而且，不仅是那些反大企业的嬉皮士们认为放弃网络中立是个坏主意。网络中立运动虽然对大企业玩家充满戒心，但在这场辩论中，他们却与其中的一些巨头站在了同一阵线。"
+  },
+  {
+   "s": 294.06,
+   "e": 322.13,
+   "en": "Google, Facebook, Netflix, Amazon, all signed on to this letter, uh, supporting net neutrality. What's being proposed is so egregious, activists and corporations have been forced onto the same side. That's basically Lex Luthor knocking on Superman's apartment door and going, listen, I know we have our differences, but we have got to get rid of that arsehole in apartment 3B. He's... He's too loud, suit. He's just too loud.",
+   "zh": "Google、Facebook、Netflix、Amazon 都在这封支持网络中立的联名信上签了字。眼下这项提案实在太恶劣了，以至于把活动家和大公司硬生生逼到了同一阵营。这简直就像是 Lex Luthor 去敲超人家公寓的门，然后说：听着，我知道咱俩不对付，但我们必须得把 3B 室那个混蛋赶走。他……他太吵了，大超。他实在太吵了。"
+  },
+  {
+   "s": 324.62,
+   "e": 347.92,
+   "en": "And you might wonder, well, look, if everyone is against this, how is it even possibly happening? Well, consider who would benefit from this change. Cable companies. Verizon wants a two-tier system so badly, they sued the government to force the rule change that's currently being discussed. These companies have Washington in their pockets to a conveniently almost unbelievable degree.",
+   "zh": "你可能会好奇，既然人人都反对，那这事儿怎么可能推得下去？想想看谁能从这项改变中获利吧。是有线电视公司。Verizon 极度渴望搞双层收费体系，甚至为此起诉了政府，硬逼着修改规则，也就是现在正在讨论的这项提案。这些大公司对华盛顿政界的影响力之深，简直方便得令人难以置信。"
+  },
+  {
+   "s": 358.05,
+   "e": 369.43,
+   "en": "So just to be clear, the ranking of who buys government influence is number one, military industrial complex, and number two, the provider of lizard lick toeing.",
+   "zh": "说清楚点，在收买政府影响力这块，排第一的是军工复合体，排第二的是提供《蜥蜴舔拖车》节目的公司。"
+  },
+  {
+   "s": 373.61,
+   "e": 402.93,
+   "en": "I could show you the troublingly cozy relationship between cable companies and Washington in any number of ways. I could show you the president golfing with the CEO of Comcast, or saying at a fundraiser at a cable executive's house that he'd been there so many times, the only thing I haven't done in this house is have Seda dinner. But perhaps the most succinct way is this. The president has picked Tom Wheeler, a former top lobbyist for cable and wireless companies to be the next chair of the Federal Communications Commission. Yes.",
+   "zh": "我有无数种方法向大家展示有线电视公司和华盛顿之间那令人不安的亲密关系。我可以给你看总统和 Comcast 的 CEO 一起打高尔夫，或者在某个有线电视高管家的筹款活动上说自己来得太频繁，“在这个家里，我唯一还没做过的事就是吃逾越节家宴了”。但最直接的体现也许是这个：总统任命了 Tom Wheeler，一位曾任有线电视和无线电通信行业的顶级说客，来担任联邦通信委员会的下任主席。没错。"
+  },
+  {
+   "s": 403.49,
+   "e": 434.28,
+   "en": "The guy who used to run the cable industry's lobbying arm is now running the agency tasks with regulating it. That is the equivalent of needing a babysitter and hiring a dingo. Here, thanks for stopping over. Make sure they're in bed by eight. There's 20 bucks on the table for kibble, so please don't eat my baby. With the facts. The facts.",
+   "zh": "那个曾经统领有线电视行业游说部门的人，现在负责监管这个行业的机构。这就好比你想找个保姆，结果雇了只澳洲野犬。“来，谢谢你能过来帮忙。记得让他们八点前上床睡觉。桌上有二十块钱买狗粮，所以千万别吃我的宝宝。”摆摆事实，这就是事实。"
+  },
+  {
+   "s": 434.65,
+   "e": 460.41,
+   "en": "that they are practically overseeing their own oversight. It is hardly surprising that cable companies are basically monopolies now. A federal study found that 96% of the population had access to two or fewer cable broadband providers. It's almost as if they've agreed to stay out of each other's way like drug cartels. Hold on, that's not fair. That's not fair. I mean, if, hypothetically, a cable company like Comcast...",
+   "zh": "实际上他们就是在监督对自己的监管。有线电视公司现在基本上成了垄断企业，这一点也不奇怪。一项联邦调查发现，96%的人口只能选择两家或更少的有线宽带供应商。这就好像他们像贩毒集团一样，商定好互不干涉。等等，这不公平。这不公平。我的意思是，假设像Comcast这样的有线电视公司……"
+  },
+  {
+   "s": 460.43,
+   "e": 487.24,
+   "en": "were planning to merge with a company like, let's say, Time Warner. It's not like their CEO would sit down and mark out who had which turf, right? Both in video and in broadband, we don't compete with Time Warner. You have to start with that very fundamental point. They're in New York, we're in Philadelphia, they're in LA, we're in San Francisco. You can't buy a Comcast in New York, you can't buy a Time Warner in Philadelphia. So there's no reduction in competition. Exactly.",
+   "zh": "正打算与比如Time Warner这样的公司合并。他们的CEO总不可能坐下来划分谁拥有哪块地盘吧，对吧？无论在视频还是宽带领域，我们都没有与Time Warner竞争。你必须从这个最基本的点出发。他们在纽约，我们在费城；他们在洛杉矶，我们在旧金山。你在纽约买不到Comcast的服务，在费城买不到Time Warner的服务。所以根本没有减少竞争。没错。"
+  },
+  {
+   "s": 488.11,
+   "e": 515.03,
+   "en": "You can't reduce competition when nobody is competing You could not be describing a monopoly more clearly if you are wearing a metal top hat While driving a metal car after winning second prize in a beauty contest Maybe it's because of their lack of competition that they get away with providing such shitty service",
+   "zh": "压根没人竞争的时候，你根本没法削弱竞争。哪怕你戴着大富翁里的金属高帽、开着金属小车，刚在选美比赛拿了个二等奖，对“垄断”的描述都没现在这么形象。可能正因为毫无竞争，他们才能心安理得地提供这种垃圾服务。"
+  },
+  {
+   "s": 515.58,
+   "e": 545.1,
+   "en": "We pay more for our Internet service than almost anybody else on Earth. And yet, the download speeds we get lag behind Estonia. Estonia, a country where, from the looks of it, they still worry about Shrek attacks. Is it any wonder that in a massive recent customer satisfaction surveys, Comcast and Time Warner Cable came in dead last? And when you look at the companies that were scored better than them...",
+   "zh": "我们在网费上的开销几乎比地球上任何人都多。然而，我们的下载速度居然还落后于爱沙尼亚。爱沙尼亚，一个看起来至今还在提防怪物史莱克袭击的国家。也难怪在最近一次大规模客户满意度调查中，Comcast 和 Time Warner Cable 双双垫底。而当你看看那些评分比它们还高的公司……"
+  },
+  {
+   "s": 545.1,
+   "e": 579.32,
+   "en": "People were basically saying, yes, Bank of America took my home. Yes, Taco Bell gave me diarrhea. And sure, GM tried to kill me. Time Warner and Comcast are the worst. They are the worst. I know. The cable companies will say, oh, they support net neutrality protections. Or they remain committed to the open internet. Or just the tip. But let me remind you.",
+   "zh": "大家基本都在说，没错，美国银行收走了我的房子，塔可钟让我拉肚子，通用汽车差点要了我的命，但时代华纳和康卡斯特才是最烂的，他们烂透了，我知道，有线电视公司会辩称，他们支持网络中立性保护，或者说他们依然致力于开放网络，哪怕只是说说而已，但容我提醒各位，"
+  },
+  {
+   "s": 579.58,
+   "e": 599.5,
+   "en": "They also say that they'll be at your house between two and six tomorrow afternoon. And does any part of you really expect them to fucking turn up? And yet, our government looks set to end net neutrality and let these companies run hog wild, and we're just gonna let them. And you know why? It all comes back to this.",
+   "zh": "他们还承诺过明天下午两点到六点之间上门服务呢，你心里真有哪怕一丝觉得他们他妈的会来吗？然而，我们的政府似乎打定主意要废除网络中立性，任由这帮公司胡作非为，而我们就这么听之任之，你知道为什么吗？归根结底就在这儿。"
+  },
+  {
+   "s": 600.09,
+   "e": 623.16,
+   "en": "It seeks comment on ways to construe additional language in Section 706, and even suggests using Section 230B to broaden the scope of the Commission's usurped authority. Oh, my God, how are you still so dull? And that's the problem. The cable companies have figured out the great truth of America. If you want to do something evil, put it inside something boring.",
+   "zh": "“本案就如何解读第706节的补充措辞征求意见，甚至建议利用第230B节来扩大委员会被僭夺权力的范围。”天呐，这玩意儿怎么能无聊成这样？问题恰恰就在这里，有线电视公司参透了美国的一大真理：如果你想干坏事，就把它藏进无聊透顶的幌子里。"
+  },
+  {
+   "s": 623.95,
+   "e": 652.55,
+   "en": "Apple could put the entire text of Mein Kampf inside the iTunes user agreement, and you'd just go, uh, agree, agree, agree, agree. And that... that's why advocates should not be talking about protecting net neutrality. They shouldn't even use that phrase. They should call it preventing cable company f***ering. Because that is what it is. And it might actually compel people to want to do something.",
+   "zh": "苹果就算把《我的奋斗》全文塞进 iTunes 用户协议里，你也只会一路狂点“同意、同意、同意、同意”。正因如此……倡导者们才不该去空谈什么保护网络中立。他们甚至不该用这个词。他们应该称之为“防止有线电视公司胡作非为”。因为事实就是如此。而且这样说或许真的能激起人们采取行动的欲望。"
+  },
+  {
+   "s": 652.92,
+   "e": 685.2,
+   "en": "And the interesting thing here is, there might actually be something you can still do. The FCC will be taking public comment for 120 days. That's right. The FCC are literally inviting internet comments at this address. And at this point, and I can't believe I'm about to do this, I would like to address the internet commenters out there directly. Good evening, monsters. This...",
+   "zh": "有趣的是，现在可能真有你能做的事。FCC 将开放 120 天的公众意见征集。没错。FCC 真的在邀请网友们在这个地址发表评论。说到这儿，我都不敢相信自己居然要这么做，我想直接对网络上的喷子和键盘侠们说几句。晚上好，怪物们。这……"
+  },
+  {
+   "s": 685.2,
+   "e": 714.8,
+   "en": "may be the moment you've spent your whole lives training for. You have been out there ferociously commenting on dance videos of adorable three-year-olds saying things like, every child could dance like this little loser after one week of practice. Or you've been polluting Frozen's Let It Go with comments like, Ice Castle would give her hypothermia and she dead in an hour. And I know you've done this one commenting on video on this show saying, fuck this asshole anchor.",
+   "zh": "这可能就是你们苦练一生所等待的时刻。你们一直在外面凶猛地评论那些三岁萌娃的跳舞视频，说什么“随便哪个小孩练上一周，都能跳得比这个小废柴好”。或者在《冰雪奇缘》的《Let It Go》下面狂刷恶评，说“冰雪城堡会让她体温过低，一小时内就得冻死”。我还知道你们肯定干过这事——跑到我们节目的视频下骂：“去死吧，这个傻X主持人。”"
+  },
+  {
+   "s": 715.37,
+   "e": 746.68,
+   "en": "Go suck your president's d**k. You're just friends with the terrorists. I don't know... I don't know what any of that means. And don't think it's a compliment. But this is the moment you were made for, commenters. Like Ralph... Ralph Macchio. You've been honing your skills, waxing cars, and painting fences. Well, guess what? Now it's time to do some f**king karate. For once in your life.",
+   "zh": "“去跪舔你们总统吧。你根本就是恐怖分子的同伙。”我不知道……我不知道这都什么跟什么。但我觉得这肯定不是夸奖。不过键盘侠们，这就是你们大显身手的时刻了。就像拉尔夫……Ralph Macchio一样。你们一直在磨练技能，擦车、刷篱笆。你猜怎么着？现在是时候亮出你们的真功夫了。就这一次，为了你们的人生。"
+  },
+  {
+   "s": 747.1,
+   "e": 772.76,
+   "en": "We need you to channel that anger. That badly-spelled bile that you normally reserve for unforgivable attacks on actresses you seem to think are put on weight. Or politicians that you disagree with. Or photos of your ex-girlfriend getting on with her life. Or non-white actors being cast as fictional characters. And I'm talking to you, Ron Paul fan 2016. And you!",
+   "zh": "我们需要你们把这股怒火引向正轨。平时你们那些错字连篇的恶毒言论，都留着去攻击自以为长胖了的女演员，或者是政见不合的政客，或者是前女友开启新生活的照片，又或者是非白人演员出演的虚构角色。说的就是你，Ron Paul 2016的粉丝。还有你！"
+  },
+  {
+   "s": 773.18,
+   "e": 792.52,
+   "en": "One direction forever. And I'm talking to you! One direction sucks balls. We need you to get out there. And for once in your lives, focus your indiscriminate rage in a useful direction. Seize your moments, my lovely trolls. Turn on Caps Lock and fly, my pretties!",
+   "zh": "“One direction forever”这位。还有你，“One direction sucks balls”那位。我们需要你们挺身而出。这辈子就这么一次，把你们无差别的狂怒用在正道上。抓住机会吧，我可爱的小喷子们。按下大写键，飞翔吧，我的宝贝们！"
+  }
+ ]
+}

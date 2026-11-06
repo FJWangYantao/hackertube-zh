@@ -1,0 +1,290 @@
+{
+ "vid": "dPHPNgIihR0",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 0.0,
+   "e": 28.08,
+   "en": "So, back at the beginning of February 2019, DJ Marshmello performed a live concert inside Epic Games Online Gaming Sensation Fortnite, and I have since then been informed via numerous breathy think pieces that Fortnite is no longer merely a game, but is now a content delivery platform experience. And so, logically, the only sensible thing for me to do is to get in on this and pivot entirely",
+   "zh": "早在2019年2月初，DJ Marshmello就在Epic Games的现象级网游《堡垒之夜》里办了场现场音乐会，从那时起，我就在无数篇大惊小怪的深度评论中得知，《堡垒之夜》已经不仅仅是一款游戏，而是一个内容分发平台体验。所以，顺理成章地，我唯一明智的做法就是加入其中，彻底转型"
+  },
+  {
+   "s": 28.75,
+   "e": 61.56,
+   "en": "to Fortnite. Welcome to the brand new Folding Ideas All Fortnite Digital Studio that is not only a digital studio because I'm producing digital content but it is also literally a digital studio. It is double digital and...",
+   "zh": "做《堡垒之夜》。欢迎来到全新的Folding Ideas全《堡垒之夜》数字演播室，之所以叫数字演播室，不仅因为我在制作数字内容，更因为它字面上就是一个虚拟数字演播室。这可是双重“数字化”，而且……"
+  },
+  {
+   "s": 61.56,
+   "e": 79.7,
+   "en": "This this arm waving emote is the only meaningful animation I've got and there's nothing available that really looks like talking So I I guess it's what I'm going with for now. So when you see me doing this it it means I'm talking To you it took me like",
+   "zh": "这个挥手臂的动作表情是我唯一拿得出手的动作，也没别的动作真正看起来像是在说话，所以我想暂时就先用这个了。所以当你看到我做这个动作，就代表我正在跟你说话，我花了差不多"
+  },
+  {
+   "s": 79.89,
+   "e": 98.93,
+   "en": "20 hours to unlock this. Fortnite, developed by Epic Games, is an online four-player cooperative base-building tower defense shooter game. Released as Early Access with in-game purchases in July 2017, the game has been utterly eclipsed by its free-to-play sub-game Fortnite Battle Royale launched in September 2017.",
+   "zh": "20个小时才解锁这个动作。《堡垒之夜》由Epic Games开发，是一款四人联机的在线合作建造基地塔防射击游戏。该作于2017年7月以包含内购的抢先体验形式发布，但光芒已经完全被2017年9月推出的免费子游戏《堡垒之夜：大逃杀》所掩盖。"
+  },
+  {
+   "s": 99.23,
+   "e": 125.81,
+   "en": "Battle Royale, a format popularized by PlayerUnknown's Battlegrounds and originally inspired by the 2000 Japanese horror film Battle Royale, is a last player standing free for all where 100 players are dropped onto an island with an ever shrinking zone of engagement and left to scrounge resources, build defenses, and fight until only one remains. In the wake of the success of Fortnite Battle Royale, the original Fortnite has been renamed Fortnite Save the World,",
+   "zh": "大逃杀模式因《绝地求生》而风靡，其灵感最初源于 2000 年的日本恐怖电影《大逃杀》；这是一种百人混战、战至最后的玩法，100 名玩家被空投到一座安全区不断缩小的岛屿上，搜刮物资、建造掩体并相互厮杀，直到仅剩一人胜出。随着《堡垒之夜：大逃杀》的巨大成功，原版《堡垒之夜》已被重新命名为《堡垒之夜：守护家园》。"
+  },
+  {
+   "s": 126.11,
+   "e": 146.49,
+   "en": "A critical bit of Fortnite's development comes from the involvement of Chinese multimedia firm Tencent. In 2012, Epic Games approached Tencent for help with the then fledgling Fortnite seeking their input on turning the game into a live service platform, meaning it would function as an ongoing revenue stream rather than simply being a single purchase product.",
+   "zh": "《堡垒之夜》开发过程中的一个关键节点，在于中国多媒体巨头腾讯的介入。2012 年，Epic Games 主动向腾讯寻求帮助，希望对方能为当时尚处于初期的《堡垒之夜》提供指导，将其打造成一个在线服务型平台，也就是成为能持续创造营收的产品，而不仅仅是一锤子买卖的单次买断制游戏。"
+  },
+  {
+   "s": 146.74,
+   "e": 173.84,
+   "en": "Tencent agreed to help and supply additional financial resources and expertise in exchange for being allowed to purchase a 40% stake in the company, an arrangement to which Epic agreed. Following the merger, a number of high-profile staff retired from Epic including Cliff Blasinski, Adrian Chamilarz, Lee Perry, and Rod Ferguson, all to one degree or another citing dissatisfaction with either the Tencent merger, the games as a service business model, or both. But",
+   "zh": "腾讯同意提供帮助，给予额外的资金和专业支持，换取收购该公司40%股份的许可，Epic 同意了这一安排。合并之后，包括 Cliff Bleszinski、Adrian Chmielarz、Lee Perry 和 Rod Fergusson 在内的多位知名员工从 Epic 离职，他们都在一定程度上表示对腾讯入股、服务型游戏商业模式或两者兼有感到不满。不过"
+  },
+  {
+   "s": 174.02,
+   "e": 227.34,
+   "en": "That's not what you're here for. You don't want a history lesson placing Fortnite into an appropriate cultural context. You're here for hot Fortnite player-on-player action. Uh, it's player versus player. Wait, what did I say? Remember to follow me on Twitch TV slash I Kill Weed Names because you can enjoy what the Earth Mother gave us, but that isn't the same as having a personality.",
+   "zh": "你们来可不是为了听这些的。你们才不想听一堂把《Fortnite》放到合适文化背景下的历史课。你们是来看《Fortnite》玩家间火热激战的。呃，是玩家对战玩家（PvP）。等等，我刚才说什么了？记得在 Twitch TV 上关注我，搜索斜杠 I Kill Weed Names，因为你享受大自然母亲的馈赠，可不等于你很有个性。"
+  },
+  {
+   "s": 243.31,
+   "e": 306.35,
+   "en": "One of the things in particular that stands out to me about the meta-narrative surrounding Fortnite- Hey, isn't it weird how hostile the free-to-play track is? Like, it's not simply structured to drive paying for something or another, it actually starts- Okay, so what's all this about a concert- Okay, so what's all this about a concert in Fortnite?",
+   "zh": "围绕《Fortnite》的元叙事，特别引起我注意的一点是——等等，这免费通行证的设计是不是敌意太大了点？就比如，它不仅是为了促使你花钱买这买那，它实际上开始——好吧，所以《Fortnite》里办演唱会到底是怎么回事——好吧，所以《Fortnite》里办演唱会到底是怎么回事？"
+  },
+  {
+   "s": 306.7,
+   "e": 314.76,
+   "en": "On February 2nd, 2019, Christopher Comstock, who performs under the DJ name Marshmello, played a 10-minute concert in Fortnite's Pleasant Park.",
+   "zh": "2019年2月2日，艺名为 Marshmello 的 DJ Christopher Comstock，在《Fortnite》的欢乐公园举办了一场时长10分钟的演唱会。"
+  },
+  {
+   "s": 322.64,
+   "e": 337.98,
+   "en": "Or, more accurately, at 2pm Eastern Time, players who joined a special Marshmallow Concert game mode got to watch a scripted concert event during which weapons and damage were deactivated to ensure that players couldn't be griefed and that the event wouldn't be interrupted with gunfire and explosions.",
+   "zh": "或者更准确地说，在东部时间下午2点，加入特殊“Marshmello 演唱会”游戏模式的玩家们观看了一场脚本化的演唱会活动；期间武器和伤害都被禁用，以确保玩家不会被恶意骚扰，活动也不会被枪声和爆炸打断。"
+  },
+  {
+   "s": 338.61,
+   "e": 367.85,
+   "en": "It's maybe a bit of a pointless hair to split the fact that the concert was pre-recorded and not actually live, but I mean, that's what we do here. We deconstruct narratives and the idea that this was a live set was very much part of the narrative. The fiction extended to the fact that the mini-set was added to Marshmello's tour schedule. A significant component of the implicit messaging was to demonstrate the flexibility of Fortnite, the concept of Fortnite as a content delivery platform.",
+   "zh": "去纠结这场演唱会是提前录好的、并非真正现场，可能有点吹毛求疵，但话说回来，我们频道就是干这个的。我们要解构叙事，而“这是一场现场演出”恰恰是这种叙事的核心部分。甚至为了把戏做足，这段迷你演出还被写进了 Marshmello 的巡演日程里。这背后的潜台词，很大程度上是为了展示 Fortnite 的灵活性，证明 Fortnite 可以作为一个内容分发平台。"
+  },
+  {
+   "s": 368.21,
+   "e": 392.21,
+   "en": "As a scripted event utilizing the game's engine, server architecture, and assets, the concert is quite impressive. The crowd does end up looking a little thin because it turns out 60 people per match just isn't that many if you're trying to simulate an actual audience, but players maneuvering virtual bodies need a bit more space to do things than real people, and keeping the population low mitigated problems with players who are",
+   "zh": "作为一场利用了游戏引擎、服务器架构和游戏资产的脚本事件，这场演唱会确实相当震撼。虽然现场人群看起来略显稀疏，毕竟单局 60 人的上限对于模拟真实观众来说实在太少了，但玩家操控虚拟化身需要比真人更大的活动空间，而且限制人数也能兼顾那些"
+  },
+  {
+   "s": 392.48,
+   "e": 421.63,
+   "en": "accessing on lower-end hardware or internet connections, minimizing the odds that they would lag out or just crash entirely. As a delivery platform, however? Well, it demonstrates the flexibility and possibilities that Fortnite offers... if you're DJ Marshmello. The concert isn't actually built in Fortnite. It's full of bespoke assets and scripting that could only be constructed with the active participation of Epic Games.",
+   "zh": "设备配置较低或网速较差的玩家，尽量降低他们卡顿掉线甚至直接崩溃的概率。但是，把它作为一个分发平台来看呢？嗯，它确实展示了 Fortnite 能带来的灵活性和无限可能……前提是你得是 DJ Marshmello。这场演唱会根本不是在 Fortnite 原生环境里搭出来的，它充斥着专门定制的资产和脚本，没有 Epic Games 的全力参与根本做不出来。"
+  },
+  {
+   "s": 422.14,
+   "e": 451.24,
+   "en": "While Fortnite has a creative mode that allows players to build their own spaces, even very impressive spaces, nothing like this is remotely doable. While it's possible to put on a concert in Fortnite, it's not possible for you to put on a concert in Fortnite. The actual audience for this specific message is big name collaborators. Epic is advertising the idea that Fortnite is a viable venue for crossover promotional opportunities.",
+   "zh": "虽然 Fortnite 有创造模式允许玩家搭建自己的空间，哪怕是非常惊艳的空间，但也绝不可能做出类似这样的东西。虽然在 Fortnite 里开演唱会是可行的，但对你来说却根本不可能。这一特定信号的真正受众，其实是那些大牌合作方。Epic 正在对外宣传一个理念：Fortnite 是一个可行的跨界宣发平台。"
+  },
+  {
+   "s": 451.78,
+   "e": 485.31,
+   "en": "This is all part of the concept of games as a live service, so we should probably spend some time disassembling that particular narrative concept. Fortnite isn't really a game. Like, there's a game attached to Fortnite, but that's not the core of Fortnite. Fortnite is, first and foremost, a storefront. The monetization systems in Fortnite Battle Royale are seemingly simple on their face, but, well...",
+   "zh": "这都属于“游戏即服务”（GaaS）概念的一部分，所以我们或许该花点时间剖析一下这个特定的叙事概念。Fortnite 其实不算是一款游戏。虽然 Fortnite 确实挂着一个游戏，但那并不是它的核心。Fortnite 首先是一个店面。Fortnite Battle Royale 的变现系统表面看似简单，但，怎么说呢……"
+  },
+  {
+   "s": 485.31,
+   "e": 511.59,
+   "en": "Join me on a journey. The two arms of Fortnite's monetization are the Battle Pass and the Item Shop, both of which are fueled by an in-game token currency called V-Bucks. V-Bucks are used here, as in most other microtransaction-based games, as a means to bypass financial regulations involving held value and some regional laws surrounding gambling with regards to the loot crates, because in many regions it doesn't count as gambling if the currency evolved is non-fungible.",
+   "zh": "和我一起踏上这段旅程吧。《Fortnite》变现的两大支柱是战斗通行证和道具商城，这两者都是由名为 V-Bucks 的游戏代币驱动的。与大多数其他基于微交易的游戏一样，这里使用 V-Bucks 是为了规避涉及资金留存的金融法规，以及某些地区针对开箱的赌博法律，因为在许多地区，如果涉及的货币不可兑换，它就不算作赌博。"
+  },
+  {
+   "s": 511.91,
+   "e": 534.65,
+   "en": "basically in a lot of places it doesn't legally count as gambling if you're gambling with fun bucks that can't be converted back into legal tender so things that utilize all the structure vocabulary and psychological mechanisms of gambling like video game loop crates or gachapon toys aren't technically gambling as far as the law is concerned because you can't convert your winnings directly back into dollars.",
+   "zh": "基本上在很多地方，如果你用来赌博的是无法兑换回法币的“代金券”，从法律层面上讲这就不算赌博；所以像电子游戏开箱或扭蛋玩具这种利用了赌博的所有结构、术语和心理机制的东西，在法律层面上并不算真正的赌博，因为你无法直接把赢来的东西兑换回美元。"
+  },
+  {
+   "s": 535.28,
+   "e": 549.6,
+   "en": "Additionally, the use of V-Bucks also allows Epic to obfuscate the assigned value of both in-game purchases and the value of V-Bucks themselves by giving buyers a bulk discount for buying more and handing out V-Bucks for performing in-game activities.",
+   "zh": "此外，使用 V-Bucks 还让 Epic 能够模糊游戏内购买的实际价值以及 V-Bucks 本身的身价，方法包括多买多送的批量折扣，以及完成游戏内任务赠送 V-Bucks。"
+  },
+  {
+   "s": 550.19,
+   "e": 578.87,
+   "en": "Nominally, one V-Buck is worth just under one US cent, but if you buy 10,000 V-Bucks at a cost of $99.99 US, you get an air quote bonus $3,500, so the actual monetary cost of anything you buy on the store varies by about 25% depending on how many V-Bucks you bought. If you're confused, that's the point. The primary utility of funny money is to relieve you of the pressure in weighing. If this specific skin is worth $15,",
+   "zh": "名义上，一个 V-Buck 价值略低于一美分，但如果你花 99.99 美元买 10,000 个 V-Bucks，还会得到所谓的“额外赠送”3,500 个，所以你在商城买任何东西的实际金钱成本，根据你当初买了多少 V-Bucks，会有大约 25% 的浮动。如果你觉得晕，那就对了，这正是这种虚拟代币的核心作用：减轻你在权衡这个皮肤到底值不值 15 美元时的心理压力，"
+  },
+  {
+   "s": 579.72,
+   "e": 603.26,
+   "en": "Or is it $11? This is on top of another really common strategy, where the amounts don't scale evenly and don't line up cleanly with the costs of actual items, increasing the likelihood that you'll always have some left over, or will need to buy a substantial amount in order to get the thing that you want. This particular bit is pretty common, but Fortnite manages to take it to a whole new level.",
+   "zh": "还是值 11 美元？这还叠加上了另一种非常常见的套路：代币的充值额度与实际物品的价格完全错开，导致你手里总会剩下一点，或者必须多充一大笔钱才能买到心仪的物品。这种套路屡见不鲜，但 Fortnite 却把它玩出了新高度。"
+  },
+  {
+   "s": 603.63,
+   "e": 630.25,
+   "en": "This is ultimately the meaning of game as a service. It's just a euphemism for a game that takes up all your free time and becomes the only game that you play because it's just an elaborate, constantly resetting Skinner box that utilizes progression systems and seasonal competition as a means to place you constantly in the path of an endless stream of monetary interactions. To top it off, as a game, Fortnite Battle Royale isn't even particularly great,",
+   "zh": "说到底，这就是“服务型游戏”的真面目。它不过是个委婉的说法，指代那种霸占你所有空闲时间、让你只玩这一款的游戏，因为本质上它就是一个精心设计、不断重置的斯金纳箱，利用成长系统和赛季竞争，把你源源不断地推向没完没了的氪金诱惑。更糟糕的是，单论游戏本身，《堡垒之夜大逃杀》甚至都算不上特别好玩，"
+  },
+  {
+   "s": 630.67,
+   "e": 660.17,
+   "en": "The matchmaker is utterly bare bones and pays no regard to your performance, so you'll almost always be matched to the mix of players who are barely functional and several who are so far above your skill level that you're not even really playing the same game. The building mechanics in Battle Royale are unwieldy and create a tremendous skill gap that contributes to the aforementioned disparity, but they're also the whole gimmick that the game is built around, so that's kind of take it or leave it. The game is full of weird unpolished edge cases",
+   "zh": "匹配机制简陋到了极点，完全不管你的实际水平，所以你匹配到的往往是一帮手忙脚乱的萌新，外加几个技术高到仿佛跟你玩的不是同一款游戏的大神。《大逃杀》里的建造机制操作起来很笨拙，拉出了巨大的技术差距，直接导致了前面提到的实力失衡；但它又是整个游戏的核心卖点，所以你只能爱玩不玩。整个游戏充斥着各种莫名其妙、缺乏打磨的边角细节，"
+  },
+  {
+   "s": 660.17,
+   "e": 687.45,
+   "en": "like vehicles all using slightly different control schemes even for shared functionality. You get on a hoverboard and the speed boost is bound to left shift but on a quad crasher boost is spacebar even though left shift isn't bound to anything on the quad crasher. Because of the way that systems interact in particular the ways that the building mechanics are vital for defending against long-range attacks but are also so effective for either closing distance or escaping that",
+   "zh": "比如载具之间就连相同的功能，操作键位都各不相同。你踩上悬浮滑板，加速键是左 Shift，但在四轮撕裂者上加速键却变成了空格，哪怕四轮撕裂者的左 Shift 根本没绑定任何功能。由于各系统间的交互方式，尤其是建造机制不仅是抵御远距离攻击的关键，而且在拉近距离或逃跑时也极其好用，以至于"
+  },
+  {
+   "s": 687.66,
+   "e": 715.82,
+   "en": "the mid-range effectively barely exists, the game biases extremely heavily towards shotguns, basically becoming a contest of closing distance and gaining height so you can land a shotgun headshot on your opponents. If you strip out everything else, the game is a moderately okay shooter with a unique twist and a compelling aesthetic. It's not dire, but it's kinda just barely good enough to stand on its own without the rest of the hooks. And oh boy.",
+   "zh": "中距离交战基本形同虚设，游戏极度偏向霰弹枪，基本变成了拉近距离、抢占高点的比拼，好一枪霰弹爆头带走对手。抛开其他一切不谈，它算是一款中规中矩的射击游戏，机制独特，美术风格也很抓人。算不上糟糕，但也只能说勉强能脱离那些让人上瘾的套路独立存在。可天哪。"
+  },
+  {
+   "s": 716.35,
+   "e": 722.49,
+   "en": "Does Fortnite have hooks? The item shop is pretty grotesque when you break down its underlying mechanics.",
+   "zh": "Fortnite 有那些套路吗？要是仔细剖析它的底层机制，它的道具商城可以说是相当骇人了。"
+  },
+  {
+   "s": 723.03,
+   "e": 751.35,
+   "en": "In contrast to pretty much every other game on the market, Fortnite only displays 10 to 13 items at a time, rotating on a daily basis. This has the dual purpose of obfuscating what's available and creating a FOMO response, or fear of missing out. If you see something you like, you have a limited window in which to purchase it, and with the total inventory of products obfuscated, there's no sense of how long it might be until that particular item is available again, or...",
+   "zh": "与市面上几乎所有其他游戏截然相反，Fortnite 一次只展示 10 到 13 件物品，并且每天轮换。这达到了双重目的：既掩盖了到底有哪些商品，又营造出一种 FOMO 心理，也就是错失恐惧。如果你看中了某样东西，你只有极短的购买窗口，而且由于商品总库存被隐藏了，你根本不知道要过多久这件特定商品才会再次上架，或者……"
+  },
+  {
+   "s": 751.35,
+   "e": 775.15,
+   "en": "even if it will ever be available again at all. Incidentally, Alfonso Ribeiro isn't just suing Epic because his Carlton dance made it into the game, but because they took his work and were selling it for eight bucks a pop. The other arm of the monetization system is the Battle Pass, which costs a little under ten dollars US and ties into the seasonal progression track system, which is itself broken into two tiers, freed and paid.",
+   "zh": "即便以后还会再次上架。顺便提一句，Alfonso Ribeiro 起诉 Epic 不仅仅是因为他的“卡尔顿舞”被做进了游戏，更因为他们直接拿他的作品去卖，每次卖8美元。变现系统的另一大支柱是 Battle Pass，售价略低于10美元，并与赛季进阶系统挂钩，该系统本身分为免费和付费两个档位。"
+  },
+  {
+   "s": 775.5,
+   "e": 795.56,
+   "en": "Fortnite's cyclical gameplay is broken up into 10-week seasons, and the Battle Pass applies only for a given season. The paid track just throws piles of stuff at you every tier to incentivize playing more, including an early perk of an experience boost next season, just in case you were maybe considering not getting the next Battle Pass 10 weeks from now.",
+   "zh": "Fortnite 的循环玩法被拆分成10周一个赛季，而 Battle Pass 仅在当赛季有效。付费档位每升一级就会塞给你一大堆东西来激励你多玩，包括能提前获得下赛季经验加成的特权，防的就是你可能在10周后考虑不买下一张 Battle Pass。"
+  },
+  {
+   "s": 795.87,
+   "e": 823.11,
+   "en": "What's interesting about the free track is that it doesn't merely make use of FOMO psychology. It's not just saying, oh, look at all this stuff you'd get if you bought the battle pass. Though, I mean, it is literally saying that right there. But in addition to that, it's making use of hostile design. The free track actually ends at tier 62. Though the season track goes until 100, there's no additional free rewards past this point.",
+   "zh": "免费通行证有趣的地方在于，它不仅仅利用了错失恐惧（FOMO）心理。它不只是在说：哦，看看要是买了战斗通行证，你本可以拿到这么多东西。虽然，我的意思是，它摆明了就是在这么说。但除此以外，它还利用了恶意设计。免费通行证实际上在第 62 级就截止了。尽管赛季通行证能一直升到 100 级，但过了这个等级就没有任何额外的免费奖励了。"
+  },
+  {
+   "s": 823.47,
+   "e": 851.35,
+   "en": "From here, it's not simply a matter of a fear of missing out. The entire Battle Pass system is founded on the dopamine rush of unlocking something new every few hours of play to keep players coming back. Within that context, the point where the game stops giving you stuff entirely, the game is withdrawing the thing that is used to get you hooked. It is punishing you for having dared play this long without paying. This is manufactured discontent.",
+   "zh": "从这里开始，这就不再只是错失恐惧的问题了。整个战斗通行证系统，都建立在让玩家每玩几小时就能解锁新东西的多巴胺快感之上，以此来留住玩家。在这种机制下，当游戏彻底停止给你提供任何物品时，它其实是在撤回当初用来吸引你的诱饵。它是在惩罚你，惩罚你居然敢白嫖玩这么久还不付钱。这就是人造的不满情绪。"
+  },
+  {
+   "s": 852.01,
+   "e": 880.43,
+   "en": "And make no mistake, you will have to play a lot to get to this point. Again, with the layers of deliberate obfuscation, the broad progression systems are broken into two parts. First, account level, which is itself broken into total level and seasonal level, and the battle pass, which we've discussed. Progressing in level is done by earning experience, which is rewarded at the end of every match, while progressing the battle pass is done by earning battle stars.",
+   "zh": "毫无疑问，要想达到这个阶段，你得玩上相当长的时间。还是老样子，在这些层层刻意的复杂包装下，整个进度系统被拆分成了两部分。首先是账号等级，它本身又被细分为总等级和赛季等级，然后就是我们讨论过的战斗通行证（Battle Pass）。账号升级需要赚取经验值，每局比赛结束后都会结算，而推进战斗通行证的进度则是通过获取战星来实现的。"
+  },
+  {
+   "s": 880.92,
+   "e": 902.82,
+   "en": "Battle stars are rewarded in amounts ranging from 2 to 10 for every level and for completing challenges which come in daily and weekly flavors. Daily challenges tend to be fairly straightforward ranging from placing in the top 25 to scoring a number of takedowns with a specific weapon type, while weekly challenges tend to get more varied and abstract and include things like visiting specific locations on the map.",
+   "zh": "提升每一级都会奖励 2 到 10 颗不等的战星，完成每日和每周挑战也能获得。每日挑战通常都相当简单直接，从排名前 25 到使用特定武器击杀一定数量的敌人不等；而每周挑战则往往更加多样化和抽象，比如前往地图上的特定地点等等。"
+  },
+  {
+   "s": 903.08,
+   "e": 931.72,
+   "en": "Now, briefly, I want to touch on the psychological design elements of the weekly challenges and the way that they're presented. First, there's the element of FOMO in that the completion reward of 5000 XP, a substantial amount of experience, requires completing four challenges, but only three are available for free. Second, the paid battle pass challenges aren't simply locked, but are turned into a mystery box. If you don't pay, you don't even get to see what they are.",
+   "zh": "现在，我想简单谈谈每周挑战的心理设计元素以及它们的呈现方式。首先是“错失恐惧”（FOMO）元素，完成奖励给的 5000 点经验值相当可观，但需要完成四个挑战，而免费的却只有三个。其次，付费战斗通行证挑战不只是被锁住，而是变成了盲盒。只要不付费，你甚至连挑战内容都看不到。"
+  },
+  {
+   "s": 932.53,
+   "e": 948.46,
+   "en": "tantalizing, isn't it? You only need one more. You're so close. Well, let's go back to these tracks. They're presented as roughly analogous, literally in parallel, but progression along these tracks aren't even.",
+   "zh": "很吊人胃口，对吧？就差一个了。你离目标那么近。行，我们再回过头看这两条路线。它们看起来大致对应，字面上也是并行的，但在两条路线上的进度推进并不对等。"
+  },
+  {
+   "s": 948.82,
+   "e": 975.58,
+   "en": "The gold tier players have access to more challenges which reward more battle stars which in turn reward direct experience on top of experience multipliers. Gold players don't just get more, they get it faster and with less effort. So this point, tier 62, it's highly unlikely that you'll actually get to this point without playing a lot of Fortnite every single day. I've actually needed to play",
+   "zh": "黄金档玩家可以参与更多挑战，获得更多战星，进而除了经验乘数外还能获得直接经验。黄金玩家不仅拿得更多，还拿得更快、更轻松。所以到了 62 级这个节点，如果你不是每天打大量 Fortnite，几乎不可能达到。在制作这个视频的过程中，我确实需要"
+  },
+  {
+   "s": 975.91,
+   "e": 1002.97,
+   "en": "a lot of Fortnite pretty much every day in the course of making this video, both in order to ensure I understood the game itself well enough to speak about it confidently, and also just to get the specific kinds of footage I was looking for, and at the midpoint of season 8, I'm less than halfway there. This maybe seems like I'm just complaining about the free-to-play players not getting enough stuff, but that's not actually the point.",
+   "zh": "几乎每天都打大量 Fortnite，既是为了确保自己足够了解这款游戏、能自信地谈论它，也是为了截取我想要的特定素材，然而在第 8 赛季过半时，我的进度还不到一半。这听起来可能像是我在抱怨免费玩家拿到的东西不够多，但这其实不是重点所在。"
+  },
+  {
+   "s": 1003.35,
+   "e": 1028.21,
+   "en": "The underlying purpose of demonstrating all this is to show the mechanisms that the creators are willing to employ. These psychological tricks are in effect a form of rhetoric, a form of persuasive speech. They are trying to persuade you by applying select forms of pressure, and it is, I think, worth understanding the mechanisms of that pressure so that we can better recognize how and when we are being persuaded.",
+   "zh": "展示这一切的根本目的，是为了揭示创作者们愿意采用的种种机制。这些心理学套路本质上是一种话术，一种说服性的话语。他们试图通过施加特定形式的心理压力来说服你，而且我认为，弄清楚这种施压机制是很有意义的，这样我们就能更敏锐地察觉自己是在何时、以何种方式被说服的。"
+  },
+  {
+   "s": 1028.58,
+   "e": 1056.24,
+   "en": "Also, it's worth keeping in mind that as a season is only 10 weeks long, a paid player can slip back into being a free player at any time. In order to retain all the perks of being a paid player, one would need to buy all 4-5 season passes every year. All of this goes hand in hand. The marshmallow concert isn't a thing happening in parallel to the monetization systems, it's a core pillar.",
+   "zh": "另外，还需要记住的是，一个赛季只有10周，付费玩家随时都可能变回免费玩家。为了保留付费玩家的所有特权，一个人每年得买齐全部4到5个赛季通行证。所有这一切都是相辅相成的。Marshmello的虚拟演唱会并不是游离在变现系统之外的独立事件，它本身就是变现的核心支柱。"
+  },
+  {
+   "s": 1056.5,
+   "e": 1086.16,
+   "en": "The external purpose of things like this are fairly straightforward. It's a publicity stunt, an oddity that people will talk about. The cost of assembling the technical aspects of the concert and paying Comstock for his participation were effectively weighted against a direct ad buy, and based on the coverage, Epic Tencent is probably pretty happy with the outcome. The internal purpose is a little more arcane, and I wouldn't blame you if you wanted to use the word sinister. The purpose of the concert is to utilize the social pressure of",
+   "zh": "这类活动的表面目的相当简单直接。这是一种宣传噱头，一个能引起大家讨论的奇观。搭建这场音乐会的技术成本加上支付给 Comstock 的出场费，实际上是在与直接买广告做权衡；而从媒体报道来看，Epic 和腾讯大概对这个结果相当满意。其深层目的则稍微隐晦一些，哪怕你想用“险恶”这个词，我也完全能理解。这场音乐会的目的，就是为了利用"
+  },
+  {
+   "s": 1086.33,
+   "e": 1117.22,
+   "en": "exclusion. Let's take a closer look at a couple key moments. If Marshmello is calling out for you to use your favorite emote, well, if you haven't paid in, odds are you don't have any. Or the ones you do have are going to be pretty generic and lame.",
+   "zh": "被排挤的社交压力。我们来仔细看看几个关键时刻。如果 Marshmello 在台上喊着让你展示最喜欢的表情，那么，只要你没氪金，大概率你一个都没有。或者你仅有的那些也会显得非常普通、极其拉胯。"
+  },
+  {
+   "s": 1117.63,
+   "e": 1145.39,
+   "en": "Events like the concert create environments where the ability to self express is placed at a premium. In order to feel like a full and active participant, you need to be able to perform. The catch is that literally every unique action has an attached price tag. And there are some things that you'll simply never get without paying.",
+   "zh": "像音乐会这类活动营造的氛围，极度看重自我表达的能力。为了能充分融入、积极参与其中，你必须展现自己。可问题在于，几乎每一个独特的动作都是明码标价的。而且有些东西，你不花钱就根本不可能得到。"
+  },
+  {
+   "s": 1145.66,
+   "e": 1174.06,
+   "en": "Players who haven't bought a skin don't even have control over their basic image. There isn't a roster of default looks to choose from. Your look is assigned randomly after every match. There isn't just a layer of FOMO, the sense that others around you with cooler, more expressive character models are having more fun, are better able to project themselves into the social space. There's a level of hostility in the design.",
+   "zh": "没买皮肤的玩家甚至无法掌控自己的基础形象。系统根本没有提供可选的默认外观列表。每场比赛结束后，你的外观都是随机分配的。这不仅仅是一种错失恐惧（FOMO）——即觉得周围那些拥有更酷、更具表现力角色模型的人玩得更尽兴，更能把自我投射到这个社交空间里。这种设计甚至带有一种敌意。"
+  },
+  {
+   "s": 1174.43,
+   "e": 1186.75,
+   "en": "If you don't buy in, you aren't merely limited in your options of expression, you are actively denied control over the most basic element of how you choose to look in the virtual world.",
+   "zh": "如果你不花钱，你不仅是在表达自我的选择上受限，更是被硬生生剥夺了在虚拟世界中决定自己形象的最基本控制权。"
+  },
+  {
+   "s": 1187.03,
+   "e": 1213.99,
+   "en": "Nothing that Fortnite does is particularly new. These complex monetization systems with multiple layers of obfuscation, you can find this in pretty much any mobile game, and plenty of desktop and console games are laden with cosmetic microtransactions, legally dubious gambling, and other ways to aggressively monetize the game. Lots of games use progression systems and incremental rewards as part of their core loop to keep players playing.",
+   "zh": "Fortnite 做的其实毫无新意。这种层层包装、错综复杂的变现套路，在几乎任何一款手游里都能见到，而且大量的 PC 和主机游戏也都充斥着外观微交易、游走在法律边缘的抽卡赌博，以及各种激进变现的手段。许多游戏都将进度系统和阶段性奖励作为核心循环的一部分，以此吸引玩家一直玩下去。"
+  },
+  {
+   "s": 1214.68,
+   "e": 1244.34,
+   "en": "Fortnite is really just a maturation of those systems, a refinement of every habit-forming trick and microtransaction pressure point developed in the last decade condensed into a weaponized product targeted at kids. One of the articles that originally called my attention to all of this was one Nick Statt wrote for The Verge titled, I disagree with Nick's breathy excitement, but",
+   "zh": "Fortnite 实际上只是这些套路的集大成者，它把过去十年里开发出来的所有上瘾机制和微交易施压点打磨成熟，浓缩成了一款瞄准儿童的利器。最初让我注意到这一切的文章之一，是 Nick Statt 为 The Verge 写的一篇题为……的文章，尽管我不太认同 Nick 那种近乎狂热的兴奋，但"
+  },
+  {
+   "s": 1244.52,
+   "e": 1255.5,
+   "en": "On the whole, he's right. Fortnite is a glimpse of the future. An awful, perpetually monetized, vertically integrated, vaguely hostile future.",
+   "zh": "总的来说，他是对的。Fortnite 让我们得以窥见未来的一角。一个糟糕的、无休止变现的、垂直整合的、隐约带有敌意的未来。"
+  }
+ ]
+}

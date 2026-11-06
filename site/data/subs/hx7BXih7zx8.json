@@ -1,0 +1,422 @@
+{
+ "vid": "hx7BXih7zx8",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 0.0,
+   "e": 19.43,
+   "en": "So I'm very excited to be here to tell you a bit more about how we're scaling machine learning models, data algorithms, and infrastructure at Tesla and what that looks like. So the rough outline of my talk is here. I'd like to first tell you a little bit about Tesla, Tesla Autopilot, what the feature set is, really what the problem statement is, and what we're trying to address here.",
+   "zh": "非常高兴来到这里，向大家介绍特斯拉如何扩展机器学习模型、数据算法和基础设施，以及具体是如何运作的。这是我今天演讲的大致提纲。首先，我想简单介绍一下特斯拉和 Tesla Autopilot，包括它的功能集、核心问题到底是什么，以及我们在这里试图解决什么。"
+  },
+  {
+   "s": 19.93,
+   "e": 36.27,
+   "en": "Then I'll tell you a bit about neural networks and what it takes to actually deploy them into production at scale and what that looks like for the team. And then I'll tell you a little bit more about some of the more recent neural networks that we have developed for the purposes of full self-driving. So I'll go into that at the end. So first, a little bit about Tesla and Tesla Autopilot.",
+   "zh": "接着，我会讲讲神经网络，以及如何将它们大规模部署到生产环境中，这对团队来说意味着什么。然后，我会详细介绍一些我们最近为实现完全自动驾驶而开发的新型神经网络。这些内容我会在最后展开。那么首先，先简单介绍一下特斯拉和 Tesla Autopilot。"
+  },
+  {
+   "s": 36.6,
+   "e": 56.84,
+   "en": "So as you may know, Tesla manufactures and sells electric vehicles. And we have a whole array of electric vehicles. Some of them are in the hands of customers or imminently to be in the hands of customers. And some of them have only been announced. So for example, we have the Model S, the Model 3, X and Y. And then we've also announced the Cybertruck, the ATV, somewhat jokingly, the Roadster, and the Semi.",
+   "zh": "大家可能知道，Tesla 生产并销售电动汽车，而且我们拥有一整个系列的电动汽车产品，其中一些已经交付给客户，或者马上就要交付，还有一些则刚刚发布，比如我们有 Model S、Model 3、Model X 和 Model Y，此外我们还发布了 Cybertruck、有点开玩笑性质的 ATV、Roadster 以及 Semi。"
+  },
+  {
+   "s": 57.65,
+   "e": 79.35,
+   "en": "And we have quite a few of these. So globally, we now have roughly one million cars. And for the purposes of the team, these are not just cars, these are computers. They're internet accessible. And we can both deploy over-the-air updates to them and get a lot of data from them that helps us develop the autopilot. And they're also robots. So they have sensing, they have actuation, and we're developing the brains of that computer.",
+   "zh": "而且这些车的数量相当多，目前在全球范围内我们大约有一百万辆车，对我们团队来说，它们不仅是汽车，更是计算机，它们可以接入互联网，我们既能向它们推送 OTA 空中升级，也能从中获取大量数据来帮助开发 Autopilot，同时它们也是机器人，拥有感知能力和执行机构，而我们正在为这台计算机开发大脑。"
+  },
+  {
+   "s": 80.06,
+   "e": 102.22,
+   "en": "Now, the most basic kind of autopilot functionality is that when you turn it on in your car, the car will keep its lane, and it will keep distance away from the vehicle ahead of you. We've now sort of accumulated almost 3 billion miles on the autopilot, which sounds like a lot. We then have more advanced features, like such as, for example, navigating autopilot. This allows you to set a pin somewhere in the world.",
+   "zh": "目前，Autopilot 最基础的功能就是，当你在车里开启它时，车辆会保持在车道内，并与前车保持车距。我们现在已经在 Autopilot 上积累了近 30 亿英里的里程，这听起来相当可观。接着我们还有更高级的功能，比如 Navigate on Autopilot。它允许你在地图上的任意地点设置图钉，"
+  },
+  {
+   "s": 102.48,
+   "e": 132.11,
+   "en": "as a destination. And then as long as you stick to the highway system, the car will automatically reach that destination on the highway system. It will do all the correct lane changes. It will take all the right forks at interchanges, and it will overtake slow vehicles ahead of you. And it's kind of like we think of it as roughly autonomy on the highway. And the car now has to monitor its blind spot. It has to have intelligence around where it is on the highway. It has to localize the correct lane, and so on. We've also, late last year, released a smart summon. This allows you to, with your phone on the mobile app,",
+   "zh": "作为目的地。然后只要你一直走高速公路系统，车辆就会在高速上自动开往那个目的地。它会完成所有正确的变道，会在立交桥处驶入正确的岔路，还会超越你前面的慢车。我们大致把这看作是高速公路上的自动驾驶。此时车辆必须监测盲区，必须智能感知自己在高速上的位置，必须精准定位到正确的车道等等。另外，在去年年底，我们还推出了 Smart Summon。它能让你通过手机上的 App，"
+  },
+  {
+   "s": 132.28,
+   "e": 156.61,
+   "en": "summon the car to you from a parking spot. So if your car is parked somewhere, you just summon it to you, and the car comes out of its parking spot with no one inside and comes wind its way through the parking lot to come find you. It's quite magical when it works. Also under the hood, we have a lot of active safety features that are always running and available, even when autopilot is not turned on.",
+   "zh": "把车从车位召唤到你身边。所以如果你的车停在某个地方，你只要召唤它，车就会在空无一人的情况下驶出车位，穿过停车场一路开过来找到你。成功运行的时候，这感觉相当神奇。此外在底层，我们还有许多主动安全功能时刻处于运行和可用状态，即便 Autopilot 没有开启也是如此。"
+  },
+  {
+   "s": 157.48,
+   "e": 180.88,
+   "en": "We have a lot of statistics available to us because we have 1 million cars on the road, and we know how people get into trouble. And then we try to implement features that help alert or avert an accident. So for example, automatic emergency braking, front collision warning, side collision warning, blind spot monitoring, lane departure avoidance, emergency lane departure avoidance, and so on. These active safety features help keep customers safe in our cars.",
+   "zh": "我们手头有大量的统计数据，因为路上跑着我们100万辆车，我们清楚事故是怎么发生的。接着我们尝试加入各种功能，来预警或避免事故。比如自动紧急制动、前向碰撞预警、侧向碰撞预警、盲点监测、车道偏离避让、紧急车道偏离避让等等。这些主动安全功能保障了车主的行车安全。"
+  },
+  {
+   "s": 181.34,
+   "e": 208.48,
+   "en": "In particular, on active safety, we're doing extremely well. A urine cap awarded us with a five-star rating. In particular, I believe we had the top scores in safety assist. We also did extremely well on A, B, automatic emergency braking for pedestrians and cyclists. Now, you're seeing here, for example, A, B, pedestrian is 5.6 out of 6 points. I think these numbers are kind of like slightly abstract. So let me actually put that in context. Like, really, what are we talking about here? Pedestrian A, B is the following. Here's a simple, here's one example.",
+   "zh": "尤其在主动安全方面，我们表现极其出色。Euro NCAP给了我们五星评级。我记得我们在安全辅助项目上拿到了最高分。在针对行人和骑行者的AEB自动紧急制动测试中，我们也名列前茅。大家现在看到的，比如行人AEB得分是5.6分，满分6分。我觉得这些数字可能有点抽象。那我来展开讲讲，具体到底是指什么？行人AEB是这样的，举个简单的例子。"
+  },
+  {
+   "s": 211.1,
+   "e": 244.45,
+   "en": "up. Someone just emerges in between parked cars. And this car may not have even been on the autopilot, but we continuously monitor the environment around us. We saw that there was a person in front, and we slam on the brakes automatically. Here's another example. Looks like a pretty benign scene. This person is probably not paying attention. The pedestrian is not paying attention. We slam on the brakes and prevent collision. Here's one more example. You can see the trouble coming from the right. It's really hard to tell, because everything is occluded. And then.",
+   "zh": "起来。有人突然从停放的车辆间钻了出来。这辆车当时甚至可能都没开 Autopilot，但我们一直在持续监测周围环境。我们看到前方有人，便自动紧急刹车。这是另一个例子。看起来是个很平常的场景。这个人可能没注意。行人也没注意。我们紧急制动，避免了碰撞。再看一个例子。你能看到险情从右边过来了。其实很难看出来，因为全被挡住了。紧接着。"
+  },
+  {
+   "s": 244.74,
+   "e": 273.42,
+   "en": "suddenly there's a pedestrian. We slam on the brakes and abort the collision again. So 5.6 out of 6 is kind of abstract, but we see a lot of these. We see tens to hundreds of these per day, where we actually are averting the collision. And not all of them are true positives, but a good fraction are. And this is where you actually make your object detector really count. You're really averting collisions. Now, the goal of the team, however, is to produce full self-driving functionality. So here we have a video from the autonomy day that we had somewhere earlier last year.",
+   "zh": "突然出现了一个行人。我们再次踩下急刹，化解了碰撞。所以“6分能拿5.6分”听起来挺抽象的，但我们见过很多这种情况。每天能遇到数十到数百起我们成功避免碰撞的案例。虽然并不全都是真正要撞上的情况，但有相当一部分确实是。而这也正是你的目标检测器真正发挥价值的地方。你实实在在地避免了碰撞。不过，我们团队的目标是打造完全自动驾驶能力。所以这里有一段去年早些时候我们自动驾驶日活动的视频。"
+  },
+  {
+   "s": 279.85,
+   "e": 295.83,
+   "en": "So the ambition of the team is to produce full self-driving, meaning that you can just set a pin arbitrarily in the world, not even on the highway system, but everywhere else. Here you see the car just taking turns from the parking lot. It comes to an intersection. It waits for a green traffic light. It turns to the left.",
+   "zh": "我们团队的目标是实现完全自动驾驶，也就是说你可以在地图上任意选点，甚至不局限于高速公路网络，而是任何地方。大家可以看到，车子正从停车场转出来，来到一个十字路口，等待绿灯，然后左转。"
+  },
+  {
+   "s": 296.67,
+   "e": 327.57,
+   "en": "merges on the highway, and no need to touch the wheel. This is not available to the customers. We only have developer builds that do these turns through intersections and so on. But we're trying to get it to the point where we feel that the system is accurate enough to actually release in some form. So I'm going to cut this short, but this will actually get on the clover leaf in a bit. It will take the clover leaf. It will turn around and come back to our headquarters in Palo Alto, where a lot of the team is based. Now I'm going to cut through this.",
+   "zh": "汇入高速公路，全程无需碰方向盘。这个功能目前还没向客户开放。只有我们的开发者版本才能完成路口转弯这类操作。但我们正在努力提升精度，达到让我们觉得足够准确、可以以某种形式发布的程度。这里我就不放全了，车子待会儿其实会上苜蓿叶立交桥。穿过立交桥后调头，返回我们在 Palo Alto 的总部，也就是大部分团队成员所在地。那我就先跳过这段了。"
+  },
+  {
+   "s": 327.8,
+   "e": 349.5,
+   "en": "You may be asking, you saw the car take a left through an intersection when the light was green. And you've actually seen a lot of these videos for a decade. So here's Waymo. I just took a small clip. Waymo comes to an intersection and takes a left through the intersection. You've seen this for a decade. So how is this special? Why are we so late? What's taking so long? And it looks the same.",
+   "zh": "你可能会问，你刚才看到车在绿灯时左转穿过了十字路口。而事实上，这类视频你都看十年了。这里是 Waymo，我只截了一小段。Waymo 来到十字路口，然后左转穿过。这种场景你都看十年了。那么这有什么特别的？为什么我们来得这么晚？为什么花了这么长时间？而且它看起来完全一样。"
+  },
+  {
+   "s": 352.43,
+   "e": 380.59,
+   "en": "I think the critical point to make is that it looks the same. But under the hood, it's completely different in terms of the approach that we take towards full-cell driving. So in particular, we take a heavily vision-based approach. So everyone else has a LiDAR on the top of the car. The LiDAR shoots out lasers and creates a LiDAR point cloud map. And then you pre-map the environment that you're going to drive. So you have a high definition LiDAR map. And you localize to it to a centimeter level accuracy. And then you know exactly the path you're going to take. So you can just steer to keep yourself perfectly localized.",
+   "zh": "我认为关键在于，它看起来虽然一样，但在底层，我们实现全自动驾驶所采用的方案是截然不同的。具体来说，我们采用的是重度依赖视觉的方案。其他人都是在车顶装一个 LiDAR。LiDAR 发射激光，生成 LiDAR 点云地图。然后你预先对将要行驶的环境进行建图。这样你就拥有了一张高精 LiDAR 地图。接着你以厘米级的精度在其中定位。然后你就完全清楚自己要走的路径。这样你只需打方向盘，让自己保持精准定位即可。"
+  },
+  {
+   "s": 380.92,
+   "e": 405.96,
+   "en": "in the correct region. So this is quite helpful, but this is not the approach that we take. We do not have LIDAR on our cars, so we don't shoot out lasers. It's all camera-based. And we do not build high-definition maps. So when we come to an intersection, we encounter it basically for the first time. We come to an intersection. How many lanes are there? Left, right, center. Which way should I turn? What are the traffic lights? Which lanes do they control? All of this is just done just from camera feed, camera vision alone.",
+   "zh": "在正确的区域。这确实挺有帮助的，但这不是我们采用的方法。我们的车上没有激光雷达，所以我们不发射激光。一切都基于摄像头。而且我们也不构建高精地图。所以当我们来到一个路口时，基本上就像是第一次见到它一样。我们开到一个路口，这里有几条车道？左转、右转、直行。我该往哪儿拐？红绿灯在哪儿？它们分别控制哪条车道？所有这一切，全都是单凭摄像头的画面和视觉来完成的。"
+  },
+  {
+   "s": 407.19,
+   "e": 430.1,
+   "en": "And so this is a bit of a harder problem. But of course, once we actually get this to work, we can also deploy it to the millions of cars that we have globally. So let me now tell you a little bit about the neural networks that actually support all of the features that I've shown you that the autopilot is capable of and what it takes to actually keep these neural networks in production at scale in the hands of customers. So here's a random scene.",
+   "zh": "所以这是一个更棘手的难题。但当然，一旦我们真正做成了，我们也可以把它部署到全球数百万辆车上。那么现在，让我来向大家稍微介绍一下神经网络，正是它们支撑了我刚才展示的 Autopilot 所具备的所有功能，以及要想让这些神经网络在海量客户手中大规模稳定运行，背后都需要付出些什么。这里有一个随手截取的场景。"
+  },
+  {
+   "s": 430.95,
+   "e": 445.65,
+   "en": "where we have to potentially drive and wind our way through this scene. As a human, this is relatively effortless, but you're actually doing a lot under the hood, and the autopilot has to as well. So we have to understand a lot about what are the static objects, what are the dynamic objects, what is the road layout.",
+   "zh": "在这些场景中，我们可能需要驾车穿行其中。作为人类，这相对毫不费力，但你的大脑实际上在底层做了很多工作，Autopilot 也同样如此。因此，我们必须充分了解哪些是静态物体，哪些是动态物体，道路布局又是怎样的。"
+  },
+  {
+   "s": 446.49,
+   "e": 475.51,
+   "en": "What is all of the layer of semantics on top of the road, like lane line markings, road markings, traffic lights that tell you about how you can actually traverse that scene? So once you actually start writing down what's necessary to actually perform the driving policy, you end up with a long list of tasks, all of which we need to actually handle. And the detection of these tasks serves two purposes and two customers. Number one, we actually need it for the driving policy. And number two, we actually want to show a lot of things on the instrument cluster for the human so that they gain confidence in the system.",
+   "zh": "道路之上的所有语义层是什么，比如车道线标线、路面标记、交通信号灯，这些信息会告诉你该如何真正穿过这个场景。因此，一旦你开始写下执行驾驶决策真正所需的一切，你就会得到一个长长的任务清单，而所有这些我们都必须实际处理。对这些任务的检测服务于两个目的和两类对象：第一，我们的驾驶决策确实需要它；第二，我们确实想在仪表盘上向人类展示很多信息，从而让他们对这个系统建立信心。"
+  },
+  {
+   "s": 476.66,
+   "e": 503.98,
+   "en": "Here we've produced a video that shows some of the under-the-hood predictions for the main camera that is facing forward on the car. And you see that we're detecting lanes, we're detecting stop sign over there, stop line, road markings, we're putting cuboids around cars, traffic lights, road edges and curbs, even things like trash bins coming up over there. Lines that make up the intersection. In a bit, there's lines that create parking spots. We have to have all these attributes for whether or not a line is for a parking spot or not, and things like that.",
+   "zh": "这里我们制作了一段视频，展示了汽车前向主摄像头的一些底层预测效果。大家可以看到，我们检测出了车道线、那边的停车让行标志、停止线、路面标线，还在车辆周围标注了3D包围框，识别了红绿灯、路沿和路肩，甚至包括那边出现的垃圾桶。还有构成交叉路口的标线。过一会儿，还会看到构成停车位的标线。我们必须具备所有这些属性判断，来确定一条线是不是停车位线等等。"
+  },
+  {
+   "s": 504.52,
+   "e": 527.64,
+   "en": "So these predictions look pretty decent, but it's actually a huge amount of work to get them to actually work at scale and in the full long tail of what you can encounter on the roads. So even taking a very simple task, like, for example, stop sign, you think that neural networks are capable of handling thousands of categories of ImageNet with all of their variations and so on. So how difficult is it to just detect a fixed pattern of red on white stop?",
+   "zh": "所以这些预测看起来相当不错，但要让它们真正实现规模化运作，并应对道路上可能遇到的所有长尾情况，实际上需要付出极其巨大的努力。哪怕只是一个看似非常简单的任务，比如识别停车让行标志，你可能会觉得神经网络都能搞定 ImageNet 上包含各种变体的数千种分类了。那么，仅仅检测一个红底白字的固定“STOP”图案，又能有多难呢？"
+  },
+  {
+   "s": 528.16,
+   "e": 557.5,
+   "en": "And it actually gets quite difficult when you get to the long tail of it, even to create a simple detector for a stop sign. So first of all, stop signs can, of course, be in lots of very environmental conditions. Stop signs can not just be on poles, but kind of just like on walls. Stop signs can be temporary and just hang out in different configurations. Stop signs can have funny lights on them, which are supposed to make it easier to see the stop sign. But for our system, it's the opposite. We have to actually explicitly worry about it. Stop signs can be held by a person.",
+   "zh": "其实一旦涉及到长尾情况，哪怕只是做个简单的停车标志检测器，都会变得相当困难。首先，停车标志当然会出现在各种各样的环境条件下。它们不仅可能立在柱子上，还可能直接贴在墙上。停车标志可能是临时的，并以各种不同的形态悬挂着。上面还可能装有奇奇怪怪的灯，本意是让人更容易看清标志，但对我们的系统来说却恰恰相反，我们反倒得专门去处理这种情况。停车标志还可能由人手持着。"
+  },
+  {
+   "s": 557.91,
+   "e": 587.41,
+   "en": "that stop sign can be in an inactive state or an active state. Stop signs can be on like these cones. Stop signs can be heavily occluded in lots of ways by foliage, by signs. Stop signs can be occluded by cars. Stop signs can be part of cars. And they can be part of cars in an active or inactive state, again. Stops can be sort of held by a person. Stops come with lots of exotic modifiers to them. So this stop only applies except right turn. This stop",
+   "zh": "那个停车标志可能处于非激活或激活状态。停车标志也可能装在像这样的锥桶上。它们还可能被树叶、其他标牌以各种方式严重遮挡。可能被车辆遮挡，甚至本身就是车辆的一部分。而且，它们作为车身一部分时，同样可能处于激活或非激活状态。停车标志可能被人拿在手里。而且还会带有各种奇奇怪怪的补充说明。比如这个停车标志“右转除外”。而这个标志"
+  },
+  {
+   "s": 587.76,
+   "e": 614.4,
+   "en": "It says take your turn through this place. This stop is right turn, keep moving. So do not stop if you're going right. So there's a variety of modifiers. All of them we have to care about because they actually have impact on how you should drive through this point of space. And as I mentioned, everything is AI vision based at the moment. We do have maps, of course, that we build, but they're not high definition maps. But stops can be attached to gates, but they only apply when the gate is closed. When it's open, they do not apply.",
+   "zh": "写着在此处按序交替通行。这个停车标志则是“右转直行，无需停车”，意思是右转就不用停。所以有各种各样的补充说明。每一个我们都必须关注，因为它们实实在在地影响着你该如何驶过这片区域。正如我提到的，目前一切都基于 AI 视觉。当然我们也会构建地图，但并不是高精地图。另外，停车标志还可能装在大门上，但只在门关闭时才生效，门敞开时则不适用。"
+  },
+  {
+   "s": 614.75,
+   "e": 638.01,
+   "en": "Stops can be on arms. These arms can lift, and then the stop sign does not apply anymore. Stops can only apply when you're taking a left, so they're action-conditional. And so basically, there's a massive variety of even just for a stop sign to get this to work. And what we do day-to-day in the team is we are going through the long tail, and we're building all this infrastructure for sourcing all these additional examples. And so I've shown in the autonomy presentation earlier last year.",
+   "zh": "停止标志可能装在机械臂上。这些臂可以抬起，这样停止标志就不再生效了。有的停止标志只在左转时生效，所以它们是与行为关联的。基本上，即使仅仅为了搞定停止标志，情况也是极其多样的。我们团队日常所做的，就是梳理这些长尾问题，并构建所有的基础设施来搜集所有这些额外的样本。正如我去年早些时候在自动驾驶演讲中展示过的那样。"
+  },
+  {
+   "s": 638.72,
+   "e": 661.76,
+   "en": "the data engine, the process by which we iteratively apply active learning to source examples in cases where the detector is misbehaving. And then we source examples in those, and we label them and incorporate them into part of a training set. So for stop sign detection, as an example, we have a approximate detector for stop signs based on an initial seed set of data. And we run that and deploy that to cars in shadow mode. And then you can detect.",
+   "zh": "数据引擎，就是我们在检测器表现不佳时，通过迭代应用主动学习来获取样本的过程。然后我们从中提取样本，进行标注，并将其纳入训练集的一部分。比如以停止标志检测为例，我们基于初始的种子数据集制作了一个粗略的停止标志检测器。我们运行并以影子模式将其部署到车端。然后你就可以进行检测了。"
+  },
+  {
+   "s": 661.93,
+   "e": 681.69,
+   "en": "some kind of a lack of health of that detector at test time. So for example, the stop sign detection is flickering. That could be a source of uncertainty. You can also detect that the neural network is uncertain in a certain Bayesian way, and there's a few ways to model that. You can find instances where you get surprised to see a stop sign. Like, why didn't you see it when you were a bit further away?",
+   "zh": "在测试时检测器某种程度上不太正常。比如，停车标志的检测忽隐忽现，这可能就是不确定性的来源。你也可以用某种贝叶斯方法检测出神经网络的不确定性，对此有几种建模方式。你还可以找出一些让你感到意外的停车标志样本，比如，刚才距离稍远一点的时候怎么就没检测到？"
+  },
+  {
+   "s": 682.47,
+   "e": 706.67,
+   "en": "You can also source examples when we detect a stop sign, but the map thinks that there should be no stop sign, or vice versa, so sort of a map vision disagreement. So we have lots of different ways of sourcing difficult cases, and then we upload images, and we look through them, we label some of them, and incorporate them into a training set. As an example, we struggled with these heavily occluded stop signs. We found that the detector was not performing very well when they were heavily occluded.",
+   "zh": "你也可以寻找这类样本：我们检测到了停车标志，但地图认为这里不该有，反之亦然，也就是地图与视觉的不一致。所以我们有很多不同方法来收集疑难样本，然后上传图像，仔细筛选并标注其中一部分，最后加入训练集。举个例子，我们曾为这种严重遮挡的停车标志头疼不已，发现检测器在遮挡严重时的表现并不太好。"
+  },
+  {
+   "s": 707.23,
+   "e": 727.55,
+   "en": "And then we have a mechanism in this data engine process where we can actually train these kinds of detectors offline. So we can train a small detector that detects an occluded stop sign by trees. And then what we do with that detector is that we can beam it down to the fleet. And we can ask the fleet, please apply this detector on top of everything else you're doing. And if this detector scores high, then please send us an image.",
+   "zh": "在这个数据引擎流程中，我们有一套机制，实际上可以在离线状态下训练这类检测器。比如我们可以训练一个小检测器，专门检测被树木遮挡的停止标志。然后我们要做的，就是把这个检测器无线下发给车队。接着我们让车队在处理日常任务的同时，也运行这个检测器。如果该检测器打出高分，就请给我们回传一张图像。"
+  },
+  {
+   "s": 727.87,
+   "e": 757.41,
+   "en": "And then the fleet responds with a somewhat noisy set, but they boost the amount of examples we have of stop signs that are occluded. And maybe 10% of them are actual occluded stop signs that we get from that stream. And this requires no firmware upgrade. This is completely dynamic and can just be done by the team extremely quickly. It's the bread and butter of how we actually get any of these tasks to work. It's just accumulating these large data sets in the full tail of that distribution. So we have tens of thousands of occluded stop signs. The fleet can send us as many as it takes. We have the biggest data set for accept right turn on stops.",
+   "zh": "车队随后传回的数据集会带有一些噪声，但它们大幅增加了我们拥有的被遮挡停止标志的样本量。从这股数据流中获取的样本，可能只有 10% 是真正被遮挡的停止标志。而这完全不需要固件升级。它完全是动态的，团队可以极其迅速地完成部署。这正是我们让所有这类任务真正跑通的核心基石。就是在这个长尾分布中不断累积这些庞大的数据集。因此我们拥有数万个被遮挡的停止标志样本。车队可以源源不断地按需传送。对于“红灯停下后允许右转”的场景，我们拥有规模最大的数据集。"
+  },
+  {
+   "s": 758.51,
+   "e": 776.31,
+   "en": "I'm basically certain of that. We again create a detector for this, and then we get a noisy stream from the fleet of cars encountering accept, write, turn on, stop, and then we can label that, incorporate it into a training set. We have tens of thousands of these. I'm not actually 100% sure how you built out a data set like this without the fleet.",
+   "zh": "我对此基本深信不疑。我们再次为此创建一个检测器，接着从车队中获取包含接受、写入、开启、停止等各种情况的带噪数据流，然后对其进行标注并纳入训练集。这类数据我们有成千上万个。如果脱离了这个车队，我其实完全不知道该怎么去构建出这样的数据集。"
+  },
+  {
+   "s": 777.54,
+   "e": 800.14,
+   "en": "So I talked a lot about massaging and growing the training sets. But we put just as much work into massaging the test sets as we do into training sets. So just reporting your mean average precision or reporting the loss function that you achieve in a test set, that just doesn't do it for us. So we spend a lot of time inspired by test-driven development to build out very complicated unit tests and predicates.",
+   "zh": "前面我讲了很多关于梳理和扩充训练集的内容。但我们在梳理测试集上花的心思，一点都不比训练集少。所以只汇报你的平均精度均值，或者汇报在测试集上达到的损失函数值，对我们来说根本行不通。因此，受测试驱动开发的启发，我们花了很多时间去构建极其复杂的单元测试和断言断言。"
+  },
+  {
+   "s": 800.42,
+   "e": 827.82,
+   "en": "for how the detector should behave in different cases. So for example, we could have a barrage of tests along the lines of, in this image, you should detect a stop sign right here. And the modifier for this and that that you predict on the stop sign must be this or that. And so we have mechanisms for creating and massaging these unit tests. It's a growing collection as we encounter problems in the fleet and as we notice them. And then we certify whether this detector is performing well or not. And this is really our test set. It's curated unit tests. If you're in a production setting,",
+   "zh": "来规范检测器在不同情况下的表现。举个例子，我们可以准备大量的测试，比如在这张图中，你必须正好在这里检测到一个停车标志。而你在停车标志上预测的修饰属性必须是这个或那个。因此，我们有一整套机制来创建和调整这些单元测试。随着我们在车队中遇到并发现问题，这个测试集还在不断扩大。然后我们以此验证这个检测器的性能达不达标。而这正是我们的测试集，它是由精选的单元测试组成的。如果你处于生产环境中，"
+  },
+  {
+   "s": 828.15,
+   "e": 851.98,
+   "en": "we actually break down all these different issues and track them individually, and then pursue them one by one with Data Engine to actually make them work. So occluded size, we would build out a test set first. We see that we're failing on occluded size, and then once we have the test and we're failing them, we then spin the Data Engine on occluded size, and then we see that the percent pass goes from 40% to 99% or something like that. And then we're confident that this is actually working relatively well.",
+   "zh": "我们实际上会拆解所有这些不同的问题并单独追踪，接着通过 Data Engine 逐一攻克，让它们真正起效。比如针对遮挡尺寸的问题，我们会先构建一个测试集。我们发现模型在遮挡尺寸上表现不佳，既然有了测试而且没通过，我们就会针对遮挡尺寸运转 Data Engine，随后我们会看到通过率从 40% 飙升到 99% 左右。这样我们就能确信，这部分实际上已经运行得相当不错了。"
+  },
+  {
+   "s": 855.44,
+   "e": 884.42,
+   "en": "Showing you a little bit of the process we take for even a very simple one prediction. But as I mentioned, there's lots of tasks, lots of attributes. So the complexity of this is quite staggering. We have to know a lot about any scene. And each one of those things has their own data engine. So what we end up doing is we have these neural networks that have a shared backbone. And then they're multitask juggling lots of different tasks. And in total, the team is currently maintaining 48 networks that make 1,000 distinct predictions.",
+   "zh": "刚才给大家展示的，仅仅是一个非常简单的单项预测的处理流程。但正如我提到的，这里有海量的任务和属性，因此整体复杂度相当惊人。我们需要对任何场景都了如指掌，而其中的每一项都有自己独立的数据引擎。所以我们最终的做法是，让这些神经网络共享同一个主干网络，进而通过多任务处理来同时兼顾许多不同的任务。目前团队总共维护着 48 个网络，输出多达 1,000 个独立的预测。"
+  },
+  {
+   "s": 885.23,
+   "e": 913.73,
+   "en": "These are just a raw number of output tensors. If you just take all of our networks and you add up the output tensors, it's 1,000. And those tensors, of course, can have multiple predictions in them. None of these predictions can ever regress, and all of them must improve over time. And this takes 70,000 GPU hours to train all the neural nets. If you have a node with eight GPUs, you will be training for a year. So we do quite a bit of training there. And all of this is not maintained by hundreds of people. All of this is maintained by a small elite team of Tesla AI people, basically like a few dozen.",
+   "zh": "这还仅仅是输出张量的原始数量，如果把我们所有网络的输出张量加在一起，就是 1,000 个，当然每个张量里还可以包含多个预测结果。这些预测绝不能出现任何倒退，而且全都必须随着时间推移不断提升。训练所有的神经网络需要耗费 7 万个 GPU 小时；如果你只有一个 8 卡 GPU 节点，那得连续训练一整年，所以我们的训练量非常大。而所有这些并不是由成百上千人维护的，全部都是由 Tesla AI 团队的一支精锐之师来维护，基本上只有几十个人。"
+  },
+  {
+   "s": 914.25,
+   "e": 934.23,
+   "en": "So how is it even possible to make progress? And how is it even possible that your small team can maintain so many tasks and get them to work over time? So the North Star for actually achieving this for us is called Operation Vacation, which I'll describe in a second. But basically, the idea is that for any new task, you have a latency to actually the task working.",
+   "zh": "那么，这到底要怎么取得进展呢？一个小团队又怎么可能长期维护这么多任务，并让它们都正常运转起来？对我们来说，实现这一目标的北极星被称为“度假行动”，我稍后会详细介绍。但基本上，它的核心理念是：对于任何新任务，从立项到真正跑通都需要一段时间。"
+  },
+  {
+   "s": 934.52,
+   "e": 955.26,
+   "en": "And there's a process, and we understand the process for getting a task to work. And we're trying to develop as much automation machinery to actually support the development of these new features and new tasks. And we're removing engineers from that loop so they're not involved. We're just building out infrastructure. And then we have a data labeling team and PMs and so on that can actually use that infrastructure to create new tasks.",
+   "zh": "这其中有一套流程，我们也摸清了让任务跑通的方法。因此，我们正努力开发尽可能多的自动化机制，来支撑这些新特性和新任务的开发。我们正把工程师从这个循环中解放出来，让他们不再卷入琐事，只专注于构建基础设施。这样一来，我们的数据标注团队、PM 等人就可以直接利用这些基础设施来创建新任务。"
+  },
+  {
+   "s": 956.16,
+   "e": 975.48,
+   "en": "So as an example, we're working with caution lights recently. We're trying to detect when the police car lights are turned on. This is an example of a new task that we'd like to know about. And we sort of have a cookie cutter. We know exactly what to kind of approach to. We know exactly what it takes to get a task to work. All the infrastructure is in place. So this task, we're going to treat it as a landmark task.",
+   "zh": "举个例子，我们最近在处理警示灯。我们想检测警车灯什么时候亮起。这就是我们想了解的一项新任务。我们其实已经有一套固定套路了。我们清楚该采用什么方法。我们确切知道要怎么做才能把一个任务跑通。所有基础设施都已就绪。所以这项任务，我们会把它当成一个 landmark 任务来处理。"
+  },
+  {
+   "s": 975.71,
+   "e": 1004.85,
+   "en": "Landmark is an example of a prototype. So we have a detection prototype, a segmentation prototype, a landmark prototype. And these are just classes of tasks. And if your new task is a member of any of these or an instance of any of these prototype classes, then all of the infrastructure is just plug and play and goes through the full data engine. You can collect the seed data set. You label your examples. You source more examples in the cases where you're failing. You deploy it in shadow mode. You source examples and you grind up metrics. You create all the unit test predicates. All this is completely automated.",
+   "zh": "Landmark 就是一个原型任务的例子。我们有检测原型、分割原型、landmark 原型。这些不过是任务的类别。只要你的新任务属于其中任何一类，或是这些原型类的一个实例，那么所有基础设施就可以直接即插即用，走完整个数据引擎。你可以采集种子数据集。标记你的样本。在出错的场景中搜集更多样本。以影子模式部署上线。搜集样本并逐步提升各项指标。创建所有单元测试谓词。这一切都是全自动化的。"
+  },
+  {
+   "s": 1005.03,
+   "e": 1032.78,
+   "en": "And we're mostly developing the automation infrastructure. And then it's easy to develop any new task. And that's kind of how we get this to work. So now I'd like to talk a little bit about the neural networks and how they have to change to actually support full self-driving. So what I've explained so far is you take an image from one of the cameras, you run it through this shared backbone, and you make lots of predictions about it in the image pixel space. So we can potentially predict objects, lines, or edges, and so on. Taking the example of edges.",
+   "zh": "我们主要是在搭建这套自动化基础设施，这样后续开发任何新任务都会变得很容易，这就是我们的实现方式。那么现在我想聊一聊神经网络，以及为了真正支持完全自动驾驶，它们需要做出哪些改变。我之前介绍的流程是：从某一个摄像头获取图像，输入到共享骨干网络中，然后在图像像素空间中做出大量预测。我们可以预测物体、线条或边缘等，以边缘为例。"
+  },
+  {
+   "s": 1033.2,
+   "e": 1059.63,
+   "en": "Where does this go afterwards? So here's a video. And I'm showing the predictions of the road edge task on all of the different cameras. And you can see that this is basically a binary segmentation problem for us. And we detect those edges here. And we use this to wind our way through a parking lot, because we'd like to go to a certain destination, but avoid all the road edges. Now, you can't just drive on the raw predictions of these edges in these two-dimensional pixels.",
+   "zh": "这之后又该怎么处理呢？来看这段视频，我展示的是所有不同摄像头在路缘任务上的预测结果。大家可以看到，对我们来说这基本上是一个二值分割问题。我们在这里检测出这些路缘，并利用它在停车场里穿行，因为我们想去往某个目的地，同时避开所有的路缘。但你不可能直接依赖这些二维像素下的原始边缘预测结果来开车。"
+  },
+  {
+   "s": 1060.99,
+   "e": 1089.25,
+   "en": "you know, pixel coordinate systems. So you have to somehow project this out into a bird's eye view, sort of, in order to make this make sense. So the raw detections, we project them out into 3D, and we stitch them up into what we call a occupancy tracker. So this occupancy tracker takes all the raw measurements from the 2D images, we project them out into the world, and we stitch them up across cameras, and we stitch them up across time. So the occupancy tracker is keeping the temporal context of that, and it creates a small local map.",
+   "zh": "也就是像素坐标系。所以你得想办法把它们投射到俯视图中，这样才能理顺。于是，我们将原始检测结果投射到 3D 空间，并拼接成我们所谓的占用追踪器。这个占用追踪器获取 2D 图像中的所有原始测量数据，我们将它们投射到真实世界中，并跨相机、跨时间进行拼接。占用追踪器保留了这些时间上下文，并生成一个局部的局部地图。"
+  },
+  {
+   "s": 1089.5,
+   "e": 1119.77,
+   "en": "and then it winds its way through this parking lot to get to the person who is summoning the car at this time. So this is all fine, but there's a lot of problems with actually doing the stitching as I'm describing it. I'm making it sound very easy. The problem is these cameras are pointed in arbitrary directions. They make these measurements in these pixel frames. Your road edges might not even align across camera scenes, and writing the tracker for these edges over time is actually highly non-trivial, lots of hyperparameters, error-prone code, very difficult to develop. So I've shown this example.",
+   "zh": "然后车辆在这个停车场里穿行，开向此刻召唤它的人。这一切看起来都很顺利，但在实际进行我所说的这种拼接时，会遇到很多问题。我刚才说的好像很容易。但问题在于，这些相机的朝向各不相同。它们是在各自的像素帧中进行测量的。道路边缘在不同的相机画面之间甚至可能无法对齐，而且随时间为这些边缘编写追踪器其实极具挑战性，需要大量的超参数，代码容易出错，开发难度极大。我刚才展示的就是这个例子。"
+  },
+  {
+   "s": 1120.12,
+   "e": 1149.46,
+   "en": "or this visualization a few times in many of my previous talks, where this is sort of the autopilot software stack. On the bottom, you have inputs to the stack, primarily vision. And on the output, we have steering and acceleration. And roughly, you can think of two code bases hidden inside the software stack. We have what I refer to as a software 1.0 code, which is good old-fashioned C++ explicitly designed, engineered by a person. Person writes the code. And then you have what I call software 2.0 code, where the code is an outcome of an optimization. It's the compilation.",
+   "zh": "在之前的好几次演讲中我都展示过这个可视化，大概就是 Autopilot 的软件栈。最底端是整个栈的输入，主要是视觉信号。而在输出端，则是转向和加减速。大体上，你可以认为软件栈内部隐藏着两套代码库。一类被我称为“软件 1.0”代码，也就是由工程师精心设计、由人工编写的传统 C++ 代码。人工去敲这些代码。而另一类则是我所谓的“软件 2.0”代码，这里的代码是优化算法得出的结果。它是一种编译过程。"
+  },
+  {
+   "s": 1149.83,
+   "e": 1179.13,
+   "en": "It's a compiler takes your data set and creates neural network code that runs in the car. And so it's, roughly speaking, neural net. The reason I refer to it as software 2.0 is that you can take functionality from 1.0 code base and put it into 2.0 code base. So this boundary is fluid, and you can actually engulf more and more software 1.0 stack. So over time, since I joined about 2 and 1.5 years ago, the neural nets have expanded in how much of software 1.0 land they've taken over. And so the trend is upwards. So in particular, in the case of these road edges, as I've described,",
+   "zh": "这就像编译器接收你的数据集，生成在车端运行的神经网络代码。所以粗略地说，它就是神经网络。我之所以称它为软件 2.0，是因为你可以把 1.0 代码库中的功能剥离出来，搬进 2.0 代码库里。所以这道边界是动态流动的，你实际上可以逐步吞并越来越多的软件 1.0 代码栈。随着时间推移，从我大约两年半前加入以来，神经网络在整个软件栈中所占领的 1.0 版图一直在不断扩张。这个趋势是与日俱增的。具体到前面提到的道路边缘这个案例中，"
+  },
+  {
+   "s": 1180.29,
+   "e": 1203.09,
+   "en": "who we're now working towards is that we don't actually want to go through this explicit occupancy tracker, software 1.0 code. We'd like to engulf it into neural net code. And we see that typically that works really well. So a lot of our networks have been moving towards these bird's eye view network predictions where you take all these cameras and you feed them through backbones. And then you have neural net fusion layer that stitches up the feature maps.",
+   "zh": "我们目前努力的方向，实际上就是不再想通过这种显式的占用追踪器、也就是软件 1.0 代码来实现。我们希望将其吞并到神经网络代码中。而我们发现，通常这样效果都非常棒。因此，我们的很多网络都在转向这种鸟瞰图网络预测，也就是接收所有摄像头的画面，送入骨干网络。接着再通过一个神经网络融合层，将这些特征图拼接缝合起来。"
+  },
+  {
+   "s": 1203.43,
+   "e": 1230.67,
+   "en": "across the different views, and also thus the projection from image space to bird's eye view. And then we have a temporal module, potentially, that actually smooths out these predictions. And this is all neural net components. And then we have a BevNet decoder that actually creates the top-down space. And so then we can directly, potentially, predict these road edges in a top-down view. Now, this makes a huge difference in practice. So here's an example. In top row, I'm showing the left camera center right. And I'm showing road edge detections in red.",
+   "zh": "跨越不同的视角，并以此实现从图像空间到鸟瞰视角的投影。接着，我们可能还会加入一个时序模块，来对这些预测结果进行平滑处理。这些全都是神经网络组件。然后我们有一个 BevNet 解码器，它能真正构建出自顶向下的俯视空间。这样一来，我们或许就能直接在俯视视角下预测这些道路边缘了。在实际应用中，这会带来巨大的改变。来看一个例子。在顶上一行，我展示了左侧、中间和右侧摄像头的画面，并用红线标出了检测到的道路边缘。"
+  },
+  {
+   "s": 1231.18,
+   "e": 1259.26,
+   "en": "On the bottom row, on the left, you see the ground truth of what this intersection looks like. And you see that the car is positioned on the dot. And so that's the ground truth. On the very right, you see what happens when you take 2D predictions in the images and you cast them out. You basically get garbage. Like, it somewhat works around the car. The projection is easy. But far away, especially near the horizon line, a few pixels of error means lots of meters of error. And so this projection-based techniques are extremely hard to get to work. You'd have to know extremely accurate depth per pixel.",
+   "zh": "在底下一行，左边展示的是这个十字路口的真实俯视图标注。你可以看到汽车停在那个圆点位置，这就是真实情况。而在最右边，你可以看到直接把图像中的 2D 预测结果投射出去会发生什么。基本上就是一团乱。在车辆周围可能还算管用，因为那里的投影比较简单。但在远处，尤其是地平线附近，几个像素的误差就意味着几十米的偏差。因此，这种基于投影的技术极难奏效。你必须对每个像素都掌握极其精确的深度信息才行。"
+  },
+  {
+   "s": 1259.99,
+   "e": 1286.46,
+   "en": "do that projection, it's a very hard problem. And in the middle, you are seeing some of our predictions from the recent Bird's Eye View networks that just kind of make these predictions and top down view directly. So let me show you a video here of what this looks like in practice. On the top, we will have a video of an intersection. On the bottom, I'm showing some of the predictions achieved by the Tesla AI team that has produced these Bird's Eye View networks. We have road edges in red. We have dividers in green on the very left. Then we have...",
+   "zh": "做这种投影是个非常棘手的问题。中间展示的是我们近期鸟瞰图网络（Bird's Eye View）给出的一些预测，它直接输出了俯视视角下的预测结果。接下来我放一段视频，带大家看看它的实际效果。上方是一个十字路口的视频画面。下方展示的是 Tesla AI 团队研发的鸟瞰图网络所生成的预测结果。红色的代表道路边缘。最左侧绿色的代表车道分隔线。此外还有……"
+  },
+  {
+   "s": 1286.46,
+   "e": 1309.23,
+   "en": "attributes for these dividers. So we want to know if it's an actual curb or if it's just like a logical curb, so like a yellow line or something like that. Then we have a traffic flow direction and a few other things like that. I'm only showing some examples. But the car is on the bottom center of these images. And as we're winding, as we're turning through this intersection, these birds-eye-view networks just predict pretty far away the full structure of this intersection and what it looks like.",
+   "zh": "这些分隔线的属性。所以我们要知道它究竟是物理路肩，还是单纯逻辑上的边界，比如黄线之类的标记。接着我们还能识别交通流向以及其他类似信息。这里我只是举几个例子。车辆位于这些画面的底部正中央。当我们穿过这个十字路口转向时，这些鸟瞰图网络就能提前预测出相当远范围内的完整路口结构及其样貌。"
+  },
+  {
+   "s": 1310.27,
+   "e": 1337.71,
+   "en": "So this is extremely powerful for us. Here's another example in the case of Smart Summon. The car is driving around parking lots, and we have to understand the corridors of this parking lot. And so here we are predicting the corridors in bird's eye view. We're predicting where the corridors meet at intersection points in red. And we're predicting tiny arrows that tell us the traffic flow. And this all comes out of the net directly. There's no occupancy tracker kind of necessary. Here's an example of using this for objects. So on the top, we have our camera feeds.",
+   "zh": "所以这对我们来说非常强大。这是另一个例子，应用在 Smart Summon（智能召唤）场景中。车辆在停车场里行驶，我们必须理解这个停车场的通道。所以这里我们在鸟瞰视角下预测通道。我们用红色预测通道在交叉路口交汇的位置。我们还预测了微小的箭头来指示车流方向。这一切都是直接由神经网络输出的。完全不需要占用追踪器之类的东西。这是一个将其用于物体的例子。最上方是我们的摄像头画面。"
+  },
+  {
+   "s": 1338.09,
+   "e": 1366.55,
+   "en": "On the middle, I'm showing our per-pixel depth predictions achieved via self-supervised learning. We need those depth predictions, because we take, as many others do in little urge right now, we take a pseudo LIDAR approach, where you basically predict the depth for every single pixel, and you can cast out your pixels. And you basically simulate LIDAR input that way. But it's purely from vision. And then you can use a lot of techniques that have been developed, and also for LIDAR processing, to actually achieve 3D object detection.",
+   "zh": "中间展示的是我们通过自监督学习实现的逐像素深度预测。我们需要这些深度预测，因为正如目前许多文献中所做的那样，我们采用了一种伪激光雷达（pseudo LIDAR）方法，即基本预测每个像素的深度，并可以将像素投射出去。通过这种方式，你基本上模拟了激光雷达的输入。但这纯粹是基于视觉的。然后你就可以利用许多已有的技术，包括针对激光雷达处理的技术，来真正实现 3D 目标检测。"
+  },
+  {
+   "s": 1368.94,
+   "e": 1393.02,
+   "en": "So on the bottom you have the predictions of our detector directly in the bird's eye view. Here I have one more slide showing just our depth predictions for some other videos. This is not very exotic for any of you who are in computer vision because there are entire workshops on creating videos like these where we are basically achieving depth directly from images. And this is done, of course, no human can annotate depth.",
+   "zh": "所以在底部，大家能看到我们的检测器直接在鸟瞰视角下的预测结果。这里我还有一张幻灯片，展示了我们在其他视频上的深度预测。对于从事计算机视觉研究的人来说，这并不算什么新鲜事，因为有很多专门的研讨会在研究制作这类视频，基本上就是直接从图像中获取深度。当然，这是怎么做到的呢，毕竟人类是无法手动标注深度的。"
+  },
+  {
+   "s": 1393.24,
+   "e": 1419.02,
+   "en": "So this is done using self-supervised techniques. So in particular, we take an image, we predict a depth. Then when you have a depth for an image, you can cast out all the pixels into 3D, and you can re-project them either into camera views at that same time, but different cameras, or you can re-project them into the future frames of that single camera. And then you have a photometric loss that's enforcing consistency. And so the only way to predict, to make everything consistent in re-projections is to predict the correct depth.",
+   "zh": "所以这是通过自监督技术来实现的。具体来说，我们输入一张图像，预测一个深度。拿到图像的深度之后，就可以把所有像素投影到三维空间中，然后再把它们重新投影回去——要么投到同一时间不同相机的视角下，要么投到同一相机未来的帧中。接着利用光度损失来强制保证这种一致性。因此，要想让重投影中的一切保持一致，唯一的办法就是预测出正确的深度。"
+  },
+  {
+   "s": 1419.34,
+   "e": 1448.25,
+   "en": "And so this learns in a self-surprised fashion to predict depth, and then we can simulate LiDAR inputs directly from vision and use this downstream to make these birds-eye view predictions. And as you might be familiar, the gap is quickly closing instead of the art approaches. If you give yourself LiDAR, and how well you can do, versus if you do not have LiDAR, but you just use vision techniques and use pseudo-LiDAR approaches, and that gap is quickly shrinking in academia. And we see a lot of this as well internally. Finally.",
+   "zh": "因此它以一种自我监督的方式学会了预测深度，接着我们就能直接通过视觉来模拟激光雷达的输入，并在下游利用它来生成鸟瞰视角的预测。大家可能也了解，与前沿方法之间的差距正在迅速缩小。也就是配备激光雷达时的表现，与没有激光雷达、仅使用视觉技术和伪激光雷达方法的表现相比，这个差距在学术界正在迅速缩小。我们在内部也看到了很多类似的情况。最后。"
+  },
+  {
+   "s": 1449.21,
+   "e": 1477.31,
+   "en": "I've shown you how the software 2.0 stack is expanding through the code. It's eating some of the occupancy tracker-like techniques. The logical conclusion of that, of course, is there's still a perception system that creates explicit predictions. And those explicit predictions are, one, shown in the instrument cluster. And two, they are used for a policy. And this policy is still in the land of 1.0, for us and for many others as well, where you have explicit planner that takes all the predictions and drives on that.",
+   "zh": "我已经向大家展示了 Software 2.0 技术栈是如何在代码中不断扩展的。它正在吞噬一些类似于占用网格追踪器的技术。这样发展的必然结果当然是，目前仍然存在一个生成显式预测的感知系统。而这些显式预测，一是显示在仪表盘上，二是用于控制策略。对于我们以及其他许多人来说，这种策略仍然属于 1.0 的范畴，也就是用一个显式的规划器接收所有的预测，并以此来驾驶。"
+  },
+  {
+   "s": 1477.67,
+   "e": 1505.67,
+   "en": "The problem with that is your explicit predictions are basically doomed to never be good enough and never be complete. And so writing these planners is extremely difficult, error-prone, lots of hyper parameters, very tricky. And so the logical conclusion of this, of course, is that we'd like to train neural networks that actually do a lot of this planning inside the network. In particular, we have huge data sets of people driving cars. So when people drive cars and they steer the wheel, they're actually data labeling for you. They're showing you how to drive through any intersection or any other kind of place.",
+   "zh": "这样做的难题在于，显式预测注定永远不够好，也永远不可能面面俱到。因此编写这类规划器极其困难、容易出错，超参数极多，非常棘手。顺理成章的结论当然就是，我们希望训练神经网络，让它在网络内部直接完成大部分规划。特别值得一提的是，我们拥有人类驾驶海量的数据集。当人们驾车转动方向盘时，其实就是在为你标注数据。他们正在示范如何驶过任何路口或任何特定场景。"
+  },
+  {
+   "s": 1507.66,
+   "e": 1533.04,
+   "en": "And the other thing I'll say is most of what I've described so far relies primarily on supervised learning, with the exception of depth, where we massage and create massive data sets. But we've seen recently with the use of, for example, contrastive losses and things like that, there's a lot of progress today in self-supervised learning, and so we'd like to leverage some of that in the team. Here's an example of just some videos. We have probably the most interesting...",
+   "zh": "另外我想说的是，除了深度感知领域我们会处理并构建海量数据集之外，到目前为止我所描述的大部分内容都主要依赖于监督学习。但我们最近看到，随着对比损失等方法的应用，如今自监督学习领域取得了巨大进展，所以我们团队也希望能借力于此。这里展示一些视频样本。我们拥有大概是最有趣的……"
+  },
+  {
+   "s": 1533.04,
+   "e": 1563.16,
+   "en": "largest data set of videos. These are coming from cameras. And so we've been really looking into some of these self-supervised techniques to speed up the process and to speed up the rate at which we learn from very little supervised data. So we don't have to collect like tens, hundreds of thousands of examples of accept, write, turn. We can do it. We prefer not to. OK. So I showed you basically how we are improving the safety and convenience of driving today and how we deploy deep learning into production.",
+   "zh": "最大的视频数据集，这些视频都来自摄像头。所以我们一直在深入研究其中的一些自监督技术，以加快这个过程，并提高我们从极少量监督数据中学习的速率。这样我们就不必去收集几十万个诸如右转之类的样本。我们能做到，但我们宁可不去这么做。好的，我基本向大家展示了我们今天是如何提升驾驶的安全性和便利性的，以及我们是如何将深度学习部署到生产环境中的。"
+  },
+  {
+   "s": 1564.4,
+   "e": 1591.1,
+   "en": "support all of the features of the Autopilot today. And then I also showed you all of the work we are doing to develop full cell driving, how the neural net is eating through the software stack, and how we are putting vision and AI at the front and center of this effort. So if you'd like to make your AI expertise count, I think there is basically no more impactful or better place to apply some of that expertise than at Tesla today. And if you'd like to be a part of what I've shown you, then come to tesla.com slash Autopilot AI.",
+   "zh": "来支持目前 Autopilot 的所有功能。接着我还向大家展示了我们在开发完全自动驾驶方面所做的一切工作，神经网络是如何逐步渗透整个软件栈的，以及我们是如何将视觉和 AI 置于这项工作的核心位置。所以如果你想让自己的 AI 专长发挥价值，我认为如今几乎没有比 Tesla 更有影响力、更适合施展这些才华的地方了。如果你想成为我所展示的这一切中的一员，那就访问 tesla.com/AutopilotAI 吧。"
+  },
+  {
+   "s": 1591.46,
+   "e": 1625.6,
+   "en": "And you can just directly apply them to the page. It's extremely painless. And that just comes directly to us. And you can help work with us, too, and make this all work. So thank you. Thank you, Andre. That was awesome. So we have time for a couple of questions while Ilya is setting up. Hi. So when you do these estimations, let's say, of a stop sign and other",
+   "zh": "你可以直接把它们应用到页面上。这非常轻松。而且这些会直接反馈给我们。你也可以加入我们，一起把这套系统做起来。谢谢大家。谢谢你，Andre。太棒了。在 Ilya 准备的间隙，我们有时间回答几个问题。你好。你们做这些估计时，比如对一个停车标志的估计，而车队里的其他"
+  },
+  {
+   "s": 1626.02,
+   "e": 1643.0,
+   "en": "vehicles in your fleet have driven by before. Do you have a way of incorporating the prior from their estimation or do you have to re-estimate from scratch? Yeah, so we do collect maps, we just don't collect high definition maps. Like when a Waymo or something like that is driving through an environment, they know that the leaf on that tree is...",
+   "zh": "车辆之前开过那里。你们有办法结合它们之前的先验估计吗，还是必须从头重新估计？对，我们确实会采集地图，只是不采集高精地图。就像 Waymo 之类的车在某个环境里行驶时，它们知道那棵树上的叶子……"
+  },
+  {
+   "s": 1644.36,
+   "e": 1672.1,
+   "en": "15.53 meters away, like two centimeter level accuracy. We don't know about the leaf of that tree, but we do know that there's a stop sign somewhere in the vicinity here. And so we do build low definition maps where we do map stop signs, traffic lights, and things like that because it provides a second layer. And then also that helps us, again, like I mentioned, it helps us with all the trigger infrastructure for sourcing examples because we can look for discrepancies between map and vision. And that's a really good signal for us for getting lots of more images of really tricky cases. So like I drove by the stop sign yesterday.",
+   "zh": "在 15.53 米开外，精度大概能达到两厘米级别。我们虽然不知道那棵树上的叶子怎样，但确实知道这附近有个停车让行标志。所以我们确实会构建低精度地图，把停车标志、红绿灯之类的标注出来，因为这能提供第二层保障。而且正如我提到的，这还能帮我们搭建用于获取样本的所有触发器基础设施，因为我们可以去寻找地图与视觉之间的差异。这对我们来说是一个极好的信号，能借此捕获更多非常棘手场景的图像。比如我昨天开车经过了这个停车标志。"
+  },
+  {
+   "s": 1672.72,
+   "e": 1698.36,
+   "en": "Yes. I estimate it as a stop sign. Yes. I drive by it today. Yes, thank you so much. OK, thanks. Hi, Andre. Thank you for the great talk. I'm very interested in the software 2.0 part, and I follow progress. I think you mentioned it at scale. I wonder, what's your overall vision for this? What are the main findings? Is it something that will supply programming languages? Will we kind of change the way data science is done?",
+   "zh": "对。我把它识别为一个停车标志。是的。我今天又开过去了。好的，非常感谢。好的，谢谢。嗨，Andre。感谢你精彩的演讲。我对“软件 2.0”那部分非常感兴趣，也一直在关注相关进展。我想你提到过规模化的问题。我想知道，你对它的总体愿景是什么？主要有哪些发现？它会取代编程语言吗？它会改变我们做数据科学的方式吗？"
+  },
+  {
+   "s": 1699.42,
+   "e": 1726.0,
+   "en": "vision for this, and can the community help? Is it something that everybody can use to improve rapidly the whole progress of data science? Yeah, so thank you. That's a very broad question. I think what I've seen so far is just porting functionality from software 1.0 to 2.0 is not always a good idea. It's a good idea sometimes. You're actually, it's a different way of programming, but you're placing yourself in a very indirect control of the final.",
+   "zh": "对此有什么愿景？社区能帮上忙吗？这是所有人都能用来迅速推进整个数据科学进展的东西吗？好的，谢谢。这是一个非常宏大的问题。我认为就我目前所见，仅仅把功能从软件 1.0 移植到 2.0 并不总是个好主意。有时确实是个好主意。实际上这是一种不同的编程方式，但它让你对最终结果处于一种非常间接的控制中。"
+  },
+  {
+   "s": 1726.27,
+   "e": 1752.19,
+   "en": "of the final function. So sometimes you just want to write a rule. If you're doing it in a software 2.0 stack, everything is so indirect because you're massaging the data set. And you're going through a training process that takes days. The iteration is slower. You have to do all of this data engine stuff. So anything that's in the software 2.0 stack has a cost to it. You're committing to lots of data engine cost. And any new problem that you find suddenly requires a whole data engine pass and curation.",
+   "zh": "对最终函数的间接控制。所以有时你其实只想写一条规则。如果你在软件 2.0 技术栈里做，一切都会变得非常间接，因为你必须去摆弄数据集。而且你还要经历长达数天的训练过程。迭代会变慢。你必须处理所有这些数据引擎的工作。因此，软件 2.0 技术栈里的任何东西都是有代价的。你必须投入大量的数据引擎成本。而且你发现的任何新问题，突然都需要跑一遍完整的数据引擎流程和数据整理。"
+  },
+  {
+   "s": 1752.52,
+   "e": 1779.96,
+   "en": "And so that's not always a win. It's just sometimes a win. And so what we see, actually, is we kind of combine Software 1.0 and 2.0. So the older systems, as I would describe them in the Software 1.0 stack, they don't always go away. You almost think of it as sedimentary layers, where you have the new functionality. But the Software 1.0 is used, for example, to keep sort of guarding rails around the Software 2.0 part. So we almost see them as you do a bit of both. And they both have pros and cons. But I do think that the trend",
+   "zh": "所以这并不总是有利的，只是有时管用。实际上我们看到的是，我们会将 Software 1.0 和 2.0 结合起来。在我看来属于 Software 1.0 技术栈的老系统，并不一定会消失。你几乎可以把它看作是沉积岩层，上面承载着新功能，但 Software 1.0 仍被用来给 Software 2.0 部分设立“安全护栏”。因此我们往往是两者兼顾，它们各有优缺点。不过我认为整体趋势"
+  },
+  {
+   "s": 1780.28,
+   "e": 1805.18,
+   "en": "to a large extent, has been towards the software 2.0. It is a more powerful way of addressing a lot of problems that are very messy and really hard to code, which is a lot of problems in the world. But we definitely see that they come with their own pros and cons. Thank you, Andrea. We should move on. I really appreciate your time, and thanks again.",
+   "zh": "在很大程度上正在转向 Software 2.0。对于许多极其繁杂、很难用传统代码解决的现实问题，这是一种更强大的应对方式。但我们也能清楚地看到，它们同样各有利弊。谢谢 Andrea。我们该继续了。非常感谢你的分享，再次感谢。"
+  }
+ ]
+}

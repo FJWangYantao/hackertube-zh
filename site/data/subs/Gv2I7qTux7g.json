@@ -1,0 +1,722 @@
+{
+ "vid": "Gv2I7qTux7g",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 13.17,
+   "e": 39.97,
+   "en": "Thanks everyone for coming and thanks to Carol for that shout out that was incredibly classy Okay, so let's begin if you ask a airplane designer about safety they'll say something like Nothing's foolproof, but modern airliners are incredibly resilient Flying is the safest way to travel if you ask building designers about elevator safety. They'll say something like",
+   "zh": "感谢大家的到来，也感谢 Carol 的赞誉，真是太有风度了。好，我们正式开始。如果你问飞机设计师关于安全的问题，他们大概会说：没有什么万无一失，但现代客机极其皮实，坐飞机是最安全的出行方式。如果你问建筑设计师电梯的安全问题，他们大概会说："
+  },
+  {
+   "s": 40.38,
+   "e": 73.85,
+   "en": "Elevators are protected by multiple tried and tested fail-safe mechanisms. They're nearly incapable of falling. If you ask a software engineer about computerized voting, they'll say something like, that's terrifying. Our entire field is bad at what we do. And if you rely on us, everyone will die. We can do better than this. OK, so let's fix the problem. I think, oh no, my slide is fucked.",
+   "zh": "电梯有多重经过检验的故障保险机制保护，几乎不可能掉下去。但如果你问软件工程师关于电子投票系统的看法，他们可能会说：太吓人了，我们整个行业都干不好自己的本职工作，要是你指望我们，大家全得完蛋。我们本可以做得更好。好吧，那我们来解决这个问题。我想，糟糕，我的幻灯片崩了。"
+  },
+  {
+   "s": 78.83,
+   "e": 112.78,
+   "en": "I'm going to fix this problem with a nice. Oh, you know, this is totally fine. OK. Yeah, let's fix the problem. Well, I found this to-do list on developers. I think this is just the to-do list that programmers are following. They were writing crappy software. So all we have to do is fix it. We just cross that off and write quality software. But wait a minute, though, because I found the rest of this to-do list.",
+   "zh": "我要用个好办法来解决这个问题。噢，你知道的，这完全没问题。好的，咱们来搞定它。我在开发者那里找到了这份待办清单，我觉得程序员平时就是按这个待办清单来的。他们写出来的软件都很烂，所以我们要做的就是把它修好。只要把那项划掉，去写高质量软件就行了。等等，先别急，因为我还找到了这份清单的其余部分。"
+  },
+  {
+   "s": 113.19,
+   "e": 138.73,
+   "en": "And it also says on here, prevent code reuse. And now the poop emojis are back, and there's two of them. And I think what was happening is that they were following this guide here on how to prevent your software from being widely used. Well, if you use garbage collection, then you have unpredictable stop the world latency glitches, and you can never escape from that. That's not.",
+   "zh": "上面还写着“防止代码复用”。现在便便表情符号又回来了，而且还是两个。我觉得实际情况是，他们当时遵循的是这份关于“如何防止你的软件被广泛使用”的指南。要是用了垃圾回收，就会出现无法预测的全局停顿（stop-the-world）延迟卡顿，而且你永远无法摆脱它。这可不行。"
+  },
+  {
+   "s": 139.07,
+   "e": 166.15,
+   "en": "really something that's allowed to happen in real-time applications, such as airplanes, pacemakers, music, or video production software. If you have automatic heap allocation, then you are signed up for crashes or hangs when the system runs out of memory. That's problematic for a lot of environments, including desktops, but especially embedded or kernels.",
+   "zh": "在实时应用中绝不容许发生，比如飞机、起搏器，或者音视频制作软件。如果使用了自动堆分配，一旦系统内存耗尽，就注定要面临崩溃或卡死。这在很多环境中都是个问题，包括桌面端，而在嵌入式或内核中尤甚。"
+  },
+  {
+   "s": 168.63,
+   "e": 196.73,
+   "en": "If your code is slower than C, someone's going to rewrite it in C. Got to go fast. Speaking of C, if it doesn't speak the C ABI, then it's not even really usable for most languages. So for example, a Perl application is not going to take advantage of a Python library, or vice versa. And finally, you can prevent your software from being widely used by making it complicated to build from source, like TensorFlow.",
+   "zh": "如果你的代码比 C 慢，迟早有人会用 C 重写它。速度必须得快。说到 C，如果它不支持 C ABI，那对大多数语言来说甚至都算不上真正可用。举个例子，Perl 应用是没办法直接使用 Python 库的，反之亦然。最后，像 TensorFlow 那样，如果你把源码编译搞得极其复杂，也会阻碍软件被广泛使用。"
+  },
+  {
+   "s": 198.18,
+   "e": 228.75,
+   "en": "Basically, Docker was invented to solve that last problem. Okay, so we're going to have to go back to this to-do list, and we're going to have to cross off that one and promote code reuse. That's what we want to do instead. I think that if we just edit sort of the to-do list of all the programmers, this should solve the problem. So let's see what the implications of this are. Okay, I actually sneakily there with my little x's just...",
+   "zh": "基本上，Docker 的发明就是为了解决这最后一个问题。好，那我们得回到这个待办清单，把它划掉，转而提倡代码复用。这就是我们真正想做的。我认为只要修改一下所有程序员的待办清单，这问题就能解决。那我们来看看这意味着什么。好了，其实我刚才偷偷用那些小叉号……"
+  },
+  {
+   "s": 228.88,
+   "e": 257.7,
+   "en": "instantly disqualified basically all the mainstream programming languages. You can't use any of them if you want to write software up to this standard of quality. You can't. If you use any of these programming languages and it goes in there, then you're signed up for situations where people can't use your code and where you can't handle certain error situations. Okay, well, let's see what we actually have to use with. What's left?",
+   "zh": "直接把基本上所有主流编程语言都淘汰了。如果你想写出达到这种质量标准的软件，它们一个都不能用。真的不行。只要你用了这些编程语言并放入其中，就注定会陷入别人无法使用你的代码，以及你无法处理某些错误情况的境地。好吧，那来看看我们究竟还能用什么。还剩什么呢？"
+  },
+  {
+   "s": 258.19,
+   "e": 283.44,
+   "en": "So I'll pull up the TOBI language popularity list here. There's the top 10. I'm going to cross off all the disqualified languages. OK, so we got C++, assembly language, and then all the ones after 10 that I didn't put on there, because let's try to keep this talk down to 45 minutes. Technically, it's possible to write",
+   "zh": "我在这里调出了 TIOBE 编程语言排行榜，这就是前十名，接下来我要把所有不合格的语言划掉。好的，有 C++、汇编语言，还有排在第十名之后、我没列出来的那些，毕竟我们尽量把演讲时间控制在 45 分钟以内。从技术上讲，用汇编完全可能写出"
+  },
+  {
+   "s": 285.22,
+   "e": 307.92,
+   "en": "software that meets the standard of quality that we want to achieve with assembly. But it's not very practical, so I'm going to cross that one off. Honestly, the same is true for C++. It's so freaking complicated. I can barely even read my own C++ code, let alone my coworkers. I like to think of C++ like this. It's got a lot of features.",
+   "zh": "符合我们所追求质量标准的软件，但实在不太实际，所以我也把它划掉。说实话，C++ 也是如此，它简直复杂得要命，我连自己写的 C++ 代码都很难看懂，更别提我同事写的了。我习惯这样看待 C++：它的特性极多，"
+  },
+  {
+   "s": 308.82,
+   "e": 337.3,
+   "en": "And some of those features do violate these principles that I laid out, and some of them don't. It's really hard to know which ones do and which ones don't. I'm going to cross that off. I think that's a pretty safe decision to do. So here we are. We're left with C. And the other languages, again, that I don't have time to go over in this talk. OK, so let's use it. Let's write some high quality software in C. OK, so let's try it. Let's go.",
+   "zh": "其中一些特性确实违背了我刚才阐述的原则，而另一些则没有。要分清哪些违背了、哪些没有，真的非常困难。所以我也要把它划掉，我觉得这么做非常稳妥。那现在就只剩下 C 了，当然还有其他在这场演讲中没时间细说的语言。好，那我们就用它吧，让我们用 C 语言来写一些高质量的软件。行，那我们就试试看，走起。"
+  },
+  {
+   "s": 338.19,
+   "e": 365.14,
+   "en": "Well, when you start to do that, you start to see a lot of problems. So for example, we have a pound include. It's a fundamental limitation dragging down the entire language. It's the main reason for slow compilation, prevents optimizations, and makes the developer's life harder. I'll show you an example of that later. You also run into preprocessor macros. The C preprocessor is another language on top of the C programming language, and the two languages don't know about each other.",
+   "zh": "当你开始这么做时，就会发现很多问题。比如，我们有 #include。这是拖累整门语言的根本缺陷，它是编译缓慢的主因，阻碍了优化，还让开发者的日子更难过，稍后我会举个例子。你还会碰到预处理器宏。C 预处理器是凌驾于 C 语言之上的另一门语言，而这两门语言对彼此一无所知。"
+  },
+  {
+   "s": 366.57,
+   "e": 394.47,
+   "en": "The C preprocessor makes it harder for humans to read and debug your code. It's not compatible with API bindings. So it actually disallows the CABI from being a language of interop. And it prevents IDEs from working correctly. We need IDEs. You can't use IDEs in preprocessor macros. But the C programming language forces you to use them. I'll show you about that later as well.",
+   "zh": "C 预处理器让代码更难被人理解和调试。它与 API 绑定不兼容，实际上阻碍了 C ABI 成为一种互操作语言。它还会导致 IDE 无法正常工作。我们离不开 IDE，但你没法在预处理器宏里用 IDE。可 C 语言却强迫你使用它们，稍后我也会演示这一点。"
+  },
+  {
+   "s": 396.49,
+   "e": 426.23,
+   "en": "We just, we're all listening to Carol talk about this important little kicker here, which is that not only does C have a lot of undefined behavior, it's also just a lot of unnecessary undefined behavior that's really easy to trip into. It's really hard to write high quality software in C without making these kind of mistakes. Okay, so can't you see? Okay, well, I'm gonna make a new language then. We gotta have a new language, it's better.",
+   "zh": "我们刚刚都在听 Carol 讲这个很关键的要点，那就是 C 语言不仅有大量的未定义行为，而且很多都是完全没必要、又极容易踩坑的未定义行为。用 C 语言写出高质量的软件，同时还不犯这类错误，真的非常难。好吧，你难道看不出来吗？行吧，那我就做一门新语言。我们得有一门更好的新语言。"
+  },
+  {
+   "s": 427.22,
+   "e": 455.69,
+   "en": "But let's not get out of control. Let's just fix the problems with C. Actually, that would be a pretty good slogan for Zig. C, but with the problems fixed. And it is my goal, it's still my goal, to not get carried away adding a lot of stuff. There's a lot of features that are not in Zig, and that's very intentional. And it's hard, because everyone likes to propose features, and it's really easy to make fun of C++.",
+   "zh": "但我们别搞得太失控。我们只要把 C 语言的问题修好就行了。其实，这句话拿来给 Zig 做宣传口号挺不错的：修复了问题的 C 语言。我的目标，也是一直以来的目标，就是别头脑发热去加一堆乱七八糟的东西。Zig 里面没有很多特性，这完全是有意为之。这其实很难，因为大家都喜欢提新特性，而且去嘲讽 C++ 简直太容易了。"
+  },
+  {
+   "s": 457.25,
+   "e": 484.47,
+   "en": "But everyone has that one feature from C++ that they like. And they want to put it in your language. They want to put it in Zig. And if everyone had their favorite feature from C++ in Zig, it would just be C++. I'm not going to let that happen. OK. So premise. Going to make a new language. Start with C. And let's just fix some of the problems. So I'm going to throw some code up on the screen here. We're looking at some C code.",
+   "zh": "但每个人都有一两个自己钟爱的 C++ 特性。他们想把这些特性塞进你的语言里。他们想把它们加进 Zig。而如果每个人都在 Zig 里加上自己最喜欢的 C++ 特性，那它就变成 C++ 本身了。我可不会让这种事发生。好，那么前提是：我们要创造一门新语言。以 C 为起点，然后顺便解决掉其中的一些问题。所以我现在把一些代码放到屏幕上。我们来看看这段 C 代码。"
+  },
+  {
+   "s": 486.89,
+   "e": 516.72,
+   "en": "Feel free to come up closer if you're in the back. There's lots of seats up here. So this is just Hello World, you know, just so you can see some C code there. Now, I'm going to show you an example of some code that I think should work. Like, this is just going to be C code, and it's like, why is there a compile error? OK, so first I'm going to take the string. I'm going to move it to variable. So far, same thing. Now I want to have a global constant, which is just the length of the message. So I try to do that.",
+   "zh": "坐在后排的朋友随时可以坐到前面来，前面还有很多空位。这只是个 Hello World，就为了让大家看一眼 C 代码。现在，我要给你们看一段我觉得理应能正常运行的代码示例。这只是一段普通的 C 代码，但你会纳闷：为什么会报错呢？好，首先我拿到这个字符串，把它存进一个变量里。到目前为止，逻辑完全一样。现在我想声明一个全局常量，用来记录这条消息的长度。于是我尝试这么写。"
+  },
+  {
+   "s": 517.55,
+   "e": 546.54,
+   "en": "I get compiler. Initializer element's not constant. Why doesn't this work? This should work fine. Do I really have to just go up here and be like, one, two, three, four, five, six? Okay, I put six in there. All right, now it builds. Is that what I'm supposed to do? Now if I change the text to hell, and now it's gonna be wrong, and actually it's a security vulnerability because it's overflowing the buffer. C is just trying to make you",
+   "zh": "编译器报错了：初始化元素不是常量。为什么不行？这本应该能正常工作的啊。难道我真得数一数，一、二、三、四、五、六？行吧，我填个 6 进去。好了，现在能构建了。难道就得这么搞吗？但要是我把文本改成 hell，现在长度就错了，而且实际上还是个安全漏洞，因为缓冲区溢出了。C 语言简直就是在逼你"
+  },
+  {
+   "s": 546.78,
+   "e": 575.2,
+   "en": "have security vulnerabilities in it. Like, why can't you just do strlen like that and get the answer? So here's another example. And I think this is actually kind of even worse. If I use the constant as the array length, it actually successfully compiles. But for a sinister reason, this is an accidental variable length array.",
+   "zh": "写出安全漏洞。凭什么不能直接像那样用 strlen 来拿结果？再来看另一个例子。我觉得这个其实更糟糕。如果我用这个常量作为数组长度，它居然能编译成功。但背后有个险恶的原因：这不小心搞成了变长数组。"
+  },
+  {
+   "s": 575.78,
+   "e": 605.33,
+   "en": "So that buffer line actually could have just been any value, like even argc, and it would have worked. And that's just asking for a stack overflow. Like, that's not what we wanted. And it's really obvious to see what's happening here if we move the array to global scope, like this. Now it's compile error. So it sort of mattered whether that value was a compile time known value or not, but it was sort of, c was sort of hiding the problem from us inside the function.",
+   "zh": "所以定义 buffer 那一行其实可以是任意值，比如甚至可以是 argc，程序照样能跑。而这纯粹是在诱发栈溢出。这可不是我们想要的结果。如果把这个数组移到全局作用域，像这样，问题就一目了然了。现在它报错成了编译错误。所以这个值是不是编译期可知的值，其实是有影响的，但 C 语言在函数内部或多或少帮我们掩盖了这个问题。"
+  },
+  {
+   "s": 605.77,
+   "e": 635.97,
+   "en": "But I think this should work. Like, why can't I write this code? Like, is this how I have to do it? I have to use a preprocessor macro to make it work? I mean, apparently, and this is what you have to do. It's sad that this is what fix it. I said it before, but I'll say it again. Macros are hostile to debugging. They're hostile to IDEs, and they're hostile to programmers trying to read the code. I'll show you an example of that. Let's say that you see this code. This is some C code.",
+   "zh": "但我觉得这应该能行啊。为什么我不能这么写代码？难道非得这么搞吗？非要用预处理器宏才能搞定？不过显然，你确实只能这么做。不得不靠这种方式解决，实在挺可悲的。我之前说过，但我还要再说一遍：宏对调试极不友好。它们对 IDE 不友好，对试图读懂代码的程序员也不友好。我给你们看个例子。假设你看到了这段代码。这是一段 C 代码。"
+  },
+  {
+   "s": 637.87,
+   "e": 667.06,
+   "en": "you don't know what's in the rest of the file above it or below it. You just see this code. What do you think it's going to do? Should be pretty like we would like to just understand this code from only seeing the local context. In fact, if I run this, it actually goes to this branch. Uh, and it was kind of a trick question. So yeah, it turns out you could do something like this. Yeah, you could use, you could do monkey patching with the preprocessor.",
+   "zh": "你不知道这段代码上下方的文件里还有什么，你只能看到这些代码。你觉得它会执行什么？按理说，我们应该只想通过局部上下文就能看懂这段代码。其实，如果我运行它，它走的其实是这个分支。呃，这其实算是个脑筋急转弯。没错，事实证明你确实可以这么搞。对，你可以用预处理器来进行热修复（monkey patching）。"
+  },
+  {
+   "s": 667.53,
+   "e": 697.36,
+   "en": "And now, okay, it's a contrived example. No one's gonna do that exactly. But I think that we've all had experiences where our coworkers thought they were being helpful and clever, but they wrote what kind of just amounted to this. And so it shouldn't be possible to look at this code and not be sure what it does. That makes C really hard to understand because you have to know, to be really sure, to be really sure it's going on, you have to know",
+   "zh": "好吧，这是个刻意编造的例子，没人真会这么写。但我觉得大家都经历过这种情况：同事自以为帮了大忙、耍了个小聪明，写出来的代码本质上就跟这个差不多。所以，按理说绝不应该出现看了这段代码却吃不准它到底干了什么的情况。这让 C 语言变得极难理解，因为为了真正确定、真正确信到底发生了什么，你必须了解"
+  },
+  {
+   "s": 697.82,
+   "e": 729.37,
+   "en": "a lot more context than only what you're looking at. So I deleted this feature from C. I deleted pound includes, and I deleted defines. Get the whole preprocessor gone. Good riddance. So let's go back to the other problem here. The other problem that I was in the middle of looking at where we make a constant, and we just want to use the constant, but we're not allowed to use it. So I think that the fact that this doesn't work makes C more complicated.",
+   "zh": "远超眼前所见的上下文。所以我从 C 语言中删掉了这个特性。我删掉了 #include，也删掉了 #define。把整个预处理器都干掉了，彻底清静了。那我们再回到刚才的另一个问题。也就是我刚才看到一半的那个问题：我们定义了一个常量，我们只想用这个常量，却偏偏不让用。我觉得这行不通的事实让 C 语言变得更加复杂了。"
+  },
+  {
+   "s": 730.18,
+   "e": 756.61,
+   "en": "Like, c is a bigger, more complicated language because this doesn't work. And if you buy that reasoning, then it would follow that zig is simpler to understand than c. Because this does work in zig. I will show you. So we're looking at the first zig code of the talk here now. This is the equivalent thing, is what we were just looking at before. But it works. And it just works fine.",
+   "zh": "比如，C 是一门更庞大、更复杂的语言，就因为这行不通。如果你认同这个逻辑，那就可以推导出 Zig 比 C 更容易理解。因为这在 Zig 里完全行得通。我这就展示给你们看。现在我们看到的是本场演讲的第一段 Zig 代码。这跟我们刚才看的是等价的。但它能跑通。而且运行得非常顺畅。"
+  },
+  {
+   "s": 757.82,
+   "e": 790.27,
+   "en": "All we had to do, all I had to do to make this work, is just treat everything like an expression, and then just be able to evaluate expressions at compile time. So this entire part here is an expression, even the u8, the type is an expression, and this text is an expression. And it's pretty easy to evaluate. We just look up the symbol, and the answer is 666, Hail Satan. So should this work, then? What if we make it more complicated? Now I've taken the expression.",
+   "zh": "为了让它能跑通，我们所要做的，或者说我所要做的，就只是把所有东西都当成表达式，然后只要能在编译期求值这些表达式就行了。所以这里的整块内容都是一个表达式，甚至包括 u8，这个类型也是个表达式，这段文本也是个表达式。而且它的求值非常简单。我们只需查一下这个符号，答案就是 666，撒旦万岁。那么，这样也能行得通吗？如果我们把它搞得更复杂一点呢？现在我拿了这个表达式。"
+  },
+  {
+   "s": 790.64,
+   "e": 822.44,
+   "en": "and now it's a function call. Anybody have any opinions? Well, I do. Yeah, it should definitely work. Of course it should work. I just said everything's an expression, that's an expression. Why wouldn't it be able to just go run a function call? Of course that should work. Okay, but think about what that means now. What that means is that Zig has to be able to look at a function and actually just go through and figure out what the result of code is at compile time. So, it does. We got here from a reasonable premise.",
+   "zh": "现在它成了一个函数调用。大家有什么想法吗？好吧，我有。对，它绝对应该能行。它当然应该能行。我刚说了万物皆表达式，这就是个表达式。为什么不能直接去跑一个函数调用呢？这当然应该管用。行，但想想这意味着什么。这意味着 Zig 必须能够审视一个函数，并且真能在编译期直接逐行执行算出代码的结果。所以，它确实做到了。我们是从一个合情合理的前提推导到这里的。"
+  },
+  {
+   "s": 825.19,
+   "e": 855.02,
+   "en": "So, I just want to make the argument here that this isn't me, you know, writing a language paper and, you know, sitting on my hoity-toity throne and stuff. It's like I just see it was broken and I fixed it, and that's kind of what it looks like. Okay. So, but once we have this sort of concept, we need to flesh it out a little bit. So, for example, here's some more Zig code, and in the test...",
+   "zh": "所以，我只是想在这里表明，这不是我……比如写什么语言设计论文，然后高高在上地坐在象牙塔宝座里之类的。这就好比我看到它坏了，然后我修好了它，大概就是这么个情况。好的。但是一旦我们有了这种概念，我们就得稍微充实一下它的细节。比如，这里还有一些 Zig 代码，在测试中……"
+  },
+  {
+   "s": 855.02,
+   "e": 885.09,
+   "en": "Case there, I'm computing Fibonacci of seven into the variable X. But if I were to try to use it in an array, I would get a compiler from Zig saying, hey, that's not a constant value. I don't know what it is. You can only use constant values for array lengths. So I'm going to need to be explicit and say, yeah, I actually do need you to go evaluate this function at compile time. And now X is known at compile time. Now we can use it in an array.",
+   "zh": "在那种情况下，我把斐波那契数 7 计算到了变量 X 中。但如果我想把它用在数组里，Zig 的编译器就会报错说：嘿，这不是个常量，我不知道它是多少，你只能用常量值来做数组长度。所以我必须明确指出：没错，我确实需要你在编译时去计算这个函数。这样 X 在编译时就已知了，现在我们就能把它用在数组中了。"
+  },
+  {
+   "s": 885.63,
+   "e": 915.35,
+   "en": "As the array length and it will work. So you can use the comp time keyword to tell an expression that it Must be evaluated at compile time or you'll get an error. It takes any expression so it can be a block. For example, i can say x equals comp time and now i have a labeled block. Everything in the block runs at compile time. We get a result and we have this function at the end here. And this actually just logs this value here.",
+   "zh": "作为数组长度它就能正常工作了。所以你可以用 comptime 关键字来告知一个表达式必须在编译时求值，否则就会报错。它可以接收任何表达式，比如一个代码块。举个例子，我可以写 x 等于 comptime，然后这里就有一个带标签的代码块。该代码块里的所有内容都会在编译时运行，我们得到一个结果，最后这里还有个函数，实际上就是在这里打印出这个值。"
+  },
+  {
+   "s": 916.58,
+   "e": 945.82,
+   "en": "45. And we actually didn't run any code yet. The compile log actually created an error. But now I'm going to replace that. I replaced it with an assert. So same code. I just moved it over so I could fit the output. And instead of logging the output, I'm actually asserting that the answer is 45. The important part about this, though, is that the assert happens at compile time.",
+   "zh": "45。我们实际上还没运行任何代码。编译日志其实报了一个错。但现在我要把它换掉。我用一个 assert 替换了它。代码还是一样的。我只是把它挪了下位置，以便放得下输出。与其打印输出，我现在其实是在断言答案是 45。不过这里的关键在于，这个断言是发生在编译期的。"
+  },
+  {
+   "s": 946.38,
+   "e": 976.32,
+   "en": "So if I take this value 10, and I change it to an 11, I actually get a compile error from this assert. This is an incredibly powerful feature because if you can figure out some invariants of your code at compile time, you can assert those invariants, and you're preventing yourself from shooting yourself in the foot, preventing your co-regards from shooting themselves in the foot, and saving countless hours of debugging because you got a compile error instead of a bug.",
+   "zh": "所以如果我把这个值 10 改成 11，这个 assert 实际上会直接报编译错误。这是个非常强大的特性，因为如果你能在编译期找出代码的一些不变量，你就可以对这些不变量做断言，从而避免自己搬起石头砸自己的脚，避免同事踩坑，并且能省下无数调试时间，因为你得到的是编译错误而不是运行时 bug。"
+  },
+  {
+   "s": 978.91,
+   "e": 1010.21,
+   "en": "So, flushing this out some more, here I'm using compile time expressions inside of a function, but I also might just want to statically make an assertion, just like I was saying just now. So, you can also make a top-level declaration, which is comp time. Here, I'm just doing a very simple assertion that 10 plus one is 11. So, of course, that works. If I try to assert something wrong, then, of course, I'm going to get a compile error. Okay. Now, let me take a step back for a second here.",
+   "zh": "进一步展开来说，这里我在函数内部使用了编译期表达式，但我也可能只想静态地做一个断言，就像我刚才说的那样。所以，你也可以做一个顶层的声明，也就是 comp time 的。在这里，我只是做了一个非常简单的断言，断言 10 加 1 等于 11。这当然是可行的。如果我尝试断言一个错误的结果，那么显然，我就会得到一个编译错误。好，现在让我先退一步来看。"
+  },
+  {
+   "s": 1011.3,
+   "e": 1040.91,
+   "en": "Started with c. Got mad at the preprocessor. So I deleted that. Fixed the bug where you can't use constants as long as you know the value of compile time. And now we actually fixed a problem where we even solved conditional compilation. So in c, we had to use a preprocessor to do this. So this is an example where it says, on Windows, do this. On Linux, do this.",
+   "zh": "从 C 语言开始。因为讨厌预处理器，所以我把它删掉了。修掉了那个只要在编译期知道值却不能当作常量的 bug。现在我们甚至解决了一个问题，连条件编译都搞定了。在 C 语言中，我们必须用预处理器来做这件事。比如这个例子就写着：在 Windows 上，执行这个；在 Linux 上，执行这个。"
+  },
+  {
+   "s": 1043.92,
+   "e": 1072.66,
+   "en": "This is two different languages happening here. And you have to be aware of the semantics of both of them at the same time. And I've seen people do some weird stuff where they put an expression, and then there's an if def in the middle of the thing, and there's a parenthesis dangling off. Stop. That's how you have to do it in C. I just deleted this feature. So did we accidentally lose conditional compilation in Zig? No. Actually, it's way better. How it works is if the conditions of an if statement",
+   "zh": "这里实际上混用了两种不同的语言，你必须同时清楚它们各自的语义。我还见过有人写出极其诡异的代码，在一个表达式中间插个 if def，括号就那么孤零零地挂在外面。赶紧打住吧。在 C 语言里你只能这么做。但我刚把这个特性给删了。那我们是在 Zig 里不小心丢掉了条件编译吗？并没有。实际上，现在的做法好得多。它的工作原理是：如果一个 if 语句的条件"
+  },
+  {
+   "s": 1073.07,
+   "e": 1098.82,
+   "en": "Is known in compile time, then the branches that are dead are eliminated statically. So this compile error is never emitted. Problem solved. There's only one language here, not two. Okay. So the green boxes are highlighting the fact that because the value is compile time known, it has a different semantics.",
+   "zh": "在编译期是已知的，那么无用的分支就会在静态期被消除掉。所以这个编译错误根本不会被触发。问题解决了。这里只有一种语言，而不是两种。好，那么绿框所强调的就是，正因为这个值在编译期已知，它才拥有了不同的语义。"
+  },
+  {
+   "s": 1100.43,
+   "e": 1131.72,
+   "en": "It matters whether or not your value is known to compile time. So you might need to, for example, make a parameter required to be compiled time known. This actually relates to the Swift stuff that Rob was talking about. A good example of this is with the warn function. This formatting string here is a parameter that must be compiled time known.",
+   "zh": "你的值在编译期是否已知非常重要。比如，你可能需要要求某个参数必须在编译期已知。这其实跟 Rob 刚才聊到的 Swift 内容有关。warn 函数就是一个很好的例子。这里的格式化字符串就是一个必须在编译期已知的参数。"
+  },
+  {
+   "s": 1131.98,
+   "e": 1165.14,
+   "en": "And we can see that because if I take away this x right here, I get a compile error, not a runtime error, which means that the implementation of this function triggered a compile error based on the knowledge at compile time of that string. So, for example, if I here, I pass a runtime value of the format string, and it's going to be a compile error because",
+   "zh": "我们可以看到，如果我把这里的 x 去掉，就会报编译错误，而不是运行时错误，这意味着该函数的实现根据编译期对该字符串的了解触发了编译错误。所以，举个例子，如果我在这里传入格式化字符串的运行时值，就会报错，因为"
+  },
+  {
+   "s": 1165.62,
+   "e": 1195.38,
+   "en": "at the call site of warn, it requires, right here, we require the parameter to be compile time known. And that's why they would give us error if it's not compile time known. The cool thing about this is that I didn't show the implementation of this function, but it's all in Zig. There's no compiler magic to make it work. So for example, in C, all the warnings you get from printf, if you do it wrong, those are just hard coded magic in the compiler.",
+   "zh": "在调用 warn 的地方，就在这里，我们要求参数必须在编译期已知。这就是为什么如果它不是编译期已知的，就会报错。最酷的一点是，虽然我没展示这个函数的实现，但它完全是用 Zig 写的。并没有借助任何编译器黑魔法来实现。比如在 C 语言中，printf 用错时弹出的所有警告，纯粹是编译器里硬编码的魔法。"
+  },
+  {
+   "s": 1197.84,
+   "e": 1223.15,
+   "en": "I hope this doesn't come off as a disk or something. But I was getting inspiration from Rust when I was trying to figure out how they solved this problem. And it's a macro. And I was trying to understand the macro. And then I got down to the bottom of the macro. And then it called this function that was underscore underscore compiler hard-coded print def macro. It's like, oh, OK. It's actually built into the compiler.",
+   "zh": "我希望这听起来不像是在贬低谁。但我当时为了搞清楚他们是怎么解决这个问题的，确实去 Rust 那里寻找灵感。结果发现它是个宏。于是我试着去读懂那个宏，一路深挖到了最底层。然后发现它调用了一个名叫 __compiler hard-coded print def macro 的函数。当时我就想，好吧，原来它实际上是内置在编译器里的。"
+  },
+  {
+   "s": 1223.69,
+   "e": 1256.7,
+   "en": "But here we have a language where I took C and made it simpler, and actually I'm able to implement formatted printing in the language itself. No compiler magic. So, let's consider the implications of this. We have parameters that can be forced to be compile time known. Everything's an expression, including types. So, what if I did this? Got a function.",
+   "zh": "但现在我们有了一门语言，我把 C 语言简化了，并且实际上能够完全在这门语言本身里实现格式化打印。没有任何编译器黑魔法。那么，让我们来思考一下这意味着什么。我们的参数可以被强制要求在编译期已知。一切皆为表达式，连类型也是。那么，如果我这么做会怎样呢？这里有个函数。"
+  },
+  {
+   "s": 1257.77,
+   "e": 1287.93,
+   "en": "It takes a type as a parameter. It turns a type. Well, congratulations. We now have generics. So here's what I'm saying right now. Again, I didn't go in and say, OK, going to put on my language hat, a little pointy wizard hat, and I'm going to go read some white papers, and I'm like, let's see how to do generics. No, no, I just took C, deleted the bad stuff from it, and then generics fell onto my lap.",
+   "zh": "它把类型作为参数，再返回一个类型。好吧，恭喜，我们现在有了泛型。所以我现在想说的是，我并不是一开始就说，好吧，我要戴上语言设计者的小尖顶巫师帽，去读些白皮书，然后琢磨怎么做泛型。不，不，我只是拿过 C 语言，删掉那些糟糕的部分，泛型就自然而然地掉进我怀里了。"
+  },
+  {
+   "s": 1292.65,
+   "e": 1323.0,
+   "en": "Let's back up for a second and recap here. I want software to be really high quality. Your hard drives better be literally on fire for there to be a bug. Most programming languages are disqualified because they have some flaw where they can't handle a certain situation, or an edge case, or their code can't be reused, so no one's going to use it. OK. And C++, too complicated. C, too problematic. Got to make a new language.",
+   "zh": "我们先退一步回顾一下。我希望软件质量极高。除非你的硬盘真的着火了，否则绝不该出 bug。大多数编程语言都被淘汰了，因为它们存在某些缺陷，无法处理某种情况或边界条件，又或者代码无法复用，根本没人会用。好，C++ 又太复杂，C 语言问题又太多。必须做门新语言。"
+  },
+  {
+   "s": 1323.88,
+   "e": 1351.61,
+   "en": "And I just showed you the comp time features of zig. I have time to show you errors in the build system. And then we'll do Q&A. So errors. Errors are a central theme in zig. Because in order to have high quality software, correct error handling has to be the easiest, most straightforward path for people to follow. People are always going to just be lazy, so better make the lazy path the correct path.",
+   "zh": "刚才我向大家展示了 Zig 的 comptime 特性。我还有时间讲讲错误处理和构建系统，然后我们进入问答环节。先说错误。错误处理是 Zig 的核心主题。因为要做出高质量的软件，正确的错误处理必须是大家走起来最轻松、最顺手的路径。人总是想偷懒的，所以最好让偷懒的路径本身就是正确的路径。"
+  },
+  {
+   "s": 1353.38,
+   "e": 1381.69,
+   "en": "OK, so let's look at a really simple example. So this is C code. What it's going to do is it's going to open a file, but the directory doesn't exist, so that's going to fail. But this code is written in the laziest, easiest way to code, which is just not to handle errors. So let's see what happens. OK, so I'm going to run it. I'm going to build it and run it. It seems to actually work, which is weird. Let's look at that with S trace.",
+   "zh": "好，我们来看一个非常简单的例子。这是一段 C 代码。它要做的是打开一个文件，但目录并不存在，所以这肯定会失败。但这段代码是用最偷懒、最省事的方式写的，也就是压根不处理错误。那我们来看看会发生什么。好，我现在运行一下。我来构建并运行它。看起来居然正常跑通了，这就很诡异。我们用 strace 来看看到底怎么回事。"
+  },
+  {
+   "s": 1382.9,
+   "e": 1408.52,
+   "en": "Okay, now this revealed some information here. The operating system actually returned no such file or directory, and then returned negative one for the file descriptor, and then the code just blithely continued on and said, okay, now I'm gonna write to the negative one file descriptor, and then the operating system said, no, that doesn't work, and it's okay, now I'm gonna close the negative one file descriptor, and the operating system said, no, what are you doing?",
+   "zh": "好的，现在这里显示出了一些信息。操作系统实际上返回了“没有该文件或目录”，然后把文件描述符返回为 -1，接着代码就这么没心没肺地继续跑，好像在说：好，现在我要往 -1 文件描述符里写入了，操作系统就说：不行，这没用，代码又说：行，那我现在把 -1 文件描述符关掉，操作系统就说：别闹，你干啥呢？"
+  },
+  {
+   "s": 1410.3,
+   "e": 1441.99,
+   "en": "And then just as a final sin, it exited with zero, saying, everything works. OK, so let's look at what the laziest, easiest way to write this is in Zig. This is Zig code. And I just sort of didn't use the abstractions or anything. I just wrote it sort of the same style as the C code. OK, so let's see what happens here. Yeah, this doesn't compile, because those things can have errors, and we didn't handle them. OK, so let's handle the errors.",
+   "zh": "最后让人哭笑不得的是，它居然退出了，状态码还是 0，意思是：一切正常。好，那我们来看看用 Zig 写这段代码最省事、最简单的写法是什么样的。这就是 Zig 代码。我基本没用任何抽象之类的东西，就只是按照和 C 代码差不多的风格写了出来。好，我们看看会发生什么。哈，这根本编译不过，因为那些地方可能会报错，而我们并没有处理这些错误。行，那我们就来处理一下这些错误。"
+  },
+  {
+   "s": 1443.63,
+   "e": 1473.49,
+   "en": "All right, now I used the word try. And I put an exclamation point in front of the return type. So that means that this function now can return a possible error. And what try does, there's an analogous feature to this in Rust. What it does is it takes the results, and it says if it's an error, return the error from the function. Otherwise, give me the value. So now when we run this updated code example, we're going to get some different output.",
+   "zh": "好，现在我用了 try 关键字，并且在返回类型前面加了个感叹号。这意味着该函数现在可能会返回一个错误。至于 try 的作用——Rust 里面也有个类似的功能——它的逻辑是获取结果，如果是错误，就直接从函数返回该错误；否则，就把值给我。所以现在运行这段更新后的代码示例，我们会得到不一样的输出。"
+  },
+  {
+   "s": 1475.4,
+   "e": 1503.06,
+   "en": "Now, what we're looking at here is we have the error that happened, file not found, and we have an error trace that tells you where did the error first happen and how did it bubble up through the whole system. So if you compare that to the output we got from the C code, when we ran the C code, it wasn't even apparent that there was a problem. When we ran the Zig code, we already know how to fix the bug.",
+   "zh": "现在我们看到的是：这里显示了发生的错误，即找不到文件；同时还有一份错误追踪，它会告诉你错误最初是在哪里发生的，以及它是如何在整个系统中向上传播的。如果把这与我们运行 C 代码的输出做个对比，就会发现运行 C 代码时，甚至根本看不出有问题；而运行 Zig 代码时，我们已经知道该如何修复这个 bug 了。"
+  },
+  {
+   "s": 1506.62,
+   "e": 1534.29,
+   "en": "Okay. So I just showed you mandatory but convenient error handling. And that was an error return trace that we were just looking at. Don't worry. We'll see another one. Now I'm going to show you a little bit more of a familiar concept, related concept, which is stack traces. So let's have another look. This is C code again. What I have here is a trivial program that's going to trip an assertion. So if I run this, I can see some pretty useful output.",
+   "zh": "好了。刚才我向大家展示了强制却又很方便的错误处理。我们刚才看到的是错误返回追踪。别担心，稍后还会再看到一个。现在我要给大家看一个大家更熟悉、相关的概念，那就是堆栈追踪。我们再来看一下，这依然是 C 代码。这里有一个简单的小程序，它会触发断言失败。运行之后，能看到一些非常有用的输出。"
+  },
+  {
+   "s": 1534.72,
+   "e": 1564.36,
+   "en": "We got the name of the file, got the name of the line Number, the function that it's in, the expression that failed. And to top it off, we have an abort signal. So if you run it with a debugger, it'll take you right to the problem. Pretty good. But it's missing some context. In this trivial program, it's pretty obvious how we got to foo. But in a more complicated software, it's not going to be so clear. So I've just translated the code into zig.",
+   "zh": "我们看到了文件名、行号、所在的函数，以及失败的表达式。更棒的是，还触发了一个中止信号。如果用调试器运行，它会直接带你找到问题所在。挺不错的。但它缺少了一些上下文。在这个简单的程序里，我们很容易看出是怎么执行到 foo 的。但如果换成更复杂的软件，情况就不会这么一目了然了。所以我把这段代码转写成了 Zig。"
+  },
+  {
+   "s": 1564.65,
+   "e": 1596.13,
+   "en": "You can see the structure is the same. And when I run this, I'm going to put the output on another slide, because it's more text. All right, here's what we're looking at now. We have all the information we had from before, but more. We have the entire stack trace telling you how the control flow got to the function that it started. And this works on all the supported targets, works on Mac, Windows, Linux, FreeBSD. Yep. And yeah, so there's",
+   "zh": "你可以看到结构是一样的。当我运行它时，我会把输出放到下一张幻灯片上，因为文字有点多。好了，这就是我们现在看到的内容。我们保留了之前的所有信息，但内容更丰富了。我们有了完整的调用栈追踪，它会告诉你控制流是如何到达起始函数的。而且这在所有受支持的目标平台上都能用，支持 Mac、Windows、Linux、FreeBSD。是的。所以，还有"
+  },
+  {
+   "s": 1596.37,
+   "e": 1622.91,
+   "en": "There's an important reason that this is on by default, and it works this way. And it's that one of my strategies for making Zig programmers write high-quality code is to make handling errors fun. If it's just kind of fun to write correct software, then people are going to do it more. And so I want to show you a particularly fun interaction that happens when you have an error unwrapping that fails.",
+   "zh": "这被设为默认启用且以此方式工作，背后有一个重要原因。那就是我让 Zig 程序员写出高质量代码的策略之一，是让错误处理变得有趣。如果编写正确的软件本身就挺有意思，大家就会更乐意这么做。所以我想给你们展示一个特别好玩的交互，它发生在一个错误解包失败的时候。"
+  },
+  {
+   "s": 1625.47,
+   "e": 1652.83,
+   "en": "Here is an example. I took the example from before. We're going to try and open a file that's going to, you know, the directory doesn't exist. Now, I took off the tries. I took off the exclamation point. And I put in catch unreachable. That's how we're going to handle these errors in this example. The syntax is a little awkward intentionally because this is an inadvisable way to handle this situation. This is what you do when you can guarantee that the error will not happen.",
+   "zh": "这里有个例子。我沿用了之前的示例。我们要尝试打开一个文件，但你知道，这个目录根本不存在。现在，我移除了那些 try，去掉了感叹号，换成了 catch unreachable。在这个例子里，我们打算这样来处理这些错误。这个语法故意设计得有点别扭，因为在这种情况下，这样处理是非常不可取的。只有当你能保证绝对不会发生错误时，你才会这么做。"
+  },
+  {
+   "s": 1653.26,
+   "e": 1682.01,
+   "en": "Which is just not a thing for the open syscall. Let's see what happens, though. So we're going to build this in debug mode, which means that we're going to get a lot of help trying to figure out what went wrong. So when I run this code, this is the output that I get. It's a lot of information. Let me break it down for you. First, this text tells us that somewhere, catch unreachable was violated, and it actually caught an error. Next.",
+   "zh": "但这对于 open 系统调用来说根本不可能保证。不过，我们来看看会发生什么吧。我们将在 debug 模式下构建它，这意味着我们将获得大量帮助来排查问题所在。所以当我运行这段代码时，这就是我得到的输出。信息量很大，我来为大家拆解一下。首先，这段文字告诉我们，某个地方违反了 catch unreachable，实际上它捕获到了一个错误。接着往下看。"
+  },
+  {
+   "s": 1682.42,
+   "e": 1709.42,
+   "en": "the name of the error code that eventually was caught, that was unexpected. Next, we have a stack trace. And note that I've only highlighted sort of the bottom half here. The function that failed is at the top of this stack trace here, right? This is exactly where the problem is, right here. And this is how we got there from main, from the starting symbol.",
+   "zh": "最终捕获到的那个意料之外的错误码名称。接下来是一个堆栈回溯。请注意，我这里只高亮了下半部分。出错的函数就在这个堆栈回溯的最顶端，对吧？问题恰恰就出在这里。而这是我们从 main，也就是起始符号到达这里的调用路径。"
+  },
+  {
+   "s": 1711.07,
+   "e": 1738.21,
+   "en": "And then what we have above that is an error return trace. It's a different concept. I invented this concept. And it's a really efficient way to report the locations in the code where errors originated and propagated through the system. And the really cool thing about this is that they flow together so perfectly, because the end of the error return trace is the beginning of the stack trace.",
+   "zh": "在它上面的则是错误返回回溯。这是个不同的概念。这个概念是我发明的。它是一种非常高效的方式，用来报告错误产生并传遍系统的代码位置。而最酷的一点是，它们无缝衔接得如此完美，因为错误返回回溯的终点，正是堆栈回溯的起点。"
+  },
+  {
+   "s": 1740.26,
+   "e": 1769.98,
+   "en": "And then top it all off. Again, we have the abort signal. So if you use a debugger, you can just go in and do what you need to do. So that was stack traces and error unwrapping. Now I'm going to talk about cleanup code. And just to warn you, there's going to be a lot of code on this slide, but don't try to read it. I'm just showing you the indentations of it. So this is C code that is going to use libsoundio to make a sine wave. And what it's going to do is it's going to",
+   "zh": "更妙的是，我们同样有中止信号，所以用调试器时，直接切进去排查就行。以上就是调用栈追踪和错误解包的内容。接下来聊聊清理代码。先打个预防针，这页幻灯片上的代码很多，但不用去细读。我主要是想让大家看缩进。这是一段用 libsoundio 生成正弦波的 C 代码。它的作用是"
+  },
+  {
+   "s": 1770.76,
+   "e": 1799.88,
+   "en": "correctly clean up all the allocations and resources when it closes. So whenever you see an indentation here, what's going on is it's encountered an error. So it's freeing everything from before and then exiting. And you can see that the parts that are indented sort of get longer towards the bottom. And if I were to describe the control flow, it would look like this. So all the red arrows are pointing from basically like the destroy functions to the create functions. And this is sort of the",
+   "zh": "在退出时正确清理所有分配的内存和资源。所以只要看到这里有缩进，就意味着遇到了错误。代码会释放之前分配的所有资源然后退出。大家可以看到，越往下缩进的部分就越长。如果要画出控制流，大概就是这样。所有的红色箭头基本上都是从销毁函数指向创建函数。这差不多就是……"
+  },
+  {
+   "s": 1800.57,
+   "e": 1827.67,
+   "en": "This is sort of what your brain has to do if you try to edit this code. It's very problematic. I've even heard the fact that this causes a lot of real bugs in real software. And I've even heard that as an argument for just not even bothering to deal with the fact that memory allocation can fail. They say, it's too hard. It's too buggy to handle failure. Just give up. Just settle for bad software. No, screw that. We're going to write good software.",
+   "zh": "这差不多就是修改这段代码时，你脑子里必须理清的逻辑。这非常容易出问题。我甚至听说过，这种写法在实际软件中引发了大量真实 Bug。我还听过有人以此为借口，觉得根本没必要去处理内存分配失败的情况。他们说，这太难了，处理失败太容易出 Bug。放弃吧，凑合着用烂软件就行。不，去他的。我们要做就做高质量的软件。"
+  },
+  {
+   "s": 1828.96,
+   "e": 1857.7,
+   "en": "So there's a strategy that C programmers use to mitigate this. And it's the go-to strategy. So again, don't try to read the code too much. I'll put the arrows back on for you. It's a lot better. It's only three. So this uses go-to, and it puts a cleanup block at the bottom. It does come with some compromises, though. So we did have to move the variable declarations away from where they're initialized. And we also had to introduce the concept of nullability.",
+   "zh": "C 程序员会用一种策略来缓解这个问题，那就是 goto 策略。大家不用太费劲去读代码，我把箭头重新画上了。情况好多了，现在只有三个箭头。这种做法使用了 goto，并在底部放了一个清理代码块。不过这也有一些妥协。我们不得不把变量声明挪开，远离它们被初始化的地方。而且我们还必须引入可空性的概念。"
+  },
+  {
+   "s": 1858.14,
+   "e": 1887.39,
+   "en": "So before it wasn't possible, I mean technically it was possible, but it wasn't necessary for these variables to be null. Now it's required for them to be null for some period of time and then become initialized later. Okay. Now I'm going to show you Zig's way of doing this. And actually the code is short enough that I could blow up the font size and you can probably read it. And I just want to point out, this is real code. The C code was real code. All three of these examples make a sine wave.",
+   "zh": "以前完全没必要——我是说技术上可以，但没必要让这些变量为 null。而现在，必须让它们在一段时间内保持为 null，然后再在后面进行初始化。好的，现在我来给大家展示 Zig 是怎么做这件事的。而且代码确实够短，我可以把字号放大，大家大概都能看清。我只想说明一下，这都是真实代码，刚才的 C 代码也是真实代码。这三个示例全都是用来生成正弦波的。"
+  },
+  {
+   "s": 1888.19,
+   "e": 1914.97,
+   "en": "But all three of them, including this Zig code, are using a C library, okay? Zig is better at using C libraries than C is at using C libraries. Because if I put those arrows on the screen, this is what they look like. You probably can't even see the tails of them because they're so short. This is using the defer keyword. It's not a new concept. I just took a concept that makes sense, put it where it belongs.",
+   "zh": "但这三者，包括这段 Zig 代码，都在使用同一个 C 语言库，明白吗？在调用 C 库方面，Zig 甚至比 C 本身还要好用。因为如果我把那些箭头画在屏幕上，它们就会是这个样子的。你甚至可能都看不到箭头的尾巴，因为它们太短了。这里使用的是 defer 关键字。这并不是什么新概念。我只是借用了一个合理的概念，并把它放在了合适的位置。"
+  },
+  {
+   "s": 1916.41,
+   "e": 1941.33,
+   "en": "And so that's how cleanup works in Zig. And there's one more concept that's important to this too. And it's related to defer, but it's actually like error defer. And how this works is that, see this is error defer, and what's going on is that this function can return a possible error. And so if anything fails, what's going on here is that this device,",
+   "zh": "这就是 Zig 中清理机制的工作原理。还有一个概念对此同样至关重要。它和 defer 相关，不过实际上是 errdefer。它的工作原理是这样的：看，这就是 errdefer，这里的情况是该函数可能会返回一个错误。所以如果有任何一步失败了，这里所发生的就是这个 device，"
+  },
+  {
+   "s": 1941.93,
+   "e": 1972.44,
+   "en": "is a resource that's getting allocated. And it needs to survive if we return success. Here it is. But it definitely needs to get cleaned up if we error out. So you can still have this nice pattern where you do resource allocation, resource cleanup, resource allocation, resource cleanup. And at any point, if the function has to bail out with an error, then the error defers run. So these two concepts, defer and error defer, they prevent any kind of spaghetti",
+   "zh": "是一个正在被分配的资源。如果我们成功返回，它就必须保留下来。就在这里。但如果中途报错退出，它就必须被清理掉。因此，你依然可以采用这种非常漂亮的模式：分配资源、清理资源、分配资源、清理资源。在任何时候，如果函数不得不因报错而提前退出，那么 errdefer 就会执行。所以 defer 和 errdefer 这两个概念，避免了任何面条式的"
+  },
+  {
+   "s": 1972.88,
+   "e": 2002.44,
+   "en": "cleanup code that you would otherwise have to do. And in practice, I've observed that there's no other cases. These handle all of the possible situations. OK, so that was cleanup code. Let's look at error sets. So once again, I want to turn to this example here. And I'm showing you the final option that Zig is going to give you for handling errors. This is catch.",
+   "zh": "清理代码，否则你不得不写那种代码。在实践中我发现，根本不需要其他处理方式。它们足以应对所有可能出现的情况。好了，以上就是清理代码的部分。我们再来看看错误集（error sets）。所以我想再次回到这个示例。现在我向大家展示 Zig 提供的最后一种错误处理方式。这就是 catch。"
+  },
+  {
+   "s": 2003.07,
+   "e": 2033.41,
+   "en": "And what catch does is it's sort of like a default. It says, if you had an error, here's what you need to do instead of to get the value. I want to show you this so that I can show you what happens if you switch on the error code. So let me show you that. Same thing, but now what I've done is I'm on the right call. I catch an error and I immediately switch on it.",
+   "zh": "catch 的作用有点像默认值，意思是如果出错，就执行这里的操作来获取值；我展示这个是为了让大家看看对错误码使用 switch 会发生什么，下面来看代码：同样的操作，但我现在把 catch 放在写入调用上，捕获错误后立刻对其进行 switch 处理。"
+  },
+  {
+   "s": 2033.71,
+   "e": 2055.09,
+   "en": "And I didn't even handle any of the cases. So let's see what happens when I try to run this through the compiler. It tells me exactly the set of errors that were possible. This concept is, again, not new. It's just a good idea. So I put it where it belongs. So now I'll go in. I'll copy all those possible errors into the switch.",
+   "zh": "我甚至没有处理任何分支，那来看看尝试用编译器运行它时会发生什么；编译器准确列出了所有可能出现的错误集合，这个概念同样不是新东西，它只是个很好的思路，所以我把它放在了合适的位置；现在我把所有这些可能的错误复制到 switch 中。"
+  },
+  {
+   "s": 2055.83,
+   "e": 2084.91,
+   "en": "And in fact, i even added an extra one to show you what happens. And you can see that the compiler has told me that that is not a possible error. I should delete it. Thank you, compiler. I will do that. So what's important here is that you can handle errors in such a way that you exhaustively handle every error perfectly. And you know that if the situation ever changes, that there's a new possible error code or",
+   "zh": "实际上我还特意多加了一个，看看会发生什么；可以看到编译器提醒我这个错误不可能发生，我应该删掉它；谢谢编译器，我这就删掉；所以这里的关键在于，你可以完美穷举并处理每一个错误；而且你知道如果情况发生变化，出现了新的可能错误码，或者"
+  },
+  {
+   "s": 2085.42,
+   "e": 2113.14,
+   "en": "One becomes no longer possible, the compiler will tell you to come back and fix your code. So you can know that you're exhaustively handling all of the situations. Okay. That was error sets. Done with that. Done with errors. Now I'm going to tell you about the build system. Okay. So what's a build system? It's all the stuff that your system has to have installed in order for your project to build.",
+   "zh": "某个错误不再可能发生，编译器都会提醒你回头修改代码；这样你就能确信自己穷举处理了所有情况；好了，这就是错误集，讲完了，错误处理告一段落；接下来我要讲讲构建系统；什么是构建系统呢？它就是为了让项目能成功构建，你系统里必须安装的所有工具集合。"
+  },
+  {
+   "s": 2115.27,
+   "e": 2141.7,
+   "en": "And that includes the libraries that you depend on. So let's look at another case study. This is libpng, if you just want to make a png file or something. And this is written in C. So I just unzipped it, listed all the files. Let's see what we can learn here. What does my system have to have for me to be able to participate in this software development? Well, I definitely need a C compiler. I see there's some C source there. OK.",
+   "zh": "这也包括你所依赖的库。我们再来看另一个案例研究。这是 libpng，用于生成 PNG 文件之类的场景。它是用 C 语言写的。我刚把它解压并列出了所有文件。来看看我们能从中发现什么。我的系统必须具备什么，我才能参与这个软件的开发？首先，我肯定需要一个 C 编译器。我看到这里有一些 C 源码。好的。"
+  },
+  {
+   "s": 2142.44,
+   "e": 2169.76,
+   "en": "I see that I'm going to need auto tools, so I better install that. Say, can you make? I'm going to have to install that for this to work. OK. But wait a minute. What's this? This is the output of auto tools. Why do they commit the output of auto tools in here? Well, I'll tell you why. It's because someone didn't have auto tools installed, and they filed a bug report, and the person got fed up with it, and they said, fine, POSIX shell is the easier.",
+   "zh": "我发现我还得用到 autotools，所以我最好把它装上。比如，还有 CMake 吗？要让它跑起来，我也得把它装上。好的。但等一下。这是什么？这是 autotools 的输出产物。他们为什么要把它提交到这里面？好吧，我来告诉你原因。因为有人没装 autotools，就提了个 bug 报告，维护者被烦得不行，心想，行吧，还是 POSIX shell 更省事。"
+  },
+  {
+   "s": 2170.92,
+   "e": 2198.03,
+   "en": "Have than auto tools. But wait a minute. What's this? We also have cmake here. I'm just going to guess what happened here. But i'm pretty sure what happened is, even after this happened, The libpng developers, they tried to build it on windows. They went, oh, crap, windows doesn't have POSIX shell or good new make. What are we going to do? So they introduced cmake so that all you have to have is msvc and cmake. It's a little easier to install.",
+   "zh": "用 autotools 构建。但等等，这是什么？这里居然还有 cmake。我来猜猜这里发生了什么。但我敢肯定情况是这样的：即使有了这些之后，libpng 的开发者尝试在 Windows 上构建它。然后他们发现，哎呀糟糕，Windows 上既没有 POSIX shell，也没有 GNU make。这该怎么办？于是他们引入了 cmake，这样你只需要有 msvc 和 cmake 就行了。安装起来会容易一点。"
+  },
+  {
+   "s": 2199.94,
+   "e": 2226.13,
+   "en": "But they didn't actually remove these other files from their source, because who knows what people have installed on their computers. It's unpredictable. And they just want to stop getting bug reports for people not being able to build their code. What's not obvious from this list of files is that it also depends on Zlib. And so again, you have to install a different library before this will even work.",
+   "zh": "但他们并没有从源码中把其他这些文件删掉，因为谁知道大家的电脑上都装了些什么。这根本无法预测。他们只是不想再收到那些因为别人编不过代码而提的 bug 反馈了。从这串文件列表里看不出来的是，它还依赖了 Zlib。所以同样的，在你搞定这一切之前，你还得先安装另一个库。"
+  },
+  {
+   "s": 2230.53,
+   "e": 2256.62,
+   "en": "That's just status quo. Let me show you what it would look like if we had coded libpng in Zig. And if we didn't want all the man pages and stuff. So, okay, there's the implementation and there's the build script. So we're definitely gonna need the Zig compiler, that makes sense. But the build scripts all serve it in Zig, so that's just the same dependency. It's just one thing.",
+   "zh": "这就是现状。让我给你们看看，如果我们用 Zig 来写 libpng 会是什么样子。假设我们也不需要那些手册页之类的东西。好，这里是具体实现，这里是构建脚本。我们肯定需要 Zig 编译器，这很合理。但构建脚本也全都是用 Zig 写的，所以依赖项完全相同，就只有这一个东西。"
+  },
+  {
+   "s": 2257.0,
+   "e": 2283.09,
+   "en": "That works everywhere. That works on windows. That works on linux. It works on mac. It's a lot easier of a dependency to have. Okay. Well, what if i don't want to write it in zig, though? What if i just want to take the existing c code, but i want to use the zig build system? Okay. Well, i'm definitely going to need the zig compiler for the zig build system. Okay. Well, for the c code, i'm going to need",
+   "zh": "这在哪儿都能跑，Windows、Linux、Mac 都可以。管理这种依赖要简单得多。好吧，那如果我不想用 Zig 写呢？如果我只想用现有的 C 代码，但又想用 Zig 构建系统怎么办？行，针对 Zig 构建系统，我肯定需要 Zig 编译器。那对于 C 代码，我还需要……"
+  },
+  {
+   "s": 2285.62,
+   "e": 2315.62,
+   "en": "No, yeah. We just need zig for both. Because zig also compiles c code. Yeah, no joke. Zig is also a c compiler. So what happened is, zig has the ability to read h files. I just showed you that example where we were making a sine wave with lib sound io. And I was telling you, yeah, we're using the c library. You can import the h file and call the functions and do all the stuff.",
+   "zh": "不，是的。两样东西我们都只需要 Zig。因为 Zig 也能编译 C 代码。没错，不开玩笑，Zig 本身也是个 C 编译器。具体是这样的，Zig 有能力读取 .h 头文件。我刚才演示过用 libsoundio 生成正弦波的例子。当时我就跟你们说过，是的，我们正在使用这个 C 语言库。你可以直接导入 .h 头文件，调用这些函数，做所有事情。"
+  },
+  {
+   "s": 2316.13,
+   "e": 2345.01,
+   "en": "And to do that, we use libclang. So we already depended on libclang. And libclang is a C compiler. So I realized, why don't I just, if you just type zigcc, it just jumps to main of clang. It works. It works fine. But it's kind of amusing that if you type zigcc dash dash version, it thinks it's clang, because it literally is. But yeah, it totally works. So here's, again, hello world in C. But now I'm using zig to build it.",
+   "zh": "为了做到这一点，我们使用了 libclang。我们本来就依赖 libclang，而 libclang 就是个 C 编译器。所以我意识到，何不直接这么做——只要你输入 zig cc，它就直接跳转到 Clang 的 main 函数。确实行得通，而且运行良好。不过挺搞笑的是，如果你输入 zig cc --version，它会认为自己是 Clang，因为骨子里它确实就是。但总之，它完全可用。所以这里又是一个 C 语言的 hello world，但现在我是用 Zig 来构建它。"
+  },
+  {
+   "s": 2345.37,
+   "e": 2374.53,
+   "en": "It works. If I put this extra parameter here for both CC, then I can see the C command that was actually run. And you can see that Zig adds some more parameters. Zig actually kind of uses the C compiler abilities intelligently. So for one, Zig turns on all of the, it turns on the makefile dependency generation. And once Clang finishes building,",
+   "zh": "构建成功了。如果我在这里加上这个额外的 verbose cc 参数，就能看到实际运行的 C 命令了。你可以看到 Zig 添加了更多参数。Zig 实际上相当智能地利用了 C 编译器的各种能力。比如，Zig 会开启所有的——它开启了 Makefile 依赖生成功能。一旦 Clang 完成构建，"
+  },
+  {
+   "s": 2375.02,
+   "e": 2404.02,
+   "en": "it will parse that file, look at all the dependencies, and use a sophisticated caching system to automatically cache all your C compilations. So you don't need make. You can just use zig. It will also have better defaults. So for example, if anyone here saw my talk from last year at Recurse Center, I showed an example of zig code that was faster than C, and actually found out why that was. It's because I'm basically turning on march equals native",
+   "zh": "它就会解析那个文件，查看所有依赖项，并使用一套复杂的缓存系统来自动缓存你所有的 C 编译结果。这样你就不需要 make 了，直接用 zig 就行。它的默认设置也更好。举个例子，如果这里有人看过我去年在 Recurse Center 的演讲，我展示过一个比 C 更快的 Zig 代码示例，后来我找到了原因：基本上是因为我开启了 -march=native。"
+  },
+  {
+   "s": 2405.1,
+   "e": 2434.14,
+   "en": "native targets, and that's not on by default in C, which sort of makes sense for C, but for Zig, it definitely makes sense to turn on for native targets because Zig just actually supports cross-compiling. Yeah, Zig is also a cross-compiling toolchain. So this all sort of comes together in this vortex of synergy. I'll show you what I mean. So if I run this command Zig targets, it's going to tell you all of these libcs that Zig supports.",
+   "zh": "针对原生目标架构，而这在 C 中默认是不开启的，对 C 来说这倒也说得通；但对 Zig 来说，针对原生目标开启它绝对是合理的，因为 Zig 本身就原生支持交叉编译。没错，Zig 也是个交叉编译工具链。所以这一切都汇聚成了这种协同效应的漩涡。我来演示一下我的意思。如果我运行 zig targets 这个命令，它就会列出 Zig 支持的所有 libc。"
+  },
+  {
+   "s": 2434.93,
+   "e": 2463.61,
+   "en": "And how this works is that Zig actually ships with the header files for all of these libcs in this sort of compressed way so it doesn't take that much data. And it ships with muscle source code, and it ships with glibc start file source code, and it will lazily build whichever libc you want for the target from source on demand and then cache it with the cache system.",
+   "zh": "它的实现原理是，Zig 实际上自带了所有这些 libc 的头文件，并通过某种压缩方式存储，所以并不怎么占空间。它还自带了 musl 的源码，以及 glibc 启动文件的源码，并且会按需从源码为你想要的目标平台延迟构建对应的 libc，然后利用缓存系统将其缓存起来。"
+  },
+  {
+   "s": 2467.55,
+   "e": 2496.7,
+   "en": "So, what that means is that not only can I use Zig code to cross compile for ARM64 bit, for example, but also, you can see that my file is in fact for ARM64. Not only can I do that, but it also means that if you use Zig to compile C code, Zig is actually kind of a better C compiler than C compilers because",
+   "zh": "所以，这意味着我不仅可以用 Zig 代码交叉编译到比如 ARM64 位平台，而且你看，我的文件确实就是针对 ARM64 的。不仅如此，这也意味着如果你用 Zig 来编译 C 代码，Zig 实际上比那些 C 编译器还要更好用，因为"
+  },
+  {
+   "s": 2497.87,
+   "e": 2525.69,
+   "en": "Here, I can target glibc, or I can target muscle and get a static executable. You can't do that if you just download a C compiler out of the box. That's not a feature that exists. Also, I could just do arm64 bit. Here, I'm using zig to cross compile C for a different architecture and building this alternate libc from source on demand.",
+   "zh": "在这里，我可以把目标设为 glibc，也可以设为 musl 来生成静态可执行文件。如果你只是随便下载一个开箱即用的 C 编译器，是做不到这一点的，根本就没有这个功能。而且，我还可以直接指定 arm64 位。在这里，我正在用 zig 为不同的架构交叉编译 C 代码，并按需从源码构建这个替代的 libc。"
+  },
+  {
+   "s": 2526.3,
+   "e": 2556.81,
+   "en": "That's not something that C compilers can do. Yeah. So that's the cross-compiling tool chain. I'm going to show you zig build. So I sort of teased this a little bit. I showed you build.zag. Let me just show you a real-world example so you can see how it works. So this is an example project of Tetris. I can link this later, but this exists. It's open source. So if we look at all the files here, we can see what exists.",
+   "zh": "这不是 C 编译器能做到的。没错。这就是交叉编译工具链。接下来我要给你们展示 zig build。我之前稍微提过一点这个。我给你们看过 build.zig。现在我给你们看一个实际的例子，让你们了解它是怎么运作的。这是一个俄罗斯方块的示例项目。我稍后可以附上链接，不过它是现成的，而且开源。如果看一下这里的所有文件，我们就能看到都有什么。"
+  },
+  {
+   "s": 2558.12,
+   "e": 2585.36,
+   "en": "This is the build.Zig file. This lets us use literally the Command-Zig build to build it. I'll show you what it looks like. Don't focus on it too much. But just so you can see what it looks like, that's the entire file. It's just a build script. It says here's the source files. Here's what you need a link against. And it also defines commands. So here we're defining this play step. And if I do zig build dash dash help.",
+   "zh": "这就是 build.zig 文件。它让我们可以直接用 zig build 命令来构建项目。我给你们看看它长什么样。不用太纠结细节。但给你们看一眼，整个文件就这些。它就是一个构建脚本。里面写明了“源文件在这，需要链接的库在这”。它还定义了一些命令。比如这里我们定义了这个 play 步骤。如果我运行 zig build --help。"
+  },
+  {
+   "s": 2585.68,
+   "e": 2617.32,
+   "en": "You can see that play command that I defined is available. And so I'll go ahead and run that command. And it builds a code. It comes up. You can play the game. That is the build system. OK, so that's the three things I wanted to show you. Compile-time stuff, taking errors seriously, built-in build system. And now I just want to emphasize this point. Everything I just showed you is",
+   "zh": "你可以看到我刚才定义的 play 命令已经可以使用了。接着我来直接运行这个命令。它编译了代码，游戏窗口弹出来了，你可以直接玩游戏。这就是构建系统。好了，这就是我想给你们展示的三件事：编译期的功能、认真对待错误，以及内置的构建系统。现在我只想强调这一点。我刚才展示的所有内容都是"
+  },
+  {
+   "s": 2618.61,
+   "e": 2646.9,
+   "en": "You can go download it right now and use it. We just had a release a couple weeks ago. None of this is vaporware. This all works today. So I just want to point that out. Yeah. So that's it. I want to say thank you to people who support me on Patreon. About a year ago, I quit my job to do this full time. Before that, I worked during the day, and I worked on this stuff on nights and weekends.",
+   "zh": "你现在就可以去下载使用。我们几周前刚发布了一个新版本。这里面没有半点画大饼的成分，今天全都完全可用。所以我只想强调这点。好的，差不多就是这些了。我想对在 Patreon 上支持我的人说声谢谢。大约一年前，我辞掉工作全职做这个。在此之前，我白天上班，全靠晚上和周末来捣鼓这些。"
+  },
+  {
+   "s": 2648.38,
+   "e": 2675.14,
+   "en": "Pretty stressful. But now, thanks to people who support me, I'm actually working on Zig during the day, and I'm training for a marathon with my brother on nights and weekends. So I'm really thankful that I can do that. I actually had to run four miles before the talk today. But yeah, so I really appreciate the support, and if you would like to support me, you can do that here. And without further ado, it is time for QA.",
+   "zh": "压力挺大的。但现在多亏了大家的支持，我白天能全职开发 Zig，晚上和周末还能跟我哥一起备战马拉松。能过上这样的生活，我真的很感激。其实今天来演讲前，我还跑了四英里。但总之，非常感谢大家的支持，如果你也想支持我，可以在这里赞助。闲话少说，接下来是问答环节。"
+  },
+  {
+   "s": 2684.84,
+   "e": 2718.43,
+   "en": "My internet on my computer is not working, so I have to look at my phone for the questions. I don't know who wrote this software. I'm just kidding. I think I see a question that maybe was answered here. Oh, I see they're all coming in. OK. I'm going to read them out loud so everyone can know what they are. The ability to call a function in a constant context is part of the API contract of the function. How does Zig handle a function becoming non-const-evaluable?",
+   "zh": "我电脑上没网了，所以得看手机上的提问。真不知道这软件是谁写的。开个玩笑。我看到这里有个问题好像已经解答过了。噢，提问全都刷出来了。好的。我会大声念出来，让大家都能听到。在常量上下文中调用函数的能力是该函数 API 契约的一部分。那么如果一个函数变得不可在编译期求值，Zig 是如何处理的？"
+  },
+  {
+   "s": 2719.15,
+   "e": 2743.87,
+   "en": "This question states an incorrect assumption before it asks the question. So I know that in C++ that is true. You have to put constexpr as part of the prototype of the function for that to work. It's not how it works in Zig. In Zig, everything is considered to be fair game for trying to evaluate a compile time.",
+   "zh": "这个问题在提问之前就预设了一个错误的前提。我知道在 C++ 里的确是这样的，你必须在函数原型里加上 constexpr 才能起作用。但 Zig 并不是这样工作的。在 Zig 里，任何东西都被认为可以在编译期尝试求值。"
+  },
+  {
+   "s": 2745.26,
+   "e": 2774.35,
+   "en": "If the compiler encounters something that's impossible to evaluate a compile time, it'll create a compile error, otherwise it will work. Things that are not allowed are inline assembly, just random, converting an integer to a pointer, and then dereferencing it, calling an external function. These things are not possible at compile time in Zig. It's not possible to crash the compiler by using the compile time facilities. Actually, it's very possible, but it's not supposed to be possible.",
+   "zh": "如果编译器遇到了在编译期无法求值的内容，就会报错，否则就能正常运行。不被允许的操作包括内联汇编、随意的将整数转为指针再解引用、调用外部函数等。在 Zig 中，这些在编译期都是不可能做到的。通过使用编译期特性来让编译器崩溃也是不可能的。实际上，这完全有可能发生，但理论上不应该发生。"
+  },
+  {
+   "s": 2776.87,
+   "e": 2802.5,
+   "en": "That's a good question, though. I hope I answered it. Feel free to ask a follow-up if that didn't answer the question. All right. The next one says, why not just add the comp time keyword automatically when a value is used as a constant? It does. But it doesn't force evaluation. So for example, if I were just to say const x equals 1 plus 2.",
+   "zh": "问得好，希望我讲清楚了，如果没有，欢迎继续追问。好的，下一个问题是：为什么在一个值被用作常量时，不直接自动加上 comptime 关键字呢？其实它加了，但它并不会强制求值。举个例子，如果我直接写 const x = 1 + 2。"
+  },
+  {
+   "s": 2802.94,
+   "e": 2831.62,
+   "en": "That, in fact, will become the compile time known value of three, and that's usable in all the compile time contexts. What it does not do is eagerly evaluate functions at compile time unless you ask it to. There is an issue open for that, and I'd be happy to talk about it further in person if you find me. How does Zig deal with...",
+   "zh": "实际上，它确实会变成编译期已知的数值 3，而且可以在所有的编译期上下文中使用。它不会做的是在编译期积极求值函数，除非你明确要求。关于这一点已经有一个打开的 issue，要是你在会场碰见我，我很乐意当面详聊。Zig 是如何处理……"
+  },
+  {
+   "s": 2831.69,
+   "e": 2861.47,
+   "en": "Dynamic memory allocation and garbage collection. That's a good question. Zig does not do any dynamic memory allocation on your behalf. The language does none. The standard library also does none unless it accepts an allocator as a parameter. So there's sort of two conventions, sorry, two things to think about. What does the language do?",
+   "zh": "动态内存分配和垃圾回收的？问得好。Zig 绝不会擅自替你做任何动态内存分配。语言本身完全不做，标准库也是如此，除非它接收了一个 allocator 作为参数。所以大致有两个惯例，抱歉，有两个方面需要考虑。语言本身做了什么？"
+  },
+  {
+   "s": 2861.81,
+   "e": 2889.61,
+   "en": "What does the standard library do? Language has no understanding of the heap whatsoever, not even part of its sphere of anything it knows about. The standard library does not have any default memory allocator. So, for example, ArrayList, standard.ArrayList, when you create one, you give it an allocator, and that's how it's going to get its memory from.",
+   "zh": "标准库是干什么的呢？这门语言本身对堆内存一无所知，根本不在它的认知范围内。标准库没有任何默认的内存分配器。所以，比如 ArrayList，即 standard.ArrayList，当你创建一个时，你需要传给它一个分配器，它就是从那里获取内存的。"
+  },
+  {
+   "s": 2889.89,
+   "e": 2918.97,
+   "en": "And as far as it's concerned, it doesn't care where the memory is coming from. There's no garbage collector. So Zig is not a safe language. That's an important distinction to make. So there are a lot of things that, for example, Rust will protect you from. Zig will not protect you from those things. Now, there is something that I'm really excited about that I just opened a proposal for recently, which is",
+   "zh": "对它来说，它根本不在乎内存是从哪来的。这里没有垃圾回收。所以 Zig 并不是一门安全语言。这是一个必须明确的重要区别。比如有很多 Rust 能保护你不受伤害的地方，Zig 并不会提供这种保护。不过，有一件事让我非常兴奋，我最近刚提了一个提案，那就是……"
+  },
+  {
+   "s": 2920.65,
+   "e": 2949.16,
+   "en": "To actually make it almost completely safe in debug and release safe modes That's a fun topic that I want to talk about, but I think I should probably move on with it with the QA So but let me just elaborate on one point here, so Zig has four build modes the default one is debug The goal of debug is that there's no undefined behavior Everything crashes if that would happen",
+   "zh": "实际上在 debug 和 release safe 模式下让它几乎完全安全。这是个我想聊聊的有趣话题，但我想我可能应该继续进行问答环节了。不过让我再展开讲一点，Zig 有四种构建模式，默认是 debug。debug 模式的目标是没有未定义行为，一旦发生这种情况，程序就会直接崩溃，"
+  },
+  {
+   "s": 2949.81,
+   "e": 2979.49,
+   "en": "In a way that helps you debug and figure out what's going on. It's not perfect. There's some things that it can't be protected against. And there's three release modes. The interesting one is release fast. Because release fast is the one that says, all right, we're going full sanic. Everything that is undefined behavior is literally undefined behavior. And we're going to optimize all the way. That's pedal to the metal.",
+   "zh": "从而帮助你调试并搞清楚发生了什么。这并不完美，有些东西它确实防不住。另外还有三种 release 模式。比较有意思的是 release fast。因为 release fast 模式意味着：好吧，我们要全速冲刺了。所有未定义行为就真的是未定义行为，我们会进行极限优化。那就是油门踩到底。"
+  },
+  {
+   "s": 2979.77,
+   "e": 3007.24,
+   "en": "release fast. I would not recommend release fast mode for a web development team. I think that's a horrible idea. I might recommend it for a video game, like a shrink-ropped video game that you've chipped to the customer's computer, something like that. And then the other two release modes are release safe, which turns on optimizations but still keeps all the checks. And then the other one is release small.",
+   "zh": "Release Fast 模式。我不会向 Web 开发团队推荐 Release Fast 模式，我觉得这是个很糟糕的主意。我可能会推荐给电子游戏，比如那种交付到用户电脑上的盒装游戏，诸如此类的。另外两种发布模式是 Release Safe，它开启了优化但仍保留了所有安全检查；还有一种是 Release Small。"
+  },
+  {
+   "s": 3010.41,
+   "e": 3037.19,
+   "en": "It has undefined behavior to try to have a small binary size. But the important part about the release modes is that you can mix them at the scope level. So for example, let's say I'm on a web development team. It's inappropriate to use release fast if I'm doing agile or something. So I'm going to use release safe. But we looked at our code, and there's a bottleneck in that one function. It needs to go faster. What do you do?",
+   "zh": "它允许未定义行为，从而尽可能缩减二进制体积。但发布模式的关键之处在于，你可以在作用域层面对它们进行混用。比如假设我在一个 Web 开发团队，如果我们在做敏捷开发之类的，用 Release Fast 就不合适了，所以我打算用 Release Safe。但我们看了代码，发现有个函数存在性能瓶颈，它必须跑得更快。这时候该怎么办呢？"
+  },
+  {
+   "s": 3037.48,
+   "e": 3062.47,
+   "en": "Well, you can actually just say, for this scope, for this function, actually do release fast for this part. And so you're saying, like, OK, fine. In this area, it's worth it. That's kind of the build mode of that area of code that I need to have. All right, let's go on. Let me answer some more questions here. Why Zig and not Rust? I knew I was going to get that one.",
+   "zh": "其实你可以直接指定：针对这个作用域、针对这个函数，这部分代码专门使用 release fast 模式。也就是说，“行吧，在这个局部这么做是值得的，这就是那块代码我所需要的构建模式。”好了，继续往下看，我再来回答几个问题。为什么选 Zig 而不是 Rust？我就知道肯定会有人问这个。"
+  },
+  {
+   "s": 3067.79,
+   "e": 3097.11,
+   "en": "First of all, I love Rust. I think Rust is a really great project. And I think that people who are into Rust, when they saw the beginning slides about the airplanes and the elevators, were just shaking their heads yes, yes. We're trying to do the same thing. We're all trying to accomplish the same goal here. So I made that distinction between the language and a standard library before. Rust language, when I did all these boxes about",
+   "zh": "首先，我很喜欢 Rust。我认为 Rust 是一个非常棒的项目。而且我觉得 Rust 社区的人看到前面关于飞机和电梯的幻灯片时，肯定也在连连点头：对，对，我们也是奔着同一个目标去的，大家想做成的事情其实是一样的。所以我前面区分了编程语言和标准库的概念。说到 Rust 语言本身，当我列出所有这些方框时……"
+  },
+  {
+   "s": 3097.64,
+   "e": 3128.95,
+   "en": "I think I should actually go pull them up. I think that's a good idea. This is going to be worth it. OK. Oh, that didn't go to where I wanted it to go. Start from current slide. OK. So Rust the language is fine. None of these things apply to it. Rust the standard library is a little bit problematic in terms of this one. If you just use the Rust standard library and you're not careful,",
+   "zh": "我觉得我应该把那些幻灯片翻出来看看，这挺有必要的，值得翻一下。好的。噢，没跳到我想去的那一页。从当前幻灯片播放。好的。所以 Rust 作为语言本身是没问题的，这些问题它都没有。但在这一点上，Rust 的标准库就稍微有点问题了。如果你直接使用 Rust 标准库而不够小心的话，"
+  },
+  {
+   "s": 3129.46,
+   "e": 3159.64,
+   "en": "There are ways to, you might end up writing a library that someone couldn't use in a kernel, for example, or in an embedded OS, embedded programming situation or something like that. Other than that, it pretty much checks the boxes off here. Let's see, why Zig and Rust? There was one more thing I had on that topic. Yeah, I think the other thing, and this is just sort of like,",
+   "zh": "在某些情况下，你写出来的库可能就没办法用在内核里，比如或者用在嵌入式操作系统、嵌入式开发等类似的场景中。除此以外，它基本上满足了这里列出的所有要求。让我想想，为什么是 Zig 而不是 Rust？关于这个话题我还有一点要说。对，我觉得另一点就是，这算是一种……"
+  },
+  {
+   "s": 3159.92,
+   "e": 3189.25,
+   "en": "where these languages are, I think that the goals of Zig and Rust are very aligned. And I think sort of like the space for Zig is in that one slide of Carol's where it was like, it is complicated. And that is mostly the space that Zig exists in where we're saying, we want the simplicity and we're willing to take on a little more risk. Yeah, and yeah, so.",
+   "zh": "就这些语言的发展现状而言，我认为 Zig 和 Rust 的目标是非常一致的。我觉得 Zig 的生存空间就像 Carol 的那张幻灯片里写的：情况很复杂。这正是 Zig 所处的领域，我们的态度是，我们追求极简，并且愿意承担多一点风险。是的，没错，所以就是这样。"
+  },
+  {
+   "s": 3190.05,
+   "e": 3216.87,
+   "en": "I think that it's going to be interesting to find out if I can pull through my ideas to debug and release safe modes as safe as I am hoping that I can make them. I think there might be some real competition there. If I can't, Rust looks like a real strong contender, to be honest. It does. It does, yeah.",
+   "zh": "我想，看看我能否把在 debug 和 release safe 模式下的构想落地，让它们达到我期望的安全程度，这会非常有趣。我觉得在这方面可能会有真正的竞争。如果我做不到，说实话，Rust 绝对是一个强有力的竞争者。确实如此。确实，是的。"
+  },
+  {
+   "s": 3220.52,
+   "e": 3249.61,
+   "en": "Yeah, I know it does. I don't know how easy or how hard it is to accidentally do the wrong thing. The convention of the raw standard library is to depend on a default allocator. And that convention breaks the second one here. Okay, so let's see. What effort is required to prepare an arbitrary C library for use in Zig? The only effort required is to stop using the preprocessor.",
+   "zh": "是的，我知道确实如此。我不知道不小心搞砸是容易还是难。原生标准库的惯例是依赖一个默认的分配器。而这个惯例打破了这里的第二条规则。好吧，我们来看看。要让一个任意的 C 语言库能在 Zig 中使用，需要付出什么代价？唯一的代价就是别再用预处理器了。"
+  },
+  {
+   "s": 3252.13,
+   "e": 3277.71,
+   "en": "And in fact, Zig actually is able to translate a lot of C preprocessor macros. Like, if you just did pound define foo 10, Zig is going to figure that one out. Zig actually has its own C tokenizer just so it can preprocessor macros. But obviously, if you do your preprocessor macro that's like, define L per N.",
+   "zh": "事实上，Zig 确实能够转换很多 C 预处理器宏。比如，如果你只是写了 #define foo 10，Zig 就能搞明白。Zig 实际上自带了 C 分词器，专门用来处理预处理器宏。但显然，如果你的预处理器宏写成类似 define L per N 这种。"
+  },
+  {
+   "s": 3279.21,
+   "e": 3308.26,
+   "en": "What are we supposed to do with that? How am I supposed to translate that into Zig? That's not going to work. So if you don't do that, if you just use function, if you don't have any preprocessor macros, Zig can use your C library 100%. No bindings. It can just use it. Shut up and take my money. That's not a question. Get out of here. That was actually very sweet.",
+   "zh": "这让我们怎么处理？我该怎么把它翻译成 Zig？这根本行不通。所以只要你不这么搞，只要你只用函数，没有任何预处理器宏，Zig 就能 100% 直接使用你的 C 语言库。不需要任何绑定层，直接就能用。“闭嘴，拿走我的钱！”这不是个问题啊，赶紧走开啦。不过其实挺贴心的。"
+  },
+  {
+   "s": 3309.42,
+   "e": 3336.63,
+   "en": "Okay, so I want to get to the, I'm really excited about all these questions, so I'm going to just try to keep going through them. I just love attention, so. Is it a send, bear, break, change, add a new error to an error set? That's a great question. I'm going to push thumbs up. Yeah. Yes. Answer the yes. So in terms of philosophy, the idea here is we want to handle all...",
+   "zh": "好的，我想看下……我对大家提的这些问题感到非常兴奋，所以我会尽量继续把它们过一遍。我就是喜欢受人关注嘛。向错误集中添加新错误算不算破坏性变更（SemVer breaking change）？问得好，我要给这个问题点个赞。没错，答案是肯定的。从设计哲学的角度来说，我们的理念是希望能处理所有……"
+  },
+  {
+   "s": 3336.81,
+   "e": 3365.51,
+   "en": "all possible error situations. That's sort of the premise here. So if you're a library and you introduce a new way for something to fail, you are changing in a breaking way the public API of your library. You've introduced a new failure condition. I think it's important that the consumers of that library are aware that that's a pretty important change. Yeah.",
+   "zh": "所有可能的错误情况。这大概就是这里的前提。所以如果你写的是个库，并且引入了一种新的失败方式，那你就是在以破坏性的方式更改库的公共 API。你引入了一个新的失败条件。我认为让该库的使用者意识到这是一个相当重要的改动，这点很关键。是的。"
+  },
+  {
+   "s": 3366.41,
+   "e": 3397.66,
+   "en": "Next question. What safeguards does Zig have for errors in memory slash pointer management? That's a good question. So one of the big ones is that unlike in C, where pointers are sort of multi-purposed, in Zig, if you have sort of like a pointer to a block of memory,",
+   "zh": "下一个问题。Zig 在内存或指针管理错误方面有哪些保护机制？问得好。其中很大一点在于，C 语言里的指针往往身兼数职，而在 Zig 中不同，如果你需要指向一块内存的指针，"
+  },
+  {
+   "s": 3398.09,
+   "e": 3425.17,
+   "en": "You don't use a pointer in zig. You actually use a slice. And I think that's the same as Rust. And that's a pointer and a length. So if you have a block of memory, then the type that's being used knows the size. And so there's bounce checks. And to be clear, I introduced all the build modes. And whenever I say checks or safety, that implies on precisely debug and release safe modes.",
+   "zh": "在 Zig 中你不会直接用指针，而是用切片（slice）。我想这和 Rust 是一样的。切片就是一个指针加一个长度。所以如果你有一块内存，那么所使用的类型是知道其大小的。因此就会有边界检查。需要说明的是，我之前介绍了所有的构建模式，每当我说检查或安全性时，指的都严格是 debug 和 release-safe 模式。"
+  },
+  {
+   "s": 3425.66,
+   "e": 3456.11,
+   "en": "On the other build modes, those checks are gone. So that's one thing. Zig also distinguishes between, unlike rust, Zig does not have an unsafe block. So there's no clear delineation of what code is safe and what's not. But there are some things that just are safe and some things that are not safe. So for example, if you use int to pointer, that's just an unsafe function.",
+   "zh": "在其他构建模式下，这些检查就被移除了。这是其一。Zig 还会区分……不像 Rust，Zig 没有 unsafe 块。所以它并没有明确划分哪些代码安全、哪些不安全。但确实有些操作就是安全的，有些就是不安全的。比如你用 int to pointer，这本身就是一个不安全的函数。"
+  },
+  {
+   "s": 3456.92,
+   "e": 3486.69,
+   "en": "Anytime you do it. You're just going to say 0x1234. Let's see what's there. That's pretty unsafe. But when you're choosing a pointer type, zig actually distinguishes between a pointer to a single item and a pointer to an unknown number of items. And that you usually don't have a pointer to an unknown number of items. That's sort of like the unsafe kind of",
+   "zh": "无论你什么时候用它，直接传个 0x1234 看看里面存了什么，这显然非常不安全。但当你在选择指针类型时，Zig 实际上会区分是指向单个元素的指针，还是指向未知数量元素的指针。而且你通常不会用到指向未知数量元素的指针。那其实算是偏 unsafe 的一种……"
+  },
+  {
+   "s": 3488.69,
+   "e": 3515.81,
+   "en": "And so the fact that most of the pointers that you use are sort of like pointers to a single item, it prevents you from doing accidents like going to the next one, for example. I also have been working on a general purpose debug allocator. I've been live streaming the coding on it. And it's an allocator that's meant to be used in debug mode.",
+   "zh": "所以，大部分情况下你用的都是指向单个元素的指针，这就避免了不小心访问到下一个元素这类事故。另外我也一直在开发一个通用的 debug 分配器。我一直在直播写这个代码。这是一个专门用在 debug 模式下的分配器。"
+  },
+  {
+   "s": 3517.66,
+   "e": 3547.01,
+   "en": "It is optimized not for going fast, but for catching all the memory problems, like leaks, use after free, double free, all that stuff. And there's some pretty cool tricks you can do to make that happen, which, again, I love talking about this stuff, but I think I'm going to try to get to some more questions here. I just want to make sure I say this, though. There are definitely situations right now in status quo zig",
+   "zh": "它的优化重点不是追求速度，而是捕获所有内存问题，比如泄漏、释放后使用、双重释放等等。为了做到这一点，你可以用一些非常酷的技巧，说实话我特别喜欢聊这些，不过我想接下来还是多回答几个问题吧。不过我一定要先说明这一点：在 Zig 的现状下，确实存在一些情况"
+  },
+  {
+   "s": 3547.31,
+   "e": 3573.73,
+   "en": "That are just completely unsafe, not protected against. Even in debug and release safe modes, it's going to shoot yourself in the foot. And that's the thing that I have, the idea that I want to try to fix. But status quo, it's a problem. So that's a good question. Let's try to get this. Oh, you know what? It's 5 PM. I think I'm supposed to stop. Yes, I'm supposed to stop. OK, thanks, everybody. Good questions.",
+   "zh": "是完全不安全的，没有任何保护。即便在 Debug 和 ReleaseSafe 模式下，也一样会坑到你。而这正是我想要尝试去解决的问题。但在目前现状下，这确实是个痛点。所以这是个好问题。我们再来看这个……哎等等，已经下午5点了，我好像该结束了。是的，我该停了。好的，谢谢大家，提的问题都很棒。"
+  }
+ ]
+}

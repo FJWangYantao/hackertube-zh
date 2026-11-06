@@ -1,0 +1,518 @@
+{
+ "vid": "BFld4EBO2RE",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 0.0,
+   "e": 27.38,
+   "en": "Hi, welcome back. Certainly glad you could join me today. My name is Inigo Quiles, and I thought that today we would do a fantastic painting that is a lot of fun, not by using traditional paint or brushes or digital ones, but by using mathematics instead. That's right. Indeed, we will define colors and shapes through formulas that when composed together into one large formula will result in this mathematical painting that you see. So, I tell you what.",
+   "zh": "嗨，欢迎回来。很高兴今天能有你作伴。我叫 Inigo Quiles，今天我想带大家画一幅超级好玩的画，不过我们不用传统的颜料、画笔，也不用数码笔刷，而是用数学来画。没错。实际上，我们会通过公式来定义颜色和形状，当这些公式组合成一个庞大的公式时，就会呈现出你所看到的这幅数学画作。那么，话不多说。"
+  },
+  {
+   "s": 27.56,
+   "e": 56.42,
+   "en": "Let me run all the formulas across the screen that you will need to do this painting along with me today. And while I do that, let me assure you that painting with maths is not difficult if done one step at a time as we are going to do today. And it's most definitely lots of fun. So, let's erase all this mathematical paint to get the canvas ready to go so we can start from the beginning, plotting a 2D surface F that is just some linear function of X and C, the two horizontal coordinates of space.",
+   "zh": "我先把今天跟我一起画这幅画所需的所有公式都在屏幕上过一遍。在此期间，请相信我，只要像我们今天这样一步一步来，用数学画画其实并不难。而且绝对充满了乐趣。现在，让我们把这些数学颜料擦掉，准备好画布，从头开始绘制一个二维曲面 F，它只是空间中两个水平坐标 X 和 C 的线性函数。"
+  },
+  {
+   "s": 57.61,
+   "e": 88.21,
+   "en": "As you see, I'm using Y for the app direction today, and I hope I don't annoy the viewers that are in the C app team too much. Now, such a linear function is a polynomial of degree 1, but if we progressively increase the degree of the polynomial, we can provide our surface with more and more undulations. This is great as a first sketch for the terrain, but to paint a complex terrain with thousands of hills and tiny bumps, this polynomial would need thousands of terms of increasing degree.",
+   "zh": "如你所见，我今天用 Y 轴作为朝上的方向，希望不会太惹恼那些习惯 Z 轴朝上的观众。这种线性函数是一次多项式，但如果我们逐步提高多项式的阶数，就能让曲面产生越来越多的起伏。作为地形的初步构想这很棒，但要描绘出包含数千个山丘和微小起伏的复杂地形，这个多项式就需要成千上万个阶数递增的项。"
+  },
+  {
+   "s": 88.52,
+   "e": 120.6,
+   "en": "which we need to avoid because that's expensive to evaluate and difficult for the computer to plot. So instead we are going to make the terrain a piecewise function such that we will assign a unique but small and manageable polynomial to each one by one square tile of the domain. I'm only showing four such tiles here, but the domain of the function is infinite of course. Now, in order to ensure that all these polynomial tiles connect nicely to each other,",
+   "zh": "我们必须避免这种情况，因为它的计算开销太大，计算机也很难绘制。因此，我们改用分段函数来构建地形，为定义域中每一个 1x1 的正方形图块分配一个独特但小巧且易处理的多项式。我在这里只展示了四个这样的图块，但函数的定义域当然是无限的。现在，为了确保所有这些多项式图块能平滑拼接，"
+  },
+  {
+   "s": 120.97,
+   "e": 150.52,
+   "en": "we will construct them in this form, which is a polynomial of degree 3 in four parameters a, b, c, and d, where each parameter corresponds directly to the function's height at each one of the four corners of each tile. So, by sharing the coefficients at the vertices of the tiles, we can ensure the connectivity of all the polynomials. We make these coefficients look random by taking the integer coordinates of each vertex, i and j,",
+   "zh": "我们把它们构造成这种形式，这是一个关于四个参数 a、b、c 和 d 的三次多项式，其中每个参数直接对应图块四个角上各自的函数高度。因此，通过在图块的顶点处共享这些系数，我们就能确保所有多项式的连通性。我们通过提取每个顶点的整数坐标 i 和 j，来让这些系数看起来是随机的，"
+  },
+  {
+   "s": 150.81,
+   "e": 184.83,
+   "en": "dividing them by some irrational number, such as pi, computing their fractional part, and that's what the curly braces mean here, multiplying them by 50, and then combining them together and computing their fractional part yet again. Now, using this particular expression is not critical, and you can replace it by any function that shuffles i and j sufficiently and produces a random enough log-in value for its vertex. On the other hand, these polynomial components here are intentional.",
+   "zh": "把它们除以某个无理数（比如圆周率），取小数部分——这里的花括号就是这个意思，乘以 50，再组合在一起并再次取小数部分。其实，用不用这个具体表达式并不关键，只要能充分打乱 i 和 j，并为其顶点生成足够随机的对数值，换成任何函数都行。但另一方面，这里的多项式分量是有意为之的。"
+  },
+  {
+   "s": 185.23,
+   "e": 212.81,
+   "en": "and force the derivatives of the surface along the connecting edges to be 0, so they always match across neighboring tiles. Without them, we would have a continuous surface but not a smooth one. And speaking of tangents, let me digress a little bit here to talk to you about this S shape that runs from 0 to 1, because when we generalize it to run between any arbitrary points A and B, we call it a smooth step.",
+   "zh": "并且强制曲面沿连接边的导数为 0，这样它们在相邻瓦片间就能始终契合。没有它们，我们得到的曲面虽然连续，但并不平滑。说到切线，我想稍微扯开一点，聊聊这个从 0 延伸到 1 的 S 形，因为当把它推广到任意两点 A 和 B 之间时，我们就称之为平滑阶跃函数。"
+  },
+  {
+   "s": 213.05,
+   "e": 241.61,
+   "en": "and becomes one of the most useful mathematical brushes that we have. You will see today applied multiple times in the form of capital S of ABX. And since I'm talking about useful mathematical brushes, functions like F that undulate both smoothly and randomly are usually called noise, and are very important in the making of visual effects for films, which are often based on heavily art-directed mathematics.",
+   "zh": "它成了我们最实用的数学画笔之一，今天大家会看到它以大写 S(a, b, x) 的形式被多次应用。既然聊到了好用的数学画笔，像 F 这样既平滑又随机起伏的函数，通常被称为“噪声”，它们在电影视效制作中极其重要，而这些视效往往建立在高度艺术化指导的数学基础之上。"
+  },
+  {
+   "s": 242.86,
+   "e": 267.52,
+   "en": "And so, noise shows up everywhere, from the creation of clouds and smoke, to vegetation and mountains, surface detail and dirt and almost anything. So, let's give it a proper name in this video and refer to it with capital N from now on. So we can use F for the function of the terrain itself that we are designing, which we are going to continue to work on and add some detail to make it more like an actual terrain.",
+   "zh": "因此，噪声无处不在，从云雾、烟尘的生成，到植被、山脉、表面细节以及污渍，几乎随处可见。所以，在今天的视频里，我们给它定个正式的名字，从现在起用大写字母 N 来表示。这样我们就可以把 F 留给正在设计的地形函数本身，接下来我们会继续完善它并添加细节，让它看起来更像真实的地形。"
+  },
+  {
+   "s": 269.04,
+   "e": 298.4,
+   "en": "So, let's pack the x and c coordinates of space as a 2D vector p sub xc, and then compress another noise function horizontally by multiplying p by 2, and then squashing it vertically by a factor of 2 as well to keep its features undistorted. Next, we rotate it so the two function's domains do not align to each other. The angle of rotation is arbitrary and not important, so I will just use the Pythagorean triple 3-4-5 to define one.",
+   "zh": "现在，我们把空间的 x 和 c 坐标打包成二维向量 p_xc，然后将 p 乘以 2 来水平压缩另一个噪声函数，接着在垂直方向同样压扁 2 倍，以保持其特征不失真。下一步是对它进行旋转，使这两个函数的定义域互不对齐。旋转角度是任意且无关紧要的，所以我直接用勾股数 3-4-5 来定义一个。"
+  },
+  {
+   "s": 298.74,
+   "e": 330.12,
+   "en": "I often use this triple or 8-15-17 or some other of the small Pythagorean triples as a way to quickly fill up rotation matrices without resorting to sines and cosines. Alright, the last step here is to add this scaled and rotated polynomial back to the original one to create new undulations on it. This is why preventing the alignment of the two functions was important. And so we will repeat this a few times with larger and larger compression",
+   "zh": "我经常用这组勾股数，或者 8-15-17 等其他较小的勾股数，来快速构造旋转矩阵，而不需要借助正弦和余弦。好，这里的最后一步是把这个缩放并旋转后的多项式加回到原函数上，从而产生新的起伏波动。这就是为什么防止两个函数对齐非常重要。接下来我们会重复这个过程几次，使用越来越大的压缩、"
+  },
+  {
+   "s": 330.42,
+   "e": 360.24,
+   "en": "of quashing and rotation factors in order to get smaller and smaller undulations which provide finer and finer detail for our surface. And yes, if this process of summing undulating waves of different frequencies made you think of a Fourier series or a discrete cosine transform, then you are definitely having a good intuition here. And you should check a link I left in the description of the video to an article where I do a frequency analysis of this summation and explains why it does resemble a terrain.",
+   "zh": "压扁和旋转因子，以获得越来越小的起伏，为我们的曲面提供越来越精细的细节。没错，如果这种将不同频率的起伏波叠加的过程让你想到了傅里叶级数或离散余弦变换，那么你的直觉绝对非常敏锐。你可以查看我在视频简介中留下的文章链接，我在里面对这种叠加进行了频率分析，并解释了它为什么确实很像地形。"
+  },
+  {
+   "s": 362.25,
+   "e": 388.09,
+   "en": "In fact, let's start now evaluating the function in its whole domain and scale this domain by 2000 and the range of the function by 600. So from now on, one unit of space equals about one meter. So we can sculpt the terrain in a more intuitive way. Also, I will reserve the uppercase F for the canonical non-scaled fractalsome because we are going to be using it so many more times today.",
+   "zh": "实际上，我们现在开始在函数的整个定义域内对其求值，并将这个定义域缩放2000倍，函数的值域缩放600倍。这样一来，空间中的一个单位就大约等于一米。我们就能以更直观的方式来雕刻地形。另外，我将保留大写字母 F 来表示标准的、未缩放的分形和，因为我们今天还会用到它很多次。"
+  },
+  {
+   "s": 390.61,
+   "e": 419.46,
+   "en": "Ok, with that in place, let's now change gears and paint some lighting, starting with our strongest light, or the key light, the sun. We will use the derivatives of f as a way to determine which areas of the surface are facing towards or away from the sun. Concretely, our surface f will have a derivative with respect to x, which gives us the slope and tangent in the x direction. And a derivative with respect to z",
+   "zh": "好，准备工作就绪，我们现在换个方向，来绘制一些光照，首先从最强的光源，也就是主光——太阳开始。我们将利用 f 的导数来确定曲面的哪些区域是朝向太阳或背向太阳的。具体来说，曲面 f 对 x 求导，会得到 x 方向的斜率和切线。对 z 求导"
+  },
+  {
+   "s": 419.79,
+   "e": 449.49,
+   "en": "which gives us a slope and a tangent in the seed direction. Now, the cross product of these two tangents is perpendicular to the surface. So, let's call it the normal vector, and note that it is exactly the direction of this vector that we should compare to the sand direction, here in yellow, with a dot product in order to determine whether the sand is illuminating the surface or not. Concretely, on the left side of this hill, both are pointing in the same general direction, so the dot product is close to one.",
+   "zh": "则会得到 z 方向的斜率和切线。现在，这两个切向量的叉积与曲面垂直。所以，我们称它为法向量，注意正是这个向量的方向，我们应该用点积将其与黄色的阳光方向进行比较，以确定阳光是否照亮了曲面。具体来说，在这座山丘的左侧，两者的指向大体一致，因此点积接近于1。"
+  },
+  {
+   "s": 449.72,
+   "e": 476.41,
+   "en": "which means that this must be the sunny side of the hill. But, as we move towards the right side of the hill, the two vectors' agreement and hence their dot product decreases until it becomes negative, indicating that this portion of the hill is in the shade. So, if we take the dot product and, when positive, multiply it by brown, then we will get a color within a palette of shades of brown that we can assign to each point on the surface.",
+   "zh": "这意味着这里必然是山坡的向阳面。但当我们移向山坡右侧时，两个向量的方向趋于背离，点积也随之减小，直到变为负数，表明山坡的这部分处于阴影之中。所以，如果我们在点积为正时将其与棕色相乘，就能得到一系列深浅不一的棕色调，并应用到曲面上的每个点。"
+  },
+  {
+   "s": 476.74,
+   "e": 510.92,
+   "en": "and finally start getting some sense of volume for the terrain. And while this is a great start, the image is still too busy and difficult to read, I think. But painting some shadows will help with that. So, let's define a function sh that returns 0 when there is an intersection between the line of sight to the sun that starts at p and our polynomial surface. And that returns 1 when there isn't any such intersection. Then, when we multiply our surface color with it,",
+   "zh": "这样地形终于开始有立体感了。虽然这是个不错的开端，但我认为画面依然太杂乱、不易辨识。不过画上阴影会有所改善。为此，我们定义一个函数 sh：如果从点 p 出发朝向太阳的视线与多项式曲面相交，就返回 0；如果没有相交，就返回 1。然后把表面颜色与它相乘，"
+  },
+  {
+   "s": 511.15,
+   "e": 540.87,
+   "en": "We can finally see shadows and with them the largest structures of our terrain, as we wanted, making it easier to understand its overall shape. But let's now replace sh of p by something better, something that creates a transition zone between 0 and 1 instead. We do that by constructing a new function r of t that is equal to the signed distance from any point in the terrain f to a point in the line t units away from p, all divided by t.",
+   "zh": "我们终于能看到阴影了，地形的主体轮廓也随之显现，符合我们的预期，让整体形态更容易看懂。不过现在我们把 sh(p) 换成更好的方案，在 0 和 1 之间生成过渡区。具体做法是构造一个新函数 r(t)，它等于地形 f 上的任意点到直线上距离 p 为 t 个单位的点的有符号距离，再除以 t。"
+  },
+  {
+   "s": 541.96,
+   "e": 572.05,
+   "en": "The minimum of our smooth steps to the range 0 to 1 will be a pretty good estimation of the Penumbras cast by the terrain. See how we get now beautiful soft shadows. Very nice. However, like most fractal structures, the physical scale of this terrain is currently a bit ambiguous without any trees or humans for reference. Even after rotating and scaling the domain of our terrain function to get a closer look at it,",
+   "zh": "将平滑过渡映射到 0 到 1 范围内的最小值，能相当好地估算出地形投下的半影。看，我们现在得到了非常漂亮的软阴影，很不错。然而，就像大多数分形结构一样，在没有任何树木或人类作为参考的情况下，这片地形的实际尺度目前还有点模糊。即使在旋转并缩放了地形函数的定义域以便更近距离地观察后，"
+  },
+  {
+   "s": 572.25,
+   "e": 600.18,
+   "en": "Viewers still can't possibly know if these are large hills that are very far or tiny bumps that we are very closely looking at. To fix this, we are going to compute a decaying exponential of the distance to any point on the surface, T, and use it to mix in some grey into our surface colour. So that we gradually reduce the contrast and saturation in the most distant parts of the painting, which is what happens when you look at a real landscape.",
+   "zh": "观众依然不可能知道这些究竟是远处的群山，还是近在眼前的微小凸起。为了解决这个问题，我们要计算表面任意点距离 T 的指数衰减，并用它给表面颜色混入一些灰色。这样一来，画面最远处部分的对比度和饱和度就会逐渐降低，这与观察真实风景时的视觉效果是一致的。"
+  },
+  {
+   "s": 601.29,
+   "e": 626.8,
+   "en": "And indeed, we finally do have a sense of scale for the terrain, don't we? Now, of course, we can and should play with the attenuation factor of our exponential brush and decide how hazy or clear we want our landscape to be today. All options are open and will look beautiful. And actually, that's no coincidence. Exponentials do model the transmittance of light in the real atmosphere very well.",
+   "zh": "确实，我们终于能感受到这片地形的尺度感了，不是吗？当然，现在我们完全可以去微调指数画笔的衰减系数，决定今天的风景是要朦胧一些还是更清晰一些。怎么选都行，效果都会很棒。事实上，这也并非巧合，指数函数本就能很好地模拟真实大气中的光透射。"
+  },
+  {
+   "s": 627.11,
+   "e": 657.31,
+   "en": "And while our paintings don't need to be faithful to reality, sometimes it's just convenient to learn from nature itself. Alright, something fun now. Let's replace this exponential with three different exponentials, one for each of our red, green and blue color channels. That way, by adjusting the three damping constants independently, we just gave the atmosphere a beautiful blue tint in the middle range distances, before it becomes gray or monochrome here at the back.",
+   "zh": "虽然我们的画作不需要完全贴合现实，但有时直接向大自然取材确实非常方便。好，接下来看点好玩的。我们把这个指数函数替换为三个不同的指数函数，分别对应红、绿、蓝三个色彩通道。这样一来，通过独立调节三个阻尼常数，我们就能让中景距离的大气呈现出迷人的蓝调，随后在最远处才渐变为灰色或单色。"
+  },
+  {
+   "s": 660.08,
+   "e": 688.38,
+   "en": "Great, now that we have the terrain math done, let's lock the composition of the piece by choosing a good section of this infinite terrain to frame into. After scouting for a bit, by rotating and translating the surface, I found this location with only two depth layers, with this hill popping out as a foreground element, well separated from the background, which I think makes it very photogenic. But, the choice of location is totally up to you. Choose one that you like.",
+   "zh": "太好了，地形的数学计算搞定后，我们在这片无限地形中选一段合适的画面来框定构图。通过旋转和平移曲面找了一会儿后，我找到了这个只有两个景深层的位置，眼前这座小山作为前景凸显出来，和背景界限分明，我觉得这样非常上镜。不过，选址完全取决于你，挑一个你喜欢的就行。"
+  },
+  {
+   "s": 688.73,
+   "e": 713.67,
+   "en": "And don't fall for advice about mystical spirals and perfect compositions that only work by moving and stretching the spiral after the fact, or most irrationally, sacred golden ratios supposedly linked to the beauty of the universe or whatever. All I'm saying is, just go with what feels right to you. For example, even though I like the location, I think I want something a bit more dramatic. So,",
+   "zh": "别轻信那些神乎其神的黄金螺旋和完美构图理论，那都是事后通过移动和拉伸螺旋强行套上去的，更荒谬的还有什么扯上宇宙之美的神圣黄金比例。我只想说，跟着自己的感觉走就好。比如，虽然我很喜欢这个位置，但我觉得还可以再更有戏剧张力一点。所以，"
+  },
+  {
+   "s": 713.91,
+   "e": 744.47,
+   "en": "Let's sculpt a cliff in it by using the function C which takes everything above 500 meters with a smooth step and then pulls it up by some extra 90 meters. But of course doing so changes the derivatives of the terrain which in turn we needed for lighting. So we will compute the derivatives of the new surface by using the chain rule which involves the derivative of the smooth step sculpt operation and the derivatives of the terrain itself before we applied it.",
+   "zh": "我们用函数 C 来雕刻出一道悬崖，它用平滑阶跃函数提取 500 米以上的部分，再额外拔高大约 90 米。但这么做显然会改变地形的导数，而这又是光照计算所必需的。因此我们要利用链式法则来计算新曲面的导数，这涉及到平滑阶跃雕刻操作的导数，以及应用该操作前地形本身的导数。"
+  },
+  {
+   "s": 746.99,
+   "e": 775.57,
+   "en": "Okie dokie, so now that we have our framing locked, we can continue working on the painting's composition, which means we have to make more decisions. And the most important decision of all is where the sun is in the sky, and what we want the lighting to look like. So first, if we describe the sun's direction or position in the sky S in spherical coordinates, let's push theta close to pi halves, so the sun is low and gives us long dramatic shadows.",
+   "zh": "好嘞，现在画面构图已经定下来了，我们可以继续调整画面的布局，这也意味着我们得做更多决定。而其中最重要的决定，就是太阳在天空中的位置，以及我们想要什么样的光影效果。首先，如果用球坐标来描述太阳在天空中的方向或位置 S，我们把 theta 设到接近二分之 pi，这样太阳角度很低，能带来拉长且极具戏剧感的光影。"
+  },
+  {
+   "s": 776.2,
+   "e": 805.7,
+   "en": "From there, let's now explore how different values of phi affect the composition. For example, at this very moment, the light comes from the left and a bit to the front. But if we rotate it to the right side, then we have a different set of shadows. Although in this case, we lose the nice separation that we had between the front hill and the background cliffs. If, on the other hand, we rotate the light to the back, we split the painting in a dark and a bright area, which I don't like personally.",
+   "zh": "在此基础上，我们再来看看不同的 phi 值会对构图产生什么影响。比如眼下，光线是从左前方照过来的。但如果我们把它转到右侧，阴影效果就完全不同了。虽然这样一来，前景小山和背景悬崖之间那种绝妙的层次感就没了。反过来，如果我们把光源转到后方，整个画面就会被割裂成一明一暗两个区域，我个人并不太喜欢这种效果。"
+  },
+  {
+   "s": 806.21,
+   "e": 832.4,
+   "en": "So, I settled on a sun coming from the back left side. This illuminates both parts of the foreground and the background, but still keeps them separated thanks to the atmospheric coloring that we painted. It also creates these very cool silhouettes in the front hills here and in the background cliffs here. But again, this is all up to you. This is your little mathematical world and you can do anything you want in it, so just have fun!",
+   "zh": "所以我选定了从左后方照射过来的太阳。这不仅照亮了前景和背景的局部，还得益于我们绘制的大气色彩，依然能让两者层次分明。它还在前面的小山和背景的悬崖这里勾勒出了非常酷的剪影。不过话说回来，这完全取决于你。这是属于你的小小数学世界，你想怎么做都行，尽情享受吧！"
+  },
+  {
+   "s": 835.05,
+   "e": 853.52,
+   "en": "And so, next we will paint a pretty sky for our world. We start by making the background of the canvas blue, and then we use a linear function of the vertical component of the direction of its point in the canvas, V, so that the upper part of the sky gets darker and more saturated than those closer to the horizon.",
+   "zh": "那么接下来，我们要为这个世界画一片美丽的天空。首先把画布背景设为蓝色，然后利用画布中各点方向的垂直分量 V 的线性函数，让天空上方比靠近地平线的部分更暗、饱和度也更高。"
+  },
+  {
+   "s": 856.18,
+   "e": 888.57,
+   "en": "Then we are going to place a horizontal plane at about two and a half kilometers in altitude and evaluate the same polynomial function that we used for the terrain surface on it, but with a different scale. Then we remap its negative one to positive one range into zero to one with a smooth step and display it as shades of gray. Now we use the value of the polynomial to drive a weighted color average where small values of the polynomial map to blue and large values map to white.",
+   "zh": "然后我们会在大约两千五百米的高度放置一个水平面，并在上面计算和地形表面相同的多项式函数，只是缩放比例不同。接着我们用平滑阶跃函数将它从负一到正一的范围重映射到零到一，并以灰度阴影显示出来。现在我们用这个多项式的值来驱动加权颜色平均，其中较小的多项式值映射为蓝色，较大的值映射为白色。"
+  },
+  {
+   "s": 888.81,
+   "e": 921.82,
+   "en": "which creates some happy little clouds in the sky. Pretty cool, although a sky this hazy would never produce the strong light and shadows that we painted in the terrain. So, let's clear up the sky a bit, just like so, which is very easy since we can control both how large the clouds are and also how fuzzy or sharp their edges are by changing the parameters of the smooth step. And as you can see, we keep coming back to our friend the smooth step function. But anyway...",
+   "zh": "这就在天空中生成了一些惬意的小云朵。相当酷，尽管如此朦胧的天空绝不可能产生我们在地形上画出的那种强烈光影。所以，让我们把天空稍微清理得晴朗一点，就像这样，这非常简单，因为我们可以通过改变平滑阶跃函数的参数，来同时控制云朵的大小以及边缘的模糊或锐利程度。正如你们所见，我们总是会回过头来使用平滑阶跃函数这位老朋友。不过话说回来……"
+  },
+  {
+   "s": 921.82,
+   "e": 950.79,
+   "en": "Let's now soften these clouds by reducing their contribution to 40% in the color mixing formula. And lastly, we scale the domain of the function by 2, so the clouds become twice smaller. Just like that. And since we know that we will be painting more layers of clouds on top, I don't think we need to add more details to this one. So, let's stop there, move on and quickly adjust the overall contrast and saturation of the painting before adding any more lighting and details.",
+   "zh": "现在我们把颜色混合公式里的云层贡献降到 40%，以此来软化这些云。最后，把函数的定义域缩放 2 倍，这样云就会缩小一半。就像这样。既然我们之后还要在上面画更多层的云，我觉得这一层就没必要加更多细节了。所以，就先停在这里，继续往下走，在添加更多光影和细节之前，先快速调整一下整幅画的对比度和饱和度。"
+  },
+  {
+   "s": 951.47,
+   "e": 980.31,
+   "en": "That's because I feel the image is a bit too flat right now. So I'm going to make it more vibrant and contrasty by using, well, wait for it, a smooth step again. The smooth step makes the dark colors darker and the bright ones brighter. Pretty much like you would do when adjusting color curves in a photo editing program. Very cool. Now, let's take care of these large patches of flat color here, because even though these areas can't be reached by the sun,",
+   "zh": "因为我觉得现在的画面有点太平了。所以我打算让它更鲜艳、更有层次感，用的方法嘛，你猜对了，还是 smoothstep。smoothstep 能让暗部更暗，亮部更亮。这和在修图软件里调曲线差不多。非常棒。现在，我们来处理一下这里大片平铺的纯色块，因为尽管这些地方照不到太阳，"
+  },
+  {
+   "s": 980.65,
+   "e": 1012.07,
+   "en": "They shouldn't be incomplete darkness, but partially illuminated by the sky's blue light, an effect that should be strongest when the surfaces are facing directly to the sky. So let's capture that idea and the light by taking the normal's vertical component, scaling and biasing it by a half, and then multiplying it by the sky's blue color. And finally, adding it to our lighting formula. So much better indeed. By the way, the 10 factor here in the formula",
+   "zh": "它们也不该是一片漆黑，而是应该被天空的蓝光部分照亮，而且表面直面天空时，这种效果应该最强。为了表现这种光照思路，我们取法线的垂直分量，将其缩放并偏移 0.5，然后乘上天空的蓝色。最后，把它加到我们的光照公式里。确实好多了。顺便说一下，公式里这里的 10 倍系数"
+  },
+  {
+   "s": 1012.46,
+   "e": 1039.11,
+   "en": "is because over time, I've realized that this ratio of sunlight to skylight produces realistic lighting. Now, while we finally see some detail in the shadows, I still think we don't have enough definition, especially in the cliffs here. So, let's brighten them up even more by considering not only the light coming from the sun, but also that coming from the nearby areas of the terrain that are strongly illuminated by the sun.",
+   "zh": "是因为久而久之我发现，这种日光与天光的比例能营造出逼真的光照效果。现在，虽然阴影里终于能看清一些细节了，但我还是觉得不够清晰，尤其是这里的悬崖部分。所以，我们再把它们提亮一些，不仅要考虑来自太阳的光，还要考虑来自附近被阳光强烈照射的地表区域的反光。"
+  },
+  {
+   "s": 1040.01,
+   "e": 1068.99,
+   "en": "In that bouncing effect, the sunlight not only has changed to approximately the opposite direction, let's call it B, but also has gotten multiplied or tinted, if you want, by the brown color of the terrain itself. So there we are. See again the difference between before and after applying this warm bounce light coloring. Very nice. Alright, with the composition locked, now it's when we start making this painting pretty. So I'll tell you what.",
+   "zh": "在这种反弹效果中，日光不仅大致转向了相反的方向（我们称之为 B），而且还乘上了——或者说染上了——地形本身的棕色。就是这样。再来看看应用这种暖色反弹光前后的对比效果吧。非常棒。好了，构图确定下来之后，接下来我们就可以开始把这幅画画得更漂亮了。听我跟你说。"
+  },
+  {
+   "s": 1069.21,
+   "e": 1091.61,
+   "en": "Let's split the color formula between material and lighting colors for convenience and now add some basic grass layer to the material by mixing some green into the current brown color that we have with our usual color mixing formula that is driven by the vertical component of the terrain's normal composed with a smooth step in order to isolate flat areas where the grass can grow. It is that easy.",
+   "zh": "为了方便起见，我们把颜色公式拆分成材质颜色和光照颜色两部分，现在给材质添加一层基础草地，方法是用常用的混色公式把一些绿色混合到现有的棕色中，这个公式由地形法线的垂直分量结合 smoothstep 驱动，以此分离出适合草生长的平坦区域。就是这么简单。"
+  },
+  {
+   "s": 1092.57,
+   "e": 1119.97,
+   "en": "And, of course, we can and should experiment with changing the parameters of the smooth step to control how much grass coverage we want. But today, let's actually not spend too much time tweaking that, because once we cover most of the terrain with trees, this layer of green will be there only as a vague indication of a grassy ground. But before we paint trees, I think I wouldn't actually expect trees to grow in such a rocky terrain like the one we have here.",
+   "zh": "当然，我们完全可以、也应该去尝试调整 smoothstep 的参数，来控制我们想要的草地覆盖率。不过今天我们其实不用花太多时间去细调，因为一旦我们用树木覆盖大部分地形，这层绿色就只起到隐约勾勒草地的作用。但在刷上树木之前，我觉得在这种岩石嶙峋的地形上，本来就不太可能长出树来。"
+  },
+  {
+   "s": 1120.39,
+   "e": 1150.27,
+   "en": "So, what about we filter out some of these undulations, say those in the range of 64 to half a meter, which is approximately the scale at which vegetation happens. And because the series that we used to construct the surface F doubled frequency with each term, all we need to do really is just omit the right seven terms that span that 64 to half a meter wavelength range. There we go. The effect is similar to bandpass filtering the terrain signal.",
+   "zh": "那么，要是我们把一部分起伏过滤掉呢？比如64米到半米范围内的起伏，这差不多就是植被生长的尺度。而且因为我们用来构建曲面 F 的级数每一项的频率都会翻倍，我们实际上只需要略去跨越64米到半米波长范围的那7个项就行了。搞定。这效果就类似于对地形信号做带通滤波。"
+  },
+  {
+   "s": 1150.58,
+   "e": 1179.39,
+   "en": "but we are doing it at synthesis time, which is easier than doing it after the fact. Anyway, now we are finally ready to plant our trees. So, let's start by dividing the x and c coordinates of space by 2 and rounding the result down to the closest integer. This tiles space into squares of 2 meters, where m is the 2-dimensional index of each tile. With it, we can compute the center of the tile,",
+   "zh": "但我们是在合成阶段做的，这比事后处理要容易得多。总之，现在我们终于准备好种树了。那么，我们先把空间的 x 和 z 坐标除以2，然后向下取整到最近的整数。这样就把空间平铺成了2米见方的正方形网格，其中 m 是每个图块的二维索引。有了它，我们就能计算出图块的中心，"
+  },
+  {
+   "s": 1179.69,
+   "e": 1211.67,
+   "en": "and with the terrain surface evaluated at that center, we can create a unique local coordinate system for each tile, W. And finally, in this coordinate system, we can evaluate a sphere's sine distance function with a radius close to 1. Now, let me talk about what just happened here, because even though we just painted millions of spheres in the canvas, unlike traditional painting or even unlike traditional computer graphics, where each tree needs to be painted one at a time,",
+   "zh": "再根据在中心处求值的地形曲面，我们就能为每个图块创建独特的局部坐标系 W。最后，在这个坐标系里，我们就能对半径接近1的球体有向距离函数进行求值。现在，让我来说说刚才发生了什么，因为即便我们刚才在画布上画了数百万个球体，但与传统绘画不同，甚至与每棵树都得逐个绘制的传统计算机图形学也不同，"
+  },
+  {
+   "s": 1211.92,
+   "e": 1241.25,
+   "en": "Here we are only evaluating one sphere as part of our large mathematical painting. But because of the tiling of the coordinates, this one sphere function has become periodic and covers the whole space, creating infinite detail. But while that's fantastic, nature is rarely as perfectly periodic and regular as what we have here now. So let's add some variation similarly to how we randomized our terrain polynomial.",
+   "zh": "在这幅大型数学画作中，我们其实只计算了一个球体。但由于坐标平铺，这一个球体函数变成了周期性的，覆盖了整个空间，从而创造出无限的细节。不过虽然这很棒，但自然界很少会像我们现在这样完美周期和规律。所以我们来加点变化，就像之前随机化地形多项式那样。"
+  },
+  {
+   "s": 1241.84,
+   "e": 1270.47,
+   "en": "We take the two dimensional index of each tile, make it one dimensional, take the fractional part of their division by two irrational numbers, multiply that by itself and take the fractional parts again. This is clearly a bit of an arbitrary function again, so feel free to design your own. All we need is something that feels random, because with it, we are going to shift the center of the sphere by plus minus half meter within its 2x2 tile, in order to make this field of trees look less regular.",
+   "zh": "我们取出每个平铺块的二维索引，将其转为一维，除以两个无理数后取小数部分，自乘后再取小数部分。显然这又是一个有点随意的函数，所以大家完全可以自己设计。我们只需要一种随机感，因为我们要用它在 2x2 的图块内，把球心平移正负半米，好让这片树林看起来不那么死板。"
+  },
+  {
+   "s": 1273.61,
+   "e": 1302.54,
+   "en": "Great, now let's stretch the spheres vertically into ellipsoids so we get something that looks less like big bushes and more like trees. This seems simple, but there is an interesting technical catch here. The implicit equation of an ellipsoid that is most natural is not a distance field, making it very inconvenient for rendering. On the other hand, the actual SDF of an ellipsoid requires solving a degree 6 equation, which has no closed form in radicals",
+   "zh": "太好了，现在我们把这些球体在垂直方向拉伸成椭球体，这样看起来就不那么像大灌木丛，而更像树了。这看似简单，但这里有个挺有意思的技术陷阱。最自然的椭球体隐式方程并不是距离场，这给渲染带来了很大麻烦。另一方面，椭球体真正的 SDF 需要求解一个六次方程，它没有根式封闭解，"
+  },
+  {
+   "s": 1303.0,
+   "e": 1334.97,
+   "en": "and numerical solvers have problems with. But the SDF of symmetric ellipsoids, like the ones we probably need today, can however be solved analytically with a quartic equation, but that turns out to be too slow for us. So, in this painting, I'm using this other approximation that I developed that is completely robust and efficient enough. In any case, let's now move the center of the ellipsoids up so their lowest part sits on the ground, so we get to see more of a tree shape.",
+   "zh": "数值求解器处理起来也容易出问题。不过，像我们今天可能需要的对称椭球体的 SDF，倒是可以通过四次方程解析求解，但事实证明那对我们来说又太慢了。所以，在这幅画作中，我使用了自己开发的另一种近似方法，它非常稳健而且足够高效。无论如何，现在让我们把椭球体的中心向上移，使它们的最低点刚好落在地面上，这样就能看出更明显的树形了。"
+  },
+  {
+   "s": 1336.03,
+   "e": 1360.38,
+   "en": "However, this introduces some problems here in the cliffs, because all the ellipsoids that were hidden under them are now poking out. Can you see them? That feels wrong, but we won't erase them yet and let them be instead. We can take care of them later when we have finalized painting the trees. And instead, let's go fix another thing that is really bothering me, which is that the ground here between the trees feels too bright.",
+   "zh": "不过，这在悬崖这里带来了一些问题，因为之前藏在下面的椭球体现在全冒出来了。能看到吗？看起来怪怪的，但我们先不急着删掉，暂时放着吧。等最终把树画好之后再来处理它们。现在，我们先去搞定另一件让我非常难受的事：树木之间的地面看起来太亮了。"
+  },
+  {
+   "s": 1360.61,
+   "e": 1389.97,
+   "en": "given that in such a dense forest, I would expect very little of the ambient light to make it down there. So, let's bring up the color formula again and compute a smooth step of the altitude to isolate the valleys from the cliffs and multiply it by the ambient light to reduce it by 80%. And in fact, for the same reason, we will also modify the lighting formula of the trees, but with a linear function that goes from 0 at the bottom of the ellipsoid to 1 at its center.",
+   "zh": "毕竟在这么茂密的森林里，照理说环境光应该很难照到地面上。所以，我们再次调出颜色公式，通过对海拔高度进行平滑阶跃计算，把山谷和悬崖区分开，再乘以环境光，将其降低 80%。实际上，出于同样的原因，我们也会修改树木的光照公式，不过是用一个线性函数，从椭球体底部的 0 逐渐变化到中心的 1。"
+  },
+  {
+   "s": 1391.13,
+   "e": 1423.62,
+   "en": "With it, we also indicate that not much of the light makes it to the lowest parts of the forest. And yeah, indeed, this looks so much better now. So, now let's work on giving this forest a more organic feel to it. As a first step, we will change the height and the width of each tree by using the same pseudo-random function that we designed earlier, but with a different offset, so we decorate the random sizes from the random tree positions. Indeed, different offsets produce different sets of random values.",
+   "zh": "借此，我们也能体现出阳光很难照进森林最底层。没错，现在看起来确实好多了。那么接下来，我们来让片森林显得更自然一些。第一步，我们用之前写好的同一个伪随机函数来改变每棵树的宽高，但要换一个偏移量，这样随机尺寸就不会和树木的随机位置挂钩。确实，不同的偏移量会生成不同的随机数值。"
+  },
+  {
+   "s": 1423.95,
+   "e": 1453.34,
+   "en": "But they are all equally good, as you can see, so it doesn't matter much which values we pick. However, once we have chosen some, it can be crucial to commit to them. I learned this the very hard way when I was working at Pixar, generating mathematical art for the movies. So, the story is that I based the look of the vegetation of a film that we were making on the randomness generated by such an arbitrary number, like we just did, which I made equal to my phone number, because why not? Now,",
+   "zh": "但正如大家所见，它们效果都一样好，所以选哪些数值并不太要紧。不过，一旦选定，往往就千万不能再改了。这是我在 Pixar 做电影数学艺术生成时，吃过大亏才学到的教训。当时的情况是，我把一部正在制作的电影里的植被外观，建立在类似这样一个任意数字生成的随机性上，就像我们刚才做的那样；而我把这个数字设成了自己的电话号码，反正随便写嘛。结果，"
+  },
+  {
+   "s": 1453.66,
+   "e": 1484.78,
+   "en": "That was all fine and dandy until the day I changed to a new carrier and phone number with it. And I felt the urge to update the formula accordingly. This should have not been any problem since the new randomness generated from it was as valid of a randomness as the old one. But well, the truth is everyone freaked out when tens of film shots that had been approved already for the big screen suddenly looked all different overnight. It was crisis time. And while in the end we did actually and unexpectedly keep the new phone number,",
+   "zh": "本来一切都挺好，直到有一天我换了运营商，手机号也跟着变了。于是我按捺不住冲动，把公式里的数字也顺手更新了。按理说这本该毫无问题，毕竟新号码生成的随机性跟旧的一样有效。然而事实是，大家全炸毛了——因为几十个原本已经过审、准备登上大银幕的电影镜头，一夜之间全变样了。直接陷入了危机模式。虽然最终出人意料地，我们确实保留了新号码，"
+  },
+  {
+   "s": 1485.2,
+   "e": 1513.76,
+   "en": "The moral of the story is still to always be extremely careful if you play with arbitrary formulas and numbers in a professional context. Anyways, back to our painting and to finish sculpting the trees, we will now use a noise function like the one we designed for the terrain surface but in 3D. And we will define it over the whole space P rather than just in the local coordinate of each tree W. Then we square it to make it a bit more spiky and we add it back to the ellipsoid function.",
+   "zh": "这个故事告诉我们，在专业场合摆弄各种公式和数字时，务必要格外小心。总之，回到画作本身，为了完成树木的塑形，我们现在要用一个类似之前地形表面那样的噪声函数，不过这次是在 3D 空间中。我们将其定义在整个 P 空间中，而不仅是每棵树的局部坐标 W 里。然后我们对它求平方，让它看起来更尖锐一点，再把它加回到椭球体函数中。"
+  },
+  {
+   "s": 1514.98,
+   "e": 1545.39,
+   "en": "This distorts its silhouette into something more organic and no longer perfectly smooth and geometrical. And with the right scaling for it, it will make all these ellipsoids look like happy little trees, just like that. Actually, the fact that we don't need to recreate botanically accurate trees but only get something that looks like trees is really important here. Please don't miss the forest for the trees and don't fall into the rabbit hole of painting with super detailed mathematical or procedural branch systems or anything like that.",
+   "zh": "这样就能将它的轮廓扭曲成更自然的有机形态，不再那么完美平滑和几何化。配合适宜的缩放比例，就能让所有这些椭球体看起来像是一棵棵快乐的小树，就像这样。事实上，我们不需要重现植物学上完全精准的树木，只要做出像树一样的效果就行，这一点非常关键。请千万别见树不见林，也别深陷于用极度细致的数学或程序化分支系统来作画这类细节泥潭中。"
+  },
+  {
+   "s": 1545.6,
+   "e": 1575.31,
+   "en": "All we need, really, is just the illusion of trees. But because they cover the whole terrain, like a carpet, we no longer get to make out the shape of the terrain and the hills and the valleys in it. So, let's improve this by tweaking the lighting on the trees, which is currently happening through their SDF's gradient, or surface normal, n sub t. The tweak is to linearly combine it with the normal of the terrain on which the tree grows, n sub f, say, in a 2 to 1 ratio.",
+   "zh": "其实我们需要的，仅仅是树木的视觉假象。但因为它们像地毯一样铺满了整片地形，我们反而看不清地形的轮廓，以及其中的山丘和山谷了。所以，我们来调整一下树木的光照以改善这一点；目前光照是通过它们 SDF 的梯度，也就是表面法线 n sub t 来计算的。调整的方法是，将它与树木所在位置的地形法线 n sub f 进行线性组合，比如按 2 比 1 的比例。"
+  },
+  {
+   "s": 1575.88,
+   "e": 1605.39,
+   "en": "This makes the normals of the trees partially reflect the orientation of the terrain. And now, because the dot product at the core of our lighting equations is a linear operator, linearly combining the normals of the tree and the terrain in this way is equivalent to linearly combining the terrains and trees' individual lighting in the same 2 to 1 ratio. Or in other words, the lighting on the trees now will partially look like that of the underlying terrain, revealing its shape.",
+   "zh": "这让树木的法线能在一定程度上反映地形的朝向。而现在，因为光照方程核心的点积是一个线性算子，以这种方式将树木和地形的法线进行线性组合，就等同于按相同的 2 比 1 比例，去线性组合地形和树木各自的光照。换句话说，树木上的光照现在在某种程度上会呈现出下方地形的光照效果，从而展现出它的轮廓。"
+  },
+  {
+   "s": 1605.87,
+   "e": 1633.46,
+   "en": "checking it how much better it looks now. And while we are at it, let's also take the dot product of the normal and the view direction to select the tree silhouettes, raise it to the 5th power to make the selection sharper, multiply it by light yellow and by the vertical ramp lambda that we created earlier so the selection fades at the bottom of the trees. And finally, we add it to the tree color to create these beautiful highlights.",
+   "zh": "看看现在效果好多了。顺便，我们再计算一下法线与视线方向的点积，用来选出树木的轮廓，接着算 5 次方让选区更锐利，乘以淡黄色，再乘以我们之前创建的垂直渐变 lambda，让选区在树的底部逐渐淡出。最后，将它加到树的颜色上，生成这些漂亮的高光。"
+  },
+  {
+   "s": 1635.36,
+   "e": 1665.89,
+   "en": "The cool thing is that because we are letting some of the terrain's surface normal leak into the trees, these highlights are also capturing some of the beautiful silhouettes of our hills, giving us a better understanding of the different layers of depth that we have in the painting. Lovely. This is going really great. But now it is time for us to make some big decisions. Indeed, when I was at this point in the painting, I realized that I had to pick a system for it.",
+   "zh": "很酷的是，因为我们让部分地形的表面法线渗透到了树木中，这些高光也捕捉到了山丘部分优美的轮廓，让我们能更直观地看清画面中不同层次的深度。太棒了。一切进展得非常顺利。但现在我们需要做一些重大决定了。确实，当画到这里时，我意识到自己必须为它选定一个系统。"
+  },
+  {
+   "s": 1666.23,
+   "e": 1694.36,
+   "en": "I quickly sketched some winter colors which look beautiful and also some fall colors which were also very nice. But that's when I thought that these ellipsoidal trees really feel like the trees you would find in a rainforest more than alpine trees. And because I didn't want to paint new trees over, I decided to stick to vibrant rainforest greens and move on. But once it's decided that we go with greens, it's also clear that it can't all be just the same green everywhere.",
+   "zh": "我快速勾勒了一些冬天的配色，看起来很美，还有一些秋天的颜色，也非常漂亮。但就在那时我想到，这些椭球形的树其实更像是雨林里的树，而不是高山树木。因为我不想重新画树，所以决定坚持用充满生机的雨林绿，然后继续往下做。不过一旦决定用绿色，显然也不能全是一模一样的绿。"
+  },
+  {
+   "s": 1694.83,
+   "e": 1722.03,
+   "en": "Nature uses rich color palettes, so let's do the same and add some color variation to our forest. We start by generating a random number again by dividing the index of each tree in the grid by pi and shuffling its fractional parts a bit. Then we compose it with a smooth step and use it in our usual linear color combination formula, such that we give some of our happy little trees a yellow tint. Now,",
+   "zh": "大自然的色彩是非常丰富的，所以我们也一样，给森林增添一些色彩变化。我们先再次生成一个随机数，方法是将网格中每棵树的索引除以圆周率，再稍微打乱一下它的小数部分。接着我们把它和一个 smoothstep 组合，用在我们常用的线性颜色混合公式中，这样就能给我们可爱的树木添上一抹黄色调。现在，"
+  },
+  {
+   "s": 1722.23,
+   "e": 1755.69,
+   "en": "Let's keep adding color richness and invoke the fractal noise function that we created earlier but limited to four terms so it is smooth. Then we tune its sharpness with a smooth step and let it drive the mix of the base green color with some ochre. And let me put a magnifying glass here so we can see this change better. Beautiful. Lastly, we will use the same fractal noise but scale differently, make it almost binary with a very sharp smooth step and then use it to make some of the trees dark green.",
+   "zh": "我们继续增加色彩的丰富度，调用之前创建的分形噪声函数，但限制在四阶以内以保持平滑。然后用一个 smoothstep 调整它的锐度，让它来控制基础绿色与某些赭石色的混合。我在这里放一个放大镜，这样我们能看得更清楚。真漂亮。最后，我们会使用相同的分形噪声，但采用不同的缩放比例，通过一个非常陡峭的 smoothstep 让它接近二值化，然后用它把其中一部分树变成深绿色。"
+  },
+  {
+   "s": 1755.98,
+   "e": 1788.68,
+   "en": "and also taller and thinner, indicating that there is a second species of tree here competing for space. Great, but what I'm noticing now is that here in the background, these patches of dark trees became too distracting. So, let's smoothly undo the effects of the last brush, lambda3, by multiplying it by 1 minus a smooth step of the distance to each tree. That looks much better now, doesn't it? Okay.",
+   "zh": "而且也更高、更细，说明这里有第二种树木在竞争生存空间。很好，但我现在注意到，背景里的这些深色树丛太抢眼了。所以，我们通过将最后一个笔刷 lambda3 乘以 1 减去到每棵树距离的 smoothstep，来平滑消除它的效果。现在看起来好多了，对吧？好的。"
+  },
+  {
+   "s": 1789.0,
+   "e": 1815.26,
+   "en": "Now we have to switch gears and do some computer graphics. But bear with me, it will be short and definitely worth it. So, the thing is, we need to add some highlights to our painting so it feels more realistic. Because all real surfaces behave a bit like a mirror and reflect the sunlight back to us when the orientation of the surface, the sun, and we the viewers are correctly aligned relative to each other. For example, when the incoming sunlight hits our cliffs,",
+   "zh": "现在我们得换个方向，来搞点计算机图形学。不过别担心，内容很短，而且绝对值得。问题是，我们需要给画作添加一些高光，让它看起来更真实。因为所有真实的表面都或多或少像镜子一样，当物体表面、太阳和作为观察者的我们之间的相对朝向对齐时，就会把阳光反射回我们眼中。比如，当入射阳光照射到悬崖上时，"
+  },
+  {
+   "s": 1815.51,
+   "e": 1846.13,
+   "en": "it will bounce along its normal in the reflected direction R, which we can compute with a dot product and some geometry. We can then measure how much of that light is actually coming straight to us, the viewer's V, with another dot product, informing us of how much white paint we should add to the canvas. We also raised it to the 9th power so that the white fades rapidly away when the lightment is not perfect. Then we make all these highlights more intense when the sunlight is mirrored at a shallow angle.",
+   "zh": "它会沿着法线朝反射方向 R 反弹，这可以通过点积和一些几何运算计算出来。然后我们再用一次点积，测量有多少光线正好直奔我们——也就是观察者 V——而来，从而得知该在画布上添加多少白色颜料。我们还把它取了 9 次方，这样当角度不够完美时，白色就会迅速衰减。接着，当阳光以浅角度反射时，我们会让所有这些高光变得更加强烈。"
+  },
+  {
+   "s": 1846.37,
+   "e": 1873.0,
+   "en": "Much like the road can blind you when you are driving and the sun is low in front of you. We do this with another dot product and a square root raised to the fifth power, and letting as much as 95% of the highlight intensity depend on it. Now, these formulas and values are not arbitrary, but common practice in contemporary computer graphics because they are really great approximations to how real light and materials behave in nature.",
+   "zh": "就像你在夕阳逆光开车时，路面会晃得你睁不开眼一样。我们用另一个点积，加上开平方后再取五次方来实现这个效果，并让高光强度的多达 95% 都取决于它。这些公式和数值可不是凭空捏造的，而是现代计算机图形学中的通用做法，因为它们能极好地近似自然界中真实光线与材质的表现。"
+  },
+  {
+   "s": 1873.47,
+   "e": 1900.88,
+   "en": "And while following them is definitely not mandatory for making beautiful images, I wanted to give you a bit of a sneak peek to the kind of math you would be programming if you were a rendering engineer working on films or computer games. But also look indeed at these gorgeous highlights that we just got for our trees and cliffs. And speaking of cliffs, let's go revisit those trees that were under the cliffs that were creating some ugly and distracting patterns earlier.",
+   "zh": "虽然要做出漂亮的图像并不一定要死板遵循这些，但我还是想带大家稍稍预览一下，如果你是一名从事电影或电脑游戏制作的渲染工程师，你平常要编写的会是哪类数学代码。另外，再看看我们刚刚为树木和悬崖呈现出的这些绝美高光。说到悬崖，我们顺便回头看看悬崖下方那些树，它们之前产生了一些难看又扎眼的杂乱图案。"
+  },
+  {
+   "s": 1901.37,
+   "e": 1931.83,
+   "en": "Because it seems to me now that after we randomized their sizes and positions, everything looks now pretty organic to me, and pretty much like vegetation. So why not pretend these are some little bushes that live up there in the cliffs and welcome them to our painting? Because we don't make mistakes here, we just have happy accidents. Alright, let's work now on fixing and finalizing the overall look of the painting. For example, I feel the vegetation above the cliffs is too bright, so",
+   "zh": "因为在我看来，在随机化了它们的大小和位置之后，现在一切看起来都非常自然，也挺像植被的。所以何不把它们当成生长在悬崖上的小灌木丛，欣然接受它们出现在画作中呢？因为我们这里没有失误，只有美丽的意外。好了，现在我们来修饰并确定画作的整体效果。比如，我觉得悬崖上方的植被太亮了，所以"
+  },
+  {
+   "s": 1932.13,
+   "e": 1966.6,
+   "en": "Let's select the highest elevation points in the terrain with a smooth step of Y and then multiply the color of our trees by 1 minus half of that, so that we darken them by 50%. I also feel I want to adjust the lighting of the foreground trees and separate a bit the parts under the sun from those in the shadow. So, we will take a smooth step of the distance to each point in the painting and subtract it from 2 and multiply it by the sun's contribution. See the difference? Now,",
+   "zh": "我们用 Y 的 smooth step 选出地形中的最高海拔点，然后将树木的颜色乘以 1 减去该值的一半，这样就能让它们暗淡 50%。我还想调整一下前景树木的光照，把向阳部分和阴影部分稍微区分开来。因此，我们对画中每个点的距离取 smooth step，用 2 减去它，再乘以太阳光照的影响。看到区别了吗？现在，"
+  },
+  {
+   "s": 1966.92,
+   "e": 1998.05,
+   "en": "These were very localized tweaks. But now let's do some global color adjustment, like taking the painting as a whole and raising its red, green and blue color channels to the powers of 1, 0.9 and 1. Or in other words, we leave the red and the blue channels of our painting unchanged, but we pull the middle greens up, which makes our vegetation feel a bit more translucent and lush. We also add a little bit of blue to create a sense of a thicker atmosphere, which also de-saturates and makes the image feel a bit more natural.",
+   "zh": "这些都是非常局部的微调。但现在我们来做一些全局的色彩调整，比如把整幅画作为一个整体，将其红、绿、蓝颜色通道分别取 1、0.9 和 1 次方。换句话说，我们保持画面的红蓝通道不变，但提升了中间调的绿色，这让我们的植被显得更通透、更郁郁葱葱。我们还添加了一点点蓝色来营造更浓郁的大气感，这也降低了饱和度，让画面感觉更自然。"
+  },
+  {
+   "s": 1998.38,
+   "e": 2028.19,
+   "en": "although this is totally up to you and your own taste. Speaking of taste, I often like adding a bit of a photographic feel to the painting like this. We consider the vector that points towards each element on the canvas and compute its dot product with the sun's direction to get a sense of the proximity of the sun to its point on the canvas. If the dot product is positive, we raise it to the fourth power and multiply it by orange over four before adding it to the canvas color.",
+   "zh": "虽然这完全取决于你自己的喜好。说到喜好，我通常喜欢给画作增添一点摄影感，就像这样。我们取指向画布上每个元素的向量，计算它与太阳方向的点积，以此来感知画布上该点与太阳的距离。如果点积为正，我们将其取四次方，乘以橙色除以四的值，再叠加到画布的颜色上。"
+  },
+  {
+   "s": 2028.93,
+   "e": 2056.56,
+   "en": "This simulates the sun glare that often happens in real photographs and film, although I'm keeping it soft in intensity and hence the division by 4 because I don't want to overdo it and grab too much of the viewer's attention. And on the topic of attention, let's guide the viewer's eye a bit towards the center of the image, like this. We multiply the painting by a parabola that has its zeros at the edges of the picture and reaches a maximum of 1 at the center.",
+   "zh": "这模拟了真实照片和胶片中常见的太阳眩光，不过我保持了较弱的强度，所以除以了 4，因为我不想做过头，抢走观众太多注意力。说到注意力，让我们把观众的视线稍微引导到画面中心，就像这样。我们让画面乘以一个抛物线函数，它在画面边缘处为零，并在中心达到最大值 1。"
+  },
+  {
+   "s": 2057.26,
+   "e": 2090.1,
+   "en": "Then we multiply it by a similar parabola that runs vertically across the screen. Then we take its 20th root, so we flatten it towards one, and finally we scale and offset it by a half, darkening the borders of the painting as we wanted. Here's the difference before and after applying this effect. And now, to finish the landscape, let's paint some new and more realistic clouds on top of the ones that we already have. Or rather than paint, let's sculpt them, so we convey volume more easily.",
+   "zh": "然后我们把它乘以一个纵贯屏幕的类似抛物线。接着取它的 20 次方根，使其向 1 趋平，最后按 0.5 进行缩放和偏移，这样就如愿压暗了画面的边缘。这就是应用该效果前后的对比。现在，为了完成这幅风景画，我们在已有云层之上再画一些更新、更逼真的云。或者与其说是画，不如说是雕刻，这样更容易表现出体积感。"
+  },
+  {
+   "s": 2090.83,
+   "e": 2118.52,
+   "en": "So let's start by building a solid block of clouds through a thin but infinitely wide box at 900 meters of altitude. Then we add three-dimensional noise to it, which will open big holes in the cloud volume, just like we did open gaps in the three ellipsoids. The cloud colors right now are a direct black-to-white mapping of the dot product between the sunlight direction and the gradient of the cloud density. And yes, we will improve this in a moment.",
+   "zh": "我们先在 900 米的高空，用一个薄但无限宽的体块构建出云层的实体底模。然后加入三维噪声，这会在云层体积中开出大洞，就像我们之前在三个椭球体中开出空隙一样。现在的云层颜色，就是阳光方向与云层密度梯度的点乘结果直接映射成黑白。没错，我们稍后就会优化它。"
+  },
+  {
+   "s": 2118.81,
+   "e": 2147.59,
+   "en": "But, regardless, the clouds won't feel well integrated with the rest of the scene until we compose them with the same atmospheric coloring and the three color exponentials that we used for the terrain and the trees. Also, before we continue sculpting, we need to make sure that the clouds feel fluffy. We do this by changing the plotting algorithm, which currently finds the zero-level set, or isosurface, of our cloud density function and then applies our coloring and lighting formulas to it.",
+   "zh": "不过，无论如何，只有把这些云朵和之前用于地形与树木的同款大气着色以及三种颜色指数结合起来，它们才会真正融入到整个场景中。此外，在继续雕刻之前，我们还得确保云朵看起来有蓬松感。为此我们要调整绘制算法，目前它只是找出云密度函数的零水平集（即等值面），然后在其上应用我们的着色与光照公式。"
+  },
+  {
+   "s": 2148.23,
+   "e": 2175.55,
+   "en": "So, instead, we will accumulate cloud density and color along all the level sets as our line of sight crosses them. And this is what that looks like. Beautiful, isn't it? But still, Mandelbrot noticed that clouds are not spheres and that their silhouettes are not smooth, but fractal. And he was right. That's exactly why we are now going to increase the realism of these adorable clouds through the same techniques that we used for the terrain.",
+   "zh": "所以，取而代之的是，当视线穿过所有的水平集时，我们会沿途累加云的密度和颜色。效果就是现在这样，很漂亮对吧？但即便如此，曼德博（Mandelbrot）曾指出，云朵并不是球体，它们的轮廓也不是平滑的，而是分形结构。他说得没错。正因如此，我们现在要运用和地形相同的技术，让这些可爱的云朵变得更加逼真。"
+  },
+  {
+   "s": 2175.84,
+   "e": 2204.72,
+   "en": "where we add multiple layers of noise of increasingly higher frequencies and lower amplitudes. Beautiful! However, as I painted this on the canvas, I've applied a trick that I need to disclose. So, let me explain. This is what our fractal clouds look like without the trick, when we use their density gradient straight for illumination purposes as we have done for trees and terrain. Indeed, clouds in reality look much softer than this, because the light inside of them",
+   "zh": "这里我们叠加了多层频率递增、振幅递减的噪声。效果太棒了！不过，在画布上画出这个效果时，我用了一个小技巧，得向大家交代一下。来，我解释一下。如果不加这个技巧，分形云看起来就是这个样子，也就是像处理树木和地形那样，直接把它们的密度梯度用于光照计算。确实，现实中的云看起来要比这柔和得多，因为云内部的光线"
+  },
+  {
+   "s": 2204.99,
+   "e": 2235.4,
+   "en": "bounces around and scatters multiple times, smoothing out all the features and leaving only the overall shape of the cloud for us to see. But we won't simulate any of that, and instead the trick will be to kind of low-pass filter the cloud density gradient. We do this by only using four components of the fractal noise when computing the gradient, instead of using all the components that we are using when we compute the shape. This softens the gradient and we heat the lighting and makes the clouds look so much better indeed.",
+   "zh": "会四处反弹并发生多次散射，从而抹平所有细节特征，只给我们留下云的大致轮廓。但我们不会去模拟这些过程，相反，我们的技巧是对云的密度梯度进行某种低通滤波。具体做法是在计算梯度时，只使用分形噪声的四个分量，而不是像计算形状时那样用上全部的分量。这样可以柔化梯度并让光照更加柔和，确实让云看起来好看多了。"
+  },
+  {
+   "s": 2238.34,
+   "e": 2270.84,
+   "en": "And I also think they look better when we change the scale of their domain to make them twice as large. And with that, let's go and work now on the lighting. First, we increase the contrast by changing the scale and the bias in the dot product. Then, for every point in the cloud, we will evaluate the density field at a second point a few units away towards the sun in search of negative density values that indicate the presence of a cloud at that location that could be obscured in the sun.",
+   "zh": "而且我觉得把它们定义域的缩放改一下，让它们变大一倍，看起来会更好。弄完这个，我们现在来看看光照。首先，通过改变点积中的缩放和偏置来增加对比度。然后，对于云中的每个点，我们在朝向太阳几个单位距离外的第二个点评估密度场，寻找负密度值，这表明该位置有云可能会遮挡阳光。"
+  },
+  {
+   "s": 2271.72,
+   "e": 2303.24,
+   "en": "We capture such negative densities with a smooth step, which also helps us control the sharpness of the transition between light and shadows. And then we multiply it with the sun's contribution. And look at that, it's starting to look really sweet! Great, it's time to think about what all the light sources, besides the sun, could be illuminating our clouds. And the sky comes to mind right away, naturally. So, let's take the vertical component of the normalized cloud gradient, map it linearly to the 0 to 1 range,",
+   "zh": "我们用 smoothstep 来捕获这种负密度，这也有助于我们控制明暗过渡的锐度。然后我们把它乘以太阳的贡献。看啊，效果开始变得非常棒了！太好了，除了太阳，现在该想想还有哪些光源能照亮我们的云彩了。很自然地，立刻就想到了天空。所以，我们取归一化云梯度的垂直分量，将其线性映射到 0 到 1 的范围，"
+  },
+  {
+   "s": 2303.67,
+   "e": 2335.53,
+   "en": "multiply it by blue and add it to our cloud color because we want the up facing areas of the clouds to be most exposed to the skylight. We will also tint the bottom of the clouds in green since the trees in the terrain should reflect some green light upwards. So we can just reuse the same formula and modify it for downwards point ingredients and for green color. Lastly, we multiply the color of the clouds by a linearly decreasing function of the density.",
+   "zh": "乘以蓝色并加到云的颜色上，因为我们希望云朵朝上的区域能最大程度地受到天光照射。我们还会把云的底部染成绿色，因为地形中的树木应该会向上反射一些绿光。所以我们直接复用同一个公式，针对朝下的梯度和绿色做些修改即可。最后，我们把云的颜色乘以一个关于密度的线性递减函数。"
+  },
+  {
+   "s": 2335.85,
+   "e": 2368.62,
+   "en": "so we darken their interior. And I think we should also add some glare to the clouds that are closest to the sun. So let's use again a dot product, raise it to a big power and modulate the amount of orange that we add to the cloud color. And because I think that these happy clouds look beautiful already, I think we should move on and finish off the painting with some cloud shadows on the terrain. Now, honestly, we could just paint some dark arbitrary blobs over the terrain",
+   "zh": "所以我们把它们的内部调暗。我觉得我们还应该给离太阳最近的云朵加点强光。那就再用一次点积，取一个很大的幂次，然后用它来调节云朵颜色中混入的橙色量。而且我觉得这些欢快的云朵看起来已经很漂亮了，所以我们应该继续往下做，在地形上加些云的阴影来收尾这幅画。坦白讲，我们其实可以直接在地形上画一些随意的黑色斑块"
+  },
+  {
+   "s": 2369.02,
+   "e": 2394.25,
+   "en": "And that would definitely work. But instead, this time, we are going to let the mathematics that we already developed do the painting for us. So, first, we construct the line going from its point P in the landscape towards the sun. And we intersect it with a horizontal plane placed at the same height as the clouds. Then, at that intersection point, Q, we compute the cloud density function and pass it through a smooth step to isolate negative values.",
+   "zh": "那样肯定也管用。但这回，我们要让之前推导出的数学逻辑来替我们完成绘制。首先，我们构建一条从地形上的点 P 射向太阳的直线。然后求它与放置在云层高度处的水平面的交点。接着，在这个交点 Q 处，我们计算云密度函数，并用 smoothstep 函数处理一下来剔除负值。"
+  },
+  {
+   "s": 2394.63,
+   "e": 2427.44,
+   "en": "which we can then multiply with the sand coloring function of the trees and rocks in order to cast the shadows on them. Of course, we can control the size and the softness of the penumbras with the parameters of the smooth step. And I personally like the painting best with only a gentle shadow effect, so I will leave the parameters there. Now, because these shadows are planar projections of the actual cloud density function, if we shift its domain, either horizontally to displace the clouds or vertically to change their shape,",
+   "zh": "然后我们可以把它和树木以及岩石的沙色着色函数相乘，从而在它们上面投射阴影。当然，我们可以通过 smoothstep 的参数来控制半影的大小和柔和度。我个人最喜欢画面只带有一点柔和的阴影效果，所以我就把参数停在这里。现在，由于这些阴影是实际云层密度函数的平面投影，如果我们平移它的定义域，无论是水平移动来位移云朵，还是垂直移动来改变形状，"
+  },
+  {
+   "s": 2427.72,
+   "e": 2447.6,
+   "en": "Then the shadows on the terrain will follow and do the right thing automatically, which is super cool. And with that, we finish the painting. And while clearly this isn't the most masterful landscape painting that you have ever seen, I find the fact that we painted it all with masks quite beautiful in itself, if you ask me.",
+   "zh": "地形上的阴影都会自动跟着做出正确的反应，这简直太酷了。到这里，我们就完成了整幅画作。虽然这显然算不上你见过的最精妙绝伦的风景画，但如果你问我的话，我觉得完全用遮罩来把它画出来这件事本身就非常美妙。"
+  },
+  {
+   "s": 2449.04,
+   "e": 2478.7,
+   "en": "Remember that all individual color, lighting and shape formulas that we designed are actually composed into one large and singular function that is responsible for returning a red, green and blue color triple for any xy point in the canvas. Actually, besides the painting itself, all the explanatory diagrams and plots and animations that you have seen in the video are also painted with maths and part of the painting's formula, making it a mathematical video more than a mathematical painting, perhaps.",
+   "zh": "请记住，我们设计的所有单独的颜色、光照和形状公式，实际上都被组合成了一个庞大的单一函数，负责为画布上的任意 xy 坐标返回红、绿、蓝三元组颜色值。实际上，除了画作本身之外，大家在视频中看到的所有解释性图表、绘图和动画也都是用数学绘制的，并且是画作公式的一部分，所以这或许更像是一个数学视频，而不仅仅是一幅数学画作。"
+  },
+  {
+   "s": 2479.09,
+   "e": 2507.09,
+   "en": "except for my face and the text overlays, of course. Also, there is a whole other layer of mathematics going on in order to get the computer to plot all these formulas into the screen, which has to do with computer graphics, so we won't touch on that today. But all of this to say that it took me quite some work to make this video, so thank you so much to all the fine people who support me on Patreon, and since you made it this far, thanks to you two for sticking around until the end and spending this time with me. I really appreciate it.",
+   "zh": "当然，我的脸和文字叠加层除外。此外，为了让计算机把所有这些公式绘制到屏幕上，还涉及完全另一层的数学，这关乎计算机图形学，所以我们今天就不展开讲了。但说了这么多，其实就是想说做这个视频花了我不少心血，因此非常感谢所有在 Patreon 上支持我的好心人；既然你都看到这里了，也谢谢你坚持看到最后，抽出时间陪伴我。真的非常感谢。"
+  },
+  {
+   "s": 2508.05,
+   "e": 2511.73,
+   "en": "And finally, I'd like to wish you happy painting with masks and be well my friend.",
+   "zh": "最后，祝大家用遮罩画得开心，朋友们，保重。"
+  }
+ ]
+}

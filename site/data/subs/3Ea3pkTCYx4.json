@@ -1,0 +1,92 @@
+{
+ "vid": "3Ea3pkTCYx4",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 2.58,
+   "e": 30.94,
+   "en": "My name is Kevin Greer and I lead the phone team at Google I'd like to give a little history lesson. So the second largest engineering project of the 60s Was IBM system 360 the largest of course was putting a man on the moon. So it was thought that Really creating a new operating system was like a mammoth You know engineering undertaking so really to compete with that they created an up",
+   "zh": "我叫 Kevin Greer，在 Google 带领手机团队，我想给大家讲一点历史。20 世纪 60 年代第二大的工程项目是 IBM System/360，最大的当然是阿波罗登月。当时人们认为，真正打造一个全新的操作系统是一项极其庞大的工程，所以为了与之一较高下，他们打造了一款"
+  },
+  {
+   "s": 31.17,
+   "e": 60.85,
+   "en": "operating system called Multics. And this really required the combined forces of MIT, AT&T, which was the largest communication company at the time, and General Electric, which was the largest company of any type at the time. So these three companies combined to create this new operating system called Multics. And so what we're showing in this diagram is the little blue dots represent the Multics developers. And they're running around and they're going to write code, which is code is in green.",
+   "zh": "名为 Multics 的操作系统。这真正集结了 MIT、当时最大的通信公司 AT&T，以及当时规模最大的全能型企业通用电气（General Electric）的合力。于是这三方联手，共同开发了这个名为 Multics 的全新操作系统。在这张图里，小蓝点代表 Multics 的开发者。他们奔波忙碌去写代码，绿色的部分就是代码。"
+  },
+  {
+   "s": 62.94,
+   "e": 89.6,
+   "en": "And this square represents the operating system. So along this axis, we have the different types of data, an operating system we need, users, groups, processes, devices, et cetera. And then across the top, we have the features that you would need for each of that type of data, sorting, search, paging, whatnot. So the way it was written at the time, each of these commands had each of these features, and you would write each feature for each command.",
+   "zh": "这个方块代表操作系统。沿着这个轴，有操作系统所需的各种数据类型：用户、组、进程、设备等等。而在顶端，则是每种数据类型所需要的功能，比如排序、搜索、分页等等。按照当时的做法，每个命令都具备这些功能，你得为每个命令分别写一遍每个功能。"
+  },
+  {
+   "s": 92.62,
+   "e": 125.38,
+   "en": "At AT&T, in the basement on some obsolete hardware, two guys, Ken Thompson and Dennis Ritchie, were making a kind of toy operating system called Unix, and its name is really a play of multics. Okay? And so let's start this up. Okay, well, what's different about Unix is that they didn't implement all these features for every type of data. They implemented each one only once, because Unix had the pipe command. So you could take...",
+   "zh": "在 AT&T 的地下室里，有两个人——Ken Thompson 和 Dennis Ritchie，正用着过时的硬件鼓捣一个名为 Unix 的玩具操作系统，这个名字其实是在调侃 Multics。对吧？我们接着往下看。Unix 的不同之处在于，他们并没有为每种数据类型都实现所有这些功能。他们每个功能只实现了一次，因为 Unix 拥有 pipe 命令。所以你可以把……"
+  },
+  {
+   "s": 125.38,
+   "e": 153.42,
+   "en": "LS or PS, and then you could pipe it into sort, into grep, into more. And then they only had to write these features once. So we can see the Unix developers are not running around coding up the area, they're coding the perimeter. And then these can be reused for every type of data. Now, just as the way we analyze computers running algorithms or data structures and talk about the",
+   "zh": "LS 还是 PS，都可以用管道传给 sort、grep 或 more。这样他们只需实现一次这些功能即可。所以我们可以看到，Unix 开发者并不是到处去写“面积”代码，他们写的是“周长”代码。而这些功能就可以在各类数据上复用。现在，正如我们分析计算机运行算法或数据结构、探讨其"
+  },
+  {
+   "s": 154.25,
+   "e": 183.12,
+   "en": "runtime efficiency, or the scalability of those algorithms, we can use the same mathematics for humans running an architecture or a paradigm. So what we're doing is we're graphing here the lines of code. And you can see that since there are 50 times as many Multics developers, their lines of code are increasing much faster. And we can increase the utility. And the Multics utility is linear. So for every line of code that they write, they get one unit of utility.",
+   "zh": "运行时效率或这些算法的可扩展性一样，我们也可以把同样的数学方法用在人类运行某种架构或范式上。所以我们在这里画的是代码行数图。你可以看到，由于 Multics 开发者人数是其 50 倍，他们的代码行数增长得快得多。我们还可以提高效用。Multics 的效用是线性的。也就是他们每写一行代码，就能获得一个单位的效用。"
+  },
+  {
+   "s": 183.91,
+   "e": 214.59,
+   "en": "But look what's happening with the shape of the Unix utility. It's actually curving up. This is exponential, because once they write one feature, they get the utility of that feature for all of the types of data, not just for one. And so as they go, they become more and more efficient, whereas the multix is flat. So this is kind of like one of the most unbelievable things in the history of",
+   "zh": "但看看 Unix 效用曲线的走势，它其实是在向上弯曲。这是指数级的，因为他们只要写好一个功能，就能将该功能应用到所有数据类型上，而不仅限于某一种。因此随着不断推进，他们的效率越来越高，而 Multics 却是一条平线。所以这可以说是历史上最令人难以置信的事情之一——"
+  },
+  {
+   "s": 214.9,
+   "e": 242.88,
+   "en": "of computing is that basically a couple guys in the basement on obsolete hardware did the software equivalent of, you know, going to the moon, like proverbial moonshot, and they did it with, you know, dramatically fewer developers. But you can see at this point, the utility of Unix is actually surpassing Multics. So although Multics had all the money, all the developers and all the political support, what it didn't have was mathematics. Mathematics was on Unix's side. So",
+   "zh": "在计算史上，基本上就是几个人待在地下室，用着过时的硬件，完成了相当于软件领域登月一般的登月级壮举，而且所用的人手要少得多。但你可以看到，在这一刻，Unix 的效用实际上已经超越了 Multics。因此，尽管 Multics 拥有所有的资金、所有的开发人员以及所有的政治支持，但它唯独缺少了数学。数学站在了 Unix 这边。所以"
+  },
+  {
+   "s": 243.33,
+   "e": 272.23,
+   "en": "Unix was really sort of mathematically ordained to succeed, despite everything else. Also, because you have much better reuse, it's much more efficient. So the PDP-7 that Unix was written on had 32 times less memory than the large Honeywell systems needed to run multics. But another thing they did that was controversial at the time was they wrote Unix in a high-level language, for the time anyway, which was C, whereas it was thought that operating systems needed to be written in the",
+   "zh": "抛开其他一切不谈，Unix 真的可以说是命中注定会成功，因为数学规律使然。而且，由于复用性要好得多，它的效率也高得多。Unix 最初是在 PDP-7 上编写的，其内存比运行 Multics 所需的大型 Honeywell 系统要少 32 倍。但他们当时做的另一件引发争议的事，是用一种（至少在当时算）高级语言来编写 Unix，也就是 C 语言，而当时人们普遍认为操作系统必须用"
+  },
+  {
+   "s": 273.11,
+   "e": 300.52,
+   "en": "low-level assembler of the target platform hardware to get the optimal performance. But then when new hardware came along, because Unix was written in C, they could quickly port the operating system to that hardware. And at this point, the efficiency of Unix jumps from N squared to N cubed. And this continues right up to the current day with iOS, OSX, Android, Chrome, Linux, all being Unix or Unix derivatives.",
+   "zh": "目标平台硬件的底层汇编器，以获得最佳性能。但后来新硬件出现时，由于 Unix 是用 C 语言编写的，他们可以快速将操作系统移植到该硬件上。到了这一步，Unix 的效率直接从 N 平方跃升到 N 立方。这一优势一直延续至今，包括 iOS、OSX、Android、Chrome、Linux，它们全都是 Unix 或 Unix 的衍生版本。"
+  },
+  {
+   "s": 307.23,
+   "e": 338.48,
+   "en": "We talk about foam being feature-oriented. That's the same thing that made Unix efficient. So these are all features across the top. And you only have to write those once. But when we moved, so this was great when we were command line, but when we moved to GUIs and then to the web, we lost this exponential efficiency. And what foam is really trying to do is bring it back. So how does this apply to Google? So if we take the same kind of grid,",
+   "zh": "我们常说 foam 是面向特性的。这正是让 Unix 如此高效的秘诀。所以顶部的这些全都是特性。而且你只需要编写一次即可。但这在命令行时代确实很棒，可当我们转向 GUI、进而转向 Web 时，就失去了这种指数级的效率提升。而 foam 真正想做的，就是把这种效率带回来。那么这如何应用到 Google 呢？如果我们套用同样的网格模型，"
+  },
+  {
+   "s": 339.06,
+   "e": 366.9,
+   "en": "Google also started as two developers, let's say Larry and Sergey, with one type of data, web pages, and one feature, which is search. Later we added ads, and then we started to add more type of data, and then more features. And then we started adding more platforms, just like Unix. So if you look at the Google mission statement to organize the world information, that's this column, and make it universally accessible, that's the z-axis, and useful.",
+   "zh": "Google 最早也是由两位开发者起家，也就是 Larry 和 Sergey，当时只有一种数据类型——网页，以及一个特性——搜索。后来我们加入了广告，接着开始增加更多的数据类型，以及更多的特性。然后我们又像 Unix 一样，开始拓展更多的平台。所以如果看 Google 的使命：“整合全球信息”，指的就是这一列；“供大众使用”，也就是 Z 轴；以及“使人人受益”。"
+  },
+  {
+   "s": 367.65,
+   "e": 398.7,
+   "en": "The uses are the features. So you can see Google's mission is exactly aligned with this cube. And so what really Google is trying to do is create an operating system for the world's information. Yeah, maybe ad-funded and with unusually good search and heterogeneous, but essentially an operating system. And these are all the Googlers running around writing each feature independently for each type of data on each platform. But this is the Multix model.",
+   "zh": "用途就是功能特性。所以你可以看到，Google 的使命与这个立方体完全契合。Google 真正想做的，是为全世界的信息打造一个操作系统。没错，它可能是靠广告资助的、拥有极强的搜索能力并且是异构的，但本质上就是一个操作系统。而这些就是跑来跑去的 Googler，在每个平台上针对每种数据类型独立编写每个特性。但这就是 Multics 模式。"
+  },
+  {
+   "s": 400.59,
+   "e": 428.5,
+   "en": "And you're trying to solve what's a cube problem with a linear solution. And that's not really going to work out well. But if we can get those developers to move from coding the volume of this problem space to coding the perimeter, like they did with Unix, then would become exponentially more efficient. And that would really allow Google to much better achieve its goal.",
+   "zh": "而你是在试图用线性方案去解决一个立方级的问题。这显然行不通。但如果我们能让那些开发者不再去编写这个立体问题空间的“体积”，而是像当年开发 Unix 那样去编写“周长”，效率就会呈指数级提升。这样才能让 Google 更好地实现其目标。"
+  }
+ ]
+}

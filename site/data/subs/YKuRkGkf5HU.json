@@ -1,0 +1,458 @@
+{
+ "vid": "YKuRkGkf5HU",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 5.3,
+   "e": 32.89,
+   "en": "Hi, strange lube. I'm super excited to be here and talk to you about voice driven development or what it means to write software using your voice. And before I get into the talk, I want to give you a quick caveat that this entire talk was created using my voice and it will be delivered using my voice as well. So yeah, brought to you by my voice. Go next. And who am I? My name is Emily. I'm a software engineer. I work",
+   "zh": "嗨，Strange Loop 的朋友们。非常高兴能来到这里，和大家聊聊语音驱动开发，也就是用声音写软件究竟是怎样的体验。在正式开讲之前，我想先说明一点：这场演讲的所有内容完全是用我的声音制作的，而现在的演讲过程也是由我的声音驱动的。没错，这一切都是纯“声控”出来的。下一页。我是谁呢？我叫 Emily，是一名软件工程师。我工作"
+  },
+  {
+   "s": 33.95,
+   "e": 63.37,
+   "en": "You can find me on GitHub, it's Touche, and on Twitter, as at Yomile. I work at Fastly. Go next. At Fastly, we're an edge-cloud platform that helps the world's most important digital businesses. And generally, what that means is we help make the internet more reliable, faster, and more secure. And we are hiring, so if any of this sounds interesting to you, find me somewhere in the conference. Go next. I write code, mostly Perl, using my voice.",
+   "zh": "你们可以在 GitHub 上找到我，ID 是 Touche，在 Twitter 上的账号是 @Yomile。我任职于 Fastly。下一页。在 Fastly，我们作为边缘云平台，为全球最重要的数字业务提供支持。通俗地说，就是我们致力于让互联网更稳定、更快速、更安全。我们目前正在招人，如果大家感兴趣，欢迎在会场随时找我聊聊。下一页。我主要用声音来编写代码，尤其是 Perl。"
+  },
+  {
+   "s": 64.2,
+   "e": 89.3,
+   "en": "Go next. Why? Why would I do that? Go next. And the reason is I was unfortunate enough to start struggling with some repetitive strain injury a couple years ago. And if you're not familiar, RSI is pain felt in your muscles, nerves, and tendons caused by repetitive and overuse. In our industry, that often means repetitive overuse of a keyboard or a mouse.",
+   "zh": "下一张。为什么？我为什么要这么做？下一张。原因是我几年前不幸开始饱受重复性劳损的折磨。如果你不太了解，RSI 就是因重复动作和过度使用引起的肌肉、神经和肌腱疼痛。在我们的行业里，这通常意味着过度重复使用键盘或鼠标。"
+  },
+  {
+   "s": 89.84,
+   "e": 117.95,
+   "en": "And just out of curiosity, if you're willing to share and want to see in this room how many people have either experienced RSI or know someone who has experienced RSI, raise your hand. Yeah, so this is like a good majority of the room. Go next. So first, when I was injured, I tried taking breaks from typing. I tried yoga stretching. I wore the wrist braces. I tried massage, acupuncture, chiropractor. Go next.",
+   "zh": "顺便好奇问一句，如果大家愿意分享的话，我想看看在座有多少人自己得过 RSI，或者认识得过 RSI 的人，请举手。看吧，现场绝大多数人都举手了。下一张。所以一开始受伤的时候，我试过暂停打字休息。我试了瑜伽拉伸。我戴了护腕。我还试过按摩、针灸、正骨。下一张。"
+  },
+  {
+   "s": 118.9,
+   "e": 146.03,
+   "en": "I tried pain creams, anti-inflammatories, muscle relaxers. I went through rounds of occupational and physical therapies. I even got trigger point injections which were as much fun as they sound. Go next. I had an ergonomic evaluation which is where you have this fancy ergo evaluator come to your workstation and tell you that everything needs to be 90 degrees and you should maybe stand desk and you should have a split keyboard and like all this stuff. So did all that, got the split keyboard.",
+   "zh": "我试过止痛膏、消炎药、肌肉松弛剂，做过好几轮职业治疗和物理治疗，甚至还打了激痛点封闭针，那酸爽正如你所想。下一页。我还做了人体工学评估，就是请高级工学评估师来你的工位，告诉你所有角度都得保持90度，可能还得用升降桌，换分体键盘等等这一堆东西。于是我都照做了，买了分体键盘。"
+  },
+  {
+   "s": 146.45,
+   "e": 174.73,
+   "en": "Two trackball mice so I can split the load, right hand, left hand, go next. I got to know all the specialty keyboards on the market, and eventually ended up with the mitosis in the top left, which is a group buy keyboard, so it's really hard to replace if anything goes wrong. And mainly with that was I tried to reduce the load from my pinkies onto my thumbs. And with all those modifications, it did give me a lot. It did help significantly, but",
+   "zh": "还配了两个轨迹球鼠标，左右手分担负荷，下一页。我摸遍了市面上所有的特色键盘，最后选了左上角那个叫 Mitosis 的键盘，那是个团购键盘，一旦坏了非常难替换。用它主要是想减轻小拇指的负担，转移到大拇指上。做了这么多调整，确实对我大有裨益，改善非常明显，但是……"
+  },
+  {
+   "s": 174.99,
+   "e": 200.67,
+   "en": "I was still feeling very frustrated. Go next. I was still in a lot of pain. I went from, at its worst, I got tight maybe 30 minutes a day, and maybe I shouldn't have even been doing that, to maybe 30 to 40 minutes if I took long breaks in between, and I'm taking four a leave a day, and I'm doing some crazy stretching routine. And even the time where I was working wasn't good quality. I was constantly being interrupted by my body.",
+   "zh": "我依然觉得很沮丧。下一页。我依然非常痛苦。最严重的时候，我一天大概只能勉强打字30分钟，甚至可能连这都不该勉强；后来即便中间休很长时间，一天吃四片止痛药，外加疯狂拉伸，撑死也就打个三四十分钟。而且哪怕是能工作的那点时间，效率也很差，身体总在不停地向我抗议。"
+  },
+  {
+   "s": 201.4,
+   "e": 229.75,
+   "en": "Pain in your body is like an alert system firing all the time. That is very distracting as you're working. So in general, it was just a bad time. Go next. So I started getting some thoughts about, well, what if I could just say things instead and remove my hand from the equation? What about this voice stuff? I saw a talk in 2013 from this guy who did it. Maybe I could. Go next. So I started looking into it, and what I was expecting",
+   "zh": "身体上的疼痛就像一直在响的警报系统，在工作时特别让人分心。总的来说，那真是一段难熬的时光。下一页。于是我开始琢磨：要是改用动嘴说，完全不用双手会怎么样？语音输入靠谱吗？我看过 2013 年一个家伙做这个的演讲，也许我也行呢。下一页。于是我开始着手研究，而我预想中……"
+  },
+  {
+   "s": 230.4,
+   "e": 313.66,
+   "en": "especially writing Perl. I was expecting doing that by voice to go something like this. Go next. Video play. Open. Open parenthesis. Go to beginning of document. Delete. Press caps lock. Info. Delete info. Delete I. Press caps lock. Press caps lock. Delete I scroll this conflict. Don't scroll this conflict. Delete adult and scroll conflict form.",
+   "zh": "尤其是写 Perl 的时候，我以为靠语音写代码会是这个样子的。下一页。播放视频。开启。开括号。移到文档开头。删除。按大写锁定。Info。删除 info。删除 I。按大写锁定。按大写锁定。删除 I 滚动此冲突。不要滚动此冲突。删除 adult 并滚动冲突表单。"
+  },
+  {
+   "s": 365.72,
+   "e": 439.57,
+   "en": "That whole video, I actually trimmed it for the purposes of this talk. The whole video is like 10 minutes long, so if you want more of that, there is more. You can go find it on YouTube.",
+   "zh": "那整个视频，我其实为了这次演讲剪辑了一下。完整的视频大概有 10 分钟长，所以如果你还想看，还有更多内容。你可以在 YouTube 上搜到它。"
+  },
+  {
+   "s": 439.91,
+   "e": 469.31,
+   "en": "The guy that made it, his user is scrubbed up one, so look for that. So when I started looking into the voice coding software that was out there, what I found was much different than what I was expecting. So I'm going to show you a clip of me writing the same code that scrubbed up one was writing, except using my tool set that I use on a day to day. And I intentionally left a few mistakes in it so that you can see that editing is efficient as well. Go next.",
+   "zh": "做这个视频的人，他的用户名是 scrubbed up one，大家可以搜一下。当我开始研究市面上的语音编程软件时，我的发现和我预期的截然不同。所以我要给你们看一段视频，是我在写 scrubbed up one 写的同一段代码，不过用的是我日常使用的工具集。我特意保留了几个小错误，这样你们就能看到编辑起来也同样高效。下一页。"
+  },
+  {
+   "s": 500.96,
+   "e": 503.04,
+   "en": "Video play.",
+   "zh": "播放视频。"
+  },
+  {
+   "s": 504.85,
+   "e": 543.56,
+   "en": "Go left second, delete word, all caps info, go down, slot, phrase print, space dollar phrase string, pearl times dollar phrase times, semicolon. Go next. OK, so that's a little bit different, right? Maybe this is doable. So how? How does all that work? What technology goes into me writing a snippet of code like that? I'm going to dig into that a little bit. Go next. The tech I'm using, I've got a microphone. I'm really excited about my new fancy mic. These are really cool.",
+   "zh": "向左两个，删除单词，全大写 info，向下，插槽，短语 print，空格 dollar 短语 string，pearl 乘号 dollar 短语 times，分号。下一页。好的，这就有点不一样了吧？也许这是可行的。那到底是怎么做到的？这一切是怎么运作的？我写出这样一段代码背后用了什么技术？我来稍微深入讲一下。下一页。我用的设备，我有一个麦克风。我对我的新高级麦克风特别兴奋。这玩意儿真的很酷。"
+  },
+  {
+   "s": 544.41,
+   "e": 563.43,
+   "en": "A good microphone makes a big difference. Using your built-in microphone on your Mac just isn't going to give you the kind of accuracy that you want. So a good microphone is key. I'm running Dragon Dictation on my Mac. Dragon Dictation has been around for decades. People generally use it for writing documents, emails, generally like spoken word.",
+   "zh": "一个好的麦克风能带来很大差别。只用 Mac 的内置麦克风，根本达不到你想要的准确度。所以一个好的麦克风至关重要。我在 Mac 上运行 Dragon Dictation。Dragon Dictation 已经存在几十年了。人们通常用它来写文档、写邮件，一般就是做口语听写。"
+  },
+  {
+   "s": 565.74,
+   "e": 586.47,
+   "en": "I'm using that for now. Right now, that's just the voice engine piece. And the technology I'm really excited to tell everyone about today is Talon. Talon is where a lot of the magic comes for what I'm doing. Go next. OK, so what is Talon? Talon is a hands-free software. It runs on your Mac, although there's working on support for Linux and Windows currently.",
+   "zh": "我目前就在用它。现在这只是语音引擎部分。而我今天非常想向大家介绍的技术是 Talon。我所做的事情中，很多神奇之处都来自 Talon。下一页。好的，那么什么是 Talon？Talon 是一款免提操作软件。它可以在 Mac 上运行，不过目前也正在开发对 Linux 和 Windows 的支持。"
+  },
+  {
+   "s": 587.46,
+   "e": 614.4,
+   "en": "It works with a voice engine. Right now it's running on top of Dragon, but the author of Talon is very excited because he's working on a new open source voice engine based on Wave 2 letter that will ship soon with the Talon Beta. It's trained on 3,000 hours of audio and it's very fast, is what he's saying. So I'm very excited about that, especially because Dragon for Mac has been discontinued and I'd really like to stop having to point people to eBay to find copies of it.",
+   "zh": "它搭配语音引擎工作。目前它运行在 Dragon 之上，但 Talon 的作者非常兴奋，因为他正在开发一个基于 wav2letter 的全新开源语音引擎，很快就会随 Talon 测试版一同发布。据他所说，该引擎基于 3000 小时的音频训练，速度极快。所以我对此非常期待，特别是 Mac 版 Dragon 已经停产了，我真的很想不再让大家去 eBay 上到处找二手软件。"
+  },
+  {
+   "s": 615.93,
+   "e": 635.59,
+   "en": "Really excited about that. But so more about Talon. It's programmatically configured with Python. So all of the commands that you see are not just baked into Talon itself. There are things that are configured in Python scripts running on my laptop. So it's highly configurable. You can map voice command to this Python function, right? So really powerful stuff.",
+   "zh": "对此确实让人非常激动。言归正传，再多聊聊 Talon。它是通过 Python 进行编程式配置的。所以大家看到的所有指令，都不只是内置在 Talon 本身里的。这些都是通过运行在我笔记本上的 Python 脚本配置出来的。因此它的可配置性极高。你可以把语音指令直接映射到某个 Python 函数上，对吧？功能可以说是极其强大。"
+  },
+  {
+   "s": 635.98,
+   "e": 663.46,
+   "en": "It's also free. All the talent software is free. The author has been working on it full time for two years now. And he's an RSI sufferer himself, and he's committed to making this technology available for people who need it. So if you are a kind soul and want to support the project or support myself, this Patreon is a great way to do that. Go next. So let's start with the ABCs, or the ASDS. How do you actually start typing keys in the keyboard? Go next.",
+   "zh": "它也是免费的。所有的 Talon 软件都是免费的。作者全职开发它已经有两年了。他自己也是一名 RSI（重复性劳损）患者，他致力于让有需要的人都能用上这项技术。所以如果你心怀善意，想支持这个项目或支持我，可以通过这个 Patreon 来赞助。下一页。那么我们先从 ABC，或者说 ASD 开始。你实际上该怎么开始在键盘上打字呢？下一页。"
+  },
+  {
+   "s": 664.11,
+   "e": 678.11,
+   "en": "So if you start with the letter keys, you think you might say A and get A, or B, get B, right? But there's a problem with that. A lot of the letters in the alphabet, as pronounced, sound very similar to each other, so A-H-J-K.",
+   "zh": "如果从字母键开始，你可能会觉得念 A 就会输出 A，念 B 就会输出 B，对吧？但这样做有个问题。字母表里的很多字母，读音都非常相似，比如 A、H、J、K。"
+  },
+  {
+   "s": 680.2,
+   "e": 705.08,
+   "en": "BCDEGPTVZ all sound very close, and I'm sure everyone here has been on a phone call where you've had to say, M is in Mike, or N is in Nancy, or I is in ice cream, or something silly, because it's really hard to spell a word and have it clearly understood. So I don't want that kind of trouble with my voice dictation that I'm going to have to be correcting myself all the time. Go next. So the solution is to",
+   "zh": "B、C、D、E、G、P、T、V、Z 听起来都差不多，我相信在座各位打电话时都遇到过这种情况，你得说“M 代表 Mike”或者“N 代表 Nancy”，或者“I 代表 ice cream”之类的傻话，因为想把单词拼清楚且让对方听明白真的很困难。所以我可不想在语音听写时遇到这种麻烦，还得老去纠错。下一页。所以解决办法就是"
+  },
+  {
+   "s": 705.77,
+   "e": 734.15,
+   "en": "pick a set of words that are phonetically different enough from each other that they're not going to be confused. There is an alphabet like this that exists already, the NATO phonetic alphabet. And this is a common question we get. Why not use the phonetic alphabet? And the reason is not because of accuracy, but because of speed. A lot of these words, except for golf, are more than one syllable. So I don't want to say November over and over again, right? Like, nah. So we design our own alphabet. Go next.",
+   "zh": "挑一组在发音上差异足够大、不会混淆的词。其实已经存在这样一套字母表了，就是北约音标字母。这也是我们经常被问到的问题：为什么不用北约音标字母呢？原因不在于准确率，而在于速度。除了 golf 之外，这些词大多都不止一个音节。我可不想反反复复念 November，对吧？肯定不想。所以我们设计了自己的字母表。下一页。"
+  },
+  {
+   "s": 735.32,
+   "e": 760.64,
+   "en": "This is the alphabet I use. It's mostly based on an alphabet that was put together by the author of Talon, who spent a lot of time finding words that wouldn't be confused with each other. Each of the words are one syllable, very short, and they don't get confused with each other or other common commands that we use on a day-to-day. So that is my alphabet. Go next. OK. So we've arrived at the scary part of this whole thing.",
+   "zh": "这就是我使用的字母表。它主要是基于 Talon 的作者整理的一套字母表，他花了很多时间来寻找彼此不易混淆的单词。每个单词都是单音节，非常短，而且它们既不会彼此混淆，也不会和我们日常使用的其他常用指令相混淆。这就是我的字母表。下一页。好的。那么我们来到了整个环节中最吓人的部分。"
+  },
+  {
+   "s": 762.77,
+   "e": 795.51,
+   "en": "Live demo. But we're in it together, so we'll see how this goes. I'm going to demo a few things for you. Spelling some words. I'm going to show you numbers and symbols. I'm also going to show you how I get words and phrases and how I use some special formatter so that I can get the text formatted like I want. Talon demo. Harp each look-look odd space. Whale odd red look dip. Dip. Enter. One, two, three. Enter.",
+   "zh": "现场演示。不过我们现在是一条绳上的蚂蚱了，那就看看效果如何吧。我来给大家演示几样东西。拼写一些单词。我会给大家演示数字和符号。我还会演示我是如何输入词语和短语的，以及我如何使用一些特殊的格式化工具，来把文本格式化成我想要的样子。Talon demo。Harp each look-look odd space。Whale odd red look dip。Dip。Enter。One, two, three。Enter。"
+  },
+  {
+   "s": 796.3,
+   "e": 834.75,
+   "en": "pound, dollar, downscore, bang, bang, paren, r, paren, bracket, r, bracket, downscore, percent, enter. Phrase, hello, strange loop, enter. Kabob, strange loop. Oops, enter. Enter. Kabob, strange loop. Doesn't like that. Let me just check something here. Enter. Enter. Kabob, strange loop. Enter. All caps, strange loop.",
+   "zh": "井号，美元符号，下划线，感叹号，感叹号，左括号，r，右括号，方括号，r，闭方括号，下划线，百分号，回车。短语，hello，strange loop，回车。短横线命名，strange loop。哎呀，回车。回车。短横线命名，strange loop。不吃这套啊。我来看一下怎么回事。回车。回车。短横线命名，strange loop。回车。全大写，strange loop。"
+  },
+  {
+   "s": 835.4,
+   "e": 867.27,
+   "en": "Enter. Pack title, strange loop. Enter. Kabob title, strange loop. Enter. Talent sleep. So I will say that this is not my normal acoustic environment. So I expect that things are probably a little less accurate than I would at home. But so far, not too much of a disaster. So let's continue. I'm going to demo for you some homophones.",
+   "zh": "回车。大驼峰，strange loop。回车。首字母大写短横线，strange loop。回车。Talent 休眠。先说明一下，这和平时用的声学环境不同。所以识别准确率可能会比在家里低一些。但目前来看，还没出什么大岔子。那我们继续。接下来给大家演示一下同音词。"
+  },
+  {
+   "s": 867.73,
+   "e": 895.57,
+   "en": "So these are words that sound the same, but they're actually spelled different. How does my system know which word I mean? So I'm going to show you how I disambiguate those. I'm going to show you repetition. So in the video with scrub it up one, you might have seen that talent sleep. Sorry, how to put the voice robot to sleep again. So repetition. So if you heard scrub it up one, say backspace. Backspace. Over and over again. That can get very annoying.",
+   "zh": "同音词就是读音相同，但拼写不同的词。那系统怎么知道我想输入哪个词呢？我来演示一下如何消除歧义。然后是重复输入。在 scrub it up one 的视频里大家可能注意到了，Talent 休眠。抱歉，得先把语音机器人休眠一下。好，重复输入。如果在看 scrub it up 1 时，听到它不停地念退格、退格，那真的会让人抓狂。"
+  },
+  {
+   "s": 897.24,
+   "e": 930.42,
+   "en": "We need a way to repeat commands. I want to do this thing, but this many times. So I'll show you repeats. And I'll also demo for you some custom vocabulary that these are words that were not included by default in my voice engine, but I need to add them. And Talon gives me a nice way to do that. If the voice engine can accurately enough guess what the pronunciation is, then I can just add them and they'll just work. So I'll show you a few of those words. Talon mode. Enter. Phrase kernel. Select word.",
+   "zh": "我们需要一种重复命令的方法。比如我想做这件事，但要执行这么多次。所以我来给你们演示下重复操作。另外我还会演示一些自定义词汇，这些词在我的语音引擎里原本是没有的，但我需要添加它们。Talon 为我提供了一个很棒的实现方式。只要语音引擎能足够准确地猜出它的发音，我直接添加进去就能正常使用。那我就来给你们演示其中的几个词。Talon 模式。回车。短语 kernel。选中单词。"
+  },
+  {
+   "s": 930.86,
+   "e": 971.7,
+   "en": "Phones. Enter. Phones bite. Pick three. Enter. Emoji monocle. Emoji monocle 10. Enter. Enter. Emoji whale fourth. Delete third. Enter. Phrase up cert. Enter. Phrase undeaf. Enter. Phrase mojolicious. Enter. Phrase pearl tidy.",
+   "zh": "Phones。回车。Phones bite。选第三个。回车。Emoji 单片眼镜。Emoji 单片眼镜 10。回车。回车。Emoji 鲸鱼第四个。删除第三个。回车。短语 up cert。回车。短语 undeaf。回车。短语 mojolicious。回车。短语 pearl tidy。"
+  },
+  {
+   "s": 972.56,
+   "e": 1008.42,
+   "en": "Enter. Phrase Fastly. Enter. Phrase Spotify. Enter. Talent sleep. Oh, and I forgot to mention, let me just make sure it heard me. Yeah, okay, cool. That the, oop. Oh gosh, I hate when I do that. Oh no. There's where it happens. Where is the, oh god. Hold on. Oh gosh. We almost made it through with no problems, okay. So.",
+   "zh": "回车。短语 Fastly。回车。短语 Spotify。回车。Talent 休眠。噢，我都忘了提了，先确认一下它听到了没。好的，听到了，太棒了。那个，哎呀。天哪，我最讨厌自己这样了。糟了。就是这儿出问题了。那个哪去了，天哪。稍等。天啊。差点就能顺顺利利讲完了，好吧。那么。"
+  },
+  {
+   "s": 1009.38,
+   "e": 1040.48,
+   "en": "I was going to mention that the repetition, I use ordinal numbers. So it sounds a bit like, go down 4th Street, right? But for me, I wanted a way to represent repeats that I already knew the rules up to however long I needed to. And I don't know what comes after once, twice, thrice. So I use ordinals, which is maybe a bit unexpected. Go next. OK. So let's take.",
+   "zh": "我本来想说，关于重复次数，我用的是序数词。听起来有点像“沿着第 4 街走”，对吧？但对我来说，我想找一种自己已经熟悉规则的方式来表示重复，无论需要数到多大都行。而我不知道 once、twice、thrice 之后该怎么说了。所以我用了序数词，这可能有点出人意料。下一页。好的。那么我们来看看。"
+  },
+  {
+   "s": 1041.13,
+   "e": 1066.0,
+   "en": "What we just learned, expand it, and see what it's like for me on a day-to-day when I'm writing code in my text editor, I'm using git, I am pushing code to github, and, you know, you can see a little bit more about how it all comes together. And caveat on this one, I had people ask me if I sped up the video. No. This is just the normal speed. Also, there's no edits. It's just me clicking record and end.",
+   "zh": "我们把刚才学到的东西拓展一下，看看我日常在文本编辑器里写代码、用 git、把代码推送到 GitHub 时是什么样子的，这样大家也能更深入地了解这一切是如何协同工作的。顺便说明一下，有人问过我是不是给视频加速了。没有。这就是正常速度。而且没有任何剪辑。就是我按下录制，然后点击结束。"
+  },
+  {
+   "s": 1067.17,
+   "e": 1077.35,
+   "en": "It is more rehearsed than probably the code i write on a day-to-day. But this demo isn't about showing you how fast i say things. It's more about showing you what the tool can do. So go next.",
+   "zh": "这可能比我平时写的代码排练得更充分。但这个演示并不是为了展示我说得有多快，而是为了向大家展示这个工具能做什么。那我们继续。"
+  },
+  {
+   "s": 1096.83,
+   "e": 1130.18,
+   "en": "Phrase emoji search, space, dragon words. Push colon, space, phrase, search, comma. Spring one four, slap, slap. State deaf, phrase, search, paren, mad, push, colon, slap. Phrase name, op equals. Snake extract word, paren, mad, slap. Phrase emoji sun, op equals. Snake selection picker, undo. Phrase set, paren, square. Snake emoji names, square. Phrase key, go right.",
+   "zh": "短语 emoji search，空格，dragon words。按冒号，空格，短语 search，逗号。跳到 14 行，回车，回车。状态 def，短语 search，左括号，mad，按冒号，回车。短语 name，操作符等于。蛇形命名 extract word，括号，mad，回车。短语 emoji sun，操作符等于。蛇形命名 selection picker，撤销。短语 set，括号，方括号。蛇形命名 emoji names，方括号。短语 key，光标右移。"
+  },
+  {
+   "s": 1131.53,
+   "e": 1164.74,
+   "en": "Dot phrase char go right go left space for in phrase key go right forth snake emoji names dot phrase keys Pren Go right space phrase if name in key slap undo stone delete word phrase name in space slap pop jump snake selection picker Arcs phrase title equals dub quote title emoji smear go left Sun",
+   "zh": "点 短语 char 右移 左移 空格 for in 短语 key 右移 第四个 蛇形命名 emoji names 点 短语 keys 括号 右移 空格 短语 if name in key 回车 撤销 stone 删除词 短语 name in 空格 回车 pop 跳转 蛇形命名 selection picker Arcs 短语 title 等于 双引号 title emoji smear 左移 Sun"
+  },
+  {
+   "s": 1166.63,
+   "e": 1196.63,
+   "en": "Phrase template equals double quote phrase picker dot harp trap mad look smear comma space phrase data equals phrase emoji sun jumpstart spring three slap from import dot phrase utils push snake extract word slap from import dot phrase picker push snake selection picker go down push comma space snake emoji short names delete word",
+   "zh": "短语 template 等于 双引号 短语 picker 点 harp trap mad look smear 逗号 空格 短语 data 等于 短语 emoji sun 快速启动 跳到第三行 回车 from import 点 短语 utils 按 蛇形命名 extract word 回车 from import 点 短语 picker 按 蛇形命名 selection picker 下移 按逗号 空格 蛇形命名 emoji short names 删除词"
+  },
+  {
+   "s": 1196.74,
+   "e": 1228.82,
+   "en": "Snake emoji short names. Space. Phrase ads. Space. Snake emoji names. Save. Go file. Phrase picker. Enter. Spring three. Slap. In bracket. In percent. Pad. Phrase four item in data. Enter. Tag table row. Undo. Slap. Tag table row. Tag class count. Enter. Tag table data. Tag class pick. Undo. Undo.",
+   "zh": "蛇形命名 emoji short names。空格。短语 ads。空格。蛇形命名 emoji names。保存。前往文件。短语 picker。回车。跳到第三行。回车。在括号内。在百分号内。填充。短语 for item in data。回车。标签 table row。撤销。回车。标签 table row。标签 class count。回车。标签 table data。标签 class pick。撤销。撤销。"
+  },
+  {
+   "s": 1229.58,
+   "e": 1266.51,
+   "en": "Tag class pick, title pick, space. Slap, tag table data. In bracket second, pad phrase item. Go down, slap. In bracket, in percent, space. Each near dip, far odd red, space. Save. Emoji search moon, cancel. Spring six, jump fourth. Emoji search sound, pick two. Space, save. Emoji search dog.",
+   "zh": "标签 class 选它，title 选它，空格。换行，标签 table data。在括号内第二个，pad phrase item。向下，换行。在括号内，在百分号内，空格。Each near dip, far odd red，空格。保存。Emoji 搜索月亮，取消。Spring 6，跳到第四个。Emoji 搜索声音，选第二个。空格，保存。Emoji 搜索狗。"
+  },
+  {
+   "s": 1268.23,
+   "e": 1309.66,
+   "en": "Emoji search tree. Cancel. Focus I term. Run git status. Git add dot enter. Run git commit. Sit. Praise add space. Delete delete. Dip dip space. Praise emoji searching. Escape. Colon. Whale quench. Enter. Git push origin. Praise emoji tab. Enter. Focus prom. New window. Open talent configs.",
+   "zh": "Emoji 搜索树。取消。聚焦 iTerm。运行 git status。git add . 回车。运行 git commit。Sit。Praise add 空格。删除删除。Dip dip 空格。Praise emoji searching。Esc。冒号。wq。回车。git push origin。Praise emoji 制表符。回车。聚焦 prom。新建窗口。打开 talent configs。"
+  },
+  {
+   "s": 1311.98,
+   "e": 1365.35,
+   "en": "Link. Air mad. Tab. Go down third. Enter. Link. Sun mad. Escape. Page. Link. Dip. All right. That's the end of it. So everyone seems to always giggle with the whale quench. And when I first gave this tech talk internally, I had the whale quench, and everyone just like, whale quench. There were whale quench emojis later.",
+   "zh": "链接。Air mad。制表符。向下到第三个。回车。链接。Sun mad。Esc。页面。链接。Dip。好了。到这就结束了。大家好像总是听到 wq（whale quench）就忍不住笑。我第一次在公司内部做这个技术分享时，也用到了 wq，大家就直呼“whale quench”。后来甚至还出了 whale quench 的 emoji。"
+  },
+  {
+   "s": 1365.95,
+   "e": 1400.07,
+   "en": "And then I took it out. I gave a similar talk to this earlier this year, and I took out the whale clench, and people were so mad. So I put it back in the demos. So it's there. Go next. And at the end, I have stickers. So if this makes you laugh, come see our sticker fairies down here. They'll help you out. Go next. I'm going to pivot and talk a little bit about the challenges of working by voice. Go next. But don't worry. I'll give you a few tips to deal with them.",
+   "zh": "后来我把它拿掉了。今年早些时候我做过类似的演讲，当时我把那个鲸鱼紧缩的梗删了，结果大家都超生气。所以这次演示我又把它加回来了。它还在呢。下一页。最后我还准备了贴纸。如果这个逗笑你了，欢迎找前排的贴纸精灵们。他们会发给你的。下一页。接下来我要换个话题，聊聊用语音写代码有哪些挑战。下一页。不过别担心。我会给大家分享几个应对技巧。"
+  },
+  {
+   "s": 1400.25,
+   "e": 1424.66,
+   "en": "Go next. The learning curve. It's a little bit steep. We are so used to touch-based models, keyboards, and mice. It's a completely different part of your body you're using. It can be a little bit of a learning curve to get started. Also, it's pretty new in the space. There's some conventions starting to form, but in general, most of us have a bespoke setup where we've kind of globbed some scripts together, written some ourselves.",
+   "zh": "下一页。学习曲线。确实稍微有点陡。我们太习惯基于触觉的交互模式、键盘和鼠标了。用语音相当于动用了完全不同的身体部位。刚上手的时候确实需要适应一下。另外，这在这个领域还算挺新的。虽然开始形成一些规范了，但大体上，我们大多数人都是自己拼凑的方案，东拼西凑合一些脚本，或者自己写一部分。"
+  },
+  {
+   "s": 1425.5,
+   "e": 1454.52,
+   "en": "Hopefully, over time, these start to become a little bit more standardized, and there's more tools that are built to help you learn and all that. But it still is a little bit steep. Go next. But some tips. Make sure you set aside some dedicated learning time. So what I did is I set aside a couple weeks. I just want to focus on this, and that's it. I'm not going to write any code that's going to be shipped anywhere. I'm just going to dedicate my time to learning. I picked some code in my code base that was going to be pretty similar to what I'd be writing, and I just tried copying it.",
+   "zh": "希望随着时间的推移，这些能变得更标准化一些，也会有更多工具来帮助大家学习等等。但目前门槛还是有点高。看下一页。不过有些建议。一定要留出专门的学习时间。我当时的做法是留出了两周时间。我就想专心搞这个，别的什么都不做。我不写任何要上线的代码。我只把时间花在学习上。我在代码库里挑了一些和我平时写的很像的代码，然后尝试照着敲一遍。"
+  },
+  {
+   "s": 1455.41,
+   "e": 1482.45,
+   "en": "And that was a really great way for me to try it and then iterate on my talent set up and then keep going until I felt like I had some sort of efficiency. One thing that's really difficult is if you're injured and you're trying to learn this stuff, it requires typing to learn it, but you're trying to learn it so you don't have to type, and it's kind of a chicken and egg problem. If you have some friends that don't mind pairing on this with you to be your hands for this part of it, I recommend that. I don't generally otherwise recommend that you should",
+   "zh": "这对我来说是个极好的尝试方式，我可以借此迭代我的 Talon 配置，一直练到我觉得自己达到了一定效率为止。有一点非常棘手的是，如果你受了伤并想学这套东西，你得打字才能学会它，但你学它又是为了不用打字，这有点像先有鸡还是先有蛋的问题。如果有朋友不介意和你结对，在这部分充当你的双手，我很推荐这么做。除此之外我通常不建议"
+  },
+  {
+   "s": 1482.64,
+   "e": 1509.76,
+   "en": "Try to get people to type for you if you're injured. It's kind of, I don't know. I have opinions about that. But for this in particular, yes. Find friends to help pair with. Remove time pressures. So what I mean by that is don't take on a big refactor while you're trying to also learn to voice code. You're going to underestimate how much time you spend thinking while you're working. And you're probably going to miss a lot of stuff, because instead of focus on your code, you're focused on inputting the code.",
+   "zh": "在受伤时找人替你打字。这有点，我不知道该怎么说。我对此持保留态度。但对于这件事，确实可以。找朋友一起结对帮忙。排除时间压力。我的意思是，不要一边试图学习语音编程，一边接下繁重的重构任务。你会低估自己在工作时花在思考上的时间。而且你很可能会遗漏很多东西，因为你没有专注于代码本身，而是把精力都放在了如何把代码输入进去。"
+  },
+  {
+   "s": 1510.84,
+   "e": 1537.86,
+   "en": "So take easy tickets, take things that aren't time sensitive. Also, communication with your team. Work with your team to make sure that any communication that doesn't have to happen in real time in Slack, in a long scroll, move it to the GitHub PR. Move it to the Jira ticket instead so that you aren't in a position where you either have to reach for a keyboard or you're left behind in the conversation. My team has been very supportive of all of this, so thank you to my wonderful team out there.",
+   "zh": "多接一些简单的任务，选那些不急的活儿。还有，注意和团队的沟通。和你的团队配合好，只要是不需要在 Slack 里长篇大论即时聊的沟通，都尽量移到 GitHub PR 里去。或者移到 Jira 工单里，这样你就不会陷入两难——要么非得去敲键盘，要么就跟不上讨论。我的团队对此非常支持，非常感谢我棒极了的团队。"
+  },
+  {
+   "s": 1539.33,
+   "e": 1551.97,
+   "en": "Also, leverage the talent community. There are other people like me. I'm not the only one. We all hang out in the talent slack, and we're happy to help and share our scripts and everything. So go next.",
+   "zh": "另外，善用 Talent 社区。还有很多像我一样的人，我并不是特例。我们都活跃在 Talent 的 Slack 频道里，都很乐意提供帮助、分享我们的脚本和各种资源。好，下一张幻灯片。"
+  },
+  {
+   "s": 1553.27,
+   "e": 1577.21,
+   "en": "Tools with poor accessibility. So this is probably my biggest challenge right now. Most of the time when I have trouble using a thing with voice, it's not because of my tool set or my setup. It's most often the most frustrating things are when I'm working on a tool or a website that was not built with accessibility guidelines. And those are things that I can't fix myself.",
+   "zh": "无障碍支持很差的工具。这大概是我目前面临的最大挑战。大多数时候，当我用语音操作遇到困难时，并不是因为我的工具集或配置有问题。最常发生、也最让人崩溃的情况，其实是我在用的工具或网站根本没按无障碍指南来开发。而这些问题我是无法自己修复的。"
+  },
+  {
+   "s": 1577.58,
+   "e": 1607.44,
+   "en": "And I have to spend a lot of time trying to work around. And it puts me in really awkward situations. I have some right now where our team relies on tools that I cannot use without a keyboard or mouse. And I have to either, I don't know, go plead to the company and be like, hey, can you really prioritize this? Or do I make the entire team, we have to shift to a whole other thing just because of me? It's not great. So go next. I have some requests for you all.",
+   "zh": "我不得不花大量时间去想办法绕过它们。这让我陷入非常尴尬的境地。我现在就遇到过这种情况：我们团队依赖的一些工具，如果没有键盘或鼠标我就根本无法使用。那我该怎么办？跑去恳求开发公司说：“嘿，能不能优先解决这个问题？”还是说，就为了我一个人，要让整个团队大费周章地换用另一套完全不同的东西？这感觉糟透了。那进入下一页，我对大家有一些小小的恳求。"
+  },
+  {
+   "s": 1607.76,
+   "e": 1637.14,
+   "en": "that you should make accessibility a priority. Don't lock out users from using whatever you're building. Follow accessibility guidelines. There's a lot of great resources out there. There's some really great talks at this conference, even. So educate yourselves. It really shouldn't be the afterthought. Build your software as if you might need it someday. Because I certainly didn't expect to be here. I don't want to be ominous, but maybe I'm being ominous. I didn't expect to be here.",
+   "zh": "一定要把无障碍性放在首位。不要把你正在构建的产品将用户拒之门外。请遵循无障碍指南。这方面有大量优质资源。甚至在本次大会上就有一些非常棒的演讲。所以去学习一下吧。它真的不应该成为事后才考虑的事。在构建软件时，把它当作你未来某天也可能会用到的东西来做。因为我当初也完全没料到自己会陷入这种境地。我不想危言耸听，但也许我听起来确实有点。我真的没料到自己会走到这一步。"
+  },
+  {
+   "s": 1637.42,
+   "e": 1664.74,
+   "en": "And you don't know what is ahead of you in the future. And build the tools that you would want if you were in a situation of needing those accessibility features. So go next. Voice strain. So what happens if you talk to your computer for eight hours a day? You might put some strain on your vocal cords. Go next. But there are ways to help with that. Stay hydrated. You notice I have my water up here.",
+   "zh": "你永远不知道未来会发生什么。去构建那些如果你身处需要这些无障碍功能的环境中，你自己也会想用的工具。切到下一页。用嗓过度。如果你一天对着电脑讲八个小时的话，会发生什么？你的声带可能会承受过大的负担。下一页。但有一些方法可以缓解这种情况。保持水分。大家注意到了我这里放着水。"
+  },
+  {
+   "s": 1665.4,
+   "e": 1694.7,
+   "en": "If you are working in a dry climate, you might get a humidifier. That helps. I have one at home. Don't whisper and don't shout. So it turns out, shouting is kind of obvious, but whispering is more of a strain on your voice than talking at a normal tone. Some people will get voice coaches. So you hire someone much like singers or whatnot have voice coaches to teach them how to use their instrument and keep it healthy and get your wear on it.",
+   "zh": "如果你在干燥的气候下工作，可以买个加湿器。挺管用的，我家里就有一个。不要耳语，也不要大喊大叫。事实证明，大喊大叫伤嗓子很明显，但其实耳语比用正常语调说话更费嗓子。有些人会请发声教练。就像歌手之类的会请教练教他们如何发声、保持嗓音健康并减少声带磨损一样。"
+  },
+  {
+   "s": 1695.39,
+   "e": 1721.88,
+   "en": "That's also an option. Go next. Go next. Open offices. So I'm not here to add to the pile of opinions about whether open offices are good or bad. But adding a microphone is a little bit of a challenge. There are solutions, though. So I'm going to walk you through a few. Go next. A steno mask. So I did not know these existed. And every picture I found of these was interesting.",
+   "zh": "这也是一种选择。下一页。下一页。开放式办公室。我在这里不是要对开放式办公室的好坏发表意见。但是加个麦克风确实有点挑战。不过还是有解决方案的。接下来我就带大家看几种。下一页。速记面罩。我以前都不知道还有这种东西。而且我找到的每一张相关照片都挺有意思的。"
+  },
+  {
+   "s": 1725.28,
+   "e": 1751.96,
+   "en": "But they're very useful, and people like me and other voice coding folks find them really useful. They are good for dealing with background noise and giving you privacy in what you're saying. So for open offices, you might get some people going, what are you doing? But they do work, and they do work really well. These are actually the marketing pictures for these as well. So go next.",
+   "zh": "但它们非常有用，我和其他用语音写代码的人都觉得很好用。它们很适合用来应对背景噪音，还能保证你说话的隐私。所以在开放式办公室里，可能会有人好奇你在干嘛？但它们确实管用，而且效果非常好。这些其实也是它们的宣传照。继续看下一张。"
+  },
+  {
+   "s": 1754.4,
+   "e": 1778.76,
+   "en": "So i know at least one person whose company bought him a fancy Glass cube that he gets to work in with sound proofing and everything that's very Cool. So this is another option if your company has some Money to buy you a cube. Go next. Remote work. So i do have an office, or i do have a Desk in our office and i go in sometimes. I've got a little space sort of off to the side.",
+   "zh": "我知道至少有一个人的公司给他买了个高档的玻璃隔音舱，他在里面工作，隔音等各种配置一应俱全，非常酷。所以如果你们公司有预算给你买个隔音舱，这也是一种选择。继续下一张。远程办公。我在公司确实有一间办公室，或者说在办公室有个工位，我偶尔会去。我有个稍微偏一点的小角落。"
+  },
+  {
+   "s": 1780.2,
+   "e": 1807.35,
+   "en": "peers have called it the place where you might put a Xerox machine, but it works for me. Otherwise, I'm at home because when I'm at home, it turns out it's better for me actually to be away from my keyboard so I don't try and touch it. So I'm on the floor. I'm laying on pillows. I might be deploying software from Warrior II yoga pose, whatever. So yeah, I thank you fastly for being so great with remote workers. Go next. Not so big challenges.",
+   "zh": "同事们开玩笑说这里原本可能是放施乐复印机的地方，但对我挺合适的。其他时候我都在家，因为在家的话，我发现自己离键盘远点反而更好，这样我就不会总想着去敲它。所以我常坐地上，靠着枕头，甚至可能摆着瑜伽的“战士二式”在那部署软件，怎么舒服怎么来。所以真的很感谢 Fastly 对远程办公人员这么友好。来看下一页，没那么难的挑战。"
+  },
+  {
+   "s": 1807.92,
+   "e": 1836.1,
+   "en": "These are things that I thought would be hard, but they actually aren't. So supporting specific programming languages. I thought I'd need to build up a whole library stuff just for Pearl or a whole library for Go or whatever. But it turns out, if I want to write Go tomorrow, I can just start writing Go. Of course, there will be things that I find that I might want to optimize, but they're just optimizations. There's nothing like I have to spend a bunch of time to build up support just to start using another language.",
+   "zh": "这些是我原本以为会很难、但实际上并非如此的事。比如支持特定的编程语言。我本来以为得专门为 Perl 或 Go 等语言搭建整套库支持。但事实证明，如果我明天想写 Go，直接上手写就行。当然，后续可能会发现一些需要优化的细节，但那些只是优化而已。完全不需要在用新语言前花大量时间去搭一套支持体系。"
+  },
+  {
+   "s": 1837.12,
+   "e": 1865.46,
+   "en": "The other one is building tools with talent. So this has been surprisingly fun and easy. I've built a lot of my own tools myself. And they're like quick, easy wins. And I've built anything from just shortcuts for certain key commands to entire web views that will pop up to show me what commands do I have for Git or what commands do I have for this other thing. So it's really powerful. And you just save it to your talent directory. And it's loaded in talent and ready to go. It's pretty great. Go next.",
+   "zh": "另一个则是用 Talent 构建工具。这一过程出奇地有趣且轻松。我自己打造了许多专属工具。它们带来的都是些立竿见影的小成效。我做过的东西五花八门，从某些按键命令的快捷方式，到弹出的完整 Web 视图——用来提示我 Git 有哪些命令，或者其他东西有哪些可用指令。所以它非常强大。你只需把它保存到 Talent 目录下，它就会加载进 Talent 随时待命。真的很棒。看下一页。"
+  },
+  {
+   "s": 1867.9,
+   "e": 1897.42,
+   "en": "So why? I want to revisit why I'm here, why I'm doing all of this, why am I talking to my computer, and why am I here telling you about it? And I want to remind everyone that this isn't just some weird software that's funny to hear and interesting. It's literally what gives me access to my career and to my computer. Think about what it would be like if tomorrow you lost access to your computer.",
+   "zh": "那么，为什么要做这些？我想重新谈谈我为什么会站在这里，为什么要做这一切，为什么我要对着电脑说话，又为什么要在这里把这些讲给你们听？我想提醒大家的是，这不仅仅是一款听起来滑稽、有趣的奇特软件。它真真切切地赋予了我使用电脑、从事自身职业的能力。试想一下，如果明天你无法再使用电脑，生活会变成什么样？"
+  },
+  {
+   "s": 1897.9,
+   "e": 1922.57,
+   "en": "How much of your life is in that device, right? So this is what gives people like me or people who are otherwise unable to use a keyboard or mouse access. So it's very important. Go next. All right. Some takeaways. Take care of your bodies. Get that ergo evaluation. Appreciate what it can do for you today. They're pretty amazing instruments, after all.",
+   "zh": "你有多大一部分生活都在那台设备里，对吧？正是它让我这样的人，或者其他无法使用键盘鼠标的人能够使用电脑。所以这非常重要。下一页。好的，总结几点。照顾好你们的身体。去做个人体工学评估。珍惜它今天能为你做的一切。毕竟，身体是非常了不起的仪器。"
+  },
+  {
+   "s": 1923.54,
+   "e": 1950.97,
+   "en": "I hope that by now, you will be convinced that there are people using speech to code in real life. We do exist. There's a small community of us. It's not just me. It wasn't the first one. And there's a group of us. Consider all your users when building and designing. If there's one takeaway I want you to have is this one. Please. This is my plea. Consider all your users when building and designing. And if there's one thought leader moment, I'm going to have it's",
+   "zh": "我希望讲到这里，大家已经相信现实中确实有人在用语音编程。我们真的存在。我们是一个小众群体。不只有我一个人。我也不是第一个。我们是一个群体。在开发和设计时，请考虑到所有的用户。如果我今天只能让大家记住一句话，那就是这句。求求大家了，这是我的恳求。在开发和设计时，考虑到所有的用户。如果说我有什么高瞻远瞩的观点想分享，那就是"
+  },
+  {
+   "s": 1951.15,
+   "e": 1976.84,
+   "en": "that I think the future is going to be a little bit more diverse than the keyboard, mouse, touch models that we've been having. You're seeing this a little bit with voice assistants coming into popularity, and Home Automation, Alexa, Siri. You're seeing voice coding. You're also seeing some work not on voice, but other companies that are having wearables that are going to read your neurological signals and let you control a computer.",
+   "zh": "我认为未来的交互方式会比我们一直沿用的键盘、鼠标、触摸模式更加多元。随着语音助手的普及，还有家庭自动化、Alexa、Siri，你已经能看到一点这种苗头了。你也看到了语音编程。你还会看到一些不涉及语音的技术，有些公司正在研发可穿戴设备，能读取你的神经信号，让你来控制电脑。"
+  },
+  {
+   "s": 1979.24,
+   "e": 2014.09,
+   "en": "The touch base model of controlling your computer might not be the default going forward at some point. So I think it's worth keeping that in mind and watching the space, so I think it'll be interesting. Go next. Thank you. Go next. Go next. Go next. Last slide. I'm going to do some questions, but first, go next. Yes, I did buy the whalequench.club domain.",
+   "zh": "未来某个时候，基于触控来控制电脑的模式可能不再会是默认方式。所以我觉得这一点值得留意并关注这个领域，感觉会很有意思。下一页。谢谢。下一页。下一页。下一页。最后一页。接下来回答几个问题，但首先，下一页。是的，我确实买了 whalequench.club 这个域名。"
+  },
+  {
+   "s": 2016.76,
+   "e": 2054.09,
+   "en": "And dot club is very cheap, turns out. So if you want more information, I just put together a blog post with beginners tutorials, things like that. You can find that there. Also, TalonVoice.com is where you can find resources on Talon and Talon Slack and all that. So I'll take your questions. And then don't forget at the end, stickers. So yes, question. The question was, how hard is it to use it in a keystroke-heavy",
+   "zh": "事实证明，.club 域名非常便宜。所以如果你想了解更多信息，我刚整理了一篇博客文章，里面有新手教程之类的。你可以在那里找到。另外，TalonVoice.com 上可以找到关于 Talon 的资源以及 Talon 的 Slack 社区等。接下来我来回答大家的问题。最后别忘了拿贴纸。好的，请提问。刚才的问题是：在高度依赖按键的环境中，"
+  },
+  {
+   "s": 2058.61,
+   "e": 2084.0,
+   "en": "I'm not familiar with either of those, but is emacs sort of like vim? I'm going to regret that comment later. So for vim, for example, everything is just letter keys, right? So that's pretty easy. Once you know the alphabet, you can get around vim. You just say the alphabet keys to do whatever is equivalent, right?",
+   "zh": "我对这两个都不太熟悉，但 Emacs 是不是有点像 Vim？我之后肯定会后悔说这句话的。以 Vim 为例，所有操作都只是字母键，对吧？所以其实很简单。只要你掌握了字母表，就能在 Vim 里畅行无阻。你只需要读出字母键来执行对应的操作，对吧？"
+  },
+  {
+   "s": 2084.52,
+   "e": 2124.41,
+   "en": "Oh, yeah. I forgot to demo that. So modifiers are just control, shift. And you can combine those with other keys. So you can say, like, command air, select all, command, whatever. So yeah, you can combine them all. Or you can make shortcuts. If you don't want to remember three different keys, you can make a shortcut that's easier. So the question is, what do I do when I need to select certain things on the screen or draw specific shapes? Drawing shapes.",
+   "zh": "噢，对。我刚才忘了演示那个。修饰键就是 Control、Shift 这些。你可以把它们和其他键组合起来。比如你可以说 Command+Air 全选，或者 Command 加别的。所以对，你可以把它们都组合起来。或者你也可以设置快捷键。如果你不想记三个不同的键，可以做一个更简单的快捷键。那么问题来了，当需要选中屏幕上的特定内容或者绘制特定形状时，我该怎么做呢？画形状的话。"
+  },
+  {
+   "s": 2125.45,
+   "e": 2153.91,
+   "en": "That's a little bit more difficult. It depends on what I'm doing. If I'm drawing a diagram for a design document or something, I just learned the dot thing, where you can write code. It'll generate your things for you. That was really cool. When I need to select things on the screen, I use Vimium in the browser. And that's my first go-to, because I can show me all the links on the page. And then I can just, using the alphabet, click whatever I need.",
+   "zh": "那个稍微有点难。这取决于我在做什么。如果我是给设计文档之类的画图表，我刚学会了 DOT 那个工具，你可以直接写代码，它就会为你生成图形。那个真的超酷。而当需要选中屏幕上的内容时，我会在浏览器里用 Vimium。那也是我的首选，因为它可以显示页面上所有的链接。然后我只要用字母键，就能点选我需要的任何东西。"
+  },
+  {
+   "s": 2154.28,
+   "e": 2206.87,
+   "en": "If that doesn't work, because the site doesn't have the things that are Links as actual links, then i might try the tab method where i'm going to try Tabbing through the page to see if i can get to the thing. And usually that results in frustration and, you know, Sadness. But those are two ways that i try to do that. Yeah. Right. Yeah, so the question was Commenting on the vista video where",
+   "zh": "如果行不通，因为网站并没有把看起来像链接的内容做成真正的链接，那我可能会尝试 Tab 键的方法，试着用 Tab 键在页面上逐个切换，看能不能选到那个目标。通常这只会让人感到挫败，还有，你懂的，沮丧。但这确实是我尝试做到的两种方式。对，没错。好的，刚才的问题是在评论 Vista 的那个视频，视频里"
+  },
+  {
+   "s": 2207.33,
+   "e": 2233.99,
+   "en": "It was misunderstanding the delete and instead writing the word delete. How do you make sure you're getting the right thing? What if you want the word delete, right? So the way that we handle this is the whole thing is designed to be Command-based. So if i want actual text, then i have to preface. I say a command that means this is text following this. And so if i want the word delete, i say phrase delete. And then that should give me delete. Otherwise, it all should not do a command.",
+   "zh": "它误解了 delete 这个操作，反而输入了“delete”这个词。那你怎么确保能得到正确的结果呢？要是你真想输入“delete”这个词又该怎么办呢，对吧？我们处理这种情况的方式是，整个系统都被设计为基于命令的。所以如果我想要输入真正的文本，我就必须加前缀。我会先说一个命令，表示“接下来的内容是文本”。因此如果我想输入“delete”这个词，我会说“phrase delete”。这样就会输出“delete”了。否则的话，它完全不应该执行命令。"
+  },
+  {
+   "s": 2244.72,
+   "e": 2274.0,
+   "en": "Yeah, so the question is whether I can use a keyboard or mouse at all and or my purely Speech-based I use speech as much as possible. I'm still dealing with my injury So as much as I can get off the keyboard while I pursue healing and all that is is good for me. There are still times where I Will use a keyboard or mouse for things Some other voice coders will use an eye tracker device to get the mouse functionality I tend to like to lay on the floor and stuff. So I don't",
+   "zh": "好的，这个问题是问我是否还能用键盘鼠标，还是说完全只靠语音。我尽量只用语音。因为我的伤还没完全好，所以在康复期间能少碰键盘对我来说总归是好事。不过有时候我还是会用一下键盘或鼠标。有些语音编程者会用眼动仪来代替鼠标功能，但我经常喜欢趴在地板上之类的，所以我没"
+  },
+  {
+   "s": 2274.6,
+   "e": 2329.85,
+   "en": "I haven't gotten that route, but I still do reach for the keyboard and mouse every now and then, but I try to keep it very minimal. I'm just touching a few things, and then I step away. Yeah? The question was whether a switch would be in combination with voice useful. Maybe. It really depends on your workflow and what you would need it for. For me, I don't generally like to be standing or sitting at the desk, so I don't want to have to be near a foot pedal. But that's just me. The question was, if I fully heal, would I go back to the keyboard and mouse, or would I stay voice?",
+   "zh": "我没选那条路，但我偶尔还是会去碰一下键盘和鼠标，不过我尽量降到最低。点几下我就收手了。嗯？刚才那个问题是问脚踏开关结合语音有没有用。可能有用吧。这完全取决于你的工作流程以及你拿它做什么。对我来说，我平时不太喜欢一直站着或坐在桌子前，所以我不想非得守着个脚踏板。但这只是我个人的情况。刚才的问题是，如果我完全康复了，我是会重用键盘鼠标，还是继续用语音？"
+  },
+  {
+   "s": 2330.19,
+   "e": 2372.69,
+   "en": "At this point, there are things that are easier for me by voice. And I'd probably still reach, like, there are some times if I'm on the keyboard, and then I'm like, oh, wait, this is way easier with the mic. Where's the mic? And I get the mic, you know. So at this point, I don't know. I think I probably would keep doing what I'm doing. The question was, it appears I'm becoming more of a user interface expert, and whether that's shaping my opinions on how things should be built. That's the question, right? Or my career? OK.",
+   "zh": "到了这个阶段，有些事情对我来说用语音反而更轻松。我可能还是会，比如有时候我正敲着键盘，然后就会想，哎等等，这事用麦克风可容易多了。麦克风在哪呢？然后我就拿过麦克风，你懂的。所以现在我也说不准。我想我大概会继续保持现在的做法吧。刚才的问题是，看起来我越来越像个用户界面专家了，这是否影响了我对产品构建方式的看法。是这个问题对吧？还是对我的职业生涯的影响？好的。"
+  },
+  {
+   "s": 2374.43,
+   "e": 2395.99,
+   "en": "So expert might be a strong word, but I'm definitely learning a lot about UIs and how things are built and how they're used and everything. And I'm trying to learn enough that I can file bug reports that won't be ignored. So that's my goal. But I don't know. In terms of where my career is going, I'm not sure. I feel like I'm just now getting back to being able to think about that.",
+   "zh": "说专家可能有点过了，但我确实学到了很多关于 UI、关于它们如何构建、如何被使用等方方面面的知识。我正努力学到足够多的东西，以便能提交不被忽视的 Bug 报告。这就是我的目标。但我也不清楚。至于我的职业走向，我还不确定。我觉得我现在才刚刚重新开始有精力去思考这个问题。"
+  },
+  {
+   "s": 2397.66,
+   "e": 2433.19,
+   "en": "OK, let's get back to my actual normal programming and being able to do work and be productive and think about where my career is headed. But certainly, I think voice technology will be, at the very least, a side project. It's something I'm really passionate about now, and I find it fun. So yeah. I think one more. Do we have time? One more? Oh, we should be ending. Last one. Where I could write and ship code. The question was, how long did it take me to be able to write and ship code? And I would say,",
+   "zh": "好了，回到我平时的正常编程中，能够干活、保持高产，并思考我职业生涯的发展方向。但毫无疑问，语音技术至少会成为我的一个副业项目。这是我现在非常有热情的一件事，我觉得很有意思。所以是的。好像还可以再来一个。我们还有时间吗？再来一个？噢，我们该结束了。最后一个。我能编写并交付代码。问题是，我花了多久才能编写并交付代码？我会说，"
+  },
+  {
+   "s": 2433.84,
+   "e": 2463.06,
+   "en": "It took me a few weeks just to get comfortable in the editor. But a lot of that is because I had to write my own library for Sublime. There wasn't one yet. So it would probably be faster for someone else coming on now. But I definitely think I shipped some things at least within a month or two. It really depended because it took me a lot longer than maybe it would someone else who wasn't as severely injured as I was at the time. Because if I only have a couple hours to type a day, that doesn't give me",
+   "zh": "我花了几周时间才在编辑器里适应下来。但很大程度上是因为我必须为 Sublime 自己写一个库。当时还没有现成的。所以现在新上手的人可能会更快。但我敢肯定，我至少在一两个月内就交付了一些东西。这真要看情况，因为我当时受的伤太严重了，花的时间可能会比别人长得多。因为如果我一天只能打几个小时的字，那根本没有"
+  },
+  {
+   "s": 2463.41,
+   "e": 2471.05,
+   "en": "a lot to go off of in terms of making progress that day, you know? So, yeah, that's it. Anyway, thank you all for coming. Thank you for listening.",
+   "zh": "太多时间能在当天取得实质进展，你懂吧？所以，是的，就是这样。总之，感谢大家的到来。感谢大家的聆听。"
+  }
+ ]
+}

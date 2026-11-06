@@ -13,6 +13,8 @@ work/shard_*.txt
 work/missing_subs.txt
 work/retry*.txt
 work/gemini_*.txt
+# Raw chapter-model replies (site/data/chapters/ is the published output)
+work/chapters/
 
 # Downloaded audio and the local Gemini key
 work/audio/
@@ -34,3 +36,6 @@ Thumbs.db
 
 # Scratch reports
 work/*.md
+
+# Generated hybrid pipeline recognition/checkpoints/status
+work/hybrid_batch/

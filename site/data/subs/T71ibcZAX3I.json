@@ -1,0 +1,776 @@
+{
+ "vid": "T71ibcZAX3I",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 11.6,
+   "e": 45.62,
+   "en": "Please welcome JL Collins. Thank you welcome Welcome so my first question for you the title of your book is the simple path to wealth it is and It's a roadmap to financial independence and a rich free life So what does wealth mean to you and how is it tied to a free life? Well, I suppose we could look at that in two different directions. So if we think about the psychological part of it",
+   "zh": "让我们欢迎 JL Collins。谢谢，欢迎，欢迎。我的第一个问题是：您的书名叫《通往财富的简单之路》，确实是，它是一张通往财务独立和富足自由生活的路线图。那么对您来说，财富意味着什么？它又是如何与自由生活联系在一起的呢？我想我们可以从两个不同的角度来看。如果从心理层面来考虑，"
+  },
+  {
+   "s": 46.05,
+   "e": 73.45,
+   "en": "To me personally, what wealth represents is security and freedom. So security to protect you from what the world can throw at you, and freedom to chart your own path in a way that you couldn't do without the resource. On the financial point of view, I suppose when I think about what the benchmarks are for, are you wealthy or not? Have you achieved financial independence or not?",
+   "zh": "对我个人而言，财富代表着安全感和自由。安全感能保护你抵御生活中的飞来横祸，而自由能让你以一种没有资源就无法实现的方式，去规划自己的人生道路。从财务角度来看，我想到的衡量标准是：你是否富有？你是否实现了财务独立？"
+  },
+  {
+   "s": 74.21,
+   "e": 102.36,
+   "en": "What has come to be called the four percent rule is a good guideline that comes out of a thing called the Trinity study and without belaboring that point it simply suggests that If you have enough assets That four percent of that amount can cover your annual expenses You can consider yourself financially independent so you can work at it from two different directions You could say well, I have a million dollars. So four percent of that is $40,000",
+   "zh": "所谓“4%法则”是一条很好的参考准则，源自一项名为“三一研究”的成果，长话短说，它的核心意思是：如果你拥有的资产，其4%足以覆盖你的年度开销，那么你就可以认为自己实现财务自由了；所以你可以从两个方向来推算，比如你可以说：“我有100万美元，它的4%就是4万美元，"
+  },
+  {
+   "s": 103.09,
+   "e": 131.67,
+   "en": "Can I live on $40,000 a year or not? And therein lies the answer to your question. Or you can look at it from the other direction. You can say, you know, I need $40,000 to live on. So how much do I need to be financially independent? You multiply 40,000 by, as it happens, 25. You get a million dollars, and there's your answer. So it really depends on what your needs are. Gotcha. And why is it important to keep the path simple? I think there are a lot of",
+   "zh": "我一年靠4万美元能生活吗？”答案就在其中；或者你也可以反过来推算，你可以说：“我需要4万美元来生活，那我要多少钱才能实现财务自由？”你把4万乘以25（刚好是25倍），就得到了100万美元，答案就出来了；所以这完全取决于你的实际需求。明白了，那为什么保持路径简单很重要呢？我想很多"
+  },
+  {
+   "s": 131.9,
+   "e": 160.56,
+   "en": "folks tuning in or folks in the audience who have read financial independence books and maybe their eyes roll back in their head because they just can't make sense of it all. So why is it important to keep it simple? Well, that's one good reason. But the reason that I prefer keeping it simple is simple is simply more powerful. Simple is what gets you the best results. And in this case, when I talk about simplicity, I'm talking about index funds and specifically broad based.",
+   "zh": "收看节目或现场的观众都读过关于财务自由的书，可能看得直翻白眼，因为实在搞不懂那些东西；那么保持简单为什么这么重要呢？嗯，这确实是一个很好的理由；但我更倾向于保持简单的原因是，简单本身往往更有力量，简单才能给你带来最好的结果；而在这种情况下，我所说的简单，指的就是指数基金，特别是宽基指数基金。"
+  },
+  {
+   "s": 161.13,
+   "e": 189.51,
+   "en": "Stock and then bond index funds when you bring them into it There are a lot of reasons that simplicity is an advantage. It keeps your costs low. It keeps your life simpler It makes things when the time comes easier on your heirs But the most important thing is it is the most powerful way to reach financial independence People who come to my blog are always I get two kinds of readers of my blog people are really into this stuff and they always want to tinker",
+   "zh": "股票指数基金，再加上债券指数基金，当你把它们结合起来时，保持简单有诸多优势。它能降低你的成本。让你的生活更简单。在特定时刻也能让你的继承人更省心。但最重要的是，它是实现财务自由最强大的途径。看我博客的人总有——我的博客读者主要有两类：一类对此非常着迷，总是想要折腾。"
+  },
+  {
+   "s": 189.83,
+   "e": 196.21,
+   "en": "And that's not who I'm really writing for. I'm writing for people like my daughter who knows that it's important.",
+   "zh": "但这并不是我真正写作的对象。我是为像我女儿这样的人写的，她知道这很重要。"
+  },
+  {
+   "s": 196.91,
+   "e": 221.03,
+   "en": "But she has other things that she'd rather do with her life than fixate on finances and investing. And so when you have a simple path, you can just get a couple of things right. You'll have a very powerful performance. You will outperform the vast majority of professionals out there. And I'm fond of saying to those people who want to tinker, if I thought there was a way to successfully tinker and do better,",
+   "zh": "但除了死盯着财务和投资，她生活中还有其他更想做的事情。因此，当你有一条简单的路径时，你只需要做对少数几件事。你就能获得非常强大的收益表现。你的表现会超过市面上绝大多数专业人士。而且我常对那些喜欢折腾的人说，如果我认为折腾真能让人做得更好，"
+  },
+  {
+   "s": 221.69,
+   "e": 251.27,
+   "en": "then that's what I would have written the book about. And in fact, I wasted a couple of decades trying to find that. So you have a blog, jlcollinsnh.com. If folks are interested in your content, should they begin with your blog or your book? Well, I would suggest that if you don't know anything about me or this concept, I would go first to the blog. And I would go to, there's a button at the top called Stock Series, and the blog is",
+   "zh": "那我就会以此为主题写书了。事实上，我花了二三十年时间试图找到那种方法，却只是浪费时间。所以你有一个博客，jlcollinsnh.com。如果大家对你的内容感兴趣，他们应该从你的博客开始看，还是从你的书开始看呢？嗯，我的建议是，如果你对我或这个理念一无所知，可以先看博客。你可以点击顶部一个叫做“股票系列”的按钮，这个博客就是"
+  },
+  {
+   "s": 251.53,
+   "e": 266.04,
+   "en": "best known for my stock series of posts. And when you click on that button, it will take you to an introduction. And in that introduction is a link to what I think is the best review of my stock series.",
+   "zh": "最出名的就是我的股票系列博文。当你点击那个按钮时，会跳转到一个介绍页面，里面有一个链接，通向我认为对我这套股票系列最棒的一篇评价。"
+  },
+  {
+   "s": 266.45,
+   "e": 295.63,
+   "en": "that's been done. And not best because it's most favorable, but in my view, most accurate. So you can click over to that and read that brief review. And after reading it, you'll know very clearly whether this is going to resonate with you or not, and whether it's worth your time. So I'd start there. And then I would read a couple of the posts. And then if you like what you read, you can consider going on to the book. There is nothing in the book that's not in the blog. So you can get all the information just by staying on the blog.",
+   "zh": "也是目前最出色的一篇。之所以说它最棒，倒不是因为它最捧场，而是我觉得它评价得最精准。所以你可以点进去看看那篇简评，看完之后，你就会非常清楚这套内容是否能引起你的共鸣，值不值得你花时间。所以我建议你从那里开始，然后再读上几篇博文。如果你喜欢读到的内容，就可以考虑去读那本书了。书里的内容博客里全都有，所以只要看博客，你就能掌握全部信息。"
+  },
+  {
+   "s": 296.27,
+   "e": 325.21,
+   "en": "The book is more concise. It's better organized because the posts in the blog came organically as they occurred to me or were suggested. And the book has the advantage of being better organized. It's more concise. And I spent more time polishing the writing. So I hope that the writing is more polished. But I'll let you make the judge of that. Got it. And thinking back to the early days of your own investment history, how did you learn all this stuff? How did you learn to invest?",
+   "zh": "这本书更精简，结构也更好，因为博客里的文章都是我想到什么或有人建议什么，就随性写出来的。而这本书的优势在于编排更有序，内容更凝练，而且我花了更多时间润色文字，所以我希望文笔会更好一些，不过这还得由你来评判。明白了。那回顾你早期的投资经历，你是怎么学会这些知识的？你又是怎么学会投资的呢？"
+  },
+  {
+   "s": 326.41,
+   "e": 348.24,
+   "en": "Well, I did it the hard way. I mean, trial and error. I spent, as I alluded to earlier, decades trying to do things that were not. What's seductive about this is that they were subpar.",
+   "zh": "哎，我走的可是弯路，完全是靠不断试错。就像我之前提到的，我花了数十年去尝试那些并不理想的做法。这其中最具迷惑性的是，它们的表现虽然次优，"
+  },
+  {
+   "s": 348.9,
+   "e": 377.54,
+   "en": "but not bad performance. I tell people that long before I discovered or embraced index investing, I had reached financial independence. So I reached financial independence by picking stocks and picking mutual fund managers, active managers, who could pick stocks or thought they could pick stocks. So it can be done. The problem with it is it's more expensive, it's more time consuming, it's not as effective as indexing. So I would have been much better off if I discovered indexing earlier.",
+   "zh": "但也绝不算差。我常跟人说，在接触或接受指数投资很久之前，我就已经实现了财务自由。我当时是通过选股，以及挑选能选股（或者自以为能选股）的主动型基金经理来实现财务自由的。所以说这条路并非走不通。但问题在于，它成本更高，更耗费时间，而且效果不如指数投资。要是我早点发现指数投资，情况肯定会好得多。"
+  },
+  {
+   "s": 378.45,
+   "e": 405.72,
+   "en": "The great irony is that Jack Bogle, who was the founder of Vanguard and the inventor of the first index fund available to the public, launched that fund in 1975. 1975 was the first year I started investing. I'd never heard of Jack Bogle or Vanguard or index funds when I started. It was 10 years before I heard of them, and then it took me a disturbingly long time to embrace it.",
+   "zh": "极具讽刺意味的是，Vanguard 的创始人、首只面向大众的指数基金的发明者 Jack Bogle，是在 1975 年推出该基金的。而 1975 年恰好是我开始投资的第一年。我刚起步时，从未听说过 Jack Bogle、Vanguard 或指数基金。直到 10 年后我才听说它们，之后我又花了令人不安的漫长时间才真正接受它。"
+  },
+  {
+   "s": 409.08,
+   "e": 438.3,
+   "en": "I went down, people say, how do you know all this stuff? And it's well because I made just about, if you can think of a mistake you can make in investing, I've probably made it. So to the extent that I know anything, it's from my mistakes. So speaking of mistakes, what do you think was working in your favor versus working against you as you were trying to figure this out on your own? Well, I think the main thing that was working against me at the time and that is working against everybody listening to this is there is a",
+   "zh": "我经历过很多波折，人们常问，你怎么懂这么多？嗯，因为只要你能想到的投资错误，我大概都犯过。所以就我懂的那点东西而言，全都是从错误中吸取的教训。说到犯错，当你独自摸索这一切时，你觉得哪些因素对你有利，哪些因素在与你作对？嗯，我认为当时对我最不利的因素——也是对正在收听本节目的每个人都不利的因素——就是存在一个"
+  },
+  {
+   "s": 438.89,
+   "e": 464.49,
+   "en": "large industry, Wall Street, whose drum beat is counter to our best interests, and that is based on making this as complex as possible, putting out a siren song that you too can be Warren Buffett, you too can pick stocks, you too can outperform the indexes, only if you're willing to pay us for the privilege.",
+   "zh": "庞大的行业，即华尔街，他们的宣传鼓吹与我们的最大利益背道而驰，其根基就是把投资搞得尽可能复杂，唱着诱人的塞壬之歌，告诉你“你也能成为 Warren Buffett”、“你也能选出牛股”、“你也能跑赢大盘指数”——只要你愿意花钱向我们购买这份特权。"
+  },
+  {
+   "s": 464.81,
+   "e": 490.63,
+   "en": "And that's a very seductive message because everybody wants to think that they can be above average and outperform. You're in a room full of above average people. Well, right. But maybe not in investing. Now, the irony is if you invest in index funds, and of course the slam that active managers put against index investing, is that you will only get average returns.",
+   "zh": "这种说法极具诱惑力，因为人人都觉得自己能超越平均水准，跑赢大盘。在这个房间里，大家也都是精英。确实没错，但投资方面可能并非如此。不过讽刺的是，如果你买指数基金——当然主动型基金经理向来抨击指数投资的一点，就是你只能获得平均收益。"
+  },
+  {
+   "s": 492.0,
+   "e": 518.16,
+   "en": "That's a little bit misleading, because yes, the index gives you the return of the market overall. But that return is far above average. Index investing, based on the research that had been done, outperforms depending on what numbers you look at, 80 to 85% of active managers over a 15-year period of time. If you research out 30 years,",
+   "zh": "这种说法其实有点误导人，因为指数带来的确实是整个市场的总体回报。但这个回报其实远高于平均水准。现有研究表明，根据你看的数据不同，在15年的周期内，指数投资能跑赢80%到85%的主动型基金经理。如果把时间拉长到30年，"
+  },
+  {
+   "s": 518.66,
+   "e": 550.94,
+   "en": "The number of active managers who can outperform the index is less than 1%. That's statistically zero. So when you invest in the index and you're getting the average performance of the market, you're actually getting the best performance that you can expect by a long shot. Gotcha. And so what was working in your favor? I think what was working in my favor is I continued being curious.",
+   "zh": "能跑赢指数的主动型基金经理还不到1%。这在统计学上几乎就等于零。所以当你投资指数、获取市场平均表现时，其实已经遥遥领先，拿到了你所能期待的最好成绩。明白了。那么当时你的优势是什么？我觉得我的优势在于，我始终保持着好奇心。"
+  },
+  {
+   "s": 551.44,
+   "e": 579.38,
+   "en": "And I continued trying different things, and I continued researching. And indexing, which was first put in front of me in 1985 by a good friend of mine, there's something about it that is very counterintuitive. And I think, particularly for smart people like the people in this room and the people listening, because you look at it and you say, well, indexing says I buy every stock in the index. And yet, if I can only just...",
+   "zh": "我不断尝试各种方法，也不停地做研究。而指数化投资——这是1985年我的一位好友首次向我推荐的——它有些地方非常反直觉。我认为，尤其是对在座的各位以及正在收听的聪明人来说更是如此，因为你看着它会想，好吧，指数化投资说的是我要买下指数里的每一只股票。然而，只要我能……"
+  },
+  {
+   "s": 579.38,
+   "e": 607.5,
+   "en": "Not by the obvious dogs. I'll outperform I mean outperforming seems like it should be so simple but the problem with that or even if I just buy the top performers and Not even by the mediocre or the low performing ones, you know, obviously I'm gonna outperform and yet you look at that research that says that doesn't happen and of course the reason it doesn't happen is today's dogs are sometimes Tomorrow's great turnaround success stories and those that are flying high",
+   "zh": "不买那些明显是垃圾股的，我就能跑赢市场。我是说，跑赢市场看起来理应很简单才对，但问题在于，或者哪怕我只买表现最好的那些，完全不买中等或低表现的，你知道的，我显然能跑赢大盘。然而你看研究就会发现，事实并非如此，原因当然在于，今天的垃圾股有时就是明天上演惊天逆转的成功典范，而那些高高在上的股票，"
+  },
+  {
+   "s": 608.24,
+   "e": 638.88,
+   "en": "are the stories of how they crash and burn. So there is no way to know what is going to happen with specific stocks. And it is just way too easy to guess wrong. So one thing that struck me about your blog and your book is how specific the advice is. So in other books or websites I've tried reading in the past, the advice was always really vague, like invest in mutual funds. And it would leave me thinking, well, which one? And how much?",
+   "zh": "往往也会沦为摔得粉身碎骨的惨案。所以根本不可能预知特定股票的走向。而且猜错的概率实在太高了。因此，你的博客和新书中最打动我的一点，就是建议给得非常具体。以往我试着去读的其他书籍或网站里，建议总是非常模糊，比如“投资共同基金”，这常让我纳闷：“好吧，那到底投哪一只？投多少呢？”"
+  },
+  {
+   "s": 639.65,
+   "e": 667.74,
+   "en": "So why do you think other authors' advice is not very specific? Well, I'm not sure I can answer that, because I can't put myself in the heads of other people. Maybe I can answer it by telling you why my advice is what it is. And that's because I didn't write this blog to have the international audience that I have today. It never occurred to me that that would happen. I had started actually writing a series of letters.",
+   "zh": "那为什么其他作者的建议不够具体呢？这个我也说不好，因为我没法去揣摩别人的想法。也许我可以说说自己的建议为什么是这样的。我写这个博客，根本没想过会有今天这样来自世界各地的读者。我压根就没往这方面想过。其实一开始，我只是在写一系列的信，"
+  },
+  {
+   "s": 668.4,
+   "e": 694.01,
+   "en": "to my daughter about financial things I wanted her to know. And I shared it with a business colleague of mine. He said, you know Jim, this is kind of interesting stuff. You might want to share it with your friends and family, and a blog would be a good way to do that. And this is in 2011. I like the idea of a blog because it occurred to me that it would be a great way to archive the information. But I didn't have a plan to create a...",
+   "zh": "想告诉我女儿一些理财方面的知识。后来我和一个商业伙伴聊起这事，他说，Jim，这些内容挺有意思的。你或许可以分享给亲朋好友看看，开个博客就是个不错的方式。那是2011年的事了。我很喜欢建博客这个想法，因为我觉得这是归档这些内容的好办法。但我当时根本没打算做成一个……"
+  },
+  {
+   "s": 694.01,
+   "e": 720.12,
+   "en": "a blog as a business or as a successful way to reach a broader audience. It was just to archive the information I wanted my daughter to know. And that was basically what mistakes I've made, what's worked, what's kicked me in the ass, and what I think specifically she should do. And so I think that's why my advice is so specific. These are the things that I'm doing now. These are the things I wish I had...",
+   "zh": "做博客当成一门生意，或是扩大受众的成功途径。我只是想把希望我女儿了解的信息记录下来。基本上就是我犯过哪些错误、哪些方法管用、哪些让我栽过跟头，以及我认为她具体该怎么做。所以我觉得这就是为什么我的建议如此具体。这些是我现在正在做的事，这些是我希望自己……"
+  },
+  {
+   "s": 720.3,
+   "e": 746.19,
+   "en": "Done in 1975 or at least in 1985 when I became aware of indexing These are the things that I want her to do and that I've got her started doing so that's maybe why my advice is is more Specific than others. Okay. Yeah, I can't tell you how many times I've talked with a friend about How I'm on this new track where I'm investing and they say well, what are you doing? And I just send them",
+   "zh": "在1975年就做过的事，或者至少在1985年我了解指数投资时就该做的事。这些是我希望她去做的、并且我已经带她开始做的事，所以这或许就是为什么我的建议比别人更具体。没错，我都数不清有多少次跟朋友聊起我走上了投资这条新轨道，他们会问：“那你都在怎么做呢？”我就直接发给他们"
+  },
+  {
+   "s": 746.59,
+   "e": 774.03,
+   "en": "one sentence of exactly what I'm doing, and that's what I read in your book. And they're like, that's it? And I'm like, that's it. That's all I'm doing. So aside from telling them to open their computer, start it up, and what clicks to make to log into their account, it's such simple advice. You know, I was more than a year and a half, two years ago, I was interviewed for Anoush Tarabi on her podcast. And I don't know if anybody's listened to her podcast.",
+   "zh": "一句话讲清楚我到底在做什么，那就是我在你书里读到的内容。他们就会说：“就这？”我就会说：“就这，我做的就只有这些。”所以除了教他们打开电脑、开机、一步步点击登录账户之外，这建议真是太简单了。你知道，一年半、两年前，我接受了 Anoush Tarabi 的播客采访。我不知道有没有人听过她的播客。"
+  },
+  {
+   "s": 775.04,
+   "e": 800.94,
+   "en": "At the end of her interview, she likes to ask a question that says, if you were suddenly given $100 million, what would you do? And the typical kinds of answers she gets is, well, I'd buy this, that. I'd give this money away. I'd do that. And of course, she's interviewing me. We're talking about index fund investing, and specifically VTSAX, which is Vanguard's total stock market index fund, and the one I recommend the most and love the best.",
+   "zh": "在采访快结束时，她喜欢问一个问题：“如果你突然拿到一亿美元，你会做什么？”她通常得到的回答都是：“哎呀，我会买这个买那个，我会把钱捐出去，我会做这做那的。”当然，她采访的是我，我们聊的是指数基金投资，具体来说是 VTSAX——也就是 Vanguard 的全股市指数基金，这是我最推荐、也最喜欢的基金。"
+  },
+  {
+   "s": 801.54,
+   "e": 815.63,
+   "en": "So when she got to that question, she said, well, Jim, you've got $100 million. What would you do? I'd put it in VTSAX. And she was, really? That's what you do. Nice. So one of my favorite posts on your blog is called,",
+   "zh": "所以当她问到这个问题时，她说：“那么 Jim，给你一亿美元，你会怎么做？”我说我会全投进 VTSAX。她惊了：“真的吗？你真会这么做？”很妙。你博客上我最喜欢的一篇文章，叫作"
+  },
+  {
+   "s": 816.14,
+   "e": 844.46,
+   "en": "why your house is a terrible investment. And I know you got a lot of feedback from your readers about this. Yeah, feedback's one way to say it. Yeah. So why do you think this post is so controversial? Why do your readers get so excited about this post? You know, somebody, not me, but somebody said, home ownership is the American religion. And you could go to Daily Plaza.",
+   "zh": "《为什么买房是一笔糟糕的投资》。我知道读者对此给了你很多反馈。对，“反馈”都算说得委婉了。是的。那为什么你觉得这篇文章会有这么大争议？为什么你的读者会对此情绪如此激动？你看，有人说过——不是我说的，但有人说过——“拥有自己的住房是美国人的宗教信仰”。你可以去 Daley Plaza 看看。"
+  },
+  {
+   "s": 845.45,
+   "e": 870.27,
+   "en": "in downtown Chicago, and you could set up your little soapbox, and you could climb up on it and pick any major religious leader and begin to vilify that individual, Jesus Christ, Muhammad, Buddha, whatever, just vilify them in the most horrific terms possible, and people would just turn around and walk away. I mean, they'd ignore you.",
+   "zh": "在芝加哥市中心，你可以支起自己的小肥皂箱，站上去随便挑一位主流宗教领袖，然后开始诋毁那个人，耶稣、穆罕默德、佛陀等等，用你能想到的最恶毒的词去辱骂他们，人们也只会转身走开。我是说，大家根本不搭理你。"
+  },
+  {
+   "s": 870.65,
+   "e": 895.47,
+   "en": "You get up on that same box and suggest that homeownership isn't the perfect thing for everybody to do and they start gathering rocks. So I think it's polarizing and the people who love their homes and love the idea of owning a home, that gets that response. And then there's another segment of people who don't like owning homes and see value in renting.",
+   "zh": "可要是你站上同一个箱子，暗示买房并不是适合所有人的完美选择，他们就开始四处找石头想砸你了。所以我觉得这个话题非常两极分化，那些热爱自己的房子、推崇买房理念的人，就会产生这种激烈反应。而另一部分人则不喜欢买房，觉得租房更有价值。"
+  },
+  {
+   "s": 896.34,
+   "e": 921.92,
+   "en": "And they muster to the cause, and that's what makes that post to my surprise, because I kind of did it tongue in cheek. And I, by the way, am not anti-home ownership. I've owned homes most of my life. I am anti-believing the propaganda that it is always or even commonly a good financial decision. It can be a great lifestyle decision, and that's why I bought the houses I bought over the years.",
+   "zh": "他们也聚集起来支持这种观点，这正是我那篇帖子引发轰动的原因，我也挺意外的，因为我当时发帖其实带着点半开玩笑的口吻。顺便说一句，我并不反对买房。我这辈子大部分时间都拥有自己的房产。我只是反对盲信那种宣传，即买房总是一笔、甚至哪怕普遍算得上一笔划算的财务投资。它完全可以是一种极好的生活方式选择，这也是我多年来买下那些房子的原因。"
+  },
+  {
+   "s": 922.62,
+   "e": 949.03,
+   "en": "But I never once bought them thinking I was doing something that was financially astute. Because unless you happen to get lucky with a rising market, and that does happen, it's generally not the best thing you can do with your money if financial independence is your goal. And so for the person who's at the point where they're considering buying their first home or condo, what considerations would you advise them to make before they do that?",
+   "zh": "但我买房时，从来不觉得自己做了一笔精明的财务投资。因为除非你恰好赶上行情上涨——这种情况确实有——但如果你的目标是财务自由，买房通常并不是打理资金的最佳方式。那么，对于正在考虑买首套独立屋或公寓的人，在做决定之前，你会建议他们考虑哪些因素呢？"
+  },
+  {
+   "s": 949.64,
+   "e": 974.46,
+   "en": "Well, I think the first thing along the lines with what I just said was to understand that you are not making an investment you're making a lifestyle decision I in my manifesto on my blog one of the things that I say is something to the effect of All of our decisions don't have to be driven by financial considerations, but you should always understand the financial",
+   "zh": "我认为首先要明白的一点，正如我刚才所说，你这不是在投资，而是在做一种生活方式的选择。在我博客的宣言里，有一句话大致是说，并非我们所有的决定都必须受财务因素驱使，但你必须始终明白"
+  },
+  {
+   "s": 975.66,
+   "e": 1001.62,
+   "en": "Dynamic of what you're choosing to do and I have a post about buy versus rent run the numbers Which talks you through how to do that? So I would suggest if you're renting now and you're thinking of going Into a house or a condo that you first run the numbers and find out exactly what it's going to mean Financially and it might be that it's going to be less expensive than what you're renting. That's possible. That does happen",
+   "zh": "自己所做选择背后的财务逻辑。我写过一篇关于“买房还是租房，算算这笔账”的文章，手把手教你怎么算。所以我的建议是，如果你现在在租房，正考虑搬进独立屋或公寓，先去算算这笔账，弄清楚在财务上究竟意味着什么。有可能买房比租房还便宜，这完全可能，也确实会发生。"
+  },
+  {
+   "s": 1002.06,
+   "e": 1027.21,
+   "en": "More commonly you're gonna find that it's gonna be more expensive, but then you know and just because it's more expensive Doesn't mean that you don't have to buy the house It just means that you understand what you're paying for the lifestyle decision that you're making And that was one of the first conversations we had at the Chautauqua I wanted to tell you a story about how I frequently get asked like",
+   "zh": "但更普遍的情况是，你会发现买房更贵。但即使更贵，你心里也有数，而且更贵并不意味着你就不能买，它只是意味着你清楚自己是在为所选择的生活方式买单。这是我们在 Chautauqua 聚会上最先聊到的话题之一。我其实想给你讲个故事，关于我经常被问到的问题——"
+  },
+  {
+   "s": 1027.39,
+   "e": 1054.47,
+   "en": "Are you going to buy a place in Chicago? And I say, well, I read J.L. Collins' book, and I'm cool with renting for now. And I told you a story about how my refrigerator broke right before I came to Ecuador and just called my landlord and said, need a new fridge. See you later. I'm going to go on down. So other than this post called, Why Your House is a Terrible Investment, is there any other post on your blog that's generated a lot of feedback or controversy from your readers?",
+   "zh": "“你打算在芝加哥买房吗？”我说，我看过 J.L. Collins 的书，现在觉得租房挺好的。我还跟你讲过，就在我来厄瓜多尔之前，我的冰箱坏了，我直接给房东打电话说：“需要换个新冰箱，回见，我要出门了。”那么，除了那篇名为《为什么买房是一笔糟糕的投资》的文章之外，你博客上还有其他哪篇文章在读者中引起了巨大的反响或争议吗？"
+  },
+  {
+   "s": 1055.13,
+   "e": 1081.91,
+   "en": "Well, that's the one that's generated the most controversy, because it's such a hot button topic. Less controversial, but very popular. Probably the two that are most popular is How I Failed My Daughter and A Simple Path to Wealth. And that was one of my earliest posts. And in that one post, I kind of sum up the whole content of the blog and the book.",
+   "zh": "嗯，引发最大争议的确实就是那篇，因为这个话题太敏感了。争议相对较少但非常受欢迎的，最火的可能要数《我是如何愧对女儿的》和《通往财富的简单之路》。那是我最早写的几篇之一，而在那篇文章里，我基本概括了整个博客和那本书的核心内容。"
+  },
+  {
+   "s": 1082.29,
+   "e": 1103.68,
+   "en": "So that's popular. Why you need F.U. money is probably at least as popular from the reaction of the audience. I gather we have people who agree with that. There's a famous video on YouTube called The Importance of F.U. Money. Those of you who haven't seen it, write it down.",
+   "zh": "所以这个挺受欢迎的。从台下观众的反应来看，“为什么你需要‘去你的’基金（F.U. money）”恐怕至少也一样受欢迎。看来大家都深有同感。YouTube 上有个很火的视频，叫《“去你的”基金的重要性》。没看过的赶紧记下来。"
+  },
+  {
+   "s": 1104.05,
+   "e": 1124.99,
+   "en": "Put your headphones on at your desk. Yeah, it's not suitable for work. So just a quick aside on that, if I may. There's a movie called The Gambler, which is not a particularly good movie, so I'm not recommending the movie. But there is a wonderful segment. It stars John Goodman, who's a wonderful actor.",
+   "zh": "在工位看的时候记得戴上耳机。没错，它不太适合在工作场合外放。关于这个，请容我顺便扯开两句。有部电影叫《赌徒》（The Gambler），片子本身算不上多好，所以我不是在安利电影。但里面有一段特别棒。主演是 John Goodman，一位非常出色的演员。"
+  },
+  {
+   "s": 1125.62,
+   "e": 1151.1,
+   "en": "And there's a wonderful segment, a little piece in that movie. And you can Google that and find this clip where John Goodman is talking to Mark Wahlberg about the importance of having FU money. And when I saw that clip, I thought, I want to do a version of that. I want to keep it as close to the original as I can, but tweak it so it reflects.",
+   "zh": "那部电影里有一段极其精彩的小片段。你们去 Google 搜一下就能找到这个片段，讲的是 John Goodman 对 Mark Wahlberg 谈拥有“去你的”基金的重要性。当时我一看到那个片段就想：我也要搞一个自己的版本。我想尽量还原原版的精髓，但做些微调，好让它能反映出……"
+  },
+  {
+   "s": 1151.75,
+   "e": 1180.67,
+   "en": "my values. He talks about buying a house, for instance, and we've talked about that. But my problem is I didn't know anybody who could make the film. But one of the wonderful things about Chautauqua, which is where you and I met, is that you meet really cool, interesting people who come to Chautauqua, including a couple of years ago a pair of filmmakers who were less than an hour from where we were living at the time, and they came up. And I give you all this background, because if you choose to watch this,",
+   "zh": "我的价值观。比如他谈到买房，我们也聊过这个。但我的问题是，我不认识能拍这部片子的人。不过肖托夸——也就是我和你相遇的地方——最棒的一点就是，你会在这里遇到非常酷、非常有趣的人；包括几年前来过的一对电影制作者，他们当时住的地方离我们不到一小时车程，他们就赶过来了。我交代这些背景是因为，如果你决定看这部片子，"
+  },
+  {
+   "s": 1182.05,
+   "e": 1208.14,
+   "en": "It's filled with salty language that I don't use every day. I'm acting. I'm trying to channel John Goodman, and he uses the same language. And if you like it, you think I do a good job in it, the credit goes to my filmmakers, Joan and Terrible, I'm drawing a blank on his name. But if you go to my blog and you do the search function, you'll find it.",
+   "zh": "里面充斥着我平时不会说的粗话。我是在演戏，我试图融入 John Goodman 的风格，而他也用同样的语言。如果你喜欢它，觉得我演得不错，这都要归功于我的电影制作者，Joan 和……糟糕，我突然想不起他的名字了。但如果你去我的博客用搜索功能查一下，就能找到。"
+  },
+  {
+   "s": 1210.14,
+   "e": 1240.34,
+   "en": "You'll see who they their credit is given So we're in the beginning of 2018 and this is a good time for folks who are trying to get their financial house in order to maybe come up with a 2018 plan 2018 and beyond and The amount of investment options is confusing and overwhelming. So I know a lot of folks who are Maxing out their 401k because that's very sound advice. We get the full match. They might also have an emergency savings fund",
+   "zh": "你会看到功劳归于谁。现在正是2018年初，对于想理清个人财务状况的人来说，这正是制定2018年及长远规划的好时机，但各种投资选择繁多，让人眼花缭乱。我知道很多人都在顶格缴纳401k，因为这个建议非常合理，能拿到全额的公司配比。他们可能也有一笔应急储蓄基金"
+  },
+  {
+   "s": 1240.68,
+   "e": 1267.57,
+   "en": "But beyond those two things, they don't know what to do with what's left over. And they're just keeping their money and savings or checking. Or maybe they're outsourcing the management of their money to someone else. So for the folks who don't feel confident investing beyond just the 401k match, and they're just keeping their money maybe and savings or checking, how should they begin to make sense of all these different options? How would you advise them to get started?",
+   "zh": "但除了这两项，他们就不知道剩下的钱该怎么处理了。要么就把钱一直放在储蓄或活期账户里，要么就把理财全盘委托给别人。那么，对于那些除了拿到401k配比之外对投资缺乏信心、只把钱存在活期或储蓄账户里的人，他们该如何开始理清这些五花八门的选择？您会建议他们如何着手起步呢？"
+  },
+  {
+   "s": 1268.17,
+   "e": 1296.32,
+   "en": "Well, in a way, this circles back to the advantage of things being simple. So if you have a visual image, let's say, of a long banquet table that is just groaning under the weight of every kind of food and preparation and dish you can possibly imagine, think of that image as what the financial community has laid out for us and that they want us to partake in.",
+   "zh": "从某种程度上说，这又绕回了“简单”的好处。不妨在脑海中想象这样一幅画面：一张长长的宴席桌，上面摆满了你能想象到的各种山珍海味、珍馐佳肴，桌子都快被压垮了；你可以把这个画面看作金融界为我们摆下的盛宴，他们正极力邀请我们入席。"
+  },
+  {
+   "s": 1296.97,
+   "e": 1323.81,
+   "en": "The problem is these are all very expensive things that are for the most part designed for the people who have created them and who sell them to enrich them. Not necessarily what's best for us. That's the bad news. The good news is you can put your arm down on that table at one end, except for a tiny little corner, and sweep it all onto the floor because none of that matters. Only...",
+   "zh": "问题在于，这些都是极其昂贵的东西，且绝大多数的设计初衷，都是为了让创造和销售它们的人赚得盆满钵满，并不一定是对我们最有利的。这是坏消息。好消息是，你可以把胳膊往桌上一放，除了留出极小的一个角落，把剩下的东西全都一把扫到地上去，因为那些全都不重要。只有……"
+  },
+  {
+   "s": 1323.81,
+   "e": 1347.63,
+   "en": "Very small sliver of what out there really matters for us and building our wealth That's index funds and that's very specifically broad-based stock index funds and broad-based bond index funds. I mentioned the one that I like the best is BTS ax which is Vanguard's total stock market index fund",
+   "zh": "市场上真正对我们积累财富有价值的，其实只有极小一部分，那就是指数基金，具体来说就是宽基股票指数基金和宽基债券指数基金。我之前提过，我最青睐的是 VTSAX，也就是 Vanguard 的全股市指数基金。"
+  },
+  {
+   "s": 1348.43,
+   "e": 1372.95,
+   "en": "More common than the original fund Jack mogul created is the S&P 500 Index fund that's perfectly acceptable and the two are surprisingly close So sometimes people get hung up on deciding between them if you actually have access to one and not the other Go for which either one you have and then there are total bond market funds. That's with those two tools",
+   "zh": "比 Jack Bogle 创立的初始基金更常见的，是标准普尔 500 指数基金，选它也完全没问题，两者表现其实惊人地接近。所以大家有时会在二选一上纠结，如果你只能买到其中一种，能买到哪个就买哪个。接着就是全债券市场基金。有了这两样工具，"
+  },
+  {
+   "s": 1373.34,
+   "e": 1402.08,
+   "en": "That's all you really need. It gets a little complex with 401k plans and 403b plans for people who are not in the private sector because they don't always offer those particular Vanguard funds that I prefer. Most plans offer some kind of broad-based stock index, usually an equivalent of an S&P 500. It might not come from Vanguard, which is my preferred company.",
+   "zh": "你就完全足够了。对于非私营部门的人来说，情况会稍微复杂一点，涉及到 401(k) 和 403(b) 计划，因为它们并不总会提供我偏好的那些 Vanguard 基金。不过大多数计划都会提供某种宽基股票指数基金，通常相当于标普 500。虽然它可能不来自我偏好的 Vanguard 公司。"
+  },
+  {
+   "s": 1402.73,
+   "e": 1432.44,
+   "en": "But an S&P 500 index fund is pretty much the same, no matter who's providing it. Fidelity or T-ware price, those are all fine options. OK. And so if someone wanted to get started this year, and they wanted to take a look at some index funds, but they also know that there are HSAs, 529 plans, how would you recommend they get started? Like, maybe if 2018 was just going to be a simple year.",
+   "zh": "但标普 500 指数基金其实都差不多，不管是谁家发行的，Fidelity 还是 T. Rowe Price，这些都是很好的选择。好的。那么如果有人想在今年开始投资，想了解一些指数基金，但他们也知道还有 HSA、529 计划这些，你会建议他们如何起步呢？比如，如果只想让 2018 年过得简单点的话。"
+  },
+  {
+   "s": 1432.92,
+   "e": 1458.24,
+   "en": "What would your advice be if they're feeling overwhelmed by all the different places they could put their money? Well, I think if you're really starting from ground zero and you really do not have any base of knowledge on this, and that's not a bad thing, that can be an advantage, because at least it means you don't have bad knowledge and there's a lot of bad information out there. So if you're at that ground zero level,",
+   "zh": "如果他们面对这么多可以放钱的地方感到不知所措，你会给什么建议？嗯，我觉得如果你真的是从零开始，对这方面完全没有任何知识储备，这并不是坏事，反而可能是一个优势，因为这至少意味着你没有错误的认知，而外面的错误信息实在太多了。所以如果你正处于零基础的阶段，"
+  },
+  {
+   "s": 1458.79,
+   "e": 1486.87,
+   "en": "Don't feel bad about it. That's an advantage. There's nothing you have to unlearn. At the risk of touting my own book and my own blog, I would go there and do a little bit of reading and do a little bit of learning. So one thing in the way you phrase the question that people need to be clear about, and this is something that I come across a lot, is to say, well, I want to invest in my 401K, or I want to invest in my IRA, or I want to invest in VTSAX.",
+   "zh": "别觉得难受，这是一个优势，你不需要去费力纠正错误的认知。冒着王婆卖瓜的风险，我建议大家可以去看看我的书和博客，读一读，学一学。不过，从你刚才提问的方式来看，有一点大家必须弄清楚，这也是我经常遇到的情况，那就是有人会说：“嗯，我想投资我的 401k，或者我想投资我的 IRA，又或者我想投资 VTSAX。”"
+  },
+  {
+   "s": 1487.32,
+   "e": 1513.86,
+   "en": "Well, you're conflating investments with what I come to call buckets. So a 401k is not an investment. An IRA is not an investment. A TSP plan is not an investment. Those are buckets. In those buckets, you hold your investments. Investments are things like mutual funds and stocks and bonds. So those are the investments that you choose to put in your bucket.",
+   "zh": "嗯，你把投资和所谓“水桶”给混为一谈了。401k 不是投资，IRA 不是投资，TSP 计划也不是投资，这些都只是水桶。你在这些水桶里存放你的投资。而投资是指像共同基金、股票和债券这类东西。它们才是你选择放进水桶里的投资品。"
+  },
+  {
+   "s": 1514.34,
+   "e": 1544.26,
+   "en": "So if you have a 401K, as you do at Google, and I have no idea what your 401K looks like, but you will have a list of selections of investments you can put in that 401K bucket. If my approach resonates with you and you believe in broad-based index funds are something you want to go with, you can go down that list and maybe find the specific funds I'm talking about, but you'll certainly probably find something",
+   "zh": "所以如果你有 401k，就像你们在 Google 那样——虽然我不知道你们的 401k 具体长什么样——但你肯定有一份可选投资清单，能把它们放进 401k 这个水桶里。如果你认同我的方法，觉得宽基指数基金是你想要的选择，你可以顺着清单看下去，或许能找到我提到的那些具体基金，而且你肯定多半能找到"
+  },
+  {
+   "s": 1544.57,
+   "e": 1569.72,
+   "en": "that is a broad-based index fund. The easiest way to do that, by the way, is to find the column that shows the expense ratio. And you should have that. You run your finger down that. And when you find the very lowest expense ratios, you have found the index funds. And focus on those and take a look at them. And why do you think some people choose to manage their own investments, whereas others outsource it to someone else?",
+   "zh": "某种宽基指数基金。顺便说一句，最简单的办法就是去看标明费率的那一列。清单上应该都有这一列。你顺着往下找，当你看到费率最低的那几个时，你就找到指数基金了。重点关注并研究一下它们。那么，你觉得为什么有些人选择自己打理投资，而另一些人却要外包给别人呢？"
+  },
+  {
+   "s": 1571.82,
+   "e": 1597.78,
+   "en": "Well, I think the people who outsourced it to someone else have been convinced that this is just too complex for their pretty little head and The vast majority of things on that banquet table we talked about are too complex for anybody's pretty little head when in 2007 2008 2009 when the economy cratered Wall Street was selling products. They didn't understand",
+   "zh": "我觉得那些把理财外包给别人的人，是被灌输了一种观念，以为这事对自己来说太复杂了，而我们在那张宴席上聊到的大多数东西，对任何人来说都太复杂了，在2007、2008、2009年经济崩盘时，华尔街卖的产品他们自己都搞不懂"
+  },
+  {
+   "s": 1598.28,
+   "e": 1621.56,
+   "en": "So if this stuff looks complex to you it's because this stuff is complex and in some cases intentionally complex But we don't care about that because we don't need any of that and once you understand that you don't need that complex stuff Then doing it yourself becomes much more attainable Even if you don't have any interest in financial stuff like frankly my daughter",
+   "zh": "所以如果你觉得这些东西很复杂，那是因为它确实复杂，有时甚至是被故意搞复杂的，但我们不在乎，因为我们根本不需要这些，而一旦你明白自己不需要那些复杂的东西，亲自理财就变得触手可及了，哪怕你对金融毫无兴趣，坦白讲，就像我女儿一样"
+  },
+  {
+   "s": 1622.47,
+   "e": 1649.79,
+   "en": "She doesn't she has better things to do with her life than fool around with this financial stuff that intrigues her dad And that's great. I mean people have bridges to build and and You know ways to make the world work The beauty of this is that if you get a couple of things right? Financially you can profoundly change your financial life without having to dwell on it And you can get on with doing things that are more important to you and maybe more important of the world",
+   "zh": "她确实不感兴趣，她有更重要的人生追求，而不是去摆弄这些让她老爸着迷的金融玩意，这挺好的，大家还要去建桥梁，还要去让世界运转，这套方法的妙处在于，只要在财务上做对几件事，你就能彻底改变自己的财务状况，而不用天天惦记着它，然后你就可以去做对自己、甚至对世界更重要的事了"
+  },
+  {
+   "s": 1651.98,
+   "e": 1679.4,
+   "en": "And what do you think are two to three of the biggest mistakes people can make when investing or managing their money? Well, I think two come to mind immediately. One is thinking that you can pick individual stocks, and by extension, that you can pick people who can pick individual stocks. That is, people who run actively managed mutual funds.",
+   "zh": "那你认为人们在投资或理财时最容易犯的两三个大错是什么？我马上能想到的有两个：一是以为自己能挑出单只牛股；顺理成章地，二是以为自己能挑出能选对个股的人，也就是那些管理主动型共同基金的人。"
+  },
+  {
+   "s": 1682.48,
+   "e": 1710.85,
+   "en": "The comments that makes my skin crawl is when I hear people say something like, well, Warren Buffett became a billionaire picking individual stocks. I'll just do what Warren did. As if. As if. There is a reason that Warren Buffett is famous. Because Warren Buffett has managed to do something that is extraordinarily difficult to do. The ability to do it is extraordinarily rare.",
+   "zh": "最让我起鸡皮疙瘩的言论，就是听到有人说：沃伦·巴菲特靠选个股成了亿万富翁，那我就照着他做呗。真是想得美，做梦吧。巴菲特之所以出名是有原因的。因为他做到了一件极度困难的事情，而拥有这种能力的人凤毛麟角。"
+  },
+  {
+   "s": 1711.54,
+   "e": 1738.64,
+   "en": "And the hubris to think, oh, I'll just go and do what Warren has done is, to me, stunning. It's just absolutely stunning. And the research indicates that while Warren has done it, as we talked about, you go out 30 years and less than 1% of people trying to do it who have survived that long have accomplished it. So I think you need, and this is, I bring this one up first because this was my own stumbling block.",
+   "zh": "而狂妄地以为“我也能照着巴菲特那么做”，在我看来简直匪夷所思，实在太不可思议了。研究也表明，虽然巴菲特做到了，但正如我们聊过的，放眼30年的时间维度，能坚持这么久并实现这一目标的散户还不到1%。所以我认为大家需要认清这一点，我首先提这个，也是因为我自己当年就栽在这上面。"
+  },
+  {
+   "s": 1739.21,
+   "e": 1764.55,
+   "en": "I just kept believing that I could pick people who could pick stocks, and I believe that I could pick stocks. And because every now and again I get it right, and maybe I got it right more often than I got it wrong, that feeds into that belief. And that's the thing that made me reluctant to pick up indexing. But the truth is that the few times I got it wrong, dragged down my performance.",
+   "zh": "我总觉得自己能挑出擅长选股的人，也坚信自己能选出好股票。而且我偶尔确实能押中，可能对的时候比错的时候还多，这更强化了我的自信。正因如此，我一直不愿采用指数化投资。但事实是，那少数几次失误，彻底拉低了我的整体收益。"
+  },
+  {
+   "s": 1765.84,
+   "e": 1794.0,
+   "en": "To where and this is what happens to the vast majority of people trying to do it to where I would have been far better off with the index far better off So trying to pick individual stocks and managers is number one. Maybe not necessarily in order the second thing is trying to time the market and You can't turn on the financial news or open up a financial periodical Without finding somebody who's telling you definitively where the stock market is going next",
+   "zh": "结果——其实绝大多数试图这么做的人都是如此——我原本买指数基金会赚得多得多，收益好得多。所以，试图挑选个股和基金经理是第一大坑。第二点可能同样关键，就是试图择时。你随便打开财经新闻或翻开财经期刊，总能看到有人信誓旦旦地预测股市下一步的走势。"
+  },
+  {
+   "s": 1794.84,
+   "e": 1824.0,
+   "en": "Nobody knows. If you could accurately do that with any consistency, you'd be far richer than Warren Buffett and far more lionized. It would be magic dust. Nobody can tell you where the market is going. You just can't predict the market. And trying to is a fool's game. So Fidelity Investments did a little piece of research, I think about a year ago, a year and a half ago. And they were curious as to what group of investors",
+   "zh": "但根本没人知道。如果谁真能持续精准预测，那他早就比 Warren Buffett 还有钱、受人追捧得多了。那简直就是魔法。没人能告诉你市场会怎么走。你根本无法预测市场，试图这么做纯属犯傻。大约一年或一年半前，Fidelity Investments 做过一项小研究。他们很好奇哪类投资者的表现最好。"
+  },
+  {
+   "s": 1824.62,
+   "e": 1853.45,
+   "en": "In their funds did best Because the research indicates that the people who invest in a mutual fund outperform or underperform rather the performance of that fund And you said well how that possible if they're investing in the fund their performance should match the fund The reason they underperform is they try to dance in and out they try to time the market So when fidelity did this research? They determined that one",
+   "zh": "在他们的基金中表现最好，因为研究表明，投资共同基金的人，其收益往往跑输，或者说不如那只基金本身的表现。你可能会问，这怎么可能？如果他们投资了这只基金，收益不应该和基金持平吗？他们跑输的原因在于他们总想进进出出、总想择时。那么当 Fidelity 做这项研究时，他们发现有一"
+  },
+  {
+   "s": 1853.79,
+   "e": 1883.26,
+   "en": "group of investors did significantly better than any other group who owned their funds. And that was dead people. The dead people outperformed. Now, can you guess why? Because they didn't tinker with their investment. The second best performing group were people who forgot that they own the fund. So you can't time the market. And especially when the market has been on as long a bull run as it has.",
+   "zh": "类投资者的表现明显优于持有他们基金的其他所有人群。那就是死人。死人的收益跑赢了所有人。现在，你能猜到为什么吗？因为他们不会去瞎折腾自己的投资。表现第二好的人群，是那些忘了自己还买了这只基金的人。所以你是无法择时的。尤其是在市场已经经历了如此长期的牛市之后。"
+  },
+  {
+   "s": 1883.68,
+   "e": 1912.97,
+   "en": "The media is filled with people telling you that they know what it's going to do next. At some point, the market will dive because the market is volatile. That's what markets do. So if you invest in the market, you have to expect that. You have to expect the volatility. You have to be willing to ride with it. But I don't know when it's going to do that. It could be happening as we're sitting in this room together today. I haven't looked at the market. It might be 10 years from now. I have no idea.",
+   "zh": "媒体上到处都是声称知道接下来会怎样的人。在某些时刻，市场必然会大跌，因为市场本身就充满波动。市场就是这样的。所以如果你投资股市，就必须对此有所预期。你得预料到这种波动。你得愿意承受这种起伏。但我不知道这何时会发生。可能就在今天我们坐在这个房间里的时候发生。我今天还没看盘呢。也可能是从现在起的10年后。我完全不知道。"
+  },
+  {
+   "s": 1913.29,
+   "e": 1947.69,
+   "en": "And nobody else does. The difference is I'm willing to say I don't know. So for someone who may be interested in investing, maybe when they go home today, they have some cash they want to start investing. And they say, well, the market's the highest it's ever been. I'm going to wait for it to dip. What advice would you give to those folks who are waiting for the next dip? Well, if we went back to March of 2009, which was when",
+   "zh": "其他人也一样不知道。区别在于我愿意承认我不知道。那么对于那些可能有兴趣投资的人，比如今天回家后手里有些闲钱想开始投资。他们会说，哎呀，市场现在处于历史最高点，我要等它回调。对于这些等待下一次回调的人，你会给什么建议？嗯，如果我们回到2009年3月，也就是"
+  },
+  {
+   "s": 1948.04,
+   "e": 1975.07,
+   "en": "The market bottomed in its collapse. Almost every month since then, you could have said the same thing. I wrote a post, and I want to say 2014, responding to a reader who was asking that exact same question. The market, the S&P 500, was 1,600 and change. And this reader was saying, how can I possibly reinvest?",
+   "zh": "市场在那场崩盘中触底的时候。从那以后的几乎每个月，你都可以说出同样的话。我记得是在2014年写过一篇文章，回应一位读者提出的完全相同的问题。当时标普500指数是1600点出头。那位读者当时就说，我怎么可能在这个时候重新进场投资？"
+  },
+  {
+   "s": 1975.57,
+   "e": 1998.01,
+   "en": "How can I possibly invest? It said nothing would go up for the last five years. And here it is at 1,600. And it bottomed out at, I want to say, 600 and something. And where are we today? Now, I didn't know that at the time, because I didn't know where the market was going to go. But you just don't know. You can't predict the market. And by the way, it's become fashionable to.",
+   "zh": "我怎么可能去投资呢？过去五年里它什么都没涨。可现在它到了1600点。而它触底的时候，我记得大概是600多点。那我们今天又在什么位置呢？当时我并不知道这些，因为我无法预知市场的走向。但你就是不可能知道的。你无法预测市场。顺便提一句，现在很流行去……"
+  },
+  {
+   "s": 1999.2,
+   "e": 2028.35,
+   "en": "Suggest the P ratios or Schiller P ratios give some insight into this in that post in Invest it's called investing in a raging bull It's in the stock series. I just put excuse me. I just put a link to a post I came across Very well done where the guy analyzes where the the various P ratios were at the beginning of drops",
+   "zh": "认为市盈率（P/E）或席勒市盈率能对此提供某些参考，在那篇题为《在狂暴牛市中投资》的帖子里——属于股票系列——我刚刚放了，不好意思，我刚放了一个我偶然看到的帖子链接，写得非常棒，作者分析了历次大跌开始时各种市盈率所处的位置。"
+  },
+  {
+   "s": 2029.03,
+   "e": 2055.37,
+   "en": "And there's no predictive correlation there to be had. So you just can't know. I also have a post called Why I Don't Like Dollar Cost Averaging. And in summary, dollar cost averaging is the idea of putting in a little bit of money at a time over a period of time.",
+   "zh": "结果发现这之间根本没有任何预测性的相关性。所以你根本不可能知道。我还写过一篇帖子叫《为什么我不喜欢定投》。总的来说，定投的概念就是在一段时间内，每次投入一小笔钱。"
+  },
+  {
+   "s": 2055.99,
+   "e": 2083.67,
+   "en": "The problem with that is that unless the market conveniently goes down while you're doing it, you will have been giving up gains rather than avoiding losses. And the thing that really bothers me about it is at the end of your period investment period where you've finally deployed all of your money, who's to say the next day isn't the day the market takes its big plunge? So you have $120,000 you want to deploy and you say, I'm going to do it over the next 12 months.",
+   "zh": "这样做的问题在于，除非市场刚好在你定投时下跌，否则你只是在错失收益，而不是在规避损失。而真正让我困扰的是，当你投资周期结束、终于把所有钱都投进去的那一刻，谁能保证第二天市场不会迎来大跌呢？比如你有12万美元打算投资，你说我要在接下来的12个月里慢慢投。"
+  },
+  {
+   "s": 2084.26,
+   "e": 2112.73,
+   "en": "And I'm going to put $10,000 a month in. And I'm going to avoid that risk. You're not avoiding the risk. You're just delaying the risk until you put that final $10,000 in. Now, if you get lucky in the market plungers, you'll pat yourself on the back. But understand, that's only luck, because nobody knows where the market is going. There is a saying that the best time to have invested was yesterday, and the second best time is today. That's great advice.",
+   "zh": "于是我每个月投1万美元，觉得这样就能规避风险。其实你并没有规避风险，你只是把风险推迟到了投完最后一笔1万美元的时候。当然，如果你运气好碰上市场大跌，你可能会暗自庆幸。但要明白，那纯粹是运气，因为没人知道市场会走向何方。有句话说得好，投资的最佳时机是昨天，其次是今天。这确实是极好的建议。"
+  },
+  {
+   "s": 2113.32,
+   "e": 2140.15,
+   "en": "It's time in the market is more powerful than trying to time the market. Time in the market is more powerful than trying to time the market. Well said. I like that. So we have one more question for Jim, but for folks who have live questions, feel free to line up at the mic. And we also have a Dory at go slash Jim dash Dory. So my last question before we turn it over to live questions is.",
+   "zh": "“身在市场”远比“择时入场”更有威力。“身在市场”比“择时入场”更有威力。说得太好了，我很喜欢。我们还有最后一个问题要问 Jim，不过现场想提问的朋友，现在可以到麦克风前排队了。我们也有 Dory 提问链接，在 go/jim-dory。那么在进入现场提问环节前，我的最后一个问题是："
+  },
+  {
+   "s": 2140.38,
+   "e": 2169.6,
+   "en": "There may be folks in this room who have a New Year's resolution to get their financial house in order. And they may be one of the folks who have a lot of cash and checking or savings, or they just are so overwhelmed by the stuff that they don't even know where to begin. So what would you say are just the key takeaways they should focus on when they leave this room? Well, again, I would encourage anybody in that. If you're sitting on that much cash, and I'm assuming that that",
+   "zh": "在座的各位中，可能有人今年的新年计划就是把财务理顺。他们可能手头有大笔现金放在活期或储蓄账户里，或者只是面对理财毫无头绪、不知从何做起。那么走出这个房间时，您觉得他们最应该记住的核心建议是什么？嗯，我还是想鼓励这类朋友。如果你手头有这么多现金，而且我假设这笔"
+  },
+  {
+   "s": 2169.96,
+   "e": 2199.32,
+   "en": "Amount of cash represents a large part of your net worth as money is relative But if you're sitting on a hundred thousand dollars as an example, and that is a large part of your net worth That indicates that you're not comfortable investing and that's fine. So the first thing you should do is educate yourself And you can start with my blog or my book And see if that resonates and go from there if you find it doesn't resonate then there are a lot of other sources out there But educate yourself first",
+   "zh": "现金占了你净资产的很大一部分——毕竟钱多钱少是相对的。但举个例子，如果你手里攥着十万美元，而且这占了你净资产的大头，这说明你对投资心存顾虑，这完全没问题。所以你首先要做的是学习投资知识。你可以从我的博客或我的书开始看，看看能不能产生共鸣，再决定下一步。如果觉得不合胃口，市面上还有很多其他渠道。但第一步，一定要先自我学习。"
+  },
+  {
+   "s": 2199.54,
+   "e": 2227.02,
+   "en": "But if you're prepared to end some of the posts that I referenced during the stock series So you can read about investing in a raging bull you can read about dollar-cost averaging But once you decide to invest in stocks you have to accept the fact that the market is volatile The market at some point the market will go down now whether it goes down 10% and continues going up 20 who knows nobody knows",
+   "zh": "但如果你准备看一看我在股票系列中提到的一些文章，你可以去读读关于在狂暴牛市中投资的内容，也可以了解一下定投。可一旦你决定投资股票，就必须接受市场是波动的这一事实。市场在某个时刻必然会下跌，至于它是跌10%后继续涨20%，还是怎样，谁知道呢，没人说得准。"
+  },
+  {
+   "s": 2227.56,
+   "e": 2251.89,
+   "en": "But the market, you can count on it being volatile. And at some point, it will go down. And you have to come to terms with that. And you have to be absolutely sure that when that happens, not if, but when, you don't panic. Because the only way you lose is if you panic and sell at the bottom. Now, trust me when I tell you, because I've lived through a few of them.",
+   "zh": "但市场是注定会波动的，而且在某个时刻它一定会跌。你必须坦然接受这一点，并且要百分之百确定，当这种情况发生时——不是如果，而是一定会发生——你绝不能慌。因为唯一的亏损方式，就是你在恐慌中割肉离场。相信我说的，因为我已经亲历过好几次这种场面了。"
+  },
+  {
+   "s": 2252.22,
+   "e": 2280.7,
+   "en": "When the market is taking one of its dives, it's ugly, it's painful, it's scary. It's easy to sit here now and say, well, I'll stay the course. But it's not so easy to do it when it's happening. So the first thing you need to resolve, it seems to me, in your own mind, in your own heart, in your own gut, is that when that happens, that selling is not an option. It's just simply not an option.",
+   "zh": "当市场暴跌时，场面会极其惨烈、痛苦且令人恐惧。现在坐在这儿轻飘飘地说“我会坚守阵地”很容易，但当真金白银暴跌时，做起来可没那么简单。所以依我看来，你首先需要在脑海里、内心深处以及本能上想清楚一件事：一旦这种情况发生，“卖出”绝不是一个选项。它根本就不能算作选择。"
+  },
+  {
+   "s": 2281.23,
+   "e": 2304.93,
+   "en": "Now in my world I divide the times in our life between wealth accumulation and wealth preservation stages In a more traditional point in time that might have been well when you're young and you're working. That's your wealth Building stage and then you get to 60 or 65 and you retire wealth preservation, but these days people",
+   "zh": "在我的观念里，我把人生划分为财富积累和财富保值两个阶段。按传统观念来看，大概就是你年轻打拼时是财富积累期，到了60或65岁退休后，就进入了财富保值期。但如今，大家"
+  },
+  {
+   "s": 2305.33,
+   "e": 2328.0,
+   "en": "step in and out of careers on a routine basis. So you will go from wealth preservation to wealth building and back several times. I know I did in my career. When you're doing that, there are two ways you can mitigate the volatility of the market and actually use it to your advantage. When you are in the wealth building stage, you have earned income.",
+   "zh": "频繁地换行或进出职场已是家常便饭。所以你会在财富保值和财富积累之间来回切换好几次，至少我自己的职业生涯就是如此。当你处于这种状态时，有两种方法可以平抑市场波动，甚至反过来利用波动为你牟利。当你处于财富积累阶段时，你拥有劳动收入。"
+  },
+  {
+   "s": 2328.32,
+   "e": 2356.06,
+   "en": "And if you're aiming to be financially independent, a large portion of that income is being diverted into investments. So that means, on a regular basis, you are putting substantial amounts of your income into the market. That, by extension, means when the market drops, you're getting to buy things on sale. Now, you're not going to try to time this, because we know we can't do that. But what it does mean is that when the market drops, you should celebrate. Because, oh.",
+   "zh": "如果你想实现财务自由，这笔收入很大一部分都会转去投资。这意味着你平时会把大笔收入定期投入市场。进而也就意味着，股市下跌时，你其实是在打折买入。当然，你不会去择时，因为大家都知道做不到。但这确实意味着股市下跌时，你该庆祝才对。因为，天哪。"
+  },
+  {
+   "s": 2356.41,
+   "e": 2385.77,
+   "en": "I'm getting to buy, when I put that extra $1,000 or $10,000 or whatever it is, in each month, I'm getting more shares in my VTS AX than I would have gotten otherwise. The volatility works to your advantage in that fashion. So you sleep easily in that because you don't care what Mr. Mark is going to do. Now, when you move to the wealth preservation stage, you no longer have that income stream to smooth the ride. And that, in my world, is when you add bonds.",
+   "zh": "我能买得更多了，每个月我额外投进去的那 1,000 美元、10,000 美元或者随便多少钱，都能让我买到比平时更多的 VTSAX 份额。波动性反而成了你的优势。所以你能睡得安稳，因为你根本不在乎“市场先生”会怎么走。可当你进入财富保值阶段后，就不再有那笔收入流来平抑波动了。按我的思路，那时候就该配置债券了。"
+  },
+  {
+   "s": 2386.63,
+   "e": 2415.29,
+   "en": "And bonds become like ballast in your sailing ship, where your flow of income was before. Now you're going to replace that with a ballast of bonds. And that means that when the market plunges, the stocks plunge, and you reallocate to stay at whatever allocation you've chosen, you'll be selling bonds, which have gone up as a percentage of your portfolio. Let's say, as I do at the moment, you have 30% bonds.",
+   "zh": "债券就像你帆船上的压舱石，替代了你以前的收入现金流。现在你用债券这种压舱石来取代它。这意味着当股市暴跌、股价大跳水时，为了维持你设定的资产配置比例进行再平衡，你就会卖出债券，因为它们在你的投资组合中所占的比例上升了。比方说，就像我目前这样，你有30%的债券。"
+  },
+  {
+   "s": 2415.67,
+   "e": 2441.81,
+   "en": "70% stocks Well, when stocks plummet that percentage of bonds is going to go up You sell some of those bonds and you're buying those stocks at lower prices just like your cash flow was allowing you to do it before when stocks go back up again and Suddenly that percentage of stocks starts to outweigh where you want it to be it gets above 70 You start selling some of those off to replenish your bonds",
+   "zh": "70%的股票。那么，当股票暴跌时，债券的占比就会上升。你卖出一部分债券，以更低的价格买入那些股票，就像你之前的现金流允许你做的那样。当股票回升，股票占比突然超过了你的预期目标，比如超过了70%，你就开始卖掉一部分股票来补充你的债券。"
+  },
+  {
+   "s": 2442.36,
+   "e": 2466.3,
+   "en": "With those two strategies, you no longer have to care whether market is going up or down because you know that over time the market is going to go up and you've eliminated the concerns with volatility. So I would embrace those two concepts. Understand that you don't ever sell in a panic just because it went down. That is simply not an option that you will ever consider.",
+   "zh": "有了这两种策略，你就不必再去关心市场是涨是跌了，因为你知道随着时间的推移，市场终究会上涨，你已经消除了对波动的担忧。所以我会欣然接受这两个理念。要明白，绝不能仅仅因为股市下跌就恐慌性抛售。这根本就不在你考虑的选项之内。"
+  },
+  {
+   "s": 2467.11,
+   "e": 2479.54,
+   "en": "Then depending on which stage you're in either use bonds or use cash flow to smooth the right All right. We're ready to go to some live questions Thank you for coming",
+   "zh": "然后根据你所处的阶段，要么利用债券，要么利用现金流来平抑波动。好了，我们可以进入现场提问环节了，感谢大家的光临。"
+  },
+  {
+   "s": 2480.24,
+   "e": 2508.74,
+   "en": "So I just had two questions about the future. So number one. You are addressing the wrong guest. I'll try anyway. So earlier in the talk, you mentioned a very simple sentence, what you do with your money, put it in VTSAX, or similar fund. So that one sentence, it seems like you can do that in a matter of a few clicks, an individual. So my question is, you know.",
+   "zh": "我对未来刚好有两个疑问。首先第一个——你问错人了，不过我还是尽量答吧。在之前的演讲中，你提到过一句很简单的话，关于钱该怎么处理：买 VTSAX 或类似的基金。就这么一句话，感觉个人点几下鼠标就能搞定。所以我的问题是："
+  },
+  {
+   "s": 2509.26,
+   "e": 2533.56,
+   "en": "About the financial advisor system the kind of the larger system where you're calling someone on the phone and having them essentially do the exact same thing My question is how do you see that? Changing as the world becomes more financially educated and then as a corollary to that the broader system if everyone kind of buys into this indexing idea",
+   "zh": "关于理财顾问体系，也就是那种你打电话找人、而他们本质上也是在做完全一样事情的大体系，我的问题是，随着大众金融素养的提高，你觉得它会发生怎样的变化？顺着这个思路扩展一下：如果人人都接受了这种指数投资的理念，"
+  },
+  {
+   "s": 2534.84,
+   "e": 2559.57,
+   "en": "are there any systemic risks to the entire world investing in an index? Okay, so with financial advisors, I think in fairness to financial advisors, they can be useful in a wide range of subjects other than making your investment choices for you.",
+   "zh": "那么全世界都去买指数基金，是否存在什么系统性风险？好的，关于理财顾问，平心而论，除了帮你做投资选择之外，他们在很多其他领域还是能派上用场的。"
+  },
+  {
+   "s": 2560.14,
+   "e": 2584.11,
+   "en": "But I have one of the chapters in my book and one of the posts in the stock series is why I don't like investment advisors. Because if you embrace the simplicity that I suggest, then from at least an investment point of view, as you well point out, why would you need an advisor to do what you can do in a handful of clicks?",
+   "zh": "但我在书中的一个章节，以及股票系列文章里的一篇，专门讲了为什么我不喜欢投资顾问。因为如果你接受了我所建议的这种极简理念，那至少从投资的角度来看，正如你所指出的，点几下鼠标就能搞定的事，为什么还需要顾问呢？"
+  },
+  {
+   "s": 2585.61,
+   "e": 2614.42,
+   "en": "And when I gave my talk at Chautauqua, when I was preparing that talk for last year, I took a little different approach than I'd taken before, and I was thinking about the content of my book and the content of my blog, and they're trying to boil it down into one line, or one phrase, and really what I came up with is, my advice is, buy VTS AX, buy as much as you can, buy it whenever you can, and hold it forever, and it's really,",
+   "zh": "去年我在 Chautauqua 演讲备课时，采取了一种和以往不太一样的方法，当时我反复琢磨着书和博客里的内容，想把它们浓缩成一句话或一个短语，最后我想出来的建议其实就是：买入 VTSAX，能买多少就买多少，只要有钱就买，并且永远持有，真的就是"
+  },
+  {
+   "s": 2614.83,
+   "e": 2640.35,
+   "en": "that simple, and as you say, it's a matter of a handful of clicks. The second question, and this is one that's in the financial community, a fair amount is, well, what if everybody embraces indexing? What's that going to do to markets? And the problem that's suggested is that indexing simply buys every stock, whereas stock pickers, whether they're individuals or fund managers,",
+   "zh": "这么简单，正如你所说，也就是动动手指点几下的事。第二个问题在金融界被讨论得相当多，那就是：如果人人都去买指数基金会怎么样？这会对市场造成什么影响？人们提出的担忧是，指数投资只是单纯地买入每只股票，而主动选股者——无论是个散户还是基金经理——"
+  },
+  {
+   "s": 2641.07,
+   "e": 2659.95,
+   "en": "They're the ones who are trying to evaluate companies and thereby creating a trading mechanism that looks at some sort of objective parameters and comes up with the values. And is there a danger to that going away as everybody embraces indexing?",
+   "zh": "才是去认真评估公司的人，他们建立了一种基于某些客观参数来衡量价值的交易机制。那么，随着人人都去买指数基金，这种机制的消失会不会带来危险呢？"
+  },
+  {
+   "s": 2661.93,
+   "e": 2683.65,
+   "en": "I'm not concerned about it. I don't know if there's a danger or not because it's hypothetical I'm not concerned about it though because indexing I think at the moment accounts for 20 25 percent of the market It is growing more people are embracing the idea But I think has it if it continues to grow what I would",
+   "zh": "我并不担心这一点。我不知道是否存在危险，因为这只是假设，但我并不担心，因为目前指数投资大概只占市场的20%到25%，它确实在增长，接受这一理念的人也越来越多，但我认为如果它继续增长，我所预期的……"
+  },
+  {
+   "s": 2684.46,
+   "e": 2713.24,
+   "en": "What I think will happen is that sliver of active management becomes narrower, and more and more people are indexing. The opportunity to actually outperform the index will start to increase. And as that happens, you'll have some of those active managers posting success stories, and that'll begin to tilt it the other direction. And I think the other reason I'm not concerned about indexing taking over the world is because, as I mentioned,",
+   "zh": "我认为将会发生的是，主动管理的那一小块份额会变得更窄，而越来越多的人选择指数投资。真正跑赢指数的机会反而会开始增加。随着这种情况发生，就会有一些主动型基金经理亮出成功的业绩，市场就会开始向另一个方向倾斜。我认为我不担心指数投资会统治世界的另一个原因是，正如我之前提到的，"
+  },
+  {
+   "s": 2713.8,
+   "e": 2737.71,
+   "en": "earlier in answering one of your questions, it is counterintuitive that it is so powerful. And it's part of human nature to want to think that you can outperform. It's part of human nature to want to best the benchmark. I still have the disease. Every now and again, I'm still trying to pick stocks.",
+   "zh": "在回答你的一个问题时我说过，它如此强大其实是反直觉的。而且想要认为自己能跑赢市场，这是人类的天性。想要战胜基准，也是人类的天性。我自己就还有这毛病。时常我也还是忍不住想去选股。"
+  },
+  {
+   "s": 2739.26,
+   "e": 2767.96,
+   "en": "I think that aspect of human nature is also going to keep it indexing from ever taking over the world. Does that help at all? Yes, thank you. My pleasure. Thank you. Hey, jail. Thanks for coming today. Thank you for having me. My dad and I go back and forth on this all the time. But do you see any advantage to trying to diversify away from the S&P 500 and think about either like global markets or bonds or commodities?",
+   "zh": "我认为人性的这一面，也会让指数化投资永远无法统治整个世界。这对你有帮助吗？是的，谢谢。不客气，谢谢。嗨，JL，感谢今天到来。谢谢你们邀请我。我和我爸总在这个问题上争论不休。但你觉得试着跳出标普500指数进行多元化分散投资，比如考虑全球市场、债券或大宗商品，有什么好处吗？"
+  },
+  {
+   "s": 2769.92,
+   "e": 2791.84,
+   "en": "Well, but well bonds as I mentioned I think you add bonds depending on at what point in your life you are as ballast For your investment ship and I don't other than that. I don't see a role for bonds What's interesting to me about that question is the S&P 500 as the name suggests owns basically the 500 largest American companies",
+   "zh": "好吧，至于债券，就像我提到的，我认为加不加债券取决于你处于人生的哪个阶段，它是作为你投资航船的压舱石，除此以外，我觉得债券没什么其他作用。对我来说，那个问题有趣的地方在于，标普500指数顾名思义，基本上囊括了美国规模最大的500家公司"
+  },
+  {
+   "s": 2794.26,
+   "e": 2820.12,
+   "en": "VTSA X which is a total stock market index fund owns and it varies but about 3600 companies when I first started investing and It was before such things existed or they were just coming on stream The idea of being diversified was because you were most the vast majority of people were picking individual stocks They had to because that was available. There were some mutual funds out there",
+   "zh": "而全股票市场指数基金VTSAX则持有着——具体会有变动——大约3600家公司。当我最初开始投资时，这类东西还没出现，或者说才刚刚上线，分散投资的概念是因为当时绝大多数人都在挑个股，他们不得不这么做，因为当时就只有这个。市面上虽有一些共同基金，"
+  },
+  {
+   "s": 2820.84,
+   "e": 2845.77,
+   "en": "But the advice given to individual investors then was, you know, you want to pick seven, eight, nine, maybe 10 industries. And inside those industries, you want to pick two or three companies, and then you have a diversified portfolio. Because you really can't physically and mentally follow more than 20, 25, maybe the outside 30 companies.",
+   "zh": "但当时给散户的建议是，你得选上七、八、九个，也许10个行业。在这些行业里，挑两到三家公司，这样你就拥有了一个分散的投资组合。因为无论从精力还是心力上，你确实没办法跟踪超过20、25家，最多顶天30家公司。"
+  },
+  {
+   "s": 2846.44,
+   "e": 2858.4,
+   "en": "And that was considered to be a well-diversified portfolio. So when somebody says to me, do I need to diversify beyond 500 companies, I think you're there.",
+   "zh": "那已经被认为是一个非常充分分散的投资组合了。所以当有人问我，我还需要在500家公司之外进一步分散吗，我觉得你已经做到了。"
+  },
+  {
+   "s": 2858.78,
+   "e": 2884.32,
+   "en": "I think you're there. Now, the international aspect of it, I'm a little at odds with the rest of the world or most of the rest of the world. The advice that most people give is that in addition to buying the S&P 500 or VTSAX, which are US companies, you need to buy funds that put you into the rest of the world internationally from other countries. Vanguard itself gives that advice.",
+   "zh": "我觉得你已经足够分散了。至于国际化投资这方面，我的看法和全世界或者说大部分人有点不太一样。大多数人给出的建议是，除了购买代表美国公司的S&P 500或VTSAX之外，你还需要购买投资于其他国家的全球基金。Vanguard自己也是这么建议的。"
+  },
+  {
+   "s": 2886.54,
+   "e": 2913.3,
+   "en": "I don't buy it, at least not yet. The US is still very dominant in the world economy. It will continue to be dominant for the foreseeable future. But more importantly, those companies in the index in the S&P 500, especially in the top 100 of those companies, Google is an example, are international companies by definition. So if you're investing in the S&P 500,",
+   "zh": "但我并不买账，至少现在还不认同。美国在全球经济中仍然占据绝对主导地位。在可预见的未来，它也将继续保持这种主导地位。但更重要的是，S&P 500指数里的那些公司，尤其是排名前100的公司（Google就是个例子），从本质上讲就是跨国公司。所以如果你投资了S&P 500，"
+  },
+  {
+   "s": 2913.6,
+   "e": 2940.09,
+   "en": "And of course, the S&P 500 is 80% of VTS AX. You, by definition, are invested in the world. We just proved my dad right, so. Before we take our next live question, I want to go to the top voted question on the Dory. So the question is from Stephanie here in Chicago. She said, a lot of Googlers receive a significant portion of compensation in Google stock.",
+   "zh": "当然，S&P 500占了VTSAX的80%。从本质上讲，你其实就已经投资了全世界。我们刚刚证明了我父亲是对的，所以……在接听下一个现场提问之前，我想先看一个在Dory上投票最高的问题。这个问题来自芝加哥的Stephanie。她说，很多Googler很大一部分薪酬都是Google股票。"
+  },
+  {
+   "s": 2940.51,
+   "e": 2969.3,
+   "en": "Oftentimes there are strong camps who never sell a share or those who sell it all and diversify immediately What are your thoughts on holding the Google shares since we're all extremely invested in the success of Google? Well, that's a politically loaded question Somehow I think I should say hold Google But that's actually not my opinion and that has nothing to do with by the way Google stock or",
+   "zh": "通常会有两大阵营，一种是打死不卖一股，另一种则是全盘抛售并立刻分散投资。既然我们所有人都极度关注 Google 的成功，那对于持有 Google 股票，你怎么看？这问题可真有点政治敏感，按理说我好像应该回答“继续持有 Google”，但这其实并不是我的真实想法，顺便说一句，这与 Google 的股价没有任何关系，"
+  },
+  {
+   "s": 2970.44,
+   "e": 2999.23,
+   "en": "or what I see as the future of Google. The problem I have is, in looking at the question, when she says we're all extremely invested in the success of Google, that's a great thing. But that's also an emotional thing. And I think you need to separate your emotions from your investing. So you all want to see Google go forward and succeed and prosper. It is your career.",
+   "zh": "也无关我眼中的 Google 未来。在我看来，这个问题在于，当她说“我们所有人都极度关注 Google 的成功”时，这确实是件好事，但这也掺杂了情绪，而我认为你需要把情绪和投资分开。你们自然都希望看到 Google 蒸蒸日上、不断成功与繁荣，毕竟这是你们的事业所在。"
+  },
+  {
+   "s": 2999.85,
+   "e": 3028.79,
+   "en": "It writes your paychecks. And therein lies the problem, because when you were also invested in Google, you have more and more eggs in that one basket. I don't know what the future of Google is, and nobody really does. Everybody in this room, presumably, and in the organization is striving to make that future wonderful and profitable going on indefinitely, and have done a wonderful job so far.",
+   "zh": "它给你发薪水。而问题恰恰就在这里，因为当你还投资了 Google 时，你就把越来越多的鸡蛋放在了同一个篮子里。我不知道 Google 的未来会怎样，其实没人真正知道。大概在座的每个人，以及整个组织，都在努力让这个未来无限期地美好且盈利下去，而且到目前为止大家干得都很棒。"
+  },
+  {
+   "s": 3029.39,
+   "e": 3057.7,
+   "en": "But the world is filled with people who are trying to eat your lunch. I think back to General Motors. So when I was a kid, in the 1960s, General Motors kind of had a rough go of it in most of your lifetimes. In the 1960s, the federal government was on the verge of breaking up General Motors because nobody else could compete with them. General Motors was so dominant",
+   "zh": "但这个世界上到处都是想抢你饭碗的人。我想到了通用汽车（General Motors）。在我小的时候，也就是20世纪60年代——通用汽车在你们大多数人活着的大半辈子里过得挺艰难的。而在60年代，联邦政府一度濒临拆分通用汽车，因为没有其他人能与之竞争。通用汽车曾如此占据统治地位，"
+  },
+  {
+   "s": 3058.15,
+   "e": 3085.32,
+   "en": "that the government was concerned that no other car company would be able to compete, and they would have to step in. And they were specifically talking about splitting off the Chevrolet division, which was just huge and dominant. Well, of course, history tells us two things. It tells us, one, the government chose not to do that. And two, that they didn't need to worry, because the world was filled with places with other companies.",
+   "zh": "以至于政府担心没有其他汽车公司能够竞争，他们将不得不介入。当时他们具体在讨论拆分 Chevrolet 部门，该部门当时极其庞大且占据统治地位。当然，历史告诉了我们两件事。第一，政府选择不那么做。第二，他们根本不用担心，因为世界上到处都是其他竞争公司。"
+  },
+  {
+   "s": 3085.76,
+   "e": 3108.65,
+   "en": "Waiting to eat General Motors lunch the moment they slipped up or simply the moment the competitor figured out a better way to do it So you have to be very careful in putting all of your eggs into the same basket where you work Going back to the question the gentleman asked earlier about the S&P 500. I would rather own the S&P 500",
+   "zh": "一旦通用汽车稍有闪失，或者竞争对手找到了更好的方法，就会立刻抢占他们的市场。所以把你所有的鸡蛋都放在你工作的这家公司里，一定要非常小心。回到刚才那位先生关于标准普尔500指数的提问，我宁愿持有标普500指数，"
+  },
+  {
+   "s": 3109.44,
+   "e": 3140.88,
+   "en": "Or at least have the bulk of my my net worth in the S&P 500 because now I don't have to guess who's gonna win because the losers fall off and The winners go on prosper one of the beautiful things about the index is what I call self being it is self cleansing and by that what I mean is that if you look at any specific company in that index You can only lose a hundred percent of that company",
+   "zh": "或者至少把我的大部分净资产投在标普500指数上。因为这样我就不用去猜谁会赢，那些失败者会被淘汰，而获胜者会继续壮大。这个指数最绝的一点就是我所说的“自我净化”。我的意思是，看指数里的任何一家特定公司，你最多也就亏损百分之百，"
+  },
+  {
+   "s": 3141.8,
+   "e": 3171.12,
+   "en": "But any other company that index and Google's a wonderful example of this over the last few decades Can grow exponentially there is almost no limit to how far it can grow So that's kind of a winning combination The losers fall off and they don't actually go to a hundred percent before they get delisted But the losers drift away and you are continually getting new blood added to it as new companies come up And you get to benefit from those who succeed and all those companies are filled with people",
+   "zh": "但指数里的任何其他公司，比如过去几十年的 Google 就是个极好的例子，却可以呈指数级增长，其增长几乎没有上限。所以这算是一种必胜的组合。失败者被淘汰——其实在亏完百分之百之前就会被剔除——它们逐渐淡出，随着新公司的崛起，你又不断注入新鲜血液。你能从成功者身上获利，而所有这些公司里都坐满了"
+  },
+  {
+   "s": 3171.57,
+   "e": 3192.92,
+   "en": "who are working hard to make sure their company succeeds. As an investor, I don't have to figure out who the winner is going to be, because I own them all. OK, we have time for one more question. So I was going to ask two, but I think they're quick. The retirement day funds?",
+   "zh": "拼命工作以确保公司成功的人。作为投资者，我根本不用去猜谁会是赢家，因为我把它们全都买下了。好，我们还有时间回答最后一个问题。我原本想问两个，不过应该很快。关于目标日期退休基金呢？"
+  },
+  {
+   "s": 3193.3,
+   "e": 3218.16,
+   "en": "Thoughts on those target retirement date funds so automatically adjusting allocations as your closer retirement Thoughts on that or do you think you should just do allocation? yourself through the various of bonds and Vanguard funds on your own And then the second one was just really about in what scenarios would you find it helpful to use a financial advisor? I find doing it on your own is great, but at some point you want to kind of",
+   "zh": "你怎么看那种目标退休日期基金？也就是随着退休临近自动调整资产配置，你怎么看？还是说你觉得应该自己通过各种债券和 Vanguard 基金来做配置？第二个问题其实是，在什么情况下你会觉得找理财顾问是有帮助的？我觉得自己做挺好的，但在某些时候你可能会想得到某种"
+  },
+  {
+   "s": 3218.26,
+   "e": 3242.64,
+   "en": "Reassurance you're doing it. Well, I'm not for investment picking but you have to go to someone to get insurance Etc. Okay, so a target retirement fund just to kind of quickly explain what that is. There are mutual funds out there Vanguard has them which are called target date retirement funds or target retirement funds and the idea is that it's",
+   "zh": "确认，确保自己做得不错。虽然在选股投资方面不需要，但买保险之类的总得找人咨询。好，所谓目标退休基金，我先简单解释一下它是什么。市面上有一些共同基金，Vanguard 就有，被称为目标日期退休基金或目标退休基金，其核心概念是它属于"
+  },
+  {
+   "s": 3243.22,
+   "e": 3271.92,
+   "en": "What's called a fund of funds which means it is a mutual fund that holds a bunch of other funds inside it usually five or six different funds And with a target retirement fund you pick a retirement date and you buy the fund and as the gentleman just indicated you can hold it forever and Automatically the closer you get to that retirement date the more conservative the fund allocation will become that is to say",
+   "zh": "所谓的“基金中的基金”，也就是一种在内部持有一堆其他基金的共同基金，通常包含五到六只不同的基金。买目标退休基金时，你选好一个退休年份然后买入即可，正如这位先生刚才提到的，你可以一直持有它，而且自动地，你离退休日期越近，基金的资产配置就会变得越保守，也就是说"
+  },
+  {
+   "s": 3272.29,
+   "e": 3292.71,
+   "en": "Typically the more bonds they will add so the idea is you never have to adjust your allocation as you get to it Now you can adjust so some people say well gee I might want to be more aggressive or less aggressive than the retirement Fund well you can adjust that by if you want to be more aggressive just pick one",
+   "zh": "通常他们会加入更多的债券，所以核心理念就是随着时间推移，你永远不需要手动调整资产配置。当然你也可以调整，比如有些人会说：“哎呀，我想比这只退休基金更激进或更保守一些。”其实你可以这样调整：如果你想更激进，那就选一只退休年份更晚的"
+  },
+  {
+   "s": 3292.99,
+   "e": 3310.23,
+   "en": "with a retirement date that's actually further out than your own anticipated retirement. If you want to be more conservative, you can just bring that retirement date in closer than you were actually planning to retire. And the idea is that you never have to do anything again.",
+   "zh": "选一个比你实际预期退休时间更晚的目标年份。如果你想更保守一些，直接把退休年份提前就行。其核心理念就是，你再也不需要做任何操作了。"
+  },
+  {
+   "s": 3313.76,
+   "e": 3339.62,
+   "en": "It is not a bad approach if you really want to invest in a way that is completely hands-off Where you really never have to think about it? This is not a bad way to go and in fact I have a post on this in the stock series, and I think it's a chapter in the book I'm not sure if I put it in the book or not But there's a post in the stock series where I talk about these things. It's not a bad way to go What I suggest to people is that if you can read through my stock series",
+   "zh": "如果你真想彻底甩手投资，真的再也不想为此费心，那这种方法其实挺不错的。事实上，我在“股票系列”里写过一篇文章聊这个，好像书里也有一章——记不清书里有没有收录了，但股票系列里肯定有一篇谈到了这些。这条路确实行得通。我给大家的建议是，如果你读得下我的股票系列，"
+  },
+  {
+   "s": 3340.19,
+   "e": 3366.98,
+   "en": "You're comfortable with what you read or you read my blog or my book rather and you're comfortable with what you read It is less expensive to simply do the allocation yourself and it's not very hard It doesn't take much time and that's the way I would Encourage you to go by the other hand if you read through the stock series or you start reading through and you say you know what? I just really don't want I just this is just not my thing",
+   "zh": "读完觉得完全能接受，或者读了我的博客，准确地说是我的书，而且能接受里面的内容，那么自己做资产配置成本更低，其实一点也不难，花不了多少时间，这也是我更推荐的做法。但反过来，如果你读了股票系列，或者刚开始读就觉得：“算了吧，我真不想搞这些，我实在对这个不感冒。”"
+  },
+  {
+   "s": 3367.88,
+   "e": 3394.13,
+   "en": "And there are topics by the way in my life that I would have that reaction to Then just skip down to the post about tiger target retirement funds and and you can be done and you won't It won't be a bad thing to do And the second thing real quickly in terms of financial advisors Again, I don't think you need them if you follow an approach like mine, which is simple investing. You don't need them for that but there are other aspects where",
+   "zh": "顺便说一句，生活中也有些领域会让我有这种反应。如果是这样，直接跳到讲目标日期退休基金的那篇文章，照着做就完事了，这也没什么不好的。第二点再简单提一下财务顾问，重申一下，如果你采用像我这样极简投资的理念，你根本不需要他们。在这方面你用不上他们，但在其他一些方面"
+  },
+  {
+   "s": 3394.59,
+   "e": 3423.69,
+   "en": "where they can be useful. The problem with financial advisors is while there are good ones, there are a lot who are not. And they're not for a couple reasons. One is simply they're not that competent. But the other, and a little more insidious, is that their interests are not necessarily aligned with what's best for you. So if you read my post on why I don't like investment advisors, one of the conclusions I come to is by the time you know enough,",
+   "zh": "财务顾问的问题在于，虽然有好的，但也有很多并不怎么样。主要原因有两点。一是能力确实不够强。但另一个更隐蔽的原因是，他们的利益未必和你的最大利益一致。如果你读过我写的那篇关于为什么不喜欢投资顾问的文章，我得出的结论之一就是，等你积累了足够的知识，"
+  },
+  {
+   "s": 3424.95,
+   "e": 3441.09,
+   "en": "to choose an investment advisor wisely. Had you invested that time learning it yourself, you would know enough to do it on your own. Thank you. We're out of time. Thanks for coming to Google Chicago. It's been a pleasure having you. It's been a pleasure being here. Thank you.",
+   "zh": "能明智地挑选投资顾问时。要是你把这些时间花在自学上，你早就掌握了自己做投资的能力。谢谢大家。我们时间到了。感谢大家来到 Google 芝加哥办公室。很高兴邀请到您。我也很高兴来到这里。谢谢。"
+  }
+ ]
+}

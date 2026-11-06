@@ -1,0 +1,1232 @@
+{
+ "vid": "cKPlPJyQrt4",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 0.0,
+   "e": 28.98,
+   "en": "So good morning, everyone. I'm James Powell. As the session chair mentioned, I've been doing PyData for a very long time. I think this is my 27th, 28th PyData conference I've attended. I believe this is the 50-something PyData talk I've given in the last four years. I don't know that that makes me a Python expert. I can tell you that we have a lot of material to cover, so I won't go very deep into my own introduction. Other than to tell you that",
+   "zh": "大家早上好。我是 James Powell。正如主持人所说，我参与 PyData 已经很久了。这大概是我参加的第 27 或 28 届 PyData 大会了。我想这也是我在过去四年里做的第 50 多场 PyData 演讲。我不知道这算不算 Python 专家。不过今天我们要讲的内容很多，所以我就不多做自我介绍了。只是想告诉大家"
+  },
+  {
+   "s": 30.8,
+   "e": 53.32,
+   "en": "Even though I attend many Pi Data events and I help out in organizing all of these, I do this in the capacity of a volunteer. There are a lot of volunteer opportunities available with NumFocus and with Pi Data itself. So if you're interested in running up Pi Data in your own city or getting more involved with open source data science, please let me know or let any of the organizers of this conference know. There's always room for more volunteers.",
+   "zh": "虽然我参加了许多 PyData 活动并协助组织它们，但我完全是以志愿者的身份参与的。NumFOCUS 和 PyData 本身都有大量的志愿者机会。所以如果你有兴趣在自己的城市举办 PyData，或者想更多地参与开源数据科学，请告诉我或联系本届大会的任何一位组织者。我们永远欢迎更多志愿者的加入。"
+  },
+  {
+   "s": 54.79,
+   "e": 81.27,
+   "en": "For those of you who've had the fortune or misfortune of seeing any of the talks that I've given previously at PyData events, I often give talks about strange things that you can do with Python, like embed Python interpreters within themselves, or add features to Python at runtime, or patch your Python so that you can load other Python interpreters using dynamic linker tricks. And sometimes the subtext of all of these is, you know, these are the lifestyles of the Python experts, what kind of crazy fun that we can have.",
+   "zh": "对于那些有幸或不幸看过我以前在 PyData 活动上演讲的人来说，我经常会讲一些用 Python 能做的奇葩操作，比如在 Python 解释器里内嵌一个它自己，或者在运行时给 Python 添加特性，又或是给你的 Python 打补丁，好利用动态链接器的奇技淫巧来加载其他 Python 解释器。有时候这些内容的言下之意就是：看吧，这就是 Python 专家的日常，我们能玩出多疯狂的花样。"
+  },
+  {
+   "s": 81.46,
+   "e": 94.2,
+   "en": "And so I decided maybe I should give a talk that might actually be useful to an audience as opposed to just showing off some crazy things that you can do. And so one thing that might actually be useful is to really talk about what it means to be a Python expert.",
+   "zh": "所以我想，也许我该做一场对观众真正有用的演讲，而不是单纯炫耀你能做哪些疯狂的事。那么真正有用的，可能就是好好聊聊究竟什么才叫 Python 专家。"
+  },
+  {
+   "s": 94.73,
+   "e": 122.35,
+   "en": "I do a good amount of, do a couple of different things in my day job. I work on a variety of different projects. I can tell you if you are an employee at Microsoft and you're interested in Python, something that I can talk to you about. Microsoft is very invested in the future of Python in more ways than you might even know. I also do some corporate training, and in that corporate training, this question of what's needed to become good at Python comes up very often. So I'm asked to answer this question for you.",
+   "zh": "在日常工作中，我负责不少杂七杂八的事情，参与了各种不同的项目。如果你是 Microsoft 的员工并且对 Python 感兴趣，那我们绝对有得聊。Microsoft 对 Python 的未来投入巨大，可能远超你的想象。我平时也做一些企业培训，在培训中，“怎样才能精通 Python”这个问题经常被问到。所以今天，我就来为大家解答这个问题。"
+  },
+  {
+   "s": 123.34,
+   "e": 152.66,
+   "en": "I can tell you that what it takes to be effective in Python is pretty straightforward. To be effective in Python, that requires a certain understanding of a couple of core mental models of the language, an understanding of some of the things the language comes with, like the built-in data types and the built-in functions, a little bit of an understanding of what's available in the standard library. This talk, however, is focused on the next step. What does it take to be a little bit better than just effective? What does it take to be good at Python or an expert at Python?",
+   "zh": "我可以明确告诉大家，掌握 Python 并高效使用其实非常直接。要做到高效，只需要对这门语言的几个核心心智模型有一定理解，了解它自带的一些特性，比如内置数据类型和内置函数，再稍微了解一下标准库里都有什么就行了。然而，本次演讲关注的是下一步：如何才能超越“高效”，更上一层楼？怎样才能精通 Python，成为一名 Python 专家？"
+  },
+  {
+   "s": 153.1,
+   "e": 181.26,
+   "en": "Now, I could spend the next two hours telling you in very philosophical terms what that means. And I could tell you why Python experts do things in one way or the other. We could even go very deeply into some of the meaning behind the zen of Python. But instead, what I'd like to show you more specifically is a couple of what I call, perhaps, metaphors in programming in Python. It turns out that, as many of you know, Python",
+   "zh": "我现在可以用接下来的两个小时，从非常哲学的角度来向大家解释这意味着什么。我可以告诉大家为什么 Python 专家会采用某种特定的方式来做事。我们甚至可以深入探讨“Python之禅”背后的某些涵义。但我更想具体展示给大家的，是几个在 Python 编程中我称之为“隐喻”的东西。正如大家所知，Python 事实上的发展历程是……"
+  },
+  {
+   "s": 181.84,
+   "e": 208.92,
+   "en": "Though it originated as something of kind of a scripting language, just a convenience language to patch together or to orchestrate code that was written in C to write simple scripts, has since grown into a full-fledged general purpose programming language. And along the way, it's developed its own ways of thinking about certain core constructs in programming. What I'd like to do in the course of this session is show you four features of Python and the ways that an expert would think about these features.",
+   "zh": "它最初诞生时有点像是一种脚本语言，只是一种把 C 语言写的代码拼凑起来或协调起来的便利用途语言，用来写写简单的脚本，但自那以后，它已经成长为一门成熟的通用编程语言了。在这一发展历程中，它针对编程中的某些核心结构，形成了自己独特的思考方式。在接下来的这场分享中，我想向大家展示 Python 的四个特性，以及专家是如何理解这些特性的。"
+  },
+  {
+   "s": 209.5,
+   "e": 239.06,
+   "en": "What I want to show you is not the syntax of these features. The purpose of this presentation is not a feature parade. It irritates me un-endlessly whenever I see somebody who's writing a book about advanced Python and the entirety of the book is chapter one. Here's a feature. Chapter two. Here's another feature. Chapter three. Here's a third feature. And the entirety of the discussion of these features is merely its formal characteristics. Oh, a generator has a yield instead of a return. Oh, you can't send a non-none value into a just-started generator. A lot of",
+   "zh": "我想向大家展示的并不是这些特性的语法。这场演讲的目的不是罗列特性。每当我看到有人写进阶 Python 的书，整本书全都是第一章介绍一个特性，第二章介绍另一个特性，第三章又介绍第三个特性，我就感到无比烦躁。而他们对这些特性的所有讨论，仅仅停留在形式特征上。比如：哦，生成器用的是 yield 而不是 return；哦，你不能给刚启动的生成器传入非 None 值。充斥着大量"
+  },
+  {
+   "s": 239.28,
+   "e": 263.0,
+   "en": "fundamental details of how these features work, but very little talk about how we can conceptualize these features in the broader sense of what they mean for modeling core problems. And so what I'd like to do is I'd like to talk about four of these features that you may have seen before and a couple of the core mental models for how you can think about them and how you can think about Python as a whole and wrap all of these together.",
+   "zh": "关于这些特性如何运作的基础细节，却极少探讨我们该如何从更宏观的角度去理解它们，以及它们在对核心问题建模时意味着什么。因此，我想做的是聊聊你们可能见过的其中四个特性，以及思考它们、思考整个 Python 的几个核心心智模型，并把这一切融会贯通起来。"
+  },
+  {
+   "s": 263.65,
+   "e": 290.23,
+   "en": "One thing that you'll notice is, in addition to you can probably hear I'm a little bit stuffy and a little bit sick, that's only going to exaggerate my inability to remember the syntax or the documentation for basically anything. So you may see me stumble, but part of this presentation is to see me stumble and to understand that in cases where you don't understand or you don't have the documentation memorized or some of the corner cases memorized, what really is more important for all of these features",
+   "zh": "大家可能会注意到，除了能听出我鼻音有点重、感冒了之外，这只会让我更加记不住任何语法或文档。所以你们可能会看到我卡壳，但这正是本次演讲的一部分——看到我卡壳，并且明白即使你不理解、没记住文档或遗漏了一些极端情况，对于所有这些特性来说真正重要的，"
+  },
+  {
+   "s": 290.65,
+   "e": 316.83,
+   "en": "is an understanding of what they are and what they mean, and not so much all of the implementation details. Those implementation details are of course critically important when you're using a feature, but that's information that you can look up and refresh when you're actually in the middle of using that feature itself. Before I get started, I'd like to take a small survey, a small informal survey of the audience. So how many of you here are Microsoft employees?",
+   "zh": "是对它们是什么、意味着什么的理解，而不是那些琐碎的实现细节。当然，在实际使用某个特性时，实现细节极其重要，但那些信息完全可以在你真正用到该特性时再去查阅和复习。在开始之前，我想在现场做个简短的、非正式的小调查。请问在座的有多少是 Microsoft 的员工？"
+  },
+  {
+   "s": 318.18,
+   "e": 346.79,
+   "en": "Almost everyone. How many of you are Microsoft employees that use Python as part of your Microsoft work? How many of you are just Microsoft employees that have seen Python used in various areas of the company but don't really have direct interaction with it yet? How many of you consider yourselves to be pretty okay at Python? How many of you consider yourself to be really good at Python? A couple people? How many people are already in the back of the room thinking, I should be in the front of the room giving a talk myself?",
+   "zh": "几乎所有人都是。你们当中有多少是微软员工，而且工作里会用到 Python？有多少只是在公司各处见过别人用 Python，但自己还没真正接触过的微软员工？你们当中有多少人觉得自己 Python 水平还可以？又有多少人觉得自己 Python 学得特别好？有几个人？有多少人已经在后排心想：“我才应该站在台上做演讲吧”？"
+  },
+  {
+   "s": 348.3,
+   "e": 377.5,
+   "en": "Maybe one person, maybe one person in the front. Okay, maybe we'll have to show you something new. When it comes to those of you who've seen Python, how many of you feel like you're pretty effective in Python? I can give you a simple problem. You can write some functions, maybe even write a class or two, and you could solve the problem without too much sweat. Is that most of you? How many of you are complete newbies, and you're like, I have no idea how to even get started with Python? Okay, for those of you who are complete newbies, you may struggle a little bit. Part of this talk does presume a...",
+   "zh": "可能有一个人，前排可能有一个。好吧，那我今天可能得讲点新东西了。对于接触过 Python 的人来说，有多少人觉得自己用得挺顺手的？我给你们一个简单的问题，你们能写几个函数，甚至写一两个类，毫不费力地把问题解决掉。大部分人都是这样吗？有多少人是完全的新手，觉得“我根本不知道怎么入门 Python”？好的，对于完全新手来说，可能会听得有点吃力，因为这次演讲的一部分确实预设了……"
+  },
+  {
+   "s": 377.5,
+   "e": 403.38,
+   "en": "baseline of understanding of Python. However, I don't think that the core lessons that you'll pick up here are lessons which will be totally lost on you. There are a couple of core lessons which even those of you who are somewhat effective in Python already may yet have internalized and we might have a little bit of time to repeat those. What I want to start with is I'll start with something really, really, really basic.",
+   "zh": "对 Python 有基本的理解。不过，我认为大家在这里能学到的核心内容，绝不会让你们听得一头雾水。即使是对 Python 已经运用得当的人，有些核心要点可能也还没完全内化，我们或许会花点时间再过一遍。我想先从一些非常非常基础的内容开始。"
+  },
+  {
+   "s": 404.46,
+   "e": 431.55,
+   "en": "And I'm going to start a little bit more basic than what I had planned to, just because I thought the audience might be a little bit more advanced than that. So what I'll talk about at the very beginning is something that we might call the data model. Now, what you'll see is I have all of the materials for this prepared and memorized in my brain. And unfortunately, my brain is getting older and older as time goes on. And so I've already forgotten exactly what I want to talk about. And so you'll see a little bit of roughness here.",
+   "zh": "我会讲得比原计划更基础一些，原本我还以为台下的听众水平会更高一些。所以一开始我要讲的，可以称之为数据模型。大家会发现，我把这次的所有材料都准备并记在脑子里了。遗憾的是，岁月不饶人，我的脑子越来越不好使了。结果就是我已经把要讲的细节忘得差不多了。所以接下来可能会显得有点生疏。"
+  },
+  {
+   "s": 431.85,
+   "e": 460.81,
+   "en": "But part of the purpose of this presentation is to present you with just the information that matters without a lot of the distracting details. And so I will actually rewrite all of my notes for this as we go. It's going to be a little bit rough, but hopefully it'll be an opportunity for us to focus just on what really matters and for us to put aside a lot of the associated implementation details and things which, frankly, it matters when you care about them, but it's not part of that core lesson of understanding Python.",
+   "zh": "但我这次演讲的部分目的，就是只为大家呈现关键信息，剔除大量干扰细节。因此，我会在讲的过程中当场重写所有笔记。虽然会显得有点粗糙，但希望这能让我们专注于真正重要的核心内容，先抛开大量相关的实现细节，坦白讲，那些细节在你需要关注时确实重要，但并不是理解 Python 的核心课。"
+  },
+  {
+   "s": 461.95,
+   "e": 495.0,
+   "en": "I want to start off with something very simple. And you can see I created a directory called data model. And I'll just create a simple file in here. I want to create a class. And we're going to do all of this. Everything in this course will be, or everything in this session will be in Python 3.6. It'll be in Python 3.6 just for my own convenience, just so that I don't have to worry about all the details that might differ between Python 2 and Python 3. There's no particular reason why I choose Python 3 versus Python 2 for the purposes of what I'm going to show you.",
+   "zh": "我想先从一个非常简单的例子讲起。大家可以看到我创建了一个名为 data model 的目录。我直接在里面建一个简单的文件。我想创建一个类。我们所有的操作都会在这里完成。本次课程或本次分享中的所有内容都将使用 Python 3.6。使用 Python 3.6 纯粹是为了我自己方便，省得去操心 Python 2 和 Python 3 之间的各种差异细节。单就我要演示的内容而言，选择 Python 3 而不是 Python 2 并没有什么特别的原因。"
+  },
+  {
+   "s": 495.5,
+   "e": 525.04,
+   "en": "Other than, it's the Python that I happen to use, and it's the Python that happens to be, there's some political reasons behind why Python two or three, but even skipping that is just for my own convenience, it's just to simplify things. So let's start with something very simple. I have some class. I want to do some kind of mathematical operation. I have some piece of software I write, and I have some class here that represents a polynomial. Some simple, you know, linear polynomial with various coefficients.",
+   "zh": "除了这是我碰巧在用的 Python，而且它刚好就在这儿之外，在选 Python 2 还是 3 上其实有些站队的原因，不过撇开这些不谈，这纯粹是为了我方便、为了把事情讲得简单点。那我们就从一个非常简单的东西开始。我写了个类，想要做某种数学运算。我写了这么个软件，里面有个表示多项式的类。就是一个简单的、带不同系数的线性多项式。"
+  },
+  {
+   "s": 525.61,
+   "e": 562.5,
+   "en": "And I want to represent it as a Python object. And so I start with some code that looks like this, right? Class polynomial doesn't have anything interesting to it. And I can create two polynomials very simply. And I might say P1 has coefficients 1, 2, and 3, right? So this would be x squared plus 2x plus 3. And P2 has coefficients 3, 4, and 3. So this would be 3x squared, oops.",
+   "zh": "我想把它表示成一个 Python 对象。所以我的初始代码大概长这样，对吧？Polynomial 类本身没有什么特别之处。我可以很轻松地创建两个多项式。比如 P1 的系数是 1、2 和 3，对吧？也就是 x 方加 2x 加 3。而 P2 的系数是 3、4 和 3。那它就是 3x 方，哎呀。"
+  },
+  {
+   "s": 564.07,
+   "e": 592.13,
+   "en": "plus 4x plus 3. Okay? And I want to be able to do some simple things that we did in math class with these. I want to be able to add them. I want to be able to subtract them. I want to be able to, you know, figure out some details of them. The very first thing for those of you who are relatively effective Python programmers is you're going to look at this and you're going to say, why on earth did you write that in four lines when you could have written it in two lines? Why did I write this in four lines here when I could have written it in two lines? How would I compact my code here? So instead of",
+   "zh": "加 4x 加 3，对吧？我希望能用它们做一些我们在数学课上学过的简单操作。我希望能让它们相加，希望能让它们相减，希望能搞清楚它们的一些细节。对于在座比较熟练的 Python 程序员来说，看到这里的第一反应肯定是：你明明可以用两行写完，为什么非要写成四行？我这里为什么要写四行，明明两行就够了？我该怎么精简这里的代码呢？所以与其"
+  },
+  {
+   "s": 592.6,
+   "e": 624.92,
+   "en": "constructing my two polynomials and then initializing the coefficients, I could initialize them all together. What would I do? I'm trying to get you to give me a little bit of feedback here. So what would I do? What am I missing here? My class has nothing in its body. What is it missing to allow me to do this little bit more conveniently? A little bit louder for me. I need an init method. And so the very first thing when some of you look at this is you say, hold on, you're wasting our time here. You probably want to have an init method that looks something like this.",
+   "zh": "先构造出两个多项式再初始化系数，我还不如一次性把它们全初始化好。那我该怎么做？我想听听大家的想法。那我该怎么做呢？这里漏了什么？我的类体里空空如也。它少了什么才能让我写起来更方便一点？大声一点告诉我。我需要一个 init 方法。所以你们有些人看到这里的第一反应就是：等等，你这是在浪费我们的时间，你八成是想要一个长成这样的 init 方法。"
+  },
+  {
+   "s": 625.26,
+   "e": 668.82,
+   "en": "So you can write these lines much more tersely. And you don't have to have four lines when two lines would do. All right? So now we're happy. Whoops. So now we're happy. Now, if I run my code, and I'll split my screen, shrink this a little bit, and I'll maybe print out, actually I'll do this. So I'll run my code, and I have P1 and P2. And then somebody else looks at this and says, oh my goodness, print it out to the screen. That looks so ugly. What am I missing here?",
+   "zh": "所以你可以把这几行写得更简练。两行能搞定的事，没必要写四行。对吧？现在搞定了。哎呀。现在搞定了。现在，如果我运行代码，我分个屏，稍微缩小一点，我也许可以打印出……其实我可以这么做。我运行代码，有了 P1 和 P2。然后别人看到这个会说，天哪，打印到屏幕上这玩意儿太难看了吧。我这里漏了什么？"
+  },
+  {
+   "s": 671.28,
+   "e": 709.83,
+   "en": "I'm missing another method. What am I missing? I'm missing a method that corresponds to what happens when I call this function at the top level repr to figure out the representation of my python object. Yes or no? Yes. So what method do I implement up here? I have some method called repr. Right? So I have some method here that returns a string that gives me the information, gives me a printable representation of this class",
+   "zh": "我漏了另一个方法。漏了什么呢？我漏了一个对应顶级函数 repr 的方法，用来获取我 Python 对象的表示形式。对不对？是的。那我该在这里实现什么方法呢？我得写个叫 __repr__ 的方法。对吧？所以我在这一写个返回字符串的方法，用来提供信息，在屏幕上给出这个类的"
+  },
+  {
+   "s": 710.17,
+   "e": 744.63,
+   "en": "to the screen. And so I'll make this very easy. And so I'll run my code again. And we'll see, oh, there we go. Those are our two polynomials. Pretty straightforward. And we could write, we could make this print out a little bit prettier. We could see the x squared and the x and the constant term if we wanted to. But you can see this is a lot easier than just seeing the name of the class and its memory location. And we can continue down this exercise. Because the next thing I want to be able to do is I want to be able to add these together. And when I add them together, nothing happens.",
+   "zh": "可打印表示。那我就写得简单点。然后我重新运行代码。我们能看到，哦，搞定了。这就是我们的两个多项式。非常直观。我们也可以写……让这个打印输出更好看一点。如果我们想的话，可以看到 x 的平方、x 项以及常数项。但你能看出来，这比只看到类名和它的内存地址要直观得多。我们可以继续做这个练习。因为接下来我想做的是把它们加在一起。但当我把它们相加时，什么都没发生。"
+  },
+  {
+   "s": 746.58,
+   "e": 783.5,
+   "en": "Python gives me an error. Unsupported operand types for plus. Polynomial, polynomial. But that doesn't make any sense. I know I can add polynomials. I did it all the time when I was in high school. How do I tell Python how to add polynomials? I have another method called add. And in my add method, I might return a brand new polynomial where I just give it all of dot coifs. Oh, they're not coifs. Where I just zip together and add each of",
+   "zh": "Python 报错了：加号不支持的操作数类型，Polynomial，Polynomial。但这根本说不通，我知道多项式是可以相加的，我高中的时候经常这么算。那我要怎么告诉 Python 该如何做多项式相加呢？我还有另一个叫 add 的方法。在我的 add 方法里，我可以返回一个全新的 Polynomial，把所有的 dot coifs 传给它——噢，不是 coifs。我只需要把它们 zip 缝合在一起，然后把每一项"
+  },
+  {
+   "s": 783.72,
+   "e": 815.03,
+   "en": "the individual items. So when I run that in my script here, P1 plus P2, it gives me a polynomial with 4x squared plus 6x plus 6. Now, what's the pattern that we see evolving here? For those of you who, off the top of your head, you didn't remember which of the underscore functions there are. For those of you who haven't ever seen these underscore functions before, you've begun to see some pattern. And what is that pattern? I have some behavior that I want to implement, and I write",
+   "zh": "单独相加。所以当我在脚本里运行 P1 plus P2 时，它返回给我一个 4x 平方加 6x 加 6 的多项式。现在，我们在这里能看出什么规律呢？对于那些一时想不起有哪些下划线函数的同学，或者以前从没见过这些下划线函数的同学，你们已经开始发现某种规律了。那是什么规律呢？我想实现某种行为，然后我写了"
+  },
+  {
+   "s": 815.34,
+   "e": 843.1,
+   "en": "some underscore function. Some function that begins with two underscores and ends with two underscores. And for those of you who are Python programmers already, you might be familiar with these underscore functions. You might call them dunder methods or double underscore methods. Or if you find that word abhorrent, as I do, you might call it by a different name, data model methods. And you might say it's an absolutely absurd thing to call these data model methods. That's so many more syllables than dunder methods.",
+   "zh": "某个下划线函数。也就是以两个下划线开头、两个下划线结尾的函数。对于已经熟悉 Python 编程的人来说，你可能对这些下划线函数并不陌生。你可能会管它们叫 dunder 方法，或者双下划线方法。或者如果你跟我一样很讨厌那个词，你可能会用另一个称呼：数据模型方法。你可能会说，叫数据模型方法简直太荒谬了，这音节可比 dunder 方法多太多了。"
+  },
+  {
+   "s": 843.58,
+   "e": 872.13,
+   "en": "But there's a reason I call them data model methods, which is, I don't think I have internet access, but maybe I do. Oh, I do. If you Google for data model in Python, the very first or second link, depending on whether you use Bing, Google, or DuckDuckGo, will be a piece of documentation here that tells you all of these methods and what they do. But the pattern is a little bit more interesting than that. It's more than just having all of these methods on a single piece of documentation.",
+   "zh": "但我把它们叫做数据模型方法是有原因的，那就是，我觉得我这儿没连上网，不过也许能连上。噢，连上了。如果你去搜 Python 的 data model，排在第一或第二的链接——取决于你用 Bing、Google 还是 DuckDuckGo——就会是这样一篇文档，它会告诉你所有这些方法以及它们的作用。但这种模式其实还要更有趣一些。可不只是把所有这些方法列在同一篇文档里那么简单。"
+  },
+  {
+   "s": 873.03,
+   "e": 903.06,
+   "en": "It is that whenever we want to implement some behavior in Python, we want to tell Python for this arbitrary object, do this behavior, give me something that is a principal representation for this object, perform some notion of addition for this object. We always see this common pattern, and the pattern is as follows. There is a top-level function, or some top-level syntax, and there is a corresponding underscore function.",
+   "zh": "事实是，每当我们想在 Python 中实现某种行为时，想告诉 Python 对这个任意对象执行这种行为、给出这个对象的一种可打印表示，或是对这个对象执行某种加法概念时。我们总能看到这个共同的模式，这个模式如下所示。它有一个顶层函数，或者某种顶层语法，并且还有一个与之对应的下划线函数。"
+  },
+  {
+   "s": 903.73,
+   "e": 932.57,
+   "en": "The exact arguments that underscore function takes will be determined by whatever you find on this documentation page here The name the default names of the arguments you can pick up off this documentation here. So for add I called it Self and other that's just the conventional names for this The what each of these actually do you can read from the documentation, but there's something more fundamental here There's a pattern when I want to add",
+   "zh": "这些双下划线函数具体接收什么参数，完全取决于你在这份文档页面上看到的内容，参数的默认名称也可以从这份文档里找到。比如对于 add，我把参数命名为 self 和 other，这只是通用的惯用命名。至于每个函数具体是做什么的，你可以查阅文档，但这背后还有更本质的东西，这里有一种模式：当我想把两个对象相加时，"
+  },
+  {
+   "s": 933.61,
+   "e": 964.85,
+   "en": "Two objects, I implement add. When I want to initialize an object, I implement init. When I want to tell Python what to do, when you call repr on an object, I implement repr. We know in Python there's a function called len. It gives you some notion of the size of an object. What would it make sense for the size of a polynomial to be? What might that notion be? Any thoughts?",
+   "zh": "我就实现 add。当我想初始化一个对象时，我就实现 init。当我想告诉 Python 在对一个对象调用 repr 时该怎么做，我就实现 repr。我们知道 Python 里有个叫 len 的函数，它能给出对象大小的某种概念。那么对于一个多项式来说，它的“大小”应该是什么才合理呢？这个概念可能对应什么？大家有什么想法吗？"
+  },
+  {
+   "s": 966.36,
+   "e": 995.64,
+   "en": "the degree, right, the highest degree. So we want to implement this notion of size on this polynomial. How do we actually implement it? What's the name of the underscore function we have to implement? The one hint is there's usually a very close correspondence here. So what would it be here? LEN. If we wanted the exact arguments and any of the caveats for how this needs to be implemented, we could look at documentation. There isn't anything special in the case of LEN. And we just return something like LEN of coefficients.",
+   "zh": "次数，对吧，最高次数。所以我们想在这个多项式上实现“大小”的概念。具体该怎么实现呢？我们需要实现的带下划线函数叫什么？提示一下，这里通常有非常直接的对应关系。那这里会是什么呢？LEN。如果我们想知道具体参数以及实现时的注意事项，可以查阅文档。LEN 并没有什么特别的限制。我们只需返回类似 LEN of coefficients 的内容。"
+  },
+  {
+   "s": 996.69,
+   "e": 1026.44,
+   "en": "So this will tell us the size of the polynomial in terms of its degree. And you can see these are both degree three polynomials. The pattern that we see is as follows. The Python data model is a means by which you can implement protocols. Those protocols have some abstract meaning depending on the optic itself. In the case of a polynomial, to add them means whatever that meant in math class. In the case of a polynomial,",
+   "zh": "这样就能以次数来反映多项式的大小了。大家可以看到，这两个都是三次多项式。我们看到的规律是这样的：Python 数据模型是一种让你能够实现协议的方式。这些协议具有某种抽象含义，具体取决于对象本身。对于多项式来说，相加的含义就对应数学课上的定义。对于多项式来说，"
+  },
+  {
+   "s": 1026.89,
+   "e": 1057.05,
+   "en": "To find its size means whatever that would make sense for the case of a math class. So it makes sense for us to know what the size of this polynomial is in terms of its highest degree. To get its representation, its principal representation, has meaning that's given to us by the documentation. The representation of any Python object is typically whatever string we'd have to type at the console to create another instance of that same object, and so on. In each case, this protocol exists",
+   "zh": "求它的大小，也就是数学课上合理对应的含义。因此，用最高次数来表示这个多项式的大小是合理的。获取它的 representation，也就是可打印的表示形式，其含义则是由文档规定的。任何 Python 对象的 representation，通常是在控制台输入以重新创建该对象实例的字符串，以此类推。在每种情况下，这种协议都是存在的"
+  },
+  {
+   "s": 1057.49,
+   "e": 1087.47,
+   "en": "There is some underscore method that implements that protocol. There is some top level function like len or repper or some top level syntax like the plus sign or the multiplication sign that allows us to invoke that protocol and it all fits together in this whole. We can think of this as a protocol in the sense that like many protocols when we implement something like len we do that by delegating back to the protocol itself. So notice len is implemented in terms of",
+   "zh": "会有对应的双下划线方法来实现该协议。也会有像 len 或 repr 这样的顶层函数，或者像加号、乘号这样的顶层语法，让我们能够调用该协议，它们共同构成了这个完整的体系。我们可以把它理解为一种协议，就像许多协议一样，当我们实现类似 len 这样的功能时，是通过委托回协议本身来完成的。注意看，len 的实现是基于"
+  },
+  {
+   "s": 1087.86,
+   "e": 1116.4,
+   "en": "LEN being called on a constituent object. ADD is implemented by adding up some components, namely the coefficients. REPR is implemented by calling REPR on some component. We see this as a very common pattern in the Python data model. Every time we want to implement some custom behavior on a Python object, we do it by implementing an underscore function which ties to some top-level syntax or",
+   "zh": "在其内部组成对象上调用 len。add 的实现是把某些组件加起来，也就是那些系数。repr 的实现则是在某个组件上调用 repr。在 Python 数据模型中，这是一种非常常见的模式。每当我们想在 Python 对象上实现某种自定义行为时，都是通过实现一个双下划线函数来完成的，它会关联到某种顶层语法或"
+  },
+  {
+   "s": 1116.8,
+   "e": 1148.35,
+   "en": "some top-level function, and we implement it in terms of that thing itself. So, for example, if we have some top-level syntax, parentheses that are coming after the name of an object, and we might call that the call protocol. We'd implement it by implementing the function call call. We could look at the documentation to see any caveats or any special things we have to keep in mind when we implement that. In the case of a polynomial, this may not make a lot of sense, perhaps to call it",
+   "zh": "某种顶层函数，并且我们是基于该机制本身来实现它的。举个例子，如果我们在对象名称后面加上括号这种顶层语法，我们可以把它称作调用协议。我们会通过实现 __call__ 函数来实现它。我们可以查阅文档，看看实现时有哪些注意事项或需要牢记的特殊细节。对于多项式来说，去调用它可能没有太大意义"
+  },
+  {
+   "s": 1148.41,
+   "e": 1172.7,
+   "en": "means something different. Maybe if we want to have some really horrible syntax where we say P1, P2 means multiplication, we could do that. I can't think of anything more atrocious than that, but perhaps that's what we want. But in any case, we may implement this in terms of calling something else. This is one of the core patterns that we see in Python. This is probably one of the very first patterns that you'd see as a novice Python programmer.",
+   "zh": "代表不同的含义。也许如果我们想要某种极其糟糕的语法，比如写成 P1、P2 就表示乘法，我们也可以这么做。我想不出比这更糟糕的设计了，但也许这就是我们想要的。不过无论如何，我们都可以通过调用其他东西来实现这一点。这是我们在 Python 中看到的核心模式之一。这大概也是你作为 Python 初学者最早接触到的模式之一。"
+  },
+  {
+   "s": 1173.35,
+   "e": 1201.36,
+   "en": "In fact, when you look at object orientation in Python, there are three core patterns that you'd have to understand, to really understand object orientation in Python. This is one of them, the protocol view of Python. The second one is the built-in inheritance protocol and how it works, where you go on a Python object to look for things. And the third one is some caveats around how object orientation in Python works. That's where I wanted to start off with, and for those of you who are",
+   "zh": "事实上，当你审视 Python 的面向对象时，要想真正理解它，必须掌握三种核心模式。这就是其中之一：Python 的协议视角。第二个是内置的继承协议及其工作原理，也就是去 Python 对象中查找属性的机制。第三个则是关于 Python 面向对象运作方式的一些注意事项。这就是我想作为开篇的内容，而对于那些"
+  },
+  {
+   "s": 1201.74,
+   "e": 1230.53,
+   "en": "just kind of on that level of being effective in Python, these are the kind of patterns that I would encourage you to look out for as you learn Python. I want to go much deeper than this, and I want to jump into a very tricky metaphor using a feature which you may have heard of, and you may have been warned against, something you may have seen kind of along the margins when you're using some library. If you do anything with web programming and you use Django, you may have seen this in the ORM, or you may have heard people whispering about this one feature.",
+   "zh": "刚达到能够熟练使用 Python 水平的人来说，这些正是我建议大家在学习 Python 时要去留意的模式。但我希望能讲得更深入，我想借助一个大家可能听说过、甚至可能被警告过不要使用的特性，来切入一个非常精妙的隐喻，这可能是你在使用某些库时顺带见过的东西。如果你做过 Web 开发且用过 Django，可能在 ORM 里见过它，或者听别人私下议论过这个特性。"
+  },
+  {
+   "s": 1230.89,
+   "e": 1261.29,
+   "en": "And I want to bring up this feature for you. I want to show you that it has a very clear and concise meaning, just to illustrate how powerful these mental models are for understanding Python itself and for driving expertise. So let's shelve this for a second. Let's shelve this idea of Python having a protocol-orientated data model. And let's look into a new feature. I'll create a new directory called Metaclasses, and we'll talk about Metaclasses for a bit. Now, the gist of this",
+   "zh": "我想给大家介绍这个特性，展示它非常清晰明确的含义，以此说明这些心智模型在理解 Python 本身以及提升专业技能方面有多强大。所以我们先把它放一放，先把 Python 具有面向协议的数据模型这个概念搁置一下，来看一个新特性。我会新建一个名为 Metaclasses 的目录，我们来稍微聊聊元类。话说回来，本教程的"
+  },
+  {
+   "s": 1261.97,
+   "e": 1289.36,
+   "en": "this tutorial is actually leading you towards three features which are far more common and far more interesting than meta classes. Namely, decorators, generators, and context managers. There is a reason I want to start you off with meta classes. It's a feature that everybody is warned against using. They're told it's magical, it makes no sense, it's totally the most complicated thing in the world. When in reality, it is the case of a feature where if you understand what the feature is really about,",
+   "zh": "核心其实是要引出三个比元类常用得多、也更有意思的特性，即装饰器、生成器和上下文管理器。我之所以想从元类开始讲，是因为大家都曾被警告不要去碰这个特性，被告知它充满黑魔法、莫名其妙、绝对是世界上最复杂的东西。但事实上，只要你理解了这个特性真正的本质，"
+  },
+  {
+   "s": 1289.77,
+   "e": 1323.04,
+   "en": "It is very clear and very obvious for why and when you use it. And it's something that you can kind of shelve away in your mind as, oh, this feature does this, this is why I want to use it, I don't need to use it all the time. So let me show you what a meta class or what meta classes are really about. And I'll show this to you for an example. Now here's an opportunity for you to try something. Because I think you'll really appreciate this example. If you try, actually let me do this in a different way.",
+   "zh": "你就会非常清楚明了地知道何时以及为何要使用它。你完全可以在脑海中把它归类为：“哦，这个特性是做这个的，这就是我要用它的原因，我不需要经常用它。”所以让我来向大家展示元类的本质究竟是什么，我会通过一个例子来说明。现在有个机会可以让大家动手试试，因为我觉得你亲自尝试后会更懂得这个例子，其实让我换一种方式来做吧。"
+  },
+  {
+   "s": 1323.4,
+   "e": 1355.27,
+   "en": "library.py. So I have two files here. I want you to actually try this. And I want you to remember, I want you to pretend that there are two groups working on some one piece of software. One group is a core infrastructure group, and they write library code. And the other group is a developer group, and they write user code. The developer group takes the library code somebody else wrote, and they use that library code to accomplish actual business objectives. The core infrastructure group",
+   "zh": "library.py。我这里有两个文件。我希望大家能亲自试一下。而且我希望你们记住，假装有两组人在共同开发一个软件。一组是核心基础设施组，负责编写库代码。另一组是业务开发组，负责编写用户代码。业务开发组拿别人写好的库代码，用来实现实际的业务目标。而核心基础设施组"
+  },
+  {
+   "s": 1355.58,
+   "e": 1386.07,
+   "en": "gets paid a lot of money to accomplish no actual business objectives, but to provide library software that the rest of us can use. Isn't that the story of tech companies? Which team would you rather work on? Nobody has any opinion whatsoever. I'd rather work on the user team because I think that's where some of the more exciting work is, and you're a lot closer where the money is actually being made, so that can't hurt. But some people like to be on the core infrastructure team because they think that the technical problems are often much more interesting than",
+   "zh": "拿着高薪却不实现任何实际业务目标，只负责提供供我们其他人使用的库软件。科技公司不就是这样吗？你们更想在哪一组工作呢？大家居然都没什么意见。我个人更想去业务组，因为我觉得那里有更多让人兴奋的工作，而且离真正赚钱的地方更近，这总没坏处。但有些人喜欢待在核心基础设施组，因为他们觉得那里的技术难题往往更有意思，"
+  },
+  {
+   "s": 1386.42,
+   "e": 1421.5,
+   "en": "some particular business units problem around not getting data in the right format or who knows what. Let's say that this library provides classes and these classes are expected to be subclassed in the user code. So, I'll create a class here called base and I'll create a class here called derived. That derives from base, okay? I've got five lines of code on the screen. This is the basic pattern. We see this pattern all over the place.",
+   "zh": "而不是某个业务部门因为数据格式不对之类的破事找上门来。假设这个库提供了一些类，并期望用户代码来继承这些类。所以，我在这里创建一个名为 base 的类，然后再创建一个名为 derived 的类。它继承自 base，明白吗？屏幕上现在有五行代码。这就是最基本的模式。这种模式随处可见。"
+  },
+  {
+   "s": 1421.92,
+   "e": 1463.99,
+   "en": "Somebody writes some class in library code, and somebody else has to use it. I'm going to add two things, one function on each side, and then pose a question to you. Let's pretend you exist on the right-hand side of the screen. You write user code. You cannot write or alter or modify or in any way touch the code on the left-hand side of the screen. You can use it, but you can't change it. It's library code. You don't have source code access to it.",
+   "zh": "有人在库代码里写了某个类，而其他人必须去使用它。我打算加两样东西，两边各加一个函数，然后问大家一个问题。假设你处在屏幕的右侧。你写的是用户代码。你不能编写、改动、修改或以任何方式触碰屏幕左侧的代码。你可以使用它，但不能改动它。那是库代码。你没有它的源代码访问权限。"
+  },
+  {
+   "s": 1464.39,
+   "e": 1497.33,
+   "en": "Even if you did, this is being deployed in some environment where any local changes you made wouldn't be preserved. Maybe in the deployment environment, this is pulled down from Nougat or somewhere else, so you have no way to change the code on the left-hand side of the screen. Your only control is code that you can write on the right-hand side of the screen. Where could the code on the right-hand side of the screen break? Very simply, where could this function break? If there is no foo method, exactly. What can you do in your code to make sure",
+   "zh": "即便你有，它部署的环境也不会保留你所做的任何本地更改。也许在部署环境中，它是从 NuGet 或其他地方拉取下来的，所以你根本无法更改屏幕左侧的代码。你唯一能掌控的，就是你在屏幕右侧编写的代码。那么，屏幕右侧的代码可能会在什么地方出问题？很简单，这个函数可能会在什么地方崩溃？没错，如果没有 foo 方法的话。那你在自己的代码中能做些什么，"
+  },
+  {
+   "s": 1497.63,
+   "e": 1527.5,
+   "en": "that at least, at the very minimum, if the person who writes a library code removes that foo method, your code fails, not at runtime, but at any point earlier than runtime. One very simple thing you could do is you could write a test that just calls bar on your derived class. Very simple thing. And make sure you run your test before you deploy, and you'll see the code fail sometime before it hits the runtime production environment. That's one thing you could do.",
+   "zh": "来确保至少，最低限度，如果编写库代码的人删除了那个 foo 方法，你的代码报错不是在运行时，而是在运行时的前一步？你可以做的一件非常简单的事，就是写一个只在派生类上调用 bar 的测试。非常简单。并且确保在部署之前运行测试，你就会在代码进入生产运行时环境之前的某个时刻看到它报错。这是你能做的一件事。"
+  },
+  {
+   "s": 1527.99,
+   "e": 1557.61,
+   "en": "Anything simpler you can think of. Take a minute and just try and think. Is there anything simpler you could add to this code? To just make sure that this code has the ability to fail before it hits the runtime production environment. Doesn't have to, there's not really that same concept of compile time in Python as there is in other languages. But anything you can think of where you could just save yourself a little bit of effort if those core infrastructure meet heads.",
+   "zh": "你能想到的更简单的方法。花点时间琢磨一下。有没有更简单的东西可以加到这段代码里？只是为了确保代码能在进入生产环境的运行时之前报错。倒不必非得像其他语言那样，Python 里并没有完全一样的编译时概念。但只要你能想到任何办法，能在核心基础设施团队的笨蛋们"
+  },
+  {
+   "s": 1558.3,
+   "e": 1587.55,
+   "en": "accidentally screw something up and keep you going. I was on a team. I often work in a vendor capacity working on very small, very narrowly defined projects. I was in a situation on Monday where there was a Sev One issue and I was the only person on the team that was thought to be involved with it who was online. Somebody messaged me and asked me,",
+   "zh": "不小心搞砸了事情时，帮你省点力气并让你能继续工作就行。我之前待过一个团队。我经常以供应商的身份工作，负责非常小、定义非常狭窄的项目。周一我就遇到了这种情况，当时出了一个一级故障（Sev 1），而我是被认为与此相关的团队成员中唯一在线的人。有人发消息问我，"
+  },
+  {
+   "s": 1587.85,
+   "e": 1612.0,
+   "en": "can you help me with this everyone issue i told him i have no idea i work on one tiny very small python specific very narrow area but apparently i was the only one between uh between the manager and the top of the company itself was online so i was sitting there just trying to tell trying to tell people sorry i don't know anything i'm hopeless let's see if we can avoid those kind of issues let's see if we can avoid",
+   "zh": "你能帮我解决这个一级故障吗？我告诉他我完全不知道，我只负责一个非常非常小的、针对 Python 的极窄领域，但显然在经理和公司高层之间，我是唯一在线的人，所以我只能坐在那儿试图告诉别人：对不起，我什么都不知道，我帮不上忙。让我们看看能不能避免这类问题，看看能不能避免"
+  },
+  {
+   "s": 1612.47,
+   "e": 1662.78,
+   "en": "There's anything we could add to our code so that you don't have to message me and hear me complain to you that I don't know anything. And then you see how much I bill per hour. And you're like, well, why are we paying you so much if you don't know anything? What could you do? Any thoughts? I'll give you something really easy. Really easy. Whoops. What does this do? What's happening here? Here, I check to see that that method exists. If the method doesn't exist, I assert. The code will fail.",
+   "zh": "我们能否在代码中加入些什么，这样你就不必发消息给我，听我向你抱怨我什么都不知道了。然后你看到我的时薪，心想：好吧，如果你什么都不懂，我们凭什么付你这么多钱？你能做些什么呢？有什么想法吗？我给你们展示一个非常简单的东西。非常简单。哎呀。这是干什么的？这里发生了什么？在这里，我检查该方法是否存在。如果该方法不存在，我就进行断言。代码就会报错。"
+  },
+  {
+   "s": 1663.2,
+   "e": 1692.32,
+   "en": "So all I have to do is make sure all of my modules can be imported, which does not require a runtime environment. I just import everything. If, for some reason, they broke this method here, they gave it a different name, they called it food instead, I would see this code fail before this class is ever defined, and I'd get exactly what I wanted. I'd have some early warning that this had broken. What we can see in general is that what I'm trying to do here",
+   "zh": "所以我只需确保所有模块都能被导入，这甚至不需要运行时环境。我直接全部导入就行。如果由于某种原因，他们破坏了这里的这个方法，改了别的名字，比如改叫 food，我就会在这个类被定义之前看到这段代码报错，这正是我想要的效果。我就能提前收到损坏预警。总的来说，我们可以看到我在这里尝试做的"
+  },
+  {
+   "s": 1692.51,
+   "e": 1722.03,
+   "en": "is enforce a constraint. I'm having the user level enforce some constraint on the library level. In other words, the derived class is enforcing constraint on the base class. The derived class is saying, hey, the base class has to have these characteristics in order for me to run and be happy. And if it doesn't have these characteristics, in this particular case, if it doesn't have this method implemented, I'm gonna fail loudly and",
+   "zh": "就是强制施加一个约束。我让用户层对库层施加某种约束。换句话说，派生类正在对基类施加约束。派生类在说：嘿，基类必须具备这些特性，我才能正常愉快地运行。如果它不具备这些特性，在这个具体例子中，如果它没有实现这个方法，我就会直接报错并"
+  },
+  {
+   "s": 1722.73,
+   "e": 1766.56,
+   "en": "I won't run. So that's pretty straightforward. Actually, that was pretty straightforward. But it turns out there's quite a few different ways we can do this. This little approach is very simple, very straightforward. But let's flip the script a little bit. Let's say, instead, we have a case that looks like this. Let's say now you're the core infrastructure writer, and you have to deal with those meatheads in the business unit actually using your code and abusing your code and misusing your code. I have no idea what they're doing.",
+   "zh": "拒绝运行。所以这相当直接。实际上，这确实很直接。但事实证明，我们其实有挺多不同的实现方式。这个小方法非常简单、非常直接。但我们稍微反转一下场景。假设我们遇到了这样一种情况：假设现在你是核心基础设施的编写者，而你必须面对业务部门那些真正使用、滥用、误用你代码的笨蛋。完全不知道他们在搞什么鬼。"
+  },
+  {
+   "s": 1768.37,
+   "e": 1796.9,
+   "en": "and you write your base class under the assumption that some responsible developer in the business unit will go and implement this bar method, because if they don't, everything falls apart. Now, in this example, you exist on the left-hand side of the screen, not on the right-hand side of the screen. You have no ability to change the code on the right-hand side of the screen. Even though you may be higher up in the technical organization, you have no idea where this right-hand user code even sits.",
+   "zh": "你在编写基类时预设了业务部门某个负责任的开发者会去实现这个 bar 方法，因为如果他们不写，整个系统就会崩溃。现在，在这个例子中，你处在屏幕的左侧，而不是右侧。你根本无法修改屏幕右侧的代码。即便你在技术组织里的级别更高，你压根都不知道这右侧的用户代码究竟存放在哪里。"
+  },
+  {
+   "s": 1797.53,
+   "e": 1829.76,
+   "en": "Your only ability is to put out library code for people to consume. You have no idea who's even using your code. Even if you could see their code, you might not be able to fix it. Let's ask a separate question, but a very similar question to what we had before. Sitting on the left-hand side of the screen, how do you make sure that the user on the right-hand side of the screen doesn't screw up? How do you make sure that in this case, that bar method is in fact implemented?",
+   "zh": "你唯一能做的就是发布供人使用的库代码。你根本不知道到底是谁在用你的代码。就算你能看到他们的代码，你也未必能帮他们修。我们来提一个类似但不同的问题。站在屏幕左侧的你，要如何确保屏幕右侧的用户不会把事情搞砸？在这种情况下，你要如何确保那个 bar 方法确实被实现了呢？"
+  },
+  {
+   "s": 1830.34,
+   "e": 1860.01,
+   "en": "Because if it's not, your code breaks and they're going to blame you. They're going to call this foo method. They're going to see in the trace back that foo method is in your file and they're going to blame you for getting this wrong. So how do you work the other way? How do you make sure they don't screw up? We can't do the same thing. We can't say assert has adder derived bar. This doesn't make sense on the left hand side of the screen. We have to move that to the right hand side of the screen, but we're not allowed to touch the code on the right hand side of the screen.",
+   "zh": "因为如果不是这样，你的代码就会崩溃，而他们会怪到你头上。他们会调用这个 foo 方法，在回溯信息里看到 foo 方法是在你的文件里，就会怪你搞砸了。那反过来该怎么做？怎么确保他们不搞砸呢？我们不能用同样的方法。我们不能写 assert hasattr(Derived, 'bar')。在屏幕左侧写这个是没有意义的。我们必须把它移到屏幕右侧，但我们又不能去改动屏幕右侧的代码。"
+  },
+  {
+   "s": 1861.21,
+   "e": 1897.36,
+   "en": "So what do we do? Any thoughts? Turns out there are about three common answers to this. One of them is metaclasses. There's two other answers. Any thoughts? Where do we put the try-catch? We could do try here. That would be fine, except this will only occur at runtime. So if we try-catch here, it's not really any different than just running this function and seeing the error. We'll still only see the error at runtime. We won't be able to catch it before that code hits production.",
+   "zh": "那我们该怎么办？有什么想法吗？其实通常有三种解决办法。其中之一是元类。还有另外两种办法。有什么想法吗？我们把 try-catch 放在哪里？我们可以在这里写 try。那样也可以，只不过这只会在运行时发生。所以如果我们在这里写 try-catch，跟直接运行这个函数然后报错其实没什么区别。我们依然只能在运行时看到报错。在代码上线生产环境之前，我们根本抓不住这个错误。"
+  },
+  {
+   "s": 1897.75,
+   "e": 1929.22,
+   "en": "on July 3rd and they're calling me up to ask me to help out and I'm like, I have no clue about, they're like, you're on a team that's involved with Azure Security and I'll say, I have no clue anything about Azure Security. True story, it really happens. What can we do? Well, if we think about that very first example, we can see that our data model example actually goes much deeper than just that.",
+   "zh": "在7月3号那天，他们打电话找我帮忙，我当时就想，我根本一无所知啊，他们却说，你所在的团队参与了 Azure Security，我说，我对 Azure Security 真的完全不懂。真事儿，确实发生过。那我们能做些什么呢？如果我们回想一下最初的那个例子，就会发现我们的数据模型示例实际上远不止表面那么简单。"
+  },
+  {
+   "s": 1929.72,
+   "e": 1960.32,
+   "en": "And the reason that we could call Python a protocol orientated language is not just because the Python data model, the object model, is protocol orientated, but that the entire Python language itself has a notion of hooks and protocols and safety valves within it. I want to show you something kind of interesting. One thing that a lot of people who come to Python from other languages don't realize is that Python is a much simpler language than you might appreciate.",
+   "zh": "而我们之所以能把 Python 称为面向协议的语言，不仅是因为 Python 数据模型、对象模型是面向协议的，更因为整个 Python 语言本身内部就贯穿着钩子、协议和安全阀的概念。我想给大家看点有意思的东西。很多从其他语言转到 Python 的人没有意识到的一点是：Python 这门语言其实比你想象的要简单得多。"
+  },
+  {
+   "s": 1960.84,
+   "e": 1990.12,
+   "en": "For those of you who are originally C++ or Java programmers, you have a mental model in your head for how programming languages like those work. And you have that mental model split between some compile time steps and some runtime steps. And in that compile time step, there's an enormous amount of complexity. If you look at all the different optimizations that the Visual Studio compiler can perform on code, there's an enormous amount of complexity there. Python, it turns out, is a much, much simpler language. Python code...",
+   "zh": "对于原本是 C++ 或 Java 的程序员来说，你们脑海中已经形成了这类编程语言的思维模型。\n你们的思维模型把它们分成了编译时步骤和运行时步骤。\n而在编译时步骤中，存在着极其庞大的复杂性。\n如果你看看 Visual Studio 编译器能对代码执行的所有各种优化，就会发现其中极为复杂。\n事实证明，Python 是一门简单得多的语言。Python 代码……"
+  },
+  {
+   "s": 1990.12,
+   "e": 2019.89,
+   "en": "runs from top to bottom linearly, and almost everything that you see in Python, almost every statement that you see in Python, with the exception of two of them, are actually executable runtime code. In C++ or Java, a class statement is not executable code. In C++, it definitely is an executable code. In C++, a class statement just says, here's a bucket of bits. Here's how you name portions of that bucket of bits. In Python,",
+   "zh": "是从上到下线性执行的，你在 Python 中看到的几乎所有内容，几乎每条语句（除了其中两条之外），实际上都是可在运行时执行的代码。\n在 C++ 或 Java 中，class 语句并不是可执行代码。\n在 C++ 中，它绝对不是可执行代码。\n在 C++ 中，class 语句只是在说：这里有一桶比特，而这是给这桶比特中不同部分命名的方式。\n而在 Python 中，"
+  },
+  {
+   "s": 2020.25,
+   "e": 2057.59,
+   "en": "A class statement is actually runtime executable code. What does that mean? Well, let's take a look. What that means is that in Python, I could do something like this. Define a class in a loop 10 times in a row. Totally the most useless thing I could ever do, has no effect whatsoever, but I can stick four loops outside of class bodies and redefine classes if I want. Has no use, but it's meaningful in Python. I could do the same thing the other way. Create",
+   "zh": "class 语句实际上是运行时可执行的代码。\n这意味着什么？\n我们来看一下。\n这意味着在 Python 里我可以这么做：\n在循环里连续定义一个类 10 次。\n这完全是我能做的最没用的事，没有任何效果，\n但我可以把 for 循环放在类体外面，只要我想，就能重新定义类。\n这虽然没什么用，但在 Python 中是有意义的。\n我也可以反过来做同样的事：创建"
+  },
+  {
+   "s": 2058.32,
+   "e": 2094.18,
+   "en": "a bar method under this foo object 10 times. Only one of them will survive. The last one will call all the previous ones. But Python accepts this as syntax because this class statement is fundamentally executable code. And I told you, and the direction we started this was talking about Python as a protocol-orientated language. Let's see something kind of interesting. I'm just going to create a function, and I only need this for wrapping purposes. Let me create my base class inside some function.",
+   "zh": "在这个 foo 对象下定义 10 次 bar 方法。最终只有一个会保留下来。最后一个会覆盖之前所有的定义。但 Python 在语法上是允许的，因为 class 语句从根本上说就是可执行代码。正如我之前所说，也是我们开篇的方向，Python 是一门面向协议的语言。我们来看点有意思的东西。我先创建一个函数，仅仅是用它做个包装。让我在某个函数内部创建这个 Base 类。"
+  },
+  {
+   "s": 2094.6,
+   "e": 2124.66,
+   "en": "And let me use a function in a module in the Python standard library called dis. Dis stands for disassemble. Let's disassemble this and see what actually happens in the Python bytecode. What we see is something kind of interesting. We see that there's this thing in the Python bytecode called load build class. It's an actual executable runtime instruction in the Python interpreter for creating a class. Well, hold on a second. In the very first example I showed you,",
+   "zh": "然后使用 Python 标准库中 dis 模块里的一个函数。dis 代表反汇编（disassemble）。我们来反汇编它，看看 Python 字节码里到底发生了什么。我们会看到挺有趣的一幕。我们看到 Python 字节码里有个叫 LOAD_BUILD_CLASS 的东西。它是 Python 解释器中用于创建类的真正可执行的运行时指令。等等，先别急。在刚才我展示的第一个例子中，"
+  },
+  {
+   "s": 2124.86,
+   "e": 2153.96,
+   "en": "I said there typically tends to be in Python some correspondence between some top level syntax or function and some underscore method that implements that syntax or function. There happens to be some top level mechanism here. It's not explicitly syntax. It's not explicitly a function for building a class. It turns out in Python there is a hook. There is an underscore function that allows you to hook into and to do things with the process of building classes.",
+   "zh": "我说过，在 Python 中，顶层语法或函数与实现该语法或函数的双下划线方法之间，通常存在某种对应关系。而这里恰好有某种顶层机制。它不是显式的语法，也不是显式的建类函数。事实证明，Python 中存在一个钩子。有一个双下划线函数，能让你挂载进去，并在构建类的过程中执行操作。"
+  },
+  {
+   "s": 2154.53,
+   "e": 2202.33,
+   "en": "And I bet you can guess what it's called because just like the correspondence between repr and double underscore repr, len and double underscore len, adding and double underscore add, it's the same thing here. There's a function in Python called build class. It sits on a module called the built-ins. So if I define a function here called, we'll do it like this. If I do this, I'll capture the original build class.",
+   "zh": "我敢打赌你能猜到它叫什么，因为就像 repr 对应双下划线 repr，len 对应双下划线 len，加法对应双下划线 add 一样，这里也是完全对应的。Python 中有一个叫 build class 的函数。它位于一个名为 builtins 的模块中。所以如果我在这里定义一个函数，我们可以这样写。如果我这么做，就能捕获原始的 build class。"
+  },
+  {
+   "s": 2202.67,
+   "e": 2236.8,
+   "en": "I'll write my own build class. I'll import from the built-ins and I'll swap them out. Here, I can patch into what Python actually does when it creates classes. And I won't do anything interesting in here. I'll just print out all the arguments that are passed. Okay? And so let's run our Python script one more time. Python-i user.py. Oops. And you can see here's the class that was created.",
+   "zh": "我会自己写一个 build class。我从 builtins 中导入它，然后把它们调换过来。这样一来，我就能介入 Python 创建类时的实际操作了。这里我就不做太复杂的操作了。我只会打印出传入的所有参数。好吗？那么我们再运行一次 Python 脚本。Python -i user.py。哎呀。可以看到，这里就是创建出来的类。"
+  },
+  {
+   "s": 2236.99,
+   "e": 2265.06,
+   "en": "In fact, you can even see I caught another class that was being built. That was probably being built somewhere in the interactive interpreter itself. But the most important one that you can see is I actually can catch, can actually catch the building of this class. And you can see there's some interesting things that I'm past. I'm past the name of the class, I'm past its bases, and I'm past a function, and I'm past no other arguments. Well, what I can do now that I can see the class that I'm building is I can hook into this and I could do something with it, right?",
+   "zh": "事实上，你甚至能看到我捕获到了另一个正在构建的类，那大概是交互式解释器本身在某个地方构建的。但最重要的是，你可以看到我确实捕获到了这个类的构建过程。而且能看到传递进来的一些有趣内容：传进来了类名、基类和一个函数，此外没有别的参数。既然我现在能看到正在构建的类，就可以挂钩进去做点什么，对吧？"
+  },
+  {
+   "s": 2265.42,
+   "e": 2301.74,
+   "en": "I could add my assert here. I could say if the actual arguments for this are, and this is where I can't remember them, the function, the name, and the basis. Function, the name, and the basis. And I could say if the base, actually it's the base, if the base is equal to this base here, or if it's actually this actual base object, I could check if the bar method is defined.",
+   "zh": "我可以在这里加上断言。我可以判断实际参数是否是——这里我有点记不清了——函数、名称和基类，函数、名称和基类。然后我可以说，如果这个基类——其实就是 base——如果它等于这里的这个 Base，或者实际上就是这个真实的 Base 对象，我就可以检查 bar 方法是否已经定义了。"
+  },
+  {
+   "s": 2307.89,
+   "e": 2377.48,
+   "en": "And when I run this, you can see KW here as well. Which arguments does it take? One, two, oh, the third one's optional, because not everything has to have a base class. And who cares, really? This is a little, this one, you can see I struggle with this one a little bit, because we never, we don't typically do this with say, if base, not none. Okay, there we go. And you can see, we were able to have a little place where we could check if that bar method was defined.",
+   "zh": "当我运行这个时，你们也能看到这里的 kw。它接收哪些参数呢？一个、两个，噢，第三个是可选的，因为并不是所有东西都必须有基类。而且说实话，谁在乎呢？这里有点……这个嘛，你们能看出我写得有点吃力，因为我们通常不会这么做，写上比如 if base is not None。好了，搞定。大家可以看到，我们找到了一个地方，可以在这里检查 bar 方法是否被定义了。"
+  },
+  {
+   "s": 2377.98,
+   "e": 2408.03,
+   "en": "This isn't typically what we do, but it's to show you that this idea of Python being a protocol-orientated language is actually quite a common pattern and quite a fundamental piece of Python. Almost everything that the Python language does in an execution context, like building classes, creating functions, importing modules, you can find a way to hook into that. Once you can find a way to hook into that, you can start doing things that you want to do, like check, is my user code going to break from the perspective of the library author? Now, the reason that I struggle with writing this function here",
+   "zh": "这并不是我们通常的做法，但它向你们展示了，Python 作为一种面向协议的语言，这种思想其实是一种非常常见的模式，也是 Python 非常核心的一部分。Python 语言在执行上下文中做的几乎所有事情，比如构建类、创建函数、导入模块，你都能找到钩入的方法。一旦你能找到钩入的方式，你就可以开始做你想做的事了，比如从库作者的角度去检查：用户的代码会不会崩溃？现在，我刚才写这个函数之所以有点费劲，"
+  },
+  {
+   "s": 2408.23,
+   "e": 2438.6,
+   "en": "is in part because first, what's really the most important here is understanding that this pattern exists, knowing that there are options for solving this pattern, and also knowing that this is not the option that you'd ever use for solving this pattern. Build class is available for you to use, but it's not how people actually solve this problem. There are two fundamental features in Python that people use to solve the problem of enforcing constraints from derived class to base classes. The first one is the meta class. Meta classes,",
+   "zh": "部分原因在于，首先，这里最重要的其实是理解这种模式的存在，知道有解决这种模式的方案可选，同时也明白这绝不是你用来解决这种模式的方案。__build_class__ 确实可供使用，但人们实际上并不是用它来解决这个问题的。在 Python 中，有两个核心特性被用来解决从派生类向基类施加约束的问题。第一个就是元类（metaclass）。元类，"
+  },
+  {
+   "s": 2439.38,
+   "e": 2479.66,
+   "en": "are merely classes that derive from type, that have some special methods on them, that you'll have to read the documentation to understand all the special methods for, but fundamentally allow you to intercept the construction of derived types. The method that you care about here is called new, and it takes four arguments, bases, body, and the name bases in the body, and we'll see where it gives us an opportunity.",
+   "zh": "它们只是继承自 type 的类，包含一些特殊方法——要想搞懂所有特殊方法，你得去读文档——但从根本上说，它们允许你拦截派生类的构建过程。这里你关心的那个方法叫 new，它接收四个参数：name、bases、body，也就是类名、基类和类体，接下来我们会看到它在哪里给了我们一个机会，"
+  },
+  {
+   "s": 2480.62,
+   "e": 2520.72,
+   "en": "to actually perform our check. You can see it got called right here with our derived class. You can see this last argument for the derived class is the body of that class. It's a dictionary with all the methods of that class. You can see in it the bar method. And so simply to get the behavior I want, I could simply do assert bar or if not bar in body raise type error.",
+   "zh": "来真正执行我们的检查。你可以看到它就在这里被我们的派生类调用了。你可以看到派生类的最后一个参数就是该类的类体（body）。它是一个包含了该类所有方法的字典。你可以在里面看到 bar 方法。所以，为了实现我想要的效果，我只需要写 assert bar，或者 if not bar in body: raise TypeError 就可以了。"
+  },
+  {
+   "s": 2521.52,
+   "e": 2552.69,
+   "en": "bad user. Just like that. This is the first answer to the core question. In order to enforce the constraint the other way around, if I can only touch the code on the left-hand side of the screen and not the right-hand side of the screen, I can't just have assert lines all over the place. I have to do something fundamentally different. And the thing I have to do fundamentally different is I have to find a way to intercept how classes are constructed, of which there are three common approaches. Build class, which is the least common approach,",
+   "zh": "糟糕的用户。就像这样。这是核心问题的第一个答案。为了反向强制执行这一约束，如果我只能修改屏幕左侧的代码，而不能动右侧的代码，我就不能到处乱写 assert 断言语句了。我必须采取一种截然不同的做法。而这种根本不同的做法就是，我必须想办法拦截类的构建过程，通常有三种常见方法。构建类（__build_class__），这是最不常见的方法，"
+  },
+  {
+   "s": 2553.07,
+   "e": 2580.47,
+   "en": "but works on the idea that Python as a protocol-based language has these safety valves and hooks even in things as fundamental as the construction of any class. Second, metaclasses, which are just the mechanism by which classes are constructed. That's the approach that you see here. And I'll show you the third one. The third one is just a slight variant on the metaclass approach. When people tell you about metaclasses, typically, they tell you, this is a magical feature.",
+   "zh": "但其背后的理念是，Python 作为一种基于协议的语言，即使在构建任意类这种如此底层的事情上，也拥有这些安全阀和钩子。第二种是元类，它们其实就是构建类的机制。这就是你们在这里看到的方法。接下来我会向大家展示第三种。第三种只是元类方法的一个轻微变体。通常人们跟你谈到元类时，都会对你说，这是一项非常神奇的特性。"
+  },
+  {
+   "s": 2580.79,
+   "e": 2609.01,
+   "en": "you'll never need to use this feature. It's overly complicated. And the reason that I like to start this session with that, despite it, yes, being a very rare feature, a feature you'll very rarely have to use, is to show you that every feature of Python so far has at least one or two very clear and unambiguous mental models, is applicable to one or two very clear and unambiguous metaphors for where it's actually useful.",
+   "zh": "你根本用不上这个特性，它太复杂了。之所以我喜欢以它作为本节的开篇，尽管它确实非常罕见、你极少会用到，是为了向大家表明，到目前为止 Python 的每一个特性，都至少有一两个非常清晰明确的心智模型，对应着一两个非常清晰明确的比喻，能说明它究竟在哪儿有用。"
+  },
+  {
+   "s": 2609.68,
+   "e": 2639.75,
+   "en": "In this case, meta-classes are how you can make sure that if you only control the code on the left-hand side of the screen, you can still enforce constraints on the code on the right-hand side of the screen. You can enforce constraints down the class hierarchy from a base class to a derived class. This is one approach using a meta-class that just intercepts the construction of the class. And the second is even easier. It turns out that in Python,",
+   "zh": "在当前情况下，元类能确保即使你只能控制屏幕左侧的代码，依然可以对屏幕右侧的代码施加约束。你可以顺着类继承体系，从基类向派生类施加约束。这是一种使用元类的方法，它只负责拦截类的构建过程。而第二种方法甚至更简单。事实证明，在 Python 中，"
+  },
+  {
+   "s": 2642.03,
+   "e": 2668.55,
+   "en": "Metaclasses have a bad reputation because even those people who understand where they're useful see that metaclasses have a lot of complexity to them. Part of what I haven't told you at all is any of the syntax of the metaclass or any of the arguments they take or any of the details for how the class hierarchy fits together because all of that doesn't really matter. When you need to know that information, you'll go look up and find that information.",
+   "zh": "元类的名声并不好，因为即使是那些明白它用处的人，也会觉得元类本身极其复杂。我完全没给大家讲元类的具体语法、接收的参数，或是类继承体系如何组合的任何细节，因为这些其实都不重要。当你真正需要这些信息时，自会去查阅并掌握它们。"
+  },
+  {
+   "s": 2669.07,
+   "e": 2698.28,
+   "en": "But unless you know why you want to use a meta class in the first place, it doesn't matter how many details of the feature you need to know. Once you understand where and why you need to use the feature, then the rest of it are just details you'll look up. When you start looking up those details, you'll see that in many of the features I show you, the story isn't that easy. There's always caveats. There's always catches. And one of the catches is, this meta class feature is very clumsy to use. And so in Python 3.6, a new feature was used.",
+   "zh": "但除非你一开始就知道为什么要用元类，否则去了解该特性的多少细节都无关紧要；一旦你明白在何处以及为何要用它，剩下的不过是随手查查的细节罢了。当你开始去查这些细节时，就会发现我展示的许多特性都没那么简单，总会有注意事项，总会有坑。其中一个坑就是，元类这个特性用起来非常笨拙，所以在 Python 3.6 中引入了一个新特性。"
+  },
+  {
+   "s": 2698.54,
+   "e": 2764.93,
+   "en": "or a new feature was added called init subclass. And init subclass, I think it goes here, just gives you a method that allows you to hook into when a subclass of some classes being initialized. And that's it. And I think it goes, I think it goes here, let's find out. If Brett were here, you could tell you exactly where it goes. Edit class for now. And we'll do one thing if, okay, so yes, it got called in the right place. And then init subclass.",
+   "zh": "或者说是新增了一个叫做 __init_subclass__ 的特性，我觉得应该写在这里，它只是提供了一个方法，让你能在某个类的子类被初始化时切入进去，仅此而已。我觉得是写在这，应该就是这儿，咱们来看看；要是 Brett 在这儿，他就能确切地告诉你写在哪了。先修改这个类，我们做一件事，如果……好的，它确实在正确的地方被调用了，然后是 __init_subclass__。"
+  },
+  {
+   "s": 2772.37,
+   "e": 2814.05,
+   "en": "So this gets called with the self. So the other approach we do is as follows. This was being called on that, and with the knit subclass, we have other hooks for figuring out. This one would come in. A knit subclass, you have to remember what arguments it takes, but you can look into it. Really, frankly, it does not matter that much. So this is my simple story about metaclasses. Metaclasses are a feature that we're often",
+   "zh": "所以调用它时会传入 self。我们采用的另一种方法是这样的。这个是在它上面被调用的，而有了 __init_subclass__，我们还有其他钩子可以用来弄清楚。这个就会生效。关于 __init_subclass__，你必须记住它接收什么参数，但你可以去查文档。坦率地讲，这其实没那么重要。这就是关于元类的一个简单故事。元类这种特性常常"
+  },
+  {
+   "s": 2814.42,
+   "e": 2844.21,
+   "en": "told that are an expert level feature. You're not supposed to ever use them. You should shy away from them. You should cover your eyes before you read code that includes meta classes. And it simply isn't that. It simply is that for all of these advanced features, there's usually one or two very clear metaphors to understand what that feature's all about. And once you understand what that feature's all about, there's a lot of details you need to read through a documentation. That's the approach I want to take for the remaining three features I want to show you. The next feature is a very simple feature.",
+   "zh": "被别人说是专家级特性。我们被告知永远不该去用它。你应该避而远之。看到包含元类的代码前，你甚至应该捂上眼睛。但事情根本不是那样的。实际情况是，对于所有这些高级特性，通常都有一两个非常清晰的比喻来帮你理解它的本质。一旦你明白了它的本质，剩下的就是阅读文档中的大量细节了。接下来我要展示的其余三个特性，也是打算采用这种讲解方式。下一个特性是一个非常简单的特性。"
+  },
+  {
+   "s": 2844.62,
+   "e": 2882.3,
+   "en": "called decorators. I'm sure some of you have already seen this feature. But I want to show you kind of where this feature comes from. It's a very simple and very boring feature indeed. And you've probably seen this feature before. It's this little app that shows up on top of some function definition. This little app with a dotted name, so you see something like a.b.c. And for those of you who are very familiar with this feature, you might wonder why you can't do this or why there are limitations to what you can put in the decorator line.",
+   "zh": "叫做装饰器。我相信你们中有些人已经见过这个特性了。但我其实想带大家看看这个特性的由头。它确实是一个非常简单甚至有点无聊的特性。你们可能之前也见过它。就是出现在某些函数定义上方的小小的 @ 符号。这个带点号名称的 @ 符号，比如你会看到像 a.b.c 这样的形式。对于那些非常熟悉这个特性的人，可能会好奇为什么不能这么写，或者为什么在装饰器那一行能放的内容会有限制。"
+  },
+  {
+   "s": 2882.99,
+   "e": 2911.3,
+   "en": "The answer for it is a really stupid answer. There is no good reason, but there is a limitation. For those of you who haven't seen this feature before, I want to show you something about Python. Something very core and very fundamental about Python. I told you, when we talked about metaclasses, that Python is a live language. There is no separate step that turns function definitions into bits tagged in some ELF binary or some PE binary somewhere.",
+   "zh": "这个问题的答案其实非常蠢。没什么充分的理由，但确实存在限制。对于以前没见过这个特性的人，我想展示一些 Python 的特性。一些非常核心、非常底层的 Python 特性。在之前聊到元类时我就跟你们说过，Python 是一门动态的运行时语言。它没有一个单独的编译步骤，把函数定义转成打包在某个 ELF 或 PE 二进制文件里的字节。"
+  },
+  {
+   "s": 2911.66,
+   "e": 2953.95,
+   "en": "that a function definition is actually a live thing. It actually runs at run time. There's actually executable code associated with this def f. Okay? So, let me show you that in practice. Here's a function called add that adds two values. Okay? Let me create a little separation down here and let me run that. And here I have my function add and I can add two values. Now notice, the first thing I did in my terminal is I looked at the function itself.",
+   "zh": "函数定义实际上是个活生生的东西，它其实是在运行时执行的。这段 def f 背后其实关联着可执行代码，明白吗？那我就实际演示给你们看。这里有个叫 add 的函数，用来把两个值相加。好的，我在下面空出一点距离，然后运行一下。现在这里有了我的 add 函数，我可以把两个值加起来。请注意，我在终端里做的第一件事就是查看了这个函数本身。"
+  },
+  {
+   "s": 2954.3,
+   "e": 2985.83,
+   "en": "And I got a return value. You can see that the Python interpreter can actually tell me where physically a memory this function exists. And in fact, this add function is an object. And I can ask it all sorts of things, like what's your name? What's your module where you were defined? I can ask it, let's give that a default value there and run this again. I can say add, what are your defaults? And it can tell me what default values it had. I can say, what's your code? Like what code do you contain?",
+   "zh": "然后我得到了一个返回值。你可以看到 Python 解释器其实能告诉我这个函数物理上存在于内存的什么位置。事实上，这个 add 函数就是一个对象。我可以向它查询各种信息，比如你叫什么名字？你是在哪个模块里定义的？我还可以问它——我们先在这里给它一个默认值，然后重新运行一下。我可以问 add，你的默认值是什么？它就能告诉我它有哪些默认值。我还可以问，你的代码是什么？也就是你包含了什么代码？"
+  },
+  {
+   "s": 2986.32,
+   "e": 3018.05,
+   "en": "This is actually the byte codes for this add function. And you can see them right here. I could ask at things like, how many local variables do you have? That's your name. There's one more that's interesting, var names. I can ask you, what variable names do you interact with? What are the variable names of your signature, x and y? You can do all sorts of things that interact live with this function. Well, it's interesting that this function itself is a runtime object.",
+   "zh": "这其实就是这个 add 函数的字节码。你在这里就能看到它们。我可以问它诸如：你有多少个局部变量？这是你的名字。还有一个很有意思的，var names。我可以问：你交互的变量名有哪些？你函数签名里的变量名是什么，x 和 y 吗？你可以做各种操作来实时与这个函数交互。有意思的是，这个函数本身就是一个运行时对象。"
+  },
+  {
+   "s": 3018.53,
+   "e": 3044.73,
+   "en": "We kind of see this, or you might be familiar with this, if we're C or C++ programmers. In C and C++, we can have function pointers, but they're really just determined by the compiler. They're just memory addresses that the compiler knows for where it put the bag of bits that represents that function sits. In Java, for a Java programmer or a C-sharp programmer, we might be familiar with runtime classes and functions under those runtime classes. In Python, it's closer to the latter, but much simpler than that.",
+   "zh": "如果我们是 C 或 C++ 程序员，对这套逻辑可能有所了解或者比较熟悉。在 C 和 C++ 中，我们可以有函数指针，但它们实际上只是由编译器决定的。它们只是编译器所知晓的内存地址，指向存放代表该函数的那串二进制位的地方。而在 Java 中，对于 Java 或 C# 程序员来说，我们可能更熟悉运行时类以及这些运行时类之下的函数。在 Python 中，它更接近后者，但要简单得多。"
+  },
+  {
+   "s": 3045.44,
+   "e": 3080.14,
+   "en": "Every Python structure that you interact with, whether it's an object or a function or a generator, has some runtime life, has some runtime existence. You can see it in memory. You can ask it questions like what module were you defined in. You can even ask it very useful questions like if you use the inspect module, you can say, what's your source code? And it'll tell you its source code right back out. So you can see, you can ask the function to give its source code and it'll give you its source code right back.",
+   "zh": "你在 Python 中接触到的每个结构，无论是一个对象、函数还是生成器，都有某种运行时生命周期，都存在于运行时中。你可以在内存中看到它。你可以向它提问，比如“你在哪个模块中定义的？”。你甚至可以问它非常有用的问题，比如使用 inspect 模块，你可以问：“你的源代码是什么？”它会直接把源码告诉你。所以你可以看到，你可以让函数给出它的源代码，它就会直接把源码返回给你。"
+  },
+  {
+   "s": 3080.45,
+   "e": 3117.25,
+   "en": "You can ask it what file are you in, and it'll tell you what file it was defined in. You can ask it what module you defined in, or I think get line. You can ask it what line number it was defined on. You can ask it all sorts of important questions. Well, there's something interesting that you could also do. Let's say that I have some code here that calls my add function. Maybe it's part of some testing code, or maybe it's part of some application.",
+   "zh": "你可以问它“你在哪个文件里？”，它会告诉你它是在哪个文件中定义的。你可以问它“你在哪个模块中定义的？”，或者我想是 get line。你可以问它是在哪一行代码上定义的。你可以问它各种各样重要的信息。那么，还有一件很有意思的事你也可以做。假设我这里有一些代码调用了我的 add 函数。这可能是某些测试代码的一部分，也可能是某个应用程序的一部分。"
+  },
+  {
+   "s": 3127.22,
+   "e": 3164.96,
+   "en": "And let's give it one more example. So you can see I'll add both numbers, and I'll also add strings. Simple enough. Let's say that I want to change my code very slightly. Let's say for some reason, this add function isn't quite doing what I want. Or maybe it's doing what I want, but I need to do something like time how long it takes to run. Because for some reason, some of these are much slower than other things. It takes a lot of time to run. I want to time it. And so what are my options? Well, I know the time module.",
+   "zh": "我们再来看一个例子。大家可以看到，我既能让数字相加，也能让字符串拼接。很简单对吧。假设我想对代码做一点微调。比方说出于某种原因，这个 add 函数并不完全符合我的要求。或者说它确实符合要求，但我需要做点别的，比如统计它的运行时间。因为不知为何，其中某些调用的耗时要长得多。它的运行时间很长，所以我想测一下时间。那我有什么办法呢？好吧，我知道有 time 模块。"
+  },
+  {
+   "s": 3165.66,
+   "e": 3199.08,
+   "en": "There's a time function so I know I can say time and I can get the time right now I can do that again I can subtract them and figure out how many seconds it took and so how would I time these I'd say before equals time after equals time print time taken after minus before like this and now I could kind of profile my code except this kind of sucks because every time I need to do this I need to add this in",
+   "zh": "里面有个 time 函数，所以我可以用 time 获取当前时间，然后再取一次，两者相减就能算出耗费了多少秒，那我具体怎么测呢？我可以写 before 等于 time，after 等于 time，然后打印耗时，也就是 after 减 before，像这样，现在我就能粗略分析代码性能了，但这招其实挺恶心的，因为每次测我都得把这堆代码塞进"
+  },
+  {
+   "s": 3200.52,
+   "e": 3231.01,
+   "en": "end places throughout my code. I have to add in all sorts of places throughout my code. There's something missing here. There's something wrong here. When we look at this example, and we think about decorators in the context of the problem we're trying to solve here, we see another core and important pattern in Python. The Python developers really don't want you to be here today. Because it's the 5th of July, and they'd rather you be home with your family, spending time with them. I'm very happy that you're here today.",
+   "zh": "代码各处的 n 个地方。我得把它加到代码里各种乱七八糟的地方。这里肯定漏了什么，这做法不对劲。当我们审视这个例子，并结合当前试图解决的问题去思考装饰器时，就会发现 Python 中另一个核心且重要的模式。Python 开发者其实今天一点也不希望你们坐在这儿。因为今天是 7 月 5 号，他们宁愿你们在家里陪家人共享天伦。不过，今天大家能来我还是非常高兴的。"
+  },
+  {
+   "s": 3231.72,
+   "e": 3260.91,
+   "en": "in this session and I hope you're enjoying yourself so far. But what I mean by saying the Python core developers don't want you to be here is this. Given the option between writing an absolutely complete forward compatible, absolutely perfect solution to a given problem and writing the simplest, stupidest, quickest thing that gets the job done, the core developers of the Python language would rather that you write the simplest, stupidest, quickest thing to get the job done",
+   "zh": "欢迎来到本场演讲，希望大家目前为止都听得开心。但我说 Python 核心开发者不想让你们呆在这里，意思是这样的：如果要在“写出一个绝对完整、向前兼容、极其完美的解决方案”和“用最简单、最笨、最快的方式搞定问题”之间做选择，Python 语言的核心开发者宁愿你选择后者，用最简单、最快的方式完成任务"
+  },
+  {
+   "s": 3261.23,
+   "e": 3291.99,
+   "en": "and go home and spend the rest of the day with your family. And the reason that you know that that's true is that when you look throughout the Python programming language, there are a number of examples of cases where you can write the simplest and stupidest thing to get the job done. And when the task at hand becomes harder or more complex or the requirements change, you can change your code in a very simple fashion to linearly extend its functionality",
+   "zh": "然后早点回家，陪家人度过余下的一天。之所以说这是真的，是因为纵观整个 Python 编程语言，有太多例子表明你可以用最简单、最直接的方法搞定任务。而当手头的任务变难、变复杂，或者需求发生变化时，你也能以非常简便的方式修改代码，平滑扩展它的功能，"
+  },
+  {
+   "s": 3292.58,
+   "e": 3320.79,
+   "en": "without having to rewrite everything from scratch. This is a fundamental difference between writing code in Python and writing code in a language like C++. In C++, there is a lot of upfront design that you need to do in order to be effective. And if you make a mistake and something in your upfront design in C++, you're gonna be rewriting a lot of code down the line. Whereas in Python, we'll see a number of different features are orientated around",
+   "zh": "完全不需要推倒重来。这就是用 Python 编码和用 C++ 等语言编码的本质区别。在 C++ 中，为了保证代码高效，你必须做大量的预先设计；一旦预先设计出现差错，后续就得重写大量的代码。而在 Python 中，我们会看到许多不同的特性都是围绕着这一理念构建的。"
+  },
+  {
+   "s": 3321.19,
+   "e": 3350.27,
+   "en": "How do we write the simplest thing today? And then when the problem gets a little bit harder, we have an avenue for making our code a little bit more complex. Here we can see a bad example of that. Because in the case where I want the code to be a little bit more complex, I wanted to capture the timings for how long this function took. In addition to the function output, I've made my code substantially more complex. I've added a lot of garbage and I've rewritten a lot of stuff. And you can think, the ratio of library code here",
+   "zh": "我们今天怎样才能写出最简单的代码？然后当问题稍微变难一点时，我们有办法让代码稍微变复杂一些。这里我们可以看到一个反面教材。因为在我想让代码稍微复杂一点的情况下，我想记录下这个函数花了多长时间。除了函数输出之外，我还让代码变得复杂得多。我加了一堆垃圾代码，重写了很多东西。你可以想想，这里库代码"
+  },
+  {
+   "s": 3350.7,
+   "e": 3385.65,
+   "en": "To user code here, it's usually a lot more user code than library code. It's the whole point of writing library code in the first place. And so, to have three times, to have to add code in three different places instead of one place makes for something pretty gnarly. So the first thing that you might say is, well, I could add that code in just one place. I could say something like this. Capture my return value and do the time before and the time after.",
+   "zh": "与用户代码的比例，通常用户代码要比库代码多得多。这本来就是写库代码的核心意义所在。所以，原本只需在一处加代码，现在却要在三处加，这就变得非常棘手了。因此你可能会想到的第一件事是，好吧，我可以只在一处加那些代码。我可以像这样写。捕获我的返回值，并记录下执行前后的时间。"
+  },
+  {
+   "s": 3386.87,
+   "e": 3423.26,
+   "en": "Prints it out here like that and you this would be definitely better than before definitely better than before I've added code of one place instead of three places, but if my library looks like this and maybe I had examples My life if my library looks like that Then I'm still really not in the best situation because I have to add all this tracking code to two places So it's got to be a better way",
+   "zh": "像这样打印出来，这绝对比之前好，绝对比之前好，我只在一个地方加了代码，而不是三个地方，但如果我的库长成这样，可能我还有其他例子，要是我的库是那样的话，那我依然处境不佳，因为我得把这些追踪代码加到两个地方，所以肯定有更好的办法"
+  },
+  {
+   "s": 3423.42,
+   "e": 3453.32,
+   "en": "And in fact, my library could still be very big. And so that still means I have to write a lot of code and rewrite a lot of code. So it must be a better way. Now remember, what did I tell you? I told you that the Python programming language is a live language. That everything has some runtime representation. So both this add function and this sub function have runtime representations. The sub doesn't work on strings. So both add and sub are functions. What can I do? Well, maybe I could write",
+   "zh": "事实上，我的库可能依然非常庞大。那仍意味着我得写很多代码、重写很多代码。所以肯定有更好的办法。现在回想一下，我跟你们说过什么？我跟你们说过 Python 是一种动态语言。所有东西都有某种运行时表示。所以这个 add 函数和这个 sub 函数都有运行时表示。sub 不能用于字符串。既然 add 和 sub 都是函数。我能做什么呢？嗯，也许我可以写"
+  },
+  {
+   "s": 3453.58,
+   "e": 3493.02,
+   "en": "my own function called time, right? Or timer. And I take a function, and I take the x and the y arguments, and I apply this function like that. Simple enough, right? And I do the timing before, and I do the timing after. And I print the elapsed time here, and I return the return value. Okay? Now, I would just have to change these lines of code slightly. I have to change that from a parentheses to a comma, and so on. As long as",
+   "zh": "一个我自己的函数，叫作 time，对吧？或者叫 timer。我接收一个函数，以及 x 和 y 参数，然后像这样应用这个函数。很简单，对吧？我在前面计时，也在后面计时。然后我在这里打印出耗时，并返回这个返回值。好的？现在，我只需要稍微修改一下这几行代码。我得把括号改成逗号，等等诸如此类。只要"
+  },
+  {
+   "s": 3493.28,
+   "e": 3528.26,
+   "en": "I could account for the default value. I have to change each one of these lines as follows. It's a little bit better. Not that much better, but a little bit better. I'll change the first three and we'll see it at work. So you can see put time. Let's make this a little bit smaller so it all fits on the screen at the same time. And you can see these three were timed, the rest weren't. That's still not that much better. I can still do better. Well, remember,",
+   "zh": "我可以把默认值考虑进去，只需像这样修改每一行代码。这稍微好了一点，虽然没好多少，但总归好了一点。我先把前三行改掉，看看效果。大家可以看到加上了计时。我把字号调小一点，这样就能在一屏里全显示出来。大家可以看到，这三个被计时了，其余的没有。但这样依然算不上太好，我还可以写得更好。别忘了，"
+  },
+  {
+   "s": 3528.67,
+   "e": 3568.55,
+   "en": "that everything happens live in the Python programming language. So couldn't I just create a new function here? Couldn't I define a new function here that takes two arguments like this? And in this function, do the timing, call the function that was passed in, and return this function here. And you can see this here is a wrapper that calls the function that was passed in and wraps it with some time behavior before and after and printing something out. Couldn't I do that?",
+   "zh": "在 Python 编程语言中，一切都是动态发生的。那我难道不能在这里直接新建一个函数吗？我不能像这样定义一个接收两个参数的新函数吗？然后在这个函数里进行计时，调用传入的函数，再把这个函数返回出去。大家可以看到，这里的函数是一个包装器，它调用了传入的函数，并在其前后包裹了计时行为并打印出来。难道我不能这么做吗？"
+  },
+  {
+   "s": 3568.99,
+   "e": 3605.76,
+   "en": "I can define functions at runtime, I can define functions anywhere. And then, instead of all this nastiness, changing all this user code, I could just say add equals timer of add, and sub equals timer of sub, and you could see it added that behavior across everything. And you could see when I do that, what I'm doing is I'm taking one function, I'm wrapping with some behavior. I'm taking one aspect or one piece of core or common functionality, and I'm wrapping a bunch of different functions in a really simple fashion.",
+   "zh": "我可以在运行时定义函数，可以在任何地方定义函数。这样就不用去大动干戈修改那些恶心的用户代码了，我只需写上 add equals timer of add，以及 sub equals timer of sub，你就能看到它给所有东西都加上了这个行为。你能发现当我这么做时，实际上是拿来一个函数，用某种行为把它包装起来。我提取出了一个方面、或者说一段核心通用的功能，然后以一种极其简单的方式包裹了一堆不同的函数。"
+  },
+  {
+   "s": 3606.62,
+   "e": 3637.22,
+   "en": "And all I'm doing is I'm creating a new function that takes the original function and wraps it with a little bit of behavior before and after. And that's it. And it turns out that Python wants to make this a little bit easier for you because this pattern of something equals call a function on that original thing, that exists. And that's what a decorator is in Python. A decorator is merely syntax that's equivalent to the line that says this. Sub equals timer of sub.",
+   "zh": "而我所做的，无非是创建了一个新函数，接收原函数，并在其前后包裹上一点点行为，仅此而已。事实证明，Python 希望让这个过程更轻松一些，因为这种“某物等于调用函数处理原物”的模式确实很常见。这就是 Python 中的装饰器。装饰器不过是一种语法糖，完全等同于写着“sub equals timer of sub”的那行代码。"
+  },
+  {
+   "s": 3637.67,
+   "e": 3669.88,
+   "en": "That's all it is. It's syntax that then fits into the ability to dynamically construct a function to wrap this behavior. So this is what our final example would look like. We would have started with code that looked like this. We would have had to add only the timer code and then two decorators. And we'd be able to very easily slip in this extra functionality we want without having to rewrite all this user code ourselves. That's the core of what a decorator in Python is.",
+   "zh": "仅此而已。它只是一种语法，配合动态构建函数的能力，用来包装这种行为。这就是我们最终例子的样子。我们原本的代码可能长这样。我们只需要加上计时器代码，再加上两个装饰器。这样就能非常轻松地加入我们想要的额外功能，而完全不需要自己重写所有这些用户代码。这就是 Python 中装饰器的核心所在。"
+  },
+  {
+   "s": 3671.21,
+   "e": 3700.77,
+   "en": "At its core, it is very simple syntax to just allow you to write an ugly pattern sub equals timer of sub in a slightly nicer way, in a slightly nicer place at the top. But fundamentally, it's about allowing you to take this wrapping behavior for functions and to wrap wide swaths of functions in one fashion without having to rewrite a lot of user code or having to even perform a lot of churn on your library code.",
+   "zh": "从核心来说，它就是非常简单的语法，让你能把像 sub equals timer of sub 这种丑陋的写法，以一种稍好看一点的方式、放在顶部更合适的位置来写。但从根本上讲，它能让你利用这种针对函数的包装行为，以统一的方式大批量包装函数，而无需重写大量用户代码，甚至无需对库代码进行大量改动。"
+  },
+  {
+   "s": 3701.35,
+   "e": 3740.21,
+   "en": "That's what a decorator is. Go ahead. So one of the problems here, I think you're identifying. Here, I hard-coded the parameters, right? And I even hard-coded the default. The real answer is this is where we use star arcs and star star quarks. Now, this decorator works on any function that takes any arbitrary set of positional and keyword parameters and just forwards them on. And so now this will work to wrap any function with any set of defaults in any fashion.",
+   "zh": "这就是装饰器的作用。请讲。我想你指出的问题之一就在这里。这里我把参数写死了，对吧？甚至把默认值也硬编码了。真正的解法是在这里使用 *args 和 **kwargs。现在，这个装饰器可以作用于任何函数，接收任意的位置参数和关键字参数组合，并直接把它们传递下去。这样一来，它就能以任意方式包装任何带有任意默认值的函数了。"
+  },
+  {
+   "s": 3740.89,
+   "e": 3789.56,
+   "en": "This is part of why star arcs and star-star quarks are so powerful. They're there for arbitrary, to write functions that can take any arbitrary parameter spec and forward it on in any fashion. Was that the core of what you were asking? So you want to do something in n number of times. That's easy enough too. So what you want to do, so say you want to have the add just run three times in a row and you want to have the sub run twice in a row. What you do, we'll take off the timer decorator.",
+   "zh": "这就是为什么 *args 和 **kwargs 如此强大。它们就是用来处理任意情况的，让你编写的函数可以接收任何任意形式的参数规格，并以任何方式转发下去。这就是你想问的核心问题吗？所以你想把某件事执行 n 次。那也很简单。你想做的是，比如你想让 add 连续运行三次，想让 sub 连续运行两次。你可以这样做，我们先去掉 timer 装饰器。"
+  },
+  {
+   "s": 3790.13,
+   "e": 3821.52,
+   "en": "So we want to have some function that runs n times, right? We have our wrapper function in the middle that takes any arguments here and here. And the question is, how do we identify how many times? We're going to add one more level to this. What we'll say is we'll say that n times gives you a decorator. So let's actually start this very simply. Let's assume that we always want n times to be twice, okay? We only want to run this function twice.",
+   "zh": "我们想要一个能运行 n 次的函数，对吧？中间是我们的包装函数，它能在这里和这里接收任意参数。问题是，我们怎么确定要运行多少次？我们要在此基础上再加一层。也就是说，n_times 会返回一个装饰器。那我们先从最简单的开始。假设我们总希望 n_times 是两次，好吗？我们只想让这个函数运行两次。"
+  },
+  {
+   "s": 3822.04,
+   "e": 3863.24,
+   "en": "So I'll say for, I'll just say n equals 2 here, for da in range of n, rv equals function like that, okay? So here's our wrapper, you'll just call the function twice, capture the value twice, and return it. And return our wrapper, and then we can do, we can apply this here and here. Now we won't see this really happen, we won't see the results here, but if we wanted to you could, you could do this.",
+   "zh": "所以我写 for，先在这里设 n 等于 2，for _ in range(n)，rv 等于像这样的函数调用，明白吧？这就是我们的包装器，它会把函数调用两次，两次都捕获返回值，然后返回它。接着返回我们的包装器，然后我们就可以把这个应用在这里和这里。现在我们还看不到实际效果，这里看不到输出结果，但如果你想的话，完全可以这么做。"
+  },
+  {
+   "s": 3874.52,
+   "e": 3910.41,
+   "en": "So you can see it ran add twice here, add twice here, sub twice there. Now you want to generalize this because you don't want to run it just two times. You want to run it some number of times. Well, why can't we just wrap this another function that takes the n and just return this like that, right? So now this is a function that takes how many times? These are what they call higher order decorators. Really not that interesting or that important. It's a fairly simplistic extension of the idea.",
+   "zh": "你可以看到它在这里运行了两次 add，这里也是两次 add，那里运行了两次 sub。现在你想把它泛化，因为你不想只跑两次，而是想跑任意指定的次数。那我们为什么不直接把它包进另一个接收 n 的函数里，然后像这样返回它呢，对吧？现在这个函数接收运行次数作为参数。这就是所谓的高阶装饰器。其实没那么有意思，也没那么重要，它只是对这个概念一个相当简朴的扩展。"
+  },
+  {
+   "s": 3910.73,
+   "e": 3937.91,
+   "en": "which is if you can return one, if you have a function that returns a function, then you can have a function that returns a function where that inner function then returns another function. Add infinitum, going as deep as you want to solve whatever problem you want. There is a very important core concept that is hidden in here, which is what you might call the closure object duality. It's not something that we have time to look at in this session, but it is a very important duality in Python, but it's not one of the topics that we can look at.",
+   "zh": "也就是说，既然你能返回一个，如果一个函数能返回另一个函数，那你就能写一个返回函数的函数，而那个内部函数还能再返回一个函数。以此类推，你想嵌套多深来解决手头的问题都行。这里面隐藏着一个非常重要的核心概念，你可以称之为闭包与对象的对偶性。我们这节课没时间展开细讲，但它在 Python 中是非常重要的一种对偶关系，只是今天我们没法深入探讨了。"
+  },
+  {
+   "s": 3938.28,
+   "e": 3967.6,
+   "en": "But just to show you this in practice, you can see this got called twice. This got called five times. So you can write your own n times decorator very easily as well. And the core of it is just the idea that you start with the wrapper. So this is just your wrapper function, what you're replacing it with. The decorator syntax allows you to do that replacing very easily. And then in order to get this programmatic behavior, you just add one level of function outside that constructs the decorator. The decorator then constructs the wrapper, the wrapper then wraps the function itself.",
+   "zh": "但为了向大家展示实际效果，你可以看到这里被调用了两次，这里被调用了五次。所以你也可以非常轻松地写出自己的 n 次装饰器。它的核心思想就是从包装器入手。这就是你的包装函数，也就是你用来替换原函数的东西。装饰器语法让这种替换变得非常简单。然后，为了实现这种可编程的特性，你只需要在外层再加一层函数来构建装饰器。接着由装饰器构建包装器，再由包装器去包装原函数本身。"
+  },
+  {
+   "s": 3968.51,
+   "e": 3998.63,
+   "en": "It is rare that you'll see a decorator deeper than this, just because it's very rare that you have context. There's typically not an additional context where you need to feed information in that requires you to have decorators deeper than this. So that's a decorator. Decorators are probably the least interesting of all the functions we're going to look at, or one of the features we're going to look at. The next feature I want to look at is called generators. Now some of you may already know what a generator is.",
+   "zh": "你很少会见到比这层级更深的装饰器了，因为需要用到这种上下文的情况极其罕见。通常不会有额外的上下文需要你传入信息，以至于让你写出比这更深的装饰器。这就是装饰器。在我们即将探讨的所有函数或特性中，装饰器可能是最无趣的一个。接下来我想带大家看的特性叫做生成器。现在你们有些人可能已经知道生成器是什么了。"
+  },
+  {
+   "s": 4002.11,
+   "e": 4032.22,
+   "en": "Generators are a very interesting and very powerful feature of Python. They're also a feature that include, where I feel the mental model is often very, what people understand of the mental model is often fairly limited. There's more to it than just what you might call the eagerness versus laziness divide. But let me start you off with something more fundamental than even that. I told you before that there is always some top level syntax or function and some underscore method that implements it.",
+   "zh": "生成器是 Python 中一个非常有趣且强大的特性。但我总觉得大家对它的心智模型理解得相当有限。它所包含的内容，远不止所谓的“即时求值”与“惰性求值”的区别。不过在讲这个之前，我们先从一个更基础的概念切入。我之前讲过，Python 里总是存在某种顶层语法或函数，以及一个用来实现它的下划线方法。"
+  },
+  {
+   "s": 4032.87,
+   "e": 4081.2,
+   "en": "So I told you, if you have parentheses after something, this is what's called the call protocol. So there's some method call that implements it. I want you to tell me what's the difference between this and this? What's the difference between add one and add two? And I'll even create a terminal down here. And I'll add one, add two numbers, add two, add two numbers. From the outside, what's the difference between these two?",
+   "zh": "所以我也讲过，只要你在某个对象后面加括号，这就是所谓的调用协议，背后就有个 call 方法在实现它。现在我想让大家告诉我，这两个到底有什么区别？add 1 和 add 2 的区别在哪？我甚至可以在下面开个终端。然后分别用 add 1 和 add 2 去加两个数。从外部来看，它们俩到底有什么不同？"
+  },
+  {
+   "s": 4083.31,
+   "e": 4113.26,
+   "en": "You wouldn't, unless you started peeking inside, unless you started saying, what are you? Add one. Oh, you're a function. What are you? Add two. So you started peeking on the inside. Oh, you're a class. You wouldn't be able to tell the difference. Functionally, there's no way for you to distinguish between the two. In fact, add one, behind the scenes, looks very similar to add two. It's just that, syntactically, it's a whole hell of a lot easier to write. So from the perspective of actually writing the code, you're always going to want to, you're always going to want to, you know, do it this way.",
+   "zh": "你根本看不出来，除非你开始往内部看，除非你开始去问：你是个啥？add one。哦，你是个函数。你又是个啥？add two。你开始看它的内部实现。哦，你是个类。否则你根本区分不了。从功能上讲，你没办法区分这两者。实际上，在底层，add one 和 add two 看起来非常相似。只是在语法上，写起来要容易得多得多。所以从实际写代码的角度来看，你肯定总是想、总是想按这种方式来写的。"
+  },
+  {
+   "s": 4114.26,
+   "e": 4153.53,
+   "en": "Now, there is a fundamental difference, which is if you wanted to start adding some stateful behavior, like this, right? If you wanted to add that, then clearly there's one way to do it for add, for the adder, and there's another way to do it for the function. So one way to do it for the class and one way to do it for the function. And this is the aforementioned, what I hinted at, this object closure duality. So actually, a couple of different approaches you could think of for how you do this. The core idea here is that",
+   "zh": "不过，这之间有一个根本的区别，那就是如果你想开始添加一些有状态的行为，就像这样，对吧？如果你想加上这个，那么显然，对于加法器类有一种做法，而对于函数又有另一种做法。所以一种是针对类的做法，另一种是针对函数的做法。这就是我前面提到的、我暗示过的这种对象与闭包的对偶性。所以实际上，关于怎么实现这一点，你可以想到几种不同的方法。这里的核心思想是"
+  },
+  {
+   "s": 4154.12,
+   "e": 4187.19,
+   "en": "Fundamentally, there is some very nice syntax and then some object model that everything kind of sits in. And this is closer to what the object model itself looks like. You can think that add one is some object that kind of looks something like this, although we'll remove the statefulness stuff, just so that the two examples are at parity. Let's think about this in a different way. Let's think about some function that takes a lot of time to do something, right?",
+   "zh": "从根本上说，先是有一些非常漂亮的语法，然后是一切赖以存在的基础对象模型。而这更接近于对象模型本身的样子。你可以认为 add one 是一个长得差不多像这样的对象，虽然我们会把状态相关的部分去掉，以便让这两个例子保持对等。我们换个角度来思考这个问题。我们来设想某个需要花费大量时间来执行操作的函数，对吧？"
+  },
+  {
+   "s": 4187.58,
+   "e": 4218.13,
+   "en": "Maybe a function that goes off and performs network requests. And it needs to load data from a database. What would that function look like? Well, it might have the resulting rows. And it might say, while db.read, rows.append, something. Now, this will be a little bit tricky for us to actually demo. So we'll do a couple of simplifications just to make this code look",
+   "zh": "比如一个去执行网络请求的函数，它还需要从数据库加载数据。那个函数会长什么样呢？它可能会保存返回的结果行，可能会写成：while db.read，rows.append 等等。现在，如果真要去演示这个，对我们来说会有点棘手。所以我们会做一些简化，仅仅是为了让这段代码看起来——"
+  },
+  {
+   "s": 4218.66,
+   "e": 4274.23,
+   "en": "You know, kind of mimic what long-running computational code looks like, but without actually having to use any fancy libraries. So let's say what we have instead is we have some code, and it just sleeps for half a second every time it provides a return value. And the return value will just be a number from zero to nine. Let me ask you a question. We'll call this our, we'll just call this compute. Whoops. When I call compute, how long does it take to run? Five seconds.",
+   "zh": "你知道的，就是模拟一下耗时计算代码的样子，但实际上不需要用任何花哨的库。所以假设我们换成这样一段代码：每次提供返回值时，它就休眠半秒钟。而返回值只是一个 0 到 9 之间的数字。我来问大家一个问题。我们把这个函数称为，就叫它 compute 吧。哎呀。当我调用 compute 时，它需要运行多久？5 秒。"
+  },
+  {
+   "s": 4274.67,
+   "e": 4311.43,
+   "en": "What if I only care about the first return value? What if I only care about the first value? How long does it take to run? What if I care about the first three values? How long does it take to run? How much memory in terms of, if we just make very simple assumptions, how much memory does compute require? 10 units of memory? 10 integers in a list, right? What if I only care about the first type? How much memory does it use? Same, right? What if I care about all the elements? How much memory does it use? Same. This is what we often mean by eager.",
+   "zh": "如果我只关心第一个返回值呢？如果我只关心第一个值呢？运行需要多长时间？如果我关心前三个值呢？运行又要多久？至于内存，如果我们做个非常简单的假设，compute 需要多少内存？10 个内存单位？列表里的 10 个整数，对吧？如果我只关心第一个类型呢？它占用多少内存？一样，对吧？如果我关心所有元素呢？它占用多少内存？还是一样。这就是我们通常所说的及早求值（eager）。"
+  },
+  {
+   "s": 4311.69,
+   "e": 4339.17,
+   "en": "The idea that this function, irrespective of what you actually care about in this computation, always takes the exact same amount of memory and the exact same amount of time. It eagerly gives you the entire result and you're sitting there waiting for the entire result. So you can see it gives me the entire result all at once. This is undesirable because if this happens to be not 0.5 seconds but 5 seconds,",
+   "zh": "也就是说，无论你真正关心的计算内容是什么，这个函数消耗的内存和时间都完全一样。它会急迫地直接抛出全部结果，而你只能干等着全部结果出来。所以你可以看到，它一次性把所有结果都给我了。这并不是我们想要的，因为如果这里不是 0.5 秒而是 5 秒，"
+  },
+  {
+   "s": 4339.52,
+   "e": 4368.27,
+   "en": "then I have to wait 50 seconds before I can even start processing the very first entry. And so I'm sitting there, blocked, waiting for 50 seconds, when maybe I could process these one by one. Also, if this is not 10 entries, but a million entries, maybe I only need to care, maybe I only want to look at them one by one. I don't need to have the whole history of all the entries. I'm now spending gigabytes of memory, just so you can eagerly give me the entire result set.",
+   "zh": "那我甚至在开始处理第一条数据前，就得先等上 50 秒。于是我就被阻塞在那里傻等 50 秒，而原本我可能是可以逐个处理的。而且，如果这不是 10 条数据，而是一百万条数据，也许我只需要逐个查看即可。我根本不需要保留所有条目的完整历史。现在我却要浪费好几个 G 的内存，仅仅为了让你一股脑地把所有结果集塞给我。"
+  },
+  {
+   "s": 4368.56,
+   "e": 4408.35,
+   "en": "When I only care to look at them one by one and the moment I look at one of them I can throw it away. So you can see this is both wasteful from the perspective of the time that it takes and wasteful from the perspective of the amount of memory it takes. Let's think if there's a better way to do this. And let's think about this in terms of our object model. Let me rewrite compute as a class. So it doesn't take any arguments and I'll just dump this stuff underneath. Nothing very interesting here.",
+   "zh": "而我其实只想逐个查看它们，看完一个就可以扔掉一个。所以你可以看出，这无论从耗费的时间角度，还是从占用的内存角度来看，都是一种浪费。我们来想想有没有更好的做法，并从对象模型的角度来思考这个问题。让我把 compute 重写为一个类。它不接受任何参数，我直接把这些东西塞进去。这里没什么特别的。"
+  },
+  {
+   "s": 4409.07,
+   "e": 4437.46,
+   "en": "but more or less does the exact same thing really no difference between the two versions. So I haven't gained anything here. I haven't gained anything by seeding into my object model. That said, I've kind of seen this pattern before. I've seen this pattern of I only want one element at a time and I'm going to get each element and as I get each element, I'll process it and maybe throw it away. It's a basic looping construct. In fact, I see it even here in this looping construct here. I don't get",
+   "zh": "但做的事情大体完全一样，这两个版本真没什么区别。所以我在这里并没有任何收获，引入对象模型并没有带来任何好处。话虽如此，这种模式我好像在哪见过。我见过这种“一次只要一个元素，拿到每个元素后就处理它，处理完可能就扔掉”的模式。这就是个基本的循环结构。事实上，我甚至在这个循环结构里就能看到它。我并没有"
+  },
+  {
+   "s": 4437.74,
+   "e": 4464.58,
+   "en": "the entire list of ones, I only get each one individual element of the list. And one thing that we might know is that in Python, we see top level syntax or top level functions has some corresponding underscore methods that implement it. If I told you that there's a pattern, there's some, if I told you that there's some syntax for x and xs, and I told you that this syntax actually looks like this, more or less under the covers.",
+   "zh": "一次性获取整个列表，我只是逐个获取列表中的每个独立元素。我们可能都知道，在 Python 中，顶层语法或顶层函数都有一些对应的下划线方法来实现它。如果我告诉你这里有一种模式，如果我告诉你 for x in xs 这种语法，其实在底层基本上是长这样的。"
+  },
+  {
+   "s": 4471.76,
+   "e": 4504.28,
+   "en": "you could probably guess what the underscore functions we have to implement would be. They'd correspond to these two top-level functions here and here. They'd be iter and they'd be next. So what that means is we can take a class in Python, we can add an iter and a next method, and suddenly that class can be iterated over. Well, in the process of that iteration, what could we do? Well, anything arbitrarily, including perform a long computation. So what we could do,",
+   "zh": "大家大概能猜出我们需要实现哪些双下划线方法了。它们会对应这里的这两个顶层函数。也就是 __iter__ 和 __next__。这意味着我们可以在 Python 中取一个类，给它加上 iter 和 next 方法，然后这个类突然就可以被迭代了。那么，在迭代的过程中，我们能做什么呢？其实什么都可以，包括执行一段耗时的计算。所以我们能做的是，"
+  },
+  {
+   "s": 4505.51,
+   "e": 4537.38,
+   "en": "And what the inner method actually needs to return, you'll find out when you read the documentation. It's not that important. We'll just return self. The next method just gives you each next method that you iterate over. Well, instead of putting the computation in this eager call method, what if I did this? What if I have the inner method, say the last number I looked at was zero, and I do this. I say self.last plus equals one. If self.last",
+   "zh": "至于 iter 方法实际上需要返回什么，大家看文档就会明白。这其实没那么重要。我们直接返回 self 就行。而 next 方法只是在你迭代时提供下一个方法。那么，与其把计算放在这个立即执行的调用方法里，要是我这样做呢？要是我让 iter 方法记录我看过的最后一个数字是 0，然后我这么写。我写 self.last += 1。如果 self.last"
+  },
+  {
+   "s": 4538.04,
+   "e": 4585.6,
+   "en": "It's greater than, and we'll limit this loop back to 10, just to keep our lives sane. It's greater than 10. Raise stop iteration. Otherwise, we sleep for 0.5 seconds, and we return self.last. And we'll actually do, this will be slightly different, so we'll do it like this. So there, this will give us the same thing. So now, slightly different order, but you can see now our next method.",
+   "zh": "大于——为了不把事情搞复杂，我们把循环限制回 10 次——大于 10 的话，就抛出 StopIteration。否则，我们就 sleep 0.5 秒，然后返回 self.last。其实我们还可以这样做，这会稍微有点不一样，我们就写成这样。好了，这样效果是一样的。现在顺序稍微有点变化，但大家可以看到我们的 next 方法了。"
+  },
+  {
+   "s": 4586.28,
+   "e": 4620.98,
+   "en": "computes what was the last value we looked at, captures it, increments the last value we looked at. If there's too many it raises a stop iteration. We won't worry about what that means just yet. It'll sleep corresponding to our long-running computation and return the value. Now notice something different between this compute method and this next method. This compute method returned a list of all the values. This next method returned a single value. And the way that you'd use it is as follows. You just print it out. You loop over and print it out. And we'll actually see that",
+   "zh": "计算出我们上次看到的值，捕获它，然后递增这个值。如果数量超出就抛出 StopIteration。我们暂时先不管这代表什么。它会休眠一段时间，对应耗时较长的计算，然后返回该值。现在注意一下这个 compute 方法和这个 next 方法的区别。compute 方法返回了包含所有值的列表。而这个 next 方法只返回单个值。使用它的方式如下：直接打印出来就行。你遍历它并打印出来。实际上我们马上就能"
+  },
+  {
+   "s": 4621.36,
+   "e": 4649.82,
+   "en": "here in practice. You can see it's computing each value one at a time, and in this loop here, you can do something you want with it, like print it out. It still takes 50 seconds in total to print out the whole thing, but you only pay for, or it still takes five seconds in total to print out the whole thing, but you only have to pay for one unit of computation before you can start using that value. And it no longer requires 10 units of memory, because there's no storage anymore. Notice, here, there's no storage.",
+   "zh": "在这里看到实际效果。可以看到它一次只计算一个值，在这个循环里，你可以对它做任何你想做的事，比如打印出来。打印完整个内容总共仍然需要 50 秒——不对，总共仍然需要 5 秒才能全部打印完，但在开始使用该值之前，你只需要付出一个单位计算的代价。而且它不再需要 10 个单位的内存，因为不再需要存储了。注意，在这里完全不需要存储空间。"
+  },
+  {
+   "s": 4650.18,
+   "e": 4689.86,
+   "en": "And here, there's no list, there's no storage. Well, this really looks ugly, and this is really hard to read. Just like this looks really ugly, and this is really hard to read, and there's a much simpler way to write it, a much simpler formal expression for how to write functions, there's a much simpler way to write a function that operates in this fashion. And that's what the generator syntax is. The generator syntax is merely something that looks like this. And all this means is",
+   "zh": "这里既没有列表，也不占用存储空间。呃，这看起来真的很丑，而且非常难读懂。就像这段代码看起来很丑、很难读懂一样，其实有一种更简单的写法，一种写函数的更简洁的形式化表达，有一种更简单的方式来编写以这种方式运行的函数。这就是生成器语法的作用。生成器语法不过就是长成这个样子。而这所有的含义就是："
+  },
+  {
+   "s": 4690.82,
+   "e": 4725.2,
+   "en": "This thing here, compute, is something that can be iterated over. Each time you iterate over it, this is the value that it will yield. The stop iteration naturally happens because if you try and iterate over this too many times, there'll be nothing left to yield because you'll have fallen off the end of this block here. Its state is maintained internally. It's just a function that kind of doesn't really return eagerly. You'd never want to write this formulation. This is just such a pain in the butt. You'd instead,",
+   "zh": "这里的 compute 是一个可迭代的对象。每次你迭代它时，这就是它会 yield 出的值。StopIteration 会自然触发，因为如果你尝试迭代它的次数过多，这里就没有任何可 yield 的东西了，因为你已经执行到了这个代码块的末尾。它的状态在内部维护。它就像一个不会急切返回结果的函数。你绝不会想写出这种形式。这实在太麻烦了。相反，"
+  },
+  {
+   "s": 4725.52,
+   "e": 4755.64,
+   "en": "want to take the original function formulation and write it in its generator formulation. When you look at the function formulation, the generator formulation, and you squint your eyes, you can see all the same pieces in the same places. Except in one of them, you have storage, and you have eager computation of the entire result set. And in the other one, you have no storage, and you're simply returning values as you see them. This is the core concept behind a generator, and the core mental model behind a generator.",
+   "zh": "你会想要采用最初的函数形式，并把它写成生成器的形式。当你看着普通函数形式和生成器形式，眯起眼睛看时，你会发现所有相同的组成部分都在相同的位置上。唯一的区别在于，其中一个有存储开销，并且会急切地计算整个结果集。而在另一个里，你不需要存储空间，只是在产生值时顺次返回它们。这就是生成器背后的核心概念，也是理解生成器的核心心智模型。"
+  },
+  {
+   "s": 4756.06,
+   "e": 4792.12,
+   "en": "that instead of eagerly computing values, you give them to the user as they ask for them. But there is another similarly important and critical core concept to how generators work beyond justice. And that's what I want to show you leading up into our last example. We have all seen APIs that look like this. I'll run this first. We've all seen APIs that look like this, which have methods that indicate",
+   "zh": "与其急于把所有值都算出来，不如等用户需要时再提供给他们。但在生成器的工作原理中，除了这一点，还有一个同样重要、关键的核心概念。这也是我在讲最后一个例子前想给大家展示的。我们都见过长成这样的 API，我先运行一下这个，我们都见过长成这样的 API，它们包含的方法暗示了"
+  },
+  {
+   "s": 4792.58,
+   "e": 4821.12,
+   "en": "the order in which you have to run functions. If you don't run this first first, everything blows up. If you don't run this last last, everything blows up. And in the documentation, they tell you, please run this method, then this method, then this method, because if you do it in any other order, all hell breaks loose. Unfortunately, this API is kind of lying to you, because nothing stops you from being a dunderhead, so I don't like the word dunder, and doing this.",
+   "zh": "你必须执行这些函数的顺序。如果你不先执行这个“先执行”，一切都会崩溃。如果你不最后执行这个“最后执行”，一切也会崩溃。文档里也会跟你说：请先调用这个方法，再调用这个，然后再调用这个，因为要是按别的顺序来，整套逻辑就全乱套了。不幸的是，这种 API 其实有点忽悠人，因为没有什么能阻止你犯浑——虽然我不喜欢“笨蛋”这个词——然后写出这样的代码。"
+  },
+  {
+   "s": 4828.46,
+   "e": 4859.09,
+   "en": "Nothing physically stops you from putting these in the wrong order other than that you fail to read the documentation and you'll see a break. Well, one interesting thing about the generator formulation is that if you look at the generator formulation, you can see it performs some computation, then not only does it yield the result back, but it also yields control back to the caller. You can see here in this formulation, let's lowercase this, I perform one computation, one long-running computation modeled by the sleep.",
+   "zh": "除了不看文档会导致程序崩溃之外，实际上没有任何东西能阻止你把顺序搞错。不过，生成器写法的有趣之处在于，如果你观察生成器的实现，会发现它在执行完某些计算后，不仅把结果返回回去，还将控制权交还给了调用方。大家可以在这种写法中看到——我们把这个改成小写——我执行了一次计算，也就是用 sleep 模拟的长耗时计算。"
+  },
+  {
+   "s": 4859.34,
+   "e": 4885.76,
+   "en": "and then I give the value back to the user to do something with, and then they ask for the next computation, give it back to the user to do something with. So I'm kind of interleaving the user code and the library code. In the eager formulation, the library code ran to completion, gave the entire result set back to the user, then the user did whatever they want with it. In the generator formulation, I have a little bit of library code run, then a little bit of user code run, then a little bit of library code run, then a little bit of user code run, and I interleave them.",
+   "zh": "然后我把值交给用户去处理，接着他们请求下一次计算，我再把结果交还给用户去处理。所以这相当于把用户代码和库代码交错执行了。在及早求值的写法中，库代码会一直运行到结束，把全部结果集一次性返回给用户，之后用户想怎么处理就怎么处理。而在生成器写法中，是先运行一小段库代码，再运行一小段用户代码，接着运行一小段库代码，再运行一小段用户代码，两者是交替穿插进行的。"
+  },
+  {
+   "s": 4886.12,
+   "e": 4914.68,
+   "en": "This is the actual core conceptualization behind what the generators are built upon. The idea of co-routines. Subroutines, we can think of as any piece of executable code that runs from some starting point to some ending point to completion. They have one single entry point, and they have one single exit point, and that's it. They run, they're done. If you look at how user code and library code interact,",
+   "zh": "这就是生成器底层构建的核心概念：协程的思想。子程序，我们可以理解为从某个起点运行到某个终点直至完成的任意一段可执行代码。它们只有一个入口点，也只有一个出口点，仅此而已。它们运行完毕，就结束了。如果看看用户代码和库代码是如何交互的，"
+  },
+  {
+   "s": 4916.23,
+   "e": 4945.62,
+   "en": "subroutine is a library code, it runs the completion, and then the user code has to pick up. For the generator, or the co-routine, you enter the generator, and as you ask for values, the generator runs, but you can have this nice interleaving, where some user code runs, asks the generator for a value, the generator runs its code, yields back to the user code, the user code does whatever it wants, goes back to the generator, asks for another value, and so on. So you have this interleaving of the two pieces of your code, the user code and the library code.",
+   "zh": "子程序作为库代码，它会一直运行到结束，然后用户代码才能接手。而对于生成器或协程，你进入生成器，随着你请求值，生成器开始运行，但你可以实现这种绝妙的交替执行：一段用户代码运行，向生成器请求一个值，生成器运行自己的代码，将控制权交还给用户代码，用户代码做它想做的事，再回到生成器，请求下一个值，依此类推。这样你的两部分代码——用户代码和库代码——就实现了交替运行。"
+  },
+  {
+   "s": 4946.96,
+   "e": 4977.65,
+   "en": "Here, in this API, what we'd actually have is similarly, when we'd use this API, we'd ideally want to have some interleaving. Because if we could run all three of these methods all at the same time, the API would never have provided us three methods. If we didn't have to have some code between these three calls, they would never be provided as different calls. If they could all be done at once, we would just have one method here called doIt that just calls first, second, and last.",
+   "zh": "在这里，在这个 API 中，我们实际上面临的情况也类似：当我们使用这个 API 时，理想情况下是希望有一些代码交错执行的。因为如果我们可以同时运行这全部三个方法，API 就根本没必要提供三个独立的方法了。如果我们不需要在这三次调用之间插入一些代码，它们就绝不会被拆成不同的调用。如果它们能一口气全做完，我们这里就只会有一个叫 doIt 的方法，直接依次调用 first、second 和 last 了。"
+  },
+  {
+   "s": 4978.19,
+   "e": 5011.1,
+   "en": "and make sure that we can't screw this up. So the reason that the API gives us these three pieces split into three parts is because they specifically intend us to interleave code. They just want to make sure we interleave code in a fixed sequencing, in a fixed order. Well, let's think about this. If I wrote this as a generator, we could do that interleaving while maintaining the sequencing. And this, I would say, is maybe even a more critical mental model",
+   "zh": "并且能确保我们不会搞砸。所以，API 之所以把这三部分拆开提供给我们，是因为他们特意想让我们交错执行代码。他们只是想确保我们按照固定的时序、固定的顺序来交错执行代码。那么，让我们思考一下：如果我把它写成一个生成器，我们就可以在保持这种时序的同时实现代码交错。而且我认为，这个心智模型可能比"
+  },
+  {
+   "s": 5011.18,
+   "e": 5040.03,
+   "en": "for generators than this eager versus lazy divide. The idea that generators are a mechanism by which you can create code that can interleave with other code and also enforce sequencing. Notice here that what happens when this generator runs is it will run up to this point, yield, no value but it will yield control back to the caller, then the caller can resume and the caller can resume. In this particular",
+   "zh": "及早求值与惰性求值的划分更为关键。那就是：生成器是一种机制，通过它你可以编写能够与其他代码交错执行、同时又能强制保证时序的代码。请注意，当这个生成器运行时，它会一直运行到这一点然后 yield，虽然不返回值，但它会把控制权交还给调用者，接着调用者可以恢复执行，然后再恢复执行。在这个特定的"
+  },
+  {
+   "s": 5041.05,
+   "e": 5069.82,
+   "en": "formulation, first, second, and last will always run in that order. You can't guarantee that last will run, but you never can guarantee that someone could pull the plug before that runs. But here, if the API were provided in this fashion, you could guarantee that the last method was never called before the first or the second method. The generator forces that sequencing on you. And it forces that sequencing on you because the generator is ultimately a co-routine that allows you this interleaving between",
+   "zh": "表达方式中，first、second 和 last 始终会按这个顺序运行。你无法保证 last 一定会运行，但你本来就无法保证——毕竟随时可能有人拔掉电源。但在这里，如果 API 是以这种方式提供的，你就可以保证 last 方法绝不会在 first 或 second 方法之前被调用。生成器强行规定了这种执行顺序。它之所以能做到这一点，是因为生成器本质上是一个协程，允许你在"
+  },
+  {
+   "s": 5070.3,
+   "e": 5106.66,
+   "en": "two types of code, user code and library code. Let's remember that and we'll go into the final of the examples we want to look at, the context manager. Context managers are a very, very simple metaphor and a common metaphor you see all over the place. If you're a C++ user, you've seen this metaphor before. You probably called it resource allocation is initialization, something like that. If you're a Java programmer, you've seen this metaphor before but I don't know what you call it in Java. I don't know if Java has a real",
+   "zh": "两种代码——用户代码和库代码——之间进行这种交替执行。记住这一点，接下来我们来看最后一个示例：上下文管理器。上下文管理器是一个非常非常简单的隐喻，也是一个随处可见的常见隐喻。如果你是 C++ 用户，你以前见过这个隐喻。你可能会称它为“资源获取即初始化”（RAII）之类的。如果你是 Java 程序员，你也见过这个隐喻，但我不知道在 Java 里你们怎么称呼它。我不知道 Java 里对这个有没有一个真正的"
+  },
+  {
+   "s": 5107.15,
+   "e": 5138.68,
+   "en": "name or concept for this. It's the idea that there's always some desire to do some set up and tear down and you want to combine them. If you're a Python programmer and you've done even very introductory stuff with Python, you've seen a context manager before and it looks something like this. It's the most basic context manager that you've seen before. You open some file and the reason you use a context manager here is that there's some corresponding set up and tear down. If you open the file, you got to close the file. This is especially true on Windows because",
+   "zh": "名称或概念。它的核心思想就是：我们总希望进行某些设置和清理工作，并且希望把它们结合在一起。如果你是 Python 程序员，哪怕只写过非常入门的 Python 代码，你也见过上下文管理器，它大概长这个样子。这是你见过的最基础的上下文管理器。你打开某个文件，之所以在这里使用上下文管理器，是因为有对应的设置和清理操作。如果你打开了文件，就必须关闭它。在 Windows 上尤其如此，因为"
+  },
+  {
+   "s": 5139.05,
+   "e": 5165.69,
+   "en": "on Linux, file locks are a little bit less aggressive on Windows. If you don't close the file, you might not be able to delete it later. This is especially true if perhaps this file is backed by some storage where it's not necessarily automatically flushed, if there's some IO buffering, because definitely, if you open the file and you write to it, you want to make sure those are flushed to disk in case the program terminates at some point with unflushed IO buffers. You might lose things that you intended to be written to disk.",
+   "zh": "在 Linux 上，文件锁没 Windows 那么严苛。在 Windows 上，如果你不关闭文件，稍后可能就无法删除它。如果这个文件底层依赖某种不会自动刷新的存储介质，或者存在某些 I/O 缓冲，情况就更是如此了。因为显然，当你打开文件并写入数据时，你肯定希望确保这些内容被刷入磁盘，以防程序在某些时刻异常终止，留下未刷新的 I/O 缓冲区。这样你可能会丢失原本打算写入磁盘的内容。"
+  },
+  {
+   "s": 5166.96,
+   "e": 5205.89,
+   "en": "But fundamentally, there is this metaphor here, this idea that we have some setup action and some teardown action, some initial action and some final action, and we want to match them together. Let me show you an example of that. It goes beyond files, but it can go even into things like SQLite databases. So in SQLite, we have these file-backed databases. The connect method is actually a context manager itself. So here, I connect to some database.",
+   "zh": "但从本质上讲，这里存在一种隐喻，即我们有一些 setup 操作和 teardown 操作，也就是初始操作和收尾操作，而我们希望将它们配对起来。让我给你们看一个例子。这不仅适用于文件，甚至还能扩展到 SQLite 数据库这类东西上。在 SQLite 中，我们有这些基于文件的数据库。connect 方法本身其实就是一个上下文管理器。所以在这里，我连接到了某个数据库。"
+  },
+  {
+   "s": 5206.41,
+   "e": 5266.71,
+   "en": "I have some cursor on that database. And let me just do this. And I could do some statements. So I could do something like create table points, x int, y int. I have some statement to execute a table. Maybe insert some things into this table. x y values 1 1. There we go. And then I have some statement where I could select from this. And then we could commit this. So here we have.",
+   "zh": "我拿到了那个数据库的游标。让我这么操作一下。然后我可以执行一些语句。比如我可以写 create table points, x int, y int。我有一条建表的执行语句。也许再往这张表里插入点数据。x y values 1 1。搞定。接着我还有一条可以从中查询数据的语句。然后我们就可以 commit 提交了。现在我们完成了这些。"
+  },
+  {
+   "s": 5267.1,
+   "e": 5317.99,
+   "en": "Just a very simple use of a context manager wrapping some database operations. And what is it? It's not Kerdot commit, actually. And what we'll do is we also want to make sure that we drop our table when we're done. And so you can see the code ran. I'll do two selects just so you can see everything. And you can see our code ran. Now you can see that the idea of there being some setup and teardown action is pretty clear with the opening and closing of the database, right? Obviously, if we open the database and we write to it, we want to close it.",
+   "zh": "这只是用上下文管理器包裹数据库操作的一个非常简单的用法。等等，其实不是 cur.commit。我们要做的，是确保用完之后把表删掉。你可以看到代码已经跑起来了。我再执行两次 select，方便大家看清楚。你可以看到我们的代码运行了。现在大家应该很清楚，在数据库的打开和关闭过程中，存在着某种设置和清理操作，对吧？显然，如果我们打开了数据库并写入数据，就肯定希望最后能关闭它。"
+  },
+  {
+   "s": 5318.28,
+   "e": 5352.98,
+   "en": "But there's another set up and tear down action that you might not see here. See if you can spot it. If we assume that we did something and we want to have some corresponding action to undo it, what's the pair that you see here? Yeah, I create a table and I drop a table. Now, naturally, if we were to really properly do this, we'd probably do it in a transaction, and a transaction would give us the right semantics. But let's assume that for SQLite, we might not have transactional support, so we have to be in charge of that pairing, that create and that drop.",
+   "zh": "不过这里还有另一组“准备”和“清理”操作，你可能没注意到，看能不能找出来：如果我们假设做了某件事，并希望有相应的动作来撤销它，你在这里能看到哪一对？没错，建表和删表。当然，如果要真正规范地做这件事，我们大概会用事务来处理，事务能提供正确的语义。但假设 SQLite 不支持事务，我们就必须自己来负责配对，也就是建表和删表。"
+  },
+  {
+   "s": 5353.23,
+   "e": 5384.24,
+   "en": "And naturally, it's a very natural pairing. You create something, you drop it, you want to make sure that both of them get done, irrespective of some error pops up in the middle. So how do we actually write our own context manager? And you'll see that this will bring together everything we've looked at so far. As I told you, it turns out, fundamentally in Python, there is always some top-level syntax or some function and some underscore methods that implement it. If I told you...",
+   "zh": "很显然，这是一对非常自然的组合：创建了什么，就删掉什么；不管中间是否报错，都要确保两件事都执行完毕。那么，我们究竟该如何编写自己的上下文管理器呢？你会发现，这能把我们之前学到的所有东西串联起来。正如我之前所说，从根本上讲，Python 中总会有某种顶层语法或函数，以及实现它们的下划线方法。如果我告诉你……"
+  },
+  {
+   "s": 5389.55,
+   "e": 5428.89,
+   "en": "Let's write it like this. ctx as x. If I told you that behind the scenes, this actually looked like the following. x equals ctx. Enter. I'll try. Finally. If I told you that, and I don't know what the, there's some arguments that can pass there, I don't care what they are. But if I told you that's what it looks like, you even know exactly what the underscore methods are, they're right in front of your face. Right? Enter and exit. So that's how we write a context manager. We implement enter and exit.",
+   "zh": "我们这样写：ctx as x。如果我告诉你这在底层其实长这样：x 等于 ctx.enter()，然后一个 try...finally...。如果我这样告诉你，虽然我不知道具体能传哪些参数，我也无所谓是什么。但如果我告诉你它长这样，你甚至能直接看出那些下划线方法是什么，它们就摆在你眼前，对吧？enter 和 exit。这就是我们写上下文管理器的方法：实现 enter 和 exit。"
+  },
+  {
+   "s": 5429.28,
+   "e": 5463.27,
+   "en": "Now here you're going to see me really fumble, because I don't remember any of the arguments that get passed there. But let's try this. So we're going to create a temp table, context manager. And we know we need to implement enter and exit. And this takes some other arguments. I don't really care what they are. And we know maybe this temp table needs to take, just for this thing to work, we'll need to initialize it with a cursor. And then the enter just executes this statement.",
+   "zh": "现在你可能会看到我犯迷糊了，因为我完全不记得这里要传哪些参数。不过我们先试试这个。我们来创建一个临时表的上下文管理器。我们知道需要实现 enter 和 exit。这里还要接收其他一些参数，我其实不太在乎是什么。而且我们知道这个临时表可能需要，为了能跑通，我们需要用一个 cursor 来初始化它。然后 enter 就只负责执行这条语句。"
+  },
+  {
+   "s": 5464.1,
+   "e": 5503.65,
+   "en": "And the exit just executes that statement. Except this is self.cursor, and this is self.cursor. And that's it. We have some enter code and some exit code, and I just move things around to fit it into the protocol. And then the next thing I do is I just have these over, and I say with temp table cur equals with that cursor. Fair enough? There we go. So let's see that in play. Seem to work. Let's run that again. Seem to work. Let's run that again.",
+   "zh": "而 exit 只是执行那条语句。只不过这里是 self.cursor，这里也是 self.cursor。就这样。我们有了一些 enter 代码和 exit 代码，我只是调整了一下位置来契合这个协议。接下来我要做的就是把这些拿过来，写上 with temp table cur equals with that cursor。没毛病吧？搞定。我们来看看运行效果。看起来正常。再跑一次。看起来正常。再跑一次。"
+  },
+  {
+   "s": 5503.98,
+   "e": 5535.66,
+   "en": "seem to work. If the table weren't destroyed, then I would get an error there saying table already exists. So clearly the enter and the exit are being called. I can even show you that more explicitly. This seems really, really uninteresting. So where is he going with this? I wonder. See? There's the enter and the exit. Pretty straightforward. Now, I wonder why I brought this one up. Because context managers have such a clear and ambiguous metaphor behind them. Why would I take almost a third or a fourth of our time to talk about context managers?",
+   "zh": "看起来正常。如果表没被销毁，我就会遇到表已存在的报错。所以很明显 enter 和 exit 都被调用了。我甚至可以更直观地展示给你们看。这看起来真的一点意思都没有。大家可能会想，他到底要讲什么呢？看吧？这里就是 enter 和 exit。非常直截了当。现在我在想，我为什么要提这个呢？因为上下文管理器背后的隐喻是如此清晰明确。那我为什么要花大约三分之一或四分之一的时间来聊上下文管理器呢？"
+  },
+  {
+   "s": 5536.51,
+   "e": 5573.62,
+   "en": "Why don't you see something kind of interesting here? Kind of interesting here. Can the exit be called before the enter? Should it? Nope. So the enter should always be called before the exit, right? What does that tell you? There's some sequencing. What does that suggest to you? Generator. Because we just saw generators are about sequencing. Maybe I can improve this example by using a generator. Because here, you can see there's an enter and an exit. The enter has to be called before the exit.",
+   "zh": "大家有没有发现这里有点意思？挺有意思的。exit 能在 enter 之前调用吗？应该这样吗？不行。所以 enter 必须总是在 exit 之前调用，对吧？这说明了什么？存在某种执行顺序。这让你联想到了什么？生成器。因为我们刚才看到生成器就是用来处理顺序的。也许我可以用生成器来改进这个例子。因为在这里，你可以看到有一个 enter 和一个 exit。enter 必须在 exit 之前调用。"
+  },
+  {
+   "s": 5573.88,
+   "e": 5634.48,
+   "en": "There's some sequencing, necessarily, that's what generators are all about. So let's do it like this. Let's move this up here. Let's move this down up here. We'll put a yield in between the two. And here, we'll just say temp table. We'll call this a context manager. We'll say temp table.cursor. We'll create an instance of this. And then we'll just do next self.gen. I think that'll work. Return self. And we have to do.",
+   "zh": "这必然存在某种先后顺序，而这正是生成器的拿手好戏。那我们这样来写。把这段移到上面。把这段也移到上面来。我们在两者之间放一个 yield。然后在这里，我们就写 temp table。把这个叫做上下文管理器。写成 temp table.cursor。我们来创建它的一个实例。然后直接调用 next self.gen。我觉得这样行得通。return self。然后我们还得做。"
+  },
+  {
+   "s": 5642.54,
+   "e": 5677.88,
+   "en": "We have to do another next in here. And then we have to just do one tiny thing here. That doesn't really matter that much. So there we go. We see everything still works. So we'll put our little enter and exit print statements just to see them still running. Enter up here. Or we'll actually make this a little bit better. We'll say created table. Just add our little locking statements in there just so we can see them in our code. Create a table, drop table.",
+   "zh": "我们得在这里再调用一次 next。然后这里只要稍微做一点改动。其实影响不大。搞定，可以看到一切依然正常运行。我们在这里加上进出的 print 语句，只是为了确认它们还在执行。上面是 enter。或者我们可以改得更清楚一点，写成 created table。把这些小小的日志打印加进去，方便在代码执行时看到状态。建表，删表。"
+  },
+  {
+   "s": 5678.29,
+   "e": 5710.87,
+   "en": "So we can see how this conceptualization of generators as sequencing is very useful. Now this is not sufficiently general for my purposes because you can see I kind of hard code what the generator is. So let me just do this. I'll just have it initialize what I want the generator I want to use. The enter. Notice I have a callable function here. So what I'll do is I'll just add in a call here so I can get some arguments which will be the cursor or maybe the args.",
+   "zh": "所以我们可以看到，把生成器理解为序列控制是非常有用的。但目前这样写还不够通用，因为大家能看出我有点把生成器写死了。那我就这么改一下，直接让它来初始化我想要使用的生成器。enter 这里，注意我有一个可调用函数。所以我要做的就是在这里加个调用，这样就能传进一些参数，比如 cursor，或者直接传 args。"
+  },
+  {
+   "s": 5711.34,
+   "e": 5755.75,
+   "en": "and the quarks. I'll just capture those. On the enter, I'll call my generator with the arguments that I was passed, and I'll get my generator instance, and I'll forward it here and here. So now, I can say context manager of temp table. I can call the cursor there, and then I have something that'll work. Now, let's see if that works. And then this has to return self. And then this should be self.quarks.",
+   "zh": "还有 kwargs。我就直接捕获它们。在 enter 中，我会用传入的参数调用我的生成器，拿到生成器实例，然后把它转发到这里和这里。这样我现在就能写 context manager of temp table 了。我可以在那调用游标，这样就能正常工作了。现在，看看它行不行。然后这里必须返回 self。接着这里应该是 self.kwargs。"
+  },
+  {
+   "s": 5757.77,
+   "e": 5788.5,
+   "en": "Okay, there we go. So we can see this still works. Now you might wonder, why did I go through all this effort? Well, I want to show you something kind of interesting. This line here looks really ugly. So here, why don't I just do this? Just move my code around a little bit. Take that line here, and I'll just say temp table equals context manager of temp table. You can see what I kind of did was I took my generator, and I wrapped it in some object that just kind of fit in the parts of the generator to the enter and the exit, right? That's all I did. And now I can just say with",
+   "zh": "好，搞定了。我们可以看到这样依然能行。现在你可能会好奇，我费这么大劲干嘛？我是想给大家展示一些挺有意思的东西。这里的这一行看起来非常丑。那这样，我为什么不这么做呢？稍微调整一下我的代码。把这一行拿过来，我就直接写 temp table 等于 context manager of temp table。你可以看到我其实就是拿了我的生成器，把它包裹进某个对象里，把生成器的各部分正好塞进 enter 和 exit 中，对吧？我就做了这些。现在我就可以直接写 with"
+  },
+  {
+   "s": 5788.94,
+   "e": 5824.21,
+   "en": "temp table of cursor, right? This will kind of, have we seen this like a couple minutes ago? Never saw that pattern before. You haven't seen something like that. Anyone seen some really useful Python syntax? So you don't have to write that. You take some object that happens to be a function, you pass it to another thing that gives you something else, and that rebinds it. Anyone seen this syntax before? I can tab back to the panel. It's only two back. What is it?",
+   "zh": "temp table of cursor，对吧？这有点像……几分钟前我们见过这个吗？以前从来没见过这种模式吧。你们绝对没见过类似的东西。有人见过某些非常实用的 Python 语法吗？这样你就不必写那个了。你拿到某个刚好是函数的对象，把它传给另一个东西，返回别的东西，然后重新绑定。有人以前见过这种语法吗？我可以切回幻灯片。只要往回两张。它叫什么来着？"
+  },
+  {
+   "s": 5825.39,
+   "e": 5864.64,
+   "en": "What would we do here? Why would we not write this? Because we have a simpler syntax. What would we write easier here? Anybody? Decorator. So you can see it works without the decorator, but we'd probably just write this like that. Right? Oops. Still works. Well, it turns out all this garbage up here, we don't have to write. It's already been written for us. It's in a library called contextlib, and it's just a decorator that turns a generator into a context manager.",
+   "zh": "我们在这里会怎么做？为什么不这么写呢？因为我们有更简单的语法。这里写什么会更简单？有人知道吗？装饰器。所以你看，没有装饰器也能跑，但我们大概率会直接这么写。对吧？哎呀。依然能跑。事实证明，上面这些乱七八糟的代码，我们根本不用写。早就有人帮我们写好了。它就在一个叫 contextlib 的库里，其实就是一个把生成器变成上下文管理器的装饰器。"
+  },
+  {
+   "s": 5865.12,
+   "e": 5895.15,
+   "en": "And the only things that we need to make this work completely is that. Here in this example, I want to show you something. This is an example that combines three core features of Python together. Generators, context managers, and decorators. It does it, requiring that you know a little bit of the details of how each of these work. But fundamentally, what we can see is what we have here is three features",
+   "zh": "而要让它完全跑起来，我们唯一需要的就是这个。在这个例子中，我想给你们看点东西。这个例子把 Python 的三个核心特性结合在了一起：生成器、上下文管理器和装饰器。它确实需要你对它们各自的工作原理有一点了解。但从本质上讲，我们可以看到这里有三个特性，"
+  },
+  {
+   "s": 5895.45,
+   "e": 5923.97,
+   "en": "with very clear conceptual meaning orthogonal conceptual meaning where each of those pieces of conceptual meaning kind of fit together. A context manager is merely some piece of code that pairs setup and teardown actions so that the teardown action always occurs if the setup action occurred. A generator is merely some form of syntax that allows us to do things like enforce sequencing and interleaving. Notice",
+   "zh": "它们有着非常清晰且正交的概念内涵，而这些内涵又恰好能彼此契合。上下文管理器不过是一段将 setup 和 teardown 操作配对的代码，以确保只要执行了 setup，就一定会执行 teardown。而生成器不过是一种语法形式，允许我们实现强制按序执行和交错执行等操作。注意"
+  },
+  {
+   "s": 5924.46,
+   "e": 5953.53,
+   "en": "The context manager requires interleaving because the setup is interleaved with the actual action you do in the block. You do the setup, then the action in the block, then the teardown at the end. There is that sequencing where the setup, the enter, has to be done before the exit. So it makes sense to have a generator here as well. Finally, we need something to adapt the generator to this data model that we looked at at the very beginning. We have these underscore methods and we have to find some way to take",
+   "zh": "上下文管理器需要交错执行，因为准备工作是与代码块中的实际操作交织在一起的。你先做准备，接着执行代码块中的操作，最后在结尾做收尾清理。这就存在一种顺序关系，准备工作（即 enter）必须在 exit 之前完成。所以在这里使用生成器也是合情合理的。最后，我们需要某种方式把生成器适配到我们最开始看到的这个数据模型中。我们有这些双下划线方法，并且必须想办法把"
+  },
+  {
+   "s": 5953.87,
+   "e": 5984.93,
+   "en": "how the generator works and fit it into those underscore methods. One of the things we need to do in order to do that is we need to take this generator object and wrap it in some fashion. That wrapping is part of the core of how Python works. It's easy to dynamically construct functions and have those functions wrap other functions. That's part of the core language itself. It's not really something that we could even lift to the level of being a feature. It really is core to how Python itself is written. However, there does happen to be a feature called decorators.",
+   "zh": "生成器的工作机制套进那些双下划线方法里。为了做到这一点，我们需要做的一件事就是获取这个生成器对象，并以某种方式对其进行包装。这种包装是 Python 核心运作机制的一部分。动态构建函数并让这些函数去包装其他函数是很容易的。这本身就是核心语言的一部分。这甚至都算不上是什么能够升格为“特性”的东西。它确实就是 Python 编写机制的核心。不过，碰巧确实有这么一个特性叫做装饰器。"
+  },
+  {
+   "s": 5985.31,
+   "e": 6016.02,
+   "en": "that allows us a nice convenient syntax for doing that exactly. So what you can see here is an example of everything except meta classes and how they all fit together. And how some of these core pieces of Python fit together to write what you might consider to be more nearly expert level code. What I can tell you is that in Python, expert level code is not code that uses every single feature. It's in fact not code that even uses that many features of Python.",
+   "zh": "这为我们提供了一种非常便捷的语法来实现这一点。所以大家在这里看到的，是一个除元类之外所有特性如何组合在一起的示例。也是 Python 的这些核心部分如何拼合在一起，写出更接近专家级别的代码的示例。我可以告诉你的是，在 Python 中，专家级的代码并不是那种把每个特性都用上一遍的代码。事实上，它甚至不会用到太多 Python 特性。"
+  },
+  {
+   "s": 6016.4,
+   "e": 6046.64,
+   "en": "It's code that has a certain clarity to where and when a feature should be used. It's code that doesn't waste the time of the person who's writing it, because they say to themselves, I have this pattern, Python has this mechanism, I fit them together, and everything just seamlessly and very smoothly works. It's code that doesn't have a lot of additional mechanisms associated with it. It doesn't have people creating their own protocols. It doesn't have people creating their own frameworks.",
+   "zh": "这种代码能清晰地把握在何时何地该使用哪项特性。这种代码不会浪费编写者的时间，因为他们心里清楚：我有这种模式，Python 有这种机制，我把它们结合起来，一切就都能无缝且非常顺畅地运转。这种代码不会带有一堆额外的关联机制。它不会让人去造自己的协议。它也不会让人去造自己的框架。"
+  },
+  {
+   "s": 6047.02,
+   "e": 6076.53,
+   "en": "where the language itself provides the core pieces that you need, and you merely have to understand what those core pieces are, what they mean, and how to assemble them. So over the last 90 minutes, I've showed you a couple of details of how Python itself is designed, and four features that you've probably heard of that Python is known for. Four features that you might associate with features that an expert would know. Or at least, if you go and interview for a Python job, and you say, I'm an expert Python programmer,",
+   "zh": "语言本身就提供了你所需的核心积木，你只需要理解这些积木是什么、代表什么含义，以及如何将它们组装起来。所以在过去的 90 分钟里，我向大家展示了 Python 本身设计的一些细节，以及大家可能听说过、也是 Python 赖以成名的四个特性。这四个特性通常会被认为是专家级开发者才懂的东西。或者至少，当你去面试一个 Python 职位，并宣称自己是精通 Python 的专家时，"
+  },
+  {
+   "s": 6077.06,
+   "e": 6108.29,
+   "en": "These are four features that you're going to be asked about, more likely. The question here is, does anybody remember any of the syntax they looked at? Probably not. Even I don't remember it, and I'm giving the talk. And I have notes here. I have like a cheat sheet. The real answer here is the notes, the details, they do matter. They matter very much. You can't write the code unless you know the syntax. The code won't compile. It won't run. However, what is far more important than the names of the arguments that get passed to exit",
+   "zh": "很大概率会被问到这四个特性。但问题在于，有人记得刚才看过的任何语法吗？大概没人记得吧。甚至连我自己都在台上讲，我也记不住。我手里还有笔记呢，就像小抄一样。但真正的事实是，笔记、细节，这些确实很重要。它们极其重要。如果不懂语法，你就写不出代码。代码无法编译，也运行不起来。然而，远比传给 exit 的参数名称更重要的，"
+  },
+  {
+   "s": 6108.73,
+   "e": 6138.73,
+   "en": "or the specific fashion in which different numeric underscore methods get dispatched, whether you do our add or add depending on which is the most arrived class. All of those details are actually secondary to a core conceptual understanding of what these features mean. So what I can tell you is the real lessons from this session are as follows. Python is a language orientated around protocols. There's some behavior",
+   "zh": "或是不同带下划线的数值方法具体的派发方式——到底是调 __radd__ 还是 __add__ 取决于哪个派生程度最高——所有这些细节，相比于对这些特性核心概念的深刻理解，其实都处于次要地位。所以我可以告诉大家，本场演讲真正的精髓如下：Python 是一门围绕协议设计的语言。只要涉及到某种行为，"
+  },
+  {
+   "s": 6139.16,
+   "e": 6164.6,
+   "en": "some syntax, some bytecode, or some top-level function. And there's a way for you to tell Python how to implement that on an arbitrary object via underscore methods. That exact correspondence is usually guessable, but if you can't guess it, Google Python data model, and you'll find all the different methods and all of the caveats of their use. Python is a very simplistic language in terms of its execution model.",
+   "zh": "某种语法、某种字节码或顶层函数。而且你可以通过双下划线方法，告诉 Python 如何在任意对象上实现它。这种对应关系通常猜得到，但如果猜不出来，搜一下 Python 数据模型，就能找到所有方法及其使用的注意事项。就执行模型而言，Python 是一种非常简单的语言。"
+  },
+  {
+   "s": 6164.89,
+   "e": 6194.74,
+   "en": "Code runs from top to bottom, and things which would not be executable statements in other languages, like class statements and function definitions or general definitions, are actually executable code in Python. Because they're executable code, not only can you do things like hook into them, but you can also do things like define functions within functions based off of runtime data, define classes within functions based off of some runtime information you have. How these impact specific features. Metaclasses,",
+   "zh": "代码自上而下运行，而在其他语言中不算可执行语句的东西，比如类语句和函数定义等常规定义，在 Python 中其实都是可执行代码。正因它们是可执行代码，你不仅可以挂钩劫持它们，还能根据运行时数据在函数内部定义函数，或者根据现有的运行时信息在函数内部定义类。这会如何影响具体特性呢？元类，"
+  },
+  {
+   "s": 6195.86,
+   "e": 6224.58,
+   "en": "Metaclass is merely some hook into a class construction process. Because classes are constructed at runtime, you can hook code in there. And because you can hook into the creation of subclasses, you can ask the subclass certain questions like, do you have these methods implemented? That's what they do. That's the mechanism. But the meeting behind it is quite simple. You have library code and user code. When you sit on the library author side,",
+   "zh": "元类不过是介入类构建过程的一种钩子。因为类是在运行时构建的，所以你可以在那里挂载代码。而且由于你能劫持子类的创建，就可以向子类抛出一些问题，比如：你实现这些方法了吗？这就是它们的作用。机制就是这样。但背后的用意其实很简单。你的代码分为库代码和用户代码。当你站在库作者的角度时，"
+  },
+  {
+   "s": 6224.85,
+   "e": 6250.74,
+   "en": "How do you make sure the users don't screw up? How do you enforce a constraint from the library code to the user code? Well, all that it takes is some way to hook into the process of how user code, user classes are instantiated. That's merely what the meta class is. You find that place where you add that hook. You add the check that you want. Oh, make sure that you have the bar method implemented. And you solve the problem. In fact, in the Python standard library, there are",
+   "zh": "你要怎么确保用户不会搞砸？怎么把库代码里的约束强加给用户代码？其实只要有某种方式，能介入用户代码中用户类的实例化过程就行。而这正是元类的作用。找到添加钩子的那个地方，加上你想要的检查，比如“确保你实现了 bar 方法”，问题就解决了。事实上，在 Python 标准库中，"
+  },
+  {
+   "s": 6251.78,
+   "e": 6279.85,
+   "en": "regularized solutions to problems like that, in collections.abc there is an ABC meta class that allows you to use decorators to mark certain methods and abstract methods so you don't have to write the meta class yourself. And you can think, this is a pattern of what the meta class is doing. In fact, almost every example of a meta class that you'll see will be this pattern of some base class and some derived class, the base class trying to enforce a constraint on the derived class. It's almost every pattern of the meta class",
+   "zh": "针对这类问题已有现成的规范解法，collections.abc 里就有一个 ABC 元类，允许你用装饰器把某些方法标记为抽象方法，这样你就不用自己写元类了。你可以把这看作是元类工作的一种模式。实际上，你见到的几乎每个元类示例都是这种模式：基类和派生类之间，基类试图对派生类施加某种约束。这几乎涵盖了你所能见到的所有元类模式，"
+  },
+  {
+   "s": 6280.45,
+   "e": 6309.93,
+   "en": "that you'll see where that metaclass isn't justified. Of course, you can misuse them and do all sorts of crazy things. You can use them in places where it doesn't make any sense, but in the justified uses of the metaclass, that's what it's all about. For the decorator, it really isn't anything that interesting. Just a little bit of syntax to allow you to write one line of code a little bit nicer, to take one line of code that you'd write after your function definition and put it above your function definition. But it hooks into this idea in Python that everything gets structured at runtime so that",
+   "zh": "除了一些不合理的滥用。当然，你完全可以滥用它们，做出各种疯狂的举动，在毫无意义的地方使用它们；但就合理的使用场景而言，元类的核心就在于此。至于装饰器，其实倒没那么神乎其神。它不过是一点语法糖，让你能把某行代码写得更好看一点，把原本要写在函数定义后面的那行代码挪到函数定义上面而已。但它契合了 Python 的这个理念：所有东西都是在运行时构建的，因此"
+  },
+  {
+   "s": 6310.06,
+   "e": 6334.28,
+   "en": "And when you combine that with the ability to define functions within functions, you can use this in order to wrap sets of functions with some before and after behavior. If you've been around long enough, you might think, you might recall this was the whole aspect orientated idea. But the idea that, can I take a function and wrap it with some behavior such as timing, you know, capturing the time before and capturing the time after.",
+   "zh": "当你把这个特性与在函数内部定义函数的能力结合起来时，就可以用它来为一组函数包裹上前置和后置的行为。如果你入行够久，可能会想到，或者回忆起这正是面向切面编程的核心思想。也就是那种思路：我能否拿来一个函数，然后用某些行为把它包裹起来，比如计时——记录执行前的时间，再记录执行后的时间。"
+  },
+  {
+   "s": 6334.66,
+   "e": 6363.58,
+   "en": "or doing things like authentication or logging, anything where you don't have to go into the function itself, you just wrap the behavior around it. Generators are merely a way to take a single computation that would otherwise run eagerly from the injection of its parameters to the final computation and interleave it with other code by adding yield points where you can yield the intermediate result values or one small piece of the computation",
+   "zh": "或者做身份验证、写日志之类的操作，任何你无需深入函数内部、只需在外层包裹行为的场景都适用。生成器也只不过是一种手段，它能把原本从传入参数到最终计算完成一气呵成的单次计算，通过添加 yield 点与其他代码交错执行，在这些点上你可以交出中间结果值，或者单次计算的一小部分，"
+  },
+  {
+   "s": 6364.08,
+   "e": 6392.46,
+   "en": "and also yield control back to the caller. In that vein, you can think of a generator as being a way to take one long computation and break it up into small parts where the computation can run a small subunit of that computation, then your user code can step in and do whatever it wants. Maybe it will use a partial value or use one of the first return values if you're returning a sequence of return values, you might use each of the individual values.",
+   "zh": "并且把控制权交还给调用者。从这个角度来看，你可以把生成器理解为一种将漫长计算拆分成若干小块的方式，计算可以只运行其中一小个单元，接着你的用户代码就能介入，做它想做的任何事。也许它会用到一个部分值，或者如果返回的是一个序列，它会用到最先返回的几个值之一，你也可以逐个使用每一个单独的值。"
+  },
+  {
+   "s": 6392.92,
+   "e": 6422.76,
+   "en": "And in that fashion, you could have greater control over how much of that computation actually runs. Do you run it all the way to completion, or do you only need to run it to gab the first five values you need? You also have greater control over how much memory is used, because the generator can just yield the values back to you, and you can choose which of those return values you want to keep, which of them you want to throw away. Context managers are merely some structure for allowing you to tie two actions together, a setup action and a teardown action.",
+   "zh": "通过这种方式，你可以更好地控制到底要执行多少计算：是一直运行到结束，还是只需要跑出来前五个值就行？你也能更好地控制内存占用，因为生成器可以直接把值 yield 给你，由你来决定哪些返回值要保留，哪些要丢弃。上下文管理器其实就是一种结构，用来把两个操作绑定在一起：一个前置准备操作，一个后置清理操作。"
+  },
+  {
+   "s": 6422.97,
+   "e": 6452.07,
+   "en": "and make sure that they always happen in concordance with each other. If the setup action occurs, make sure that teardown action occurs even if some error happens in the middle. And when you think about these features and you realize they're related but mostly orthogonal, you can combine them in interesting ways like you see in this example here, where you have a decorator, a context manager, and a generator all coexisting and serving exactly its own purpose. As I said at the very beginning, the syntax doesn't matter, the details",
+   "zh": "并且确保它们始终步调一致地执行。只要执行了准备操作，即便中间出了错，也一定会执行清理操作。当你审视这些特性并意识到它们虽有联系却基本正交时，就可以像眼前的例子一样，把它们以有趣的方式组合起来：在这里，装饰器、上下文管理器和生成器同时共存，并且各自各司其职。正如我一开始所说的，语法并不重要，细节"
+  },
+  {
+   "s": 6452.38,
+   "e": 6481.94,
+   "en": "won't matter until you need to use them. What I want to leave you with, especially since a lot of you are not already very fluent Python programmers, I want to leave you with this idea. Remember what these features are about. Remember what they're for. That's something that you should be able to remember longer than the exact details of the syntax, or even the implementation details. In fact, the implementation details and the details of the syntax will change over time. Some of the flaws of the implementation make it fixed. Other details...",
+   "zh": "在真正需要用到之前也无关紧要。我想留给大家的——尤其是因为你们很多人现在还不是非常熟练的 Python 程序员——是这样一个理念：记住这些特性本质上是做什么的，记住它们的用途。这比那些具体的语法细节，甚至比实现细节，都更值得你们长久铭记。事实上，实现细节和语法细节是会随着时间推移而改变的。有些实现上的缺陷会被修复，其他的细节……"
+  },
+  {
+   "s": 6481.94,
+   "e": 6515.1,
+   "en": "will be fixed in another fashion. But the core meaning behind these is something that will last and will guide you towards writing expert-level Python code far better than memorizing just a bunch of features ever will. So that's my presentation. I hope you enjoyed it. Thank you very much for being a part of it. Any questions? In the back? A little louder, please.",
+   "zh": "会以另一种方式解决。但这些背后的核心思想是持久的，它会指引你写出专家级的 Python 代码，这远比死记硬背一堆特性管用得多。以上就是我的演讲。希望大家有所收获。非常感谢大家的参与。有什么问题吗？后排那位？请稍微大声一点。"
+  },
+  {
+   "s": 6529.19,
+   "e": 6547.86,
+   "en": "Can I use, like when I use yield, it basically continues to do the earlier processing? Yes, so the idea is what you've immediately jumped on is this idea that you can interleave. What you've, I think, jumped onto is the idea that, well, while I've returned control back to the calling context,",
+   "zh": "我能不能，比如用 yield 的时候，它基本上是在继续之前的处理？是的，你敏锐捕捉到的其实是“交替执行”这个概念。我想你想到的是：既然我已经把控制权交还给了调用上下文，"
+  },
+  {
+   "s": 6548.32,
+   "e": 6577.44,
+   "en": "Can I have the original context keep working? Because then it could kind of sit in the background and do some work and then by the time I go back to the generator, I can go and ask it for some value and it doesn't have to do anything because it's already in the background done that. Well, yes you can. You could have the generator start its own thread and maybe do things in its own thread. That's entirely possible. And that wouldn't be part of the generator syntax itself. The generator itself is not intended for interleaving in a concurrency mindset.",
+   "zh": "那我能不能让原来的上下文继续执行？因为这样它就能在后台跑着做点事，等我再回到生成器并向它索要值时，它就什么都不用做了，因为在后台已经搞定了。嗯，确实可以。你可以让生成器启动自己的线程，在自己的线程里做事。这完全行得通。但这并不是生成器语法本身的一部分。生成器本身的设计初衷，并不是为了并发意义上的交替执行。"
+  },
+  {
+   "s": 6577.78,
+   "e": 6607.05,
+   "en": "And so where you see generators used as part of this broader idea of concurrency in Python is that the generator mechanism and its syntax have been further refined in Python 3.6 to this asynchronous co-routine syntax. There are many reasons why strictly simultaneous running Python code is something that has been avoided for a very long time in Python.",
+   "zh": "因此，在 Python 更广泛的并发理念中，生成器的机制及其语法在 Python 3.6 中得到了进一步提炼，演变成了这种异步协程语法。有许多原因导致 Python 在很长一段时间里，都尽量避免严格意义上的代码同时运行。"
+  },
+  {
+   "s": 6607.45,
+   "e": 6633.0,
+   "en": "You must have heard of the global interpreter lock and some of the limitations of the global interpreter lock. Accepting that as a limitation, the approaches that people take in concurrency in Python, where they mean single in-process concurrency, are typically either threads and they ignore the global interpreter lock, or they just allow for strict interleaving of code where, you know, it's all single process, so it's all single threaded. One thread, one, one.",
+   "zh": "你肯定听说过全局解释器锁（GIL），以及它带来的一些局限。在接受这一局限的前提下，人们在 Python 中处理并发（指单进程内并发）时采用的方法，通常要么是使用线程并无视全局解释器锁，要么就纯粹让代码严格交错执行，毕竟都是单进程，所以本质上全都是单线程。一条线程，一个，一个。"
+  },
+  {
+   "s": 6633.62,
+   "e": 6665.64,
+   "en": "greenlet sleeps while the other one runs. And you don't have strictly concurrently running greenlets. That's closer to your answer which is generally no, the generator is not for this kind of multi-threaded equivalent approach. It really is for this one runs, then this one runs, then this one runs, then this one runs. And that's considered to be the preferred approach for concurrency in Python where the concurrency is IO bound. Good? Yeah.",
+   "zh": "一个 greenlet 休眠时另一个在运行。你并没有真正严格并发运行的 greenlet。这更接近你的问题的答案，通常来说不是，生成器并不是用于这种等效于多线程的方法。它确实是这个先跑，然后这个跑，再这个跑，接着这个跑。在 Python 中，当并发是 I/O 密集型时，这被认为是首选的并发处理方式。明白了吗？好的。"
+  },
+  {
+   "s": 6670.96,
+   "e": 6698.55,
+   "en": "So you are referring to the runtime checks versus otherwise? Yeah. So what would be the point in time the other asserts or validations would happen? So the problem is runtime checks require you to have the code deployed in a runtime environment. So you'll never know the problem until you hit that exact code path. The whole point of this is, can we any sooner than when it hits that code path in a deployed environment, catch the error?",
+   "zh": "所以你指的是运行时检查还是其他情况？是的。那么其他断言或验证会在什么时间点发生呢？问题在于运行时检查需要你把代码部署到运行时环境中。所以在你走到那条具体的代码路径之前，你永远不会发现问题。这整件事的核心在于，我们能否在它于部署环境中走到该代码路径之前，更早地捕获这个错误？"
+  },
+  {
+   "s": 6700.71,
+   "e": 6724.99,
+   "en": "Because Python doesn't have a very strong compiler, it has a very small, very... That compiler doesn't really do a lot, it's going to be very difficult. However, what we can think of is that module import time is an equivalent to compile time in Python. So just being able to import a module is something that we can do before we hit the runtime compile context. We can do it at our laptop, and if the module imports normally, then we can say, okay, this code will be safe in production.",
+   "zh": "因为 Python 没有很强大的编译器，它的编译器非常精简，非常……那个编译器其实做不了太多事情，这会变得非常困难。不过，我们可以认为在 Python 中，模块导入阶段就相当于编译期。因此，单纯能成功导入一个模块，就是我们在进入运行时编译上下文之前可以做到的事。我们可以在自己的笔记本电脑上完成这一步，如果模块能正常导入，我们就可以说：好，这段代码在生产环境中会是安全的。"
+  },
+  {
+   "s": 6725.46,
+   "e": 6754.0,
+   "en": "All of the checks that we looked at there were checks which we could run by just sitting at our laptop and importing all of our modules. If it worked, we'd say, good to go. Another thing that we could do is maybe run a unit test suite, but that might be one level deeper than these checks. Because you can think the unit test suite is going to take a lot longer to run, and it might have some mocking of data and moving things around. So what we might have is some checks in the file itself, import everything. Okay, good to go. Then run our unit tests. Okay, good to go.",
+   "zh": "我们刚才看到的所有检查，都是只需要坐在笔记本前、导入我们所有的模块就能运行的检查。如果导入成功，我们就可以说：没问题了。我们还可以做的另一件事也许是运行单元测试套件，但这可能比这些检查要更深一个层级。因为你可以想到，单元测试套件运行起来要花更长的时间，而且它可能还会模拟数据以及做各种调整。所以我们可以在文件本身做一些检查，导入所有内容。好的，没问题。然后再运行我们的单元测试。好的，没问题。"
+  },
+  {
+   "s": 6754.35,
+   "e": 6782.72,
+   "en": "deploy it to production, and then hope that somebody's online who knows how to solve the problem when something breaks. Quick follow-up on that. In its subclass, is that still runtime, or is it? In its subclass is a runtime check, but everything that runs at the module level is run at runtime. It's just that there are different runtime scopes in Python. So in its subclass will operate in the same fashion as the meta class. It'll merely",
+   "zh": "部署到生产环境，然后祈祷出问题时刚好有人在线懂得怎么解决。关于这个有个追问：__init_subclass__ 也是运行时吗，还是别的？__init_subclass__ 确实是运行时检查，但模块层面上执行的所有东西都是在运行时运行的。只不过 Python 中存在不同的运行时作用域而已。所以 __init_subclass__ 的运作方式和元类是一样的。它只是"
+  },
+  {
+   "s": 6783.39,
+   "e": 6815.28,
+   "en": "Just another place that you can hook into the initialization of a subclass. And you have to look into the details. I thought it took different arguments than it does. You'll have to look into the details to see what arguments it takes and how you actually use it for this purpose. There's a lot of these details of these features. Hopefully, you're not somebody who's constantly using them. And unless you're constantly using them, the details are things that are easy to forget. But if you know where to look or you know what to look for,",
+   "zh": "为你提供了另一个介入子类初始化的钩子。具体细节你得自己去查查，我原以为它接收的参数和实际不太一样。你得查一下细节，看看它接收什么参数，以及为了这个目的究竟该怎么用。这些特性有太多的这类细节。但愿你不是天天都在用它们。除非你一直在用，否则这些细节是很容易忘记的。但如果你知道去哪里查，或者知道该查什么，"
+  },
+  {
+   "s": 6815.61,
+   "e": 6845.93,
+   "en": "Those are details that you can very quickly pick up. And frankly, in its subclasses, it's only been around since 3.6. A lot of these details do change over time. But the core models, the core mental models, have not changed since these features were first introduced. Even the extension of generators for co-routines and for asynchronous programming, the core mental models behind it haven't really changed since they were first introduced in Python 2.6.2, whatever. Any last questions? Okay, well, I hope you enjoyed the session. Thank you very much.",
+   "zh": "这些细节你很快就能掌握。坦白讲，__init_subclass__ 是从 3.6 才开始引入的。很多这类细节确实会随时间发生变化。但自从这些特性首次引入以来，核心模型、核心心智模型就从未改变过。即使是为协程和异步编程对生成器进行的扩展，其背后的核心心智模型自最初在 Python 2.6、2.7 之类的版本引入以来，也从未真正改变过。还有最后一个问题吗？好的，希望大家喜欢这节课。非常感谢。"
+  }
+ ]
+}

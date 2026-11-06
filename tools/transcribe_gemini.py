@@ -47,6 +47,25 @@ MIME = {
     ".wav": "audio/wav",
 }
 AUDIO_SUFFIXES = set(MIME)
+# Prefer an English track, then fall back for videos that label no language.
+AUDIO_FORMAT = ("bestaudio[language^=en][abr<=64]/bestaudio[language^=en]"
+                "/bestaudio[abr<=64]/bestaudio")
+
+
+def english_audio_ok(info: dict) -> bool:
+    """Accept an untagged single-track download; reject explicitly non-English audio.
+
+    YouTube leaves the original track untagged on many videos, so a missing tag
+    is normal. A tag that exists but is never English means the audio is a dub.
+    """
+    formats = info.get("formats") or []
+    available = {str(f.get("language")) for f in formats
+                 if f.get("language") and f.get("acodec") not in (None, "none")}
+    if available and not any(lang.startswith("en") for lang in available):
+        return False
+    selected = info.get("requested_downloads") or [info]
+    chosen = {str(f.get("language")) for f in selected if f.get("language")}
+    return not chosen or any(lang.startswith("en") for lang in chosen)
 
 # Common English function words, used only to spot a non-English audio track.
 ENGLISH_WORDS = {
@@ -200,8 +219,7 @@ def download_audio(vid: str, attempts: int = 3) -> Path | None:
     # original; a bare "bestaudio" can pick a dub, so prefer an English track.
     cmd = [
         sys.executable, "-m", "yt_dlp", "--proxy", PROXY,
-        "-f", ("bestaudio[language^=en][abr<=64]/bestaudio[language^=en]"
-               "/bestaudio[abr<=64]/bestaudio"),
+        "-f", AUDIO_FORMAT,
         "--no-warnings",
         "-o", str(AUDIO_DIR / "%(id)s.%(ext)s"),
         f"https://www.youtube.com/watch?v={vid}",

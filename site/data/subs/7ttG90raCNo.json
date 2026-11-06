@@ -1,0 +1,224 @@
+{
+ "vid": "7ttG90raCNo",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 0.0,
+   "e": 19.54,
+   "en": "Despite the visual effects credits on Hollywood films being longer than ever before, if you are to believe the filmmakers, they're also using less CGI than ever before. Everybody loves practical filmmaking, so that's what the studios are giving you.",
+   "zh": "尽管好莱坞电影片尾的视觉特效名单比以往任何时候都长，但如果听信那些电影制作人的话，他们用的电脑特效（CGI）反而是有史以来最少的。人人都爱实景拍摄，所以各大片厂也就投你所好。"
+  },
+  {
+   "s": 26.67,
+   "e": 61.41,
+   "en": "One of these days they're gonna put no CGI was used in the making of this film in the credits right above no animals were harmed in the making of this film because that's how important it is for them that you know that they used no CGI. Hi there, my name is Jonas and I've been making visual effects for Film and TV for 18 years and in this four-part video series we'll be taking a look at all the no CGI there is in Hollywood films today. And that is a lot of no CGI. So stick around, it'll be a lot of fun and I'm saving the best for last.",
+   "zh": "说不定哪天，他们就会在片尾字幕里“本片制作未伤害任何动物”的正上方，加上一句“本片制作未采用任何 CGI”，因为在他们眼里，让你知道他们没用 CGI 简直太重要了。大家好，我是 Jonas，从事影视视觉特效制作已经 18 年了。在这个由四部分组成的系列视频中，我们将来盘点一下如今好莱坞电影里所谓的“零 CGI”——而这类宣传可真是一抓一大把。所以别走开，内容会非常精彩，最重磅的我都留在了最后。"
+  },
+  {
+   "s": 63.85,
+   "e": 114.6,
+   "en": "Before we start, let's get one thing straight. It's fairly easy to agree we all like practical better, isn't it? Ignore the music and take a look at these car stunts. Now compare them to these car stunts. These car stunts are meant to be impressive because the car jumps are really long distance, but the two bridge stunts were real and the two building to building stunts were CGI, so what's impressive about that? A CGI car can jump as far as you want it to.",
+   "zh": "在开始之前，我们先达成一个共识：大家显然都更喜欢实景特技，对吧？先别管背景音乐，看看这几场飞车特技，再对比一下另外这几场。后一组飞车本该让人大开眼界，因为车飞得极远；但前面桥梁那两场是实拍，而在大楼之间飞跃的那两场则是CG特效，那它还有什么好惊艳的？只要你想，CG汽车想飞多远就能飞多远。"
+  },
+  {
+   "s": 114.98,
+   "e": 138.11,
+   "en": "It can jump from house to house, from skyscraper to skyscraper, from city to city, hell it could even fly into space. But that doesn't impress me, because I know CGI cars can do anything. So… practical is better, right? It's not so simple. Hang on. Top Gun Maverick blew people away with its practical approach to filming dogfights where everyone else uses CGI.",
+   "zh": "它可以从一栋房子飞到另一栋，从摩天大楼飞到摩天大楼，从一座城市飞到另一座，甚至还能飞上太空。但这根本打动不了我，因为我知道CG汽车无所不能。所以……实拍就是更好，对吗？其实没那么简单。等等，在大家都用CG做空战的时候，《Top Gun Maverick》就凭实拍空战惊艳了所有人。"
+  },
+  {
+   "s": 140.17,
+   "e": 161.33,
+   "en": "Tom Cruise, director Joseph Kaczynski, DOP Claudia Miranda, worked closely with aerial photographer Kevin LaRosa to film everything for real. And this is crazy stuff. It has never been done before and it looks amazing.",
+   "zh": "Tom Cruise、导演 Joseph Kaczynski、摄影指导 Claudia Miranda 与空中摄影师 Kevin LaRosa 紧密合作，全实景实拍。这简直太疯狂了，前无古人，成片效果极其震撼。"
+  },
+  {
+   "s": 165.13,
+   "e": 194.77,
+   "en": "And there is not a single mention of CGI or visual effects in any of these documentaries. And why would there be? Tom himself said in a 2015 interview. That's it. No CGI on the Jets. Social Media was flooded by people raving about the complete absence of CGI in such a major spectacle film.",
+   "zh": "在这些纪录片里，完全没提到过任何 CGI 或视觉特效。但又怎么会提呢？Tom 本人在 2015 年的一次采访中就直言：就这么定了，战机镜头绝不用 CGI。社交媒体上更是铺天盖地，大家都在疯狂盛赞这样一部超级大片竟然完全没有 CGI。"
+  },
+  {
+   "s": 195.1,
+   "e": 224.08,
+   "en": "News outlets and media like ITN were quick to pick up the story and report on it like this. In an age where computer generated special effects reign supreme in cinema, Top Gun Maverick is a Mac 10 breath of fresh air. Production comedy Skydance even tweeted no CGI here. To confirm, I presume that there is no CGI in the film. But with 400 VFX names in the credits, that's a lot of no CGI, isn't it? It turns out, a lot of the aircraft they filmed practically were not the aircraft you see in the final film.",
+   "zh": "像 ITN 等各大新闻媒体也迅速跟进，纷纷这样报道：在电脑特效称霸大银幕的时代，《Top Gun: Maverick》简直就像十马赫的疾风般令人耳目一新。制片公司 Skydance 甚至发推称“绝无 CGI”，在我看来，这就算是确认了片中没有 CGI。但片尾演职员表里赫然列着 400 个特效人员名单，这也叫“绝无 CGI”？事实证明，他们实拍的很多飞机，根本就不是你在成片里看到的那款战机。"
+  },
+  {
+   "s": 224.63,
+   "e": 250.7,
+   "en": "Instead, they filmed these L39 stand-in jets, painted them grey and added tracking markers so they could be used for lighting reference and tracked, essentially using them as a flying anti-circuit to be completely replaced with CGI. So how many jets are CGI and how many are real? The Darkstar was made available to the production as a full-size markup, but it didn't fly, so it's completely CGI either tracked onto a stand-in jet or animated by hand.",
+   "zh": "相反，他们拍摄了这些充当替身的 L39 战机，涂成灰色并贴上追踪标记，以便用作光照参考和追踪定位，本质上就是把它们当作完全要被 CGI 替换掉的空中替身。那么，到底有多少架战机是 CGI，又有多少架是真机呢？制作团队虽然拿到了一架全尺寸的“暗星”模型，但它根本不能飞，所以它完全是 CGI 制作的，要么是追踪替换了替身战机，要么是纯手工制作的动画。"
+  },
+  {
+   "s": 251.1,
+   "e": 274.23,
+   "en": "The Godot F-14 doesn't fly anymore. It's all CGI. The enemy's fifth-generation fighters, they don't exist. They're all CGI, either tracked on to other stand-in jets or animated by hand. Which means that in the entire dogfight at the end of the movie, you're watching 100% CGI airplane because none of these planes exist.",
+   "zh": "这架老旧的 F-14 已经不能飞了，全都是 CGI。敌方的第五代战机根本就不存在，也全都是 CGI，要么是追踪替换了其他替身机，要么是纯手工做的动画。这意味着电影结尾那场完整的缠斗戏中，你看到的飞机 100% 都是 CGI，因为现实中根本没有这些飞机。"
+  },
+  {
+   "s": 274.59,
+   "e": 296.39,
+   "en": "No CGI in the jets. There's no information about this in the bonus material on the blu-ray or in any of the online documentaries about the film, but the film's editor Eddie Hamilton has uploaded a walkthrough of the film's timeline on YouTube and he's pretty open about the visual effects. The edit notes track is something where I put a sub cap on and I type in useful things that the VFX department might need to know. And there you have it.",
+   "zh": "战斗机没有用任何 CGI。蓝光碟的花絮和网上的电影纪录片里都没提过这事，但该片的剪辑师 Eddie Hamilton 在 YouTube 上发过一段电影时间线的演示视频，他对视效制作倒是挺坦诚的。“‘剪辑备忘’轨道是我用来打字幕条、写下视效部门可能需要了解的有用信息的地方。”看，就是这样。"
+  },
+  {
+   "s": 296.58,
+   "e": 323.34,
+   "en": "The entire dogfight at the end of the film is filmed and edited exclusively with these grey L39 jets with notes from the editor to the VFX team about which CGI jets to replace them with. You know there's a lot of visual effects in this movie and you may not realize what the visual effects are because they're kind of invisible. The F-18s were made available to the production from the Navy and they are somewhat real in the film but VFX supervisor Ryan Toddhope would say in an interview with VFX voice",
+   "zh": "影片最后的那场整场狗斗，全都是用这些灰色的 L39 喷气机拍摄和剪辑的，上面还有剪辑师留给视效团队的备忘，注明要把它们替换成哪些 CGI 战机。你知道这部电影里有很多视效，你可能都意识不到哪些是视效，因为它们做得很隐形。海军确实为摄制组提供了 F-18，它们在片中也算是有实拍镜头，但视效总监 Ryan Toddhope 在接受 VFX voice 采访时却说："
+  },
+  {
+   "s": 323.77,
+   "e": 350.33,
+   "en": "Typically we shot those with one or two F-18s and added the other F-18s in those formations. And that means that in all these shots you're watching some real F-18s and some CGI F-18s and I can't tell you which is which because you can't tell the difference. In the shot when they all come through the valley and the vapor trails are going off and rush under the camera, that was one jet. And we added multiple jets doing the same thing. They also used CGI jets for safety reasons when jets get too close to each other.",
+   "zh": "“通常我们只用一两架 F-18 来拍，然后用视效补全编队里的其他 F-18。”这意味着在所有这些镜头里，你看到的是真假掺半的 F-18，而我甚至没法告诉你哪架是真的哪架是假的，因为你根本看不出区别。在它们穿过山谷、拉着尾烟从镜头下方呼啸而过的那个镜头里，其实只有一架真机。我们用后期合成了多架战机做同样的动作。出于安全考虑，当飞机靠得太近时，他们也会采用 CGI 战机。"
+  },
+  {
+   "s": 350.63,
+   "e": 375.29,
+   "en": "Toto would also explain to Ian Fails from Before's and After's, we determined early on through various tests that adding other jets information out of the canopy windows was something we could do convincingly in VFX, further reducing the already very small amount of real jets left in the film. But what about the cockpit scenes? They're real, we saw them film that, didn't we? Yes, they filmed all that stuff for real and it's amazing, it looks great and they got some G4 stuff that they couldn't have gotten any other way.",
+   "zh": "Toto 在接受 Before's and After's 的 Ian Fails 采访时还解释道，我们很早就通过各种测试确定，座舱盖外的其他战机编队画面完全可以用特效以假乱真地做出来，这进一步减少了片中本就所剩无几的实拍战机镜头。但座舱内的戏份呢？那是实拍的，我们看到过拍摄花絮对吧？没错，那些确实全都是实打实拍出来的，效果惊人、看起来棒极了，而且他们捕捉到了不用这种方式就绝不可能拍到的过载镜头。"
+  },
+  {
+   "s": 375.63,
+   "e": 402.69,
+   "en": "But they still did CGI changes to those shots on the interior, the exterior, the canopy, the environment, leaving some shots with the pilot as the only practical element left in the shot and everything else as CGI. You'll notice in the documentaries that they never say they don't use CGI, they just keep repeating that they filmed everything practically, which they did, so it's technically not inaccurate. But why?",
+   "zh": "但他们依然对这些镜头进行了 CGI 修改，包括内景、外景、座舱盖以及周围环境，导致某些镜头里只剩下飞行员是唯一的实拍元素，其余一切全都是 CGI。你会注意到在纪录片中，他们从没说过自己不用 CGI，只是不断重申所有东西都是实景实拍的，他们确实这么做了，所以在字面层面上这并不算撒谎。但这又是为什么呢？"
+  },
+  {
+   "s": 403.69,
+   "e": 418.27,
+   "en": "Why go through all this trouble of filming the most elaborate and amazing aerial photography ever filmed only to use it as essentially the world's most expensive animatic for what ends up being nearly entirely digital aerial scenes?",
+   "zh": "费这么大劲去拍史上最复杂、最震撼的空中实拍，结果却基本只是把它当成了全世界最贵的动态分镜，最终正片里的空战几乎全是纯CG特效，图什么呢？"
+  },
+  {
+   "s": 418.9,
+   "e": 437.56,
+   "en": "The phrase is grounded in reality. By filming real aircraft from real aircraft, not only do you have great lighting reference for the CG aircraft you're going to insert, they also move like the real thing. Unlike these clips from the movie Stealth, which has great CGI for being almost 20 years old, it's just pretty obvious that no real aircraft actually did this.",
+   "zh": "答案就在于“立足于现实”。用真机去拍真机，不仅能为你后续植入的CG飞机提供极佳的光照参考，而且它们的动态也和真机无异。不像电影《绝密飞行》（Stealth）里的这些片段，以一部快20年的老片来说，它的CGI确实很棒，但一眼就能看出来绝对没有真机能飞成这样。"
+  },
+  {
+   "s": 438.02,
+   "e": 466.9,
+   "en": "You could certainly call this overkill, because animators and CG artists can create shots like that without the practical photography. But by filming the entire film practically and editing it like that, you're forcing the cinematic language of aerial photography to persist through the entire post-production. And it definitely shows in the final film, because all the scenes feel real, even when they're 100% CGI. Strongly conflicting with the old practical marketing approach. And everything you see in this film, obviously, it's for real.",
+   "zh": "你当然可以说这是小题大做，毕竟动画师和CG艺术家不用实拍也能做出这种镜头。但通过全片实拍并按实拍素材剪辑，你就逼得整个后期制作都必须遵循航空摄影的视听语言。这在最终成片里体现得淋漓尽致，所有场景都让人感觉无比真实，哪怕它们是100%纯CG做出来的。这和过去那种“实拍宣传噱头”形成了强烈反差。显然，你在本片中看到的一切，都是动真格的。"
+  },
+  {
+   "s": 472.14,
+   "e": 498.64,
+   "en": "Top Gun Maverick earned an Oscar nomination for its 2,400 visual effects shots, and the only guaranteed real airplane left in the film is the one with the Lady Gaga song. It's no secret that Stranger Things uses a lot of CGI, but for the season 4 villain Vecna, according to the official Netflix geek Twitter account, they used no CGI, his look was all practical.",
+   "zh": "《Top Gun Maverick》凭借其2400个视觉特效镜头获得了奥斯卡提名，而片中唯一能确定是真飞机的，就只有放 Lady Gaga 歌的那一架了。大家都知道《Stranger Things》用了大量的 CGI，但第四季的大反派 Vecna，据 Netflix 极客官方 Twitter 账号所说，完全没有使用 CGI，他的造型全都是实体特效。"
+  },
+  {
+   "s": 499.15,
+   "e": 526.07,
+   "en": "as demonstrated in this video that shows the very time-consuming process of applying the makeup to the actor. This makeup looks fantastic. And when people see that video, they'll say, that's it. No CGI. Case closed. I can see it right there. It's all makeup. As usual, people raved in the comments that Wigner looked great because he was practical and that CGI could never look this good. And they encouraged other studios to take notes so we could have more practical effects like Wigner.",
+   "zh": "正如这段视频所展示的，给演员上妆的过程极其耗时。这个妆容看起来棒极了。大家看到那段视频后就会说，没跑了，绝对没有 CGI，实锤了，我亲眼所见，全都是化妆做出来的。果不其然，评论区里一片狂赞，说 Vecna 看着这么绝就是因为用了实体特效，CGI 绝对做不出这种效果。他们还喊话其他制片厂好好学学，这样我们才能看到更多像 Vecna 这样的实体特效。"
+  },
+  {
+   "s": 526.63,
+   "e": 554.65,
+   "en": "But take a look at RodeoFX's visual effects breakdown from Stranger Things season 4 because... Vegna is CGI. Now, the cool part about filming the actor in full makeup as opposed to a grey mocap suit is that 1. The VFX artist can decide on a shot per shot basis how much of the original they want to keep and how much they want to replace with CGI and 2. Even the parts that are completely replaced with CGI. They have great lighting reference for exactly what it's supposed to look like.",
+   "zh": "不过来看看 RodeoFX 针对《怪奇物语》第四季做的视效解析吧，因为……Vecna 其实是 CGI。让演员化全妆而不是穿灰色动捕服来拍摄，妙处就在于：第一，视效艺术家可以逐个镜头决定保留多少实拍、用 CGI 替换多少；第二，即使是完全被 CGI 替换的部分，他们也有绝佳的布光参考，完全清楚它最终该是什么样。"
+  },
+  {
+   "s": 555.02,
+   "e": 580.7,
+   "en": "You can see they keep as much of the practical footage as possible, replacing as little as they have to in order to maintain the actor's performance, but since his body is covered in slithering snakes, at the end of the day most of him is CGI. You'd think by now there's some kind of a trench warfare going on between practical effects and digital effects, but this isn't the case. Here is Wegner's makeup designer, Barry Gower. As a practical effects department, we tend to work very closely with digital effects a lot of the best.",
+   "zh": "你可以看到他们尽可能多地保留实拍镜头，替换尽量少的部分以保留演员的表演细节，但因为他浑身爬满了蠕动的毒蛇，最终大部分身体还是 CGI。你可能会觉得，现在实拍特效和数字特效之间还在进行着某种阵地战，但事实并非如此。来听听 Vecna 的化妆师 Barry Gower 怎么说：“作为实拍特效部门，我们很多时候都和数字特效团队紧密合作。”"
+  },
+  {
+   "s": 584.42,
+   "e": 603.36,
+   "en": "Smart guy. The entire CGI vs. practical debate is something the audience has invented out of sheer ignorance about how movies are made. Netflix geek has since taken their nonsensical tweet down, but the story still lives on media out there like Unilad. Stranger Things team confirms no CGI was used to create Vecna's full body.",
+   "zh": "聪明人。“CG对实拍”的整场争论，纯粹是观众出于对电影制作方式的无知而凭空捏造出来的。Netflix Geek后来删掉了那条荒谬的推文，但像Unilad这类的外媒上依然留着这则报道。《怪奇物语》团队证实，创造Vecna的全身造型完全没有使用CG。"
+  },
+  {
+   "s": 603.63,
+   "e": 622.25,
+   "en": "It would be easy to assume the Stranger Things creators had used the magic of CGI to create the villain Wegner, but they have since confirmed his look was entirely practical. The creators assured computer-generated imagery, aka CGI, wasn't necessary for Wegner's look. That's a lot of no CGI and rodeo effects as Breakdown Real.",
+   "zh": "人们很容易以为《怪奇物语》的主创是靠CG特效的魔力塑造了反派Vecna，但他们后来证实，他的造型完全是实拍特效。主创们向大家保证，打造Vecna的外观根本不需要计算机生成图像，也就是CG。说完全没用CG的言论多得很，而Rodeo FX的特效解析视频却啪啪打脸。"
+  },
+  {
+   "s": 629.03,
+   "e": 657.87,
+   "en": "For Blade Runner 2049, Western Workshop built these fantastic signatures. The idea of being able to use miniatures in this modern context, that's very exciting. If you think he looks familiar, it's because geeks like you remember him from the bonus material for the Lord of the Rings trilogy, which he earned two Oscars for. The complete set of Minas Tirith was seven meters tall and six and a half meters in diameter. It's an enormous structure. Miniatures are awesome. Visual effects people love to work with players that have miniatures in them. We love miniatures.",
+   "zh": "在《银翼杀手2049》中，维塔工作室制作了这些令人惊叹的标志性道具。在当下这种现代语境中还能使用微缩模型，这真是让人无比兴奋。如果你觉得他眼熟，那是因为像你这样的硬核影迷在《指环王》三部曲的花絮里见过他，他也凭该系列拿下了两座奥斯卡。整个米那斯提力斯的模型高达7米，直径达6.5米。那真是一个庞然大物。微缩模型简直太棒了。视觉特效从业者超爱制作那些包含微缩模型的镜头。我们深爱微缩模型。"
+  },
+  {
+   "s": 658.35,
+   "e": 688.29,
+   "en": "And the work here is amazing, but by including only the documentary about the modern work and the bonus features of the film's releases, the studio is forgetting to tell you that the majority of the cityscapes in this film are digital. Like all these shots of Los Angeles. This is the digital Las Vegas. Every single shot in Las Vegas is just mind-blowingly beautiful and the attention to detail here is just as good as on the miniatures.",
+   "zh": "这里的制作水准令人惊叹，但制片方只在电影发行的花絮里放了关于现代特效的纪录片，却忘了告诉你，片中绝大多数的城市景观其实都是数字特效做出来的。比如所有这些洛杉矶的镜头。这是数字合成的拉斯维加斯。拉斯维加斯的每一个镜头都美得令人叹为观止，这里的细节丰富度丝毫不逊色于微缩模型。"
+  },
+  {
+   "s": 689.26,
+   "e": 712.31,
+   "en": "Even the scrapyard, also shown as a miniature, was digital in a lot of the film and it looks just as good. Once again, collaboration between practical and digital is key here. The digital scrapyard may look just as good as the practical scrapyard, but probably only because they had the practical scrapyard as a reference. So how much in the final film is digital and how much is practical of the scrapyard? I don't know, because I can't tell the difference.",
+   "zh": "就连同样以微缩模型展示过的废料场，在片中很多地方也是数字特效，而且效果同样出色。这再次证明，实景与数字特效的结合才是关键。数字废料场能做得这么逼真，很可能只是因为他们有实景废料场作为参考。那么在最终的成片中，废料场到底有多少是数字的，又有多少是实景呢？我不知道，因为我根本分不出来。"
+  },
+  {
+   "s": 714.92,
+   "e": 738.98,
+   "en": "Fast Five is often described as the film that brought the fast franchise back to its practical roots with the vault heist. And if you look at the number of VFX artists on the film, they did dial back a little bit from the fourth film, even though the 400 VFX artists did a fair share of CGI on the film, including the vault chase.",
+   "zh": "《速度与激情5》常被说成是靠金库劫案让该系列重回实景特技传统的电影。如果你看看该片的视觉特效师人数，确实比第四部稍微收敛了一点，尽管这400位特效师依然做了大量的CGI，包括那场金库追逐戏。"
+  },
+  {
+   "s": 741.48,
+   "e": 771.92,
+   "en": "Since then, every film in the franchise has advertised itself as the return to practical effects, even though Fast 7 and 8 passed more than 1,000 visual effects artists containing more CGI cars than the actual Pixar movie Cars. You gotta be kidding me. If you still think the Fast franchise favors practical action over CGI, here's a quick checklist of the kind of digital effects you'll find in a Fast film. Anything cars do with cables. Dense traffic. It's easier to shoot without it and add it in post. Actors in cars are on blue screen.",
+   "zh": "从那以后，该系列的每部电影都宣传自己回归了实景特效，尽管《速7》和《速8》的视觉特效师已经超过1000人，里面出现的CGI汽车比皮克斯电影《赛车总动员》里的还要多。开什么玩笑。如果你还觉得《速度与激情》系列更偏爱实拍动作而非CGI，这里有一份速查清单，列出了你在该系列电影中能看到的各种数字特效：汽车拉钢丝完成的所有动作；密集的车流，不带车流拍然后在后期加上会更容易；车里的演员其实都站在蓝幕前。"
+  },
+  {
+   "s": 772.35,
+   "e": 798.8,
+   "en": "Cars that flip in weird ways. Anything silly. Small-scale destruction. Large-scale destruction. And just... cars, really. Fast X was no different. The heart and soul of the Fast and Furious franchise boots on the ground, on location. With Screen Rant reporting that Fast X returns to practical after ridiculous F9.",
+   "zh": "翻得莫名其妙的车。各种滑稽的场面。小规模破坏。大规模破坏。说白了……就是各种车。《Fast X》也不例外。脚踏实地的实景拍摄，才是《Fast and Furious》系列的灵魂。Screen Rant 也报道称，在离谱的《F9》之后，《Fast X》重归实拍。"
+  },
+  {
+   "s": 799.13,
+   "e": 824.77,
+   "en": "Fast X director Louis Le Terre confirms the franchise will return to practical action. And you know what? They really did that. They rolled a one ton bomb through the streets of Rome and the result is amazing. And you should know by now this is the part where I'll tell you about the CGI.",
+   "zh": "《Fast X》导演 Louis Leterrier 证实，该系列将回归实打实的动作戏。你猜怎么着？他们真这么干了。他们把一颗一吨重的炸弹推过罗马街头，效果惊艳绝伦。但你也该猜到了，接下来就该我讲讲 CGI 了。"
+  },
+  {
+   "s": 825.37,
+   "e": 851.55,
+   "en": "You see how the prop mom is rigged so it rolls nicely around this axis but the one in the film is always tumbling in funnier angles? And also side by side the one in the film doesn't actually look like the prop. Yes, Dine completely replaced the ball with the CGI ball and every set piece in the film has great visual effects by multiple VFX vendors. And even though they've certainly dialed it down since F9, there's still more than 600 artist and 1000 effect shots in Fast X.",
+   "zh": "你看到道具炸弹装了机械装置，好让它顺着轴线平稳滚动，但电影里的那个却总以更搞笑的角度翻滚翻腾？而且对比来看，电影里的那个其实和道具长得并不一样。没错，DNEG 完全用 CGI 炸弹替换了实物，片中的每个大场面也都有多家 VFX 供应商奉上的绝佳视效。尽管比起《F9》他们确实收敛了不少，但《Fast X》里依然有超过 600 名艺术家参与，制作了 1000 多个特效镜头。"
+  },
+  {
+   "s": 852.01,
+   "e": 878.99,
+   "en": "I'm so impressed with how much practical stunt work goes into this film. That's right, and you should be, because no matter how much of the practical work was completely replaced with CGI, this is another great example of practical and digital working together, special effects and visual effects. By filming every scene with a practical bomb, not only did everybody on set, actress and the DOP, etc., have something actual to react to, but more importantly, the editor had them all in all shots.",
+   "zh": "这部电影里用了这么多实景特技，真让我佩服。没错，确实值得佩服，因为无论有多少实景最终被 CGI 完全替换，这都是实景与数字、特殊效果与视觉效果完美配合的又一绝佳范例。每个场景都用实体道具炸弹拍摄，不仅让片场的所有人，包括女演员、摄影指导等，都有了可以做出真实反应的参照物，更重要的是，剪辑师在所有镜头里也都能看到它们。"
+  },
+  {
+   "s": 879.37,
+   "e": 907.53,
+   "en": "So the editor could completely time the entire sequence without having to wait for every single shot to go to the visual effects department for a temp animation. And also the practical footage provided a perfect lighting reference for D-neck for the CGI ball. But when you have an action sequence that relies on VFX just as much as it relies on practical and there's not a single pixel of the original practical prop left in the film because it's been all replaced with CGI and all the director can say is this. Everything is done for real.",
+   "zh": "这样剪辑师就能直接精准把握整场戏的节奏，而不用等每个镜头都送到视效部门做临时动画。而且这些实拍素材还为 DNEG 制作 CGI 小球提供了完美的光影参考。但如果一场动作戏既依赖实景也同样依赖视效，而且片中原始的实物道具连一个像素都没留下、全被 CGI 替换掉了，可导演却只能说出这么一句：所有东西都是实拍的。"
+  },
+  {
+   "s": 907.82,
+   "e": 936.68,
+   "en": "It's a one-ton metal bomb that we roll. Keep it real, keep it practical. And what we did, actually, we did this for real. I think that's a problem. I think the studios are contractually preventing the directors from mentioning CGI when they talk about how they make the movies. Blink twice if the studio is holding you hostage. The problem is the media catch up on these stories, and they report them back to you. Here's YouTube tabloid Oza having no clue what they're talking about. They make the impossible things possible by using practical effects.",
+   "zh": "那是一个被我们滚下街的一吨重金属炸弹。要真实，要实拍。而我们所做的，事实上，全都是真刀真枪实拍的。我认为这是个问题。我认为制片厂在合同上禁止导演在谈论电影制作时提及 CGI。如果制片厂绑架了你，你就眨两次眼。问题是媒体听信了这些说法，并把它们转述给大众。比如 YouTube 八卦频道 Oza，完全不知道自己在说什么。“他们通过使用实拍特效，让不可能成为可能。”"
+  },
+  {
+   "s": 937.07,
+   "e": 967.37,
+   "en": "For example, the sequence where the bomb rolls through the bus on the street had little to no CGI. So what's going on? Why are studios covering up their use of CGI as if it was mafia money? Stunt performers will know exactly what I'm talking about as they constantly have to read in the news that some actor they just doubled on an action movie apparently did all their own stunts. The YouTube channel The Fast Saga published this video about the epic fight between Cypher and Letty and Fast X focusing entirely on the actress work.",
+   "zh": "“例如炸弹在街上滚过公交车的那场戏，几乎完全没有用 CGI。”所以到底是怎么回事？为什么各大制片厂要遮掩对 CGI 的使用，就好像那是不干净的黑钱一样？特技演员们肯定非常懂我的意思，因为他们总是在新闻里看到，自己刚刚在某部动作片里替身过的演员，对外宣称所有特技动作都是亲自上阵。YouTube 频道 The Fast Saga 曾发布过一个视频，关于《速度与激情10》中 Cypher 和 Letty 的那场史诗级对决，通篇都在强调女演员的亲力亲为。"
+  },
+  {
+   "s": 968.27,
+   "e": 989.2,
+   "en": "Thereby simultaneously overlooking the stunt people that worked on the scene and the CGI people that put the CGI faces on the stunt people. If you thought watching directors and actors dance around the topic of CGI as if it was cursed, was toe cringing and embarrassing, whatever you do, don't hit like and subscribe because what I have in store for the next three videos is much worse. Thanks for watching!",
+   "zh": "从而同时忽视了拍摄这场的特技替身，以及为替身换上 CGI 面孔的特效人员。如果你觉得看导演和演员对 CGI 避之不及、像谈论诅咒一样让人脚趾抠地又尴尬，那千万别点赞订阅，因为接下来的三期视频只会更扎心。感谢观看！"
+  }
+ ]
+}

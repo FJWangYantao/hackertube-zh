@@ -1,0 +1,800 @@
+{
+ "vid": "aFwVf5a3pZM",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 31.73,
+   "e": 55.86,
+   "en": "All right, let me go ahead and get started. Please do finish eating. That way I'm confident that you're getting something of value out of this session. My name is Larry McInerney. Let me tell you a little bit about why I'm here and what we're going to talk about and why I hope I can be valuable for you. I'm the head of the writing program here at the University of Chicago.",
+   "zh": "好，那我就直接开始了。大家请继续吃，这样起码能保证你们这节课没白来。我叫 Larry McInerney。先简单聊聊我为什么会在这儿、我们要讲什么，以及我希望能给大家带来什么价值。我是芝加哥大学写作项目的负责人。"
+  },
+  {
+   "s": 56.65,
+   "e": 84.73,
+   "en": "But what's probably more relevant to you is that I have a long-standing consulting practice not only with other universities, but with a lot of professional firms, businesses, NGO, policy institutes, et cetera, who hire me to come to work with people who are working for them, that they have hired mostly out of places like the University of Chicago, and they hire me",
+   "zh": "但对你们来说可能更关键的是，我长期在做咨询工作，客户不仅有其他大学，还有很多专业事务所、企业、非政府组织、政策研究所等，他们聘请我去给他们的员工做培训，而那些员工大多就是从芝加哥大学这类名校招来的，他们请我去"
+  },
+  {
+   "s": 85.39,
+   "e": 115.13,
+   "en": "In a desperate attempt to This is going to sound overdramatic to save your jobs This is way overdramatic, but sometimes not I just had last month. I had a for break I had somebody from a professional firm come and spend a week with me here in Chicago because he was about to lose his job For writing issues What is so frustrating to everybody about this is that the writing issues involved are actually?",
+   "zh": "其实是迫切地想要——这听起来可能有点夸张——保住你们的饭碗。这话确实太夸张了，但有时也不全算夸张。就在上个月，假期那会儿，有家专业事务所派了个人专门来芝加哥跟我学了一周，就因为他快因为写作问题被解雇了。最让所有人抓狂的是，这些涉及的写作问题其实——"
+  },
+  {
+   "s": 116.23,
+   "e": 144.14,
+   "en": "conceptually extremely simple. This is so much easier than the stuff you people study. What I do is so easy. What you do is so hard that it frustrates everybody that people who are the best in the world at this hard stuff have trouble with what's actually pretty easy stuff. So what I'm here to talk to you about is two levels. One is sort of a high level.",
+   "zh": "概念上其实极其简单。这可比你们平时研究的东西容易多了。我做的这点事太简单了。你们研究的东西难度极高，以至于大家都很抓狂：怎么世界上最顶尖研究高难度课题的人，却在这些其实很简单的事情上犯难？所以今天我要从两个层面和大家聊聊。一个是相对宏观的层面，"
+  },
+  {
+   "s": 144.85,
+   "e": 176.66,
+   "en": "explaining why it is that people who are really, really smart, like faculty at the University of Chicago, students at the University of Chicago, really smart people, why do they have trouble writing effectively? Just why is that? Writing doesn't need to be that hard. All right, give me a first contribution. Why do I have a job? Why do people who are really smart have trouble writing?",
+   "zh": "解释一下为什么极其聪明的人——比如芝加哥大学的教授和学生，这么聪明的人——为什么在有效写作上会遇到困难？究竟是为什么？写作其实用不着这么难。好了，谁先来说说看法？为什么我能靠这个混口饭吃？为什么绝顶聪明的人写不好东西？"
+  },
+  {
+   "s": 184.52,
+   "e": 211.37,
+   "en": "That's beautiful. Can you elaborate a little bit? I want to pull this a little more out. He says, you're not used to writing well. I can't agree. This is so important, and I agree so much. But I want to push it in a way that you probably didn't even mean. I would be willing to bet that over the course of your careers, you've done a lot of writing.",
+   "zh": "说得太好了。你能稍微展开讲讲吗？我想再深挖一下。他说，你们不习惯把文章写好。我不能更赞同了。这太重要了，我也非常赞同。但我想从一个你可能都没想到的角度去推演一下。我敢打赌，在你们的职业生涯中，你们已经写过很多东西了。"
+  },
+  {
+   "s": 212.13,
+   "e": 240.41,
+   "en": "You've been in school for how many years 16 18 20 I'm sorry. I Walk around with a t-shirt actually I work out with a t-shirt that says graduate student because I'm still officially a graduate student at the University of Chicago Well, I say I'm not I would be if 20 15 years ago They hadn't realized that they needed to cut me off because I skew the data results",
+   "zh": "你们上学上了多少年了？16年、18年、20年？不好意思。我平时穿着一件T恤到处走——其实我健身时穿的一件T恤，上面写着“研究生”，因为从官方层面来说我还是芝加哥大学的一名研究生。好吧，我其实不是，如果15、20年前他们没有意识到该开除我以防拉低统计数据的话，我现在就还是。"
+  },
+  {
+   "s": 240.99,
+   "e": 273.72,
+   "en": "You know, they need to get people finishing, and when you've got somebody who's been on the campus since 1977, then it doesn't look good for the statistics. Very, very sensitive subject of how long we have been in school. You've done enormous amounts of writing, though, right? You've done enormous amounts of writing. Why hasn't that prepared you to write well? Serious question. You've done enormous amounts of writing in your life.",
+   "zh": "你知道的，他们得让人按时毕业，要是校园里有个人自1977年就一直待在那儿，那数据看起来可不太妙。我们在学校待了多久，这可是个极其敏感的话题。但你们确实写过海量的文字，对吧？你们写了大量的东西。那为什么这没能让你们写好文章呢？这是个严肃的问题。在你们的人生中，你们已经写过海量的内容了。"
+  },
+  {
+   "s": 275.09,
+   "e": 312.37,
+   "en": "How is it possible that you can walk out of this campus and not write well? I'm going to make it more extreme just to be controversial. You haven't been required to write at all. I'm obviously being intentionally provocative, right? You haven't done any writing that's real writing. And that's the big picture difficulty you have.",
+   "zh": "你们怎么可能从这所大学毕业，却写不好文章？为了引发点争议，我说得再极端点：你们根本就没被要求写过文章。显然，我这是在故意挑衅，对吧？你们从未做过任何真正意义上的写作。而这，正是你们在宏观层面面临的难题。"
+  },
+  {
+   "s": 313.79,
+   "e": 344.74,
+   "en": "Today I want to talk a little bit about the big picture and then I'm going to talk about some very specific things so that we can spend some time working on specific techniques, specific, literally I have exercises in this handout so that by the time you leave today you'll have actually done some specific things that you can walk out tomorrow and do differently with your writing. But I want to spend a moment on the big picture stuff. You've been writing and writing and writing and writing and writing and writing and writing and writing. But it's not real for a couple of reasons. This is the one I'm going to be most...",
+   "zh": "今天我想先从宏观角度聊聊，然后再谈一些非常具体的事情，这样我们就能花点时间磨练具体技巧。具体到什么程度呢？讲义里就有现成的练习题，这样等今天课程结束，你们就已经实操过具体技巧，明天一出门，写出的东西就能大不一样。但我还是想先花点时间谈谈宏观层面的问题。你们写啊写，写啊写，一直在写。但算不上真正的写作，原因有几个。接下来这一点，我要讲得最……"
+  },
+  {
+   "s": 345.88,
+   "e": 379.63,
+   "en": "aggravating about. When I work with writers of almost all sorts, there's usually four characteristics of their writing that matter. They need their writing to be clear, organized, persuasive. The bottom two are not very interesting, a little bit, but the top one is valuable. When you leave as a student, whether you're a professor or working outside the academy,",
+   "zh": "让人头疼的是，当我与几乎各类写作者合作时，他们的写作通常有四个关键特质。他们需要自己的文章清晰、有条理且有说服力。后两点其实没那么关键，有一点点作用吧，但最核心的一点是“有价值”。当你毕业告别学生身份后，无论你是当教授还是在学术界之外工作，"
+  },
+  {
+   "s": 380.56,
+   "e": 421.6,
+   "en": "The most important thing about your writing is that it be valuable. And I would argue that not only have you not learned how to do this, you've learned habits that work against your ability to make your writing valuable. Why? The jargony part I don't worry about. One of the things I should tell you is that I spend a lot of time sort of not saying things that most people say. Most people say that if you're writing outside the academy, you shouldn't use jargon. That's just demonstrably false.",
+   "zh": "你的写作最关键的一点就是必须“有价值”。但我认为，你们不仅没学会这一点，反而养成了一些阻碍你们写出有价值文章的坏习惯。为什么呢？行业术语这一块我倒不担心。有一点我要告诉你们的是，我经常会表达一些反常识的观点。大多数人认为，如果你在学术界以外写作，就不应该使用行话。这显然是完全站不住脚的。"
+  },
+  {
+   "s": 422.21,
+   "e": 456.38,
+   "en": "It turns out there are certain ways that you use jargon that feel valuable to the readers and certain ways you use it that destroys value. You need to learn how to use it in the way that feel valuable. To say, just don't use it, that's just crazy. I mean, it's impossible. Here's the approach that I take to writing that might be, I should introduce at this moment. Most of you,",
+   "zh": "事实证明，以某些方式使用行话能让读者觉得有价值，而另一些用法则会削弱其价值。你得学会如何用能体现价值的方式去使用它。要是说干脆别用行话，那纯属扯淡。我的意思是，这根本不可能。此时此刻我想向大家介绍一下我的写作方法。你们大多数人，"
+  },
+  {
+   "s": 457.42,
+   "e": 488.25,
+   "en": "have been taught things about writing that are what we call text-based. That is, somebody's given you advice about what your text should look like. They say something like, don't use jargon. Or they say something like, have a thesis sentence. Or they say something like, don't use passive verbs. Only these are ridiculous things to say. But the point is, they make sense to you, and they shouldn't, because their rules about the text",
+   "zh": "所学到的写作技巧，都是我们所谓的“基于文本的”。也就是说，有人曾告诉你文章应该长什么样。他们会说，别用行业术语；或者说，一定要有个中心论点句；又或者说，别用被动语态。这些建议简直荒谬透顶。但关键在于，你们竟然觉得挺有道理，其实大错特错，因为这些只是针对文本"
+  },
+  {
+   "s": 488.65,
+   "e": 515.18,
+   "en": "itself. That is, there are rules about what a text should look like. We think this is a fundamental misunderstanding of language. Any time somebody tells you, let's give you advice about writing that's text-based, they say something like, keep your sentences short. I hope from now on in the back of your head you say, for which readers and what purpose?",
+   "zh": "本身的规则。也就是说，这些规则只规定了文章表面上应该呈现出什么形态。我们认为这是对语言的根本性误解。每当有人基于文本给你提写作建议时，比如“句子要尽量写得短一点”。我希望从今往后，你脑子里都会立刻反问一句：“这是针对哪类读者？又出于什么目的？”"
+  },
+  {
+   "s": 517.58,
+   "e": 547.2,
+   "en": "Because we think no advice about writing makes any sense unless you've clarified who's reading it and the function of the text. And you don't think that way. Somebody says to you, here's a good advice about writing. Don't have more than six sentences in a paragraph. You say, OK. And we want you to say, not that that's wrong. It doesn't make any sense because you haven't told me which readers and what function.",
+   "zh": "因为我们认为，如果不先明确读者是谁以及文章的作用，任何写作建议都毫无意义。但大家通常不会这么想。有人对你说，这里有个写作的好建议：一个段落别超过六句话。你会说，好。而我们希望你说的并不是“那不对”，而是“这毫无意义，因为你还没告诉我读者是谁、有什么作用”。"
+  },
+  {
+   "s": 550.58,
+   "e": 574.67,
+   "en": "Here's what we teach. We teach, our specialty at the University of Chicago is what we call expert writing. That is, we work with people who are experts in the way they think about the world. I work with biochemists, neurobiologists, anthropologists, historians, lawyers, fill in the blank. They have one thing in common.",
+   "zh": "这就是我们要教的内容。我们在芝加哥大学的专长，是所谓的“专家写作”。也就是说，我们的合作对象是在特定领域有深度思考的专家。我接触过生物化学家、神经生物学家、人类学家、历史学家、律师等等，各行各业。他们都有一个共同点。"
+  },
+  {
+   "s": 575.17,
+   "e": 609.47,
+   "en": "They're experts in the way they think about the world. They deal with very complicated information, lots of subtlety, lots of nuance, lots of sophistication, lots of complexity. And they think at very high levels. They also write. Now, 99% of them write and think at the same time. That is, they use their writing process to help themselves to think. You do this.",
+   "zh": "他们是思考世界方式上的专家。他们处理极其复杂的信息，包含大量的微妙之处、细微差异、高深之处以及复杂性。而且他们的思考层次非常高。他们也会写作。要知道，他们当中99%的人都是边写边思考的。也就是说，他们利用写作的过程来帮助自己思考。你们也是这样。"
+  },
+  {
+   "s": 610.05,
+   "e": 637.41,
+   "en": "While you're writing your stuff, you're still thinking of your ideas. To help yourself do your thinking, you have to do your writing. You have to do this because the stuff you're thinking about is too damn complicated to just do it in your hand. You should know that in classical rhetoric, that's an enormous mistake. I was taught in a classical model that says there are two separate functions. There's the thinking process and there's the writing process as I constantly tell the story.",
+   "zh": "当你写东西的时候，你其实还在梳理自己的想法。为了帮助自己思考，你必须动笔去写。你不得不这么做，因为你想的东西实在太复杂了，光凭脑子根本想不过来。但大家应该知道，在古典修辞学中，这被认为是一个巨大的错误。我接受的古典模式教育告诉我，这是两个截然不同的功能。正如我经常讲的那样，一个是思考过程，另一个是写作过程。"
+  },
+  {
+   "s": 637.94,
+   "e": 669.67,
+   "en": "I had a high school English teacher who said to me, Larry, there's two process. There's thinking, there's writing. She said, you're not ready to write until you're done thinking, Miss Johnson. And she said, to enforce this, I'm going to make sure that when you turn in every essay you turn into me, you're going to turn in the outline that you use to do your thinking. This was not a problem. First I wrote the paper. Then I wrote the outline. Because it was inconceivable to me that you can just.",
+   "zh": "我高中时有位英语老师曾对我说：“Larry，这是两个过程：思考和写作。”她说：“在想清楚之前，你还没准备好动笔呢，Johnson 老师。”她还说：“为了贯彻这一点，我要求你们每次交论文时，都必须附上用来整理思路的大纲。”这对我来说完全不是问题。我先写好论文，然后才补写大纲。因为对我来说，根本无法想象怎么可能直接……"
+  },
+  {
+   "s": 670.79,
+   "e": 699.68,
+   "en": "Think and then do the writing. Well, almost everybody's like me. They think and write and write and think and think and write and write and think and think and write and write and think. OK. This is a very good thing. And you should make sure that nothing I do today interferes with this process, because this is how you do your best thinking. But in the real world, not in school, in the real world, when you're done with this, you will have created a text.",
+   "zh": "先想好然后再动笔写。其实，几乎所有人都和我一样。大家都是一边想一边写，一边写一边想，写写想想，想想写写，写了又想，想了又写。对吧。这是件大好事。你们也要确保我今天所讲的内容不会干扰到这个过程，因为这正是你们进行深度思考的方式。但在现实世界中——不是在学校里，而是在现实世界中——当你完成这个过程后，你创造出来的只是一篇文本。"
+  },
+  {
+   "s": 700.49,
+   "e": 739.43,
+   "en": "You will send that text to your readers and in the real world Not the world you're in now The function of that text is to cause readers to change what they think about the world. That's its job It's to cause the readers to change what they think about the world and whether or not it's valuable Depends on whether or not the readers perceive that you have valuably changed what they think",
+   "zh": "你要把那篇文章发给读者，而在现实世界里——不是你们现在身处的这个世界——那篇文章的作用是改变读者对世界的看法。这就是它的使命，让读者改变他们对世界的看法，至于它有没有价值，取决于读者是否觉得你让他们有了真正有价值的认知改变，"
+  },
+  {
+   "s": 740.47,
+   "e": 776.68,
+   "en": "or what they do, or how they decide. And I would be willing to bet that in your schooling years, you virtually never did that. Was that what you were writing this for as a student? When you wrote a paper, did you fail the paper if you didn't change what the teacher thought about the world? Was that the test? Was that how you got an A, B, C, D, or F? I'm getting a lot of those, like somebody was saying.",
+   "zh": "或者改变了他们的做法，抑或是决策方式。我敢打赌，在你们的学生时代，你们几乎从未这样做过。作为学生，你写文章是为了这个吗？当你写论文时，如果你没能改变老师对世界的看法，论文就不及格了吗？考核标准是这个吗？你就是这么拿到 A、B、C、D 还是 F 的吗？就像有人说的那样，我经常拿到这些成绩。"
+  },
+  {
+   "s": 777.37,
+   "e": 807.48,
+   "en": "Was it the test? Was it? All right, let's start in high school. When you were writing in high school, were you changing the way your teachers saw the world when you wrote those high school papers? How about college? Were you changing the way your instructors saw the world when you wrote those college papers? I mean, every once in a while I have somebody say, well, yeah, I mean, I had professors tell me that my work was so valuable to them. That was a lie.",
+   "zh": "是因为考试吗？是吗？好吧，我们从高中说起。在高中写作文时，你写的那些论文改变了老师看世界的方式吗？大学呢？你写的那些大学论文，有改变讲师看待世界的方式吗？我是说，偶尔会有人对我说：“呃，有啊，确实有教授跟我说我的成果对他们非常有价值。”那是骗人的。"
+  },
+  {
+   "s": 808.91,
+   "e": 838.83,
+   "en": "I mean, you know that. At least it was a lie in the sense of it didn't change what they thought. You know how I know it was a lie? Because if you had changed what they thought, they should have published your paper. Sometimes I have faculty say to me, oh, the student's writing is very helpful to me. I say, oh, yeah. That's all I really do. I learn a lot. I say, yeah. I say, then your student, reading your student's stuff is part of your thinking process. Yeah. I say.",
+   "zh": "其实你心里也清楚。至少就“它没有改变他们的想法”这一点而言，那就是句谎话。知道我怎么看出来的吗？因为如果你真改变了他们的想法，他们早就应该帮你把论文发表了。有时候会有教职员对我说：“噢，学生的文章对我很有帮助。”我会说：“噢，是吗？”“我主要是这样做的，我从中学到了很多。”我说：“行啊。”我接着说：“那你的学生……阅读学生的东西成了你思考过程的一部分？”“对啊。”他们说。"
+  },
+  {
+   "s": 839.07,
+   "e": 884.91,
+   "en": "OK, then how often do you go find student papers to read when you don't have to? And what's the answer? Never. All right. What made your writing valuable to them? What created the value for them? Your writing didn't. What did? Pardon me? Here's what did. Oh, I mean, I offend people with this, but let me tell you. Here's what you did in school, and you're still doing it right now. You're writing a paper?",
+   "zh": "好，那要不是非读不可，你们有多经常去找学生的论文来读？答案是什么？从来不读。行吧。那是什么让你的写作对他们有价值？是什么为他们创造了价值？不是你的文章本身。那是什么？你说什么？其实是这么回事。噢，这话可能会得罪人，但我直说了吧。你们在学校就是这么干的，而且现在还在这么干。你在写论文？"
+  },
+  {
+   "s": 885.56,
+   "e": 914.14,
+   "en": "I don't know, a couple pages, 10 pages, 3 pages. You're attaching a $100 bill to it, and you're handing it to your instructor and saying, hey, will you read this? Sure thing. You think that's not what's happening? Really, seriously, do you think that's not what's happening? This is what's happening. And people say, oh, it's so awful, that you talk about money. Now, let's say you go outside.",
+   "zh": "随便写个几页、十页、三页。你在上面夹了张百元大钞，然后递给老师说：“嘿，能帮我读一下吗？”“没问题。”你觉得事实不是这样吗？真的，说实在的，你觉得事实不是这样吗？事实就是这样。别人会说：“噢，你谈钱太恶俗了。”现在，假设你走向社会。"
+  },
+  {
+   "s": 914.61,
+   "e": 944.9,
+   "en": "Being a student. I'm not just talking about being on the academy. Let's say you want to be a professor and you write an article. Is that what's going to happen? Whether you're a professor or a consultant or in any other kind of real world operation. Are you going to write something and hand a hundred bucks to your readers to read it? He's nodding his head. Is that what's going to happen? What's going to happen? Now, not only this, but it's more than that. What's going to happen?",
+   "zh": "作为一个学生。我指的可不只是呆在学术界。假设你想当教授，写了一篇文章，现实会是那样吗？不管你是当教授、做顾问，还是在现实世界做任何其他工作。难道你会写了东西，然后倒贴一百块钱请读者来看吗？他在点头呢。事情会是这样吗？到底会怎样？不仅如此，情况还要更复杂。接下来会怎样？"
+  },
+  {
+   "s": 947.36,
+   "e": 978.37,
+   "en": "You want to get paid. Right? Yes? No? Do you? Forgive me. I won't pick on her. Do you want to get paid? Anybody here want to get paid? Here's what you're saying now. You're saying, here, you can read this, but you got to pay me first. You can't read this until you pay me. Pay me. And I have to tell you, you have 16, 18, 20 years of not doing that.",
+   "zh": "你想拿到报酬，对吧？是不是？想吗？不好意思，我不拿她开玩笑了。你们想拿到报酬吗？这里有人想挣钱吗？但你们现在的态度是这样的，你们在说：“拿去吧，你可以读这个，但你得先给我付钱。不给钱就别想看。先给钱。”而我不得不告诉你们，你们已经有十六、十八、二十年没这么做过了。"
+  },
+  {
+   "s": 980.24,
+   "e": 1010.81,
+   "en": "You've never written Anything I would argue and all the problem is that doesn't just leave you neutral that leaves you with terrible habits Why is it so hard for really smart people to write? Well, one of the reasons is they have 20 years of bad habits the habit was They weren't writing to people who were doing this What were they writing to what do your teeth? What were your teachers doing when you sent them papers?",
+   "zh": "我敢说，你们从来没真正写过东西，而问题在于这不仅没让你保持中立，还留给你一身恶习。为什么真正聪明的人写作却这么难？嗯，原因之一就是他们积累了20年的坏习惯。这个习惯就是，他们以前写东西并不是给这些人看的。那他们写给谁看呢？你们的老师在收到论文时都在做什么？"
+  },
+  {
+   "s": 1011.5,
+   "e": 1049.59,
+   "en": "Were they using your papers to change the way they saw the world? What were they using your papers to do? Very roughly put, you have learned to write in what Wittgenstein would call a form of life in which your readers were paid to care about you. Your teachers read your stuff because they were paid to read it to find out about you.",
+   "zh": "他们是在用你的论文去改变自己看待世界的方式吗？他们拿你的论文做什么了？说得直白一点，你学会写作的环境，用维特根斯坦的话说是一种“生活形式”，在这种形式里，读者是拿了钱才去在乎你的。你的老师读你的文章，是因为他们收了钱，要通过阅读来了解你。"
+  },
+  {
+   "s": 1050.8,
+   "e": 1085.54,
+   "en": "Well, he's handed in this new thing. I'm going to read this why because somebody's paying me to assess him That's never going to happen again, right? Whether you're in the academy or not nobody has ever going to be paid to care about you ever again But because you guys are so successful you are the best people in the world at student kind of writing You're very good at it trouble is that's not what you need to do",
+   "zh": "“好吧，他又交了这个新东西，我来看看，为什么呢？因为有人给我钱让我来评估他。”这种事再也不会有了，对吧？不管你以后在不在学术界，再也不会有人拿钱来关心你了。但正因为你们太优秀了，你们是全世界上最擅长写“学生体”文章的人。你们写得非常好，但问题是，这并不是你们以后要做的事，"
+  },
+  {
+   "s": 1087.25,
+   "e": 1116.24,
+   "en": "Afterwards, after school. As a director of the writing program here on campus, I often get asked about helping undergraduates make the transition from high school to college. We help them, it's not very difficult. Or I'm asked to help graduate students make the transition from undergraduate to graduate school. We help them, it's not very difficult. What is really difficult is the transition from being in school to being out of school.",
+   "zh": "毕业之后，离开学校之后。作为学校写作项目的负责人，经常有人找我帮忙，指导本科生完成从高中到大学的转变。我们帮了，这并不难。或者有人找我帮忙指导研究生完成从本科到研究生的转变。我们帮了，这也不难。真正困难的，是从学校走入社会的转变。"
+  },
+  {
+   "s": 1117.06,
+   "e": 1146.41,
+   "en": "because this value issue suddenly dominates everything. And you've had 20 years of never having to deal with it. Never having to deal with it. So, that's the big picture hard part of it. As I said, we're going to talk about some specifics, but those specifics in my mind only make any sense inside this larger problem of what I'm stealing from Wittgenstein called the form of life. You enter a different form of life.",
+   "zh": "因为这个价值问题突然压倒了一切。而你过去二十年里从未面对过它。从来不需要面对它。所以，这才是宏观上最难的部分。正如我所说，我们会探讨一些具体细节，但在我看来，这些细节只有放在一个更大的问题框架下才有意义——借用维特根斯坦的说法，这叫作“生活形式”。你进入了一种不同的生活形式。"
+  },
+  {
+   "s": 1146.7,
+   "e": 1173.9,
+   "en": "Language is a different activity. It's a different language game from being in school and being out of school. So I don't want to talk. We'll talk about text, but I only want to talk about it in terms of the language game of readers who need you to make your text valuable to them in their reading process, because I'm claiming that's a different language game. All right, turn to the first page of your handout, and let's get started looking at some specifics.",
+   "zh": "语言成了完全不同的活动。在学校里和出了学校，面对的是完全不同的语言游戏。所以我不想空谈。我们会讨论文本，但我只想从一种语言游戏的角度来谈：读者需要你在阅读过程中，让他们觉得你的文本是有价值的，因为我认为这本身就是一种完全不同的语言游戏。好，请翻到讲义的第一页，我们开始看一些具体内容。"
+  },
+  {
+   "s": 1181.52,
+   "e": 1215.9,
+   "en": "On the first page, I've given you three instances of a text that's either by Roger Meyerson or partially by Roger Meyerson. Do you need a handout? Anybody else need a handout? OK. Roger Meyerson, whom some of you very well may know personally. I should say I don't. Really interesting writer. Here's three examples of his writing. One's from the Journal of Economic Theory. Number two is from the New York Times. And number three is from a journal called Journal of Conflict Resolution.",
+   "zh": "在第一页上，我给出了三段文本，作者要么全是 Roger Meyerson，要么部分是他。需要讲义吗？还有谁要讲义吗？好的。Roger Meyerson，你们中有些人很可能私下认识他，不过我并不认识。他是一位非常有意思的作家，这里有三篇他的作品范例：一篇来自《经济理论期刊》；第二篇来自《纽约时报》；第三篇来自一本叫《冲突解决期刊》的杂志。"
+  },
+  {
+   "s": 1216.64,
+   "e": 1304.56,
+   "en": "Do me a favor, take a minute and just scan these quickly. You don't have to read them to figure out the content of it. Scan it and describe, tell me some of the things that somebody would say about the differences in the writing between these three cases. One that's definitely inside the academy, the Journal of Economic Theory. One that's definitely outside the academy, the New York Times. And one that's sort of in the middle, the Journal of Conflict Resolution. Take a quick look at them. All right, now let's say somebody asked you the question,",
+   "zh": "帮个忙，花一分钟快速浏览一下，不用细读去搞懂内容。扫一眼，然后告诉我，如果有人评价这三篇作品的写作差异，他们会说些什么。一篇完全是学院派风格，也就是《经济理论期刊》；一篇完全是大众向风格，即《纽约时报》；还有一篇介于两者之间，来自《冲突解决期刊》。快速看一眼吧。好，假设有人问你这个问题："
+  },
+  {
+   "s": 1305.2,
+   "e": 1333.77,
+   "en": "How are these texts different? And I hope now, for the rest of your life, you have a little voice in the back of your head that says, well, wait a minute. Let's talk about readers and function. But let's imagine that you're not talking about that, and they won't let you talk about that. They're just saying, how are these texts and texts different? Point to something that's different between them, or that people would point out as different. Descriptive, all right? How so? Give me an example of being descriptive.",
+   "zh": "这些文本有什么不同？我希望从今往后，你脑海深处都会有一个声音在说：等等，我们先来聊聊读者和功能。但假设你没在谈这个，他们也不让你聊这些，他们只是问：单从文本本身来看，它们有什么区别？指出它们之间不同的地方，或者人们通常会指出的不同点。“描写性的”，对吧？怎么说？给我举个描写性的例子。"
+  },
+  {
+   "s": 1340.92,
+   "e": 1369.53,
+   "en": "and the condition of probability in the hyperplane, so he explains that kind of act creation. Well, it's descriptive, but contrast that, would you say that three is not descriptive? Or two? To put this in perspective, imagine that President Obama named Democrats. Is he not? Are they not describing there? Yeah, that was a description, that's right. That's right. So give me some other things that people would say. Well, this is obviously different between these.",
+   "zh": "以及超平面中的概率条件，所以他解释了那种行为的产生。这确实是描述性的，但相比之下，你会说第三点不是描述性的吗？或者第二点？为了便于理解，想象一下奥巴马总统提名了民主党人。难道他不是吗？他们难道不是在做描述吗？是的，那确实是描述，没错。没错。那再给我举几个大家会提到的区别吧。嗯，这几点之间显然存在差异。"
+  },
+  {
+   "s": 1370.92,
+   "e": 1401.76,
+   "en": "The readers are different, for sure. And we're going to talk about that. Actually, the readers are, in many ways, quite similar. But we're going to talk about that. But I want to imagine what somebody who's just trying to describe the text would say. OK. So when we say something, I've obviously scared you about saying, oh my god, the first one has equations in it. You know? Oh my god. That's obviously different. The first one has equations. The other ones don't use equations. Just to be textually simple.",
+   "zh": "读者群体确实不同。我们接下来会讨论这一点。其实在很多方面，读者群体是非常相似的。但我们稍后再聊这个。我想先设想一下，如果有人只是试图描述文本本身，他会怎么说。好。所以当我们说些什么时，我显然吓到你们了，让你们不敢直接说：天呐，第一个里面有公式。对吧？天呐。那显然是不同的。第一个有公式，而其他的没有用公式。纯粹从文本层面来看就是这样。"
+  },
+  {
+   "s": 1403.21,
+   "e": 1436.3,
+   "en": "Notice some other things textual about this. We don't talk about these like describing, textual. The sentences in the second one are shorter. The second sentences are literally shorter. Just look. Look at the first paragraph of number two. See how many sentences there are there? One, two, three, four. There's four sentences in it. How about the same length in number one? How many sentences does number one have? Two. How many sentences does number three have? Three.",
+   "zh": "再注意一下文本层面的其他细节。我们先不谈具体的描写内容，只看文本结构。第二篇里的句子要更短一些。第二篇的句子确实更短，直接看就知道了。看看第二篇的第一段，数数里面有几句话？一、二、三、四。整整有四句。那第一篇相同长度的内容呢？第一篇有几句？只有两句。那第三篇又有几句？有三句。"
+  },
+  {
+   "s": 1436.72,
+   "e": 1469.44,
+   "en": "All right? So here's what somebody's going to tell you when you go out to work in a place that's not the academy. They're going to say, oh my god, use short sentences. They will say that to you. Use short sentences. And they will point to this and say, look, these are shorter sentences. They won't ask the question, why are they shorter sentences? What is it about the readers that makes it shorter sentences? What do you think it is about the readers of the New York Times that makes it a good idea to use shorter sentences there? It is a good idea to use shorter sentences in general.",
+   "zh": "懂了吗？所以当你走出学术界去工作时，总会有人这么跟你说。他们会说：“天呐，多用短句吧。”他们肯定会这样对你讲，让你用短句。他们还会指着类似这样的文章说：“看，这些句子都更短。”但他们不会去深究：为什么这里的句子要更短？读者有什么特点，才需要用更短的句子？你觉得《纽约时报》的读者有什么特征，才让写短句成了个好主意？一般来说，用短句确实是个好做法。"
+  },
+  {
+   "s": 1469.6,
+   "e": 1511.88,
+   "en": "in a New York Times op-ed piece. Why? I suppose it's true about the readers of the New York Times op-ed piece. That makes shorter sentences probably a good idea. What's the value to a reader of a New York Times op-ed piece? What makes it valuable to them? Possibly, but that's probably not why most people read New York Times op-ed pieces. People say that. They say, oh yes, I read it. I read it.",
+   "zh": "在《纽约时报》的专栏文章里。为什么？我想《纽约时报》专栏读者确实有这个特点。这让短句子成了个不错的选择。《纽约时报》专栏文章对读者有什么价值？它究竟能给读者带来什么价值？也许有，但这大概不是大多数人读《纽约时报》专栏的原因。人们总是这么说。他们说，哦对，我读了，我读过了。"
+  },
+  {
+   "s": 1512.1,
+   "e": 1556.94,
+   "en": "I read it for information. Probably not. One thing is they may not be sitting at their desk reading it. They're reading it on a train, someplace, and kind of moving, walking, or something. So a longer sentence is going to demand their attention for milliseconds longer. That's actually kind of awkward and that kind of... But the other thing is what value did they get out of it? And it's an interesting point, right? What's the difference between reading an op-ed piece and reading a...",
+   "zh": "我读它是为了获取信息。其实大概不是。一方面，他们可能不是正襟危坐在书桌前读的。他们可能是在火车上，在某个地方，走来走去，或者在路上。所以句子要是更长，就得多占用他们几毫秒的注意力。这其实会让人觉得不自在，而且那种……但另一方面，他们到底从中获得了什么价值？这是个很有意思的问题，对吧？读专栏文章和读……到底有什么区别？"
+  },
+  {
+   "s": 1556.94,
+   "e": 1594.05,
+   "en": "News, hard news piece. And what? Present and what? Entertain. And if you think that's not the case, talk to the editors of the New York Times. Why do people watch, why do people watch television or listen to radio that have people, we'd be moaning all the time. Oh, why do people listen to these demagogic",
+   "zh": "新闻，严肃的新闻报道。然后呢？呈现出来，再接着呢？娱乐大众。如果你觉得不是这样，去问问《纽约时报》的编辑就知道了。为什么人们会看，为什么人们会看电视或者听广播，听那些人……我们总是在抱怨：噢，为什么大家要去听那些煽动人心的"
+  },
+  {
+   "s": 1594.87,
+   "e": 1634.16,
+   "en": "journalists who are just spouting their opinions. Why are they listening to Rush Limbaugh and Rachel Maddow? Why don't they just get objective journalism? Well, why don't they? Because it's more fun. I have lots of colleagues who come to me, Roger's not one of them, trying to get stuff published in the New York Times. And the first thing I say to them is the New York Times, I'm not going to publish this because nobody's going to read it. And they say, but people are interested in this. Everybody's interested in the Ukraine right now. Everybody's interested in this. But this is boring.",
+   "zh": "记者大放厥词？为什么要去听 Rush Limbaugh 和 Rachel Maddow？为什么他们不直接看客观的新闻报道？到底为什么不呢？因为那些更有趣。我有很多同事来找我——Roger 不算在内——想在《纽约时报》上发东西。我对他们说的第一句话就是，《纽约时报》不会登这个的，因为根本没人会看。他们就会说，但大家对这个感兴趣啊，现在所有人都在关注乌克兰，大家都很关注这个。但这玩意儿太无聊了。"
+  },
+  {
+   "s": 1635.95,
+   "e": 1667.99,
+   "en": "And then what do you suppose they do? They look at me. And they say, well, I can't be responsible for the fact that people aren't rigorous in their thinking. Why do you think? Because people are able to judge if that contents are boring or not. See, this is the mistake you're making. Because what I do for a living is not think about the relationship between the writer and the world.",
+   "zh": "然后你猜他们怎么做？他们看着我说：好吧，别人思维不够严谨，这可不能怪我。你猜为什么？因为人们能判断出内容到底无不无聊。看，这就是你们犯的错误。因为我的本职工作并不是去思考作者与世界的关系。"
+  },
+  {
+   "s": 1668.35,
+   "e": 1693.27,
+   "en": "or the text in the world. My job is to think about how readers read. You're thinking about content. I'm thinking about closer to somebody standing in a subway and the process that's actually going on in their cognitive processing to do this. And you know what happens? When we read, we're using all kinds of cognitive processing.",
+   "zh": "也不是去思考文本与世界的关系。我的工作是去思考读者是如何阅读的。你们在思考内容。而我思考的，更接近于某个站在地铁里的人，以及他们在这个过程中大脑里实际发生的认知处理过程。你知道会发生什么吗？当我们阅读时，我们正在调用各种各样的认知处理机制。"
+  },
+  {
+   "s": 1693.59,
+   "e": 1724.05,
+   "en": "to use this text to think about the world? And what happens when you interfere with the cognitive process? When the text makes it hard to do the process? What happens to readers when there's something about the text that makes it interfering with the reading process? What do you suppose readers do? I can tell you what they do. The first thing is they slow down. The second thing is they don't understand. The third thing is they get annoyed. And the fourth thing is they stop.",
+   "zh": "利用文本来思考这个世界？而当你干扰了这种认知过程时，会发生什么？当文本让这个思考过程变得困难时呢？当文本中有些东西干扰了阅读过程时，读者会怎样？你觉得读者会怎么做？我可以告诉你他们会怎么做。首先，他们会放慢速度。其次，他们会读不懂。第三，他们会感到烦躁。第四，他们会放弃阅读。"
+  },
+  {
+   "s": 1726.06,
+   "e": 1757.64,
+   "en": "And I got all kinds of people in your position who say, well, that's not my responsibility. Isn't it their job to read? When they're teachers, you've been writing ineffectively, and your readers haven't put it down. Why not? Because you were paying them to read it. When that stops happening, now your job is to make sure that process is valuable for the reader all the time.",
+   "zh": "我遇到过各种处于你们这种位置的人，他们会说：“嗯，那不是我的责任。阅读不该是他们的事吗？”当年面对老师时，你的写作其实效率低下，但读者却没有扔下不读。为什么？因为是你花钱雇他们读的。而一旦这种关系不复存在，你的职责就是必须时刻确保，这种阅读过程对读者来说是有价值的。"
+  },
+  {
+   "s": 1760.2,
+   "e": 1790.98,
+   "en": "And you've never had to do that before. You've never had to make the reading process feel valuable for the readers as they go. Now, in the first one, Roger Meyerson can write a big, long sentence which doesn't feel valuable to the readers until they get to the end of the sentence. He writes a lot of sentences where the value to the reader appears at the end of the sentence, and he can take him three or four lines to get there. And when he's writing in the Journal of Economic Theory, he can do that!",
+   "zh": "而你以前从未需要这么做过。你从未需要让读者在阅读的过程中，随时感受到文字的价值。那么在第一篇中，Roger Meyerson 可以写出很长的一句话，读者直到读完整句才会觉得有收获。他写很多句子都是把价值留到句末，往往要写上三四行才能讲清楚。当他在《经济理论杂志》上发表文章时，完全可以这么做！"
+  },
+  {
+   "s": 1791.47,
+   "e": 1822.03,
+   "en": "because his readers will get to the end of that sentence. But when you're writing in the New York Times, you can't. They won't get there. They won't get there. Does it mean you have to write short sentences in the New York Times? No. You can write very, very long sentences in the New York Times and be very successful. But you have to know how to make, then, parts of sentences feel valuable to readers before they get to the end. You can't have the value sitting just at the end.",
+   "zh": "因为他的读者一定会把整句话读完。但如果你是在《纽约时报》上写作，就不能这么做了。读者根本不会读到最后。他们读不下去的。这是否意味着你在《纽约时报》上就只能写短句？并不是。你完全可以在《纽约时报》上写非常非常长的句子，而且写得很成功。但你必须懂得，如何在读者读到句末之前，就让他们觉得句子的每个部分都有价值。你不能把所有价值都只压在句末。"
+  },
+  {
+   "s": 1822.41,
+   "e": 1860.03,
+   "en": "because they won't get there. It's a great question. There's several reasons for it. One of them is that in English, and it's true of lots of other languages too, the end of a sentence has what we call a stress position. That is, ending of sentences have extra stress compared to the rest of the sentence.",
+   "zh": "因为读者根本读不到那儿。问得很好，原因有好几个。其中之一是，在英语里（很多其他语言也一样），句末处在我们所谓的“重音位置”。也就是说，相比句子的其他部分，句末会带有额外的强调。"
+  },
+  {
+   "s": 1860.38,
+   "e": 1901.7,
+   "en": "Quite surprising to people who've been told the beginning of the sentences where readers pay the most attention. It's not true. It's actually they pay attention at the end of the sentence. All right? Well, this would say, well, then I should use lots of short sentences. But think about it. Let's say one version of it has six of these. Another version has three. Can you feel the difference? This one is saying to readers, hey, readers, there's six really important things I want you to notice in this passage. This one says, hey, readers.",
+   "zh": "很多人听过这种说法，以为读者注意力最集中的地方是句首，所以他们会大吃一惊。其实并不是，读者真正关注的其实是句末。明白了吗？有人可能会说，那我多用短句不就行了。但你想一想，假设一段话里有六个短句，另一个版本只有三个。能感觉到区别吗？前者是在对读者说：“读者朋友们，这段话里有六件极其重要的事，我要你们注意到。” 而后者是在说：“读者朋友们……”"
+  },
+  {
+   "s": 1902.31,
+   "e": 1929.6,
+   "en": "There's three. Well, imagine if this goes on for several pages. Pretty soon, you say, this is important, this is important, this is important, this is important, this is important, this is important. And pretty soon, nothing is important. What you know how to do when you command longer English sentences is you know how to have smaller moments of importance. Forgive me for quoting a very long sentence, but this is a famous sentence in",
+   "zh": "这里有三个。想象一下如果连续好几页都是这样。很快你就会觉得，这个重要，这个重要，这个重要，这个重要，这个重要，这个也重要。结果很快，就变得没有重点了。而当你能驾驭更长的英文句子时，你就能懂得如何安排次要的重点。请原谅我引用一个很长的句子，但这是一句名言，出自"
+  },
+  {
+   "s": 1930.01,
+   "e": 1936.44,
+   "en": "It was given in a speech, but it shows what I mean here. It's the last sentence of Lincoln's second inaugural.",
+   "zh": "这是一篇演讲里的句子，但它能说明我的意思。这是林肯第二次就职演说的最后一句话。"
+  },
+  {
+   "s": 1959.92,
+   "e": 1992.21,
+   "en": "which shall achieve and cherish a just and lasting peace among ourselves and with all nations.\" Well, the end of that whole thing is peace among ourselves and with all nation. And he wants that to get the most stress. But along the way, he's manipulated the sentence so that other things have lesser sense, lesser stress building to that. So, sorry, that wasn't actually on the agenda. It's a great question. The point I'm trying to make...",
+   "zh": "“……实现并珍视我们彼此之间以及与所有国家之间公正而持久的和平。”整句话的落脚点是“我们彼此之间以及与所有国家之间的和平”。他希望这里能得到最大的强调。但在这过程中，他巧妙地编排了句子，让其他部分的重要性稍弱、重音稍轻，层层铺垫引向最终的高潮。不好意思，这本来不在议程里。不过这个问题提得很好。我想表达的重点是……"
+  },
+  {
+   "s": 1992.33,
+   "e": 2021.92,
+   "en": "is not that there's all kinds of cool language techniques that you don't know and can learn. Wow, that's really not it. My point is you already know everything you need to know about English language technique, but you haven't been trained in how to think about how to use that technique to create value. You know what you've been trained in? You've been trained in how to use language to reveal what's in your mind or what your abilities are.",
+   "zh": "并不是说有什么高深炫酷的语言技巧你不知道、还得去学。哇，真不是这样。我的意思是，关于英语语言技巧，该知道的你其实全都知道，但你从未接受过训练，不知道如何运用这些技巧去创造价值。你知道自己受过什么训练吗？你受过的训练是，如何用语言来展现你脑子里想的东西，或者展示你有什么能力。"
+  },
+  {
+   "s": 2022.74,
+   "e": 2058.58,
+   "en": "You've been trained to use language to demonstrate to your teachers. Here's what I know and here's what I can do. And those are the habits you have. You know the techniques, I promise you. It's a question of redeploying them to doing a different function to live in a different language game afterwards. Notice some other things about the text differences. Notice that not only in the second one, the sentences are shorter.",
+   "zh": "你受过的训练是用语言向老师证明：“瞧，这是我知道的，这是我能做的。”这些就是你养成的习惯。我向你保证，那些技巧你都懂。问题在于如何重新运用它们，去发挥不同的作用，去适应一种截然不同的语言游戏规则。再注意看这两段文字的其他差异。注意看，第二段不仅句子更短。"
+  },
+  {
+   "s": 2059.42,
+   "e": 2087.28,
+   "en": "They don't need to be shorter, but it's smart to make them shorter because you have to have higher language skills to make longer sentences valuable. Notice in the second paragraph, the writers are doing something that some of you may have been told is against the rule. You notice they start a sentence with because in the second paragraph. You ever been told you shouldn't start a sentence with because? You notice in the second line from the bottom, they start a sentence with and. You ever been told you shouldn't start a sentence with and?",
+   "zh": "句子倒不见得非得写短，但写短点是明智的，因为想把长句写出价值，语言功底得更深。注意看第二段，作者用了一种你们可能被教过“违规”的写法。你们会注意到第二段里，他们用 because 开头写了个句子。你们有没有被教过不能用 because 开头？再看倒数第二行，他们用 and 开头写了个句子。你们有没有被教过不能用 and 开头？"
+  },
+  {
+   "s": 2088.56,
+   "e": 2125.07,
+   "en": "How would you account for the fact that they do it? They start a sentence with because, they start a sentence with and. If you've been told, oh, you shouldn't do that, there's a rule against that. And you just saw some very respectable people doing it. Well, people usually account for that. Oh, no, no, it's a very good thing. It's a very good thing to do it. I'm saying, you've all been told that you shouldn't do this. Imagine you went back to the teacher who said, you told me I shouldn't do it, but look. What would that teacher say?",
+   "zh": "那你们怎么解释他们偏偏这么写了呢？他们用 because 开头，还用 and 开头。如果有人跟你讲过：哎，不能这么写，这是有规则限制的。可你眼睁睁看着几个德高望重的人就这么写了。嗯，大家通常会这么解释：哦，不不不，这么写挺好的，这样写特别棒。我的意思是，你们都被教过千万别这么做。设想一下你回去找那位老师说：“您教过我不该这么写，但您瞧瞧。”那位老师会怎么说？"
+  },
+  {
+   "s": 2126.19,
+   "e": 2158.96,
+   "en": "Do you think? The teacher says one of two things. One is, oh, that's the New York Times. They don't follow the rules there. Or they do this thing like, when you're important enough and powerful enough, then you get to do it. I tell you, both of this is one of the things I'm getting at. You've been taught a whole lot of rules about texts that are nonsense. There is no such rule.",
+   "zh": "你觉得呢？老师通常会说两件事之一。一种是：“哦，那是《纽约时报》，他们可不守那些规矩。”或者他们会说：“等你足够重要、足够有权势的时候，你也可以这么做。”我跟你们讲，这两点正是我要探讨的。关于写作，你们学过的一大堆规则纯属胡扯。根本就没有这种规矩。"
+  },
+  {
+   "s": 2159.24,
+   "e": 2187.19,
+   "en": "that you started start a sentence with because or you shouldn't start a sentence with an there is no such rule that you shouldn't split infinitives there is no such rule that you shouldn't use passive verb go down the line almost no matter what you've been told about writing is wrong as if they say rule the big exception is spelling keep spelling you know other than that these are crazy people",
+   "zh": "比如不能用 because 开头，或者不能用 and 开头；根本没有“不定式不能拆分”这种规矩；也没有“不能用被动语态”这种规矩；顺着往下捋，几乎所有别人教给你的写作“规则”全都是错的。唯一的例外是拼写，拼写还是要对的。除此之外，定这些规矩的人都疯了。"
+  },
+  {
+   "s": 2189.3,
+   "e": 2218.25,
+   "en": "I mean, I'm being hyperbolic, but my mentor, the guy who started the writing program at the University of Chicago, in 1979 wrote a wonderful article for the Journal of College English Teachers. And he said, all these rules your people are teaching. Stop teaching them, because they're not rules. When actual readers read texts, they think about the world. None of these rules make any difference. It's a brilliant article. 15 page long.",
+   "zh": "我是夸张了点，但我的导师——在芝加哥大学创办写作项目的那位先生——在 1979 年为《大学英语教师杂志》写了一篇精彩的文章。他说：大家教的这些规矩，别再教了，因为它们根本不是什么规则。真正的读者读文章时，想的是现实世界，这些所谓的规矩起不到任何作用。那是篇绝妙的文章，有 15 页长。"
+  },
+  {
+   "s": 2218.66,
+   "e": 2248.77,
+   "en": "And in the last paragraph, he says, OK, did you get the joke? This article has more than 100 errors in it. More than 100. And he says to those readers, how many did you notice while you were reading errors? And the answer was, I didn't notice any of them. Because they're not errors. They didn't notice them because they were actually reading a text to think about the world. But once they read that paragraph, what do you suppose they all did?",
+   "zh": "在最后一段，他说，好吧，你看出这个笑话了吗？这篇文章里有100多处错误。超过100处。然后他问那些读者，你们在阅读时注意到了多少处错误？回答是，我一个都没注意到。因为它们根本不算错误。他们没注意到，是因为他们其实是在通过阅读文本来思考这个世界。但一旦他们读到了那一段，你猜他们都做了什么？"
+  },
+  {
+   "s": 2250.54,
+   "e": 2278.7,
+   "en": "They got their red pens out. They went back to the beginning and said, oh, there's one, there's one, there's one, there's one, there's one. And one great sentence, one sentence has seven errors in it. He and I helped him with this. We had so much fun, you know, writing these sentences. It has seven errors in it, including the fact that the verb is the subject singular and the verb is plural. Like a basic rule, right? Nobody noticed? There's no such rule! For me, language is not rule following. It's controlling the reading process.",
+   "zh": "他们拿出了红笔。他们翻回开头说，噢，这里有一个，这里有一个，这里有一个，这里有一个，这里还有一个。其中有一句绝妙的话，单单一句里就有七处错误。他和我一起写了这个，我们写这些句子的时候玩得可开心了。里面有七处错误，包括主语是单数而谓语动词却用了复数。这算是基本规则了吧，对吧？没人注意到？根本没有这种规则！对我来说，语言不是遵循规则，而是控制阅读的过程。"
+  },
+  {
+   "s": 2279.11,
+   "e": 2308.85,
+   "en": "It's understanding how readers read. And there's lots of times when a singular subject and a plural verb works better for readers. All of these rules don't make sense to me because they're not rules, they're techniques. Language is a technique for controlling a reader's reading process. And if you're sitting there looking at your text, not thinking about readers, but thinking about rules, you're probably writing badly.",
+   "zh": "关键在于理解读者是怎么阅读的。很多时候，单数主语搭配复数动词反而对读者更友好。这些规矩在我看来都讲不通，因为它们根本不是规则，而是技巧。语言是用来掌控读者阅读节奏的技巧。如果你盯着自己的文字，满脑子想的不是读者，而是各种规矩，那你大概率写得很烂。"
+  },
+  {
+   "s": 2309.86,
+   "e": 2340.02,
+   "en": "Because you just kind of got it wrong, I think. What language is this for? So if we looked at this stuff, the reason I gave you these passages is to say, here's what people normally say about shifting from the academy to not in the academy. They say, you have to do things like stop using equations. That's the jargon thing. They say stop using jargon. They say make your sentences shorter. They say all kinds of things that have to do with",
+   "zh": "因为我觉得你根本就理解偏了。语言到底是为了什么？所以如果我们来看看这些内容，我给你们看这些段落的原因是想说明，大家谈到从学术写作转向非学术写作时，通常都会这么说：他们会说，你不能再用方程式了。这就是所谓的行业黑话。他们说别用黑话，他们说句子要写短一点。他们说了各种各样"
+  },
+  {
+   "s": 2340.43,
+   "e": 2370.33,
+   "en": "textual characteristics. I'm here to say none of that's actually what's at stake. What's at stake and what is in fact the same about these three texts is that they all create value for their readers. Roger Meyerson in all three of these instances is creating value for the reading process. He's making it valuable for people to read it. How?",
+   "zh": "关于文本特征的要求。而我在这里要说的是，这些根本不是关键所在。真正的关键，也是这三段文字的共通之处，在于它们都为读者创造了价值。在这三篇里，Roger Meyerson 都在为阅读体验创造价值。他让人们觉得读它是有价值的。怎么做到的呢？"
+  },
+  {
+   "s": 2370.78,
+   "e": 2411.28,
+   "en": "There's lots of techniques. I want to talk about one that goes to the next page. Look at the beginnings. Now, this is the openings of these articles. Tell me what these have to common. I'm sorry, it's page three on the numeration. One, this paper develops some fundamental mathematical tools for analyzing games with a very large number of players, such as the games played by voters in a large election. Now go to two.",
+   "zh": "技巧有很多。我想聊聊下一页的一个技巧。看看开头。现在，这些是文章的开头。告诉我它们有什么共同点。抱歉，按页码看是第三页。第一句，“本文开发了一些基础数学工具，用于分析超大规模参与者的博弈，比如大型选举中选民之间的博弈”。现在看第二句。"
+  },
+  {
+   "s": 2411.9,
+   "e": 2441.62,
+   "en": "However, the current crisis over Crimea finally ends, Ukraine will still be left with a crisis of its own politics. Three, management consultants have many theories of leaderships. I'm going to go to the second sentence here. Leaders are often glorified as visionary strategic planners who set the course with bold, insightful decisions. But Xenophon gives us a different view. What do these things have in common? There's a lot of differences between them. Can you see anything that they have in common?",
+   "zh": "“无论目前围绕克里米亚的危机最终如何收场，乌克兰仍将面临自身的政治危机”。第三句，“管理咨询顾问们有许多领导力理论”。我直接跳到这里的第二句。“领导者常常被美化为有远见的战略规划者，凭借大胆深刻的决断指引方向。但色诺芬给了我们不同的视角”。这些有什么共同点？它们之间有很多差异。你能看出它们有什么共同点吗？"
+  },
+  {
+   "s": 2444.95,
+   "e": 2504.45,
+   "en": "Actually, I'll tell you what they have in common. You tell me how they're doing it. Each one of them is making the reading valuable for the reader. How? No, but thank God you said that. No, I mean this is so, this is so, this is so important. I know you said that, but it's crucial. You ever heard something you said, it tells what the paper will be about. Sorry about my handwriting. That's what you said. You ever heard advice like, tell them what you're going to tell them, tell them, tell them what you told them.",
+   "zh": "其实，我来告诉你们它们的共同点，你们来告诉我它们是怎么做到的。每一篇都在让阅读对读者产生价值。怎么做到的？不，但我真庆幸你提到了那个。不，我是说这太、太、太重要了。我知道你那么说了，但这很关键。你听过一种说法，说它交代了论文要讲什么。字迹潦草抱歉啊。你刚才就是这么说的。你们听过这种建议吧：先告诉他们你要讲什么，然后讲，最后告诉他们你刚才讲了什么。"
+  },
+  {
+   "s": 2505.32,
+   "e": 2547.92,
+   "en": "This is not a source of value Why not? Imagine this Can you imagine in a first sentence telling you I'm going to this paper is going to be about X and for you to decide I don't care about X It's of no value to me to care about to know anything about X Then what are you gonna do? You look at me like oh my god And the first thought is",
+   "zh": "这根本带不来价值。为什么？想象一下这个场景：你能想象第一句话就告诉你“本文将探讨X”，而你却觉得“我根本不在乎X，了解关于X的任何事对我毫无价值”吗？那你该怎么办？你们看着我，心想“我的天啊”，脑海里的第一个念头是："
+  },
+  {
+   "s": 2548.46,
+   "e": 2581.88,
+   "en": "You want me to lie? You want me to cheat? You want me to use rhetoric or something to sell this stuff? And they look at me like that's all wrong. That's all morally wrong. It's kind of slimy. People say, shouldn't that be what writing is about? They say, isn't that what writing is? Isn't writing to be",
+   "zh": "“你想让我撒谎？想让我骗人？想让我用修辞或手段来推销这些东西？”他们看着我，觉得这全错了，觉得这在道德上站不住脚，有点让人不齿。有人会说，写作不就该是这样吗？他们会问，写作不就是这个意思吗？写作不就是关于……"
+  },
+  {
+   "s": 2582.08,
+   "e": 2627.09,
+   "en": "about something. Yes? No? Is that what you do in your papers? When you write a paper, do you describe something? Is that what you do in a paper? Is that what professional academics do? Is that what professional academic papers do? Do they describe things? Is that their function? No, you'll hear at least the next thing is they make arguments. So they argue. So there would be a difference which is",
+   "zh": "关于某件事物吗。对吧？不对吗？你们在论文里是这么写的吗？写论文时，你是在描述某件事物吗？论文是干这个的吗？专业学者是这么做的吗？专业的学术论文是这样的吗？它们是在描述事物吗？这是它们的功能吗？不，接下来你至少会听到有人说，它们是在提出论点。所以它们是在论证。这样就会产生一个区别，那就是"
+  },
+  {
+   "s": 2632.07,
+   "e": 2668.71,
+   "en": "What the paper will argue Can you feel that those might be different? One says here's what my paper will be about Another says here's what my paper will argue my paper will argue that for example my paper my paper will argue that Cultural constructions are dynamic as opposed to saying this paper is about cultural constructions Those are different. Pardon me Okay",
+   "zh": "这篇论文要论证什么。能感觉到它们可能有所不同吗？一种是说“我的论文是关于什么的”，另一种是说“我的论文要论证什么”。我的论文要论证的是，比如我的论文……我的论文要论证“文化构建是动态的”，而不是说“这篇论文是关于文化构建的”。这两者是不同的。不好意思，好的。"
+  },
+  {
+   "s": 2669.64,
+   "e": 2721.91,
+   "en": "But is that what academics do? Do they persuade? Do they make arguments? Professional academics in their published work? Is that what they do? What do they do? What do 98% of academic papers do? Say again? That's better. Can you see how different that is? The opening tells us what question the paper will answer. Can you see a difference between these three?",
+   "zh": "但学者们真是这么做的吗？他们是在说服别人吗？他们是在提出论点吗？专业学者在他们发表的著作中是这么做的吗？那他们到底在做什么？98% 的学术论文都在做什么？再说一遍？好多了。大家能看出这有多大区别吗？开篇告诉了我们这篇论文将要回答什么问题。大家能看出这三者之间的区别吗？"
+  },
+  {
+   "s": 2724.33,
+   "e": 2775.95,
+   "en": "Can you feel a difference between these three? What's the difference? What's the difference? In some sense, this whole, everything I do, my entire career is summed up, that's why I was, forgive me for jumping on this one thing, but everything I teach is summed up in these three. Everything. So we'll put numbers on them just so we can talk about it, make sure we're clear about it. What's the difference? That's one way to put it. In your own words, describe the difference between these three. I would say this way.",
+   "zh": "你能感觉到这三者之间的区别吗？区别在哪里？有什么不同？从某种意义上说，我做的所有事、我的整个职业生涯都可以总结成这三点，所以——抱歉我抓着这一点不放——但我教的所有东西都浓缩在这三点里了。所有的一切。我们给它们标上序号，方便讨论，确保大家都能理解。区别是什么？这也是一种说法。用你自己的话，描述一下这三者的区别。我会这么说。"
+  },
+  {
+   "s": 2777.57,
+   "e": 2812.56,
+   "en": "This one for sure makes room for the reader. You know what would be even better when this one? What if this says it tells, whoops, I should say tell us, tells you what question you have that the paper will answer. Now, do you see a difference? What about this one? Tells us what the paper will be about. There's no place for a reader there. The reader has no role.",
+   "zh": "这个毫无疑问给读者留出了空间。你知道怎么改会比这个更好吗？如果改成这样：它告诉——哎呀，我应该说告诉我们——告诉你这篇论文将回答你的什么疑问。现在，你看出区别了吗？那这个呢？它告诉我们论文将要讲什么。这里完全没有读者的位置。读者没有任何参与感。"
+  },
+  {
+   "s": 2814.09,
+   "e": 2845.25,
+   "en": "The only person with a role here is the writer. The writer is going to talk about the world. The writer will talk about the world. Writing about the world tells what the paper is about. See that? There is no space for a function for the reader here except one function, which is the teacher's function, which is, show me what you know about this thing.",
+   "zh": "这里唯一有角色的人就是作者。作者要谈论这个世界。作者将会谈论这个世界。描写这个世界就说明了这篇论文是关于什么的。看到了吗？这里完全没有给读者留出发挥作用的空间，除了一个功能，也就是老师的功能，那就是：让我看看你对这件事情了解多少。"
+  },
+  {
+   "s": 2846.48,
+   "e": 2883.41,
+   "en": "Show me how much you know about it. And if you pay me, I'll read it and I'll give you my judgment about what you know. But there's no other value embedded in that language. So how is Roger Meyerson shifting more toward this? Roger doesn't just do this. Look at the very first one. What does he say at the beginning that's not just, here's what this is about. Point me to a word in the first sentence that says, this is not just about.",
+   "zh": "让我看看你到底懂多少。如果你给我报酬，我就会去读，并对你的认知给出我的评价。但这种语言里并没有蕴含其他的价值。那么 Roger Meyerson 是如何向这方面转变的呢？Roger 可不仅仅是这么做的。看看最开始的那句。他在开头说了什么，才没有仅仅停留在“这就是本文的主题”？在第一句话里给我找出一个词，证明它不仅仅是在陈述主题。"
+  },
+  {
+   "s": 2885.45,
+   "e": 2924.91,
+   "en": "This is actually valuable. How about that one? Tools. What's the difference between the word tools and the word ideas? He says tools. Tools implies purpose, use, and value. Ideas does not. The word tools, right there, is extremely important in conveying to a reader this has a function for you. You're going to be able to use this.",
+   "zh": "这其实很有价值。那这个呢？“工具”。“工具”和“想法”这两个词有什么区别？他用了“工具”。“工具”意味着目的、用途和价值。而“想法”没有。“工具”这个词用在这里，对于向读者传达“这对你有用”、“你可以用上它”来说极其重要。"
+  },
+  {
+   "s": 2926.06,
+   "e": 2951.93,
+   "en": "When was the last time you used the word tool in any of your writing? You would have said ideas, concepts. Roger Meyerson's a very good writer. How about methods? Methods. Not quite as good as tools. But what's really good about this one isn't the first sentence, it's the next one.",
+   "zh": "你上次在写作中用到“工具”这个词是什么时候？你大概会用“想法”或“概念”。Roger Meyerson 写作功底非常深厚。“方法”怎么样？“方法”，还是不如“工具”好。但这段话真正绝妙的不是第一句，而是下一句。"
+  },
+  {
+   "s": 2954.41,
+   "e": 2986.76,
+   "en": "In such games, it is unrealistic to assume that every player knows all the other players in the game. Instead, a more realistic model should admit some uncertainty about the number of players in the game. What's that sentence doing there? Is it describing? You could say it's describing, but what is it describing? What's it describing? This is a trick question. What is it describing? He says...",
+   "zh": "“在这样的博弈中，假设每个玩家都认识博弈中的所有其他玩家是不现实的。相反，一个更现实的模型应该允许博弈中的玩家数量存在一定的不确定性。”这句话在这里起到了什么作用？是在描述吗？你可以说它是在描述，但它描述的是什么？它在描述什么？这是个陷阱题。它到底在描述什么？他说……"
+  },
+  {
+   "s": 2988.81,
+   "e": 3030.87,
+   "en": "It is unrealistic to assume that every players know all the other players in the game. Pardon me? There are people who do that. There are people who assume exactly that. Who are these people? His readers. You know what academic papers mostly do? They look their readers in the eye and say, I know what you think, and you're wrong. You know what Rogers just done in this sentence? He said, hey readers of the Journal of Economic Theory?",
+   "zh": "假设博弈中的每个参与者都认识其他人，这是不切实际的。什么？还真有人这么做。还真有人就是这么假设的。这些人是谁？就是他的读者。你知道学术论文通常都在干什么吗？它们直视读者的眼睛说：我知道你们怎么想的，你们错了。你知道 Rogers 在这句话里做了什么吗？他说：嘿，《经济理论学刊》的读者们？"
+  },
+  {
+   "s": 3031.4,
+   "e": 3062.96,
+   "en": "I know what you think, and it's unrealistic, which is polite term for what? You're wrong. Worse, you're generating bad ideas and models because you're wrong in what you're assuming. You shouldn't assume it anymore. Stop assuming it. This is not as it were about the world. This is about his readers. He's describing his readers. He's saying to them, hey, readers, this question?",
+   "zh": "我知道你们怎么想的，而这不切实际——这是在委婉地说什么？你们错了。更糟的是，你们正在产出糟糕的想法和模型，因为你们的前提假设就是错的。你们不该再这么假设了。别再这么假设了。这可以说并不是在谈论现实世界。这是在针对他的读者。他在描绘他的读者。他在对他们说：嘿，读者们，关于这个问题？"
+  },
+  {
+   "s": 3063.9,
+   "e": 3093.86,
+   "en": "You actually don't have, but you ought to have. Can you see how that creates the value for his work? And forgive me, but it's not just a matter of interesting. Some people say, well, it's more interesting if you're confrontational. It's not just interesting. Believe me, there's a lot of people who don't like confrontation, and they don't want to argue. But when an academic's professional job is to be right about this stuff, and somebody looks him in the eye and says, hey, it's your job to be right about this. And you say, yeah, it is. And you're wrong.",
+   "zh": "你其实没有，但你理应拥有。你能看出他是如何藉此为自己的工作创造价值的吗？恕我直言，这可不仅仅是“有趣”的问题。有人会说，针锋相对一点会更有趣。这可不只是有趣。相信我，很多人讨厌冲突，也不想争论。但当一个学者的天职就是要在这类问题上保持正确，而有人直视着他的眼睛说：嘿，弄对这些是你的职责。你回答说，没错，确实是。对方接着说：但你搞错了。"
+  },
+  {
+   "s": 3094.95,
+   "e": 3127.93,
+   "en": "You have to listen It's like going to medical doctors and the medic saying to medical doctors. Hey medical doctors. You're treating this disease with this drug, right? But she says yes, stop you're killing people You got to pay attention to that value. He's creating value That's what he's doing for specific readers, right? This notion. Oh my god people get told okay when you go outside the Academy She'd write as though you're writing to sixth graders. Oh my god",
+   "zh": "你就不得不听了。这就像去找医生，医生对其他医生说：嘿，同行们，你们在用这种药治这种病，对吧？对方说是的。然后她说：住手，你们在害死病人！你必须关注那种价值。他正在创造价值，他就是为特定读者在做这件事，明白吗？这种观念——天呐，总有人被告知：好吧，走出学术圈后，你的写作要像是在写给六年级学生看一样。天呐！"
+  },
+  {
+   "s": 3128.79,
+   "e": 3162.15,
+   "en": "Don't! You know who you have to write to? Your readers. And you know what you have to know about them? What they value. Do not write to sixth graders. Your job is not to reveal your head. Your job is to change their heads. You need to know what they think, and you crucially need to know what they value. So, we'll come back to the New York Times one. Go down to the third one.",
+   "zh": "千万别！你知道你该写给谁看吗？你的读者。你知道你必须了解他们什么吗？他们看重什么。别写得像给六年级学生看的。你的职责不是展示你的脑袋里有什么，而是改变他们的脑袋。你需要了解他们的想法，更关键的是，要了解他们看重什么。好，我们回过头来看《纽约时报》那个例子。往下看第三个。"
+  },
+  {
+   "s": 3164.05,
+   "e": 3205.32,
+   "en": "Management consultants have many theories of leadership. Leaders are often glorified as visionary strategic planners who set the course with bold and insightful decisions, but Xenophon gives us a different view. What's Roger doing there? What's he doing there? What's the function of this opening, do you think? And what's he doing with these people who are management consultants? Right. He's looking them in the eye and saying, I know what you think. You think leaders are glorified as visionary strategic planners.",
+   "zh": "管理咨询顾问们有很多关于领导力的理论。领导者常被吹捧为富有远见的战略规划者，用大胆而深刻的决策指引方向，但色诺芬给我们展现了不同的视角。Roger 在这里是在做什么？他究竟在干什么？你们觉得这个开场有什么作用？他又打算怎么对付这些管理咨询顾问？没错。他正看着他们的眼睛说，我知道你们在想什么。你们觉得领导者就该被吹捧为有远见的战略规划者。"
+  },
+  {
+   "s": 3205.71,
+   "e": 3244.59,
+   "en": "And then what is the significance of saying Xenophon gives a different view? It's a polite way of saying what? You're wrong. It's a polite way of saying you're wrong. It's just a jargon. It's a code for you're wrong. And why does he open with talking about what management consultants think? Why would he talk about them? Because they're the people who read the Journal of Conflict Resolution. See what I mean? This isn't determined by the world at all. It's determined by his readers. This is being driven by his sense of his readers.",
+   "zh": "那他说色诺芬给出了不同的视角，又有什么深意呢？这是一种客气的说法，其实是在说什么？“你们错了”。这是一种委婉表达“你们错了”的方式。这只是句行话，是“你们错了”的暗号。那他为什么一上来就要谈管理咨询顾问的想法？为什么要提他们？因为正是这批人在读《冲突解决杂志》。明白我的意思了吗？这根本不是由客观现实决定的，而是由他的读者决定的。这完全是由他对读者的把握所驱动的。"
+  },
+  {
+   "s": 3245.02,
+   "e": 3275.89,
+   "en": "and how to create value for them. Now, I should be clear, outside the academy, it's less common to say to your readers, I know what you think and you're wrong. Inside the academy, 95% of most academic writing does that. It says to, that's an exaggeration, 85% of academic writing does that. You say to your readers, I know what you think and you're wrong. We have very polite ways of saying it, we have all this kind of coding language for it, but that's what we mostly do.",
+   "zh": "以及如何为他们创造价值。不过我要说明的是，在学术界之外，很少会直接对读者说：我知道你怎么想，但你错了。而在学术界内部，95%的学术写作都是这么干的。它相当于——好吧，有点夸张了，85%的学术写作都是这样。你对读者说：我知道你怎么想，但你错了。我们有一套非常礼貌的说辞，用各种行话去包装，但本质上大部分都是在干这事。"
+  },
+  {
+   "s": 3276.73,
+   "e": 3301.72,
+   "en": "Outside the academy, it turns out problems, value, is much more diverse. Sometimes you say to your readers, I know what you're thinking you're wrong. Sometimes you say to your readers, I know what's valuable to you, and I can do that. I know what you need, and this text can provide that. But you open with what they need, not, here's what the text is going to be about.",
+   "zh": "但在学术界之外，问题和价值要多元得多。有时你确实会对读者说：我知道你在想什么，你错了。但有时你对读者说的是：我知道什么对你有价值，而我能做到这一点；我知道你需要什么，这篇文章就能提供什么。不过你的开篇应当从他们的需求切入，而不是直接摆出“本文要讲什么”。"
+  },
+  {
+   "s": 3302.51,
+   "e": 3335.05,
+   "en": "Because if you open with here's what the text is going to be about you run the risk of them saying I don't care about that Because they may not see the value Yeah, and I'm trying to find the same things right So what's the that how is he creating value in this one? However the current crisis over Crimea finally ends Ukraine will be still left with a crisis of its own politics",
+   "zh": "因为如果你一上来就讲“这篇文章要聊什么”，就很可能有人会说“我不在乎这个”，因为他们可能看不到其中的价值。对，而我也在寻找同样的东西，对吧？那么这里的关键是什么，他是如何在这篇里创造价值的？“无论克里米亚当前的危机最终如何收场，乌克兰仍将面临自身的政治危机，"
+  },
+  {
+   "s": 3336.02,
+   "e": 3372.98,
+   "en": "A crisis that Russia sees as a pretext to annex Crimea and would invite further intervention in Ukraine unless it is immediately addressed. Why does this create value? There's a little bit, by the way, there is a little bit of it, I know what you think and you're wrong. The hint of that is here. The origin of the current emergency, in fact, lie in the failure of Ukraine's political institutions to accomplish two fundamental tasks, but that's really, it's only faint and not important. What's creating value for people?",
+   "zh": "这场危机被俄罗斯视为吞并克里米亚的借口，如果不立即解决，还将招致对乌克兰的进一步干预。”为什么这能创造价值？顺便说一句，这里有一点点“我知道你怎么想，但你想错了”的意味。相关的蛛丝马迹就在这里：“事实上，当前紧急局势的根源，在于乌克兰政治机构未能完成两项根本任务”，但这真的很微弱，并不重要。究竟是什么在为读者创造价值？"
+  },
+  {
+   "s": 3373.21,
+   "e": 3408.82,
+   "en": "Why would people continue to read this? It won't be the value in it to them. Imagine if I wrote it this way. However this current situation in Crimea resolves, Ukraine will still be left with a situation of its own. A situation that involves Russia in its relationship to Crimea, and it would have further implications for the Ukraine. 90% of the readers of it would put it down.",
+   "zh": "大家为什么还要读下去？这对他们来说没什么价值。想象一下如果我这么写：无论克里米亚目前的局势如何解决，乌克兰仍将面临自身的困境。一个涉及俄罗斯及其与克里米亚关系的局势，并且会对乌克兰产生进一步的影响。90%的读者读到这儿都会直接撂下不看。"
+  },
+  {
+   "s": 3410.82,
+   "e": 3458.45,
+   "en": "Why? And why do words like crisis, crisis, seized Russia, seizing Russia, seizes, right? Why does it create a sense of urgency in our reading of it? Pardon me? Yeah, but they're not just that. You're right. You're absolutely right about that. We value reading about bad stuff. You think you don't?",
+   "zh": "为什么？为什么像“危机”、“扣押”、“夺取”这样的词，对吧？为什么它们会在我们阅读时制造出一种紧迫感？您说什么？没错，但不仅如此。你说得对，你说得完全没错。我们就是热衷于看坏消息。你觉得自己不这样？"
+  },
+  {
+   "s": 3459.73,
+   "e": 3493.51,
+   "en": "Look at the newspaper tomorrow. What's the headline gonna be? Is it gonna be something good happened? How about this? Headline in the newspaper. Yesterday, nothing changed. How about this? Go to a movie the next time. You imagine walking into a movie. And imagine sitting down in a movie theater and having the first five minutes of the movie say,",
+   "zh": "看看明天的报纸吧。头条会是什么？会是发生了什么好事吗？换成这样如何？报纸头条写着：“昨日一切照旧，毫无波澜”。或者换个场景，下次去看电影时，想象你走进电影院，坐下之后，电影开场前五分钟这么演："
+  },
+  {
+   "s": 3493.98,
+   "e": 3533.09,
+   "en": "See these people? They're very content. They're fine. And for the next hour and a half, they're going to stay fine. And we're going to show you the details of their contentedness. You going to watch that movie? You going to watch it? No! Why not? Is it not true? Do you not want to understand people? How come people don't want to watch it? How come you don't want to watch it?",
+   "zh": "“看到这些人了吗？他们很满足，一切都好。在接下来的一个半小时里，他们会一直好好的。我们将向你们展示他们满足生活的点点滴滴。”你会看这部电影吗？你会看吗？才不会！为什么不看？难道这不是事实吗？难道你不想了解人性的状态吗？大家为什么不想看？你为什么不想看？"
+  },
+  {
+   "s": 3538.2,
+   "e": 3573.03,
+   "en": "It's not entertaining. You want people to read your op-ed pieces in the New York Times? Better entertain them. That's the case. That's just the case. Turns out there's lots of different ways to entertain people, but the most obvious one is to say, oh my god, oh my god, oh my god, something's wrong, oh my god. This withdraws our attention. That's what we value when we read. Now, is that a bad thing? I don't know, maybe, maybe it is. But it's the truth.",
+   "zh": "这可一点都不好玩。你想让大家看你在《纽约时报》上写的专栏文章？那你最好写得引人入胜点。事实就是这样，现实本就如此。事实证明，吸引大家的方式有很多种，但最管用的一种就是大喊：“天哪，天哪，天哪，出事了，天哪！”这会牢牢抓住我们的注意力，这也正是我们阅读时所追求的。那么，这是件坏事吗？我不知道，也许吧，也许确实是，但这就是现实。"
+  },
+  {
+   "s": 3574.88,
+   "e": 3604.2,
+   "en": "People, when they're looking for entertainment, are drawn to conflict, tension, trouble. And we find it entertaining. Roger Myerson understands that. He doesn't begin this by saying, this will be an op-ed piece about the Ukraine, and will contain suggestions for future policy in Ukraine. Because if he wrote that sentence, nobody would read the second sentence. Not nobody, but very few people in his audience would read the second sentence.",
+   "zh": "人们在寻找娱乐时，总会被冲突、紧张和麻烦所吸引，我们会觉得这很有看头。Roger Myerson 心知肚明。他开篇绝不会写：“这是一篇关于乌克兰的专栏文章，文内包含针对乌克兰未来政策的若干建议。”因为要是他真这么写了，没人会接着看第二句。倒也不是绝对没人看，但他的读者里几乎没人会去读第二句了。"
+  },
+  {
+   "s": 3616.79,
+   "e": 3640.68,
+   "en": "Breaking news airplane crash. Have you ever heard breaking news airplane landed safely, right? We are drawn the New York Times is a mass media It has to have lots and lots of people looking at it But the crucial point I'm trying to make is that the one of the crucial values we get from the New York Times is Actually entertainment or at least distraction",
+   "zh": "突发新闻：飞机坠毁；可你何曾听过“突发新闻：飞机安全着陆”？我们总被这类消息吸引，而《纽约时报》作为大众媒体，必须吸引大量读者眼球，但我想说明的关键是，我们从中获取的核心价值之一，其实是娱乐，或者至少是消遣"
+  },
+  {
+   "s": 3643.66,
+   "e": 3674.55,
+   "en": "So we want to be distracted. We pick up the New York Times. We want to be distracted. Do we want to get information? Well, the people who read the New York Times want to feel better than the people who read the USA Today. They want to feel better about themselves. This is true, right? Now, are they better? I leave that to you to judge, but I promise you they want to feel better about it. This sounds to people like I'm being corrosively cynical. And I have to say, I don't think so.",
+   "zh": "所以我们想要打发时间，于是拿起《纽约时报》，图个消遣；我们真的想获取信息吗？好吧，读《纽约时报》的人，只是想比读《今日美国》的人更有优越感，他们想自我感觉良好，这是事实，对吧？至于他们是否真的更优秀？留给你们来评判，但我敢保证，他们确实想要这种优越感；有人听了觉得我刻薄愤世，但我不得不说，我并不这么认为。"
+  },
+  {
+   "s": 3675.79,
+   "e": 3704.1,
+   "en": "I deal with language as a relationship among people. You guys have been taught to deal with language as a way of revealing what you think. And I think you're just wrong. Language is social. It's actually a relationship between you and other people. So for me, when I want to talk about language, I need to talk about the other people, not just about you. Because there's other people, to me, always in the equation.",
+   "zh": "我把语言看作人与人之间的一种关系。你们一直被教导要把语言当作表达自己想法的途径。但我认为你们完全错了。语言是具有社交属性的。它本质上是你与他人之间的一种关系。所以对我来说，当我想谈论语言时，我需要谈论他人，而不仅仅是你自己。因为对我而言，他人永远在这个等式之中。"
+  },
+  {
+   "s": 3706.54,
+   "e": 3733.08,
+   "en": "The first thing I want to talk about today, and we're basically done now, is one of the things when you're writing either inside the Academy or outside the Academy, you need to look at the patterns of your writing where what you're doing is just demonstrating, demonstrating, demonstrating. Say, I know this. I know this. I know this. I know this. Here's how I know it. Here's my method of thinking. Here's this. Just turn that off and be thinking from the first sentence of the reader's value.",
+   "zh": "我今天想讲的第一件事——而且我们基本上快讲完了——就是无论在学术界内还是学术界外写作，你都需要审视自己的写作模式，看看你是否只是在一味地证明、证明、再证明。不停地说，我知道这个。我知道这个。我知道这个。我知道这个。我是怎么知道的。这是我的思维方式。这是这个。赶紧打住，从第一句话开始就要去考虑读者的价值。"
+  },
+  {
+   "s": 3733.6,
+   "e": 3761.86,
+   "en": "What's making it valuable for them? Why are they reading it? They're not getting paid to read it. Therefore, from the first sentence, you've got to be describing not what you think, but what they think. How they engage this. And you've not been taught to do the opposite of that. Now, here's a small technique for doing that that I promised I'd not just be at the realm of the ethereal, but would be specific.",
+   "zh": "是什么让它对他们产生价值？他们为什么要读它？他们读这篇东西又没钱拿。因此，从第一句话开始，你就不能写你觉得如何，而必须描述他们是怎么想的。他们是如何看待这一点的。而你们之前受到的教育恰恰相反。那么，这里有一个实现该目标的小技巧，我保证过不会只停留在形而上的虚谈，而是会给出具体方法。"
+  },
+  {
+   "s": 3762.52,
+   "e": 3801.48,
+   "en": "Turn all the way up to page I'm going to skip a bunch of pages turn up to page Let's pause at page eight, and then I'm going to move on to something else Here's a classic mistake 1a by a this happens to be lawyer, but a lawyers and you know well trained academic Who's trying to write to a client? We won't go through the whole thing, but this is the opening sentence the following discussion outlines obligations concerning payments of overtime to the federal",
+   "zh": "直接翻到第——我要跳过好几页——翻到第——先在第八页停一下，然后我再讲别的。这里有一个典型错误，1A，由一位——这篇刚好是律师写的，但无论是律师还是受过良好训练的学者，在给客户写东西时都会这样。我们不读全文了，但来看看第一句话：“以下讨论概述了有关联邦加班费支付的义务……"
+  },
+  {
+   "s": 3801.88,
+   "e": 3831.08,
+   "en": "Fair Labor Standards Act in the applicable relations. Forgive me for once again for coming back to the tell of what the paper's about, but that's what the writer thought he was doing. It happened to be a he. He said, I'm telling the client what this is about. This is about obligations concerning payments of overtime under Federal Fair Labor Standards Act. Now, the comparison might be unfair, but look at the first sentence of the second one, 1B. Dear client, you've asked whether the new federal wage and hours laws will affect your obligation to pay overtime and provide compensatory time to your employees.",
+   "zh": "……《公平劳动标准法》及其适用关系。”请原谅我再次指出这种“交代文章要讲什么”的毛病，但这恰恰是作者以为自己在做的事。碰巧作者是个男的。他说，我这是在告诉客户本文是关于什么的。这是关于《联邦公平劳动标准法》下加班费支付义务的。这么对比或许有点不公平，但看看第二篇 1B 的第一句：“亲爱的客户，您曾询问新的联邦工时与工资法是否会影响您向员工支付加班费和提供调休的义务。”"
+  },
+  {
+   "s": 3831.76,
+   "e": 3866.86,
+   "en": "Can you see the difference? It's shocking, right? It's just shocking. Now, sometimes people who write 1A say, but doesn't the client know that they wrote, that they asked that question? Well, what do you think about that? The lawyer who writes 1A says to me, but the client knows what question they asked. Well, they might have forgotten, and that makes sense in this sense. I mean, clients sitting at the desk reading text after text after text after text picks this one up and doesn't...",
+   "zh": "看出区别了吗？很令人震惊，对吧？简直不可思议。有时写出 1A 的人会说：“但客户自己提了什么问题，他们自己不知道吗？”对此你怎么看？写 1A 的律师对我说：“但客户知道自己问了什么啊。”好吧，他们可能已经忘了，而且从这个角度来看也很合情合理。我的意思是，客户坐在办公桌前，一份接一份地看文件，拿起这篇时根本……"
+  },
+  {
+   "s": 3866.86,
+   "e": 3900.47,
+   "en": "Remember necessarily what this one was about, but there's a way bigger issue here. Do you know how many texts clients have read from lawyers that were useless? Utterly completely useless and the client paid for the privilege of reading it and it was useless for them. So here's another message I have for you. Your readers do not trust you. They don't trust you. They think you're going to waste their time. They think you're going to create stuff that's not valuable for them.",
+   "zh": "不一定会记得这篇是关于什么的，但这里还有一个大得多的问题。你知道客户读过多少律师写的毫无用处的文本吗？彻底、完全没有用处，而且客户还花钱买罪受，看了一堆对自己毫无价值的东西。所以我想传达给你们的另一个信息是：读者并不信任你。他们不信任你。他们觉得你会浪费他们的时间。他们觉得你写出来的东西对他们毫无价值。"
+  },
+  {
+   "s": 3900.69,
+   "e": 3929.73,
+   "en": "They do not trust you. And you spent 20 years with readers who trusted you. You spent 20 years writing to readers who were going to read everything you wrote. And you've gotten used to the idea that whatever you write, your reader's just going to read. I can't tell you how wrong that is. And philosophically, I think it's a gigantic mistake. Language is a relationship between people. And you think about them, I would argue, from the beginning. 1B.",
+   "zh": "他们并不信任你。而你过去二十年面对的，都是信任你的读者。二十年来，你写的每一个字，读者都会去读。你已经习惯了这种想法，觉得无论自己写什么，读者都会全盘接收。我必须说，这种想法错得离谱。从理念上讲，我认为这是个巨大的误区。语言是人与人之间的纽带。而且我认为，你从一开始就得为他们着想。来看1B。"
+  },
+  {
+   "s": 3930.09,
+   "e": 3964.13,
+   "en": "signals to the reader that from the beginning I have you in mind. And this is about what's going to be valuable for you. So let me give you a more subtle example of that. If you turn to page 9 for a moment, top of page 9, we'll just use the first two sentences. The dog chased the cat and the cat was chased by the dog. And I apologize to anybody who's heard me talk about this. I use these sentences a lot. Which of those sentences is more clear and concise?",
+   "zh": "这向读者表明，我从一开始就在为你着想。而且这篇文章探讨的，是对你真正有价值的内容。那我再举个更微妙的例子。请大家翻到第9页，看第9页的最上方，我们就看前两句话。“狗追猫”，以及“猫被狗追”。听过我讲这个的人还请见谅，我经常拿这两句话举例。这两句话，哪一句更加清晰简洁呢？"
+  },
+  {
+   "s": 3964.78,
+   "e": 3999.8,
+   "en": "The dog chased the cat, or the cat was chased by the dog? One? No. It depends. And this is, I'm going back to where I opened with. When you try to make a decision about any piece of writing, your first question should be what? Who's reading it? Most of you would think the first sentence is more concise because you've been taught formal rules. Two rules what you would come into play, right? You'd say what about sentence one versus sentence two. It's shorter.",
+   "zh": "“狗追猫”，还是“猫被狗追”？选第一句吗？不一定，这得看情况。这又回到了我开篇讲的内容。当你想对任何一段文字做取舍时，首要问题应该是什么？是谁在读它？你们大多数人会觉得第一句更简练，因为你们学过死板的规则。这时候有两条规则会起作用，对吧？对比第一句和第二句，你会说它更短。"
+  },
+  {
+   "s": 4000.24,
+   "e": 4034.09,
+   "en": "And some of you have been taught you should use active verbs and not passive verbs. Daylight nonsense. Clear nonsense. It is absurd to say that one is more clear or more concise than two. What about the readers does it depends on readers and what about the readers does it depend on? See it? If they care about the cat or if they care about the dog. Why would they make any difference? Both sense, you're right. She's absolutely right. But other people would say, what difference does it make? One sentence is still shorter, it makes it more concise.",
+   "zh": "而且你们当中有些人学过，要用主动动词，别用被动动词。一派胡言，纯属无稽之谈。说第一句比第二句更清楚或更简练，简直是荒谬。这取决于读者，那具体取决于读者的什么呢？明白了吗？取决于他们关心的是猫，还是狗。为什么这会有区别？两个句子……你说得对，她完全正确。但其他人会说，这有什么区别？第一句还是更短啊，它就是更简练。"
+  },
+  {
+   "s": 4034.69,
+   "e": 4070.74,
+   "en": "They're wrong. Why? Because the way English works, the subject of the sentence is what we call the focus of the sentence. It's what the sentence is about. The first sentence is about what? The dog. The second sentence is about what? The cat. What if the reader wants to think about the cat? And they read the first sentence. The dog chased the cat. Why is it not concise for them? They want to think about the cat. I'm thinking about the cat. The cat, the cat, the cat. That's what I care about. That's what I value. I want to think about the cat.",
+   "zh": "他们错了。为什么？因为在英语的表达习惯中，句子的主语就是我们所说的句子焦点。也就是句子所关心的核心。第一句话讲的是什么？狗。第二句话讲的是什么？猫。要是读者想关注的是猫呢？而他们读到的第一句是“狗追猫”。为什么对他们来说这不够简练？他们想了解的是猫。我脑子里想的是猫。猫，猫，猫。这才是我想关心的。这才是我的核心。我就想了解猫。"
+  },
+  {
+   "s": 4071.05,
+   "e": 4104.15,
+   "en": "And I read a sentence about a dog. What do I have to do cognitively? I have to flip it. I have to process it twice. First, I process it as a sentence about a dog. And I don't care about the dog. So I have to process a sentence again, making it into a sentence that's something I care about. It takes me longer to read it and understand it. And to us, that's what concision is. Concision isn't the number of words on the page. It's how long it takes readers to process what's on the page.",
+   "zh": "结果我读到的却是一句关于狗的话。在认知上我得做什么？我得把它翻转过来。我必须处理两次。首先，我把它当成一句讲狗的话来处理。但我并不关心狗。所以我得重新处理一遍，把它变成一句关于我所关心的事物的话。这让我花了更多时间去阅读和理解。对我们而言，这才是所谓的简练。简练并不是指页面上的字数多少。而是指读者理解页面上的内容需要花费多长时间。"
+  },
+  {
+   "s": 4104.51,
+   "e": 4139.93,
+   "en": "I mean you got to put readers in the equation This is great, so here's how English works It has this is an over vast over simplification, but it works like this There's a focus of the sentence and then there's a stress position in the sentence The focus is invisible to us, but a hugely important it tells us what the sentence is about Then we process everything else in the sentence in terms of that",
+   "zh": "我的意思是，你得把读者考虑进来，这很棒，英语的运作机制其实是这样的，虽然这么说极大简化了，但大体如此：句子有一个“焦点”，还有一个“重音位置”。焦点对我们来说是隐形的，但它极其重要，它告诉我们这个句子是关于什么的，然后我们再根据它来理解句中的其他一切"
+  },
+  {
+   "s": 4140.14,
+   "e": 4169.42,
+   "en": "Focus. So in the first one, the dog chased the cat. We take all the chasing in the cat and we refer it back to the dog. And then we think, I don't care about the dog. So we have to process it into being focused on the cat. But this focus position, once we get it, we actually then don't attend to it. It's not visible to us. What's more visible to us is what comes in the end of the sentence, which is what we call a stress position. So your point's really beautifully taken. It turns out these two parts of a sentence have very different functions for readers.",
+   "zh": "焦点。所以在第一句“狗追猫”中，我们把追逐和猫的信息都关联回狗身上。然后我们会想，我并不关心狗啊。所以我们必须在脑中处理一下，把焦点转移到猫身上。但这个焦点位置，一旦我们理解了，实际上就不会再去注意它了，它是隐形的。对我们来说更明显的是句末的内容，也就是我们所说的重音位置。所以你的观点非常到位。事实证明，句子的这两个部分对读者来说有着截然不同的功能。"
+  },
+  {
+   "s": 4169.8,
+   "e": 4201.61,
+   "en": "Your job is of course to control both parts for readers. And if you're curious about how this works, well let me give you an example real quick of how to do it. Turn now to page, turn up to page 11. I'm going to read this out loud. I'd like you to just underline the subjects of the sentences because in English,",
+   "zh": "你的任务当然是为读者把控好这两部分。如果你好奇这是如何运作的，那我快速举个例子展示一下做法。现在翻到第……翻到第11页。我会大声朗读出来。请大家把句子的主语画上线，因为在英语里，"
+  },
+  {
+   "s": 4202.81,
+   "e": 4227.04,
+   "en": "Four times out of five, there's plenty of exceptions, but four times out of five, the focus is just the subject of the sentence. The subject is just what the sentence is about. So, for example, in recent years, several attempts have been made to discover an overall structural pattern in the book of Amos. What's the subject of that sentence? Anybody? Several attempts? Underline several attempts. Everybody on the same page with me? Underline several attempts, that's the subject.",
+   "zh": "十有八九——当然例外很多——但十有八九，焦点就是句子的主语。主语就是句子所讨论的对象。举个例子，“近年来，人们进行了多次尝试，试图在《阿摩司书》中找到一个整体的结构模式”。这个句子的主语是什么？有人知道吗？多次尝试？在“多次尝试”下面画线。大家都跟上我的节奏了吗？把“多次尝试”画上线，这就是主语。"
+  },
+  {
+   "s": 4228.65,
+   "e": 4259.19,
+   "en": "Certainly inspired by the burgeoning interest in literary approaches to the Bible, these studies have divided Amos into a regularly small number of extended sections, underlying these studies. That's the subject of that sentence. A comparison of these studies, however, soon reveals considerable diversity among them. A comparison of the studies is the subject underlying that. Thus, to look no further than the authors mentioned in footnote 1, the following divergent analyses of chapter 3-6 have been proposed, underlying the following divergent analyses. Only one more paragraph.",
+   "zh": "显然，受到对圣经文学解读法日益浓厚兴趣的启发，这些研究将《阿摩司书》划分为数量较少且固定的大段落，在这些研究下面划线。这就是那句话的主语。然而，对这些研究进行对比很快就会发现，它们之间存在着相当大的分歧。对这些研究的对比就是主语，在它下面划线。因此，单看脚注1中提到的作者，他们对第3至6章就提出了以下不同的分析，在“以下不同的分析”下面划线。就剩最后一段了。"
+  },
+  {
+   "s": 4259.58,
+   "e": 4289.49,
+   "en": "The only points these scholars are all agreed on are that 5-1 begins a new section, although I shall argue below that it does not, and 6-14 closes a section which has long been recognized. So we have the only points these scholars are all agreed on. All of that is the subject of the sentence, R. Two things to note. First, can you see how the writer is constructing a problem? Can you see how he's looking at his reader's eyes and saying you're wrong? Do you see the language where he's doing that? Several attempts have been made to discover an overall structure.",
+   "zh": "这些学者唯一达成共识的几点是：5章1节开启了一个新段落（尽管我下文会论证并非如此），以及6章14节结束了一个段落，这一点早已得到公认。这里我们看到“这些学者唯一达成共识的几点”。这整串都是句子的主语，谓语是“are”。有两点需要注意。首先，你能看出作者是如何抛出问题的吗？你能看出他如何直视读者的眼睛并说“你们都错了”吗？你能从他的措辞中看出来吗？有人曾多次尝试去寻找一个整体结构。"
+  },
+  {
+   "s": 4289.98,
+   "e": 4323.47,
+   "en": "certainly inspired by interest in literary approaches, each of which, in parentheses, it is claimed. Can you see the force of that, it is claimed? What does that mean? That means it's wrong. And then he says, a comparison of these studies, however, soon reveals considerable diversity among them. What he's doing is he's looking into his reader's eyes and saying, I know what you think about the book of Amos, and you're wrong. But now turn to the next page. Now I'd like you to underline the subjects as I go through here.",
+   "zh": "毫无疑问是受到了文学研究方法的启发，而括号里写着，据称每一项都是如此。你能感受到“据称”这两个字的分量吗？这是什么意思？意思就是那是错的。接着他又说，然而，对这些研究进行比较后很快就会发现，它们之间存在着相当大的分歧。他其实是在直视读者的眼睛说：我知道你们是怎么看待《阿摩司书》的，但你们错了。现在翻到下一页。现在我念的时候，请大家把主语画上线。"
+  },
+  {
+   "s": 4324.56,
+   "e": 4354.68,
+   "en": "Does the book of Amos have an overall structural pattern? How should such a pattern be characterized? How does its presence or absence shape the text? So the subjects were the book of Amos, such a pattern, its presence or absence. Recently the book of Amos has been considered to be divided into blah blah blah blah the subject was the book of Amos. Keep underlining. The sections in their interrelations then reveal an essential structure underlying the sections in their interrelations.",
+   "zh": "《阿摩司书》是否有整体的结构模式？这种模式应该如何定性？它的存在或缺失又是如何塑造文本的？所以刚才的主语是《阿摩司书》、这种模式、它的存在或缺失。最近《阿摩司书》被认为分为等等等等，主语是《阿摩司书》。继续画线。接下来，各部分及其相互关系揭示了一种内在结构，它构成了各部分及其相互关系的基础。"
+  },
+  {
+   "s": 4355.99,
+   "e": 4386.47,
+   "en": "However, the nature or even the existence of an overall pattern is not clear. The subject is the nature or even the existence of an overall pattern. All that's a subject. Next sentence. The book has been divided according to quite different schemes. The book is a subject. We're going to do one more. One C. Same thing. I want you to go through and underline the subjects. Does the book of Amos have an overall structural pattern? Subject was? Book of Amos. How should we characterize such a pattern? Subject was? We.",
+   "zh": "然而，整体模式的本质甚至是否存在都尚不明确。主语是“整体模式的本质甚至是否存在”。这一整串都是主语。下一句。这本书是按截然不同的方案划分的。“这本书”是主语。我们再来做一个。1C，同样的练习。我要你们从头到尾把主语划出来。《阿摩司书》有整体的结构模式吗？主语是？《阿摩司书》。我们应该如何描述这种模式？主语是？“我们”。"
+  },
+  {
+   "s": 4387.07,
+   "e": 4417.31,
+   "en": "How is our interpretation of the text shaped by such a pattern? Subject was our interpretation of the text. In the past decades, our readings of scriptural texts have come to be increasingly influenced by literary approach of the Bible. Subject was our readings of scriptural texts. In the case of the Book of Amos, we've been made aware that the text is divided. Subject was we. Last sentence, we have come to see a unity and connectedness in the book that was previously neglected. Subject was we.",
+   "zh": "这种模式是如何塑造我们对经文的解读的？主语是“我们对经文的解读”。在过去的几十年里，我们对圣经经文的解读越来越受到圣经文学进路的影响。主语是“我们对圣经经文的解读”。就《阿摩司书》而言，我们已经意识到经文是被划分开的。主语是“我们”。最后一句，我们开始在这本书中看到以往被忽视的统一性与连贯性。主语是“我们”。"
+  },
+  {
+   "s": 4417.77,
+   "e": 4456.42,
+   "en": "Next one, but is what we see really there? The subject was we. So we got three different versions of this paragraph, this opening. Which one's best? Which one's best? No. I apparently have failed in my goal today. I said from now on when anybody asks you about a text, you should say what? Who's reading it and what's its function?",
+   "zh": "下一个，“但我们看到的真的存在吗？”主语是“我们”。所以这段开头我们有了三个不同版本。哪一个最好？哪一个最好？不对。看来我今天的目标失败了。我说过从现在起，只要有人问你关于文本的问题，你应该说什么？谁来读，它有什么用？"
+  },
+  {
+   "s": 4457.39,
+   "e": 4488.83,
+   "en": "you were trying to answer the question without knowing who the readers were. Some readers would prefer one, some readers would prefer two, some readers would prefer three. Depends on what they want to focus on in their thinking. The first one is focused on what? What's the first one focused on? Look at those subjects. What are those subjects referring to? Studies of the Book of Amos.",
+   "zh": "你们刚才在不知道读者是谁的情况下，就试图回答这个问题。有些读者会更喜欢第一版，有些喜欢第二版，有些喜欢第三版。这取决于他们在思考时想关注什么。第一个版本关注的是什么？第一个版本关注的是什么？看看那些主语。那些主语指的是什么？对《阿摩司书》的研究。"
+  },
+  {
+   "s": 4489.62,
+   "e": 4515.1,
+   "en": "Number two, what's that focused on? The book of Amos. What's three focused on? Readers of the book of Amos. See the difference? Sometimes people pay me stupid amounts of money to fly to often wonderful cities, walk in and sit down with them, and make them take their pen out and underline the subjects of their sentences.",
+   "zh": "第二句关注的是什么？是《阿摩司书》。第三句关注的又是什么？是《阿摩司书》的读者。看出区别了吗？有时候，别人会花大把的钱请我飞去各种往往很棒的城市，就是为了让我走进去坐在他们对面，让他们拿出笔，把句子的主语一一画出来。"
+  },
+  {
+   "s": 4516.67,
+   "e": 4547.3,
+   "en": "Because they're saying to me, my readers don't find this valuable, or I can't get this published, or I can't get promoted, or I can't get whatever. And we sit down, and we take out a pencil, and we underline the subject of their sentences. And I can say, do your readers care about this? And they say, no. OK, we can fix this. We're going to figure out what your readers care about, what they want to focus on, and we're going to put that in the subject position. Why do smart people not know this?",
+   "zh": "因为他们会跟我抱怨说：读者觉得这东西没价值，或者我这文章发不出来、我升不了职，诸如此类。于是我们坐下来，拿出一支铅笔，画出他们句子的主语。然后我会问：“你的读者关心这个吗？”他们回答：“不关心。”好吧，这事有的救。我们得弄清楚你的读者到底在乎什么、他们想关注什么，然后把那些内容放到主语的位置上。为什么这么聪明的人却不懂这个道理呢？"
+  },
+  {
+   "s": 4547.74,
+   "e": 4574.92,
+   "en": "You are all very smart people. And again, because you've been trained to think that your writing is about showing what you think and what you care about. Because in school, that's what its function was. And the hardest transition I know of is to stop your habits of thinking of writing as revealing yourself. That's not going to happen anymore. OK, I'm sorry. I've held you late.",
+   "zh": "大家都是非常聪明的人。而且再次强调，因为你们一直被训练得以为写作是为了展示你的想法和你在乎的事情。因为在学校里，写作的作用就是如此。而据我所知最艰难的转变，就是改掉那种认为写作是展现自我的习惯。这种情况不会再有了。好了，抱歉耽误了大家的时间。"
+  },
+  {
+   "s": 4575.71,
+   "e": 4601.07,
+   "en": "Good luck, guys. At the end of this handout, you'll see some exercises that I encourage you to do in terms of rewriting some sentences. But also, one of the joys of being director of the writing program at the University of Chicago is that anybody on this campus can send me an email, make an appointment. We sit down and look at their work. So if any of this stuff, or for any other reason, you want to talk about writing, send me an email. We'll make an appointment, and we'll sit down and talk about it.",
+   "zh": "祝大家好运，各位。在这份讲义的末尾，大家会看到一些改写句子的练习，我鼓励大家去做一做。另外，作为芝加哥大学写作项目的负责人，最大的乐事之一就是，这所校园里的任何人都可以给我发邮件预约。我们可以坐下来一起看看你们的作品。所以如果因为今天讲的这些，或是出于其他任何原因，你们想聊聊写作，就给我发邮件吧。我们约个时间坐下来好好聊聊。"
+  }
+ ]
+}

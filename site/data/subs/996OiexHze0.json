@@ -1,0 +1,806 @@
+{
+ "vid": "996OiexHze0",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 12.02,
+   "e": 28.44,
+   "en": "Alright, let's get started. Welcome everybody. My name is Nate and I'm going to be talking about OAuth and OpenID Connect today. I work at a company called Okta up in San Francisco and I do a lot of web security stuff and work on just making it easier for developers to do authentication and authorization in their applications.",
+   "zh": "好了，我们开始吧。欢迎大家。我叫 Nate，今天我要聊聊 OAuth 和 OpenID Connect。我在旧金山一家叫 Okta 的公司工作，负责很多 Web 安全方面的工作，致力于让开发者在应用中更轻松地实现身份验证和授权。"
+  },
+  {
+   "s": 29.55,
+   "e": 56.83,
+   "en": "So through talking to a lot of developers, I've noticed that a lot of people have heard of these protocols OAuth and OpenID Connect, but a lot of people don't really know what they are, or maybe they understand them a little bit, but not really understand them fully. So just as a quick poll, who here has at least heard of OpenID Connect or OAuth? Awesome. What about, would you feel like you're an expert on it, or you really understand the protocol at a pretty good level? Not me, not me.",
+   "zh": "在和很多开发者交流的过程中，我发现很多人都听说过 OAuth 和 OpenID Connect 这些协议，但大多数人并不真正了解它们到底是什么，或者只是略懂一点，并没有真正透彻理解。所以先做个快速调查，在座的各位谁至少听说过 OpenID Connect 或 OAuth？太棒了。那么，有谁觉得自己是这方面的专家，或者对这个协议已经掌握得相当不错了？反正我不是，我也不是。"
+  },
+  {
+   "s": 58.53,
+   "e": 82.96,
+   "en": "These are pretty difficult protocols to understand, especially for some reasons that we'll go into in a second. There's a lot of confusing information about them online. So my goal with this talk is to just cut through kind of the jargon, cut through the technical speak, and try to explain how these protocols work just in place. Try to just make it really easy to understand. And we are going to get into some of the technical stuff today because we have a little bit of extra time.",
+   "zh": "这些协议确实挺难理解的，尤其是出于一些我们马上就会讲到的原因。网上关于它们的各种信息也很容易让人犯迷糊。所以我这次演讲的目的，就是帮大家剥离那些行话和专业术语，尽量就地讲清楚这些协议到底是怎么运作的。争取把它讲得通俗易懂。而且因为我们今天时间还算充裕，所以也会深入讨论一些技术细节。"
+  },
+  {
+   "s": 83.58,
+   "e": 103.92,
+   "en": "But if you have any questions at the end, feel free to ask them. I'll try to make it as easy to understand as I can. So what we're going to do first is we're going to start with a little bit of history because it's helpful to set the stage and understand where these protocols came from and why they were built the way they are. And that'll inform how we understand how they're supposed to be used today.",
+   "zh": "不过如果大家最后还有什么疑问，随时都可以提。我会尽量解释得通俗易懂。那么我们首先要做的是，先聊一点历史背景，因为铺垫一下这些协议的来龙去脉、以及它们当初为何被设计成这样，会很有帮助。这也能让我们更好地理解今天应该如何使用它们。"
+  },
+  {
+   "s": 104.35,
+   "e": 124.19,
+   "en": "All right, so if you're interested in the slides or the video from this talk, it's available. It'll be available on my Twitter at the end, at nbarbitini. And if you want to follow my whole team, we tweet out a lot of good content like this. You can follow at Octadev. All right, so let's get started. Before we even talk about OAuth and OpenAD Connect, I want to kind of set the stage and talk about",
+   "zh": "好，如果你想要这次演讲的幻灯片或视频，最后我会在我的 Twitter @nbarbitini 上分享。如果你想关注我们整个团队，我们经常会发很多像这样的优质内容，你可以关注 @Octadev。好的，那我们开始吧。在聊 OAuth 和 OpenID Connect 之前，我想先做个铺垫，聊聊"
+  },
+  {
+   "s": 124.44,
+   "e": 151.31,
+   "en": "the most basic type of authentication you could do on the web, the simplest case. I'm calling this simple login, or sometimes it's called forms authentication. And this is just a simple example of where you have an email and password, or a username and password form on a website. The user enters their information, and your back end website code is going to go hit a database somewhere, look up, see if that username and password actually exists. If so, you know.",
+   "zh": "你在 Web 上能做的最基础的认证方式，也就是最简单的情况。我称之为简单登录，有时也叫表单认证。这其实就是个简单的例子：网站上有一个邮箱和密码，或者用户名和密码的表单。用户输入他们的信息，你的网站后端代码就会去查询某个数据库，看看这个用户名和密码是否真的存在。如果是的话，后面的流程你就知道了。"
+  },
+  {
+   "s": 151.63,
+   "e": 179.26,
+   "en": "verify that the password matches, hopefully doing like password hashing to make sure we're not like storing the password in plain text. Looking up that user's information and then usually what would happen is the application would drop like a cookie into the web browser to keep track of the user and say hey this user already logged in, they're associated with this particular session ID or something, and we've logged the user in. Now this is basically how authentication started out on the web. This is like",
+   "zh": "验证密码是否匹配，最好进行了密码哈希处理，确保我们不会以明文形式存储密码。接着查询该用户的信息，然后通常应用会在浏览器中植入一个 Cookie 来跟踪该用户，表明“嘿，这个用户已经登录了，关联着某个特定的会话 ID 等等”，这样我们就完成了用户的登录。基本上，这就是 Web 身份验证最初的运作方式。这就像是"
+  },
+  {
+   "s": 179.5,
+   "e": 202.41,
+   "en": "A lot of people, including myself, cut their teeth on building this type of thing, like in PHP, or in my case, classic ASP, some really, really bad code that I never want to look at again from like 15 years ago. But you can do this on your web server if you want. The industry has been moving a little bit away from kind of doing this in a homegrown way, and I'll explain why.",
+   "zh": "很多人，包括我自己，都是从构建这类功能开始积累经验的，比如用 PHP，或者以我来说是用经典的 ASP，写过一些大概 15 年前、我现在绝不想再多看一眼的极烂代码。但如果你愿意，完全可以在自己的 Web 服务器上实现这一套。不过整个行业已经开始逐渐摒弃这种完全自研的做法了，接下来我会解释原因。"
+  },
+  {
+   "s": 203.65,
+   "e": 232.11,
+   "en": "So this doesn't have anything to do with OAuth yet, but I wanted to set the stage for explaining what we're going to be comparing against. This is the most simple use case. There's a couple of downsides of doing authentication inside of your app in a homegrown way, like I just described. The big downside is that when you do it that way, you're on the hook for all of the security and maintenance that goes around with maintaining an authentication system. So if it's just your server code hitting a database somewhere and making sure the user's password matches.",
+   "zh": "这目前其实和 OAuth 还没什么关系，但我主要是想先做个铺垫，好解释我们接下来要对比的是什么。这是最简单的用例。像我刚才描述的那样，完全在应用内自研一套身份认证，其实有几个缺点。最大的缺点就在于，一旦这么做，你就得全权负责维护这套认证系统的所有安全和运维工作。如果只是你的服务器代码去查某个数据库，确认用户的密码是否匹配，"
+  },
+  {
+   "s": 232.41,
+   "e": 261.56,
+   "en": "then you have to be aware of when the best practices in the security industry change around password hashing, or storing user information securely, or you have HIPAA coming down the wire, or now GDPR coming down the wire. You have to be aware of how these things change. And there's quite a bit of maintenance involved in making sure that your authentication system is still working. So at risk of giving away the punchline just a little bit, OAuth 2.0 and OpenID Connect are some industry best practices that the industry as a whole is moving towards.",
+   "zh": "那你就必须时刻留意安全行业在密码哈希或安全存储用户信息方面的最佳实践更新，或者得应对即将生效的 HIPAA，又或是现在出台的 GDPR。你必须清楚这些规则的变化。而且为了确保认证系统正常运转，维护成本其实相当高。那么容我稍微剧透一下，OAuth 2.0 和 OpenID Connect 已经成为整个行业都在推崇并迈向的业界最佳实践。"
+  },
+  {
+   "s": 261.94,
+   "e": 277.12,
+   "en": "to try to make this problem a little bit easier to solve. But I'm getting a little ahead of myself. So let's explain how these protocols work and what they are first. And then I'll come back to that. So I want to acknowledge that there's a ton of really confusing information about OAuth Online.",
+   "zh": "试着让这个问题更容易解决一些。不过我有点讲得太超前了。所以还是先解释一下这些协议是怎么运作的，以及它们到底是什么。然后我再回过头来聊这个。我想先承认一点，网上关于 OAuth 的信息非常让人摸不着头脑。"
+  },
+  {
+   "s": 277.47,
+   "e": 301.43,
+   "en": "If you try to Google what is OAuth or how does OpenID Connect work or how do I use OAuth 2.0, you're probably going to find extremely confusing information. When I started learning about this a couple years ago when I got into the web security space, it was really confusing for me too. And I still get confused sometimes, even today. I think the guys who wrote the spec still get confused as well. The thing that you'll find online and why it's so confusing is that",
+   "zh": "如果你试着去 Google 搜“什么是 OAuth”、“OpenID Connect 怎么运作”或者“怎么使用 OAuth 2.0”，你大概率会找到极其晦涩混乱的信息。几年前我刚涉足 Web 安全领域、开始学习这些内容时，我也觉得特别难懂。甚至直到今天，我偶尔也还是会犯迷糊。我觉得哪怕是当初写规范的那帮人，现在有时也同样会被绕晕。你在网上查到的资料之所以这么让人困惑，"
+  },
+  {
+   "s": 301.64,
+   "e": 329.87,
+   "en": "for mainly two reasons. There's a lot of terminology and jargon that's just really dense, really obscure, and really just very OAuth 2.0 specific. So the problem is that if you are a newbie, or you don't really understand how this works yet, and you Google to try to figure out how it works, what you're probably going to find is a lot of information that talks to you as if you already understand all these terms, already understand all this jargon. But if you don't know what those things mean, you have no idea what it's talking about. And that can be really confusing.",
+   "zh": "主要是因为两个原因。这里面有大量的专业术语和黑话，非常密集、晦涩，而且完全是 OAuth 2.0 特有的。所以问题就在于，如果你是个新手，或者你还没真正搞懂它的工作原理，然后你去 Google 搜索想弄明白，那你很可能会发现大量资料都是默认你已经理解了所有这些术语和黑话。但如果你根本不知道那些词是什么意思，你就完全看不懂它在讲什么。这确实会让人非常头疼。"
+  },
+  {
+   "s": 330.4,
+   "e": 358.76,
+   "en": "The other thing that's really difficult when you're trying to learn this is that there's a lot of actually incorrect information online as well. So if you Google some of these terms, the most likely thing you'll find is probably like one guy's Stack Overflow post that explains how to use OAuth a certain way. And then the very next result will be like somebody else's blog post that says he's doing it wrong and you should really do it a different way. And then the third result is like an entirely different blog post that says they're both wrong and you should not do it that way at all because that's the worst thing to do.",
+   "zh": "在学这个的时候，另一件特别让人头疼的事，就是网上其实有很多错误的信息。比如你搜其中一些术语，最可能找到的，大概是某个人在 Stack Overflow 上发的帖子，解释了怎么用某种方式去用 OAuth。紧接着下一条搜索结果，可能就是另一个人的博客文章，说他那么做是错的，你其实应该换种方法。然后第三条结果又是篇完全不同的博客，说他们俩都错了，你根本不该那么干，因为那是极差的做法。"
+  },
+  {
+   "s": 359.95,
+   "e": 387.11,
+   "en": "That's obviously really confusing. When you're learning this, you're like, who's right? When we have a spec, which otherwise should be hopefully very concrete, why do we have so many different interpretations of how to use it? Obviously, that doesn't happen with HTTP. There's one pretty correct way to use HTTP, and that's about it. But with OAuth, unfortunately, there's all this wiggle room. There's a little bit of fuzziness in the spec. So that makes it really hard, too. I just wanted to acknowledge that if you've ever felt",
+   "zh": "这显然太让人困惑了。当你学这个的时候，肯定会想：到底谁是对的？我们明明有一份规范，它本来应该是非常具体的，为什么大家对怎么用它会有这么多不同的解读？显然，HTTP 就不会这样。用 HTTP 基本就只有一种非常标准的方式，仅此而已。但很遗憾，对于 OAuth 来说，有太多的回旋余地了。规范本身就存在一些模糊地带。所以这也让它变得很难学。我只是想说明，如果你曾经对这些东西感到"
+  },
+  {
+   "s": 387.54,
+   "e": 412.66,
+   "en": "confused or overwhelmed or intimidated by this stuff, you're not alone. Pretty much everybody has. My goal today is to try to make it a little bit less intimidating, a little bit less confusing. And you can let me know at the end if it makes a little bit more sense. So let's go back in time. Let's take our time machine and go back in time about maybe 10 years, back to 2006, 2007. This is a long time ago, especially in internet years. This is a long time ago.",
+   "zh": "困惑、不知所措或者望而生畏，你绝不是一个人。几乎所有人都有过这种感觉。我今天的目标就是尽量让它没那么吓人，没那么让人迷茫。到最后你们可以告诉我，是不是变得明白一点了。那我们就回到过去吧。让我们坐上时光机，回到大约十年前，回到 2006、2007 年左右。这已经过去很久了，尤其在互联网的世界里，这真是一段非常久远的岁月了。"
+  },
+  {
+   "s": 414.31,
+   "e": 441.23,
+   "en": "Back in, say, 2006, we didn't even really have smartphones. That was brand new with the iPhone. It came out in 2007, I think. So this is a long time ago. Back then, though, just like today, applications and websites had a number of different use cases that they might have to deal with in terms of login, authentication, authorization. I'm just going to use the term identity as a catch-all term for authentication, authorization, login, permissions, that type of thing.",
+   "zh": "回想一下，比如在 2006 年那会儿，我们甚至都还没有真正的智能手机。直到 iPhone 问世这才是新鲜事物，我记得它是 2007 年推出的。所以这已经是很久以前的事了。不过在当时，就像今天一样，应用程序和网站在登录、认证、授权方面，也得应对各种不同的用例。这里我打算直接用“身份”（identity）这个词，来统称认证、授权、登录、权限这类事情。"
+  },
+  {
+   "s": 441.84,
+   "e": 466.66,
+   "en": "So if we look at the common identity use cases from 10 years ago, we have that simple login stuff, like I said, which you could probably just fulfill with some form and some cookies or something. Just log in the user in with a username and password. That's pretty simple. We also have some apps that need to do single sign on or SSO. And that was typically done with a protocol called SAML. And today, it's still very often done with a protocol called SAML as well.",
+   "zh": "如果我们回顾一下十年前常见的身份用例，就会发现有我说的那种简单的登录场景，通常用个表单加点 Cookie 之类的就能搞定。也就是让用户输入用户名和密码登录，这相当简单。另外我们还有些应用需要做单点登录（即 SSO），这在当时通常是用一种叫 SAML 的协议来实现的。即便在今天，它也依然经常通过 SAML 协议来实现。"
+  },
+  {
+   "s": 467.63,
+   "e": 495.11,
+   "en": "The SAML protocol is very good for this type of single sign-on use case, which is basically where you have one account in a system that lets you log in or get access to a number of different systems. This is really common in businesses where you have a single master account or you have an Active Directory account or an employee account that lets you get into a number of different systems. And SAML is the protocol that kind of makes that work under the hood. The SAML protocol works. It kind of has a reputation of being a little bit hard to work with.",
+   "zh": "SAML 协议非常适合这种单点登录场景，基本上就是你在某个系统里有一个账号，就能登录或访问许多不同的系统。这在企业中非常普遍，比如你有一个统一的主账号、一个 Active Directory 账号或员工账号，就能让你进入很多不同的系统。而 SAML 就是在底层实现这一功能的协议。SAML 协议行之有效，但它也有点“难用”的名声。"
+  },
+  {
+   "s": 495.32,
+   "e": 524.15,
+   "en": "as a developer, because it's pretty obscure, even more obscure than OAuth. It's very dense. But it works, and it was used back then, just like it's used today. There's a couple of new use cases that were just starting to come onto the scene about 10 years ago or so that were new, though. So one of them was mobile apps. Like I said, mobile apps, smartphones were brand new. The idea of mobile apps and App Store was brand new. And so there was this whole new set of use cases where we want to be able to log into a mobile app.",
+   "zh": "对开发者来说，它相当晦涩，甚至比 OAuth 还要晦涩。它非常繁琐。但它确实能用，当时在用，现在也一样在用。不过大约十年前，开始出现了一些全新的使用场景。其中之一就是移动应用。正如我所说，移动应用和智能手机在当时都是崭新的事物。移动应用和 App Store 的概念也是全新的。因此就出现了这一整套全新的使用场景：我们希望能登录移动应用。"
+  },
+  {
+   "s": 524.43,
+   "e": 540.13,
+   "en": "But you want to stay logged in after you close the app, most likely. How do you keep a long-lived session alive on a device? Do you use a cookie that doesn't really work well on devices? It was a new field. It was brand new. So we didn't really have a good solution for that right away.",
+   "zh": "但关闭应用后，你很大概率还是想保持登录状态。那怎么在设备上维持长期的会话呢？用 Cookie 吗？它在移动设备上其实并不好用。那是一个全新的领域，完全是新生事物，所以当时我们并没有现成的好办法。"
+  },
+  {
+   "s": 540.84,
+   "e": 566.58,
+   "en": "as well as something called a use case called delegated authorization, which probably sounds like the most boring academic thing you could imagine. But this is actually what I'm going to focus on here. Delegated authorization is an interesting use case, which is also the genesis, or where OAuth, the OAuth protocol came out of. So despite sounding very boring, this is exactly what I'm going to focus on. So the delegated authorization problem is something that, despite sounding very boring,",
+   "zh": "还有一个叫“委托授权”的用例，这听起来可能枯燥得像个纯学术概念。但这正是我接下来要重点讲的。委托授权是个很有意思的用例，它也是 OAuth、也就是 OAuth 协议的起源。所以别看它听起来很无聊，这正是我要讲的核心。而这个委托授权问题，虽然听起来极其枯燥，"
+  },
+  {
+   "s": 567.43,
+   "e": 594.69,
+   "en": "something that you probably interact with maybe on a daily basis, even maybe today already, and you haven't even realized it. So this is essentially who has ever seen the screen that says, hey, this so-and-so app is trying to access your Facebook account. This will allow them to see your public profile and your birthday or something, but won't let this app post to Facebook on your behalf. Who's ever seen that screen? Or the same thing with Google or Twitter or whatever.",
+   "zh": "但你很可能每天都会接触到它，甚至可能今天就已经用过了，只是你自己都没意识到。这本质上就是——大家有没有见过这样的界面：“某某应用正在尝试访问你的 Facebook 账号，这将允许其查看你的公开个人资料和生日等信息，但不会允许其代表你在 Facebook 上发帖”？有谁见过这个页面吗？或者 Google、Twitter 之类的类似界面也是同理。"
+  },
+  {
+   "s": 595.1,
+   "e": 619.53,
+   "en": "That's a really common pattern on the internet now. But it wasn't 10 years ago. It wasn't even around 10 years ago. That pattern where you get that pop up or that prompt and you click yes and it allows, now you probably have like 15 weird apps that are connected to your Facebook account or something and you don't even realize it. That pattern is OAuth. So if you've ever clicked yes on that prompt, you've already used OAuth. You maybe didn't even know it. But let's talk about why that was invented.",
+   "zh": "现在这种模式在网上非常普遍。但十年前可不是这样，十年前它甚至根本不存在。就是弹出一个窗口或提示，你点击“同意”，然后就授权了，现在你的 Facebook 账号可能都莫名其妙绑定了 15 个应用，你自己都没意识到。这种模式就是 OAuth。所以只要你点击过那个提示的“同意”，你就已经用过 OAuth 了。你可能自己都不知道。不过我们来聊聊它为什么会被发明出来。"
+  },
+  {
+   "s": 620.64,
+   "e": 635.58,
+   "en": "Well, back, like I said, ten years ago or so, there wasn't a good way of solving that problem. There were only bad ways of solving that problem. This is a kind of an infamous screenshot from the early days of Yelp, where Yelp tried to solve this problem, but they did it in a really bad way.",
+   "zh": "正如我刚才所说，大概十年前，并没有解决这个问题的好办法。只有各种糟糕的做法。这是 Yelp 早期一张声名狼藉的截图，当时 Yelp 试图解决这个问题，但他们用的方式实在太糟糕了。"
+  },
+  {
+   "s": 636.22,
+   "e": 662.38,
+   "en": "No offense to them. They didn't have a better way of doing it. But at the time, Yelp did something that's pretty common. At the end of your registration flow, you said, hey, thanks for registering for Yelp. Do you want to spread the love, send a referral link or an invite link to all your friends? So they can also sign up for Yelp. They were a brand new startup, so they're trying to get as many people as possible to use their service. The way that they did it was they said, hey, give us your Gmail email address. And also give us your Gmail password.",
+   "zh": "没有冒犯他们的意思，他们当时确实没有更好的办法。但那时候 Yelp 采取了一种很常见的做法。在注册流程的最后，页面会提示说：嘿，感谢注册 Yelp。想把这份喜爱分享出去，给你的所有好友发送推荐或邀请链接吗？这样他们也能注册 Yelp 了。他们当时只是一家初创公司，所以想尽一切办法拉新。而他们的做法就是说：嘿，把你的 Gmail 邮箱地址给我们，顺便把你的 Gmail 密码也给我们。"
+  },
+  {
+   "s": 662.97,
+   "e": 692.8,
+   "en": "Just in case you weren't clear about what they were asking for, it's kind of small here on the screen, but it says, in parentheses, the password you used to log into your Gmail email. Just in case you weren't sure which password they wanted them for you to give them. So what they're basically saying is like, hey, we'll log into your Gmail account for you. We'll grab all your contacts. We'll send them all an email. We will then log out of your Gmail account. We'll throw away your password. We promise we won't do anything evil with it. And then we'll go on our merry way.",
+   "zh": "就怕你没搞懂他们要的是什么，虽然屏幕上字有点小，但括号里写着：就是你用来登录 Gmail 邮箱的那个密码。生怕你搞不清他们到底想要你给哪个密码。所以他们基本上就是在说：嘿，我们会替你登录你的 Gmail 账号，抓取你的所有联系人，给他们每个人发一封邮件，然后登出你的 Gmail 账号并删掉你的密码。我们保证绝不会拿它干坏事，然后我们就各走各的阳关道。"
+  },
+  {
+   "s": 693.79,
+   "e": 718.69,
+   "en": "So in case you're wondering, this is really, really bad. You should not do this. You shouldn't build something that does this, and you shouldn't use something that does this with your Gmail. Because for many people, their Gmail account, or their Yahoo account, or whatever their main email account is, usually is the key to the kingdom to a lot of other stuff they have. So your bank password reset flow probably goes back there. Your Bitcoin Coinbase password reset flow probably goes back there. Hopefully you have two factors set up on these accounts and stuff.",
+   "zh": "如果你还在纳闷的话，这种做法其实非常、非常糟糕。千万别这么做。你既不该开发这种机制，也不该随便把这种东西用在自己的 Gmail 上。因为对很多人来说，Gmail、Yahoo 或者他们主要使用的邮箱账号，通常就是掌管他们其他一切账号的“万能钥匙”。你的银行密码重置邮件很可能就是发到这里的，你的比特币 Coinbase 密码重置邮件也多半是发到这里的。当然，希望你已经在这些账号上设置好了双重认证之类的安全措施。"
+  },
+  {
+   "s": 719.38,
+   "e": 740.64,
+   "en": "But this is just a really, really bad idea to just randomly give people your Gmail password, especially because back then, Yelp was not the big billion dollar company they are today. They were just like a startup that no one had ever heard of. So this is really bad. Like I said, I'm not trying to pick on them too much. This is just a really good example to illustrate what the problem was back then and how they didn't have a better way of solving it at the time.",
+   "zh": "但随随便便把你的 Gmail 密码交给别人，真的、真的是个极馊的主意，更别提当时的 Yelp 根本还不是如今这个市值几十亿美元的巨头。那时候他们不过是一家无人知晓的初创公司。所以这种做法真的很糟糕。就像我说的，我并不是想刻意挑他们的刺，这只是一个非常贴切的例子，用来展示当年的问题所在，以及他们当时确实没有更好的解决办法。"
+  },
+  {
+   "s": 740.85,
+   "e": 769.52,
+   "en": "We have a better way of solving it now, and today we would use that OAuth flow that I just described before. You get a pop up and says Yelp wants to get your access to your contacts. Are you sure you want to allow this? Yes or no? As a kind of an ironic side note, there's only one industry that still does this today. If you've ever used a tool like Mint or Better Mint or any of those financial dashboard tools that let you aggregate all your bank accounts and you see them all on one screen, when you set up your bank accounts, you have to give them your bank",
+   "zh": "现在我们有了更好的解决方法，如今我们会用到我刚才介绍的那个 OAuth 流程。你会看到一个弹窗，显示 Yelp 想要获取你的通讯录访问权限。你确定要允许吗？是还是否？说来有点讽刺的是，如今只剩一个行业还在用那种老方法了。如果你用过像 Mint、Better Mint 或者类似的财务仪表板工具，它们能帮你汇总所有银行账户，让你在一个界面上看到全部，当你设置银行账户时，你必须把你的银行"
+  },
+  {
+   "s": 769.77,
+   "e": 786.39,
+   "en": "login and password to do that. And the reason is because banks haven't adopted OAuth yet. They're still using this really crappy old way of doing this. So you know that your information is really secure when you do online banking. That's great. So let's talk about how you would solve this problem.",
+   "zh": "账号和密码告诉他们才行。原因就在于银行还没有采用 OAuth。他们还在用这种非常糟糕的老办法。所以你知道网上银行有多“安全”了吧，真是太棒了。那么，我们来谈谈该如何解决这个问题。"
+  },
+  {
+   "s": 786.71,
+   "e": 813.75,
+   "en": "how banks should solve this problem, and how a company like Yelp could solve this problem with OAuth. Basically, the protocol that was invented to solve this problem. Basically, we're going to talk about it at a really high level, and then we're going to progressively go down and talk about the lower and lower levels of how this works. So we start with a user, like me or you, who says, OK, I trust Gmail. I maybe kind of trust this startup called Yelp. I'll trust them enough to let them have access to just my contacts. But I don't want them to be able to delete my email.",
+   "zh": "银行该如何解决这个问题，以及像 Yelp 这样的公司如何通过 OAuth 来解决这个问题。简而言之，这个协议就是为了解决该问题而发明的。基本上，我们会先从非常高层的概念讲起，然后再逐步深入，探讨它在更底层是如何运作的。我们先从一个像你我这样的普通用户说起，用户会说：“好吧，我信任 Gmail。我对 Yelp 这家初创公司可能也还算信任。我愿意信任他们，仅允许他们访问我的通讯录。但我可不想让他们删我的邮件，"
+  },
+  {
+   "s": 815.37,
+   "e": 845.1,
+   "en": "Go look at my Google Photos on Google Drive or whatever. So what we would do today is we would have a button on the application on Yelp or whatever that says connect with Google or authorize with Google or a link or whatever. What happens when the user clicks on that button or that link is the user is put into what's called sometimes an OAuth flow. It's basically the set of steps that ultimately results in the application being able to access that information or having the authorization to access that information.",
+   "zh": "或是查看我 Google Drive 上的 Google Photos 等等。”所以我们现在的做法是，在 Yelp 之类的应用上放一个按钮，写着“通过 Google 连接”或“通过 Google 授权”，或者放个链接之类的。当用户点击那个按钮或链接时，就会进入有时被称为“OAuth 流程”的环节。基本上就是一系列的步骤，最终让该应用能够访问那些信息，或者说获得访问那些信息的授权。"
+  },
+  {
+   "s": 845.47,
+   "e": 874.81,
+   "en": "So we're going to look at this diagram like five times, and you're probably going to get really tired of seeing it. But this diagram is going to kind of illustrate at a high level how this works. So let's say the user clicks on that connect with Google button or link to Google button. What's going to happen is the user's browser is redirected over to a Google domain, accounts.google.com most likely. And at that Google domain, they're going to be prompted to log in. So probably enter email and password. That's at least a little better though, because now at least I'm giving my password to Google.",
+   "zh": "这张图我们大概要看个五次，你们可能都会看烦了。但这图能从较高层面来说明它的工作原理。比方说，用户点击了那个“通过 Google 连接”或“关联到 Google”的按钮。接着会发生的是，用户的浏览器会被重定向到 Google 的域名，很可能是 accounts.google.com。在那个 Google 域名下，会提示他们登录。大概就是输入邮箱和密码。但这起码稍微好一点，因为现在我至少是把密码给了 Google，"
+  },
+  {
+   "s": 875.13,
+   "e": 903.42,
+   "en": "and not to Yelp or somebody else. So I should feel OK logging into Google. I can see that in the address bar, it's actually a Google domain that I'm being presented with. Assuming that I log in successfully, then I get a prompt that says, hey, this application, Yelp, is trying to access your list of things, public profile, contacts, something like that. Are you sure you want to allow this? Yes or no? So the user explicitly has to consent to whatever they're granting access to. That's important so that you don't",
+   "zh": "而不是给了 Yelp 或其他什么人。所以登录 Google 应该还挺让人放心的。我能在地址栏里看到，当前展示的确实是 Google 的域名。假设我登录成功了，接着就会收到一个提示，说：嘿，Yelp 这个应用正在尝试访问你的某些信息，公开资料、联系人这类的。你确定要允许吗？是还是否？所以用户必须明确同意他们所授予的任何访问权限。这很重要，这样你就不会"
+  },
+  {
+   "s": 903.59,
+   "e": 926.68,
+   "en": "get tricked into agreeing to something and you don't know what you're agreeing to. And then assuming the user clicks yes, they can always click no, in which case we're done, nothing else interesting happens. But if the user clicks yes, then the browser is redirected one more time back to the application, back to where it started, to a special place on the application called a callback or a redirect URI. I'll talk about that in a sec. And with a little bit of magic,",
+   "zh": "被忽悠着同意了某些东西，自己却根本不知道同意了什么。接着假设用户点击了“是”——他们当然随时可以点“否”，如果是那样流程就结束了，后续也没啥好戏可看了。但如果用户点击了“是”，那么浏览器就会再次被重定向回该应用，回到最初的地方，去往应用中一个叫做回调或重定向 URI 的特殊位置。我待会儿会讲到这个。再施展一点小魔法，"
+  },
+  {
+   "s": 927.2,
+   "e": 954.82,
+   "en": "That application is then allowed to go talk to some other API, say the Google Contacts API, and say, hey, normally I wouldn't have access to Nate's contacts, but I have this special magic thing that tells me that I'm allowed to have that now that Nate clicked that Yes button. So there's still a little bit of magic in this diagram, but we're going to remove the magic in a sec by talking about all of the different OAuth terminology that goes into this. So here's a big, long bucket of terminology for you.",
+   "zh": "然后，这个应用就可以去和另一个 API 通信，比如 Google Contacts API，并对它说：嘿，平时我是拿不到 Nate 的联系人的，但我现在有这个特别的“魔法道具”，它表明既然 Nate 刚才点击了“同意”按钮，我现在就可以访问了。所以这张图里其实还有点像在变魔法，但我们马上就会剥去这层神秘面纱，带大家了解这里面涉及的所有 OAuth 专业术语。接下来就是一长串相关的术语。"
+  },
+  {
+   "s": 956.22,
+   "e": 984.2,
+   "en": "In the kind of OAuth 2.0 landscape, side note by the way, there is an OAuth 1.0, but we're not talking about that today because for all intents and purposes, it isn't used anymore. It's just kind of deprecated. Nobody really uses it. OAuth 2.0 is used very widely on the internet today. So in OAuth terminology, we have a bunch of terms and jargon that basically just renames things that we already have names for, which is kind of confusing. But we'll go through them all here.",
+   "zh": "在 OAuth 2.0 的体系里——顺便提一句，其实曾经也有过 OAuth 1.0，但我们今天不会讲，因为实际上它已经被淘汰、没人用了，基本就是废弃状态。OAuth 2.0 如今在互联网上被极其广泛地使用。在 OAuth 的术语库里，有一大堆术语和行话，本质上只是把我们原本熟知的事物重新命名了一遍，这确实容易让人犯迷糊。不过接下来我们会逐一梳理清楚。"
+  },
+  {
+   "s": 985.05,
+   "e": 1013.34,
+   "en": "In OAuth 2.0, we have something called a resource owner, which is just a really fancy way of talking about you or me, the user who can click yes, who's actually sitting in front of the keyboard, who owns the data that the application wants to get to. So in this example that we'll keep using here, I have some contacts in my Google account. I am the resource owner of that data. And I am the person who can click yes, I allow this application to have access to this data. The next term that we need to look at is something called a client.",
+   "zh": "在 OAuth 2.0 中，有个概念叫“资源所有者”（resource owner），这其实只是个高大上的说法，指的就是你或者我——也就是坐在键盘前、能点击“同意”、拥有应用程序想要获取的数据的用户。所以在我们接下来沿用的这个例子中，我的 Google 账号里有一些联系人，我就是这部分数据的资源所有者，也是那个能点击“同意，我允许这个应用访问这些数据”的人；接下来我们需要看的另一个术语叫做“客户端”（client）。"
+  },
+  {
+   "s": 1013.58,
+   "e": 1041.04,
+   "en": "This is just a way to refer to the application. We've been using Yelp in this example. We'll just keep using Yelp. Yelp would be the client, in this case, the application that wants to get to this data, basically. We also have something called an authorization server. The authorization server is the system that I can use to say yes, I authorize this permission, or I authorize this to happen. In this case that we've been using, this is accounts.google.com, where I can log into my Google account and click yes, I consent, yes, I accept.",
+   "zh": "这其实就是指那个应用程序。在当前例子中我们一直用 Yelp 为例，那就继续用它吧：Yelp 在这里就是客户端，基本上就是想要获取这些数据的应用程序。此外，我们还有一个叫做“授权服务器”（authorization server）的概念。授权服务器就是我用来确认“是的，我批准这个权限”或“我同意进行此操作”的系统。在我们一直使用的例子中，它就是 accounts.google.com，我可以在那里登录我的 Google 账号并点击“是的，我同意”、“是的，我接受”。"
+  },
+  {
+   "s": 1042.23,
+   "e": 1070.99,
+   "en": "That's actually separate than the resource server, which is the API or the system that actually holds the data that the client wants to get to. So in this case, we're going to call this the Google contacts API. This is the system that actually holds my contacts. Sometimes the authorization server and the resource server are the same thing. Sometimes they're kind of together, melded in the same system, but many times they're separate. So the whole point of the whole OAuth flow, going over to the authorization server, coming back to the client,",
+   "zh": "它其实独立于资源服务器，也就是客户端想要获取的数据实际所在的 API 或系统。在本例中，我们将其称为 Google Contacts API。这就是实际存放我联系人的系统。有时授权服务器和资源服务器是同一个东西。有时它们会融合在同一个系统中，但很多时候它们是分开的。所以整个 OAuth 流程的核心，也就是跳转到授权服务器再返回客户端，"
+  },
+  {
+   "s": 1071.73,
+   "e": 1099.51,
+   "en": "The point of doing that whole kind of dance back and forth is to get something called an authorization grant. And the authorization grant is the thing that basically proves that the user has clicked yes, I consent to this level of permission, or I allow you to have permission to this stuff. I already mentioned this a little bit before, but when the authorization server redirects back to the client application, it kind of needs to know where to redirect back to.",
+   "zh": "进行这一整套来回交互的目的，就是为了获取一个叫做“授权许可”的东西。授权许可基本上就是用来证明用户已经点击了同意，表示“我同意这个级别的权限”，或者“我允许你访问这些内容”。我之前已经稍微提过这一点，但当授权服务器重定向回客户端应用时，它需要知道该重定向到哪里。"
+  },
+  {
+   "s": 1099.83,
+   "e": 1119.57,
+   "en": "And that's sometimes called a callback, sometimes called a redirect URI. It's basically just, where should I end up at the end of this flow? If the user clicks yes, where do they need to go next? And I mentioned how the authorization grant is kind of the point of this whole flow. Well, at an even higher level, the thing that the client really needs is something called an access token.",
+   "zh": "这有时被称为回调，有时被称为重定向 URI，基本上就是说：在整个流程结束时我该去往哪里？如果用户点击“同意”，他们接下来需要跳转到哪里？我之前提到过，授权许可算是整个流程的核心目的，不过从更高层次来看，客户端真正需要的是一种叫做访问令牌的东西。"
+  },
+  {
+   "s": 1119.88,
+   "e": 1147.6,
+   "en": "An access token is going to be the way, the key that they use to get into whatever the data that I granted access to or granted permission to on the resource server. So as you'll see in a sec, the client will eventually get something called an access token, which lets them go do what they need to do. So let's go through this whole flow again and add some of these terms in bit by bit. So we're going to start on the client with me, the resource owner, probably sitting on the client website, and I click on that connect with Google button.",
+   "zh": "访问令牌就像是一把钥匙，客户端用它来访问我在资源服务器上授权许可的数据。稍后你就会看到，客户端最终会拿到这个所谓的访问令牌，从而去做它们需要做的事情。那么我们再把整个流程梳理一遍，把这些术语一点点加进去。首先，我作为资源所有者在客户端这边，可能正打开客户端的网站，然后点击了“通过 Google 关联”这个按钮。"
+  },
+  {
+   "s": 1147.95,
+   "e": 1177.91,
+   "en": "What happens is I get redirected over to this authorization server, which is accounts.google.com in this case. But it could be the Facebook authorization server. It could be an authorization server hosted by Okta. It could be somebody else. Right at the beginning of this flow, as the client is redirecting over to the authorization server, it's already passing along some information, some kind of configuration information that the authorization server needs. So it's saying, hey, when you're done, assuming everything is successful, here's where I want you to redirect back to at the end.",
+   "zh": "接下来发生的是，我被重定向到了这个授权服务器，在这里是 accounts.google.com。不过它也可以是 Facebook 的授权服务器，可以是 Okta 托管的授权服务器，也可以是其他服务商的。就在这个流程的一开始，当客户端重定向到授权服务器时，它就已经在传递一些信息了，也就是授权服务器所需要的一些配置信息。客户端相当于在说：嘿，等你处理完了，假设一切顺利，最后请把我重定向回这个地址。"
+  },
+  {
+   "s": 1178.16,
+   "e": 1204.57,
+   "en": "So we have to pass that redirect URI at the very beginning. We also have to give it some other information, such as what type of authorization grant do we want. There's actually a few different types of authorization grants, and I'll go into that a little bit later. In this case, we're going to use the most common simple example, which is what's called a code grant, or the authorization code grant. Because we're requesting a code, this is sometimes called the authorization code flow.",
+   "zh": "所以我们必须在最开始就传入那个重定向 URI。我们还得提供一些其他信息，比如我们想要哪种类型的授权许可。实际上有几种不同类型的授权许可，我稍后会详细讲。在这里，我们将使用最常见、最简单的例子，也就是所谓的 code 许可，或者叫授权码许可。因为我们请求的是一个 code，所以这有时也被称为授权码流程。"
+  },
+  {
+   "s": 1206.29,
+   "e": 1235.12,
+   "en": "And at the end, as you'll see, we'll get a code. But I'm getting a little ahead of myself. So the authorization server then prompts the user, log in, consent to that level of permission, all that good stuff, redirects back to the place specified at the beginning, the redirect URI, and redirects back with something called an authorization code, because that's what we asked for at the beginning. Now, the client actually can't do a whole lot with that authorization code. In fact, there's only one thing that the client can do.",
+   "zh": "最后如你所见，我们会拿到一个授权码，不过我有点讲得太快了。接着，授权服务器会提示用户登录、同意授权该级别的权限等一整套流程，然后重定向回一开始指定的位置，也就是重定向 URI，并带回一个叫作“授权码”的东西，因为这就是我们一开始所请求的。现在，客户端其实拿这个授权码做不了太多事情，事实上，客户端能做的事情只有一件，"
+  },
+  {
+   "s": 1235.39,
+   "e": 1263.84,
+   "en": "at all with the authorization code, which is to go back to the authorization server one more time and say, hey, you just sent me this authorization code. What I really want is an access token. I can't really do anything with this code, but I want an access token. Can I exchange this code for an access token? And the authorization server is going to say, sure, let me just make sure that code is still valid, isn't been forged, or you didn't make it up or something. And assuming that's the case, the authorization code is still good, the authorization server says, OK, client, here's your access token.",
+   "zh": "拿到授权码后唯一能做的事，就是再次回到授权服务器那里说：“嘿，你刚刚发给了我这个授权码。我真正想要的是访问令牌（access token）。我拿这个授权码什么都干不了，但我想要一个访问令牌。我可以用这个授权码换一个访问令牌吗？”授权服务器就会说：“没问题，只要我确认一下这个授权码依然有效、没有被伪造，或者不是你瞎编的就行。”只要确认没问题、授权码依然有效，授权服务器就会说：“好的，客户端，这是你的访问令牌。”"
+  },
+  {
+   "s": 1264.87,
+   "e": 1292.64,
+   "en": "And then finally, the client can do what they actually wanted to do in the first place, which is go to the resource server, maybe contacts.google.com, and say, hey, I want to get to Nate's contacts. Now normally, contacts.google.com would say, you can't have access to Nate's contacts. Who are you? But because the client is able to attach this access token to the request, then contacts.google.com is going to say, OK, normally I wouldn't let you have access to this information. However,",
+   "zh": "最后，客户端终于可以去做他们一开始真正想做的事了，也就是去访问资源服务器（比如 contacts.google.com），然后说：“嘿，我想获取 Nate 的联系人。”平时的话，contacts.google.com 会说：“你不能访问 Nate 的联系人。你是谁啊？”但由于客户端可以在请求中附带这个访问令牌（access token），contacts.google.com 就会说：“好吧，平时我是不会让你访问这些信息的。不过，"
+  },
+  {
+   "s": 1293.05,
+   "e": 1322.25,
+   "en": "You have this access token that proves that Nate said, it's OK for you to access that information. Here you go. Now, if the client tried to do something else, like maybe not retrieve my contacts, but go delete all my contacts, hopefully contacts.google.com would say, OK, you have an access token, but it doesn't mean that you can do just anything. Nate said you have access to maybe read-only access to the contacts. You can't go delete them, or you can't go look at his location history and see where he's been, or whatever.",
+   "zh": "你有这个访问令牌，能证明 Nate 说过允许你访问那些信息。给你吧。”现在，如果客户端想干点别的，比如不是获取我的联系人，而是跑去删掉我所有的联系人，那么按理说 contacts.google.com 应该会说：“好吧，你虽然有访问令牌，但这不意味着你可以为所欲为。Nate 只授权了你对联系人的只读权限。你不能去删掉它们，也不能跑去查看他的位置记录、看他去过哪儿，或者干别的任何事。”"
+  },
+  {
+   "s": 1324.37,
+   "e": 1353.65,
+   "en": "So basically, this whole flow here, this is the whole thing. The entire rest of this talk, we're basically just going to be talking about slight variations or slight details of this flow. But this is the whole thing. So we're making some progress. I talked about how the access token basically grants access to the client to do a specific thing. But how does the client specify what thing it wants to do? Well, we need some way of being able to say,",
+   "zh": "所以基本上，这里的整个流程就是核心所在。在接下来的演讲中，我们基本上只是讨论这个流程的一些微小变体或细节。但这就是全部核心了。所以我们已经有进展了。我之前提到过 access token 基本上是授权客户端去执行某个特定操作。但是客户端该如何指定它想要做什么操作呢？那么，我们需要某种方式来表明："
+  },
+  {
+   "s": 1354.0,
+   "e": 1381.69,
+   "en": "Well, the client wants to read my contacts but isn't trying to get access to delete my contacts. It wouldn't be very useful if it was a black or white, all or nothing thing. We don't want to have no permission or every permission. We want to have some way of being very granular, have specific permissions that we can turn on or off or request. And to add a little bit more terminology to it, that is what OAuth calls this idea of scope or scopes. The way this works is,",
+   "zh": "嗯，客户端想要读取我的联系人，但并不打算获取删除我联系人的权限。如果非黑即白、要么全给要么全不给，那就没什么用了。我们不希望只有“无权限”或“全部权限”两种选择。我们希望能做到非常细粒度，拥有可以开启、关闭或请求的特定权限。再补充一点术语，这就是 OAuth 中所谓的作用域（scope 或 scopes）概念。它的运作方式是："
+  },
+  {
+   "s": 1382.19,
+   "e": 1409.43,
+   "en": "The authorization server has a list of scopes that it understands. So it might be like contacts.read, contacts.write, email.read, email.delete, basically any type of permissions that make sense in the system. And then the client application, when they kick off this flow, they say, OK, I don't care about most of those scopes. I don't need to read his email or delete his search history or whatever. I just want the scope that gives me access just to read his contacts. And that's it.",
+   "zh": "授权服务器有一份它能理解的 scopes 列表。比如 contacts.read、contacts.write、email.read、email.delete，基本上就是系统中任何合理的权限类型。然后客户端应用在启动这个流程时会说：好的，那些 scopes 大多数我都用不上。我不需要读取他的邮件，也不需要删除他的搜索历史等等。我只要那个仅能让我读取他联系人的 scope。这就足够了。"
+  },
+  {
+   "s": 1409.61,
+   "e": 1436.22,
+   "en": "Or if they need to do more stuff, they could request multiple scopes depending on whatever level of permissions they need to have with my data. And then on the flip side of that, that list of scopes, that list of permissions that the client is asking for is then used by the authorization server to generate that screen, that consent screen that is presented to the user that says, hey, Yelp is asking for permission to do X, Y, Z, A, B, C. Are you sure you want to allow this? And the user's given explicit",
+   "zh": "或者如果他们需要做更多事情，就可以根据对我数据所需的权限级别，去请求多个作用域（scope）。另一方面，客户端请求的这个作用域列表、即权限列表，会被授权服务器用来生成那个屏幕——也就是展示给用户的授权同意屏幕，上面写着：嘿，Yelp 正在请求权限来执行某某操作，你确定要允许吗？而用户会被给予明确的……"
+  },
+  {
+   "s": 1436.62,
+   "e": 1464.2,
+   "en": "the explicit ability to consent or not consent to that particular level of access or that particular list of scopes. In the case of Facebook, they changed their authorization server recently to be really explicit about letting you know whether or not an app that you're giving access to is allowed to post to your wall. Because early on, it wasn't really clear. It was like, do you want to let this app connect to your account, yes or no?",
+   "zh": "……明确选择同意或不同意该特定访问级别或该特定作用域列表的权利。以 Facebook 为例，他们最近修改了授权服务器，以便非常明确地让你知道，你授权的应用是否有权在你的个人主页上发帖。因为早些时候，这并不明确。那时候就像是在问：你想让这个应用连接到你的账号吗，是还是否？"
+  },
+  {
+   "s": 1464.84,
+   "e": 1492.51,
+   "en": "And if you click yes, you weren't really sure, does that just mean they get my info? Or does that mean they get to spam my wall? So because that was really annoying and people got really upset about that, Facebook made that much more explicit and granular. So you have to, if you're an application connecting to Facebook, if you're a client, you have to say, I do specifically want the scope that lets me post to their wall or not. And then in the consent screen, it's made really clear to you, which is nice. So let's look at this diagram one more time.",
+   "zh": "要是你点了“同意”，其实你心里也没底：这只是意味着他们能获取我的信息？还是说他们可以在我的动态里乱发广告？就因为这事儿特别烦人，大家怨声载道，Facebook 后来把授权做得更加明确且细致了。所以如果你是一个接入 Facebook 的应用客户端，你就必须明确声明：我是否特别需要往用户主页发帖的这个权限范围（scope）。然后在授权许可页面上，用户就能看得一清二楚，这样就好多了。那么我们再来看一眼这张图。"
+  },
+  {
+   "s": 1492.87,
+   "e": 1516.22,
+   "en": "Not much changed here except at the beginning, the initial request over to the authorization server, the client, specifically enumerates all the scope, all the scopes separated by spaces that they need to have against the user or for the user. In this case, let's say that this, the Yelp application just wants to access my public profile and my contacts.",
+   "zh": "这里变化其实不大，唯一的区别就在最开始，发给授权服务器的初始请求中，客户端会专门列出它需要向该用户申请的所有权限范围（scope），并用空格隔开。在这个例子中，假设 Yelp 应用只是想访问我的公开个人资料和联系人列表。"
+  },
+  {
+   "s": 1516.65,
+   "e": 1543.86,
+   "en": "I'm simplifying it just a little bit here because Google scopes tend to be like really long URL strings. But this is the general idea. So what's going to happen here is because the client requested scope, profile, and contacts, that's what's used to build this consent screen. And then after the whole flow completes and the client exchanges that authorization code for an access token and then uses that access token to go call some API,",
+   "zh": "我这里稍微简化了一下，因为 Google 的 scope 通常是非常长的 URL 字符串，但大体逻辑就是这样。接下来会发生的是，由于客户端请求了 scope、profile 和 contacts，这些信息就被用来构建这个授权许可页面。而在整个流程结束、客户端用那个授权码换取访问令牌，并拿它去调用某个 API 之后，"
+  },
+  {
+   "s": 1544.69,
+   "e": 1570.46,
+   "en": "That access token itself is limited or scoped to exactly what scopes were requested at the beginning. So this access token, in other words, that comes out of this flow is specifically scoped to profile contacts. That's it. That means that the Yelp application couldn't turn around and then go send some other API requests to the Google Calendar API or a delete request to my contacts or whatever because it",
+   "zh": "那个访问令牌本身的权限范围，就被严格限制在最初请求的 scope 内。换句话说，通过这个流程生成的访问令牌，其权限严格限定为 profile 和 contacts，仅此而已。这意味着 Yelp 应用不能转头就去给 Google Calendar API 发其他请求，也不能去删我的联系人等等，因为它……"
+  },
+  {
+   "s": 1570.67,
+   "e": 1610.26,
+   "en": "The access token, even though it's valid, is not scoped to do those particular things. All right. Any questions so far? We've gotten through quite a bit of the terminology. Great question. So the question was, why do we have these two things? Why do we have to get an authorization code and then exchange that for the access token? Why don't we just use the code? Or why don't we just get the access token immediately? Why is there that extra step? It's a great question. I swear I didn't plant you in the audience, because that sets me up perfectly for what I need to talk about next.",
+   "zh": "那个访问令牌虽然有效，但并没有执行那些特定操作的 scope 权限。好的，到目前为止有什么问题吗？我们已经讲了相当多的术语了。问得好！他的问题是：为什么非得有这两样东西？为什么我们必须先拿到授权码，再用它去换访问令牌？为什么不直接用那个 code 呢？或者为什么不直接一步到位拿到访问令牌？为什么多出这额外的一步？问得太棒了。我发誓你绝对不是我安排的托儿，因为这个问题简直完美切入了我接下来要讲的内容。"
+  },
+  {
+   "s": 1611.14,
+   "e": 1640.01,
+   "en": "So that's a great question. There's a specific reason why we need to do this extra step, why we get a code instead of just getting the token right away. And I'm hinting at it here with some of these lines being solid and some of these lines being dashed. But we need to talk about what it means to have a back channel and a front channel. So this isn't specifically OAuth terminology. This is more like network security terminology. But we have this idea in networking of having a back channel.",
+   "zh": "这个问题问得很好。我们之所以要多走这一步，先拿授权码而不是直接拿 token，是有特定原因的。我在这里用实线和虚线其实就是在暗示这一点。不过我们得先聊聊什么是后端通道（back channel）和前端通道（front channel）。这并不纯粹是 OAuth 的术语，更偏向网络安全领域的概念。在网络中，我们有“后端通道”这个概念。"
+  },
+  {
+   "s": 1640.28,
+   "e": 1668.53,
+   "en": "or what's considered a highly secure communication channel, and a front channel, which is a secure but slightly less secure channel. I'll explain what I mean. So let's talk about a highly secure channel. Well, if I have my server code running on my server, which only I have access to, and I make an API request or some HTTP request from my server to another server, like Google's API, for example, and that's going over HTTPS.",
+   "zh": "或者说被视为高度安全的通信通道，而“前端通道”虽然安全，但安全性相对稍逊一筹。我来解释一下这是什么意思。我们先聊聊高度安全的通道。如果我的服务器代码运行在我自己的服务器上，只有我能访问，然后我从自己的服务器向另一台服务器（比如 Google 的 API）发起一个 API 请求或某种 HTTP 请求，并且走的是 HTTPS。"
+  },
+  {
+   "s": 1670.13,
+   "e": 1699.56,
+   "en": "SSL encrypted, no one can intercept that communication. It's highly secure. That would be considered what you'd call a back channel, going from my back end server to some other API or some other system. A front channel, on the other hand, is something like your browser, where your browser is secure, but because of how browsers are built, there's some loopholes or there's some places where stuff could leak from the browser. What I mean by that is, let's imagine that if I'm building a website or I'm building a web application.",
+   "zh": "有 SSL 加密保护，没人能截获这段通信，安全性极高。这就可以算作所谓的“后信道”，也就是从我的后端服务器通往其他 API 或其他系统。而“前信道”指的则是像浏览器这样的端点，虽然浏览器本身是安全的，但受限于其架构机制，总会存在一些漏洞或可能导致数据泄漏的环节。我的意思是，想象一下如果我正在开发一个网站或 Web 应用。"
+  },
+  {
+   "s": 1700.29,
+   "e": 1727.36,
+   "en": "And I want to keep a secret password or a secret key or something in my web application. If I put it in the HTML or JavaScript of my web app, technically somebody could just right click view source, look through my raw code, and see it there, if they really wanted to go digging. Or they could open up the network console or the Chrome developer tools and see what my JavaScript is doing, change potentially what's happening on my page.",
+   "zh": "我想在 Web 应用里保存一个密码或密钥之类的私密信息。如果我把它写在 Web 应用的 HTML 或 JavaScript 里，理论上只要有人真想扒，右键查看源代码，翻翻底层代码就能看到。或者他们也可以打开网络控制台或 Chrome 开发者工具，监视我的 JavaScript 在干什么，甚至有可能篡改页面上的行为。"
+  },
+  {
+   "s": 1727.69,
+   "e": 1755.18,
+   "en": "So because of things like that, or simply someone could be looking over my shoulder and see something that's on the page. Because of that, browsers are considered to be a front channel. In other words, we can trust the browser, but we only trust it as far as we can throw it. Not complete trust. We have complete trust in the code that's running on our own server, but not complete trust in the browser. So as you'll see here, we're going to go through this flow one more time. As you'll see here, the way this flow is designed,",
+   "zh": "所以正因为诸如此类的情况，或者哪怕只是有人站在我身后瞄到了屏幕上的内容，浏览器才会被视作前端通道。换句话说，我们虽然可以信任浏览器，但这种信任非常有限，绝非完全信任。我们完全信任运行在自己服务器上的代码，但绝不能完全信任浏览器。所以大家会看到，我们再来梳理一遍这个流程，大家会发现这个流程的设计方式，"
+  },
+  {
+   "s": 1755.58,
+   "e": 1784.49,
+   "en": "including the reason why we have to get an authorization code and then exchange it for a token, is designed to take advantage of the best things about the front channel and the best things about the back channel to make sure it's highly secure. I'll explain what I mean. So let's say that we have the client, which is going over to the authorization server. We've gone through this before. All of these things are happening on the front channel. What I mean by that is all of these are just full page redirects in the browser.",
+   "zh": "包括为什么我们必须先拿到授权码，然后再用它来换取 token，都是为了同时利用前端通道和后端通道的各自优势，来确保极高的安全性。我来解释一下这是什么意思。比方说客户端正在访问授权服务器，我们之前讲过这个过程，所有这些都是在前端通道上进行的。我的意思是，这些全都是浏览器中的整页重定向。"
+  },
+  {
+   "s": 1785.31,
+   "e": 1813.15,
+   "en": "We have on the outgoing request here, we have the redirect over to the authorization server. The stuff that we're passing along to the authorization server, the redirect URI, what response type we want, all the scopes we want, those are all being passed through the browser. This is usually just in the query parameters of the request. So technically, if someone was looking over your shoulder, if you're looking at the address bar in your browser, you can see this stuff. It's not like secret.",
+   "zh": "在发出的请求中，我们重定向到了授权服务器。传给授权服务器的内容，比如重定向 URI、期望的响应类型以及所有请求的权限范围，全都是经由浏览器传递的。这些通常就放在请求的查询参数里。所以严格来说，如果有人站在你身后偷看，或者你去看浏览器的地址栏，都能看到这些内容，它们并不算机密。"
+  },
+  {
+   "s": 1814.32,
+   "e": 1842.88,
+   "en": "But that turns out that's okay because if somebody sees the scopes that we're asking for, eh, who cares? If somebody sees what redirect URI we're going back to at the end, who cares? Because we're going to go there anyway. It's not like that's a secret. If you notice coming back from the authorization server back to the client, that is also happening on the front channel. I've made all the front channel requests to solid lines here. That means that the authorization code is also transmitted through the browser, through the front channel.",
+   "zh": "但事实证明这没关系，因为就算有人看到了我们请求的权限范围，又有什么关系呢？就算有人看到了我们最后要跳回哪个重定向 URI，又有什么大不了的？反正我们终究是要跳过去的，这根本不算秘密。如果留心观察从授权服务器返回客户端的过程，会发现这也是在前台通道完成的。我在这里把所有前台通道的请求都画成了实线。这就意味着，授权码同样是通过浏览器，经由前台通道传输的。"
+  },
+  {
+   "s": 1843.18,
+   "e": 1867.19,
+   "en": "That means that that's usually also in the query parameters of the request. So if you really look, if you squint as the requests are happening in your browser, you can see the code in the query parameters of the address bar. So that means the authorization code comes back to the redirect URI, to the callback, over the browser. The next step, though, happens on a back channel. So the reason we do it that way is because",
+   "zh": "这就意味着它通常也在请求的查询参数里。所以如果你仔细看，在浏览器发起请求时眯起眼瞧一瞧，就能在地址栏的查询参数中看到那个 code。也就是说，授权码是通过浏览器返回给重定向 URI，也就是那个回调地址的。不过，下一步是在后台通道上进行的。我们之所以这么做，是因为"
+  },
+  {
+   "s": 1867.69,
+   "e": 1895.19,
+   "en": "Let's say that somebody was intercepting your browser request, or maybe they had you accidentally installed a malicious toolbar or something like that in your browser, and it was watching your network request. Well, someone who could log network requests would be able to see the code as it came across the browser, because it's just going to be like slash callback, question mark, code equals something. Technically, they could maybe steal the code.",
+   "zh": "假设有人拦截了你的浏览器请求，或者你可能不小心在浏览器里装了个恶意工具栏之类的东西，它在监控你的网络请求。那么，能记录网络请求的人就能在 code 经由浏览器传输时看到它，因为它就长得像 slash callback 问号 code 等于某某内容。从技术上讲，他们也许能窃取这个 code。"
+  },
+  {
+   "s": 1895.53,
+   "e": 1926.02,
+   "en": "Grab it themselves and then try to beat you to the exchange and try to get your access token before you could, right? But it turns out they can't do that because the exchange happens only on the back channel. It doesn't happen on the front channel. So that token exchange happens when the application, the client grabs that code, then makes a back channel request from the back end server code back to the authorization server. But that does not happen through the browser. And again, that is for security.",
+   "zh": "他们自己抢先拿到它，赶在你之前去兑换，想抢先拿到你的访问令牌（access token），对吧？但事实证明他们做不到，因为兑换过程只发生在后端通道（back channel），绝不会出现在前端通道。所以令牌兑换发生在应用（也就是客户端）拿到授权码之后，由后端服务器代码向授权服务器发起后端通道请求。这绝不会经过浏览器，再说一次，这也是出于安全考虑。"
+  },
+  {
+   "s": 1927.37,
+   "e": 1954.11,
+   "en": "Usually, it's an HTTP post. We're posting that authorization code up to the authorization server, along with some other information, like a secret key that only the server knows. So that means that even if someone stole the authorization code, they wouldn't be able to make that exchange request and try to grab your access token before you could, because they don't have that secret key. And the reason this is on the back channel is because we don't ever want that secret key to be in the browser.",
+   "zh": "通常，这是一个 HTTP POST 请求。我们把授权码连同一些其他信息一起 POST 给授权服务器，比如只有服务器才知道的密钥（secret key）。这意味着即便有人窃取了授权码，他们也无法发起兑换请求赶在你之前抢走访问令牌，因为他们没有那个密钥。而把它放在后端通道的原因，正是因为我们绝不希望那个密钥出现在浏览器中。"
+  },
+  {
+   "s": 1954.73,
+   "e": 1980.3,
+   "en": "Because if it was transmitted in the browser, we don't know if someone could have stolen it. So we do that only on the back channel on a system we can trust, basically our own server code. And the communication with the resource server using the access token is usually also done only on the back channel. Because once the application has an access token, the access token is typically considered to be like sensitive information. If I transmit the access token to the browser,",
+   "zh": "因为如果它在浏览器中传输，我们无法确定是否有人窃取了它。所以我们只在可信系统的后端通道上进行，基本上就是我们自己的服务器代码。而且使用访问令牌与资源服务器的通信通常也只在后端通道上进行。因为一旦应用程序获得了访问令牌，该访问令牌通常就被视为敏感信息。如果我把访问令牌传输到浏览器，"
+  },
+  {
+   "s": 1980.81,
+   "e": 2010.71,
+   "en": "someone could technically steal it, and then they'd be able to do whatever they wanted with that access token, whatever it's scoped for, as much as they wanted. So that part is also done in the back channel. So I said at the beginning that this flow is designed to kind of take advantage of the best things about the front channel and the best things about the back channel. What I mean by that is the front channel here is used to interact with the user. So the browser is used to interact with the user, present them the login screen, present them the consent screen, all that good stuff. That's what a browser is really good at.",
+   "zh": "从技术上讲就有人可能窃取它，然后他们就能利用该访问令牌为所欲为，只要在授权范围内，想干什么就干什么。所以这部分也是在后端通道中完成的。因此我一开始就说过，这种流程的设计初衷是为了兼顾前端通道和后端通道各自的优势。我的意思是，这里的前端通道用于与用户交互。也就是用浏览器与用户交互，向他们展示登录界面、同意授权界面等等。这正是浏览器所擅长的事情。"
+  },
+  {
+   "s": 2010.9,
+   "e": 2038.85,
+   "en": "But because we can't completely trust the browser with like secret keys and stuff like that, we let the last step of the flow, the exchange, happen on the back channel where it's a system that we trust. Question? Yes. Yes, exactly. So the question was, does that mean that we had to do something initially to set up with Google to get that secret and that key? Absolutely.",
+   "zh": "但因为我们不能把密钥之类的东西完全托付给浏览器，所以我们把流程的最后一步，也就是交换过程，放到我们信任的后端通道中进行。有提问吗？是的。没错。刚才的问题是：这是否意味着我们最初必须在 Google 那边做些配置，才能拿到那个密钥？确实是这样。"
+  },
+  {
+   "s": 2039.87,
+   "e": 2068.78,
+   "en": "Let's take a look now. We've looked at this diagram quite a bit. This is helpful to understand how it works at a high level. Let's look at a little bit more raw, how this actually works. And I'll definitely answer that question as well. So if you were to look at the link or the button that you click on that says connect with Google or link to your Google account, this is actually where that would be going to. This is where your browser gets redirected to. It's an address on the authorization server that",
+   "zh": "现在我们来看一下。这张图我们已经看了蛮久了，它有助于在宏观上理解整个运作机制。现在我们来看点更底层的，看看它究竟是怎么跑起来的。我也会正面回答刚才那个问题。如果你看一下平时点击的“使用 Google 账号登录”或“关联到你的 Google 账号”的链接或按钮，这其实就是它实际指向的地址。也是你的浏览器会被重定向到的位置。它是授权服务器上的一个地址，"
+  },
+  {
+   "s": 2069.1,
+   "e": 2098.8,
+   "en": "you then pass a number of parameters to or some configuration to. So I talked about some of these already, the redirect URI, what scopes you want, what response, something that you set up one time with the authorization server, with Google in this case. And then we usually pass along something called a state, which is just like a text value that gets sent over and then comes back at the end. But let me show you, I'm going to switch gears here for one second. I'm going to show you what it looks like to set up one of these",
+   "zh": "然后你会向它传递一些参数或配置。其中有些我已经讲过了，比如重定向 URI、你需要哪些作用域（scopes）、返回什么样的响应，这些都是你预先在授权服务器（这里就是 Google）中配置好一次的内容。然后我们通常还会传一个叫 state 的参数，它基本上就是一个文本值，发送过去后最后还会原样带回来。不过让我给你们演示一下，我先换个页面。我带大家看看配置这套东西到底是什么样的"
+  },
+  {
+   "s": 2101.77,
+   "e": 2130.08,
+   "en": "There we go. So let's say that I'm building the next Yelp, and I want to make this work. I want to be able to have people authorize their Google account, and so I can get access to their contacts. What I would have to do is I would have to do a one-time setup step, where I go into Google, I go to the authorization server, and I say, I'm going to create a client. And by creating a client, I get two things. I get something called a client ID, which is actually this value that you can see right here.",
+   "zh": "好，我们继续。假设我正在打造下一个 Yelp，想要实现这个功能。我希望能让用户授权他们的 Google 账号，这样我就能访问他们的联系人。我需要做的是进行一次性配置：前往 Google，找到授权服务器，然后说我要创建一个客户端。创建客户端后，我会得到两样东西：一个是叫客户端 ID（client ID）的东西，实际上就是大家在这里看到的这个值。"
+  },
+  {
+   "s": 2130.46,
+   "e": 2155.76,
+   "en": "It's kind of a long string, the whole thing. And I also get something called a client secret, which isn't shown here because it's a really sensitive piece of data. So with that client ID and client secret, that was what identifies me to the authorization server. So the client ID is passed along with the initial request, which is on the front channel, because the client ID is not sensitive. It just identifies the Yelp application.",
+   "zh": "这整串字符挺长的。我还会得到一个叫客户端密钥（client secret）的东西，这里没有展示出来，因为它是非常敏感的数据。有了客户端 ID 和客户端密钥，授权服务器就能识别我的身份。客户端 ID 会随初始请求一起传递，这个请求走的是前端通道，因为客户端 ID 并不敏感，它只是用来标识 Yelp 这个应用而已。"
+  },
+  {
+   "s": 2156.28,
+   "e": 2184.72,
+   "en": "The client's secret, on the other hand, is basically like my secret key. This is what I use in the backchannel request during the token exchange step. And I'll show you how that works in just a sec. What I want to do is I want to show you how this looks in the real world. So let's say that I wanted to test this out. Because it can be pretty difficult to get this working the first time, because you have to make sure you have all the parameters set correctly and stuff,",
+   "zh": "另一方面，客户端密钥基本上就像是我的私钥。这是我在令牌交换步骤中，进行后端通道请求时所使用的。我马上就会给你们演示它是怎么运作的。我想做的是向大家展示这在现实中是什么样的。假设我想测试一下这个流程。因为第一次要让它跑通可能会相当困难，毕竟你得确保所有参数都设置正确之类的，"
+  },
+  {
+   "s": 2187.47,
+   "e": 2250.5,
+   "en": "I'm not on Wi-Fi, apparently. I created a tool called oofdebugger.com, which just makes it a little bit easier to test these things and see what's happening. One sec. Which isn't working right now. Could be because I'm on the wrong Wi-Fi. Let me just double check this. Or it's because I'm giving a demo, and the demo gods said, not today. OK, so it's my Wi-Fi. Oh, cool. Let me try the ethernet instead. Secured, secured.",
+   "zh": "看来我没连上 Wi-Fi。我做了一个叫 oofdebugger.com 的工具，它能让你更轻松地测试这些东西并查看发生了什么。稍等一下。它现在没跑起来。可能是因为我连错了 Wi-Fi。让我仔细检查一下。也可能是因为我正在做演示，而演示之神说“今天不行”。好吧，看来是我的 Wi-Fi 问题。噢，太好了。那我换成有线网试试。已加密，已加密。"
+  },
+  {
+   "s": 2259.79,
+   "e": 2291.75,
+   "en": "Thank you. It was the Wi-Fi. Thank you very much. So where was I? So I built a tool called OAuth Debugger. You can try it out at oauthdebugger.com. It basically just makes it easy to set up the request and then see if it worked. And then once you know it works, then you can take the debugger out of the loop and put your real application in there and everything should work. So I'm just going to use this to demo what it looks like to make a request against Google and see what happens. So this basically just slides in from Google from the console.",
+   "zh": "谢谢大家，刚才Wi-Fi断了，非常感谢。我刚才讲到哪儿了？我做了一个叫 OAuth Debugger 的工具，大家可以在 oauthdebugger.com 上体验。它基本上就是让你能很方便地配置请求，并查看是否成功。一旦确认没问题，你就可以把这个调试工具撤下来，换上你真正的应用，之后一切应该就能正常工作了。所以我打算用它来演示一下向 Google 发起请求的过程，看看会发生什么。这里直接从 Google 控制台滑出填入。"
+  },
+  {
+   "s": 2292.16,
+   "e": 2321.7,
+   "en": "I'm going to request the scope profile, which just gives me basic access to user's profile information. So far, which is response type code, meaning I'll get an authorization code back from the authorization server. And let's just give this a try, see what happens. It's going to ask me to log in. Notice my URL here is accounts.google.com. So we're over on the authorization server. I'm going to log in. Since I logged in recently, it's probably not going to ask me to do my password. And OK.",
+   "zh": "我将请求 profile 权限范围（scope），这只会给我访问用户基本资料信息的权限。到目前为止一切顺利，响应类型（response type）是 code，意味着我会从授权服务器拿回一个授权码。我们来试一下，看看会发生什么。它会要求我登录。请注意我这里的 URL 是 accounts.google.com，所以我们现在已经在授权服务器上了。我要登录了。因为我最近刚登录过，所以它大概不会要求我输密码。好的。"
+  },
+  {
+   "s": 2322.07,
+   "e": 2344.93,
+   "en": "So we came back. Because the redirect URI that I specified here temporarily was my debugging tool, it came back to my debugger. And you can see actually here, if you squint, you can see the authorization code here in the address bar. Or you can just see it right here. So this is the authorization code we got back from Google. Like I said, this isn't very useful except to do the next step, which is to exchange it for an access token.",
+   "zh": "我们回到了这里。因为我刚才临时指定的重定向 URI 是我的调试工具，所以它跳回了我的调试器。其实眯起眼睛仔细看，你就能在地址栏里看到这个授权码。或者直接看这里也行。这就是我们从 Google 那里拿回来的授权码。正如我所说，除了进行下一步——也就是拿它换取访问令牌（access token）之外，这东西本身没什么大用处。"
+  },
+  {
+   "s": 2345.66,
+   "e": 2386.9,
+   "en": "Now, you can't do that through my tool here, because that would require sharing your client secret with my tool, and you shouldn't do that with anybody, even if you trust me. But I'll show you what that next step looks like. Get my slides back up. All right. OK, so this is basically what we just did. If the user clicked no, I do not consent to this. Or maybe you didn't set up the parameters correctly, something went wrong. The authorization server will redirect back to you with an error.",
+   "zh": "现在，你不能通过我这里的工具来做那一步，因为那需要把你的 client secret 分享给我的工具，而你不应该把它给任何人，即便你信任我也一样。但我会带大家看看下一步是什么样子的。切回我的幻灯片。好的。行，这基本上就是我们刚才所做的。如果用户点击了“拒绝，我不同意”，或者可能是你参数配置有误、出了什么差错，授权服务器就会重定向返回一个错误给你。"
+  },
+  {
+   "s": 2387.39,
+   "e": 2414.01,
+   "en": "But we did it all correctly, and I clicked yes. So we got back a code, which is what we asked for at the beginning. Now, the next step, like I said, is exchanging that code for an access token. So what that would look like is a HTTP post to the authorization server on a different route called the token endpoint, or the token route. And basically, we just send along a request that has the code that we just got, our client ID, this time",
+   "zh": "但我们操作完全正确，而且我点了“是”。所以我们拿到了一个 code，也就是我们一开始请求的东西。现在下一步，正如我所说的，就是用这个 code 换取 access token。具体操作就是向授权服务器的另一个路由发起一个 HTTP POST 请求，也就是 token 端点，或叫 token 路由。基本上，我们只需发送一个请求，带上刚刚拿到的 code、我们的 client ID，这次"
+  },
+  {
+   "s": 2414.2,
+   "e": 2440.1,
+   "en": "to include the client's secret, which is that kind of really sensitive bit of data, the secret key that we should only keep on the server. And then we just say, hey, authorization server, I just got this code, but I really want a token. Please give it to me. And assuming that the code wasn't made up or forged or something, that's exactly what you would get back. You would get back a response that says, here's your access token. It's good for this many seconds, maybe like five minutes or an hour or five hours or whatever makes sense.",
+   "zh": "还要带上 client secret，也就是那种非常敏感的数据，只能保存在服务器上的密钥。然后我们就相当于在说：“嘿，授权服务器，我刚拿到了这个 code，但我真正想要的是 token。请给我吧。” 只要这个 code 不是瞎编或伪造的，你就能如愿以偿。你会收到一个响应，写着：“这是你的 access token，有效期是多少秒”，可能是五分钟、一小时、五小时或任何合理的时长。"
+  },
+  {
+   "s": 2443.74,
+   "e": 2472.82,
+   "en": "The client finally has what it wants, what it needs, which is an access token that can be used to make a request. So that request might look something like this. Maybe we go call some other API or some other system. We attach the HTTP authorization header to the request. And we say bearer and then the access token itself. Because of that, sometimes access tokens are called bearer tokens. And all that's really doing is just saying, OK, the client's making a request to some system.",
+   "zh": "客户端终于拿到了它想要的、它需要的东西，也就是一个可以用来发起请求的 access token。这个请求大概长这样。我们可能去调用其他某个 API 或系统。我们在请求中附上 HTTP authorization 请求头。写上 Bearer，后面跟着 access token 本身。正因如此，有时 access token 也被称为 bearer token。实际上这表达的意思就是：好的，客户端正在向某个系统发起请求。"
+  },
+  {
+   "s": 2473.74,
+   "e": 2501.16,
+   "en": "to some API, including that token in the request. And then it's up to that downstream API to say, OK, I need to make sure this token is valid. They didn't just invent this token. They didn't make it up. It hasn't expired. And it actually does have the scope to do what they're trying to do. So if this request was like delete contacts, hopefully that API would reject it, even though the access token was valid. But assuming all the checks, all the validation works out, then basically the request is approved, succeeds.",
+   "zh": "向某个 API 发起请求，并在请求中带上这个 token。然后就由下游的 API 来确认：好的，我得确保这个 token 是有效的。他们不是随便造了个 token，不是凭空捏造的，它没有过期，而且确实拥有执行当前操作的 scope。所以如果这个请求是“删除联系人”，就算 access token 有效，我们也会希望那个 API 能拒绝它。但只要所有检查、所有验证都通过了，基本上这个请求就会被批准，执行成功。"
+  },
+  {
+   "s": 2501.74,
+   "e": 2531.54,
+   "en": "And then the client holds on to that access token, and if they need to make another request, they just attach it to the next request and keep going like that. So I mentioned that there are a couple of different OAuth flows, or a couple of different OAuth grant types. We've just been talking about this authorization code flow, or this authorization code grant type, where you get a code back. That's why it's called that. And that uses both the front channel and the back channel together to kind of make a really highly secure method of exchanging this information. There are some other ways to do it though.",
+   "zh": "然后客户端就会保存这个访问令牌，如果还需要发送其他请求，直接附在下一个请求里就行，以此类推。之前我提到过有几种不同的 OAuth 流程，或者说是几种不同的 OAuth 授权类型。我们刚才聊的一直是授权码流程，也就是授权码授权类型，在这种流程中你会拿到一个授权码，它也因此得名。它同时利用了前端通道和后端通道，从而构建出一种非常安全的信息交换方式。不过，也还有其他实现方式。"
+  },
+  {
+   "s": 2532.08,
+   "e": 2559.31,
+   "en": "There's something called the implicit flow. If for some reason you don't have a back channel, you only have a front channel, then you can do what you mentioned earlier, which is skip that exchange step. Just give me the token right back from the authorization server. Don't give me a code. Just give me the token instead. And that's used sometimes when you have situations, like I said, where you don't have a back channel, you only have a front channel. And that sometimes happens when, say, you have a",
+   "zh": "有一种叫做隐式流程。如果出于某种原因你没有后端通道，只有前端通道，那你就可以采用你之前提到的做法，直接跳过那个交换步骤。让授权服务器直接把令牌返回给我，别给我授权码，直接给我令牌就行。就像我说的，有时候在没有后端通道、只有前端通道的情况下，就会用到这种方式。而这种情况有时会出现在，比如你有一个"
+  },
+  {
+   "s": 2559.52,
+   "e": 2586.24,
+   "en": "pure JavaScript app, like a pure React or a pure Angular app, that has no back end. It maybe has some back end API that it's calling, but it doesn't have a back end server that's actually rendering the page and has the ability to run some back end code. So in that case, if you have a static single page app written in JavaScript, you don't have a back channel. So the only thing you can do is do this all in the front channel. I'll show you an example of that in just one sec, but I wanted to cover the other two flows that are sometimes used.",
+   "zh": "纯 JavaScript 应用，比如纯 React 或纯 Angular 应用，它没有自己的后端。它可能会调用某些后端 API，但并没有一个真正用来渲染页面、能够运行后端代码的后端服务器。所以在这种情况下，如果你有一个用 JavaScript 编写的静态单页应用，你就是没有后端通道的。因此你唯一能做的，就是全在前端通道里完成。我马上会给大家看一个这方面的例子，但我还想先讲讲另外两种偶尔会用到的流程。"
+  },
+  {
+   "s": 2586.51,
+   "e": 2613.08,
+   "en": "There's one called the resource owner password flow or the resource owner password credentials flow. It's quite a mouthful. And there's something called the client credentials flow. Those two flows are back channel only. So they don't involve the user's browser at all. This is basically just your code, your back end server code, posting a message to the authorization server and saying, hey, I've got these credentials. Just give me an access token right away. They're not as commonly used as the first two.",
+   "zh": "有一种叫做资源所有者密码流程，或者叫资源所有者密码凭证流程，名字非常拗口；还有一种叫做客户端凭证流程。这两种流程完全是走后方通道的，根本不需要用户浏览器的参与。基本上就是你的代码，即后端服务器代码，向授权服务器发送一条消息说：“嘿，我有这些凭证，直接给我一个访问令牌吧。”它们不像前两种那么常用。"
+  },
+  {
+   "s": 2613.94,
+   "e": 2640.58,
+   "en": "The client credentials flow is sometimes used when you're doing machine to machine or service communication. And the resource owner password flow is sometimes used to make older applications work correctly. But it's not the recommended approach for new applications. I can talk about that more if you want a little bit later. But I want to show you an example of the implicit flow, which is, again, front channel only. If we don't have access to a back channel, this is what we have to do.",
+   "zh": "客户端凭证流程有时用于机器对机器或服务之间的通信，而资源所有者密码流程有时用于兼容老旧应用程序的正常运行，但它不是新应用推荐的做法。如果大家想了解，我稍后可以多讲一些。不过我现在想给大家看一个隐式流程的例子，同样，它完全只走前方通道。如果我们无法使用后方通道，就必须这么做。"
+  },
+  {
+   "s": 2641.21,
+   "e": 2669.39,
+   "en": "Ideally, if we have a back channel, we should just use the back channel and use the authorization code flow, which is what you would do in most web apps and mobile apps. But if you're in a single page app, you don't have access to that, what you can do is, you'll notice all these are solid lines. Go over to the authorization server. Instead of response type code, we're saying response type token, which means give me that access token immediately. Don't give me a code that I have to exchange, which means that coming back from the authorization server,",
+   "zh": "理想情况下，如果有反向通道，我们应该直接走反向通道并采用授权码流程，这也是大多数 Web 应用和移动应用的做法。但如果是单页应用，你无法访问反向通道，这时你可以这样做——你会注意到这些全都是实线。直接向授权服务器请求。我们把 response_type 从 code 改为 token，意思是直接把访问令牌给我。别给我还需要去换取的授权码，这就意味着从授权服务器返回时，"
+  },
+  {
+   "s": 2669.68,
+   "e": 2681.4,
+   "en": "we just get the access token right away. We don't have to do that exchange step. And then we can go talk to a resource server with that access token all entirely on the front channel. So like I mentioned before,",
+   "zh": "我们能立刻拿到访问令牌。省去了兑换的那一步。然后我们就能完全通过前端通道，带着这个访问令牌去访问资源服务器。所以正如我之前提到的，"
+  },
+  {
+   "s": 2682.32,
+   "e": 2711.32,
+   "en": "This is considered to be a little bit less secure, because you don't have that additional assurance that the exchange tab happened on a back channel. You don't have an assurance that the token is not exposed to the browser, because obviously the token is directly exposed to the browser. And that's OK. If you have a single page app, this is sometimes the only way to do it. And it can make sense in some situations. You just have to be aware of the security trade-offs you're making. And you have to make sure that there's no way for the token to be stolen from your app, which is just good security in general.",
+   "zh": "这种方式通常被认为安全性稍低一些，因为你无法获得“兑换步骤是在反向通道中进行”的那层额外保障。你也无法保证令牌不暴露给浏览器，毕竟令牌显然是直接暴露在浏览器里的。不过这也没关系。如果你做的是单页应用，有时这是唯一的办法。而且在某些场景下这也是合理的。你只需要清楚自己做出的安全权衡。并且必须确保令牌绝不会从你的应用中被窃取，这本来也是通用的安全准则。"
+  },
+  {
+   "s": 2713.38,
+   "e": 2746.14,
+   "en": "All right, I think we have a question here. Oh, it looks like it was already answered. If you do have a question on the webcast, you can just enter it in and I'll get back to it. All right, so let's revisit our time machine, but we're going to fast forward a couple of years. So we were in 2006 or so. We looked at how the OAuth protocol was invented to solve this delegated authorization problem, where I just need to basically exchange permissions between systems across the internet. Well, if we fast forward a couple of years,",
+   "zh": "好的，我看到这里有个提问。哦，看来已经有人回答了。如果看网络直播的观众有任何疑问，可以直接打在上面，我稍后会统一解答。好了，让我们回到“时光机”，不过这次我们要往后快进几年。刚才我们聊到了 2006 年左右。我们了解了 OAuth 协议是如何被发明出来，以解决这种委托授权问题的——也就是在互联网上的各个系统之间交换权限。那么，如果我们把时间再快进几年，"
+  },
+  {
+   "s": 2746.43,
+   "e": 2765.37,
+   "en": "The OAuth 2.0 protocol got adopted like gangbusters. It was very popular for solving this problem, which is awesome, because a ton of people adopted it. It became a really well-used standard on the internet. The problem was it became a two-used standard on the internet. It kind of became a victim of its own success in a way.",
+   "zh": "OAuth 2.0 协议可以说是彻底火爆起来了。它在解决这类问题上非常受欢迎，这当然是件大好事，因为有海量的人开始采用它。它成为了互联网上广泛应用的标准。但问题在于，它在互联网上变得“过于”普及了。从某种程度上说，它甚至成了自身成功的受害者。"
+  },
+  {
+   "s": 2765.71,
+   "e": 2795.12,
+   "en": "It wasn't, people started to use it not just for the delegated authorization problem, but also for all these other use cases like mobile apps and just simple web login and single sign on and all this other stuff. Does anybody remember when the Facebook login button first came out? It was like 2009 maybe, but before the Facebook login button, the idea that you could log into a site with like just your Facebook or Google existing like social credentials wasn't a thing. It was kind of a new idea. I think it was like 2009, 2010.",
+   "zh": "其实不是，大家开始不仅把它用于委托授权，还用在各种其他场景，比如移动应用、简单的网页登录、单点登录等等。有人记得 Facebook 登录按钮刚推出的时候吗？大概是2009年吧，但在 Facebook 登录按钮出现之前，用 Facebook 或 Google 这种现有的社交账号登录网站，根本是不可想象的。这在当时算是个新鲜事物。我记得大概是在2009、2010年左右。"
+  },
+  {
+   "s": 2797.14,
+   "e": 2825.5,
+   "en": "Well, if you look under the hood, the way that Facebook kind of built that blue login with Facebook button, or Google built the login with Google button that's kind of ubiquitous across the web now, is they just used OAuth. They just used OAuth under the hood. Because they said, hey, OAuth is really popular. It solves these use cases really well. And why don't we just use it for this authentication use case as well? So we end up in this situation where OAuth is being used for authorization, which it was originally built for.",
+   "zh": "要是看一下底层实现，Facebook 做那个蓝色的 Facebook 登录按钮，或者 Google 做现在网上随处可见的 Google 登录按钮，其实用的都是 OAuth。它们底层用的就是 OAuth。因为他们觉得，你看，OAuth 这么火，解决这些场景很在行，那为什么不顺便把它用在身份认证上呢？于是就出现了这种情况：OAuth 既被用于它原本针对的授权场景。"
+  },
+  {
+   "s": 2825.79,
+   "e": 2852.27,
+   "en": "and also being used for all these authentication use cases as well. And unfortunately, OAuth was never designed to be used for authentication. And I know that sounds kind of like maybe I'm splitting hairs, it's a bit of an academic difference. But there's actually a big difference, and there's reasons why you shouldn't use OAuth for authentication. This happens to be why it tends to be so confusing to read about OAuth online. Because if you just hit a random site talking about OAuth,",
+   "zh": "并且它也被用于所有这些身份验证的场景中。不幸的是，OAuth 从未被设计用于身份验证。我知道这听起来可能有点像在吹毛求疵，像是一种纯学术上的区别。但实际上这两者差异巨大，而且有充分的理由说明为什么不应该用 OAuth 来做身份验证。这恰恰也是为什么在网上查阅 OAuth 资料时往往会让人感到非常困惑的原因。因为如果你随便打开一个讨论 OAuth 的网站，"
+  },
+  {
+   "s": 2852.51,
+   "e": 2879.41,
+   "en": "Half the time, they're talking about using OAuth for authorization for permissions, which is originally what it was for. And half the time, they're talking about using it for authentication, which, in my opinion, is a bit of a hack. It's not what the protocol is for. So let me explain why. Using OAuth for authentication is bad, because in OAuth, there's no standard way of getting the user's information. So if you think about, let's say that I'm a website and you just logged in.",
+   "zh": "有一半时间，他们谈论的是将 OAuth 用于授权和权限控制，而这原本就是它的设计初衷。另一半时间，他们谈论的则是将其用于身份验证，在我看来，这有点像是一种投机取巧的临时方案。它根本就不是为了这个协议而生的。让我来解释一下原因。用 OAuth 进行身份验证之所以糟糕，是因为在 OAuth 中，并没有获取用户信息的标准方法。你可以试想一下，假设我是一个网站，而你刚刚登录了进来。"
+  },
+  {
+   "s": 2880.17,
+   "e": 2898.87,
+   "en": "I probably want to know at least a little bit of information about you, like maybe what's your email address, what's your name, who just logged in. That would be useful to have. Well, OAuth was designed for permission, scopes. It cares about is your access token scoped to a particular thing. It doesn't really care who you are. So there is no way in the OAuth protocol to get the user's information.",
+   "zh": "我可能至少想知道一点关于你的信息，比如你的邮箱是什么，你叫什么名字，刚才是谁登录了，知道这些会很有用；但 OAuth 的设计初衷是为了权限和作用域，它只关心你的访问令牌是否限定在某个特定范围内，根本不在乎你是谁，所以 OAuth 协议本身并没有提供获取用户信息的方法。"
+  },
+  {
+   "s": 2902.72,
+   "e": 2931.24,
+   "en": "That means that when Facebook built the Facebook login button and Google built the Google login button and Twitter and Microsoft and LinkedIn, everybody built these social login buttons and they used OAuth under the hood for it, they all had to add their own custom hacks on top of OAuth to make some way of being able to get the user's info and some other things that OAuth is just kind of missing. Which is, again, why it's sometimes so confusing to read about this online. All of these implementations ended up being just a little bit different. They're not really quite interoperable. This is bad.",
+   "zh": "这意味着当 Facebook 做出 Facebook 登录按钮，Google、Twitter、Microsoft 和 LinkedIn 也都做出各自的社交登录按钮，并且底层都使用 OAuth 时，他们都必须在 OAuth 之上加入自己定制的临时方案，以此来获取用户信息以及补全 OAuth 所缺失的其他功能；这也是为什么在网上查阅相关资料时经常让人一头雾水，所有这些实现方式到头来都略有不同，彼此之间根本无法真正互通，这很糟糕。"
+  },
+  {
+   "s": 2931.53,
+   "e": 2959.6,
+   "en": "When we have a standard, we hopefully want it to be super interoperable and use the same way everywhere. So because of this problem, because of the OAuth being overused for this authentication use case, some really smart people went back to the drawing board and they said, OK, OAuth works really well. It solves this delegated authorization problem really well. Now a bunch of people are using it for authentication. Not great. They're all doing their own weird hacks on top of it to make it work. Thanks, Google and Facebook.",
+   "zh": "有了标准之后，我们自然希望它具备极高的互操作性，在任何地方用法都一样。正因如此，鉴于 OAuth 在这种身份认证场景下被滥用，一些非常聪明的人重新坐下来思考，他们说：好，OAuth 确实很好用，它非常漂亮地解决了这种委托授权问题。但现在一堆人把它拿来做身份认证。这不太好。他们都在这上面搞各自奇奇怪怪的临时方案，硬让它跑起来。真谢谢你们啊，Google 和 Facebook。"
+  },
+  {
+   "s": 2960.33,
+   "e": 2989.05,
+   "en": "Why don't we try to add just a little bit, whatever OAuth is missing for that authentication use case, why don't we just add a little extension on top of OAuth to make it work for that authentication use case as well? Because it's pretty close. It's just not quite all the way there. So out of that effort came this protocol called OpenID Connect. And it's actually not even fair to call OpenID Connect a separate protocol. It's really just a 5%, 10% layer on top of OAuth 2.0 that says, hey, if you're using OAuth for these authentication use cases,",
+   "zh": "既然 OAuth 距离身份认证场景就差那么一点，我们为什么不给它补上缺失的部分，直接在 OAuth 之上加个小小的扩展，让它也能用于认证呢？毕竟它已经很接近了，只是还没完全到位。于是，这项努力催生了名为 OpenID Connect 的协议。实际上，把 OpenID Connect 称作一个独立的协议甚至都有失公允。它其实只是在 OAuth 2.0 之上叠加了 5% 到 10% 的一层，相当于在说：嘿，如果你要用 OAuth 来做身份认证，"
+  },
+  {
+   "s": 2989.42,
+   "e": 3019.77,
+   "en": "Just do this other extra stuff, and that's it. So OpenID Connect isn't really new. It's just an extension to OAuth 2.0. Specifically, what OpenID Connect adds to OAuth 2.0 to solve these problems, or kind of close the gap for this authentication use case, is something called an ID token. And that ID token is exactly what it sounds like. It just has some of the user's information. It represents the ID or the information about the user. And if, for some reason, the ID token you get back from the authorization server doesn't have",
+   "zh": "只要额外做这么点事情就行了。所以 OpenID Connect 算不上什么全新的东西，它只是 OAuth 2.0 的一个扩展。具体来说，OpenID Connect 为了解决这些问题、弥补身份认证场景的不足而给 OAuth 2.0 增加的，是一种叫做 ID token 的东西。这个 ID token 顾名思义，它里面就包含了一些用户信息，代表着用户的身份或资料信息。如果在某些情况下，你从授权服务器拿到的 ID token 并没有包含"
+  },
+  {
+   "s": 3020.0,
+   "e": 3048.14,
+   "en": "all of the information you want. You can also request more user information from something called the user info endpoint, which all OpenID Connect authorization servers implement. So basically what this means is that if I'm talking to an authorization server that understands OpenID Connect, not only do I get to ask for an access token, but I can also ask for an ID token. And that's literally",
+   "zh": "你想要的全部信息。你还可以从一个叫作 user info 端点的地方请求更多用户信息，所有 OpenID Connect 授权服务器都实现了这个端点。所以简单来说，这意味着如果我正在与一个支持 OpenID Connect 的授权服务器通信，我不仅能索要访问令牌，还可以索要 ID 令牌。而这实际上"
+  },
+  {
+   "s": 3048.94,
+   "e": 3074.42,
+   "en": "basically the only difference between OAuth and OpenID Connect, or the only thing OpenID Connect adds. It adds some other really nice to have stuff like the way the spec is implemented is a little bit more standardized, and that's kind of nice stuff to make it easier to use. But let's take a look at what it might look to do in OpenID Connect Flow. This is going to look really, really familiar because it's, without trying to drive the point home too many times, it's exactly the same thing.",
+   "zh": "基本就是 OAuth 和 OpenID Connect 之间唯一的区别，或者说是 OpenID Connect 唯一新增的东西。它还增加了一些其它很棒的特性，比如规范的实现方式更加标准化了，这些都是让它更容易使用的一些优点。不过让我们来看看在 OpenID Connect 流程中具体该怎么做。这看起来会非常、非常眼熟，因为虽然我不想反复强调这一点，但它真的完全是一模一样的东西。"
+  },
+  {
+   "s": 3075.56,
+   "e": 3105.56,
+   "en": "The only difference, if you squint and look really closely at the very beginning of the flow, notice how we're still asking for the profile scope, but now we're also asking for this other scope called OpenID. And that is the only, like on the technical level, that's the only thing that means that this is an OpenID Connect request rather than an OAuth request. It is, if you want to be really technical about it, it is both an OpenID Connect request and an OAuth request. We're just using OAuth to do OpenID Connect. So what",
+   "zh": "唯一的区别是，如果你仔细观察整个流程的最开始，会发现我们虽然仍请求了 profile scope，但现在还请求了另一个名为 OpenID 的 scope。在技术层面上，这就是它被判定为 OpenID Connect 请求而非普通 OAuth 请求的唯一标志。如果真要从技术细节上讲，它既是一个 OpenID Connect 请求，也是一个 OAuth 请求。我们只是在用 OAuth 来实现 OpenID Connect。那么"
+  },
+  {
+   "s": 3105.92,
+   "e": 3132.28,
+   "en": "Asking for that open ID scope means is that when we go over to the authorization server, all the normal stuff happens. We get asked to allow access to your public profile or whatever. We get back to the callback with an authorization code. We exchange that code for an access token. But we also get back an ID token. So we get back both. And the ID token can be immediately consumed by the application to understand or decoded by the application to understand who the user is that just logged in.",
+   "zh": "请求 open ID 这个 scope 的含义在于，当我们重定向到授权服务器时，所有常规流程照常进行。它会提示我们允许访问你的公开资料之类的权限。接着我们带着授权码返回回调页面。我们用这个授权码换取访问令牌（access token）。但与此同时，我们还会得到一个 ID token。也就是说，两者都能拿到。应用可以直接使用或解码这个 ID token，从而知道刚登录的用户到底是谁。"
+  },
+  {
+   "s": 3133.62,
+   "e": 3162.76,
+   "en": "We've kind of closed the gap for doing authentication, not just authorization. And then the access token that we get back as the client application can then be used. If we need more information about the user, we can go then call the user info endpoint to get even more info about the user using that access token. So I want to give you a quick demo of this. I have an authorization server that is OpenID Connect compatible running via Okta up in the cloud.",
+   "zh": "我们差不多补齐了认证这一块的短板，而不仅仅是做授权。客户端应用拿回的 access token 随后就能派上用场了。如果我们想了解更多用户信息，就可以用那个 access token 去调用 user info 端点，获取更详尽的用户信息。所以我想给大家快速演示一下。我在云端通过 Okta 运行着一个兼容 OpenID Connect 的授权服务器。"
+  },
+  {
+   "s": 3163.13,
+   "e": 3189.94,
+   "en": "So I'm going to use the other version of the tool I built called OpenID Connect Debugger to go ahead and try a request against that. If you notice, the only thing that identifies this as an OpenID Connect request is this OpenID scope. That's it. So I'm going to construct this request. Instead of asking for a code like I've been doing so far, I'm going to ask for an ID token.",
+   "zh": "接下来我要用我做的另一个工具版本，叫做 OpenID Connect Debugger，来向它发起一次请求试试。大家注意看，唯一能标明这是一个 OpenID Connect 请求的，就只有这个 openid scope。仅此而已。现在我来构建这个请求。这次我不像之前那样去请求 code，而是要去请求一个 id token。"
+  },
+  {
+   "s": 3191.08,
+   "e": 3222.2,
+   "en": "This is actually the implicit flow in the sense that we are not going to get the code. We're going to get the token immediately back from the authorization. And I want to do that just so you can see what that ID token looks like. So when I redirect over to this authorization server that I built using Okta, I'm going to get asked to log in, ask a security question, and all right. So we get an ID token back, because that's what we asked for at the beginning. And the ID token is this long string of gibberish.",
+   "zh": "这其实就是隐式流，因为我们不会拿到授权码，而是直接从授权中拿回令牌。我想这么做只是为了让大家看看 ID token 长什么样。所以当我重定向到用 Okta 搭建的这个授权服务器时，会被要求登录、回答安全问题，好的。接着我们就拿到了一个 ID token，因为这正是我们一开始请求的。这个 ID token 是一长串像乱码一样的字符串。"
+  },
+  {
+   "s": 3222.55,
+   "e": 3254.54,
+   "en": "It's actually very specific gibberish, but it looks like gibberish. The ID token is something called a JSON web token, or a JWT, sometimes pronounced as a JWT. And that's just a standard way of encoding a bunch of information in a way that's easy to transmit over the internet. If I actually copy this ID token, just hit on here, and then go to a tool that can decode it like JSONwebtoken.io, just paste that in here, and you can actually see what information is inside of this ID token.",
+   "zh": "它其实是特定格式的乱码，但看着确实像乱码。ID token 是一种叫做 JSON Web Token 的东西，简称 JWT，有时读作“jot”。这只是一种用来编码大量信息的标准方式，非常便于在互联网上传输。如果我把这个 ID token 复制下来，点这里，然后去到一个像 jsonwebtoken.io 这样能解码它的工具里，直接粘贴进来，你就能直观地看到这个 ID token 里面到底包含了哪些信息。"
+  },
+  {
+   "s": 3254.74,
+   "e": 3291.49,
+   "en": "So it has a bunch of different properties in here. Basically, just a bunch of information about me, the user. So like my user ID or my email address, things like that. Let me switch back to my slides here. OK, so the ID token that you just saw kind of looks like this. I highlighted some different segments or different chunks of that ID token. But if you decode it, if you put it through the decoder that I just showed you, you get something that looks like this. There's a header portion. There's a payload portion, which is sometimes called claims. And there's also a signature portion as well.",
+   "zh": "所以这里面包含了很多不同的属性。基本上就是一堆关于我这个用户的信息。比如我的用户 ID、我的邮箱地址之类的。让我切回到幻灯片。好，你们刚才看到的 ID token 大概就长这样。我高亮标出了这个 ID token 的几个不同部分。但如果你去解码它，用我刚才展示的解码器跑一下，就会得到类似这样的内容。它有一个 header 部分。有一个 payload 部分，有时也叫 claims。此外还有一个 signature 签名部分。"
+  },
+  {
+   "s": 3291.73,
+   "e": 3320.92,
+   "en": "The claims is what can be decoded by your application stand, who just logged in, user information, when the token expires, when they logged in, all that good stuff. Kind of just basic information about the user. And then the signature is also really important because the signature can be used to verify that the ID token hasn't been modified or compromised or rather changed in any way in flight. So the client application can actually take that signature, do some crypto math on it and say,",
+   "zh": "claims 是你的应用程序可以解码并理解的内容，比如刚登录的是谁、用户信息、token 何时过期、他们何时登录等等这些好东西。基本上就是用户的基本信息。然后签名也非常重要，因为签名可以用来验证 ID token 在传输过程中有没有被篡改、被破坏，或者发生任何变动。所以客户端应用可以直接拿这个签名做一些密码学运算，然后确认："
+  },
+  {
+   "s": 3321.22,
+   "e": 3351.42,
+   "en": "OK, I know that this ID token has been stamped by this authorization server. It's still authentic. It hasn't been modified. Someone didn't forge it. Nate didn't go in and try to edit and say that he was somebody else or whatever. So that's a really cool feature of the JSON web token or JWT standard. Header, payloads, claim, and signature. So like I said, the ID token, because of that signature, can be independently verified by the application without even necessarily having to go back and talk to the authorization server.",
+   "zh": "好的，我知道这个 ID token 确实是由这个授权服务器签发的。它依然真实有效，没有被修改过，没有被人伪造，Nate 没有跑去偷偷篡改并谎称自己是别人之类的。这就是 JSON web token 即 JWT 标准一个非常酷的特性。Header、payload、claim 和 signature。所以正如我所说，正因为有这个签名，应用程序可以独立验证 ID token，甚至完全不需要再回头去联系授权服务器。"
+  },
+  {
+   "s": 3353.36,
+   "e": 3383.21,
+   "en": "Also, like I mentioned before, I could use the access token I get back to go call that user info endpoint. If the information in the ID token wasn't quite everything I wanted to know about the user, I can just go to the call the user info endpoint, say, hey, I want information about this user. Here's the access token that proves that I am allowed to have this user's info. And I get even more info about the user. Sometimes this is like additional stuff like their profile picture or things like that. All right, so let's revisit our time machine one more time. Now we're all the way fast forwarded up to today.",
+   "zh": "另外，就像我之前提到的，我可以用拿到的 access token 去调用那个 user info 端点。如果 ID token 里的信息还不够全，我就可以直接调用 user info 端点，说：“嘿，我想获取这个用户的信息，这是能证明我有权获取该信息的 access token。” 这样我能拿到更多关于该用户的信息。有时候会是头像之类的一些额外资料。好了，让我们再坐一次时光机。现在我们一路快进到了今天。"
+  },
+  {
+   "s": 3384.57,
+   "e": 3409.88,
+   "en": "We have OAuth 2.0 still being used for those delegated permissions, delegated authorization use cases. That's correct. And now we're also using the correct tool for authentication use cases, too. So mobile apps for single sign-on or for some simple login cases, we can use OpenID Connect instead of misusing OAuth 2.0 for that stuff. And just to be a little bit even more specific, we would use OAuth",
+   "zh": "我们看到 OAuth 2.0 仍被用于那些委托权限、委托授权的场景。这完全没问题。而且现在针对身份认证场景，我们也用上了正确的工具。比如移动应用的单点登录或一些简单的登录场景，我们就可以使用 OpenID Connect，而不是滥用 OAuth 2.0 来做这些事。再具体一点说，我们会使用 OAuth"
+  },
+  {
+   "s": 3410.2,
+   "e": 3439.2,
+   "en": "Whenever we're dealing with permissions and authorization, we would use OpenID Connect whenever we're dealing with authentication. Sometimes some people get confused and think that because OpenID Connect is newer, then it replaces OAuth 2.0, or it's better then, or whatever, but it's not like that at all. They're different tools for different jobs. The only thing that OpenID Connect replaces is misusing OAuth for authentication. We should definitely not do that anymore. But for still doing permissions and delegated authorization, OAuth 2.0 is the right tool for the job.",
+   "zh": "来处理权限和授权相关的事务；而每当处理身份认证时，我们就会使用 OpenID Connect。有时有些人会搞混，觉得 OpenID Connect 比较新，所以它取代了 OAuth 2.0，或者比它更好之类的，但根本不是这么回事。它们是针对不同任务的不同工具。OpenID Connect 唯一取代的，是用 OAuth 冒充身份认证这种错误用法。我们绝对不该再那么做了。但如果要做权限管理和委托授权，OAuth 2.0 依然是极其适用的工具。"
+  },
+  {
+   "s": 3440.43,
+   "e": 3469.91,
+   "en": "All right, so let's take a look at a couple of practical examples. We're almost out of time here. I want to show a couple of practical examples of what OAuth flows or OpenAD Connect flows should be used for particular use cases, because this tends to come up a lot. There's some complexity in the spec about what flow is used and what situation and stuff like that. But I'm just going to really briefly go through some of these. So let's imagine that we have a really basic web application. We just want users to be able to log in.",
+   "zh": "好，我们来看几个实际的例子。时间快不够了。我想展示几个实际例子，说明在特定场景下应该使用哪些 OAuth 流程或 OpenID Connect 流程，因为这个问题经常被问到。关于什么场景该用什么流程，规范里有一些复杂的地方。不过我只是打算非常简短地过一下。那么，假设我们有一个非常基础的 Web 应用。我们只希望用户能够登录。"
+  },
+  {
+   "s": 3470.23,
+   "e": 3499.44,
+   "en": "This is kind of revisiting that simple login case that I showed right at the beginning. At the very beginning, we talked about a simple website that just had like a form with an email and password field, and it was just hitting the database or something to look up the user's info. If we re-implemented that with OpenID Connect, what we would do is use the authorization code flow to go over to an authorization server, maybe run by Google, maybe run by Okta, maybe run one that you made yourself or whatever, but use the authorization server to handle the login stuff.",
+   "zh": "这算是重新回顾一下我刚开始讲的那个简单登录案例。最开始的时候，我们聊过一个简单的网站，它就只有一个包含邮箱和密码字段的表单，而且只是去查询数据库之类的来获取用户信息。如果我们用 OpenID Connect 重新实现它，我们要做的就是使用授权码流程跳转到授权服务器，它可能是 Google 运营的，也可能是 Okta 运营的，或者你自己搭建的等等，但总之是用授权服务器来处理登录相关的事务。"
+  },
+  {
+   "s": 3499.81,
+   "e": 3528.11,
+   "en": "And all the application needs to worry about is it knows it's going to get an access token and an ID token back from the authorization server. And then, just like at the very beginning example, it's probably going to just drop a session token, or a session cookie, rather, into the browser to keep track of the user. And then on the back end, it's just going to hold on to the user's access token and ID token while they're logged in. The benefit that this has over the very simple forms authentication I showed at the very beginning",
+   "zh": "应用端唯一需要关心的，就是知道自己能从授权服务器拿回访问令牌和 ID 令牌。然后，就像最开始的例子一样，它大概只需往浏览器里存一个会话令牌——更确切地说是会话 Cookie，用来跟踪用户。而在后端，它只需在用户登录期间保留用户的访问令牌和 ID 令牌即可。相比我一开始展示的极简表单认证，这种方式的好处在于"
+  },
+  {
+   "s": 3528.34,
+   "e": 3554.51,
+   "en": "is that now the authentication system and the rest of the app are kind of a little abstracted. They have a little bit of separation there. What makes that nice is that then the app and the authentication system can kind of evolve separately if they need to. We can do maintenance on the authentication system and update it if stuff needs to change. Security holes need to be closed, all that good stuff. OpenID Connect is just kind of the glue that keeps them tied together in a standard protocol way, which is really nice.",
+   "zh": "认证系统与应用的其余部分有了一定程度的抽象和解耦。这种分离的妙处在于，应用和认证系统在需要时可以各自独立演进。如果需要变更，我们可以对认证系统进行维护和更新，修复安全漏洞等等，这些都很方便。而 OpenID Connect 就像胶水一样，通过标准协议将它们连接在一起，这真的非常棒。"
+  },
+  {
+   "s": 3555.03,
+   "e": 3578.15,
+   "en": "This looks almost identical for native mobile apps. So if you have a native app on iOS or Android, nobody really uses Windows Phone anymore, but technically that too. You would do the same exact thing. You would use the OpenID Connect authorization code flow, plus one extra more little extension called PKCE, Proof Code for Key Exchange, sometimes called Pixi, to just...",
+   "zh": "对于原生移动应用来说，情况也几乎完全一样。如果你在 iOS 或 Android 上开发原生应用——虽然现在几乎没人用 Windows Phone 了，但技术上也算——流程完全相同。你同样会使用 OpenID Connect 授权码流程，外加一个小扩展，叫做 PKCE（Proof Key for Code Exchange），有时也读作 Pixie，用来……"
+  },
+  {
+   "s": 3578.15,
+   "e": 3606.6,
+   "en": "Do the same thing. Get an access token, get an ID token, save those on the device, usually store them behind the keychain or behind touch ID or whatever. Use the ID token to understand who the user is. Use an access token to authorize API calls, all that good stuff. What's really, really nice about mobile is that all of the stuff involving going to talk to the authorization server, making sure you use the right flow, making sure you do pixie, making sure that you do this correctly on each different like,",
+   "zh": "做同样的事情。获取 access token 和 ID token，保存在设备上，通常存在 Keychain 或通过 Touch ID 等保护起来。用 ID token 识别用户身份，用 access token 授权 API 调用，诸如此类。移动端非常棒的一点是，所有与授权服务器交互的细节、确保使用正确的流程、确保执行 PKCE、确保在各个平台上正确实现等等……"
+  },
+  {
+   "s": 3606.82,
+   "e": 3627.22,
+   "en": "There's some differences between different mobile operating systems. Like on Android, you're supposed to use a specific tab browser control, or maybe that's changed now, something like that. On iOS, you have to use the Safari view controller. All that stuff is all abstracted away in this library that Google and some other folks worked on called AppAuth. So you can basically just use AppAuth, and it does all this for you. All good.",
+   "zh": "不同的移动操作系统之间会有一些差异。比如在 Android 上，你得用特定的自定义标签页浏览器控件——可能现在改了，大概是这样；在 iOS 上，你必须用 Safari 视图控制器。所有这些琐事都被一个由 Google 和其他人共同开发的库抽象掉了，它叫 AppAuth。所以你基本上只要用 AppAuth 就行，它会替你搞定一切。非常省心。"
+  },
+  {
+   "s": 3629.72,
+   "e": 3656.3,
+   "en": "The other example I talked about was a single page app with an API back end. This is a situation where you don't have a back channel, so you have to use the implicit flow. Otherwise, it's identical. You're getting tokens back from the authorization server, and you're storing those locally in your app somehow, taking some care to make sure that those tokens can't be leaked in any way. So you need to make sure you don't have any XSS in your JavaScript and stuff. But that's a little bit outside of the scope of this talk.",
+   "zh": "我提到的另一个例子是带有 API 后端的单页应用。这种情况你没有后台通道，所以必须使用隐式流。除此之外，流程完全相同。你会从授权服务器拿回 token，并以某种方式在本地应用中存储它们，同时要格外小心，确保这些 token 不会以任何方式泄露。所以你需要确保 JavaScript 代码中没有任何 XSS 之类的问题。但这有点超出本次演讲的范围了。"
+  },
+  {
+   "s": 3657.75,
+   "e": 3685.58,
+   "en": "There's also some other cool stuff you can do. This is also outside of the scope of this talk, but you can use an authorization server like Okta to provide a bridge to older protocols like SAML or other things that you don't really want to deal with in your app. So your app only has to focus on OpenID Connect, and then you let the authorization server handle all the work of dealing with a protocol like SAML, which is kind of cool. But that's all I have for today. If you have any questions, I'm happy to answer them. Otherwise, you're free to take off.",
+   "zh": "你还可以做一些其他很酷的事情。这同样超出了本次演讲的范围，但你可以使用像 Okta 这样的授权服务器来桥接到旧协议，比如 SAML 或其他你并不想在应用中处理的内容。这样你的应用就只需要专注于 OpenID Connect，然后让授权服务器去搞定处理 SAML 这类协议的所有工作，这相当酷。不过我今天的内容就只有这些了。如果大家有什么问题，我很乐意回答。没有的话，大家就可以自由离开了。"
+  },
+  {
+   "s": 3685.84,
+   "e": 3698.74,
+   "en": "I got a couple more resources for you. If you want to dig even further into how these protocols work, especially how OAuth works, hit up OAuth.com. We have a free ebook that we've published there that goes into like a ton of detail about how it works even more than I got into today.",
+   "zh": "我这里还有几个资源推荐给你们。如果想更深入了解这些协议的工作原理，特别是 OAuth 是如何运作的，可以去访问 OAuth.com。我们在那儿发布了一本免费的电子书，里面详细介绍了它的运作机制，比我今天讲的还要深入得多。"
+  },
+  {
+   "s": 3699.02,
+   "e": 3723.52,
+   "en": "and talks about stuff like token, like expiry, and revocation, and validation, and all that stuff that I didn't really have time to go into. And if you just want to play around with it, if you want to get, spin up your own authorization server in the cloud, totally free, you can go to developer.octa.com, register for an account, create as many authorization servers as you want, play around with them for totally free. Super easy, super cool. So thank you so much for your time. I'll leave it open for a couple more questions. But otherwise, have a great day.",
+   "zh": "书中还讨论了诸如令牌过期、撤销和验证等内容，这些都是我今天没时间展开讲的。如果你只是想动手试试，想在云端免费搭建自己的授权服务器，可以访问 developer.octa.com 注册一个账号，想创建多少个授权服务器都行，完全免费上手体验。超级简单，也超级酷。非常感谢大家的聆听。接下来留点时间回答几个问题。如果没有其他问题的话，祝大家生活愉快！"
+  }
+ ]
+}

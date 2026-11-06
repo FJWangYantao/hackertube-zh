@@ -1,0 +1,632 @@
+{
+ "vid": "AxFzf6yIfcc",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 39.09,
+   "e": 67.52,
+   "en": "I like to know who I'm talking to, so let me figure that out. Who out here plays video games? Go ahead and raise your hand. Pretty much everybody. Who out here makes video games in some capacity? All right, less than half, but significant number of people. Who makes traditional video games, i.e. not social or casual games? All right, and who makes...",
+   "zh": "我想先了解一下台下的听众，所以容我调查一下。在座的有谁玩电子游戏？请举个手。差不多都举了。那在座有谁以某种形式在做游戏呢？好的，不到一半，但人数也不少了。有谁在做传统电子游戏，也就是非社交或非休闲类游戏的？好的，那又有谁在做……"
+  },
+  {
+   "s": 67.52,
+   "e": 100.66,
+   "en": "sort of some of the newer social casual Facebook iOS kind of games. All right, so really a minority, good. So not too many people are going to want to lynch me by the end of this talk, but there's still maybe a couple. Let me go to my presentation. So I've been a video game designer for a while now. I work in that field, it's my field of expertise.",
+   "zh": "类似于较新的社交、休闲，或者 Facebook、iOS 平台这类游戏的呢？好的，确实是少数，太棒了。这样演讲结束时想干掉我的人应该不会太多，不过可能还是会有几个。我先切到演示文稿。我做电子游戏设计师已经有一段时间了。我就在这个领域工作，这是我的专业领域。"
+  },
+  {
+   "s": 101.33,
+   "e": 125.12,
+   "en": "And that's why I wanted to kick off this talk, obviously, by talking about a subject like television. And not just television, but a specific sub-genre of television, the hour-long drama. And I have drama in sarcasm quotes for a pretty good reason, as we will see. And I don't even just want to talk about television shows like this one, which I enjoyed tremendously.",
+   "zh": "所以，我想显而易见地以电视这个话题来开启今天的演讲。而且不仅是电视，还是电视里一个特定的类型：一小时戏剧。正如大家接下来会看到的，我给戏剧打上讽刺的引号是有充分理由的。而且我不仅想聊像这部我非常喜欢的电视剧，"
+  },
+  {
+   "s": 126.35,
+   "e": 154.89,
+   "en": "or this one which received tremendous critical acclaim, or even this one which is enthralling a lot of people right now. But also I want to turn the clock back to sometime like the 70s or the 80s when the things on TV were not like those. Instead they were shows like this one, or this one, or this fabulous gem of a show that we just saw before the talk. And it's important to understand, okay, who out here...",
+   "zh": "或是这部广受好评的作品，甚至是这部眼下让无数人着迷的剧。但我还想把时间拨回到七八十年代左右，那会儿电视上的节目可不是这个样子的。相反，那是像这部，或者这部，亦或是我们演讲前刚看过的这部宝藏神作一样的剧。而且关键在于得搞明白，好的，在座的有谁……"
+  },
+  {
+   "s": 154.89,
+   "e": 175.07,
+   "en": "is old enough that maybe you're approximately my age and saw this on TV when it came out. Not that many people, but some of you are going to know where I'm coming from. I was not scraping the bottom of the barrel to come up with this clip, okay? This was a big, big TV show, the $6 million man in the mid-70s.",
+   "zh": "年代已经久远到，可能得和我年纪差不多的人才在当年电视上见过它。虽然人不多，但你们中总有人能懂我的意思。我可不是为了找素材硬去翻垃圾堆，懂吧？这在70年代中期可是超级大热门电视剧——《无敌金刚》（The Six Million Dollar Man）。"
+  },
+  {
+   "s": 175.3,
+   "e": 198.36,
+   "en": "was a top 10 Nielsen rated show multiple years in a row. This is what Americans watched on television, and this particular clip was from a two-part episode called The Secret of Bigfoot. I guess the secret of Bigfoot is that he's a robot controlled by the Lemurians or something, but this was a huge, big, promoted event. It was like, it was must-see TV of the time.",
+   "zh": "它连续好几年都高居尼尔森收视率前十名。那会儿全美电视上播的都是这个，而这段片段出自名为《大脚怪的秘密》的上下集特别篇。我觉得大脚怪的秘密其实就是它是个被雷姆利亚人控制的机器人之类的，但这在当时可是一次万众瞩目的重大电视盛事。可以说是那个年代不容错过的必看节目。"
+  },
+  {
+   "s": 201.13,
+   "e": 228.35,
+   "en": "But you see the quality level, right? I mean, but what's interesting to understand now, I mean, to look back with our modern perspective and to realize people watch that non-ironically, right, in the 70s. They would go home and they would turn on a show because they want to watch TV and that's what would be on and then they, you know, you'd go to school the next day or go to work the next day and talk to your friends about how cool Bigfoot was, right, on that show.",
+   "zh": "但你们也看到那个制作水准了吧？不过现在回头看，用我们现代人的视角去理解最有趣的一点就是：在70年代，人们可是完全严肃、毫不讽刺地在看这个。他们回家打开电视想放松一下，播的就是这个；然后第二天去学校或去上班，还会跟朋友兴奋地聊着昨天剧里的大脚怪有多酷，对吧？"
+  },
+  {
+   "s": 230.16,
+   "e": 252.83,
+   "en": "And something changed, right? These shows on the top are markedly different from these shows on the bottom, certainly in quality level, but also in terms of structure. It's not an accident that we have better TV today than we had in the 70s and 80s, because there was a structural change. Now, the making of TV shows is...",
+   "zh": "事情发生了变化，对吧？上面这些剧集和下面这些显然大不相同，不仅体现在质量水平上，而且在结构层面也是如此。我们今天的电视剧比七八十年代的更好，这绝非偶然，因为发生了一场结构性的变革。话说回来，电视剧制作是一项……"
+  },
+  {
+   "s": 252.83,
+   "e": 277.07,
+   "en": "a complex and sprawling endeavor, and there's no way that I can do it justice, so I'm gonna tremendously oversimplify and not look at most of it, but I'm just gonna talk about two major structural things that affected those shows back then, and help make them what they were, right? One of them was the need to have commercial breaks all through a show, and the other one was need for syndication. And what these did...",
+   "zh": "极其复杂且庞大的事业，我绝不可能三言两语讲透，所以我会进行极大的简化，略过大部分内容，只谈谈当年影响那些剧集的两个主要结构性因素，正是它们塑造了当年的电视剧，对吧？其中之一是整个剧集里必须穿插商业广告，另一个则是电视联播的需求。而这两点所带来的影响……"
+  },
+  {
+   "s": 277.07,
+   "e": 291.18,
+   "en": "is change the basic content of the show. If you're making a show, like The Six Million Dollar Man, and you know there's gonna be commercial breaks, you can't just sort of pretend like you're making a 44 minute movie and then cut it up at the right points because...",
+   "zh": "改变节目的核心内容。如果你在做一部像《无敌金刚》（The Six Million Dollar Man）这样的剧集，并且你知道中间会有广告插播，你就不能假装自己是在拍一部44分钟的电影，然后直接找几个合适的时间点切开，因为……"
+  },
+  {
+   "s": 291.18,
+   "e": 320.18,
+   "en": "at the very least where those commercials land is going to be disruptive to the flow of your narrative, right? But actually it's much worse than that because, you know, people didn't come to watch commercials, they came to watch your show and there's lots of other stuff on TV and any time a commercial comes up there's a strong incentive for someone to flip the channel. So what this means is that you start designing your narrative, you know, and editing the show and all kinds of things to try and keep people there",
+   "zh": "至少这些广告切入的位置会打乱你的叙事节奏，对吧？但实际上情况要糟糕得多，因为大家都知道，观众不是来看广告的，他们是来看你的节目的，而且电视上还有很多其他节目，一旦插播广告，大家就很有冲动换台。所以这意味着你必须在设计叙事、剪辑节目等各个方面下功夫，尽量让观众留在电视机前"
+  },
+  {
+   "s": 321.12,
+   "e": 350.3,
+   "en": "through the commercials. Like that's when it becomes one of your main priorities as a creator of one of these shows. So you might do things like, well, how do we make people maximally interested right before the commercial and make them really care about what's going to happen so that they stick through it or at least come back if they flip to another channel for a few seconds. Well, we'll put a cliffhanger like right before the commercial break. So you don't know what's going to happen and you really want to know. There were two of those in the clip that we saw, right? The first time",
+   "zh": "看完整段广告。作为这类节目的创作者，这成了你的首要任务之一。所以你可能会琢磨：怎样才能在进广告前把观众的兴趣拉到最高，让他们特别想知道接下来会发生什么，从而坚持看完广告，或者就算换台切走几秒也一定会换回来？那就把悬念设置在紧挨着广告插播点之前。这样你就不知道会发生什么，而且抓心挠肝地想知道。在我们刚才看到的那个片段里，就有两处这样的悬念，对吧？第一次是"
+  },
+  {
+   "s": 351.03,
+   "e": 379.87,
+   "en": "Steve Austin sees a Sasquatch and stares at him in a manly fashion. That's supposed to be a dramatic moment and you want to know how this is going to go down. And then at the end there when he was mind controlled or I don't know what that was, you know, you feel like he's in trouble. And this is a standard structural thing that these shows would do all the time, right? So that's thing number one. Thing number two is the need for syndication. So the idea was,",
+   "zh": "Steve Austin 看到了大脚怪，充满男子气概地瞪着它。那本该是个充满戏剧性的时刻，你会想知道接下来会发生什么。然后最后，当他被精神控制，或者我也说不清到底是什么的时候，你会觉得他摊上大麻烦了。而这是这类剧集一直以来标准的套路结构，对吧？这就是第一点。第二点则是电视联播网重播销售的需求。当时的想法是，"
+  },
+  {
+   "s": 380.45,
+   "e": 404.1,
+   "en": "Well, you want to make as much money off these shows as you can. They're a substantial investment. So after the first run, you want to be able to sell the show to a local station. And that local station can play the show. And the belief, for quite a long time, was that you want to prevent people from being confused when they see a show that's in syndication. So if you see Star Trek in the morning,",
+   "zh": "嗯，你总想靠这些剧尽可能多赚点钱。毕竟它们是一笔巨大的投资。所以在首轮播出后，你希望能把剧卖给地方电视台。地方台就能播放这部剧了。而且在相当长的一段时间里，大家的共识是，你得避免观众在看重播剧时感到困惑。所以如果你早上在去上班前，"
+  },
+  {
+   "s": 404.71,
+   "e": 410.89,
+   "en": "before you go to work on one channel and then you come home after work and you see Star Trek on another channel and they're showing even a totally different season.",
+   "zh": "在某个频道看了《Star Trek》，然后下班回家，又在另一个频道看到了《Star Trek》，而且他们放的甚至完全是不同的一季。"
+  },
+  {
+   "s": 411.75,
+   "e": 440.83,
+   "en": "The thought was that you don't want people to be confused about what's happening. You don't want those to be incompatible. And so what syndication ended up doing was putting a constraint on the works that the world can't really change. You know, nothing huge could really happen. You have to sort of reset the universe at the end of every show so that the episodes are interchangeable. It doesn't matter what order you watch them in. And you get what's almost like a fast food experience. Like if you're going to go to McDonald's, you know what you're going to get before you get there. It's not like walking into a restaurant you've never been to.",
+   "zh": "当时的想法是，你不想让观众对剧情感到困惑，不想让这些剧集产生冲突。所以重播联合分销最终给作品带来了一种限制，那就是剧中的世界不能真正发生改变。你知道的，不能发生什么惊天动地的大事。每集结束时你都得把整个世界观“重置”一下，这样各集之间才能互换。无论你按什么顺序看都没关系。这就变成了一种几乎类似于快餐的体验。就像如果你去麦当劳，去之前就知道自己能吃到什么，这绝不像走进一家你从未去过的餐厅。"
+  },
+  {
+   "s": 441.37,
+   "e": 466.85,
+   "en": "That's what syndication's for. Now, the important thing to realize, or one of many important things to realize, is that both of these constraints take the making of a TV show away from being some kind of exercise of artistic expression and take it more and more into being an engineering problem, right? When you sit down to make a TV show, you're figuring out how to engineer",
+   "zh": "这就是联合分销的目的。现在，需要意识到的重要一点，或者说众多要点之一，就是这两种限制让制作电视剧不再是一次艺术表达的尝试，而是越来越像一个工程问题，对吧？当你坐下来制作一部电视剧时，你琢磨的是如何设计出"
+  },
+  {
+   "s": 467.5,
+   "e": 492.49,
+   "en": "a narrative and a displaying of that narrative that'll keep people through commercials and that'll be interchangeable with other instances of the same thing. And by the time you meet those constraints, those really strongly determine what you can create, and there's actually not that much room left over to do anything really interesting. Now, in addition to being structurally invasive,",
+   "zh": "一段叙事以及呈现该叙事的方式，既能留住观众看完广告，又能让各集之间互相替换。而当你满足了这些限制条件时，它们其实已经极大地决定了你能创作出什么，留给你去发挥真正有趣内容的空间，其实所剩无几了。现在，除了在结构上具有侵入性之外，"
+  },
+  {
+   "s": 493.77,
+   "e": 521.93,
+   "en": "The slightly subtler thing is that these change your bearing toward the audience. They change your relationship with the audience. If you're gonna make a movie, at least in some naive and oversimplified picture of movie making, once people pay for the movie and walk in the theater, you've kind of gotten what you want from them, right? And now it's you as the creator, the onus is on you to fulfill your end of the contract and give people...",
+   "zh": "稍显微妙的是，这会改变你面对观众的姿态，改变你和观众的关系。如果拍一部电影，至少在一种朴素且简化的构想里，观众一旦买了票走进影院，你其实就已经得到了你想要的东西，对吧？现在轮到你这个创作者，履行契约的责任落到了你头上，你得给人们……"
+  },
+  {
+   "s": 521.93,
+   "e": 551.56,
+   "en": "a great experience that they feel is worth their money. But there's something pure about that. Your job is just to entertain people as best you can. And the way that this changes, of course, with something like television is that you stop treating the audience like your friends so much. Because you want something from them during the proceeding. You want them to stay there, so you're kind of manipulating them a little more.",
+   "zh": "带来一次让他们觉得物有所值的绝佳体验。但这种关系里有一种纯粹的东西，你的工作就只是竭尽所能去娱乐大众。当然，到了电视剧这类形式上，情况就变了，你不再那么把观众当朋友对待。因为在播放过程中，你还在图他们身上的东西，你想让他们一直留下来，所以你多多少少在更进一步地操纵他们。"
+  },
+  {
+   "s": 557.79,
+   "e": 584.43,
+   "en": "The thing that this does to the genre of one hour dramas, and the reason I have sarcasm quotes around dramas, is think about what's a drama. A drama is something that happens when there's a lot of risk. Something's on the line, like some characters stand to gain something, or some characters stand to lose something, or the world could change in some way that's irreversible. Something important is going to happen, right? But in this kind of syndicated show model,",
+   "zh": "这种模式对一小时剧集这个类型所产生的影响——也是我给“剧情片”打上讽刺引号的原因——在于，想想看什么是剧情片。剧情片是伴随着巨大风险发生的故事。有些东西悬而未决，比如某些角色可能会获得什么，或者失去什么，又或者世界可能会发生不可逆转的改变。总会有重要的事情发生，对吧？但在这种联合播映的剧集模式中，"
+  },
+  {
+   "s": 585.51,
+   "e": 611.07,
+   "en": "That's impossible. There can't be any stakes, there can't be any permanent change in the world because the episodes have to be interchangeable. And so you end up with something that's not a real drama, it's a fake drama. And this again changes the attitude that the author has toward the audience, right? In a real drama, you're trying to create something that's beautiful or dramatic or sad or something that has some kind of truth to it. And in a fake drama,",
+   "zh": "那是不可能的。不可能有什么真正的大风险，剧中的世界不可能发生永久性的改变，因为每一集都必须能够互换顺序播放。所以最终你得到的东西并不是真正的剧情片，而是假冒的剧情片。而这又一次改变了创作者对待观众的态度，对吧？在真正的剧情片中，你是在努力创造某种美好、富有张力、悲伤，或者蕴含着某种真实感的东西。而在假冒的剧情片里，"
+  },
+  {
+   "s": 611.63,
+   "e": 637.95,
+   "en": "You want people to believe they're seeing something that's beautiful or sad, but there's really no skin in the game. There's nothing on the line. So you're kind of deceiving people, more so than you do even in regular storytelling. So you can have a show like this where you as the writer are like, oh, no, audience, the Starship Enterprise is really in trouble this time. You've got to believe us, right? But anyone who's seen the show isn't really going to believe that because they know Wesley has to save the Enterprise by the end of the show.",
+   "zh": "你只是想让观众相信他们看到的是美好或悲伤的东西，但实际上没有任何真正的切身利益。没有任何东西处于危险之中。所以你其实是在某种程度上欺骗观众，甚至比普通讲故事时的欺骗更甚。所以你会看到这样的剧集，作为编剧你会说：“哦不，观众们，进取号这次真的大难临头了。你们一定要相信我们，对吧？”但任何看过这部剧的人都不会真正相信，因为他们知道，在剧终前卫斯理一定会拯救进取号。"
+  },
+  {
+   "s": 638.95,
+   "e": 670.65,
+   "en": "Because otherwise it just wouldn't be Star Trek. Like that's just not what Star Trek is. Unless it's a two-part episode in which case you save the Enterprise at the end of the second part. So this changed when some major players, HBO probably most prominently, decided to change this model of what it meant to make these shows. And it's not an accident that HBO did this successfully because they were not subject to these same constraints that things like network television were subject to.",
+   "zh": "因为如果不这样，那就不是《星际迷航》（Star Trek）了，它就失去原有的味道了。除非是上下两集的特辑，那种情况下你会在第二集结尾拯救企业号（Enterprise）。但当一些行业巨头，尤其是 HBO，决定颠覆这种剧集制作模式时，情况改变了。HBO 能成功做到这一点绝非偶然，因为他们不受广播电视网所面临的那些限制。"
+  },
+  {
+   "s": 671.56,
+   "e": 691.12,
+   "en": "Right the selling point of HBO is there's no commercials. That's what you're paying them for when you subscribe and You know they had this history of being the place that you go to see movies That you could have seen somewhere better like in the theater and at some point they said well We want to compete better than that in the marketplace. We want to have things that people can't see anywhere else So we're going to produce our own shows",
+   "zh": "没错，HBO 的卖点就是没有广告，这也是你订阅付费的原因；而且大家都知道，他们最初只是一个供你观看电影的平台——那些电影你本来可以在电影院这种更好的地方看——后来在某个节点他们决定，我们要在市场上更有竞争力，我们要拥有别人在其他任何地方都看不到的内容，所以我们要制作自己的原创剧集。"
+  },
+  {
+   "s": 692.51,
+   "e": 721.66,
+   "en": "And when they did that, they even doubled down and said, hey, since we're not subject to the same regulatory frameworks as all these network channels, we're gonna be more gritty, we're gonna be more violent, we're gonna have more overt sexuality. They did all this stuff with shows like Oz and The Sopranos, and you eventually end up at today, we have shows like Game of Thrones where the reason people love these shows is",
+   "zh": "当他们这么做时，甚至还进一步加码说，既然我们不受那些公共广播电视台所受的监管框架限制，那我们就要做得更真实硬核、更暴力，还要展现更露骨的性元素。他们通过《监狱风云》（Oz）和《黑道家族》（The Sopranos）等剧集践行了这一切，最终发展到今天，我们有了像《权力的游戏》（Game of Thrones）这样的剧集，人们之所以热爱这些剧集，原因在于"
+  },
+  {
+   "s": 724.55,
+   "e": 755.57,
+   "en": "is because the world has so much on the line. The world can change. Important things can happen in this show, right? It's sort of the antithesis of what people in the 70s and 80s thought was a good idea. So, you know, you end up in a place where this scene can, who knows what scene this is? Probably a lot of people. This scene defines this show in the minds of many people now. It would have been completely impossible to do in the 70s or 80s.",
+   "zh": "是因为剧中的世界面临着巨大的风险。世界是可以改变的。这部剧里会发生至关重要的大事，对吧？这可以说是对七八十年代人们观念的反叛。所以，你看，最后这一幕能够……有人知道这是哪一幕吗？可能很多人都知道。在很多人心中，这一幕如今定义了这部剧。这在七八十年代是完全不可能拍出来的。"
+  },
+  {
+   "s": 755.82,
+   "e": 787.21,
+   "en": "along many axes, right? Because of consequence in the world, because of being disturbing, just all kinds of things. Okay, so really to summarize that whole section, these constraints were invasive to the work, right? And that changed the work that could be produced. And it's not even like if you were a good author or a good director, you could go and make a TV show that's...",
+   "zh": "从很多维度来看都是如此，对吧？无论是剧中的重大变故，还是那种令人不安的氛围，各种因素皆是如此。好吧，总结一下这整个部分，这些限制对作品造成了侵入，对吧？这改变了最终能被创作出来的作品。而且这甚至不是说，如果你是个优秀的编剧或优秀的导演，你就能去拍出一部……"
+  },
+  {
+   "s": 787.21,
+   "e": 816.79,
+   "en": "just as good as a movie because they're different things, right? It took television to change before you could make higher quality stuff, and that change was structural. It wasn't just that people got better at making TV. That probably happened too. There were probably some really smart people doing good work, but it was the structural change that was important. Now, there's some side effects to this. One is that, you know, the audience of television and the audience of cinema became different, right? The audience for television is like, well,",
+   "zh": "电视剧拍得和电影一样好，因为它们本就是两码事，对吧？直到电视行业本身发生改变，才能做出更高质量的内容，而那种改变是结构性的。这并不仅仅是大家做电视的水平变高了。这种情况可能也有。可能确实有一些非常聪明的人做出了优秀的作品，但真正关键的是结构上的变革。这随之带来了一些副反应。其一就是，电视受众和电影受众变得不一样了，对吧？电视的受众就像是……"
+  },
+  {
+   "s": 817.34,
+   "e": 841.04,
+   "en": "kids who are home after school and are just goofing off or someone who comes home from work and they're tired and they just want to flip through channels, they're being entertained, they're getting this for free and so they don't have high expectations. They're just sort of wasting time. That's how you get shows like The Six Million Dollar Man. Cinema is totally different. You paid your seven to ten dollars a person, five to ten dollars, depending on what year it was.",
+   "zh": "放学回家无所事事瞎晃悠的孩子，或者是下班回家疲惫不堪、只想随便换台的人，他们也就是图个乐，反正是免费看的，所以预期不会太高。他们纯粹就是在打发时间。像《The Six Million Dollar Man》这种剧就是这么来的。而电影则完全不同。你每个人掏了七到十美元，或者五到十美元，具体看是哪一年了。"
+  },
+  {
+   "s": 841.8,
+   "e": 871.82,
+   "en": "You maybe got a babysitter, you drove all the way to the theater, it was raining, it was a big hassle to get there. You got to get there early to get front seats. Your expectations are high, right? And again, that puts an onus on the creator to live up to your expectations. It doesn't exist in the case of TV, at least in the 70s and 80s, right? So that then leads to a different culture of quality within the creators of the medium, right? You watch that clip of the $6 million man and there's so many things about it.",
+   "zh": "你可能找了保姆，冒雨一路开车到电影院，折腾了半天才到那儿。你还得早早赶去抢前排的座位。你的期望值很高，对吧？这也再次给创作者施加了压力，必须达到你的期望。但电视剧可不是这样，至少在七八十年代不是，对吧？所以这就导致了该媒体创作者内部形成了一种不同的质量文化，对吧？你看《无敌金刚》（The Six Million Dollar Man）那个片段，里面有太多地方"
+  },
+  {
+   "s": 872.07,
+   "e": 901.81,
+   "en": "that are astonishingly bad, right? Like, just the basic, the editing and pacing is terrible, the sound effects, like, when he throws him and there's some kind of like missile bomb sound effect, because he threw him three feet, it's like, what is that, right? Maybe some of that is structural too, like the pacing at least, because when you have to stretch things out between commercials, you sort of have to work with what you've got, but, you know, the real reason you had that was because people...",
+   "zh": "烂得让人瞠目结舌，对吧？就像最基本的剪辑和节奏都糟透了，还有音效，比如他把人扔出去时，居然配了一种像导弹轰炸一样的音效，可他才把人扔出去一米远，这就让人觉得“这都什么玩意儿”，对吧？也许这其中有些也是结构性问题，至少节奏是这样，因为你得为了穿插广告而把内容拉长，多多少少只能就地取材、凑合着来，但你知道，根本原因还是在于观众……"
+  },
+  {
+   "s": 901.83,
+   "e": 941.6,
+   "en": "could get away with it. And again, I want to reemphasize that was a top show. That was not the bottom of the barrel. I mean, there were shows that we would see today as being indisputably better, right? Like, MASH was on contemporarily with this, and that was a much better show, probably. But, well, we'll talk about that more later. So, enough about television. Let's talk about games for a little bit. We're at a point now where we've got a fair bit of history of games behind us.",
+   "zh": "都能糊弄过去。我得再次强调，那可是一部热门剧，绝不是什么粗制滥造的垫底货。我的意思是，哪怕在今天看来，当时也有些剧明显好得多，对吧？比如同期的《MASH》，可能就比它强得多。不过，这个我们稍后再细聊。好了，电视就先聊到这儿，我们来聊聊游戏吧。走到今天，游戏已经积累了相当长的一段发展史。"
+  },
+  {
+   "s": 941.92,
+   "e": 971.51,
+   "en": "And we've seen this trajectory of games happen technologically. And the thing that I want to focus on here is how the container of what a game was has changed over time. And again, how that affected the design. So back when games first started to be commercially exploited in a big way, you would tend to play them in arcade cabinets like this one on the left. Then at some point you tended to have home machines where you could play games in the comfort of your own home without going anywhere.",
+   "zh": "在技术层面上，我们目睹了游戏的发展轨迹。而我在这里想聚焦的，是承载游戏的“容器”是如何随着时间演变的，以及这又是如何反过来影响游戏设计的。在游戏最初开始大规模商业化运作的时候，你往往是在左边这种街机机柜上玩。后来到了某个节点，大家开始拥有家用机，足不出户就能舒舒服服地在家里玩游戏了。"
+  },
+  {
+   "s": 972.17,
+   "e": 997.8,
+   "en": "And that lasted for quite a while until just a few years ago. And I'm making a break point in a differentiation between then and now. The home machines still exist. But now we have these very powerful computing devices that pretty much everyone has and carries with them everywhere. And they're not specifically made for games, but they do a pretty good job at playing certain kinds of games. And so this is created",
+   "zh": "这种情况持续了挺长一段时间，直到几年前才发生改变。我在此把过去和现在做个切分。家用机依然存在，但现在我们拥有了极其强大的计算设备，几乎人手一台、随身携带。它们并不是专门用来玩游戏的，但运行某些类型的游戏表现还不错。于是这引发了"
+  },
+  {
+   "s": 998.46,
+   "e": 1028.0,
+   "en": "a big explosion in the market for what games are and in the perception of what games are in the public. So let's talk about arcade cabinets for a second. How did these affect the design of games at the time? Well, through very basic financial constraints again, right? An arcade cabinet was expensive to build. If you're an arcade operator, you had to make back that money before you could start",
+   "zh": "游戏市场的巨大爆发，也颠覆了公众对游戏的传统认知。那我们先来聊聊街机机柜吧。它们在当时是如何影响游戏设计的呢？归根结底，还是受制于非常基础的财务压力，对吧？一台街机机柜造价昂贵。如果你是街机厅老板，你必须先回本，然后才能开始"
+  },
+  {
+   "s": 1028.3,
+   "e": 1046.43,
+   "en": "making any money, right? So as an arcade operator, you wanted games where you knew people were gonna just be plunking a lot of quarters in, right? So the design of these games very deliberately at the time was, you know, we expect to get a quarter out of you every...",
+   "zh": "赚到利润，对吧？所以作为街机厅老板，你想要的是那种能吸引大家不断往里塞硬币的游戏，对吧？因此，当时这类游戏的设计思路非常明确，就是：我们希望每隔一会儿……就能从你兜里掏出一个25美分硬币。"
+  },
+  {
+   "s": 1046.43,
+   "e": 1073.54,
+   "en": "90 seconds to three minutes. That was the short time frame. So what that leads to in terms of game design is that these games all tend to be action challenges where you're worried about getting killed or something, and after you get killed a certain number of times, it's time to put a new quarter in. That's pretty much what video games were during this time. Once we started having home systems of various sorts, well, let me just say, actually...",
+   "zh": "90秒到三分钟，时间就是这么短。所以在游戏设计上，这导致它们大多成了动作挑战类游戏，你得时刻担心自己会不会挂掉，挂了若干次之后，就得再投一枚25美分硬币了。那个时期的电子游戏基本全都是这个样子。后来我们开始有了各种家用机平台，呃，不过其实我想说的是……"
+  },
+  {
+   "s": 1076.94,
+   "e": 1098.88,
+   "en": "So here's an example of a commercial constraint dictating the form of what gets created, and that's something that pretty much always happens. This one, I would claim, is a little bit unpleasant, just like the commercial breaks and syndication were with television. This sort of tends to be at least a mildly invasive constraint.",
+   "zh": "这就是商业限制决定创作形态的一个例子，而且这种情况几乎总是会发生。我觉得这一种限制多少有点令人讨厌，就像电视节目里的插播广告和广播电视网重播一样。这类限制往往至少带有一点侵入性。"
+  },
+  {
+   "s": 1099.44,
+   "e": 1121.02,
+   "en": "that seriously affects what you're able to do in the medium. And that would have been pretty bad. And it probably was a little bit bad for a while. But what happened is that this era, when we got home machines, came pretty quickly after that. And what happened with home machines is there's no longer an arcade operator who has to make his money back. You want to justify the fun that you got.",
+   "zh": "这严重限制了你在这个媒介中所能表达的内容。那确实会很糟糕。而且很可能在一段时间内确实挺糟的。但随之而来的是家用机时代的迅速崛起。在家用机上，不再需要街机厅老板急着回本了。你追求的是让获得的乐趣对得起花销。"
+  },
+  {
+   "s": 1121.75,
+   "e": 1149.07,
+   "en": "You want to have enough fun to justify the money you spent on this home machine, but that's a little bit of an easier, more casual problem to solve. The machine exists for years. You can buy games for it over the course of years. And what happened is we got longer form games that weren't trying to kill you in a couple of minutes, and we got some maturation of the medium to some extent, where you started to see more interesting subjects being approached. Even early in this cycle,",
+   "zh": "你想玩得足够尽兴，好让自己在家用机上花的钱物有所值，但这解决起来相对更轻松、更从容。这台机器能用好些年。你可以在好几年里陆续给它买游戏。于是我们迎来了篇幅更长、不再试图在几分钟内弄死你的游戏，这个媒介在某种程度上也走向了成熟，你能看到更多有趣的主题开始被涉足。即便在这一时期的早期，"
+  },
+  {
+   "s": 1149.72,
+   "e": 1176.05,
+   "en": "You saw things that would have been blatantly impossible in a video arcade, right? You had flight simulators where you take off from a runway and you're in the air for two hours of real time and then you land and not very much happens except your gauges twiddle a little bit and the interest in that game is all about the verisimilitude of your flight instruments and the flight model of the vehicle, right? That was a whole genre.",
+   "zh": "你也看到了一些在街机厅里绝不可能出现的东西，对吧？比如飞行模拟类游戏，你从跑道起飞，在真实时间里飞上两个小时，然后降落，期间几乎没发生什么，顶多就是仪表盘稍微晃动几下，而那款游戏的趣味完全在于飞行仪表的逼真度以及载具的飞行物理模型，对吧？那在当时可是一个完整的流派。"
+  },
+  {
+   "s": 1176.71,
+   "e": 1205.44,
+   "en": "You had text adventure games where it describes to you what's happening in text and you like type what you want to do and it says, okay, well, this happened and that happened, right? Those things just can't exist in the arcade because the container of the arcade is very different from that. So, you know, that went on for a while and I think we're all at least a little bit familiar with that. And then we get to sort of lately, all that stuff still exists, it's not going away. And actually, so during this whole time,",
+   "zh": "以前有纯文字冒险游戏，它用文字描述正在发生的事，你输入想做什么，它就回应说，好吧，发生了这个和那个，对吧？这类游戏根本无法在街机上存在，因为街机的载体形式与此大相径庭。所以，这种情况持续了一段时间，我想大家对这段历史至少都有点了解。然后到了最近，所有这些东西依然存在，并没有消失。实际上，在这整个时期里，"
+  },
+  {
+   "s": 1205.84,
+   "e": 1234.54,
+   "en": "There was a little bit of a mantra that game developers had, or a question at least, which was, we would work very hard on our games, and we saw all these beautiful things about them. And there was this question of, when are games going to really go mainstream? When is society at large going to really see what we see in these games and appreciate it and start respecting it or something? Everybody had different angles on this question. Well, you don't hear that very much anymore.",
+   "zh": "游戏开发者之间一直流传着这样一句口头禅，或者至少是一个疑问：我们为自己的游戏拼命努力，看到了它们身上所有美好的特质。随之而来的问题是，游戏究竟什么时候才能真正走向主流？整个社会什么时候才能真正看到我们在这些游戏中所看到的东西，去欣赏它，并开始尊重它呢？每个人对这个问题的切入角度都不同。不过，现在你已经不太能听到这种声音了。"
+  },
+  {
+   "s": 1236.78,
+   "e": 1254.38,
+   "en": "Partially because games have become much more mainstream. Alongside this free-to-play business model, which is part of the expansion of how games reached a lot of people. So you had platforms like Facebook on the left, where a lot of people ended up with...",
+   "zh": "部分原因在于游戏变得更加主流了。伴随而来的还有免费游玩这种商业模式，它是游戏触及大众的扩张途径之一。比如左边像 Facebook 这样的平台，很多人一开始上这个平台……"
+  },
+  {
+   "s": 1254.38,
+   "e": 1279.82,
+   "en": "ended up interacting with for reasons other than playing video games. But then it was found to be a successful place to get people into certain kinds of games if you made those games free, and if you changed the design of those games in such a way to increase virality and such, which we'll talk about in a minute. And then now you have an equivalent thing. Actually, this game on the right, Candy Crush, is on both Facebook and iOS. This is the iOS version.",
+   "zh": "一开始并不是为了玩电子游戏。但后来人们发现，只要让游戏免费，并改变游戏设计来增强病毒式传播等特性，这里就会成为吸引人们玩某些类型游戏的成功土壤，我们稍后会讲到这点。如今也有类似的情况。实际上，右边这款游戏 Candy Crush 既登录了 Facebook，也有 iOS 版。这就是它的 iOS 版本。"
+  },
+  {
+   "s": 1280.71,
+   "e": 1310.55,
+   "en": "So iOS is similar. People come to these kinds of devices for reasons other than games usually. They like want a good phone or a web browser or something. But then the games exploit that niche. And in so, they're able to reach a much broader set of people. However, this isn't really what game designers were envisioning back when we thought, when are games going to go mainstream? There's a lot of downsides to what's happening right now.",
+   "zh": "iOS 也是类似的情况。人们使用这类设备通常不是为了玩游戏，而是想要一部好手机，或者能上网之类的。但随后游戏利用了这一生态位，因而得以触达更广泛的人群。然而，当年我们思考“游戏何时才能走向主流”时，游戏设计师们预想的并不是现在这样。眼下发生的这一切存在很多弊端。"
+  },
+  {
+   "s": 1312.59,
+   "e": 1340.4,
+   "en": "Let me go through them for a second. So delivery of free-to-play games, abbreviated F2P, commonly, is a lot more like TV delivery than cinema delivery, right? You download the game for free. Someone doesn't really have expectations of your game necessarily. They just stumbled into it. Like, what is this? And they start interacting with it. And from that point, the job of the game is to convince the person who downloaded the game to give them money.",
+   "zh": "让我简单梳理一下。免费游戏（通常缩写为 F2P）的分发模式，其实远比电影院更像电视，对吧？你免费下载了游戏，其实对它未必抱有什么期待，只是偶然碰到了而已。“这是个啥？”然后你开始玩了起来。从那一刻起，游戏的任务就是说服下载它的人掏钱。"
+  },
+  {
+   "s": 1341.26,
+   "e": 1369.47,
+   "en": "Very different from the older style of games, or the middle style of games, which is more cinema-like, where once you've entered into the doors of this walled garden, you're sort of in a beautiful place where commercial ulterior motives aren't really happening so much. So the design is more like a TV-style design, and the audience is more like a TV-style audience. They don't have expectations. Like a lot of people playing games on iOS who like...",
+   "zh": "这与老式游戏，或者更具电影感的中期游戏截然不同。在那些游戏里，一旦你跨进这座“围墙花园”，就仿佛置身于一个美好的世界，没有那么多商业上的别有用心。因此，现在的设计更偏向电视风格，受众也更像电视观众。他们并没有太多预设的期待。就像很多在 iOS 上玩游戏的人，比如……"
+  },
+  {
+   "s": 1369.47,
+   "e": 1396.3,
+   "en": "play Candy Crush in the airport while they're waiting for their plane, they probably didn't play Final Fantasy 7 or something on it. They don't have that much experience with the history of games. So you can't even expect them to know what's ostensibly a good game or a bad game. Now, this free-to-play business model, just like commercials,",
+   "zh": "在机场候机时玩《Candy Crush》的人，他们大概率没玩过《Final Fantasy 7》之类的作品。他们对游戏史并没有那么深的了解。所以你甚至不能指望他们分得清什么表面上算好游戏、什么算烂游戏。如今，这种免费游玩（free-to-play）的商业模式，其实就像插播广告一样，"
+  },
+  {
+   "s": 1396.89,
+   "e": 1426.04,
+   "en": "are not a thing where you just insert some more commercial breaks into your TV show and then you're done. You have to design the TV show completely around the fact that there are commercial breaks. With a free-to-play game, you have the equivalent of that, which is times when you want to get money out of people. Little micropayments, 99 cents at a time, or more if the game is particularly brazen. And it's not just that you can insert those into an existing game. You have to design the entire structure of the game to work",
+   "zh": "绝不是你在电视剧里随便塞几个广告时段就完事了。你必须完全围绕“有广告插播”这一事实来设计整部剧。而免费游戏也是同样的道理，你得设计好何时向玩家伸手要钱。微交易，每次 99 美分，要是游戏再厚颜无耻一点，金额还会更高。这可不是直接硬塞进现有游戏里就行的。你必须把游戏的整个架构都设计成围绕它来运转"
+  },
+  {
+   "s": 1426.41,
+   "e": 1455.81,
+   "en": "around those payments. And what you end up with is a very different type of thing than you either could have had in the arcades or in this period of home machines, right? And once again, I think it swings us way back toward the negative in terms of the bearing of the designer toward the audience. Because your job becomes less about giving the audience a beautiful thing and much more about exploiting them or misleading them. And there's a long list of practices that modern free-to-play games do.",
+   "zh": "围绕着这些付费设计。最终得到的产物，就跟你在街机时代或早期家用机时代所能见到的截然不同了，对吧？而且我认为，从设计师对待受众的态度来看，这又一次急剧转向了负面。因为你的工作不再是带给受众美好的事物，而更多变成了剥削他们或误导他们。现代免费增值游戏有太多的套路手段了。"
+  },
+  {
+   "s": 1457.2,
+   "e": 1462.34,
+   "en": "There's no way that I could recap them all in less than probably eight hours of speaking, so I won't.",
+   "zh": "我估计得讲上八个小时才能把它们全盘点一遍，所以我就不细说了。"
+  },
+  {
+   "s": 1462.49,
+   "e": 1491.43,
+   "en": "I'll just go through a couple that these don't exist in all free-to-play games, but they're typical. You'd find many of these in many free-to-play games, right? So these games tend to try to ensnare people in the game for as long as possible, right? Often by building some kind of infinite treadmill of apparent progress where it looks like you're accomplishing things, but the game is designed so that the things you're accomplishing are completely illusionary, right? This is actually something that happened in more traditional games but has been appropriated to slightly more sinister ends now.",
+   "zh": "我只挑几个讲讲，虽然并非所有免费游戏都有这些套路，但它们很典型，你在很多免费游戏里都能见到，对吧？这类游戏往往竭力把玩家尽可能久地套牢在游戏里，对吧？通常是通过打造某种看似不断前进的无限跑步机，让你觉得自己在不断取得成就，但游戏机制的设计却让这些成就完全沦为虚妄，对吧？这种机制其实在更传统的游戏里也出现过，但如今却被挪用到了略显险恶的企图上。"
+  },
+  {
+   "s": 1491.61,
+   "e": 1513.75,
+   "en": "These games will try to interrupt your life as often as possible with push notifications. They'll try to get you to bug your friends to pass the game to your friends like a disease or something. They've even appropriated some elements of classic game design like tutorials. For a while, especially in the 90s or whatever when tutorials really started happening.",
+   "zh": "这些游戏会频繁用推送通知来打扰你的生活。它们还会想方设法让你去骚扰朋友，把游戏像瘟疫一样传给他们。它们甚至挪用了一些经典游戏设计的元素，比如新手教程。有段时间，尤其是在新手教程刚刚兴起的90年代。"
+  },
+  {
+   "s": 1514.55,
+   "e": 1536.73,
+   "en": "Games were getting really complicated, and people would sit down in front of a game, and they didn't know how to play. And so the goal of a tutorial was just to tell you, here's how you play this game, and here's how you get good at it, and know what's going on and stuff. And a tutorial was entirely for the benefit of the player. That's been subverted. So now if you play a modern free-to-play game, the tutorial is kind of telling you what the game's about.",
+   "zh": "游戏变得越来越复杂，玩家坐下来面对一款游戏时，根本不知道该怎么玩。所以新手教程的目的就只是告诉你：这游戏该怎么玩，怎么玩好，以及弄懂游戏里的门道等等。当时的教程完全是为了玩家着想。但现在这层意义已经被颠覆了。如今你去玩一款现代免费游戏，教程表面上是在告诉你游戏是怎么回事。"
+  },
+  {
+   "s": 1537.43,
+   "e": 1565.63,
+   "en": "but it's also kind of training you to spend money, right? So the game will be like, look, you're building that factory, but man, it's gonna take two hours of real time to build that factory, and you're gonna have to come back later, and that's just really a drag, but look, if you only spend eight glitter bucks, you can build this factory right away, and you have 20 in the bank account, look. And so just do that, and by the way, you can't go on to the next step of the tutorial until you do that, right? So they force you,",
+   "zh": "但这也在某种程度上训练你去花钱，对吧？游戏会像是这样：看，你正在建造那个工厂，但老兄，建造它需要现实中的两个小时，你得过会儿再回来，这真的很烦人，不过你看，如果你只花八个闪亮币，就能立马建好这个工厂，而且你看，你账户里还有二十个呢。所以就这么做吧，顺便说一句，除非你这么做，否则就没法进行教程的下一步，对吧？所以他们强迫你，"
+  },
+  {
+   "s": 1565.98,
+   "e": 1590.91,
+   "en": "to do this transaction that's not commercial yet, because they gave you some free glitter bucks, and they'll continue giving you some free ones for a while, so you're used to spending them. But that supplied dwindles. But you've trained the player to spend those things, and then you show them how to buy them for real money. So a tutorial stops being for the benefit of the player, and starts being a little bit against the player's best interest.",
+   "zh": "去做这笔还算不上商业性质的交易，因为他们送了你一些免费的闪亮币，而且还会继续送你一阵子，让你习惯去花它们。但这种供应会逐渐减少。可你已经训练好玩家去消费这些东西了，然后你再教他们如何用真钱去购买。这样一来，新手教程就不再是为了玩家的利益，而是开始有点违背玩家的最大利益了。"
+  },
+  {
+   "s": 1595.05,
+   "e": 1620.21,
+   "en": "One of the most devious practices is to give the player a reward or ostensibly give the player a reward and then threaten to take it away, right? There's a psychological phenomenon called loss aversion where people just, once they've got something that they really want, it's really painful to have it taken away. It's more painful than not to have gotten the thing in the first place. So, you know, games like puzzles and dragons, if you guys have seen that, do...",
+   "zh": "最阴险的套路之一，就是给玩家一份奖励，或者表面上给了奖励，然后又威胁要收回去，对吧？这种心理现象叫做“损失厌恶”，人们一旦得到了梦寐以求的东西，被剥夺的痛苦是非常强烈的，甚至比一开始就没得到的痛苦还要大得多。所以，如果你们玩过像《智龙迷城》（Puzzle & Dragons）这样的游戏，就会发现……"
+  },
+  {
+   "s": 1621.36,
+   "e": 1643.3,
+   "en": "where you're fighting through a series of encounters, and in the middle, one of the middle encounters that aren't that hard, you know, after every one, you get some random treasure, like you do in all these dungeon exploration kinds of games. And one of these random treasure items happens to be this amazing item that you really wanted. Wow, that's gonna make life a lot better. It's not really gonna make life a lot better, because there's a treadmill, right? But you think it is.",
+   "zh": "在游戏里你要连续打一系列遭遇战，而在中间某场并不算难的战斗中，你知道的，每场打完都会掉落随机宝物，就像所有地牢探险类游戏一样。而其中一件随机掉落的宝物，恰好就是你梦寐以求的极品道具。哇，这下日子可好过多了。其实日子并不会真的变好过，因为数值在水涨船高嘛，对吧？但你会以为它会变好。"
+  },
+  {
+   "s": 1645.88,
+   "e": 1670.66,
+   "en": "And then you get to the final encounter of the dungeon and it's really this hard boss monster and he kicks your ass and you're losing and it's like, wow, if I lose, I'm gonna have to run away from the dungeon and lose all my treasure and lose this amazing thing that I just got. That's no good. And the game comes along and gives this proposition like, well, if you just pay 99 cents, you can have this one time use item to beat this boss monster and, you know, that's not that bad.",
+   "zh": "接着你打到了地下城的最终关卡，遇到了一个超难打的Boss级怪物，你被它狂虐，眼看就要输了，这时你会想：天哪，要是我输了，就得逃离地下城，丢掉所有的宝藏，还会失去刚刚到手的那件神器。那可不行。这时游戏就会弹出一个提议，比如：好吧，只要花99美分，你就能买到一个一次性道具干掉这个Boss怪，你看，这也不算太亏嘛。"
+  },
+  {
+   "s": 1670.97,
+   "e": 1693.1,
+   "en": "It's just once and you'll get to keep this thing. And the human mind is not very good at resisting offers like that. And the designers know this. Now, when you talk to game designers about this kind of issue, they'll often be in denial in a way that bugs me. You know, they'll say some things that...",
+   "zh": "就花这一次钱，你就能保住刚才的东西了。人类的大脑往往很不擅长拒绝这种诱惑。而设计师们心知肚明。如今，当你跟游戏设计师聊起这类问题时，他们往往会拒不承认，这让我很不爽。你知道，他们会说出一些……"
+  },
+  {
+   "s": 1693.19,
+   "e": 1718.68,
+   "en": "Maybe have a little bit of a kernel of truth to them, but that really are, to my mind, excuses, right? So the first thing is, well, this is the future. All games are going to be this way, so you might as well get used to it. And there's a little bit of reason to actually believe that. Partially because there's been this explosion, if you look at these free-to-play games on iOS, they have a huge number of people playing them.",
+   "zh": "也许它们带有一点点道理，但在我看来，那其实只是借口，对吧？首先第一点是，“嗯，这就是未来。所有的游戏都会变成这样，所以你最好还是习惯吧。”其实也有那么一点理由去相信这话。部分原因是这种模式出现了爆发式增长，如果你看看 iOS 上的这些免费游戏，玩的人数多得惊人。"
+  },
+  {
+   "s": 1719.76,
+   "e": 1748.17,
+   "en": "And they're making huge amounts of money. And once a certain number of games are free to play, if you're going to come along and say, well, you have to pay $10 to play my game, it's easy to think, well, why would anyone ever pay $10 to play that game? There's all this other stuff for free. So there's that factor. And there's also the factor that the pay to play part of the game industry has traditionally had a lot of problems.",
+   "zh": "而且它们赚得盆满钵满。一旦免费游戏达到一定数量，如果你跳出来说：“玩我的游戏得付 10 美元”，人们很容易就会想：“呃，谁会花 10 美元去玩那个游戏啊？边上可全都是免费的呢。”所以存在这个因素。另外还有一个因素，就是游戏产业里付费畅玩这块一直以来问题就不少。"
+  },
+  {
+   "s": 1748.47,
+   "e": 1773.39,
+   "en": "that are perhaps getting worse, like piracy. On PCs, piracy rates are like 90%, which is to say that 10% of the people who play your game actually paid you for it. And when you see numbers like that, they're not as bad in consoles, but it's still a problem on game consoles as well. And when you see things like that, you start looking for ways to solve that problem. And free-to-play games inherently have an online component.",
+   "zh": "情况可能还在恶化，比如盗版。在 PC 上，盗版率大概有 90%，也就是说玩你游戏的人里只有 10% 真的掏了钱。当你看到这样的数据——虽然主机上没这么夸张，但游戏主机上也同样存在这个问题。看到这些情况，你就会开始寻找解决办法。而免费游戏本质上就自带联网属性。"
+  },
+  {
+   "s": 1775.43,
+   "e": 1803.06,
+   "en": "which means that piracy just doesn't work, right? I mean, you're trying to give the game out for free anyway, so people who pirate the game are sort of just helping you at that point. So there's a little bit of a scary potential that this is true and that all games will be this way in the future. I don't believe it necessarily, right, because television didn't make cinema go away. Even today, now that movies are really kind of bad most of the time,",
+   "zh": "这就意味着盗版根本没用了，对吧？反正你本来就是要免费送游戏的，这时候谁去盗版反而算是在帮你了。所以这可能蕴含着一种可怕的趋势，未来所有的游戏都会变成这样。但我并不完全相信会这样，对吧，因为电视并没有让电影消失。即使在今天，虽然大部分时候电影确实挺烂的，"
+  },
+  {
+   "s": 1803.36,
+   "e": 1829.51,
+   "en": "people go to the movies when they could just watch TV shows on their iPad or they could download them off Pirate Bay or something. Movies still exist. Another thing designers say is that this doesn't change the nature of good game design. You're still a good game designer. You're just working in a different format. But the case that I've been trying to make here is that that's completely untrue. Like anyone...",
+   "zh": "人们明明可以直接在 iPad 上看电视，或者去海盗湾之类的网站下载，却还是会去电影院。电影依然存在。设计师们常说的另一件事是，这并不会改变优秀游戏设计的本质。你依然是个优秀的游戏设计师，只不过是在以一种不同的形式创作。但我在这里一直想证明的，是这种说法完全站不住脚。就像任何人……"
+  },
+  {
+   "s": 1829.51,
+   "e": 1857.95,
+   "en": "The only way you can believe this bottom statement is if you have a vested interest in believing it. Because I think it's obvious to anyone who actually looks that the form of what you're making, the structural constraints on it dictate what you actually can make. The shape of a container determines what can be contained. We see that with television versus movies, we see that with arcade games versus home games. It's universally true.",
+   "zh": "只有在你本身有既得利益的情况下，你才会相信底下这句话。因为我觉得任何真正观察过的人都很清楚，你所制作事物的形式、它的结构性限制，决定了你究竟能做出什么。容器的形状决定了能装下什么。我们从电视剧与电影的对比中看到了这一点，从街机游戏与主机游戏的对比中也看到了这一点。这是普遍适用的真理。"
+  },
+  {
+   "s": 1859.87,
+   "e": 1892.32,
+   "en": "Now I want to talk about, I want to get a little less negative and talk about some games that have come about lately that I think do things that are very interesting that wouldn't necessarily work in a free-to-play kind of framework and I'll talk about why in each case. So this game called Gone Home is made by a small team called the Fulbright Company here in Portland actually. This game",
+   "zh": "现在我想换个话题，少讲点消极的，来聊聊最近出现的几款游戏，我觉得它们做了非常有趣的尝试，而这些在免费游玩（free-to-play）的模式下往往是行不通的，我会分别讲讲原因。这款叫《Gone Home》的游戏，是由波特兰当地一家名为 The Fullbright Company 的小团队制作的。这款游戏……"
+  },
+  {
+   "s": 1893.25,
+   "e": 1914.37,
+   "en": "In this game, you play a girl who's in college and has been studying abroad for a year, and you're coming back home to sort of reunite with your family. They've moved into a different house during that year, so you don't even know the layout of the house. And for some reason, when you get home, everybody's gone. So you spend this game wandering around this house,",
+   "zh": "在这个游戏里，你扮演一名大一就出国留学一年的女大学生，正准备回家与家人团聚。这一年里他们搬了新家，所以你连房子的布局都不知道。而且不知何故，等你回到家时，所有人都失踪了。于是你整场游戏都在这栋房子里徘徊，"
+  },
+  {
+   "s": 1914.86,
+   "e": 1946.21,
+   "en": "like looking through notes, reading diaries and stuff like that, and you as the player are reconstructing the story of what's been going on with your family for the past year. It's a very dramatic story, it's a very personal story, and playing this game is an experience that's about caring about the characters, right? It's about... It's a very personal game, right? It's about...",
+   "zh": "比如翻看便签、读日记之类的内容，而你作为玩家，是在拼凑复原过去一年里家人身上发生的故事。这是一个非常富有戏剧性、非常私人的故事，玩这款游戏的体验就在于去关心这些角色，对吧？它关乎……这是一款非常私人的游戏，对吧？它关乎……"
+  },
+  {
+   "s": 1946.76,
+   "e": 1974.76,
+   "en": "very personal human issues. And there's a lot of ways. So let's do an exercise. We want to make a free-to-play version of this game. Well, first of all, it can't any longer be a two-hour long game that's some kind of self-enclosed, satisfactory, nugget of story. It has to now be infinitely long, if it's going to be free to play, or at least so long and extensible that by the time people get toward the end, you can build new content, right? So it couldn't be",
+   "zh": "非常私人的个人议题。而且实现方式有很多。我们来做个假设。如果要把这款游戏做成免费模式。首先，它就不能再是一款两小时通关、内容自洽、体验完整的叙事小品了。要是做免费模式，它必须得无限延伸，或者至少长到且可扩展到等玩家快通关时，你已经做出新内容了，对吧？所以它不能再只是"
+  },
+  {
+   "s": 1975.41,
+   "e": 1999.64,
+   "en": "a story about a family anymore, or you might have to do something really massive about a whole world full of many people, and at some point, doesn't that start to get impersonal? You could maybe pull it off. If you tried to do the video game version of Lost or something, you could try to pull that off, but Lost couldn't even do Lost, right? So that's a problem. But also...",
+   "zh": "讲一个家庭的故事了，或许你得做一个涉及庞大世界的宏大叙事，容纳形形色色的人，但这样一来，难道不会渐渐失去人情味吗？或许你也能驾驭得了。比如尝试做个游戏版的《迷失》之类的，你可以试着做出来，但连《迷失》自己都没能圆得回来，对吧？所以这是个问题。而且……"
+  },
+  {
+   "s": 1999.64,
+   "e": 2030.08,
+   "en": "This is a game where you're supposed to be caring deeply about what has happened to these people. And that becomes spoiled when you start to inject these commercial moments into the game. So you could imagine the free-to-play version of this, which is like, oh, you found a note from your sister, Sam. And peeling open the corner, it looks a little bit lurid. And what does it say? But you can't tell because there's bubblegum sticking the note together. But for only $0.99, you can get a bubblegum-dissolver pellet and open the note, and you'll be able to read it. And it's like that.",
+   "zh": "在这款游戏里，你本该对这些人的遭遇感同身受。可一旦你在游戏里塞进这些商业化的设计，那种代入感就被毁了。你可以想象一下它的免费内购版会是什么样：比如你找到了妹妹 Sam 留的一张便签，揭开一角，内容看起来有些惊心动魄。上面写了什么？但你看不清，因为便签被泡泡糖粘住了。只要花 0.99 美元买个“泡泡糖溶解丸”，就能揭开便签一探究竟。大概就是这种感觉。"
+  },
+  {
+   "s": 2030.86,
+   "e": 2054.19,
+   "en": "That paints a lot of things like you just can't you can't get the same emotional response out of people in that kind of situation is not possible Here's another game called papers. Please came out within the past couple months by Lucas Kovar This is a game where you staff an immigration checkpoint for a fictional Eastern European country",
+   "zh": "这说明了许多问题，在那种情况下，你根本不可能唤起玩家同样的共情，绝无可能。还有一款游戏叫《Papers, Please》，是 Lucas Kovar 前几个月刚出的。在这款游戏里，你扮演一个虚构东欧国家的移民检查站工作人员，"
+  },
+  {
+   "s": 2054.9,
+   "e": 2083.14,
+   "en": "and you inspect people's paperwork and decide whether to let them into the country or not. Sounds very tedious, and it is a little bit tedious, but it's actually really fun and interesting to play as well. You very quickly end up with issues like, wow, how dirty do I feel about the fact that I just took a nude scan of this person to see, look, he had contraband, so that was good that I did that, right?",
+   "zh": "负责检查入境人员的证件，决定是否放他们入境。听起来很枯燥，实际玩起来确实有点繁琐，但也非常有趣、引人入胜。你很快就会陷入各种道德挣扎，比如：“天哪，我居然刚对这个人进行了裸体透视扫描，我是不是太下作了？但你看，他身上藏了违禁品，所以我这么做是合理的，对吧？”"
+  },
+  {
+   "s": 2084.57,
+   "e": 2114.54,
+   "en": "he probably doesn't know he's being nude-scanned. What's interesting about this game is it brings up issues about immigration issues and privacy issues in ways that make them very real to the player. A question like immigration is the kind of subject where it's very easy to have an ill-informed opinion that's very strong about that subject, and many people do. But when you put it in a game,",
+   "zh": "他大概不知道自己正在接受裸体扫描。这款游戏有趣的地方在于，它以一种让玩家感同身受的方式，引出了移民和隐私问题。像移民这类话题，很多人往往很容易在缺乏了解的情况下形成极度强烈的观点，事实也确实如此。但当你把它做成游戏，"
+  },
+  {
+   "s": 2115.52,
+   "e": 2145.86,
+   "en": "You make people confront the issues for real because like well, I have to do a good job at this immigration checkpoint Or I get fired or maybe I sort of want to get fired Or you know, do I do I want to help subvert? This fascist state that is sort of becoming more and more fascist and that I don't like the tenor of so I'm glad that people laugh when I put these up together because",
+   "zh": "就能让人们切身体会这些问题，因为你会想：“好吧，我得把这个移民检查站的工作干好，不然就会被开除，或者也许我其实想被开除？”又或者，“我想不想协助推翻这个越来越法西斯化、让我反感的法西斯国家？”所以我很高兴大家看到我把它们放在一起时笑了，因为"
+  },
+  {
+   "s": 2147.11,
+   "e": 2172.32,
+   "en": "These are very different kinds of games. So if you try to make the free-to-play version of Papers, Please, I think it starts to be about these kinds of decisions, right? So in Papers, Please, you make really hard choices like, wow, this woman's paperwork is not really in order, but she says she's gonna get killed for political reasons if she's rejected at this checkpoint. Do I let her through or not, right? Or, you know, this woman...",
+   "zh": "这是截然不同的游戏类型。所以如果你想做一款免费版的《Papers, Please》，我觉得重点就会落在这类抉择上，对吧？在《Papers, Please》里，你要做非常艰难的抉择，比如：“天哪，这个女人的证件不太合规，但她说如果被关卡遣返，就会因政治原因被杀。我到底放不放她过去？”对吧？或者，这个女人……"
+  },
+  {
+   "s": 2172.32,
+   "e": 2200.92,
+   "en": "wants to see her son, who she's been away from for a year, and her papers aren't in order, but it's only expired by a couple days, and it's not a big deal. Do I let her through, or do I reject her, right? Those are difficult and interesting choices that build in complexity and sophistication over this game, right? In Candy Crush, the choices are like, well, I could win this level, but if, or I'm about to lose this level, but I'm not that far from losing it, so if I buy this power up for 99 cents,",
+   "zh": "想见见分别了一年的儿子，但她的证件不太合规，不过也就过期了几天，不算什么大事。我是放她过去，还是拒绝她，对吧？这些都是艰难而有趣的抉择，并在游戏中逐渐变得复杂而深刻，对吧？而在 Candy Crush 里，那些选择就像是，好吧，我可能会赢下这关，或者说我快要输了，但也差得不多，所以要是我花99美分买这个道具，"
+  },
+  {
+   "s": 2201.58,
+   "e": 2226.68,
+   "en": "You know, maybe I can strategically use it in a way that gets me through the level, right? That's like a totally different realm of choices. So first of all, it's kind of a selfish choice in Candy Crush, right? Like I'm buying something to make me more powerful. In Papers, Please, you need to make selfish choices because otherwise you lose, but you're always balancing those selfish choices on a knife edge of what you feel comfortable about actually doing.",
+   "zh": "你说，也许我能在策略上好好利用它，从而通关，对吧？这完全是另一种层面的选择了。所以首先，在 Candy Crush 里这算是种自私的选择，对吧？就像是我花钱买东西让自己变得更强。而在 Papers, Please 里，你必须做出自私的选择，否则就会输掉，但你总是在这种自私的选择与自己良心能承受的底线之间走钢丝。"
+  },
+  {
+   "s": 2227.83,
+   "e": 2258.13,
+   "en": "And again, once you inject commercialism into these choices themselves, once they pervade the game and it's like, well, you could scan this guy to see if he has contraband, but you're out of x-ray plates and an x-ray plate costs 99 cents, that is just not the same game anymore, right? You're not weighing the issues in the same way. Here's a game, this one's a little subtler and harder to talk about.",
+   "zh": "再说一次，一旦你把商业化注入到这些选择本身，一旦它们充斥着整个游戏，变成比如：你可以扫描这家伙看看他有没有违禁品，但你的X光胶片用完了，而一张胶片要花99美分，那这就完全不再是同一个游戏了，对吧？你的考量方式已经全变了。这里还有个游戏，这个会稍微更微妙，也更难聊清楚。"
+  },
+  {
+   "s": 2258.43,
+   "e": 2285.31,
+   "en": "But it's the binding of Isaac by a friend of mine named Edmund McMillan and this game takes place against this sort of background of weird, insular Christianity that happens a lot in America. I know this firsthand because I grew up at least a little bit in that kind of situation. And the, you know, the story of the game is that Isaac's mother hears a voice from God paralleling the biblical story that",
+   "zh": "那就是我朋友 Edmund McMillan 制作的《以撒的结合》（The Binding of Isaac），这个游戏的背景设定在美国很常见的那种怪异、封闭的基督教氛围中。我对这点深有体会，因为我多多少少也算是在那种环境下长大的。而且，大家知道，这游戏的故事跟圣经故事很像，以撒的母亲听到了上帝的声音，"
+  },
+  {
+   "s": 2285.99,
+   "e": 2311.33,
+   "en": "orders her to kill her son. And the game, so Isaac flees into the basement, and the game then sort of takes place in his twisted imagination as he goes deeper and deeper into the basement, more twisted and crazy things happen. But the game as a whole, if I step away from the fictional part for a second, is about",
+   "zh": "命令她杀掉自己的儿子。于是以撒逃进了地下室，然后游戏就相当于发生在他扭曲的想象之中，随着他越来越深入地下室，发生的事情也变得越来越扭曲、越来越疯狂。但从整体来看这款游戏，先抛开虚构的剧情不谈，它其实关乎"
+  },
+  {
+   "s": 2313.69,
+   "e": 2342.01,
+   "en": "Possibility. It's about having this rich space where a lot of things can happen, and the game keeps getting bigger and bigger the more that you play it, and more and more intricate and crazy things can happen, and you can get items that you can use together in really interesting ways that you didn't foresee. So there's a feeling of bounty to this game. There's a feeling like, I don't know what's going to happen this time when I play. It's a game that you play repeatedly in different runs, and each one goes differently. So you don't know what's going to happen.",
+   "zh": "可能性。它关乎提供一个能发生很多事情的丰富空间，你玩得越多，这个游戏就会变得越来越庞大，更多错综复杂又疯狂的事情可能发生，你还能获得一些能以你未曾预料的、极度有趣的方式组合使用的道具。所以这游戏给人一种极其丰饶的感觉。会有一种“我不知道这次玩会发生什么”的感觉。这是一款你可以一遍遍重复通关的游戏，每一次体验都截然不同。所以你永远不知道会发生什么。"
+  },
+  {
+   "s": 2342.54,
+   "e": 2369.85,
+   "en": "You know that it may be very different from what you just played. You know that you can make important decisions that are skill-based. And once you start gating content behind paywalls, that feeling of bounty isn't there anymore. It's not magical. It's like, well, I paid for more stuff, so I get more stuff. The game isn't generous anymore. And generosity is important for a reason I'll talk about in a second.",
+   "zh": "你知道它可能和你刚才玩的完全不同，你知道自己能凭借技巧做出关键决定。而一旦你开始把内容锁在付费墙后面，那种丰盛充实的感觉就荡然无存了。它不再有魔力。感觉就变成了：行吧，我花钱买更多东西，所以我就得到了更多东西。游戏不再大方了。而大方是很重要的，原因我马上就会讲到。"
+  },
+  {
+   "s": 2371.59,
+   "e": 2398.03,
+   "en": "Let me try to get into some takeaways here. So if you're a game player and not a game maker, and you're playing this kind of game right now, really what I can ask is just know that what you're doing is the new version of watching bad TV in the 70s. Just like you don't necessarily know that this is bad TV right now, people watching this $6 million man were not cognitively aware of how terrible that show was most of the time.",
+   "zh": "让我来试着总结一些干货。所以如果你只是个玩家而不是游戏开发者，而且你现在正在玩这种游戏，我唯一能提醒的就是，你要意识到自己现在的行为，就相当于70年代在看烂俗电视节目的现代翻版。就像你现在未必意识到这是个劣质电视节目一样，当年看《无敌金刚》（The Six Million Dollar Man）的人大部分时候也根本意识不到那部剧有多烂。"
+  },
+  {
+   "s": 2399.27,
+   "e": 2424.74,
+   "en": "It's only in retrospect that we can stand where we are now and look back at that and say, wow, that show was terrible. Same with these games. You're swimming in them so you can't see how bad they really are. I know that just like I can look back at the 80s and say, man, I can't believe I spent so many hours watching frickin' Night Rider and Airwolf and the A-Team and all that stuff.",
+   "zh": "只有事后站在现在的角度回头看，我们才会感慨：天哪，那部剧真烂。这些游戏也是如此，你深陷其中，根本意识不到它们有多糟糕。我很清楚这一点，就像我回看80年代时会说：天哪，真不敢相信我当年居然花了那么多时间看该死的《霹雳游侠》、《飞狼》、《天龙特攻队》之类的剧。"
+  },
+  {
+   "s": 2426.05,
+   "e": 2451.36,
+   "en": "it's going to be very easy to look back in 10 or 15 years and say, I can't believe I played so many of these frickin' illusionary treadmill games. And a common response to that kind of statement is, well, I sort of hear what you're saying, but I don't believe it because it's my experience when I'm playing a game like Candy Crush that I'm having fun and there's nothing wrong with that. This is also what designers say, like designers who want to make this kind of game and...",
+   "zh": "再过10年或15年，大家也很容易回过头说：真不敢相信我当年玩了那么多该死的虚幻跑步机游戏。而针对这种说法，一种常见的反驳是：“我大概懂你的意思，但我并不认同，因为就我玩《糖果传奇》的体验而言，我玩得很开心，这并没有什么不对。”那些想做这类游戏的设计师们也会这么说，而且……"
+  },
+  {
+   "s": 2451.73,
+   "e": 2481.62,
+   "en": "convince you that it's not a crappy game or whatever, they just say, well, people have fun playing it and who are you to judge, right? And it's like, well, sort of, but in other areas of life, we don't have this level of confusion, right? Like a lot of people like going to McDonald's and eating McDonald's french fries, they'll tell you that they taste good, but there's not really any confusion that this is good food, right? Nobody thinks this is good food. Nobody thinks you should eat this every day. But in games, that level of clarity has not been reached yet.",
+   "zh": "让你相信这不是烂游戏之类的，他们只会说，大家都玩得很开心，你凭什么评头论足，对吧？某种程度上确实如此，但在生活的其他领域，我们可没这么困惑，对吧？就像很多人喜欢去麦当劳吃薯条，他们会告诉你这很好吃，但大家心里都很清楚这算不上什么好食物，对吧？没人觉得这是健康美食，也没人觉得你应该天天吃。但在游戏领域，大家还没达到这种清醒认知。"
+  },
+  {
+   "s": 2483.41,
+   "e": 2511.77,
+   "en": "So the nice thing though, if you've played this kind of game on the left, is to know that there actually is better stuff out there. There's stuff that can actually speak to you as a human being beyond just a bundle of reflexes that can be psychologically manipulated. And if you're playing these kind of games on the left, it at least means that you're maybe a little bit interested in games to begin with. So if you wanted to do a little bit of scouting and had good advice, you could find the kinds of things",
+   "zh": "不过好的一面是，如果你玩过左边这类游戏，你就会知道外面其实还有更好的作品。有些东西能真正把你当成一个活生生的人去沟通，而不仅仅是当成一堆可以被心理操控的条件反射。如果你在玩左边这种游戏，至少说明你一开始对游戏还是有点兴趣的。所以如果你愿意去探索一下，并得到一些好的建议，你就能找到"
+  },
+  {
+   "s": 2512.06,
+   "e": 2535.84,
+   "en": "like are on the right. And you might find them much more interesting. Maybe you wouldn't. Maybe you'd go back to playing Candy Crush. Who knows? But it's a possibility. Now, if you make games, so first of all, just be aware if you're making this kind of game, you're making the new bad TV, right? You're making the new $6 million man. Except it's worse because it's more manipulative, right? The way that",
+   "zh": "右边这类作品。你可能会发现它们有趣得多。也许不会，也许你会回去继续玩 Candy Crush，谁知道呢？但这是一种可能性。现在，如果你是做游戏的，首先要意识到，如果你做的是这类游戏，你就是在制造新时代的垃圾电视节目，对吧？你就是在拍新版的《无敌金刚》。甚至更糟糕，因为它的操控性更强，对吧？其方式在于"
+  },
+  {
+   "s": 2536.1,
+   "e": 2563.51,
+   "en": "we get money in free-to-play games from our customers is more coercive and more manipulative than television ever was, right? And so the relationship between the designer and the audience is more nefarious. And that's, so for me, someone who identifies as a game designer, it's important to me what I do from day to day. I want to feel good about what I do, like anybody does.",
+   "zh": "免费游戏从玩家那里赚钱的方式，比当年的电视更具强迫性和操控性，对吧？因此，设计师与受众之间的关系也变得更加恶劣。所以对我这样一个自视为游戏设计师的人来说，我每天做的事情非常重要。和大家一样，我也希望对自己所做的事感到问心无愧。"
+  },
+  {
+   "s": 2564.19,
+   "e": 2592.76,
+   "en": "And so I find it's important to me to look at what I'm doing, take a careful eye about how am I approaching my audience. Because when I design things hour after hour, day after day, those help determine who I am. I don't think you can do something 40 hours a week without it affecting who you are. So it's like, am I working hard? Am I respecting my audience? Or am I trying to nickel and dime them? Am I trying to exploit them?",
+   "zh": "因此我觉得，审视自己在做什么、仔细反思自己如何对待受众，是至关重要的。因为当我日复一日、年复一年地做设计时，这些工作塑造了我的人格。我不认为你每周花40个小时做一件事，却不会受其影响。所以问题在于：我是在努力工作吗？我尊重我的受众吗？还是说我只想对他们锱铢必较、榨取利益？我是在试图剥削他们吗？"
+  },
+  {
+   "s": 2593.64,
+   "e": 2627.28,
+   "en": "That's very important to me. And in case all of this doesn't make that much sense to people, I want to talk a little bit about the target that I'm aiming for, what I personally aspire to as a designer. And maybe it'll make some of this make a little more sense. What I'm about to read from is a short section of Electron Game Design called The Secret of Song 46 by Brian Moriarty, who's one of the designers",
+   "zh": "这对我来说非常重要。如果大家觉得这些听起来有点莫名其妙，我想稍微聊聊我的目标，以及我个人作为设计师的追求。也许这能让刚才的内容更容易理解一些。接下来我要朗读的内容，摘自 Brian Moriarty 的一篇简短的游戏设计讲稿《第46首赞歌的秘密》（The Secret of Song 46），他是我极为敬重的一位"
+  },
+  {
+   "s": 2627.79,
+   "e": 2664.73,
+   "en": "who came before me that I respect most tremendously. And leading into this section, just to establish context, he's talking about the King James Bible and the works of Shakespeare. Contemplating these dazzling jewels of wisdom and eloquence gives rise to an extraordinary feeling. A potent, rare, and precious emotion with the potential to completely upset your life. An emotion powerful enough to make a man abandon his wife and children",
+   "zh": "前辈设计师。在进入这段内容之前，先交待一下背景，他当时正在谈论《钦定版圣经》和莎士比亚的作品。“凝视这些闪耀着智慧与雄辩的光芒瑰宝，会让人心中升起一种非同寻常的感觉。那是一种强烈、罕见而珍贵的情感，足以彻底颠覆你的人生。这种情感强大到足以让一个人抛妻弃子，"
+  },
+  {
+   "s": 2665.23,
+   "e": 2697.12,
+   "en": "forfeit career and reputation, lay down his possessions, and follow his heart without questioning. That sweet, sweet fusion of wonder and fear, irresistible attraction, and soul-numbing dread, known as awe. Awe is the grail of artistic achievement. No other human emotion possesses such raw, transformative power, and none is more difficult to evoke. Few and far between...",
+   "zh": "放弃事业与声誉，舍弃一切家当，毫无迟疑地追随内心。那是惊奇与恐惧、无法抗拒的吸引力与直击灵魂的畏惧之间，那无比甘美的交融，即所谓的‘敬畏’。敬畏是艺术成就的圣杯。人类的其他任何情感都不具备如此原始、具有颠覆性的力量，也再没有任何情感能像它一样难以唤起。这种体验极为罕见……”"
+  },
+  {
+   "s": 2697.12,
+   "e": 2735.12,
+   "en": "are the works of man that qualify as truly awesome. It is Ah that convinces a rabbi to spend a lifetime decoding Yahweh from the Pentateuch. Ah that sends millions of visitors each year to the pyramids of Giza, Guadalupe, and Mecca. Awesome things don't hold anything back. Awesome things are rich and generous. The treasure is right there. So that's",
+   "zh": "正是人类那些称得上真正令人敬畏的作品。正是这种敬畏，让拉比穷尽一生从《摩西五经》中破译耶和华。正是这种敬畏，每年吸引数百万人涌向吉萨金字塔、瓜达卢佩和麦加。令人敬畏的事物毫无保留。令人敬畏的事物丰沛而慷慨。宝藏就在那里。所以"
+  },
+  {
+   "s": 2736.38,
+   "e": 2767.56,
+   "en": "That's a high bar to aspire to. And I don't know that I will ever make it. I don't know that I will ever create a work that is truly awesome in the sense that Brian means. But I'm sure going to try. And I think that anyone who tries that kind of endeavor with full forthrightness, with full honesty, like not just kidding themselves that they're trying to do that, but really, really",
+   "zh": "这是一个极高的追求目标。我不知道自己是否能做到。我不知道自己能否创造出 Brian 所说的那种真正令人敬畏的作品。但我肯定会去尝试。我认为，任何人只要怀着十二分的坦诚与真挚去做出这种尝试，不是自欺欺人地说自己在努力，而是真真正正地"
+  },
+  {
+   "s": 2768.19,
+   "e": 2797.25,
+   "en": "putting everything they have as a designer into trying to do that, even if you don't make it, it puts you into a very rare and privileged group of individuals. And so that's really what I'm aiming for. And so if these complaints about free to play games don't make much sense to you, here's a couple questions that can maybe help them make more sense. If you play games, think about that feeling of awe, like something that's",
+   "zh": "倾注作为设计师的一切去尝试，哪怕没成功，你也会跻身于极少数难能可贵的同行之列。这就是我真正的追求。所以，如果你觉得这些对免费游戏的抱怨难以理解，这里有几个问题或许能帮你理解。如果你玩游戏，想想那种敬畏感，就像一件对你来说"
+  },
+  {
+   "s": 2797.85,
+   "e": 2824.42,
+   "en": "more important than anything else in the world to you. You might have felt a little bit of that reading a novel or seeing a film or seeing a beautiful painting or sculpture. And you might ask, what kind of game would it have to be to evoke that feeling? And what does that game look like? And does that game look anything like Candy Crush or Farmville, right? Is that game...",
+   "zh": "比世界上任何事物都更重要的东西。读小说、看电影，或是欣赏美丽的画作、雕塑时，你可能都体会过这种感觉。你可能会问，什么样的游戏才能唤起这种感觉？那款游戏又会是什么样？那款游戏看起来会有一点点像 Candy Crush 或 Farmville 吗？那款游戏会是……"
+  },
+  {
+   "s": 2824.42,
+   "e": 2853.61,
+   "en": "Can that game inspire feelings of awe while also saying and just for 99 cents? You can have a little benefit here. Is that even possible right now? If you make games there's a longer term question about What would it take if I were to become the kind of designer who can make things that truly inspire awe along with the great artists? Whoever your choice of great artists are",
+   "zh": "一款游戏能否在让你心生敬畏的同时，又对你说“只要99美分，你就能获得这点小福利”？这在当下真的可能吗？如果你是做游戏的，就有一个更长远的问题：如果我想成为能与那些伟大艺术家并肩、做出真正令人敬畏作品的设计师，我需要付出什么？无论你心中的伟大艺术家是谁。"
+  },
+  {
+   "s": 2855.73,
+   "e": 2884.91,
+   "en": "What would it take? What would the trajectory of my career have to be to get me from here to there? How hard would I have to work? What kinds of things would I have to work on? How would I have to treat my audience to get there? And can I do that? Can I have that kind of personal and career development if I'm spending all eight hours a day figuring out how to nickel and dime people for micropayments? Is that possible? Or does that prevent such developments?",
+   "zh": "这需要付出什么？我的职业轨迹得是什么样，才能让我从现状走到那一步？我得有多努力？我需要去做些什么类型的作品？为了实现这个目标，我又该如何对待我的受众？而我真的能做到吗？如果我每天八小时都在琢磨怎么用微交易从玩家身上搜刮蝇头小利，我还能获得这样的个人与职业发展吗？这有可能吗？还是说这根本就会阻碍这种成长？"
+  },
+  {
+   "s": 2887.34,
+   "e": 2895.92,
+   "en": "So I think I will conclude the official remarks there, and we probably have plenty of time for questions. Yeah, so we'll take questions now. Thank you.",
+   "zh": "我正式想说的部分就到这里，接下来我们应该有很充裕的时间提问。好的，现在开始回答大家的提问。谢谢。"
+  }
+ ]
+}

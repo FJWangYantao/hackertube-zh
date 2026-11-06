@@ -1,0 +1,680 @@
+{
+ "vid": "54l8_ewcOlY",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 12.43,
+   "e": 40.31,
+   "en": "Welcome. This is a series in which I am going to endeavor to put together pretty much all of my work. My name is John Ravecki. I'm an assistant professor at the University of Toronto. I'm in the psychology department and in the cognitive science program. And I also teach for the Buddhism Psychology and Mental Health program. I've produced a lot of videos on a lot of various topics. Some of you have perhaps seen them.",
+   "zh": "欢迎大家。在这个系列中，我将尽力把我的几乎所有研究成果整合在一起。我叫 John Ravecki，是多伦多大学的助理教授。我任职于心理学系和认知科学项目，同时也在“佛教、心理学与心理健康”项目中任教。我曾围绕许多不同主题制作过很多视频，你们中有些人可能已经看过了。"
+  },
+  {
+   "s": 41.26,
+   "e": 65.86,
+   "en": "But what I want to do now in this series is draw it all together and present to you an overall unified argument that can show you the interconnections between pieces that you might have seen before. Now how all this got started is I got very interested in a particular phenomena. I got interested in the fact that there seemed to be a growing confluence between",
+   "zh": "但现在在这个系列里，我想把所有内容融会贯通，向大家呈现一个整体而统一的论述，展示你们之前可能看过的各个部分之间的内在联系。这一切的缘起，是我对一种特定现象产生了浓厚的兴趣。我注意到，对佛教感兴趣的人群"
+  },
+  {
+   "s": 66.51,
+   "e": 96.05,
+   "en": "people who are interested in Buddhism and people who are interested in cognitive science. We'll talk a little bit later as we go on what cognitive science is. But you know some of this already in the world at large because we're going through what's called the mindfulness revolution. Mindfulness is being spoken of everywhere. I was in a bookstore yesterday, chapters, and there's a whole section just on mindfulness itself. So why is the mindfulness revolution occurring? Well, it's occurring particularly because of this intersection",
+   "zh": "与对认知科学感兴趣的人群之间，似乎正在出现越来越多的交集。随着内容的推进，我们稍后会聊聊什么是认知科学。但放眼当今世界，大家多少已经了解一些了，因为我们正在经历所谓的“正念革命”。如今到处都在谈论正念。我昨天去了一家 Chapters 书店，那里甚至有一整片专区全都是关于正念的。那么，为什么会出现正念革命呢？它之所以出现，正是因为这种交叉融合"
+  },
+  {
+   "s": 96.51,
+   "e": 124.8,
+   "en": "between Buddhism and cognitive science. But why is this happening? And why is it, you know, so explosive in nature? And what do we mean by mindfulness? Some of the work I've done is trying to get clear about that. We're going to talk about that in this series. Now there's also a lot of other things that in my mind seem to be convergent with this growing confluence between Buddhism and cognitive science.",
+   "zh": "在佛教与认知科学之间。但为什么会这样？又为什么会呈现出如此爆发式的增长？我们所说的正念究竟指什么？我做过的一些研究正是试图弄清这一点。我们将在本系列中探讨这些问题。此外，在我看来还有许多其他现象，正与佛教和认知科学之间这种日益深化的融合趋于一致。"
+  },
+  {
+   "s": 125.53,
+   "e": 152.39,
+   "en": "There is an increasing interest both academically and in the public at large in the topic of wisdom. Something that people did not talk about very much not that long ago. Well, wisdom is now a very hot topic within psychology and cognitive science. And books offering to train you in wisdom are, again, becoming popular. Same bookstore experience yesterday. I bought my son a book called How to Be a Stoic.",
+   "zh": "无论是在学术界还是大众当中，人们对智慧这一话题的兴趣都日益浓厚。这在不久前还是大家很少谈论的东西。然而，如今智慧已成为心理学和认知科学领域的大热门。那些宣称能培养智慧的书籍，也再度风靡起来。昨天在书店就印证了这点，我给我儿子买了一本名叫《如何成为斯多葛主义者》的书。"
+  },
+  {
+   "s": 153.57,
+   "e": 178.35,
+   "en": "How is it that a philosophical position from the Hellenistic era has become a popular book that people are seeking? Why is there this hunger for wisdom? And why are people meeting it with these kinds of things? The stoicism, the philosophies of the Hellenistic period. We're going to talk about that. I think there's good reason for that.",
+   "zh": "一个希腊化时期的哲学流派，怎么就变成了一本备受追捧的畅销书呢？为什么大家会对智慧如此饥渴？又为什么会用这些东西来填补空缺呢？比如斯多葛主义，以及希腊化时期的种种哲学。我们接下来就聊聊这个。我觉得这背后是有充分理由的。"
+  },
+  {
+   "s": 179.79,
+   "e": 208.85,
+   "en": "Of course, there's increasing academic and public interest in psychedelics. I just gave a talk earlier this week at Yale about psychedelics and the increasing interest in psychedelics and psychedelic experiences. You're seeing radical things with them. People can be released from treatment-resistant addiction. They can overcome post-traumatic stress disorder. Like the normal with the best therapy",
+   "zh": "当然，学术界和公众对致幻剂的兴趣也越来越浓厚。我本周早些时候刚在耶鲁大学做了一场演讲，内容就是关于致幻剂，以及大家对致幻剂和迷幻体验日益增长的兴趣。你会发现它们带来了翻天覆地的改变。难治性成瘾的患者能借此摆脱依赖。创伤后应激障碍（PTSD）也能被克服。要知道，哪怕用上最好的常规疗法，"
+  },
+  {
+   "s": 211.34,
+   "e": 241.86,
+   "en": "Solution rate for people with post-traumatic stress disorder is about, if things go really well, 20% or so. You introduce psychedelics into the therapy and you can get the healing rate up to 80%. So what's going on there? Why is there this interest? There's an increasing public interest which is matched by a huge academic in the topics of happiness.",
+   "zh": "PTSD 患者的治愈率在一切顺利的情况下，也就大概 20% 左右。但如果把致幻剂引入治疗，治愈率可以直接提升到 80%。所以这背后到底是怎么回事？为什么会引发这种关注？公众对此的兴趣水涨船高，与此同时，学术界对幸福感这一课题也爆发出了巨大的研究热情。"
+  },
+  {
+   "s": 243.65,
+   "e": 269.49,
+   "en": "We've always been a happiness-oriented culture, life, liberty, and the pursuit of happiness, and so forth. But it's taken a particularly interesting turn. The topic of meaning and meaning in life is coming to the fore. People in more and more are talking about not just sheer contentedness, but what it is for a human life to be meaningful. And it turns out that meaning in life is terrifically important.",
+   "zh": "我们一直生活在一种以幸福为导向的文化中，生命、自由和对幸福的追求等等。但这正在发生一个特别有趣的转变。意义，以及生命意义的话题，正在走向前台。越来越多的人不再只谈论单纯的满足感，而是开始探讨人生怎样才算有意义。事实证明，生命的意义极其重要。"
+  },
+  {
+   "s": 270.01,
+   "e": 296.31,
+   "en": "It's very predictive of well-being. It's very predictive of how well you are doing in your life in general. So it is no wonder that our people are seeking it out. Now, my contention and what I'm going to argue is it's no coincidence that all of these things are happening right now. It's no coincidence. There's confluence between Buddhism, the mindfulness revolution, the interest in wisdom and ancient philosophies like Stoicism.",
+   "zh": "它能极好地预测人的幸福感。它能极好地预测你整个人生过得究竟有多好。所以难怪大家都在追寻它。那么，我的观点也是我接下来要论证的，就是这一切在当下发生绝非巧合。佛教、正念革命、对智慧的关注，以及像斯多葛主义这样的古代哲学，它们交汇融合绝非偶然。"
+  },
+  {
+   "s": 296.93,
+   "e": 326.83,
+   "en": "the increasing public interest in psychedelics and transformative experiences and mystical experiences, right? The increasing academic and public interest in meaning in life. There's all a reason for it. There's a unifying account for why this is happening. But there's another set of things. This is sort of the light side of what I'm talking about. There's a set of dark factors that seem to be converging as well, right? We have...",
+   "zh": "公众对致幻剂、转化性体验和神秘体验的兴趣与日俱增，对吧？学术界和大众对人生意义的关注也越来越多。这背后都是有原因的，这一切的发生都有一套统一的解释。但还有另一组现象。这算是我所谈内容的积极一面。与此同时，似乎也有一组消极因素在汇聚，对吧？我们面临着……"
+  },
+  {
+   "s": 326.83,
+   "e": 356.18,
+   "en": "What seems to be, although people are disputing it, but I think the evidence is becoming clearer and clearer. The CDC just released some data recently. We're going through a mental health crisis. Suicide is spiking, and it's, right? Now, there are some socioeconomic factors, but there's clearly other things that are at work. There's increasing sense, many people are expressing it, of losing touch with reality.",
+   "zh": "似乎——尽管有人对此存在争议，但我认为证据已经越来越清晰了。CDC 最近刚刚发布了一些数据。我们正经历一场心理健康危机。自杀率正在激增，而且这种趋势，对吧？现在，固然存在一些社会经济因素，但显然还有其他因素在起作用。越来越多的人表达出一种脱离现实的无力感。"
+  },
+  {
+   "s": 357.52,
+   "e": 384.48,
+   "en": "We encounter more and more often in individuals and groups nihilism, expressions of cynicism, expressions of deep kinds of frustration and futility. You have the abandonment of trust in any of our public institutions. We're losing, right, we've completely lost any sort of faith or trust in our political system. We're losing faith in our judicial system, right.",
+   "zh": "在个人和群体身上，我们越来越频繁地看到虚无主义、愤世嫉俗的流露，以及深深的挫败感与无力感。人们不再信任任何公共机构。我们正在丧失，没错，我们已经彻底丧失了对政治体制的任何信仰或信任。我们对司法系统的信任也正在动摇，对吧。"
+  },
+  {
+   "s": 385.5,
+   "e": 413.87,
+   "en": "Religious affiliation is declining consistently throughout people's participation in clubs, organization is in decline. In general, and my co-authors on the book, Zombies in Western Culture, The 21st Century Crisis, Chris Massipietro and Philip Misovich, we argued that",
+   "zh": "宗教认同在持续下降，人们对俱乐部、各类组织的参与度也在走低。总的来说，我和《西方文化中的丧尸：21世纪的危机》这本书的合著者，Chris Massipietro 与 Philip Misovich，我们认为"
+  },
+  {
+   "s": 414.12,
+   "e": 441.17,
+   "en": "The sense of being out of touch has gone on with an increasing sense. And we'll talk about this, because I'm going to use this term technically. We're going to talk about this in Frankfurt's use of it. There's an increasing sense of more and more bullshit everywhere, pervading. And if you take a look at the book, we actually chart how this has been spiking. And it's concorded with all kinds of other increases in these dark factors.",
+   "zh": "这种与现实脱节的感觉，伴随着一种愈发强烈的感受而不断蔓延。我们稍后会聊到这点，因为我是要在学术意义上使用这个词。我们会按照 Frankfurt 的用法来探讨它。人们越来越觉得，无处不在的“胡说八道”在四处弥漫。如果你翻开那本书，我们其实绘制了这种现象激增的走势图。而这与所有这些黑暗因素的各种增长，都是相吻合的。"
+  },
+  {
+   "s": 442.89,
+   "e": 465.32,
+   "en": "People are getting the sense that we're spending, and you can see this already in the public media, but it's also within the academic world, that we're spending too much time in our virtual environments. There seems to be increasing evidence, for example, of a connection between various social media, increased depression, increased loneliness.",
+   "zh": "人们逐渐意识到我们在虚拟环境里花的时间太多了，你不仅能在大众媒体上看到这种讨论，学术界也同样如此。比如，越来越多的证据表明，各种社交媒体与抑郁、孤独感加剧之间存在着关联。"
+  },
+  {
+   "s": 470.35,
+   "e": 499.98,
+   "en": "And then more in general, and we'll talk about how this shows up a little bit more implicitly. It shows up in the entertainment we seek and the mythologies we like, like the zombies. We're gonna talk about that. Why are zombies so big? Why are superheroes so big right now? There's an increase, these mythological, and we'll talk about what myth means, these mythological forms, I'm gonna argue are expressions of a cultural sense, a sense that we're stuck somehow.",
+   "zh": "更普遍的是，我们稍后会聊聊这在潜意识层面是如何体现的。它体现在我们追逐的娱乐和热衷的神话叙事中，比如丧尸文化。我们一会儿会谈谈这个。为什么丧尸题材这么火？为什么超级英雄现在这么流行？这种激增的现象，这些神话——稍后我们会讨论“神话”的定义——我认为这些神话形态，正是一种文化心理的宣泄，表达着我们似乎陷入某种困境的感觉。"
+  },
+  {
+   "s": 501.04,
+   "e": 527.24,
+   "en": "One way you can note that is just by noting how pervasive, almost to the point of being a constant factor in our background, is people talking about crisis and collapse. Apocalypse, the zombie apocalypse, the imminent collapse of civilization. All of these things are now pervasive. They're taken for granted. At one point, right, the",
+   "zh": "大家留意一下就能发现，人们对危机和崩溃的谈论有多么普遍，几乎成了我们生活中挥之不去的背景音。世界末日、丧尸末日、文明即将崩溃。所有这些现在都随处可见。大家早已习以为常。曾几何时，展现这种场景的"
+  },
+  {
+   "s": 527.54,
+   "e": 559.75,
+   "en": "movies demonstrating this had to be sort of science fiction, they were considered radical, but now this is becoming a pervasive background sense. Now I think all of these negative factors also have a unifying explanation. In fact, what I'm going to argue throughout the course of this series is that the positive factors and the negative factors all point to a unified explanation.",
+   "zh": "电影还属于某种科幻片，被视作激进前卫，但现在这已经变成了一种挥之不去的普遍氛围。现在我认为，所有这些消极因素背后，也存在一个统一的解释。事实上，我在本系列中要阐述的核心观点是：积极因素和消极因素，其实都指向同一个统一的解释。"
+  },
+  {
+   "s": 562.04,
+   "e": 594.58,
+   "en": "This is going to be an idea that our culture is experiencing a profound meaning crisis, a crisis in meaning. Now, we're going to have to talk about what does that meaning mean. Now, I'm not claiming that this isn't the only crisis we're facing, far from it. What I want to do, in fact, is talk about how the meaning crisis is interacting with other crises, the environmental crisis, the socioeconomic crisis. But in addition to those which are quite well discussed,",
+   "zh": "这个核心观点就是，我们的文化正经历着一场深刻的意义危机。接下来，我们必须探讨这个“意义”到底是指什么。我并不是说这是我们面临的唯一危机，远非如此。事实上，我想探讨的是这场意义危机是如何与其他危机相互交织的，比如环境危机和社会经济危机。但在这些已被大众广泛讨论的危机之外，"
+  },
+  {
+   "s": 595.34,
+   "e": 626.52,
+   "en": "and the public at large, there is a meaning crisis, which is being discussed quite significantly with academia, but needs to be brought to the public at large. Because one of the things I'm going to argue is that these three crises are not independent from each other. They're interdependent in important ways. But what is this meaning that's come into crisis? Why do we hunger for it? How do we cultivate the wisdom",
+   "zh": "还存在着一场意义危机。学术界对它进行了相当深入的探讨，但它也需要被带到大众的视野中。因为我要论证的观点之一就是，这三重危机并非彼此割裂。它们在很多重要层面上都是相互交织的。但是，陷入危机的这个“意义”究竟是什么？我们为何对它如此渴望？我们又该如何培养智慧，"
+  },
+  {
+   "s": 626.92,
+   "e": 658.42,
+   "en": "Because that's what I'm going to argue wisdom is ultimately about, to generate, enhance this meaning. Wisdom is about realizing, in both senses of the word, becoming aware and making real. Wisdom is about realizing meaning in life in a profound way. How do we cultivate this wisdom? What does it mean? And I'm not going to talk about that just practically. I'm going to talk, I mean not just theoretically, I'm going to talk about that practically as well. What are some practices that people can engage in and are engaging in?",
+   "zh": "因为我要阐述的正是，智慧的终极追求就是去创造并深化这种意义。智慧在于“领悟”（realizing）——包含这个词的双重含义：既是察觉感知，也是将其化为现实。智慧在于以一种深刻的方式，领悟并实现生命的意义。我们该如何培养这种智慧？它究竟意味着什么？我不仅要从理论层面来谈，还要落实到实践层面。人们可以践行、并且正在践行的方法又有哪些？"
+  },
+  {
+   "s": 658.58,
+   "e": 695.65,
+   "en": "to try and address this need for the cultivation of wisdom. What role, for example, do mindfulness practices play within the cultivation of wisdom? So, here's the three questions that we're going to keep coming back to again and again and again. What is this meaning? Why do we hunger for it? And how do we cultivate the wisdom to realize it? So, some of the topics, of course, we're going to be addressing are, centrally, the meaning crisis,",
+   "zh": "去设法解决培养智慧的需求。比如，正念练习在智慧的培养中扮演了什么角色？这里有三个我们会一再反复探讨的问题：这种意义到底是什么？我们为何渴望它？我们又该如何培养智慧来实现它？当然，我们要探讨的核心议题之一，就是意义危机，"
+  },
+  {
+   "s": 698.43,
+   "e": 726.1,
+   "en": "How did this kind of meaning evolve? What is it? Why is it so important to the evolution of our humanity? More specifically, the history of the meaning crisis. Why did it arise? What are the historical factors? By doing that, we'll get a historical account of meaning. We'll get a sense of what this meaning is that has come into crisis that people individually feel they are lacking or losing in their lives.",
+   "zh": "这种意义是如何演变而来的？它究竟是什么？为什么它对人类的演进如此重要？更具体地说，是意义危机的历史。它是如何产生的？有哪些历史因素？通过探讨这些，我们将理清意义的历史脉络。我们会理解，这种陷入危机、让人们在各自生活中感到匮乏或正在失去的意义，究竟是什么。"
+  },
+  {
+   "s": 728.65,
+   "e": 759.08,
+   "en": "We want to talk about connections between meaning, wisdom, and, importantly, self-transcendence. It's going to turn out that this notion of self-transcendence, again, which we'll have to develop and explicate, is something that's a core need because it performs core functions for human beings. It's bound up with these ideas of wisdom and, of course, meaning. And along the way, in fact, right from the beginning, we're going to start to see that there's deep connections between meaning, wisdom, self-transcendence, and",
+   "zh": "我们要探讨意义、智慧，以及至关重要的自我超越之间的联系。事实证明，这种自我超越的概念——我们随后会对此展开阐述——是一种核心需求，因为它对人类起到了核心功能作用。它与智慧的概念紧密相连，当然，也与意义息息相关。在这整个过程中，其实从一开始我们就会发现，意义、智慧、自我超越，以及"
+  },
+  {
+   "s": 759.26,
+   "e": 783.98,
+   "en": "altered states of consciousness. Why do human beings seek to alter their consciousness? In fact, not just human beings, other intelligent organisms seek to do this. Right? Caledonian crows will tumble down roofs in order to make themselves dizzy for no other purpose than to alter their state of consciousness. What is going on? Why does intelligence need",
+   "zh": "改变的意识状态之间存在着深刻的关联。为什么人类会试图改变自己的意识？事实上，不仅是人类，其他具有智慧的生物也会这么做，对吧？新喀里多尼亚乌鸦会顺着屋顶翻滚让自己眩晕，除了改变自身的意识状态之外没有任何其他目的。这到底是怎么回事？为什么智慧需要"
+  },
+  {
+   "s": 784.55,
+   "e": 815.96,
+   "en": "to be conjoined to an altered state of consciousness and why in particular have human beings developed very sophisticated processes for generating, harnessing, and interpreting these altered states of consciousness. We're going to talk about that in connection with shamanism and ritual. We're going to talk about that in connection to the flow state. This is when you're in the zone and why people seek it and why it's so powerful. We're going to talk about it, as I mentioned, in connection with psychedelic experiences.",
+   "zh": "与改变的意识状态相结合？尤其是，为什么人类发展出了极其复杂的流程，来产生、利用并解读这些改变的意识状态？我们将结合萨满教和仪式来探讨这一点。我们还将结合心流状态来探讨这一点，也就是当你全神贯注、“进入状态”的时候，人们为什么追求它，为什么它如此强大。正如我提到的，我们还会结合迷幻体验来探讨这一现象。"
+  },
+  {
+   "s": 816.87,
+   "e": 846.7,
+   "en": "More importantly, the mystical experiences that can occur within some psychedelic experience, because it turns out it's the mystical experience that is more important and transformative. But there's a subset of those mystical experiences that are very crucial. These are awakening experiences. These are experiences in which people come back from the mystical experience and say, that was somehow more real than this, and I need to change my world.",
+   "zh": "更重要的是在某些致幻体验中可能出现的神秘体验，因为事实证明，神秘体验往往更加重要，也更具转化力量。但在这些神秘体验中，有一个子集至关重要，那就是觉醒体验。在这些体验中，人们从神秘体验归来后会说：那不知为何比眼前的一切更真实，我必须改变我的世界。"
+  },
+  {
+   "s": 847.08,
+   "e": 880.53,
+   "en": "I need to change myself. They engage in what L.A. Paul has called a transformative experience, what is also known as quantum change, a radical transformation of their lives. And we know, we've got good research now showing that they're right. Their lives get better after these awakening experiences. We're going to talk about that in depth. And dare I say it, maybe we can bring all of this together and actually propose",
+   "zh": "我必须改变我自己。他们投身于 L.A. Paul 所说的转化性体验，也就是人们所熟知的“量子飞跃式改变”，即一种对人生的彻底重塑。而且我们知道，现有的大量严谨研究表明他们是对的，经历这些觉醒体验后，他们的人生确实变好了。我们稍后会深入探讨这一点。我甚至斗胆设想，也许我们能把所有这些融会贯通，并真正提出——"
+  },
+  {
+   "s": 881.17,
+   "e": 912.45,
+   "en": "and maybe some people will be affronted by this, but propose a scientific, a cognitive scientific account of what enlightenment is and why it alleviates the suffering from lack of meaning that is particularly pertinent for us today but has always been a perennial threat since the Axial Revolution. Now that means, of course, we're going to have to also talk about topics that have connection with",
+   "zh": "也许有些人会对此感到冒犯——但我们要提出一套科学的、认知科学层面的解释，去阐明什么是开悟，以及它为何能缓解因意义缺失而带来的痛苦；这种痛苦在当下对我们尤为切身，但其实自轴心时代变革以来，就一直是一道长盛不衰的威胁。当然，这也意味着我们还得去探讨一些与此相关的课题，"
+  },
+  {
+   "s": 913.48,
+   "e": 942.41,
+   "en": "The darker aspects, as I said, of meaning making, what's the connection, because they're deep and profound, between this meaning making that is so central and our endemic capacity for self-deception, for self-destruction? There's a reason why we are so awash in bullshit, because bullshit is a perennial threat to us. Self-deception is endemic.",
+   "zh": "如我所说，关于意义建构那些更黑暗的面向，究竟有什么关联？因为意义建构如此核心，而我们又天生容易自欺欺人、自我毁灭，这两者之间有着深刻而复杂的联系。我们之所以深陷胡说八道的泥潭是有原因的，因为瞎扯对我们而言是永恒的威胁，自欺更是一种根深蒂固的宿疾。"
+  },
+  {
+   "s": 943.98,
+   "e": 974.93,
+   "en": "That means it'll be important to talk about foolishness as something different from ignorance. Ignorance is a lack of knowledge. Foolishness is a lack of wisdom. Foolishness is when your capacity to engage your agency, pursue your goals is undermined and threatened by the self-deception and the self-destructive behavior that is like a perennial vulnerability.",
+   "zh": "这意味着，把愚蠢和无知区分开来讨论至关重要。无知是缺乏知识，愚蠢则是缺乏智慧。所谓愚蠢，就是当你发挥能动性、追求目标的能力，被自欺和自我毁灭的行为削弱和威胁，而这种行为就像是我们挥之不去的脆弱缺陷。"
+  },
+  {
+   "s": 975.34,
+   "e": 1006.69,
+   "en": "to your cognition. In fact, what I'm going to argue is the very same machinery that makes you so adaptively intelligent is the same machinery that makes you susceptible to foolishness. That will take us into some of the topics that are relevant to people's existential experience, meaning crisis, topics like absurdity, alienation, futility, horror, real horror. Most horror movies aren't horror.",
+   "zh": "对你的认知而言。事实上，我要阐述的是，正是那套让你具备如此强适应性智慧的机制，也让你极易陷入愚昧。这会带我们探讨一些关乎人类存在体验与意义危机的课题，比如荒谬感、疏离感、徒劳感以及恐惧——真正的恐惧。大多数恐怖电影根本不算真正的恐怖。"
+  },
+  {
+   "s": 1007.13,
+   "e": 1043.1,
+   "en": "We'll talk about what horror really is and what people experience when they're actually experiencing horror. Their sense of grip on reality is being undermined. And people find that, as you can imagine, terrifying. We're going to talk about meaninglessness and why and why more people experience this state, this state of despair. And once we do that, right, as we're...",
+   "zh": "我们会探讨什么是真正的恐惧，以及人们在身临其境时究竟在经历什么。他们对现实的掌控感正在被瓦解。正如你能想象到的，人们会觉得这极其可怕。我们还会聊到无意义感，以及为什么越来越多的人会体会到这种状态，这种绝望的状态。一旦我们讲完这些，对，随着我们……"
+  },
+  {
+   "s": 1043.1,
+   "e": 1072.78,
+   "en": "moving into these kinds of topics, we will be moving gradually from the historical account of the origin of the meaning crisis, which will give us some sense from the history of what this meaning is, but we will be moving into the cognitive scientific study of cognition, the cognitive scientific investigation of meaning and meaning making. Look, when people use this word meaning, it's a metaphor.",
+   "zh": "进入这类话题后，我们将逐渐从关于“意义危机”起源的历史叙述——这能从历史角度让我们理解何谓意义——转向对认知的认知科学研究，也就是对意义和意义构建的认知科学考察。你看，当人们使用“意义”这个词时，它其实是一个隐喻。"
+  },
+  {
+   "s": 1074.93,
+   "e": 1110.49,
+   "en": "They mean there's something in their life that is analogous to how a sentence has meaning. The pieces fit together in some way. They can impact on your cognition and connect you to the world in some way. There's something about our lives that is analogous to the way sentences have meaning. We have to unpack that metaphor. Why is the metaphor used? And what does the metaphor point to?",
+   "zh": "他们的意思是，生活中的某些东西类似于句子的含义。各个部分以某种方式拼凑在一起。它们能以某种方式影响你的认知，并将你与世界连接起来。我们的生活在某些方面类似于句子具有意义的方式。我们必须剖析这个隐喻。为什么要用这个隐喻？它又指向了什么？"
+  },
+  {
+   "s": 1110.89,
+   "e": 1139.89,
+   "en": "when we talk about the meaning of our lives. How is it, in fact, that some of the most meaningful experiences people have are precisely ones that are completely ineffable to them, that they can't put into words? What's going on? We're going to have to talk about different kinds of knowing, some of them that have fallen off our cultural radar precisely because of the meaning crisis. We tend to have reduced all of the ways that the ancients talked about",
+   "zh": "当我们谈论生命的意义时。事实上，为什么人们拥有的一些最有意义的体验，恰恰是那些对他们来说完全无法言表、无法付诸文字的呢？这到底是怎么回事？我们将不得不探讨不同类型的认知，其中一些正是因为意义危机而从我们的文化视野中淡出。我们往往把古人所谈论的所有"
+  },
+  {
+   "s": 1140.12,
+   "e": 1173.94,
+   "en": "how we know, to one thing, to know is to have a special kind of belief. And so we are very belief-centric, which is why we are so focused as a culture on ideologies. But it turns out that we're going to have to have a much more expanded notion of what knowing means. There is much more to knowing than having justified true beliefs. There's the kind of knowing that's involved in knowing how to catch a baseball. There's the kind of knowing",
+   "zh": "认知方式，简化成了一件事：认知就是拥有某种特殊的信念。所以我们非常以信念为中心，这也是为什么我们在文化上如此关注意识形态。但事实证明，我们必须对认知的含义拥有更广阔的理解。认知远不止是拥有经过辩护的真信念。有一种认知体现在懂得如何接住棒球。有一种认知"
+  },
+  {
+   "s": 1174.31,
+   "e": 1205.44,
+   "en": "of what it is like to be having this experience right now. There's the kind of knowing that is knowing what it's like to be in something you're participating in, like a relationship. We're gonna have to talk about all of that. Now, of course, some of you might be aware of those other kinds of knowing because you know how integral and important they are to therapy.",
+   "zh": "体现在知道当下拥有这种体验是怎样的感觉。还有一种认知是知道身处某种你参与其中的事物是什么感觉，比如一段人际关系。我们必须探讨所有这些。当然，你们中的有些人可能已经意识到了那些其他类型的认知，因为你们知道它们对心理治疗是多么不可或缺和重要。"
+  },
+  {
+   "s": 1206.49,
+   "e": 1237.54,
+   "en": "which is another thing that is booming in our culture. Part of why it's booming is the meaning crisis. Part of why it's booming is because people seek out therapy precisely because they're trying to recover these lost kinds of knowing, the kinds of insight that is needed, the kind of transformation, not of your beliefs, but of how you see things. Your sense of self and your sense of realness have to be transformed often in therapy. That is why the psychedelics",
+   "zh": "而在我们的文化中，这也是另一件正在蓬勃发展的事。它之所以兴起，部分原因在于意义危机。部分原因在于人们寻求心理治疗，恰恰是为了找回这些遗失的认知方式，找回所需要的那种洞见，那种转变——不是转变你的信念，而是转变你看待事物的方式。在治疗中，你的自我感和真实感往往必须发生转变。这就是为什么致幻剂"
+  },
+  {
+   "s": 1238.09,
+   "e": 1269.17,
+   "en": "are so important for therapeutic success because they transform these other kinds of knowing. We're gonna talk about all of that. This will give us a structural functional account of meaning. What is the structure of it? What are its cognitive processes? What are its cognitive mechanisms? How do they function? How can they fall into dysfunction?",
+   "zh": "对治疗的成功如此重要，因为它们转变了这些其他类型的认知。所有这些我们都会探讨。这将为我们提供一个关于意义的结构功能性解释。它的结构是什么？它的认知过程是什么？它的认知机制是什么？它们是如何运作的？它们又是如何陷入失调的？"
+  },
+  {
+   "s": 1270.7,
+   "e": 1305.48,
+   "en": "We're going to have this historical account and this structural functional account, and we're going to make them talk to each other. They're going to inform and constrain and enable each other. And from that dialogue, what I propose, audacious as it might sound, is a real response to the meaning crisis. An awakening from the meaning crisis. That's what this series is about. Awakening from the meaning crisis. Not in some",
+   "zh": "我们将结合这种历史视角的叙述与结构功能视角的叙述，并让它们彼此对话。它们将互相启发、相互约束并彼此赋能。从这场对话中，正如听起来那样大胆，我所提出的方案，是对意义危机的一次真正回应。一场从意义危机中的觉醒。这就是本系列的核心所在：从意义危机中觉醒。不是以某种"
+  },
+  {
+   "s": 1305.74,
+   "e": 1333.28,
+   "en": "ideological fashion, but in a profound, transformative, and existential manner. So this is not something that I can do simply, because this is not a problem for which there are simplistic answers. If anybody offers you an answer to this crisis in an hour, I would wager that they are deceiving you, manipulating, or they are themselves significantly self-deceived.",
+   "zh": "意识形态化的方式，而是以一种深刻、具变革性且关乎存在的方式。因此，这绝非我能轻易办到的事，因为面对这个问题，根本不存在什么简单的答案。如果有人声称能在一个小时内为你提供应对这场危机的答案，我敢打赌，他们要么在欺骗你、操纵你，要么他们自己就深陷巨大的自我欺骗之中。"
+  },
+  {
+   "s": 1334.7,
+   "e": 1365.06,
+   "en": "There's a reason why we're stuck. There's a reason why this is hard. This is a complex and difficult thing we are undertaking. So this series is going to be several videos long because I'm going to carefully and I hope responsibly build an argument to try and show how we can awaken from the meaning crisis, how that meaning crisis interacts with the mental health crisis, how it interacts with the environmental crisis, how it interacts",
+   "zh": "我们之所以陷入困境是有原因的，这件事情之所以艰难也是有原因的。我们正在着手处理的是一件复杂而艰巨的事情。所以这个系列会由好几个视频组成，因为我要严谨、而且希望能负责任地构建一套论点，试图向大家展示我们如何从意义危机中觉醒，展示这场意义危机如何与心理健康危机相互影响，如何与环境危机相互交织，以及它如何"
+  },
+  {
+   "s": 1365.67,
+   "e": 1401.67,
+   "en": "with the socioeconomic crisis. Now, this is my commitment to you. I will always do my best to offer rigorous rational argumentation. I will try my best to give proper scholastic credit to other people. Please understand that I'm aware that I'm not, and nobody should be, claiming to offer you the absolute uncontested truth. I'm going to offer you good arguments, good evidence.",
+   "zh": "与社会经济危机交织在一起。在此，我对大家做出这样的承诺：我将始终竭尽全力提供严密、理性的论证；我也将尽最大努力充分尊重并注明其他学者的贡献。同时请大家理解，我深知自己不能、而且任何人也都不应该宣称自己能为你提供绝对无可争议的真理。我能为大家提供的，是扎实的论证和有力的证据。"
+  },
+  {
+   "s": 1403.31,
+   "e": 1433.37,
+   "en": "But I don't want this to be an academic series. I do my academic work, and I'm proud of it. But this, I want this to be for people who are coming to this precisely because of a genuine personal existential interest. So I will try to keep jargon and technicalities to a minimum. I will have to introduce terms to you, and I hope to explain them carefully.",
+   "zh": "但我不想把这做成一个学术系列。我也做学术研究，并为此感到自豪。但对于这个系列，我希望它是面向那些出于切实的个人存在主义关切而来的人。因此，我会尽量少用行话和专业术语。我免不了要向大家介绍一些术语，但我希望能把它们解释清楚。"
+  },
+  {
+   "s": 1433.89,
+   "e": 1470.7,
+   "en": "along the way. So, my commitment to you is to, I can't be unbiased. That's not a thing. What I will try my best to do is to present to you my arguments, my viewpoints, and why I think they can be understood to be highly plausible. So, I want to start with how and why is this meaning",
+   "zh": "在这个过程中。所以，我对大家的承诺是——我不可能做到绝对客观，那根本不现实。我能尽力去做的是，向大家呈现我的论点、我的视角，以及为什么我认为它们是非常合情合理的。那么，我想先从意义感是如何以及为何"
+  },
+  {
+   "s": 1471.61,
+   "e": 1500.52,
+   "en": "So so so much a part of our humanity. Why is it so in in? to our humanity so much and I think the thing that We want to we want to understand is I have to start somewhere All right, and that can be misleading because I think and one of my my co-authors Philip miss a bitch This is something that he's very concerned with",
+   "zh": "如此深地成为我们人性的一部分谈起。为什么它会如此深地融入我们的人性之中？我想我们需要理解的是，我总得从某个地方开始讲起，对吧？而这可能会产生误导，因为我认为——我的一位合著者 Philip Miscevic 对此也非常关注——"
+  },
+  {
+   "s": 1500.71,
+   "e": 1527.45,
+   "en": "I think this is a continuum question. I think the deep connections between meaning-making and cognition go deeply back into our evolutionary heritage, way before our humanity. The fact that I'm starting somewhere is not meant to indicate that this is the absolute starting point. What I want to do is point to a time when many people think our humanity, the kind of people we are now,",
+   "zh": "我认为这是一个连续体的问题。我认为意义构建与认知之间的深层联系，可以深深追溯到我们的演化遗产中，远早于我们人类的出现。我从某个地方开始讲，并不意味着那就是绝对的起点。我想做的是，指向许多人认为我们的人性——也就是我们如今这种人类特质——诞生的那个时代，"
+  },
+  {
+   "s": 1528.05,
+   "e": 1557.71,
+   "en": "it came into form, not fully like the way it is now, because of course there's been lots of historical and cultural processes, but the kind of humanity that we would recognize as us and how much this was bound up with meaning making in the way that I've been talking about. So this period is known as the Upper Paleolithic Transition. It occurs around 40,000 BCE.",
+   "zh": "它初步成型了，虽然还不完全是我们现在的样子，毕竟后来经历了漫长的历史和文化演变，但那种我们能认同为“我们”的人性特征已经出现，而且这与我一直在讲的“意义建构”紧密相连。这个时期被称为“旧石器时代晚期革命”，发生在大约公元前 40000 年。"
+  },
+  {
+   "s": 1560.97,
+   "e": 1592.4,
+   "en": "Now what's interesting about this is that biologically as a species we've existed much longer than this. We existed about, you know, there's some controversy around this, but conservatively since about 200,000 BCE. But around, again, roughly 40,000 BCE, there's a change, a radical change. Now, again, picking a Pacific time,",
+   "zh": "有趣的是，从生物学物种的角度来看，我们存在的时间远比这要长。我们大约——虽然这方面有些争议——但保守估计在公元前 200000 年就已经存在了。但在大约公元前 40000 年左右，发生了一场变化，一场彻底的巨变。当然，选定一个具体的时间点，"
+  },
+  {
+   "s": 1592.79,
+   "e": 1622.84,
+   "en": "makes it look like there's nothing before, there are no precursors. Some people have presented the Upper Paleolithic Transition that way. I'm not doing that, I think that's a mistake. There's a continuum, you can see it back, but at some point there's this radical change, the Upper Paleolithic Transition. You see things, human beings doing things they're not doing before. They're making art. They're making representational art. They're making sculpture. They're making cave paintings.",
+   "zh": "容易让人觉得之前什么都没有、没有前兆一样。有些人确实是这么描述旧石器时代晚期革命的。但我不会这么说，我认为那是错的。它是一个连续体，你可以往前追溯，但在某个时刻确实发生了这场彻底的巨变，也就是旧石器时代晚期革命。你会看到人类在做以前从未做过的事：他们开始创作艺术，创作具象艺术，制作雕塑，绘制洞穴壁画。"
+  },
+  {
+   "s": 1623.35,
+   "e": 1659.37,
+   "en": "We have good evidence, they start making music. What else are they doing? Well, we have some pretty good evidence that there's significant enhancement in their cognition. How do we know this? Well, we have the first use of calendars. Obviously not with numbers and dates because numeracy hasn't been invented. But you have the symbolic representation of the phases of the moon and the passage of days.",
+   "zh": "我们有充分的证据表明，他们开始制作音乐了。他们还在做什么呢？我们有非常确凿的证据，表明他们的认知能力有了显著提升。我们怎么知道的呢？因为我们发现了最早使用的日历。显然不是用数字和日期记录的，因为那时计数能力还没被发明出来。但已经有了用符号来表示月相和岁月流逝的痕迹。"
+  },
+  {
+   "s": 1659.95,
+   "e": 1691.4,
+   "en": "And so human beings are keeping track of time across very abstract patterns so that they can enhance their hunting abilities. Something else is happening, which again, it's so intrinsic to our humanity, right? We're developing projectile weapons. We're developing projectile weapons. So the Neanderthals who are contemporaneous with Homo sapiens at this time,",
+   "zh": "因此，人类开始借助极其抽象的规律来追踪时间，以此提升他们的狩猎能力。同时还发生了一件对人性至关重要的事情，对吧？我们正在开发投掷武器。我们正在开发投掷武器。而当时与智人生活在同一时代的尼安德特人，"
+  },
+  {
+   "s": 1691.9,
+   "e": 1722.9,
+   "en": "don't have projectile weapons. Their spears are thick-shafted, heavy stone. They're thrusting tools. We know that they were getting in close to their quarry because they have bone damage that's similar to the kind of bone damage we see in human beings who are involved in cowboy rodeos where you're messing around with large angry mammals. The Homo sapiens do something different. They start to develop very thin spears.",
+   "zh": "却没有投掷武器。他们的矛杆粗重，装有沉重的石块，是用来近距离刺击的工具。我们之所以知道他们必须极度靠近猎物，是因为他们留下的骨伤，和现代牛仔竞技选手的骨伤极为相似——都是和愤怒的大型哺乳动物缠斗造成的。而智人的做法截然不同，他们开始制造非常纤细的矛。"
+  },
+  {
+   "s": 1723.32,
+   "e": 1750.35,
+   "en": "not with stone tips, but with bone tips. And bone is much harder to use. The point about these is, right, they're very good as projectile weapons. They're very light. And human beings develop the spear thrower and sling, and they start to develop the ability to carry multiple missiles and project them at a long distance. Now that requires, right, increased development of your frontal lobe area.",
+   "zh": "不是石制箭头，而是骨制箭头。骨头制作起来要困难得多。关键在于，对吧，它们非常适合用作投掷武器。它们非常轻。人类发明了投矛器和弹弓，开始具备携带多枚投掷武器并进行远程投掷的能力。而这需要，对吧，额叶区域得到进一步的发展。"
+  },
+  {
+   "s": 1752.52,
+   "e": 1787.55,
+   "en": "which is going to turn out to be of course very important as we'll see for enhancing your intelligence. Think about how deep this is in your cognition, this idea of like throwing, right? Think about how you talk about how you have a project that you're working on, right? Project, you're throwing. Or people will talk about, oh they're over there, there's an object. That means thrown against. Or I'm the subject, that means thrown under.",
+   "zh": "正如我们将看到的，这对于提升智力显然非常重要。想想“投掷”这个概念在你的认知中根植得有多深，对吧？想想你常说自己手头有一个“项目”（project），对吧？Project，其实就包含“投掷”的意思。或者人们会说，哦，那边有个“物体”（object），原意是“抛掷在对面的东西”。或者说我是“主体”（subject），原意则是“抛掷在底下的东西”。"
+  },
+  {
+   "s": 1788.13,
+   "e": 1816.48,
+   "en": "All day long, cognitively, you're throwing. That's because this throwing task is such a complex task. I mean, we take it so trivial that, you know, there's a moving target and I throw something, I can hit it. But if you try and build artificial intelligence to do that as the military is discovered, that turns out to be a really, really hard problem. So there's the projectile weapons are developing, the calendrics, the music, the sculpture, the paintings.",
+   "zh": "整天下来，你的大脑其实一直在进行“投掷”认知。这是因为投掷任务极其复杂。我们总觉得这微不足道，目标在移动，我扔个东西就能击中它。但军方已经发现，如果想用人工智能来实现这一点，会是一个极其棘手的难题。所以投掷类武器在发展，历法、音乐、雕塑、绘画也随之涌现。"
+  },
+  {
+   "s": 1817.84,
+   "e": 1845.77,
+   "en": "What's going on? Why is all of this stuff exploding? Now, notice how all of this is associated with different aspects of what we mean by meaning. Obviously, there's art and there's music. That's somehow meaningful. But there's also time is being made more meaningful. It's being measured and understood in calendars. And even time and space are now more meaningful because they're being used in this highly dynamic way.",
+   "zh": "这是怎么回事？为什么这一切都在爆发式增长？请注意，所有这些都与我们所谓的“意义”的不同层面息息相关。显而易见，有艺术，也有音乐，它们在某种程度上富有意义。但时间也变得更有意义了，人们用历法来度量和理解它。甚至时间和空间也更有意义了，因为它们正在以这种高度动态的方式被运用。"
+  },
+  {
+   "s": 1846.27,
+   "e": 1880.83,
+   "en": "in projectile weaponry. So what's going on? Why did it occur? Well, there's a lot of good work done by this. David Lewis Williams, Matt Rosano's work in his book, Supernatural Selection, I think is superlative. His articles like Did Meditating Make Us Human? I got the pleasure of meeting Matt. And he argues for what's going on at this time.",
+   "zh": "投掷类武器方面。那么到底发生了什么？为什么会这样？在这方面有许多出色的研究。David Lewis Williams，还有Matt Rosano在《Supernatural Selection》一书中的研究，我认为极其精彩。包括他写的像《Did Meditating Make Us Human?》这样的文章。我很荣幸见过Matt。他阐述了当时所发生的事情。"
+  },
+  {
+   "s": 1882.29,
+   "e": 1915.28,
+   "en": "is a radical change in human cognition that's in line with the work of other people like Michael Winkleman. We know that before the Upper Paleolithic Transition, about 30,000 up to 60,000 or 70,000, it's unclear because there's various times of what this might be happening. We know that we went through a near extinction event. Human beings almost went extinct. We were crunched down, they think maybe to a maximum of 10,000 individuals.",
+   "zh": "那就是人类认知发生了彻底的转变，这与Michael Winkleman等其他学者的研究不谋而合。我们知道，在旧石器时代晚期转变之前，大约三万年前，甚至可能早至六七万年前——具体时间尚不明确，因为各方说法不一。我们知道人类曾经历过一次濒临灭绝的事件。人类差点就灭绝了。据推测，我们的人口当时骤降到可能最多只有一万人。"
+  },
+  {
+   "s": 1916.11,
+   "e": 1946.17,
+   "en": "We had almost died off. Part of it seems to have been the overall climactic change of the end of the last ice age in Africa. Part of it, there's a supervolcano that goes off around 70,000 years ago. Not sure, but what happens is there's tremendous pressure put on human beings. They move to the coasts in general to try and survive, but human beings seem to have adopted an interesting response to this.",
+   "zh": "我们险些就灭绝了。部分原因似乎是非洲末次冰期结束带来的全球气候变化。另一部分原因，是大约7万年前发生了一场超级火山爆发。尚不确定，但事实是人类承受了巨大的生存压力。他们大体上迁徙到沿海地区谋求生存，而人类对此似乎采取了一种很有意思的应对方式。"
+  },
+  {
+   "s": 1946.63,
+   "e": 1978.01,
+   "en": "Now, first of all, they diversify their diet and blah, blah, blah, blah. That's all important. We'll talk about that. But what's really interesting is that they don't come up so much with a technological response because climate's too huge and too poorly understood. They come up with a socio-cognitive response. What human beings do is they start creating broader trading networks. You see, because when you do that, you're not as subject",
+   "zh": "首先，他们的饮食结构变得多样化，诸如此类。这固然都很重要，我们待会儿会讲。但真正有趣的是，他们并没有在技术层面上做出太大应对，因为气候影响过于庞大，人们对其知之甚少。他们采用的是一种社会认知层面的应对策略。人类的做法是开始建立更广泛的贸易网络。你看，因为一旦这么做，你就不会那么受制于"
+  },
+  {
+   "s": 1979.02,
+   "e": 2006.44,
+   "en": "to individual environmental variation. You have much more resources, both in terms of what people can have, what kind of discoveries they're making. And so what happens is people start forming these much broader trading relationships. Now that's very significant because it opens up the scale at which human cognition has to operate in an important way.",
+   "zh": "个别局部的环境变化了。你拥有的资源会丰富得多，不仅体现在人们能获取的物资上，还体现在能有哪些新发现上。因此，结果就是人们开始构建起规模庞大得多的贸易关系。这非常关键，因为它从根本上拓展了人类认知必须运作的尺度。"
+  },
+  {
+   "s": 2007.44,
+   "e": 2035.51,
+   "en": "And human beings plausibly responded by developing things that we see now as pervasive. They developed a bunch of rituals, and we're going to talk a lot about why ritual isn't so important, for dealing with both the environmental challenge and the enhanced social network that they were creating to deal with it. By the way, we're going to talk about that a lot in this series. How your cognition is very much",
+   "zh": "而人类合理的应对方式，就是发展出我们现在随处可见的这些东西。他们发展出了一堆仪式——我们后面会大量探讨仪式为何如此重要——既为了应对环境的挑战，也为了维系他们因应对挑战而建立的更庞大的社交网络。顺便说一句，在这个系列中我们还会多次谈到这个话题。也就是你的认知在很大程度上"
+  },
+  {
+   "s": 2035.85,
+   "e": 2065.41,
+   "en": "participatory, you participate in distributed cognition, large networks of cognition. Way before the internet networked computers together, culture networked brains together in order to provide some of our most powerful problem solving abilities. So what are the rituals? Okay, so you need various trading rituals because the thing you're doing now, and again, think about how this",
+   "zh": "是参与性的，你参与到了分布式认知中，也就是庞大的认知网络中。早在互联网把计算机连成网络之前，文化就已经把大脑连接在一起，从而为我们提供了一些最强大的解决问题的能力。那么，这些仪式究竟是什么呢？好吧，你需要各种各样的贸易仪式，因为你现在所做的事情，再次想想这"
+  },
+  {
+   "s": 2065.87,
+   "e": 2096.71,
+   "en": "You take this for granted in living in a city. It is the deep presupposition of civilization you hang around with strangers Lots of them and that's just like oh, yeah. Well. It's not oh. Yeah, that's a hard thing Other species don't do that So what's happening is we're getting this shift We're having to interact with people that are not in our kinship group in our hunter gatherer group",
+   "zh": "在城市生活中，你对此习以为常。这是文明深层的预设前提：你和陌生人待在一起，大量的陌生人，而大家就觉得“哦，对啊”。其实根本不是“哦，对啊”那么简单，这是一件极难的事，其他物种可做不到。所以现在的情况是，我们正在经历这种转变：我们必须与那些非亲非故、不在我们狩猎采集群体中的人打交道，"
+  },
+  {
+   "s": 2097.18,
+   "e": 2128.49,
+   "en": "and we have to form relationships with them. So we start to develop rituals that have the function of enhancing our ability to come into communication and relationships of trust for individuals that we do not personally know. You say, okay, that's why you still do stuff that makes no sense. You meet somebody, like you do that, you stick out your hand, and they grab it, and then they move it up and down, right?",
+   "zh": "并且我们必须与他们建立关系。因此，我们开始发展出一些仪式，它们的作用是增强我们与那些素昧平生的人建立沟通和信任关系的能力。你会说，好吧，这就是为什么你现在还会做一些毫无意义的事。你遇到某个人，就像你伸出手，对方抓住它，然后上下摇晃，对吧？"
+  },
+  {
+   "s": 2129.54,
+   "e": 2160.35,
+   "en": "This is to show you have no weapons. This has allowed the person to touch you, to see if your hands are clammy or not. There's all kinds of intuitive stuff going on. I can feel how tense you are. Most of us don't pay attention to this stuff anymore, but it's there. When you shake hands, when you ask, how are you? Now again, that has become trivial, so we don't want an answer. How are you? We don't, well, somebody starts answering you, oh no. But originally, that reflects something. Because think about what,",
+   "zh": "这是为了表明你没带武器。这也让对方能够触碰你，感知你的手心是不是在冒冷汗。这其中包含着各种直觉层面的信息。我能感受到你有多紧张。我们大多数人现在已经不再关注这些细节了，但它们确实存在。握手时，当你问“你好吗？”如今这句问候变得微不足道，我们甚至不需要对方回答。要是真有人认真回答“我最近……”，你心里可能还会想“天哪，别”。但在最初，这句问候是有实际意义的。因为想想看，"
+  },
+  {
+   "s": 2160.55,
+   "e": 2190.14,
+   "en": "important skill has to be enhanced for these rituals. I have to be able to take your perspective. I have to know what's going on in your mind. I have to know how you feel. I have to be able to move from a first-person perspective to a third-person perspective really, really well. Because if I can't do that, I'm not going to be able to trade with you. Now that ability to take",
+   "zh": "这类仪式需要提升哪项重要技能？我必须能够站在你的角度看问题。我得知道你心里在想什么。我得知道你的感受。我必须能非常非常自如地从第一人称视角切换到第三人称视角。因为如果我做不到这一点，我就没办法跟你做交易。而这种能够"
+  },
+  {
+   "s": 2190.39,
+   "e": 2221.88,
+   "en": "enhanced perspective on others, especially people that you don't know, really means you have to develop an ability that Daniel Siegel calls Mindsight, the ability to pick up on other people's mental states. And here's the thing, as you start to increase your ability to pick up on other people's mental states, you increase your ability to pick up on your own mental states. And that, of course, is going to be part of the origin of things like metacognition and mindfulness. Then the next...",
+   "zh": "更好地换位思考、尤其是站在陌生人角度看问题的能力，实际上意味着你必须培养一种被丹尼尔·西格尔（Daniel Siegel）称为“心智视界（Mindsight）”的能力，也就是觉察他人心理状态的能力。关键在于，当你开始提升觉察他人心理状态的能力时，你觉察自身心理状态的能力也会随之提升。当然，这也是元认知和正念等概念的部分起源。接下来……"
+  },
+  {
+   "s": 2221.88,
+   "e": 2252.73,
+   "en": "type of ritual you need, it goes in the other direction. The trade rituals was how I deal with strangers. The problem is now, when I'm starting to interact with all these people, right, my commitment and loyalty to my group is now more in question than it used to be in the past. It could be taken for granted, because you just were with these people, and they were with you all the time. But now, if you allow me the word, there's temptation from the stranger, which of course is now part of all of our myths. The way the stranger can come in and tempt us.",
+   "zh": "你所需要的这种仪式，则走向了另一个方向。贸易仪式是我如何与陌生人打交道。但问题是，现在当我开始和所有这些人互动时，我对所属群体的承诺与忠诚，就变得比过去更受质疑了。过去这完全是理所当然的，因为你始终和这些人在一起，他们也一直陪伴着你。但现在，容我用这个词，出现了来自陌生人的诱惑，这当然已经成为我们所有神话的一部分：外人是如何闯入并诱惑我们的。"
+  },
+  {
+   "s": 2253.93,
+   "e": 2286.83,
+   "en": "And so what do we do? Well, we create initiation rituals. Rituals that are designed to show our commitment to the group. And those rituals often require risk, threat, sacrifice. Now our initiation rituals have been very tamed down. But if you look back in time, these initiation rituals are often very traumatic.",
+   "zh": "那么我们该怎么做呢？我们会创造入会仪式。这些仪式旨在展现我们对群体的忠诚。而这类仪式往往伴随着风险、威胁和牺牲。如今我们的入会仪式已经温和得多了。但如果你回顾历史，就会发现这些入会仪式往往极具创伤性。"
+  },
+  {
+   "s": 2287.88,
+   "e": 2310.11,
+   "en": "Dramatic. People are put into situations in which they might experience tremendous pain or fear. We'll talk about some of these as we go through the series. Why? Why make somebody go through pain and fear? Because if they go through pain and fear, that shows that they're really committed to you. They're really committed to your group.",
+   "zh": "极具戏剧性。人们会被置于可能经历巨大痛苦或恐惧的情境中。随着本系列的展开，我们会聊到其中的一些。为什么？为什么要让人经历痛苦和恐惧？因为如果他们经历了痛苦和恐惧，就表明他们对你极其忠诚。他们对你的群体极其忠诚。"
+  },
+  {
+   "s": 2313.65,
+   "e": 2345.8,
+   "en": "But what does that mean cognitively? What does it mean for how the mind gets trained? You have to really improve your ability to regulate your emotion. You have to really improve your ability to do what's called de-centering, to let yourself be in the hands of other people, a non-ego-centric perspective. Because what's important now is it's not centered on you. The ritual's centered on you, but you, through the ritual, are being centered on the group.",
+   "zh": "但这在认知层面上意味着什么？这对心智的训练又意味着什么？你必须极大地提高调节自身情绪的能力。你必须极大地提高所谓“去中心化”的能力，让自己任由他人摆布，形成一种非以自我为中心的视角。因为此时重要的是不再以你为中心。仪式虽以你为中心，但通过这一仪式，你正被置于以群体为中心的地位。"
+  },
+  {
+   "s": 2348.62,
+   "e": 2392.77,
+   "en": "This is having, again, tremendous impact on your cognition. Now, there's a third kind of ritual that starts to emerge. And it seems to have picked up on these cognitive enhancements that the trade rituals and the initiation rituals bring. So I need to introduce an idea to you that's going to become pervasive. This is the notion of exaptation. Exaptation. Now, originally, this is an idea from biology.",
+   "zh": "这再次对你们的认知产生了巨大的影响。现在，第三种仪式开始出现了。它似乎吸收了贸易仪式和成年礼所带来的这些认知提升。所以我需要向大家介绍一个即将贯穿始终的概念。这就是“外适”的概念。外适适应。原本，这是一个来自生物学的概念。"
+  },
+  {
+   "s": 2393.22,
+   "e": 2425.04,
+   "en": "But the work of Michael Anderson has brought it directly into understanding how the brain operates, how cognition operates. Acceptation in biological terms is an evolutionary mechanism. So, for example, I'm using my tongue now to speak. Okay? Tongues did not evolve for speech. If they did, all the animals that had tongues would be speaking at you, and that'd be terrifying. Especially your cat. If your cat talks to you, I'm sure that would be terrifying.",
+   "zh": "但迈克尔·安德森（Michael Anderson）的研究将它直接引入到理解大脑如何运作、认知如何运作当中。用生物学的话来说，外适适应是一种进化机制。例如，我现在正用舌头说话。对吧？舌头的进化可不是为了说话。如果真是这样，所有有舌头的动物都会对着你说话了，那可就太吓人了。尤其是你家的猫。要是你的猫对你说话，我敢肯定那绝对吓死人。"
+  },
+  {
+   "s": 2426.25,
+   "e": 2453.45,
+   "en": "So, what did tongues evolve for? They evolved to move food around in your mouth, they're very flexible, and they're poison detectors. So they have all, this is your last defense, right, for poison, yeah, right? So they have all of these nerve endings. So you have this highly sensitive, highly flexible muscle. Now just because of the way we evolved, this muscle is also in the air passageway, because",
+   "zh": "那么，舌头是为了什么演化出来的呢？它们演化出来是为了在嘴里搅拌食物，它们非常灵活，而且还是毒物探测器。所以它们拥有所有，这是你防毒的最后一道防线，对吧？所以它们布满了这些神经末梢。于是你就有了这种高度敏感、高度灵活的肌肉。正因为我们的演化方式，这块肌肉也恰好位于呼吸道中，因为"
+  },
+  {
+   "s": 2453.85,
+   "e": 2483.71,
+   "en": "Evolution is not an intelligent designer. You use the same tube for breathing and for food. Very bad design. But nevertheless, that's how it is. So your tongue can interrupt your airflow. Flexible, sensitive muscle that can interrupt airflow. That's what I need for speech. So the tongue was exacted. Evolution didn't have to make a speaking machine from scratch. It took something that evolved for one purpose and was able to exact it and use it for another. So...",
+   "zh": "演化并不是一个智能的设计师。呼吸和吃东西共用同一根管道。非常糟糕的设计。但尽管如此，事实就是这样。所以你的舌头能够阻断气流。能够阻断气流的灵活、敏感的肌肉。这正是说话所需要的。所以舌头被挪用了。演化并不需要从零打造一台发声机器。它借用了为某种目的演化出来的东西，对其进行挪用并用于另一种目的。所以……"
+  },
+  {
+   "s": 2483.71,
+   "e": 2507.04,
+   "en": "What Michael Anderson and others are arguing is very often this is what the brain does. The brain will develop a mechanism, a little machine, a set of cognitive processes for doing one thing, and then it will learn how to reuse that for something totally different. We're going to talk about that repeatedly through this series. So what happens is that...",
+   "zh": "Michael Anderson 等人认为，大脑经常就是这么运作的。大脑会针对某一件事开发出一种机制、一个小机器、一组认知过程，然后它会学会如何将其复用到完全不同的事情上。我们在本系列中会反复讨论这一点。所以发生的事情是……"
+  },
+  {
+   "s": 2507.04,
+   "e": 2539.77,
+   "en": "These enhanced mental abilities that are coming out of the trading and initiation rituals seem to be taken up into another set of rituals, exacted into, that seem to be also pervasive. These are shamanic rituals. These are shamanic rituals. We know that the ability to become aware of the mind, to control the mind, to control your emotions are being trained, as I said. We know that human beings, just because,",
+   "zh": "这些从交易和成年礼仪式中提升的心智能力，似乎被吸收到了另一组仪式中，被挪用其中，而这组仪式似乎同样无处不在。这就是萨满仪式。这就是萨满仪式。正如我所说，我们知道察觉心智、控制心智以及控制情绪的能力正在得到训练。我们知道人类仅仅因为，"
+  },
+  {
+   "s": 2540.43,
+   "e": 2572.49,
+   "en": "We'll see more about this later. Just because they're highly intelligent creatures with sophisticated consciousness, seek out altered states of consciousness. In shamanism, what you have is you have a cultivated practice for altering your state of consciousness that taps into and exacts this enhanced mind site, this enhanced ability to manipulate and control your mental state and your emotional state. Now, Michael Winkleman's work shows that",
+   "zh": "我们稍后会对此有更多了解。仅仅因为他们是拥有复杂意识的高度智能生物，就会主动寻求改变的意识状态。在萨满教中，你会看到一种刻意培养的、用于改变意识状态的修行方式，它利用并挪用了这种增强的心智视野，这种操纵和控制自身心理与情绪状态的增强能力。Michael Winkleman 的研究表明，"
+  },
+  {
+   "s": 2573.04,
+   "e": 2599.29,
+   "en": "Pervasive through hunter-gatherer groups are shamanic individuals. In fact, the shaman is such a pervasive historical figure that I think you can make a good case that it has become an archetypal figure. Something like the wise old man, so Yoda and Merlin, these are all shamanic figures.",
+   "zh": "萨满个体在狩猎采集群体中普遍存在。事实上，萨满是一个非常普遍的历史形象，我认为完全有理由说它已经变成了一个原型形象。类似于智者老人，比如尤达和梅林，这些都是萨满式的人物。"
+  },
+  {
+   "s": 2602.53,
+   "e": 2631.36,
+   "en": "What we know about shamanism is that they're the best health care you're going to have for a long time. And we'll talk about how and why that's the case. We know that if you've got a shaman in your group, it's going to help to reduce discord within your group. It's going to enhance your hunting abilities of your group. Now, I'm a scientist. I don't believe in any supernatural abilities or spirits or things like that. So I seek an alternative, and Matt Lissano and",
+   "zh": "我们所了解的萨满教是，在很长一段历史时期内，萨满就是你能得到的最好的医疗保障。我们稍后会讨论为什么以及如何做到这一点。我们知道，如果你的族群里有一位萨满，它将有助于减少族群内部的不和。它还会提升族群的狩猎能力。作为一个科学家，我并不相信任何超自然能力、神灵或类似的东西。因此，我和 Matt Lissano 以及"
+  },
+  {
+   "s": 2631.58,
+   "e": 2658.2,
+   "en": "Michael Winkelman, I seek an alternative explanation of why are shamans so effective? What is going on? And what I want to talk about is how central shamanism was to the upper Paleolithic transition because a plausible case can be made that it's the advent of shamanism that helps to explain how human beings are capable of this sudden explosion in their cognition.",
+   "zh": "Michael Winkelman 一样，试图寻找另一种解释：为什么萨满会如此有效？这背后究竟发生了什么？而我想探讨的是，萨满教在旧石器时代晚期的过渡中究竟有多么核心，因为完全有理由认为，正是萨满教的出现，帮助解释了人类为何能实现认知上的这一突发性飞跃。"
+  },
+  {
+   "s": 2659.53,
+   "e": 2692.3,
+   "en": "This, of course, is the thesis of several people, as I mentioned, Michael Winkelman, Lewis Williams, and others, Matt Rossano. Because here's the issue, right? It's not a hardware change. The brain has already existed for 160,000 years. It's not changing significantly during the Upper Paleolithic Transition. It's much more likely that it's not a hardware change in the brain, it's a software change in how human beings are using the brain.",
+   "zh": "当然，这也是好几位学者的观点，像我之前提到的 Michael Winkelman、Lewis Williams，还有 Matt Rossano 等人。因为问题就在这儿，对吧？这并不是硬件层面的改变。人类的大脑当时已经存在了16万年。在旧石器时代晚期的过渡阶段，它并没有发生显著变化。更有可能的是，这并非大脑的硬件变化，而是人类在使用大脑方式上的一次软件升级。"
+  },
+  {
+   "s": 2693.58,
+   "e": 2734.52,
+   "en": "And part of what I want to argue is that shamanism is probably playing a significant role in that software change. So now I need to introduce yet one more other term, and again, this is going to be important. This is the idea of a psychotechnology. Okay, so technology means the systematic use of a tool. This is a tool right here, right? First thing to understand, and this is Andy Clark's phrase, you're a natural born cyborg. Your brain has evolved across several species to",
+   "zh": "而我想表达的部分观点是，萨满教很可能在这种软件升级中扮演了重要角色。所以现在我需要引入另一个术语，重申一下，这会非常关键。那就是“心理技术”的概念。好，所谓技术，就是对工具的系统化使用。眼下这就是个工具，对吧？首先要明白的是——借用 Andy Clark 的话来说——你天生就是个半机械人。你的大脑历经多个物种的演化，才学会了"
+  },
+  {
+   "s": 2734.84,
+   "e": 2764.66,
+   "en": "Use tools. In fact, when you start using a tool, even for a very short period of time, your brain will start to model it as part of your body. That is why you can do weird things like when you're parking your car, you can feel where the edge of your car is and all that sort of stuff. You're a natural born cyborg. You have evolved to be integrated with machines. Look at me, I'm a cyborg. Look at this, around me. The only thing that's natural here",
+   "zh": "使用工具。事实上，当你开始使用某种工具，哪怕时间非常短，你的大脑也会开始把它模拟为你身体的一部分。正因如此，你才能做到一些不可思议的事，比如在倒车入库时，你能感知到车身的边缘在哪儿，诸如此类。你天生就是半机械人。你的演化就是为了与机器融为一体。看看我，我就是个半机械人。看看我周围的一切。这里唯一纯天然的东西"
+  },
+  {
+   "s": 2764.93,
+   "e": 2787.69,
+   "en": "biologically is naked me. Everything else is a tool. These are tools. I wasn't born with clothing. I used this in order to modify my ability to move through environments and carry stuff around. This is a tool. This is a tool. This is a tool. This is a tool. These are tools.",
+   "zh": "从生理上讲，我就是赤裸的躯体。除此之外的一切都是工具。这些都是工具。我生来并没有穿着衣服。我用衣服来改变自己在各种环境中穿行的能力，以及随身携带物品的能力。这是工具。这是工具。这是工具。这是工具。这些也都是工具。"
+  },
+  {
+   "s": 2794.42,
+   "e": 2820.46,
+   "en": "What's interesting is that can be exacted your brain's ability to attach to a tool can move off of a physical thing onto a cognitive thing so a physical tool fits your biology See fits your biology and enhances it right I can leave permanent marks that I can't otherwise do biologically on this board",
+   "zh": "有趣的是，这种能力是可以被挪用、延伸的：你大脑依附于工具的能力，可以从物理实体转移到认知层面。物理工具契合你的生理结构，你看，它契合你的生理结构并对其进行强化，对吧？我可以在这块板上留下永久的痕迹，单凭生物机能我是做不到这点的。"
+  },
+  {
+   "s": 2820.89,
+   "e": 2852.69,
+   "en": "I have a bottle. It fits my hand and I can carry liquids around. If I had to carry, like that's the amount of liquid I can carry is minimal. It fits your biology and enhances it. A psycho-technology fits your brain and enhances how it operates. And you say, what are you talking about? What's a psycho-technology? Look, here's one right here. It's called literacy. You're not born literate. You're born linguistic. You're born learning how to talk.",
+   "zh": "我有个瓶子。它贴合我的手，让我能随身携带液体。如果徒手捧水，我能带的液体少得可怜。它契合你的生理机能并对其进行增强。而心理技术则契合你的大脑，并强化它的运作方式。你可能会问，你在说什么呢？什么是心理技术？看，这里就有一个：那就是识字能力。你生来并不识字。你天生具有语言潜能，生来就能学会说话。"
+  },
+  {
+   "s": 2853.99,
+   "e": 2888.94,
+   "en": "Right, Noam Chomsky, all that sort of thing, but you're not born literate. In fact, for most of our history, we were completely illiterate. What does literacy do for you? It's a standard set of tools that standardize how you process information. Notice how it enhances your cognition. I don't have to hold all these terms in my mind. I can leave them there on the board. I can write stuff down and come back to it later. So notice what I can do. I can take",
+   "zh": "对，诺姆·乔姆斯基（Noam Chomsky），诸如此类的理论，但识字并非与生俱来。事实上，在人类历史的大部分时间里，我们完全是不识字的。识字能带来什么？它是一套标准的工具，规范了你处理信息的方式。注意它是如何增强你的认知能力的。我不需要把所有这些术语都记在脑子里。我可以把它们留在那边的黑板上。我可以把东西写下来，以后再回来看。所以注意我能做什么。我可以把"
+  },
+  {
+   "s": 2889.12,
+   "e": 2915.96,
+   "en": "my brain now and link it to my brain back then and my brain in the future. So I'm networking all these instances together. I'm improving my cognition. I can also network my brain with your brain and improve my ability to solve problems. Think of, if I were to do this to you, I'm going to take literacy out of your brain right now. And I mean literacy in your head too. You can't imagine words.",
+   "zh": "我当下的头脑，与我过去的头脑以及未来的头脑连接起来。这样我就把所有这些实例网络化连接在了一起。我正在提升自己的认知能力。我还可以把我的大脑与你的大脑连接起来，提高我解决问题的能力。试想一下，如果我对你这么做：我现在就要把你脑子里的识字能力抽走。我指的也是你脑海中的文字感知能力。你将无法想象出文字。"
+  },
+  {
+   "s": 2918.54,
+   "e": 2951.5,
+   "en": "You can't put stuff on paper, you can't reflect on your own cognition, I take that out of you. Your brain is the same, hardware, but the problems you can solve collapse down dramatically. That's what psychotechnologies do. They enhance the software of your cognitive machinery. Now shamanism is a set of psychotechnologies for altering your state of consciousness.",
+   "zh": "你不能把东西写在纸上，不能反思自己的认知，我把这些能力从你身上拿走。你的大脑这个硬件没变，但你能解决的问题却急剧减少。这就是心理技术的作用，它们增强了你认知机器的软件系统。而萨满教就是一套用来改变意识状态的心理技术。"
+  },
+  {
+   "s": 2951.97,
+   "e": 2987.98,
+   "en": "and enhancing your cognition. So, what does shamanism look like? What are the kinds of things you do when you're a shaman? There are many people, of course, claim to be practicing shamanism today, and that's another thing. Why this rise in neo-shamanism? What are people thinking they're trying to get from it? Okay, so, the shaman",
+   "zh": "并以此来提升你的认知。那么，萨满教到底是什么样子的？作为一名萨满，你会做些什么？当然，如今有很多人声称自己在践行萨满教，这又是另一回事了。为什么新萨满教蔚然兴起？大家觉得能从中获得什么？好的，那么，萨满"
+  },
+  {
+   "s": 2989.74,
+   "e": 3027.21,
+   "en": "does a lot of interesting things in order to get into a particular state. So the shaman will often engage in things like sleep deprivation, intense long periods, hours of singing, dancing, chanting. The shaman will often engage in imitation, put on the clothing, mask that represents some other figure, some other animal, right?",
+   "zh": "会做很多有趣的事情，以便进入某种特殊状态。比如，萨满常常会进行剥夺睡眠、长时间持续数小时的唱歌、跳舞和吟诵。萨满还常常会进行模仿，穿上特定的服饰，戴上面具，来代表某种人物或某种动物，对吧？"
+  },
+  {
+   "s": 3028.46,
+   "e": 3058.29,
+   "en": "Sometimes the shaman will go into periods of isolation, social isolation, go out into the wilderness. And of course, although it's not necessary, but it has been pervasive, shamans will make use of psychedelics in order to help bring about an altered state of consciousness. So what's going on here?",
+   "zh": "有时，萨满会进入一段时期的独处，脱离社交，走进荒野。当然，虽然并非绝对必要，但萨满普遍会借助迷幻剂来诱发意识状态的改变。那么，这背后究竟是怎么回事呢？"
+  },
+  {
+   "s": 3060.08,
+   "e": 3095.41,
+   "en": "Steve Taylor in his book Waking from Sleep talks about these disruptive strategies that people even today use in order to try and bring about what are called awakening experiences, these radical transformations in people's sense of self and reality. We're going to talk about that, but one of the main ideas here is what a shaman is typically doing is trying to disrupt the normal ways in which you're finding patterns in the world.",
+   "zh": "Steve Taylor 在他的《Waking from Sleep》一书中，谈到了人们即使在今天仍会使用的这些“颠覆性策略”，试图借此带来所谓的“觉醒体验”——即人们对自我和现实认知的彻底转变。我们稍后会详细讨论，不过这里的核心思想之一，就是萨满通常在做的事，是试图打破你平时在世界中寻找模式的常规方式。"
+  },
+  {
+   "s": 3097.9,
+   "e": 3130.44,
+   "en": "Why would you want to disrupt the normal way you find patterns in the world? Because the way you find patterns, and remember I said this, the very thing that makes you adaptive also makes you subject to self-deception. The way you find patterns is very profound. So this is something I study as a scientist. Many of you may have seen this. So this is called the nine dot problem. You have to join",
+   "zh": "为什么你要打破自己平时发现规律的方式？因为你寻找规律的方式——记住我说过的话——恰恰是让你既能适应环境，又容易自我欺骗的根源。你发现规律的方式非常深奥。作为一名科学家，这就是我研究的课题。你们很多人可能见过这个，这叫九点问题。你必须连接"
+  },
+  {
+   "s": 3130.83,
+   "e": 3158.05,
+   "en": "All nine dots with four straight lines. You have to start the next line from the terminus of the previous line. And when people see this, they initially say, well, this is very easy. Of course, I can do this, right? One, two, three, four. Oh, wait, I missed the middle dot. Okay, one, two, three. Wait, one, two. Wait, one, two. And then they pause. This actually turns out to be a very difficult problem for people to solve.",
+   "zh": "全部九个点，只能用四条直线。下一条线必须从上一条线的终点开始画。大家看到这个时，最初都会说，这太简单了。我肯定能做出来，对吧？一、二、三、四。噢，等等，中间那个点漏了。好吧，一、二、三。等等，一、二。等等，一、二。然后他们就愣住了。事实证明，对人们来说，这其实是一个极难解决的问题。"
+  },
+  {
+   "s": 3159.02,
+   "e": 3193.48,
+   "en": "joining all nine dots with four straight lines. But why is it hard? One line, two lines, three lines, four lines. What was hard about that? Now when you do that, of course, people get angry at you. They say you cheated. You went outside the box. You went outside the square. That's where Think Outside the Box comes from. Now why that was hard is because you projected a pattern here, the square, and then you engaged unconsciously",
+   "zh": "用四条直线把所有九个点连起来。但这难在哪儿呢？一条线、两条线、三条线、四条线。这有什么难的？但当你这么做时，大家当然会冲你生气。他们会说你作弊了。你画到框框外面去了。你画出了正方形的范围。这就是“跳出框框思考”这句俗话的由来。刚才那道题之所以难，是因为你在这儿预设了一种模式，也就是那个正方形，然后你不由自主地"
+  },
+  {
+   "s": 3194.56,
+   "e": 3222.57,
+   "en": "unconsciously, your skills of connecting the dots. When you were a kid, you'd connected the dots, and when you connect the dots, you're not supposed to do this. Make a non-dot turn. If you do that, you won't get a picture of a picnic table, you'll get like an acid trip psychedelic thing. So, unconsciously, you project a pattern, and then you activate the appropriate skills, and then you're locked, and you're blocked.",
+   "zh": "不由自主地，用上了你以前连点成线的技能。小时候你玩过连点成线，而在连线时，你是不应该这么做的。也就是在没有点的地方转弯。要是你这么干了，连出来的就不会是一张野餐桌，而会像吃了迷幻药一样光怪陆离。所以，你下意识地预设了一种模式，接着激活了相应的技能，然后你就被套牢了，彻底卡住了。"
+  },
+  {
+   "s": 3223.86,
+   "e": 3254.97,
+   "en": "You can't solve that problem, not because of anything there in the data, but because of the way you have framed it. You have to disrupt your framing. We're gonna talk a lot about that in order to get an insight, in order to get an insight. Now, let me tell you something, again, to start to introduce this to you. Saying to people, think outside the box, and this is kind of funny if you think about it, saying to people, think outside the box does not help them with this problem. Giving them the belief",
+   "zh": "你解决不了那个问题，并不是因为数据本身有什么问题，而是因为你构建问题的方式不对。你必须打破原有的思维框架。为了获得洞察，获得顿悟，我们接下来会重点探讨这一点。现在，为了引出这个概念，我先跟你们说件事。对别人说“打破常规思考”，仔细想想挺有意思的，跟人说“打破常规思考”对解决这个问题毫无帮助。让他们相信"
+  },
+  {
+   "s": 3255.55,
+   "e": 3287.44,
+   "en": "that they have to go outside the box does not help them to solve this problem. That's what I meant when I said you shouldn't reduce all of your sense of knowing to believing. What's involved here is not believing that you have to go outside the box. It's knowing how to go outside the box. How to alter your attention. How to change your perspective.",
+   "zh": "自己必须跳出框框，并不能帮他们解决这个问题。这就是为什么我说，不能把所有的“认知”都归结为“相信”。这里的关键不在于你相不相信要跳出框框，而是在于懂得“如何”跳出框框。如何转移你的注意力。如何转变你的视角。"
+  },
+  {
+   "s": 3288.94,
+   "e": 3319.19,
+   "en": "So what's salient to you, what's relevant? How to alter what's important or real to you. And what shamanism is, is it's a set of practices, disruptive practices and attentional practices that are designed to disrupt everyday framing so that the shaman can get enhanced insight. Well now what kind of insight? Insight into patterns in the environment.",
+   "zh": "那么什么对你而言是突出的，什么是有相关性的？如何改变对你来说重要或真实的事物。而萨满教正是这样一套实践，包含颠覆性实践和注意力实践，旨在打破日常的认知框架，从而让萨满获得更深刻的洞察力。那么，这究竟是怎样的洞察力呢？是对环境中各种规律的洞察力。"
+  },
+  {
+   "s": 3321.06,
+   "e": 3352.65,
+   "en": "that other people might not be picking up on. Enhanced insight, mind-sight into other people. And here's this sense of participatory knowing that I mentioned. When the shaman is enacting the animal, the shaman isn't having beliefs about the deer, the shaman is becoming the deer. I don't mean metaphysically, but the shaman is trying to get together the sense of the skills, the kind of perspective the deer has.",
+   "zh": "是其他人可能无法察觉到的规律。这是一种更强的洞察力，一种对他人内心的洞察。这里就体现了我提到的那种参与式知晓。当萨满在扮演动物时，萨满并不是在持有关于鹿的信念，而是萨满正在变成那只鹿。我不是指形而上学层面的转变，而是萨满在试图融会贯通鹿所拥有的技能感，以及鹿所具备的视角。"
+  },
+  {
+   "s": 3353.2,
+   "e": 3386.73,
+   "en": "the way the deer thinks, the kind of world the deer lives in. And by becoming the deer, by having this participatory knowing of what it is to be a deer, it enhances the ability to track and find the deer. Now these enhanced capacities for insight and mind sight, participatory knowing, means the shaman combines a lot of things that are for us in separate individuals. Shamans are highly charismatic. Imagine if you could take a rock star",
+   "zh": "鹿的思考方式，鹿所生活的世界。通过化身为鹿，通过这种对“身为鹿”的参与式认知，追踪和寻找鹿的能力就得到了提升。这种对洞察力和心智视角的增强，以及参与式认知，意味着萨满将许多在我们看来属于不同个体特质的东西融合在了一起。萨满极具个人魅力。想象一下，如果你能把一个摇滚巨星"
+  },
+  {
+   "s": 3387.94,
+   "e": 3419.09,
+   "en": "Like a super rock star, a super therapist, a super artist. Put them all in one individual and then they come to you when you're sick. They can enhance your ability to trigger your own placebo effect. The placebo effect is real. 30 to 40% of all real medication, the ones we sell as real drugs, is placebo effect. If you have an individual that can trigger that,",
+   "zh": "比如一个超级摇滚巨星、一个超级心理治疗师、一个超级艺术家集于一身，然后在你生病时来到你身边。他们能增强你触发自身安慰剂效应的能力。安慰剂效应是真实存在的。在所有真正的药物中，也就是我们当作真药出售的那些，有30%到40%是安慰剂效应。如果你身边有个人能触发这种效应，"
+  },
+  {
+   "s": 3419.69,
+   "e": 3454.07,
+   "en": "And that's all you have at that time. That's still 30 to 40 percent better than you had before. So what are the shamans doing? Notice what they're doing. They're really enhancing their capacity for cognition. Now what we're going to do in the next video is we're going to come back to the shamans. We're going to talk more about what they're doing, how they're enhancing their cognition.",
+   "zh": "而这又是你当时唯一拥有的手段。那也依然比你之前的状态好了30%到40%。那么萨满到底在做什么？留意他们的所作所为。他们实际上是在增强自己的认知能力。在下一个视频中，我们将重新回到萨满的话题。我们将进一步探讨他们在做什么，以及他们是如何增强自身认知能力的。"
+  },
+  {
+   "s": 3454.72,
+   "e": 3486.53,
+   "en": "and why this played such an important role in making human beings into the kind of meaning makers there are. But we'll see what it is, but you can see already. Notice in order to tap into all these kinds of knowings, in order to bring about this altered state of consciousness, notice how much the shaman is manipulating the meaning of things, which isn't the same thing as being a charlatan. So we're starting to see right from the beginning.",
+   "zh": "以及为什么这在让人类成为如今这种“意义创造者”的过程中，扮演了如此重要的角色。我们稍后会看清楚它究竟是什么，但大家其实已经能看出来了。请注意，为了触及所有这些认知，为了引发这种意识的改变状态，萨满在多大程度上操控着事物的意义，但这并不等同于招摇撞骗。所以我们从一开始就看到了。"
+  },
+  {
+   "s": 3487.44,
+   "e": 3517.69,
+   "en": "the connections between meaning-making, altered states of consciousness, an enhanced capacity to be in touch with the world, and then what's the connection to wisdom? The word shaman means one who knows, one who sees, one who has insight. Shamans are considered wise people, and that's why we have all these words. The word wizard means a wise person.",
+   "zh": "在意义创造、意识的改变状态、以及更深入接触世界的能力之间，存在着千丝万缕的联系，那么，这与智慧又有什么关系呢？萨满（shaman）这个词的意思是知者、洞见者、有真知灼见的人。萨满被视为智者，这也就是为什么我们有这么多相关的词汇。像巫师（wizard）一词，指的其实也是有智慧的人。"
+  },
+  {
+   "s": 3520.17,
+   "e": 3533.38,
+   "en": "Okay, so that's it for our first video. You'll get a sense from this of how we're going to proceed. Thank you very much for your time.",
+   "zh": "好，我们第一个视频就到这里。从这个视频中，你可以大致了解我们接下来的推进方式。非常感谢大家的时间。"
+  }
+ ]
+}

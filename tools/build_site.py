@@ -11,6 +11,7 @@ related.json (vid -> related vids), and meta.json (areas + comment counts).
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -243,6 +244,31 @@ def main() -> None:
         f"feed {len(feed)} rows, related {len(related)} sources, "
         f"comments {sum(comment_counts.values())} in {len(comment_counts)} files\n"
     )
+    build_subindex()
+
+
+def build_subindex() -> None:
+    """Regenerate the subtitle full-text index (tools/subindex.py).
+
+    Runs as a subprocess because -I keeps this script's directory off
+    sys.path, so a plain import would not resolve. A failure only leaves the
+    in-site subtitle search stale; it must not fail the whole build.
+    """
+    try:
+        result = subprocess.run(
+            [sys.executable, "-I", "-X", "utf8", str(ROOT / "tools" / "subindex.py")],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+    except OSError as exc:
+        sys.stdout.write(f"warning: subtitle index not rebuilt: {exc}\n")
+        return
+    if result.stdout:
+        sys.stdout.write(result.stdout)
+    if result.returncode != 0:
+        sys.stdout.write(f"warning: subtitle index not rebuilt:\n{result.stderr}\n")
 
 
 if __name__ == "__main__":

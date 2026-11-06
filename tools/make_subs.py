@@ -117,7 +117,16 @@ def parse_vtt(path: Path) -> list[dict]:
     return cues
 
 
-def group_cues(cues: list[dict]) -> list[list[dict]]:
+def group_cues(cues: list[dict], max_chars: int | None = None) -> list[list[dict]]:
+    """Pack cues into translation requests; larger groups mean fewer round trips.
+
+    Resolve the module-level MAX_CHARS at call time (not as a default argument),
+    so main()'s --max-chars override actually takes effect.
+    """
+    if max_chars is None:
+        max_chars = MAX_CHARS
+    if type(max_chars) is not int or max_chars < 1:
+        raise ValueError("max_chars must be a positive integer")
     groups: list[list[dict]] = []
     current: list[dict] = []
     size = 0
@@ -125,7 +134,7 @@ def group_cues(cues: list[dict]) -> list[list[dict]]:
         current.append(cue)
         size += len(cue["en"])
         ends = bool(re.search(r"[.!?][\"')\]]?$", cue["en"]))
-        if (size >= MAX_CHARS and ends) or size >= MAX_CHARS * 1.8:
+        if (size >= max_chars and ends) or size >= max_chars * 1.8:
             groups.append(current)
             current, size = [], 0
     if current:
@@ -135,9 +144,15 @@ def group_cues(cues: list[dict]) -> list[list[dict]]:
 
 # --- translation ----------------------------------------------------------
 
-def call_gateway(sentences: list[str], timeout: int = 180, attempts: int = 3) -> list[str]:
+def call_gateway(
+    sentences: list[str], timeout: int = 180, attempts: int = 3, *, model: str | None = None,
+) -> list[str]:
+    """Send a request using a local model choice, safe for mixed-model threads."""
+    selected_model = MODEL if model is None else model
+    if not isinstance(selected_model, str) or not selected_model.strip():
+        raise ValueError("model must be a nonblank string")
     body = {
-        "model": MODEL,
+        "model": selected_model,
         "max_tokens": 8192,
         "temperature": 0.2,
         "messages": [
@@ -163,6 +178,10 @@ def call_gateway(sentences: list[str], timeout: int = 180, attempts: int = 3) ->
     content = payload["choices"][0]["message"]["content"].strip()
     content = re.sub(r"^```.*?$|```$", "", content, flags=re.M).strip()
     parts = [part.strip() for part in content.split("@@@")]
+    if len(sentences) == 1 and len(parts) > 1:
+        # A Whisper cue is often a whole paragraph; the model may answer with one
+        # part per sentence. Every part still belongs to that single cue.
+        parts = ["".join(part for part in parts if part)]
     if len(parts) != len(sentences):
         raise ValueError(f"separator mismatch: {len(parts)} vs {len(sentences)}")
     return parts

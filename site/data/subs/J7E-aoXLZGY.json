@@ -1,0 +1,104 @@
+{
+ "vid": "J7E-aoXLZGY",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 1.74,
+   "e": 14.26,
+   "en": "For me, it's a cause of some upset that more anglophones don't enjoy language. Music is enjoyable, it seems, so are dance and other athletic forms of movement.",
+   "zh": "在我看来，很多英语母语者并不享受语言本身，这挺让人遗憾的。音乐似乎能带来快乐，舞蹈和各种体育运动也是如此。"
+  },
+  {
+   "s": 14.87,
+   "e": 32.45,
+   "en": "People seem to be able to find sensual and sensuous pleasure in almost anything but words these days. Words, it seems, belong to other people. Anyone who expresses themselves with originality, delight and verbal freshness is more likely to be mocked, distrusted or disliked than welcomed.",
+   "zh": "如今人们似乎几乎能在任何事物中找到感官愉悦，唯独文字除外。文字仿佛成了别人的专属。任何表达得新颖、欢快又生动的人，更有可能招致嘲笑、猜忌或反感，而不是受到欢迎。"
+  },
+  {
+   "s": 33.1,
+   "e": 59.08,
+   "en": "The free and happy use of words appears to be considered elitist or pretentious. Sadly, desperately sadly, the only people who seem to bother with language in public today bother with it in quite the wrong way. They write letters to broadcasters and newspapers in which they are rude and haughty about other people's usage and in which they show off their own superior knowledge of how language should be.",
+   "zh": "随性而欢快地运用文字，似乎会被视作精英主义或自命不凡。遗憾的是，极为遗憾的是，如今在公众场合唯一还关注语言的人，关注的方式却大错特错。他们给广播电台和报社写信，对别人的用法傲慢无礼、横加指责，以此炫耀自己对“语言规范”的高深见解。"
+  },
+  {
+   "s": 59.9,
+   "e": 89.26,
+   "en": "hate that. And I particularly hate the fact that so many of these pedants assume that I'm on their side. When asked to join in a let's persuade this supermarket chain to get rid of their five items or less sign, I never join in. Yes, I am aware of the technical distinction between less and fewer and between uninterested and disinterested and infer and imply and all the rest of them. But none of these are of importance to me. None of these are.",
+   "zh": "我讨厌那样。我尤其讨厌的是，那么多学究居然以为我和他们是一伙的。有人叫我一起去劝某家连锁超市撤掉“五件或更少（five items or less）”的指示牌时，我从不参与。没错，我知道 less 和 fewer 在严格语法上的区别，也知道 uninterested 和 disinterested、infer 和 imply 等等之间的差异。但这些对我来说全都不重要。全都不。"
+  },
+  {
+   "s": 89.61,
+   "e": 114.66,
+   "en": "of importance, I said there, you'll notice the old pedantic me would have insisted on none of them is of importance. But I'm glad to say I've outgrown that silly approach to language. Oscar Wilde, and there have been few greater and more complete lords of language in the past thousand years, once included with a manuscript he was delivering to his publishers,",
+   "zh": "我说的是“全都不重要（none of these are of importance）”，你会注意到，换成过去那个爱钻牛角尖的我，肯定会硬抠语法说成“is of importance”。但我很高兴自己已经走出了这种狭隘的语言观。在过去一千年里，很少有人能像 Oscar Wilde 那样称得上真正的语言大师，他有一次给出版商寄书稿时，附带了一张"
+  },
+  {
+   "s": 115.1,
+   "e": 129.36,
+   "en": "compliment-slip, in which he had scribbled the injunction, I'll leave you to tidy up the woods and shoulds, wills and shalls, thats and witches, etc. Which gives us all encouragement to feel less guilty, don't you think?",
+   "zh": "便签，上面随手写了一句嘱咐：“至于 would 和 should、will 和 shall、that 和 which 之类的，就留给你们去润色吧。” 这难道不让我们大家都松了口气，少了几分负罪感吗？"
+  },
+  {
+   "s": 130.8,
+   "e": 151.02,
+   "en": "There are all kinds of pedants around, with more time to read and imitate Lyn Truss and John Humphreys than to write poems, love letters, novels and stories, it seems. They whip out their sharpies and take away and add apostrophes from public signs, shake their heads at prepositions which end sentences and mutter at split infinitives and misspellings.",
+   "zh": "到处都是各色挑刺的学究，比起写诗、写情书、写小说和故事，他们似乎更有闲心去拜读并模仿 Lyn Truss 和 John Humphrys。他们会猛地掏出记号笔，在公共指示牌上涂改增删撇号，对句末的介词摇头叹气，对分裂不定式和错别字喃喃抱怨。"
+  },
+  {
+   "s": 151.47,
+   "e": 173.51,
+   "en": "But do they bubble and froth and slobber and cream with joy at language? Do they ever let the tripping of the tips of their tongues against the tops of their teeth transport them to giddy euphoric bliss? Do they ever yoke impossible words together for the sound sex of it? Do they use language to seduce charming sight, please affirm and tickle those they talk to? Do they? I doubt it.",
+   "zh": "但他们会为语言本身兴奋得冒泡、狂喜、流口水吗？舌尖轻触齿龈的跳跃感，可曾带他们飞入晕眩的极乐？他们可曾为了追求音韵交融的纯粹快感，而将八竿子打不着的词硬生生连在一起？他们可用语言去诱惑、去取悦、去肯定，去逗弄与他们交谈的人？他们做得到吗？我看未必。"
+  },
+  {
+   "s": 174.0,
+   "e": 199.7,
+   "en": "They're too farting busy sneering at a greengrocer's less-than-perfect use of the apostrophe. Well, sod them to Hades. They think they're guardians of language. They're no more guardians of language than the kennel club is the guardian of dogkind. And the worst of this sorry bunch of semi-educated losers are those who seem to glory in being irritated by nouns becoming verbs. How dense and deft a language development you have to be, hmm?",
+   "zh": "他们光顾着瞎忙活，去嘲笑菜贩子用得不够规范的撇号。去他们的吧。他们还自以为是语言的守护者。他们算哪门子语言守护者，就像养犬俱乐部根本算不上狗类的守护者一样。而在这一帮半吊子的可怜虫里，最差劲的就是那些以“对名词动词化感到愤怒”为荣的人。对语言的发展，你得有多迟钝、多无知啊，嗯？"
+  },
+  {
+   "s": 200.03,
+   "e": 207.63,
+   "en": "If you don't like nouns becoming verbs, then for heaven's sake avoid Shakespeare who made a doing word out of a thing word every chance he got.",
+   "zh": "如果你看不惯名词变动词，那看在老天的份上，千万别读莎士比亚，他只要逮着机会，就会把名词当动词使。"
+  },
+  {
+   "s": 209.71,
+   "e": 231.55,
+   "en": "tabled the motion and chaired the meeting, in which nouns were made verbs. I suppose new examples from our time might take some getting used to. He actioned it that day. For instance, might strike some as a verbing too far, but we've been sanctioning, envisioning, propositioning and stationing for a long time, so why not actioning?",
+   "zh": "“tabled the motion”（提出动议）和“chaired the meeting”（主持会议），里面都把名词用作了动词。我想，我们这个时代的新用法可能确实需要点时间去适应。比如“He actioned it that day”（他那天付诸行动了），有些人可能会觉得这动词化得过头了，但我们用 sanctioning、envisioning、propositioning 和 stationing 都用了这么久，actioning 又有何不可呢？"
+  },
+  {
+   "s": 231.91,
+   "e": 259.41,
+   "en": "Because it's ugly, wind the pedants. Well, it's only ugly because it's new and you don't like it. Ugly in the way Picasso, Stravinsky and Eliot were once thought ugly. And before their Monet, Mahler and Baudelaire, pedants will also claim with what I'm sure is eye-popping, insincerity and shameless disingenuousness that their fight is only for clarity. Well, this is all very well, but there's no doubt what, for example, five items or less means, just as only adult",
+   "zh": "“因为它太难看了，”学究们抱怨道。好吧，它难看只是因为它很新，而你不喜欢罢了。就像毕加索、斯特拉文斯基和艾略特曾经也被认为难看一样。而在他们之前，还有莫奈、马勒和波德莱尔；学究们还会极其虚伪且厚颜无耻地声称，他们的抗争纯粹是为了语言的清晰。嗯，话虽如此，但毫无疑问，比如“five items or less”（限购五件或更少）是什么意思大家都很清楚，正如只有笨蛋"
+  },
+  {
+   "s": 259.75,
+   "e": 283.79,
+   "en": "can't tell from the context and from the age and education of the speaker whether disinterested is used in the proper sense of non-partisan or in the improper sense of uninterested. No. Now, they claim to be defending language for the sake of clarity almost never ever holds water. Nor does the idea that following grammatical rules in language demonstrates clarity of thought and intelligence of mind.",
+   "zh": "才无法从语境以及说话者的年龄和受教育程度，判断出“disinterested”用的是其本义“客观公正”，还是用成了误用的“不感兴趣”。不是的。他们声称为了清晰度而捍卫语言，这种说法几乎从来都站不住脚。同样，遵守语法规则就能体现思维清晰和聪明才智的说法，也根本不成立。"
+  },
+  {
+   "s": 284.54,
+   "e": 308.04,
+   "en": "Having said this, I admit that if you want to communicate well for the sake of passing an exam or job interview, then it's obvious that wildly original and excessively heterodox language could land you in the soup. I think what offends examiners and employers when confronted with extremely informal, unpunctuated and haywire language is the implication of not caring.",
+   "zh": "话虽如此，我也承认，如果是为了通过考试或求职面试而进行有效沟通，那么天马行空、过于非正统的语言显然会让你惹上麻烦；我认为，考官和雇主在面对极度不正式、毫无标点且错乱不堪的语言时，之所以会觉得被冒犯，是因为这背后隐含着一种漫不经心的态度。"
+  },
+  {
+   "s": 308.33,
+   "e": 337.39,
+   "en": "that underlies it. You slip into a suit for an interview and you dress your language up too. You can wear what you like linguistically or sartorily when you're at home or with friends, but most people accept the need to smarten up under some circumstances. It's only considerate. But that's an issue of fitness, of suitability. It has nothing to do with correctness. There's no right language or wrong language any more than there are right or wrong clothes. Context, convention and circumstance are all.",
+   "zh": "面试时你会穿上西装，言语表达也同样需要精心修饰；在家里或和朋友在一起时，无论在语言上还是着装上你都可以随心所欲，但大多数人都认同在某些场合需要穿戴齐整、谈吐得体，这纯粹是一种体贴；但这关乎的是合适与否，与正确与否毫无关系；语言没有对错之分，就像衣服没有对错一样；语境、惯例和场合才决定了一切。"
+  },
+  {
+   "s": 337.69,
+   "e": 366.05,
+   "en": "I can't deny that a small part of me still clings to a ghastly Radio 4 newspaper letter-writer pedantry, but I fight against it. In much the same way, I try to fight against my gluttony, anger, selfishness, and other vices. I must confess, for example, that I find it hard not to wince when someone aspirates the word, and it is a word, H-A-I-T-C-A.",
+   "zh": "我不得不承认，我内心深处依然残存着一种 Radio 4 听众给报纸写信挑刺般的迂腐劲儿，但我一直在克制它。就像我努力克制自己的贪食、愤怒、自私以及其他恶习一样。比如我必须承认，每当有人给字母 H 发出“h-aitch”的送气音时，我依然很难不皱眉头，虽然它确实也被当成一个词了。"
+  }
+ ]
+}

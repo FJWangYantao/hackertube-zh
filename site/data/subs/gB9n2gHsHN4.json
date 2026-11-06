@@ -1,0 +1,242 @@
+{
+ "vid": "gB9n2gHsHN4",
+ "model": "faster-whisper-small.en-int8",
+ "translation_model": "antigravity-tools/gemini-3.8-flash-low",
+ "source": "whisper-local",
+ "cues": [
+  {
+   "s": 4.05,
+   "e": 33.28,
+   "en": "Who doesn't like fractals? They're a beautiful blend of simplicity and complexity, often including these infinitely repeating patterns. Programmers in particular tend to be especially fond of them because it takes a shockingly small amount of code to produce images that are way more intricate than any human hand ever could hope to draw. But a lot of people don't actually know the definition of a fractal, at least not the one that Benoit Mandelbrot, the father of fractal geometry, had in mind. A common misconception is that fractals are shapes that are perfectly self-similar.",
+   "zh": "谁会不喜欢分形呢？它们巧妙融合了简单与复杂，往往还带有这种无限重复的图案。程序员尤其钟爱分形，因为只需少得惊人的代码，就能生成远比人力所能绘制的复杂得多的图像。但其实很多人并不知道分形的定义，至少不知道分形几何之父 Benoit Mandelbrot 当初设想的定义。一个常见的误解是，认为分形就是完全自相似的形状。"
+  },
+  {
+   "s": 33.71,
+   "e": 63.27,
+   "en": "For example, this snowflake-looking shape right here, called the Von Koch Snowflake, consists of three different segments. And each one of these is perfectly self-similar, in that when you zoom in on it, you get a perfectly identical copy of the original. Likewise, the famous Sierpinski triangle consists of three smaller, identical copies of itself. And don't get me wrong, self-similar shapes are definitely beautiful, and they're a good toy model for what fractals really are. But Mandelbrot had a much broader conception in mind.",
+   "zh": "比如眼前这个类似雪花的形状，叫做冯·科赫雪花（Von Koch Snowflake），由三段不同的弧线组成。其中的每一段都是完全自相似的，也就是说当你放大它时，会得到一个和原图完全一模一样的副本。同样，著名的谢尔宾斯基三角形（Sierpinski triangle）也是由三个更小的、完全相同的自身副本组成的。别误会我的意思，自相似的形状确实很美，也是理解分形本质的一个很好的玩具模型。但 Mandelbrot 心中所构想的概念要宽泛得多。"
+  },
+  {
+   "s": 63.61,
+   "e": 90.41,
+   "en": "one motivated not by beauty, but more by a pragmatic desire to model nature in a way that actually captures roughness. In some ways, fractal geometry is a rebellion against calculus, whose central assumption is that things tend to look smooth if you zoom in far enough. But Mandelbrot saw this as overly idealized, or at least needlessly idealized, resulting in models that neglect the finer details of the thing that they're actually modeling, which can matter.",
+   "zh": "这种动机并非源于对美的追求，而是出于更务实的愿望——以一种真正能捕捉粗糙感的方式来模拟自然。在某种程度上，分形几何是对微积分的一场反叛，因为微积分的核心假设是：只要放大到足够近，事物往往看起来都是光滑的。但 Mandelbrot 认为这过于理想化了，或者至少是毫无必要地理想化了，导致构建出的模型忽略了所模拟对象的精细细节，而这些细节本可能至关重要。"
+  },
+  {
+   "s": 91.6,
+   "e": 119.62,
+   "en": "What he observed is that self-similar shapes give a basis for modeling the regularity in some forms of roughness. But the popular perception that fractals only include perfectly self-similar shapes is another over-idealization, one that ironically goes against the pragmatic spirit of fractal geometry's origins. The real definition of fractals has to do with this idea of fractal dimension, the main topic of this video. You see, there is a sense, a certain way to define the word dimension,",
+   "zh": "他观察到，自相似形状为模拟某些粗糙形态中的规律性提供了基础。但大众普遍认为分形只包含完全自相似的形状，这其实是另一种过度理想化，讽刺的是，这恰恰违背了分形几何诞生时的务实精神。分形的真正定义与“分形维数”这一概念息息相关，这也是本期视频的主题。你看，从某种意义上说，或者说用某种特定的方式来定义“维度”这个词，"
+  },
+  {
+   "s": 120.02,
+   "e": 149.9,
+   "en": "in which the Sierpinski triangle is approximately 1.585-dimensional, that the von Koch curve is approximately 1.262-dimensional, the coastline of Britain turns out to be around 1.21-dimensional, and in general it's possible to have shapes whose dimension is any positive real number, not just whole numbers. I think when I first heard someone reference fractional dimension like this, I just thought it was nonsense, right? I mean, mathematicians are clearly just making stuff up.",
+   "zh": "谢尔宾斯基三角形大约是 1.585 维的，科赫曲线大约是 1.262 维的，英国的海岸线算下来大约是 1.21 维的，而且通常来说，形状的维度可以是任何正实数，而不仅仅是整数。我想我第一次听到有人这样提到分数维时，只觉得这简直是一派胡言，对吧？我是说，数学家们显然又在瞎编了。"
+  },
+  {
+   "s": 150.14,
+   "e": 179.3,
+   "en": "Dimension is something that usually only makes sense for natural numbers, right? A line is one-dimensional, a plane that's two-dimensional, the space that we live in that's three-dimensional, and so on. And in fact, any linear algebra student who just learned the formal definition of dimension in that context would agree. It only makes sense for counting numbers. And of course, the idea of fractal dimension is just made up. I mean, this is math. Everything's made up. But the question is whether or not it turns out to be a useful construct for modeling the world.",
+   "zh": "通常来说，“维度”这个概念只对自然数有意义，对吧？线是一维的，面是二维的，我们生活的空间是三维的，以此类推。事实上，任何刚学过线性代数中“维度”形式化定义的人都会同意，它只对计数用的正整数有意义。当然，分形维数这个概念也是人造出来的。我的意思是，数学嘛，一切都是人造的。但关键在于，它是否能成为一个对现实世界建模有用的工具。"
+  },
+  {
+   "s": 179.84,
+   "e": 210.87,
+   "en": "And I think you'll agree. Once you learn how fractal dimension is defined, it's something that you start seeing almost everywhere that you look. It actually helps to start the discussion here by only looking at perfectly self-similar shapes. In fact, I'm going to start with four shapes, the first three of which aren't even fractals. A line, a square, a cube, and a Sierpinski triangle. All of these shapes are self-similar. A line can be broken up into two smaller lines, each of which is a perfect copy of the original, just scaled down by a half.",
+   "zh": "我想你也会认同这一点。一旦你弄懂了分形维数是如何定义的，你几乎在任何地方都能看到它的影子。要开始这个讨论，先从完全自相似的形状入手会很有帮助。事实上，我打算从四个形状讲起，其中前三个甚至都不是分形：线段、正方形、立方体，以及谢尔宾斯基三角形。所有这些形状都是自相似的。一条线段可以拆分成两条更小的线段，每一条都是原本线段的完美复制品，只不过尺寸缩小了一半。"
+  },
+  {
+   "s": 211.26,
+   "e": 240.24,
+   "en": "A square can be broken down into four smaller squares, each of which is a perfect copy of the original, just scaled down by a half. Likewise, a cube can be broken down into eight smaller cubes. Again, each one is a scaled down version by one half. And the core characteristic of the Sierpinski triangle is that it's made of three smaller copies of itself, and the length of the side of one of those smaller copies is one half the side length of the original triangle. Now, it's fun to compare how we measure these things.",
+   "zh": "一个正方形可以拆分成四个更小的正方形，每一个都是原图形缩小一半后的完美复制品。同样地，一个立方体可以拆分成八个更小的立方体，每一个同样是缩小了一半的版本。而谢尔宾斯基三角形的核心特征，就是它由三个自身缩小的副本组成，其中每个小副本的边长都是原三角形边长的一半。现在，对比一下我们是如何度量这些图形的，会很有意思。"
+  },
+  {
+   "s": 240.54,
+   "e": 268.26,
+   "en": "We'd say that the smaller line is one-half the length of the original line. The smaller square is one-quarter the area of the original square. The smaller cube is one-eighth the volume of the original cube. And that smaller Sierpinski triangle? Well, we'll talk about how to measure that in just a moment. What I want is a word that generalizes the idea of length, area, and volume, but that I can apply to all of those shapes and more. And typically in math, the word that you'd use for this is measure.",
+   "zh": "我们会说，缩小的线段是原线段长度的二分之一。缩小的正方形是原正方形面积的四分之一。缩小的立方体是原立方体体积的八分之一。那缩小的谢尔宾斯基三角形呢？我们稍后就会讨论该怎么度量它。我现在需要一个能概括长度、面积和体积概念的词，而且能适用于所有这些乃至更多的形状。在数学中，通常用来表示这个概念的词叫做“测度”。"
+  },
+  {
+   "s": 268.68,
+   "e": 300.62,
+   "en": "But I think it might be more intuitive to talk about mass, as in imagine that each of these shapes is made out of metal, a thin wire, a flat sheet, a solid cube, and some kind of Sierpinski mesh. Fractal dimension has everything to do with understanding how the mass of these shapes changes as you scale them. The benefit of starting the discussion with self-similar shapes is that it gives us a nice clear-cut way to compare masses. When you scale down that line by one half, the mass is also scaled down by one half,",
+   "zh": "但我认为用质量来理解可能更直观，比如想象这些形状都是由金属制成的：一根细线、一块薄片、一个实心立方体，以及某种谢尔宾斯基网格。分形维度完全关乎于理解这些形状的质量在缩放时如何变化。从自相似形状切入的好处在于，它为我们提供了一种清晰明确的质量比较方式。当你把一条线缩小一半时，它的质量也缩小了一半，"
+  },
+  {
+   "s": 300.91,
+   "e": 334.04,
+   "en": "which you can viscerally see because it takes two copies of that smaller one to form the whole. When you scale down a square by one-half, its mass is scaled down by one-fourth, where again you can see this by piecing together four of the smaller copies to get the original. Likewise, when you scale down that cube by one-half, the mass is scaled down by one-eighth, or one-half cubed, because it takes eight copies of that smaller cube to rebuild the original. And when you scale down the Sierpinski triangle by a factor of a half,",
+   "zh": "你能直观地看到这一点，因为需要两根这样较短的线才能拼成完整的线。当你把一个正方形缩小一半时，它的质量就缩减到了四分之一，同样，你可以把四个较小的正方形拼在一起来还原出原本的正方形。同理，当你把立方体缩小一半时，质量就缩减到八分之一，也就是二分之一的立方，因为需要八个较小的立方体才能重建原来的立体。而当你把谢尔宾斯基三角形缩小一半时，"
+  },
+  {
+   "s": 334.42,
+   "e": 368.74,
+   "en": "Wouldn't you agree that it makes sense to say that its mass goes down by a factor of one-third? I mean, it takes exactly three of those smaller ones to form the original. But notice that for the line, the square, and the cube, the factor by which the mass changed is this nice clean integer power of one-half. In fact, that exponent is the dimension of each shape. And what's more, you could say that what it means for a shape to be, for example, two-dimensional, what puts the two in two-dimensional, is that when you scale it by some factor,",
+   "zh": "你是否也认同，说它的质量减少了三分之二（变为原先的三分之一）也是完全合理的？毕竟，刚好需要三个较小的三角形才能拼成原图。但请注意，对于线、正方形和立方体来说，质量变化的倍数恰好是二分之一的整数次幂。事实上，这个指数就是每个形状的维度。更进一步说，所谓一个形状是二维的，或者说“二维”里的那个“2”从何而来，指的是当你按某个比例缩放它时，"
+  },
+  {
+   "s": 372.53,
+   "e": 405.96,
+   "en": "Its mass is scaled by that factor raised to the second power. And maybe what it means for a shape to be three-dimensional is that when you scale it by some factor, the mass is scaled by the third power of that factor. So if this is our conception of dimension, what should the dimensionality of a Sierpinski triangle be? You'd want to say that when you scale it down by a factor of one-half, its mass goes down by one-half to the power of... well, whatever its dimension is.",
+   "zh": "它的质量会按该因子的二次方成比例缩放。也许三维形状的含义就在于，当你将其缩放一定倍数时，其质量会按该倍数的三次方缩放。如果这就是我们对维度的理解，那么谢尔宾斯基三角形的维度应该是多少？你可能会说，当你将其缩小为二分之一时，它的质量会缩减为二分之一的……嗯，也就是它的维度次方。"
+  },
+  {
+   "s": 406.35,
+   "e": 431.96,
+   "en": "And because it's self-similar, we know that we want its mass to go down by a factor of one-third. So what's the number d, such that raising one-half to the power of d gives you one-third? Well, that's the same as asking 2 to the what equals 3, the quintessential type of question that logarithms are meant to answer. And when you go and plug in log base 2 of 3 to a calculator, what you'll find is that it's about 1.585.",
+   "zh": "因为它是自相似的，我们知道其质量应该缩减为三分之一。那么，二分之一的多少次方（即 d 次方）会等于三分之一呢？这其实就相当于问 2 的几次方等于 3，正是对数最典型的应用场景。当你在计算器中输入以 2 为底 3 的对数时，会发现结果约为 1.585。"
+  },
+  {
+   "s": 433.0,
+   "e": 463.37,
+   "en": "So in this way, the Sierpinski triangle is not one-dimensional, even though you could define a curve that passes through all its points, and nor is it two-dimensional, even though it lives in the plane. Instead, it's 1.585 dimensional. And if you want to describe its mass, neither length nor area seem like the fitting notions. If you tried, its length would turn out to be infinite, and its area would turn out to be zero. Instead, what you want is whatever the 1.585 dimensional analog of length",
+   "zh": "因此，尽管你可以定义一条穿过它所有点的曲线，谢尔宾斯基三角形却不是一维的；尽管它存在于平面中，它也不是二维的。相反，它是 1.585 维的。如果你想描述它的“质量”，长度或面积似乎都不是合适的情念。如果非要算，它的长度将是无限大，而它的面积则是零。相反，你需要的是长度在 1.585 维下的某种对应概念。"
+  },
+  {
+   "s": 463.56,
+   "e": 495.19,
+   "en": "is. Here let's look at another self-similar fractal, the von Koch curve. This one is composed of four smaller identical copies of itself, each of which is a copy of the original scaled down by one third. So the scaling factor is one third and the mass has gone down by a factor of one fourth. So that means the dimension should be some number d so that when we raise one third to the power of d it gives us one fourth. Well that's the same as saying three to the what equals four",
+   "zh": "我们再来看另一个自相似分形——科赫曲线。它由四个相同的较小副本组成，每个副本都是原图缩小为三分之一的产物。所以缩放比例是三分之一，而质量减少到了原来的四分之一。这意味着维度应该是一个数 d，使得三分之一的 d 次方等于四分之一。这就相当于在问，3 的几次方等于 4，"
+  },
+  {
+   "s": 495.53,
+   "e": 531.44,
+   "en": "so you can go and plug into a calculator log base 3 of 4 and that comes out to be around 1.262. So in a sense the von Koch curve is a 1.262 dimensional shape. Here's another fun one. This is kind of the right angled version of the Koch curve. It's built up of eight scaled down copies of itself where the scaling factor here is one fourth. So if you want to know its dimension it should be some number d such that one fourth to the power of d equals one eighth.",
+   "zh": "所以你可以直接用计算器算以 3 为底 4 的对数，结果大约是 1.262。从某种意义上说，科赫曲线是一个 1.262 维的图形。这里还有一个有趣的例子，这算是科赫曲线的直角版本。它由八个缩小后的自身副本构成，这里的缩放比例是四分之一。因此，如果你想知道它的维度，它应该是某个数 d，使得四分之一的 d 次方等于八分之一。"
+  },
+  {
+   "s": 531.67,
+   "e": 559.97,
+   "en": "the factor by which the mass just decreased. And in this case, the value we want is log base 4 of 8, and that's exactly 3 halves. So evidently, this fractal is precisely 1.5 dimensional. Does that kind of make sense? It's weird, but it's all just about scaling and comparing masses while you scale. And what I've described so far, everything up to this point, is what you might call self-similarity dimension.",
+   "zh": "也就是质量缩小的倍数。在这里，我们要的值是以 4 为底 8 的对数，刚好是二分之三。显然，这个分形精确地是 1.5 维的。这样讲是不是有点道理？虽然很怪，但这完全关乎缩放，以及缩放时对比质量的变化。到目前为止我所描述的一切，就是大家所谓的“自相似维度”。"
+  },
+  {
+   "s": 560.38,
+   "e": 589.21,
+   "en": "It does a good job making the idea of fractional dimensions seem at least somewhat reasonable, but there's a problem. It's not really a general notion. I mean, when we were reasoning about how a mass's shape should change, it relied on the self-similarity of the shapes, that you could build them up from smaller copies of themselves. But that seems unnecessarily restrictive. After all, most two-dimensional shapes are not at all self-similar. Consider the disk, the interior of a circle. We know that's two-dimensional.",
+   "zh": "这很好地让分数维的概念显得至少还算合理，但有个问题。它并不算一个普适的概念。我是说，之前推导物体质量该如何变化时，完全依赖于形状的自相似性，也就是可以用自身的较小副本拼出整体。但这限制未免太死了。毕竟，绝大多数二维图形根本就不自相似。想想圆盘，也就是圆的内部区域，我们都知道它是二维的。"
+  },
+  {
+   "s": 589.62,
+   "e": 620.82,
+   "en": "And you can say that this is because when you scale it up by a factor of two, its mass, proportional to the area, gets scaled by the square of that factor, in this case four. But it's not like there's some way to piece together four copies of that smaller circle to rebuild the original. So how do we know that that bigger disk is exactly four times the mass of the original? Answering that requires a way to make this idea of mass a little more mathematically rigorous, since we're not dealing with physical objects made of matter, are we?",
+   "zh": "你可以说，这是因为当你把尺寸放大到两倍时，与面积成正比的质量会按缩放因子的平方扩大，这里就是四倍。但这并不意味着你能把四个小圆拼在一起，重新拼出原来的那个。那么，我们怎么知道大圆盘的质量刚好是原来的四倍呢？要回答这个问题，就得让“质量”这个概念在数学上更严谨一些，毕竟我们处理的不是由物质构成的实体，对吧？"
+  },
+  {
+   "s": 620.93,
+   "e": 650.73,
+   "en": "we're dealing with purely geometric ones living in an abstract space. And there's a couple ways to think about this, but here's a common one. Cover the plane with a grid, and highlight all of the grid squares that are touching the disk, and now count how many there are. In the back of our minds, we already know that a disk is two-dimensional, and the number of grid squares that it touches should be proportional to its area. A clever way to verify this empirically is to scale up that disk by some factor, like 2,",
+   "zh": "我们面对的是存在于抽象空间中的纯几何对象。对此有几种思考方式，这里有一种常见的做法。用网格覆盖整个平面，高亮显示所有与圆盘相交的网格方块，然后数一数有多少个。在我们潜意识里都知道圆盘是二维的，它接触到的方格数量应该与它的面积成正比。要凭经验巧妙验证这一点，可以把圆盘放大一定倍数，比如两倍，"
+  },
+  {
+   "s": 651.04,
+   "e": 676.81,
+   "en": "and count how many grid squares touch this new scaled up version. What you should find is that that number has increased approximately in proportion to the square of our scaling factor, which in this case means about four times as many boxes. Well admittedly what's on the screen here might not look that convincing, but it's just because the grid is really coarse. If instead you took a much finer grid, one that more tightly captures the intent we're going for here by measuring the size of the circle,",
+   "zh": "然后数数有多少个网格方块接触到了这个放大后的新圆盘。你会发现，方块数量的增长大致与缩放因子的平方成正比，在当前情况下，就是方块数量大约变成了四倍。好吧，屏幕上展示的可能看起来没那么令人信服，但这只是因为网格太粗疏了。如果你换用精细得多的网格，一种能更精准契合我们测量圆大小意图的网格，"
+  },
+  {
+   "s": 677.22,
+   "e": 708.25,
+   "en": "That relationship of quadrupling the number of boxes touched when you scale the disc by a factor of 2 should shine through more clearly. I'll admit though that when I was animating this, I was surprised by just how slowly this value converges to 4. Here's one way to think about this. If you were to plot the scaling factor compared to the number of boxes that the scaled disc touches, your data should very closely fit a perfect parabola, since the number of boxes touched is roughly proportional to the square of the scaling factor.",
+   "zh": "当你把圆盘放大2倍时，所触碰的方格数会变成4倍，这种关系应该表现得更明显才对。不过我得承认，在做这个动画时，我也很惊讶这个数值收敛到4的速度竟然这么慢。我们可以这样来理解：如果把缩放比例与放大后圆盘所触碰的方格数画成图表，这些数据应该会非常贴合一条完美的抛物线，因为触碰的方格数大致与缩放比例的平方成正比。"
+  },
+  {
+   "s": 710.57,
+   "e": 745.95,
+   "en": "For larger and larger scaling values, which is actually equivalent to just looking at a finer grid, that data is going to more perfectly fit that parabola. Now getting back to fractals, let's play this game with the Sierpinski triangle, counting how many boxes are touching points in that shape. How would you imagine that number compares to scaling up the triangle by a factor of two and counting the new number of boxes touched? Well, the proportion of boxes touched by the big one to the number of boxes touched by the small one should be about three.",
+   "zh": "随着缩放比例越来越大（这其实就相当于换用更精细的网格），数据就会越来越完美地贴合那条抛物线。现在回到分形上，让我们用谢尔宾斯基三角形来玩这个游戏，数一数有多少个方格触碰到了这个形状上的点。那你猜猜看，如果把三角形放大两倍，再去数触碰到的新方格数，这两者对比会怎样呢？其实，大三角形触碰的方格数与小三角形触碰的方格数之比，应该大约是3。"
+  },
+  {
+   "s": 746.56,
+   "e": 775.06,
+   "en": "After all, that bigger version is just built up of three copies of the smaller version. You could also think about this as 2 raised to the dimension of the fractal, which we just saw is about 1.585. And so if you were to go and plot the scaling factor in this case against the number of boxes touched by the Sierpinski triangle, the data would closely fit a curve with the shape of y equals x to the power 1.585, just multiplied by some proportionality constant.",
+   "zh": "毕竟，那个放大版只是由三个缩小版复制拼成的。你也可以把它看作 2 的分形维数次方，刚才我们看到这个维数大约是 1.585。所以，如果你把这种情况下的缩放比例，与谢尔宾斯基三角形触及的方格数量绘制成图，这些数据会高度拟合一条 y 等于 x 的 1.585 次方的曲线，只是前面乘上了一个比例常数。"
+  },
+  {
+   "s": 776.81,
+   "e": 796.37,
+   "en": "But importantly, the whole reason that I'm talking about this is that we can play the same game with non-self-similar shapes that still have some kind of roughness. And the classic example here is the coastline of Britain. If you plop that coastline into the plain and count how many boxes are touching it, and then scale it by some amount, and count how many boxes are touching that new scaled version,",
+   "zh": "但更重要的是，我聊这些的根本原因，在于我们也能把这套方法用在非自相似、但具有某种粗糙度的形状上。这方面的经典例子就是英国的海岸线。如果你把那条海岸线放在平面上，数一数有多少个方格触及它，然后将它按一定比例放大，再去数触及放大后新海岸线的方格数量，"
+  },
+  {
+   "s": 796.89,
+   "e": 829.78,
+   "en": "What you'd find is that the number of boxes touching the coastline increases approximately in proportion to the scaling factor raised to the power of 1.21. Here, it's kind of fun to think about how you would actually compute that number empirically. As in, imagine I give you some shape and you're a savvy programmer, how would you find this number? So what I'm saying here is that if you scale this shape by some factor, which I'll call S, the number of boxes touching that shape",
+   "zh": "你就会发现，触及海岸线的方格数量，大约正比于缩放比例的 1.21 次方。这里不妨思考一下，你实际上该如何通过实验来算出这个数字，还蛮有意思的。也就是说，假设我给你一个形状，而你是个精明的程序员，你会怎么求出这个数呢？我的意思是，如果你把这个形状按某个因子（假设为 S）进行缩放，触及该形状的方格数量"
+  },
+  {
+   "s": 830.01,
+   "e": 857.02,
+   "en": "should equal some constant multiplied by that scaling factor raised to whatever the dimension is, the value that we're looking for. Now if you have some data plot that closely fits a curve that looks like the input raised to some power, it can be hard to see exactly what that power should be. So a common trick is to take the logarithm of both sides. That way the dimension is going to drop down from the exponent and we'll have a nice clean linear relationship.",
+   "zh": "应该等于某个常数乘以该缩放因子的某个维度次幂，而这个维度正是我们要找的值。现在，如果你有一组数据绘图，紧密贴合一条类似于输入值的某次幂的曲线，通常很难一眼看出那个幂具体是多少。因此，常用的技巧是对两边取对数。这样一来，维度就会从指数位置降下来，我们就能得到一个非常清晰的线性关系。"
+  },
+  {
+   "s": 857.69,
+   "e": 887.45,
+   "en": "What this suggests is that if you were to plot the log of the scaling factor against the log of the number of boxes touching the coastline, the relationship should look like a line and that line should have a slope equal to the dimension. So what that means is that if you tried out a whole bunch of scaling factors, counted the number of boxes touching the coast in each instant, and then plotted the points on the log-log plot, you could then do some kind of linear regression to find the best fit line to your data set,",
+   "zh": "这意味着，如果你将缩放因子的对数与接触海岸线的方格数的对数绘制成图，它们之间的关系应该呈现为一条直线，且该直线的斜率就等于维度。也就是说，如果你尝试了一大批不同的缩放因子，计算出每次接触海岸线的方格数量，然后将这些点绘制在双对数坐标图上，就可以进行某种线性回归，找出最贴合数据集的那条直线，"
+  },
+  {
+   "s": 887.75,
+   "e": 916.32,
+   "en": "And when you look at the slope of that line, that tells you the empirical measurement for the dimension of what you're examining. I just think that makes this idea of fractal dimensions so much more real and visceral compared to abstract, artificially perfect shapes. And once you're comfortable thinking about dimension like this, you, my friend, have become ready to hear the definition of a fractal. Essentially, fractals are shapes whose dimension is not an integer, but instead some fractional amount.",
+   "zh": "而当你查看那条直线的斜率时，它就给出了你所研究对象的维度的经验测量值。相比于抽象、人造的完美图形，我认为这让分形维度的概念变得真实而具象得多。一旦你习惯了用这种方式思考维度，朋友，你就已经准备好聆听分形的定义了。本质上，分形就是那些维度不是整数、而是某种分数形式的形状。"
+  },
+  {
+   "s": 917.08,
+   "e": 946.98,
+   "en": "What's cool about that is that it's a quantitative way to say that they're shapes that are rough and that they stay rough even as you zoom in. Technically, there's a slightly more accurate definition and I've included it in the video description, but this idea here of a non-integer dimension almost entirely captures the idea of roughness that we're going for. There is one nuance though that I haven't brought up yet, but it's worth pointing out, which is that this dimension, at least as I've described it so far using the box counting method,",
+   "zh": "酷的是，它提供了一种量化的方式来表达：有些形状是粗糙的，而且即使你放大看，它们也依然粗糙。严格来说，还有一个稍精确些的定义，我放在了视频简介里，但这里非整数维度的概念，几乎完全捕捉到了我们想要的“粗糙度”含义。不过还有一个我之前没提过的细节，值得指出来，那就是至少就我目前用盒子计数法描述的这个维度而言，"
+  },
+  {
+   "s": 947.37,
+   "e": 976.45,
+   "en": "can sometimes change based on how far zoomed in you are. For example, here's a shape sitting in three dimensions, which at a distance looks like a line. In 3D, by the way, when you do a box counting, you have a 3D grid full of little cubes instead of little squares, but it works the same way. At this scale, where the shape's thickness is smaller than the size of the boxes, it looks one-dimensional, meaning the number of boxes it touches is proportional to its length.",
+   "zh": "有时会随着你的缩放程度而改变。例如，这是一个位于三维空间的形状，远看像一条线。顺便提一下，在三维中做盒子计数时，用的是由小立方体而非小正方形构成的三维网格，但原理是一样的。在这个尺度下，形状的粗细小于盒子的大小，它看起来是一维的，也就是说它接触的盒子数量与它的长度成正比。"
+  },
+  {
+   "s": 977.19,
+   "e": 1005.2,
+   "en": "But when you scale it up, it starts behaving a lot more like a tube, touching the boxes on the surface of that tube. And so it'll look two-dimensional, with the number of boxes touched being proportional to the square of the scaling factor. But it's not really a tube, it's made of these rapidly winding little curves. So once you scale it up even more, to the point where the boxes can pick up on the details of those curves, it looks one-dimensional again, with the number of boxes touched,",
+   "zh": "但放大之后，它的表现就更像一根管子，只触碰到管子表面的方块。所以它看起来像二维的，触碰到的方块数量与缩放比例的平方成正比。但它其实并不是管子，而是由这些快速缠绕的小曲线构成的。因此一旦继续放大，直到方块能够捕捉到那些曲线的细节，它就又变回了一维，触碰到的方块数量，"
+  },
+  {
+   "s": 1005.43,
+   "e": 1039.98,
+   "en": "scaling directly in proportion to the scaling constant. So actually assigning a number to a shape for its dimension can be tricky, and it leaves room for differing definitions and differing conventions. In a pure math setting there are indeed numerous definitions for dimension, but all of them focus on what the limit of this dimension is at closer and closer zoom levels. You can think of that in terms of the plot as the limit of this slope as you move farther and farther to the right.",
+   "zh": "直接与缩放常数成正比。所以要真正给一个形状赋予一个维度数值可能会很棘手，这也留下了不同定义和不同惯例的空间。在纯数学语境中，维度的定义确实有很多种，但它们都聚焦于缩放到越来越近的极限下，这个维度究竟是多少。在图表上，你也可以把它理解为不断向右移动时，这个斜率的极限。"
+  },
+  {
+   "s": 1040.86,
+   "e": 1071.37,
+   "en": "So for a purely geometric shape to be a genuine fractal, it has to continue looking rough even as you zoom in infinitely far. But in a more applied setting, like looking at the coastline of Britain, it doesn't really make sense to talk about the limit as you zoom in more and more. I mean at some point you'd just be hitting atoms. Instead what you do is you look at a sufficiently wide range of scales from very zoomed out up to very zoomed in and compute the dimension at each one. And in this more applied setting,",
+   "zh": "所以对于纯几何形状来说，要成为真正的分形，哪怕无限放大，也必须始终保持粗糙。但在更偏应用的场景中，比如观察英国海岸线时，谈论无限放大的极限其实没有什么意义。毕竟放大到某个程度，你看到的就是原子了。相反，你的做法是在足够宽的尺度范围内——从宏观视角一直到微观视角——去计算每个尺度下的维度。而在这种应用场景下，"
+  },
+  {
+   "s": 1071.61,
+   "e": 1098.64,
+   "en": "a shape is typically considered to be a fractal only when the measured dimension stays approximately constant even across multiple different scales. For example, the coastline of Britain doesn't just look 1.21 dimensional at a distance. Even if you zoom in by a factor of a thousand, the level of roughness is still around 1.21. That right there is the sense in which many shapes from nature actually are self-similar, albeit not perfect self-similarity.",
+   "zh": "通常只有当测量出的维度在跨越多个不同尺度时仍大致保持恒定，一个形状才会被视作分形。例如，英国海岸线不仅在远看时是 1.21 维的，即使你放大一千倍，它的粗糙度也依然在 1.21 左右。这正是自然界中许多形状实际上所具有的自相似性，尽管并非完美的自相似。"
+  },
+  {
+   "s": 1099.6,
+   "e": 1127.18,
+   "en": "Perfectly self-similar shapes do play an important role in fractal geometry. What they give us are simple to describe low information examples of this phenomenon of roughness, roughness that persists at many different scales and at arbitrarily close scales. And that's important, it gives us the primitive tools for modeling these fractal phenomena. But I think it's also important not to view them as the prototypical example of fractals, since fractals in general actually have a lot more character to them.",
+   "zh": "完全自相似的形状在分形几何中确实扮演着重要角色。它们为我们提供了描述简单、信息量较少的粗糙度现象示例，这种粗糙度在许多不同尺度，乃至任意接近的尺度上都持续存在。这一点很重要，它为我们建模这些分形现象提供了基础工具。但我认为，同样重要的是不要把它们当成分形的原型范例，因为通常的分形实际上具有丰富得多的特征。"
+  },
+  {
+   "s": 1130.47,
+   "e": 1156.71,
+   "en": "I really do think that this is one of those ideas where once you learn it, it makes you start looking at the world completely differently. What this number is, what this fractional dimension gives us, is a quantitative way to describe roughness. For example, the coastline of Norway is about 1.52 dimensional, which is a numerical way to communicate the fact that it's way more jaggedy than Britain's coastline. The surface of a calm ocean might have a fractal dimension only barely above 2.",
+   "zh": "我真的认为这就是那种一旦学到，就会让你彻底改变对世界看法的概念之一。这个数值，也就是这个分数维带给我们的，是一种量化描述粗糙度的方式。例如，挪威海岸线的维度大约是 1.52 维，这是用数值方式表达出它比英国海岸线要蜿蜒曲折得多。而平静洋面的分形维数可能仅仅略微高于 2。"
+  },
+  {
+   "s": 1157.03,
+   "e": 1170.36,
+   "en": "while a stormy one might have a dimension closer to 2.3. In fact, fractal dimension doesn't just arise frequently in nature. It seems to be the core differentiator between objects that arise naturally and those that are just man-made.",
+   "zh": "而暴风雨时的海岸线维度可能接近 2.3。事实上，分形维数不仅在自然界中频繁出现，它似乎还是自然生成物与人造物之间的核心区别。"
+  }
+ ]
+}

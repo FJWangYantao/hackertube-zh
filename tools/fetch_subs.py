@@ -54,6 +54,7 @@ def fetch(vid: str, retries: int = 3) -> bool:
     cmd = [
         sys.executable, "-m", "yt_dlp",
         "--proxy", PROXY,
+        "--extractor-args", "youtube:player_client=android",
         "--skip-download",
         "--write-auto-subs", "--write-subs",
         "--sub-langs", ",".join(LANGS),
