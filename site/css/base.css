@@ -182,7 +182,7 @@ p {
   padding: 8px 14px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--bg);
+  background: var(--bg-elevated);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   transform: translateY(-160%);
 }
@@ -239,7 +239,7 @@ p {
   padding: 0 16px;
   border: 1px solid var(--border);
   border-radius: var(--pill);
-  background: var(--bg);
+  background: var(--bg-card);
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
