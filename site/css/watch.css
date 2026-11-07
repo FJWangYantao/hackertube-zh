@@ -1096,6 +1096,29 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
+.sub-tool-btn {
+  padding: 2px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.1;
+  cursor: pointer;
+}
+
+.sub-tool-btn:hover {
+  border-color: var(--brand-mark);
+  background: rgba(234, 88, 12, 0.28);
+}
+
+.sub-tools-sep {
+  width: 1px;
+  height: 11px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .sub-alpha-slider {
   width: 62px;
   height: 4px;
@@ -2186,47 +2209,124 @@
   color: var(--brand);
 }
 
-/* ── 倍速与字幕字号按钮 ────────────────────────────────────────────── */
-.rate-btn {
-  min-width: 52px;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
+/* ── 播放器顶部悬浮 HUD 栏（全屏与普通模式均可见） ──────────────────── */
+.player-hud-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 6;
+  pointer-events: none;
 }
 
-.sub-size-group {
+/* 顶部隐形唤醒热区：即使 YouTube iframe 吞掉画面内移动事件，鼠标移到顶部边缘也能立即唤出 HUD */
+.player-hud-wake {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 16px;
+  pointer-events: auto;
+}
+
+.player-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px 18px;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 8, 10, 0.72) 0%,
+    rgba(8, 8, 10, 0.32) 62%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+}
+
+.player.is-hud-awake .player-hud,
+.player-hud-wrap:hover .player-hud,
+.player-hud:focus-within {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hud-group {
   display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
-.sub-size-group[hidden] {
+.hud-group-right {
+  margin-left: auto;
+}
+
+.hud-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(15, 15, 18, 0.72);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  backdrop-filter: blur(10px) saturate(1.4);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.32);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: background 0.16s var(--ease), border-color 0.16s var(--ease),
+    color 0.16s var(--ease), transform 0.16s var(--ease);
+}
+
+.hud-btn[hidden] {
   display: none;
 }
 
-.sub-size-btn {
-  padding: 0 9px;
-  font-size: 12px;
-  font-weight: 600;
+.hud-btn:hover,
+.hud-btn:focus-visible {
+  border-color: rgba(255, 255, 255, 0.44);
+  background: rgba(28, 28, 32, 0.88);
+  color: #fff;
 }
 
-.sub-size-group .sub-size-btn:not(:last-child) {
-  border-right: 0;
+.hud-btn.is-on {
+  border-color: rgba(255, 102, 0, 0.58);
+  background: rgba(234, 88, 12, 0.26);
+  color: #fff;
 }
 
-.sub-size-group .sub-size-btn:first-child {
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+.hud-btn.is-on:hover {
+  border-color: rgba(255, 102, 0, 0.82);
+  background: rgba(234, 88, 12, 0.38);
 }
 
-.sub-size-group .sub-size-btn:not(:first-child):not(:last-child) {
-  border-radius: 0;
+.hud-btn-kbd {
+  min-width: 28px;
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-weight: 700;
 }
 
-.sub-size-group .sub-size-btn:last-child {
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
-.sub-alpha-btn {
+.rate-btn {
+  min-width: 46px;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
+
+/* 全屏模式下隐藏「宽屏」按钮 */
+.player:fullscreen .theater-btn {
+  display: none;
+}
+
 
 
 

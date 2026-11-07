@@ -104,21 +104,21 @@ export function show(container, route, ctx) {
     : null;
   const commentCount = video.comment_count || 0;
   const subtitleBtn = buildSubtitleButton(player);
-  const subSizeGroup = buildSubtitleSizeControls(player);
   const rateBtn = buildRateButton(player);
   const theaterBtn = buildTheaterButton();
   const autoplayBtn = buildAutoplayButton();
   const fullscreenBtn = buildFullscreenButton(player);
   const notesBtn = el('button', {
-    class: 'btn',
+    class: 'hud-btn',
     type: 'button',
     title: '在当前时间点添加随手记 / 书签（快捷键 B）',
-  }, '随手记');
+  }, '＋随手记');
   const helpBtn = el('button', {
-    class: 'btn',
+    class: 'hud-btn hud-btn-kbd',
     type: 'button',
     title: '键盘快捷键速查（快捷键 ?）',
-  }, '快捷键 ?');
+    'aria-label': '键盘快捷键速查',
+  }, '?');
   let watchRoot = null;
   const setTheater = (on, announce = false) => {
     watchRoot?.classList.toggle('is-theater', on);
@@ -135,7 +135,6 @@ export function show(container, route, ctx) {
   player.onFallback = () => {
     canSync = false;
     subtitleBtn.hidden = true;
-    subSizeGroup.hidden = true;
   };
   player.onRateChange = (value) => {
     rateBtn.textContent = formatRate(value);
@@ -154,7 +153,7 @@ export function show(container, route, ctx) {
   });
   const syncNotesUi = () => {
     const count = store.getNotes(video.vid).length;
-    notesBtn.textContent = count ? `随手记 (${count})` : '随手记';
+    notesBtn.textContent = count ? `＋随手记 (${count})` : '＋随手记';
     notesCard.render();
     transcript?.refreshNotes?.();
   };
@@ -171,10 +170,20 @@ export function show(container, route, ctx) {
   const kbdHelp = buildKbdHelp();
   helpBtn.addEventListener('click', () => kbdHelp.toggle());
 
-  const { row: channel, toggleSave } = buildChannel(
-    video, commentCount, player,
-    [subtitleBtn, subSizeGroup, rateBtn, theaterBtn, autoplayBtn, fullscreenBtn, notesBtn, helpBtn],
-  );
+  // ── 播放器顶部悬浮 HUD 栏（全屏与普通模式均可见，外层频道栏仅留页面级按钮） ──
+  const playerHud = buildPlayerHud(player.node, [
+    subtitleBtn,
+    rateBtn,
+    autoplayBtn,
+  ], [
+    notesBtn,
+    helpBtn,
+    theaterBtn,
+    fullscreenBtn,
+  ]);
+  player.node.append(playerHud.node, kbdHelp.node, noteEditor.node);
+
+  const { row: channel, toggleSave } = buildChannel(video, commentCount, player);
   const description = buildDescription(video, ctx);
   const commentsBox = el('section', { class: 'comments' });
 
@@ -313,7 +322,7 @@ export function show(container, route, ctx) {
   };
   player.onPlaying = () => clearNextPanel();
 
-  watchRoot = el('div', { class: 'watch' }, main, rail, commentsBox, kbdHelp.node, noteEditor.node);
+  watchRoot = el('div', { class: 'watch' }, main, rail, commentsBox);
   container.replaceChildren(watchRoot);
   setTheater(store.get('theater', false) === true);
 
@@ -323,7 +332,6 @@ export function show(container, route, ctx) {
     if (!cues.length) return;
     player.setCues(cues);
     subtitleBtn.hidden = !canSync;
-    subSizeGroup.hidden = !canSync;
     const chapterData = await chaptersPromise;
     if (destroyed) return;
     transcript = renderTranscript(cues, seekAndScroll, {
@@ -459,6 +467,7 @@ export function show(container, route, ctx) {
     destroy() {
       destroyed = true;
       clearNextPanel();
+      playerHud.destroy();
       transcript?.destroy?.();
       player.destroy();
       document.removeEventListener('keydown', onKeyDown);
@@ -602,7 +611,10 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
 
   async function doMount(customStart = startAt) {
     const beginSec = Math.max(0, Math.floor(customStart || 0));
-    player.replaceChildren(host, overlay.layer);
+    poster.remove();
+    play.remove();
+    resumePill?.remove();
+    player.prepend(host);
     try {
       const YT = await loadYouTubeApi();
       if (destroyed) return null;
@@ -653,7 +665,9 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
         allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share',
         allowFullscreen: true,
       });
-      player.replaceChildren(fallbackFrame);
+      host.remove();
+      overlay.layer.remove();
+      player.prepend(fallbackFrame);
       readyResolve();
       onFallback?.();
       return null;
@@ -770,7 +784,7 @@ function buildSubtitleButton(player) {
     mode = store.get('subs', true) ? 'zh' : 'off';
   }
   const button = el('button', {
-    class: 'btn',
+    class: 'hud-btn',
     type: 'button',
     hidden: true,
     title: '切换字幕模式（快捷键 C）',
@@ -781,6 +795,7 @@ function buildSubtitleButton(player) {
     player.setEnabled(mode !== 'off');
     player.setBilingual(mode === 'both');
     button.textContent = SUBTITLE_LABELS[mode];
+    button.classList.toggle('is-on', mode !== 'off');
     button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
   };
   apply();
@@ -795,7 +810,7 @@ function buildSubtitleButton(player) {
 
 function buildTheaterButton() {
   return el('button', {
-    class: 'btn theater-btn',
+    class: 'hud-btn theater-btn',
     type: 'button',
     title: '切换宽屏（快捷键 W）',
     'aria-pressed': 'false',
@@ -805,7 +820,7 @@ function buildTheaterButton() {
 function buildAutoplayButton() {
   let on = store.get('autoplay', false) === true;
   const button = el('button', {
-    class: 'btn autoplay-btn' + (on ? ' is-on' : ''),
+    class: 'hud-btn autoplay-btn' + (on ? ' is-on' : ''),
     type: 'button',
     title: '播放完自动播放下一个推荐视频（快捷键 A）',
     'aria-pressed': on ? 'true' : 'false',
@@ -823,7 +838,7 @@ function buildAutoplayButton() {
 
 function buildFullscreenButton(player) {
   const button = el('button', {
-    class: 'btn',
+    class: 'hud-btn',
     type: 'button',
     title: '全屏播放（快捷键 F）',
   }, '全屏');
@@ -837,7 +852,7 @@ function buildFullscreenButton(player) {
 
 function buildRateButton(player) {
   const button = el('button', {
-    class: 'btn rate-btn',
+    class: 'hud-btn rate-btn',
     type: 'button',
     title: '切换播放倍速（快捷键 [ / ]）',
   }, formatRate(player.getPlaybackRate()));
@@ -848,45 +863,49 @@ function buildRateButton(player) {
   return button;
 }
 
-function buildSubtitleSizeControls(player) {
-  const applyScale = (delta) => {
-    const next = player.stepSubScale(delta);
-    toast(`字幕字号：${Math.round(next * 100)}%`);
+/**
+ * 播放器顶部悬浮 HUD 栏：
+ * - 鼠标移入播放器、移动或触摸时自动唤醒 2.6 秒，悬停在按钮上时保持常亮；
+ * - 顶部保留 14px 隐形感应热区（.player-hud-wake），即使 YouTube iframe 吞掉内部移动事件，
+ *   鼠标滑向播放器上沿也能立即唤出 HUD。
+ */
+function buildPlayerHud(playerNode, leftBtns = [], rightBtns = []) {
+  const wakeZone = el('div', { class: 'player-hud-wake', 'aria-hidden': 'true' });
+  const bar = el('div', {
+    class: 'player-hud',
+    role: 'toolbar',
+    'aria-label': '播放器控制栏',
+  },
+    el('div', { class: 'hud-group' }, ...leftBtns),
+    el('div', { class: 'hud-group hud-group-right' }, ...rightBtns),
+  );
+  const wrap = el('div', { class: 'player-hud-wrap' }, wakeZone, bar);
+
+  let wakeTimer = null;
+  const wake = () => {
+    playerNode.classList.add('is-hud-awake');
+    if (wakeTimer) clearTimeout(wakeTimer);
+    wakeTimer = setTimeout(() => {
+      if (!bar.matches(':hover') && !bar.matches(':focus-within')) {
+        playerNode.classList.remove('is-hud-awake');
+      }
+    }, 2600);
   };
-  const minus = el('button', {
-    class: 'btn sub-size-btn',
-    type: 'button',
-    title: '减小字幕字号（也可直接拖拽字幕四角无级缩放）',
-    'aria-label': '减小字幕字号',
-  }, 'A−');
-  const plus = el('button', {
-    class: 'btn sub-size-btn',
-    type: 'button',
-    title: '增大字幕字号（也可直接拖拽字幕四角无级缩放）',
-    'aria-label': '增大字幕字号',
-  }, 'A＋');
-  const alphaBtn = el('button', {
-    class: 'btn sub-size-btn sub-alpha-btn',
-    type: 'button',
-    title: '切换字幕背景透明度（也可悬停字幕拖动滑块或按 Alt+滚轮）',
-    'aria-label': '切换字幕背景透明度',
-  }, `底色 ${Math.round(player.getSubAlpha() * 100)}%`);
-  minus.addEventListener('click', () => applyScale(-0.12));
-  plus.addEventListener('click', () => applyScale(0.12));
-  alphaBtn.addEventListener('click', () => {
-    const next = player.cycleSubAlpha();
-    toast(`字幕背景透明度：${Math.round(next * 100)}%`);
-  });
-  player.onSubBoxChange = (box) => {
-    alphaBtn.textContent = `底色 ${Math.round((box?.alpha ?? 0.68) * 100)}%`;
+
+  playerNode.addEventListener('pointerenter', wake);
+  playerNode.addEventListener('pointermove', wake);
+  playerNode.addEventListener('touchstart', wake, { passive: true });
+  wakeZone.addEventListener('pointerenter', wake);
+  bar.addEventListener('pointerleave', wake);
+  wake();
+
+  return {
+    node: wrap,
+    wake,
+    destroy() {
+      if (wakeTimer) clearTimeout(wakeTimer);
+    },
   };
-  const group = el('div', {
-    class: 'sub-size-group',
-    role: 'group',
-    'aria-label': '字幕外观调节',
-  }, minus, plus, alphaBtn);
-  group.hidden = true;
-  return group;
 }
 
 /** ? 键快捷键速查浮层。 */

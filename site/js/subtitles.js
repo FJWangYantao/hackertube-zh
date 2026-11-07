@@ -93,7 +93,19 @@ export function createOverlay() {
     title: '拖拽左右边缘：调节字幕折行宽度',
   }));
 
-  // ── 悬浮微工具条：背景透明度滑块 + 复位按钮（全屏与普通模式均可用） ──
+  // ── 悬浮微工具条：字号 A−/A＋ + 背景透明度滑块 + 复位按钮（全屏与普通模式均可用） ──
+  const scaleDownBtn = el('button', {
+    class: 'sub-tool-btn',
+    type: 'button',
+    title: '减小字幕字号（或拖拽四角手柄 / Ctrl+滚轮）',
+    'aria-label': '减小字幕字号',
+  }, 'A−');
+  const scaleUpBtn = el('button', {
+    class: 'sub-tool-btn',
+    type: 'button',
+    title: '增大字幕字号（或拖拽四角手柄 / Ctrl+滚轮）',
+    'aria-label': '增大字幕字号',
+  }, 'A＋');
   const alphaValueEl = el('span', { class: 'sub-alpha-val' }, '68%');
   const alphaInput = el('input', {
     class: 'sub-alpha-slider',
@@ -117,6 +129,9 @@ export function createOverlay() {
       dblclick: (event) => event.stopPropagation(),
     },
   },
+    scaleDownBtn,
+    scaleUpBtn,
+    el('span', { class: 'sub-tools-sep', 'aria-hidden': 'true' }),
     el('span', { class: 'sub-tools-label', title: '背景透明度' }, '底色'),
     alphaInput,
     alphaValueEl,
@@ -237,7 +252,21 @@ export function createOverlay() {
 
   applyBoxStyles();
 
-  // ── 透明度滑块与复位按钮事件 ──
+  // ── 字号按钮、透明度滑块与复位按钮事件 ──
+  const stepScaleBy = (delta) => {
+    state.scale = clampNum(state.scale + delta, SUB_MIN_SCALE, SUB_MAX_SCALE, state.scale);
+    applyBoxStyles();
+    persistBox();
+    showHud(`字号 ${Math.round(state.scale * 100)}%`, 850);
+  };
+  scaleDownBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    stepScaleBy(-0.12);
+  });
+  scaleUpBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    stepScaleBy(0.12);
+  });
   alphaInput.addEventListener('input', () => {
     state.alpha = clampNum(Number(alphaInput.value) / 100, SUB_MIN_ALPHA, SUB_MAX_ALPHA, SUB_DEFAULTS.alpha);
     applyBoxStyles();
