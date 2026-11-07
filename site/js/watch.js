@@ -745,6 +745,11 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     },
     setSubSize: (size) => overlay.setSize(size),
     getSubSize: () => overlay.getSize(),
+    stepSubScale: (delta) => overlay.stepScale(delta),
+    getSubScale: () => overlay.getScale(),
+    cycleSubAlpha: () => overlay.cycleAlpha(),
+    getSubAlpha: () => overlay.getAlpha(),
+    set onSubBoxChange(fn) { overlay.onChange = fn; },
     destroy() {
       tick(true);
       destroyed = true;
@@ -843,35 +848,43 @@ function buildRateButton(player) {
   return button;
 }
 
-const SUB_SIZES = ['sm', 'md', 'lg'];
-const SUB_SIZE_LABELS = { sm: '小', md: '中', lg: '大' };
-
 function buildSubtitleSizeControls(player) {
-  const apply = (dir) => {
-    const idx = SUB_SIZES.indexOf(player.getSubSize());
-    const next = SUB_SIZES[Math.min(SUB_SIZES.length - 1, Math.max(0, idx + dir))];
-    player.setSubSize(next);
-    toast(`字幕字号：${SUB_SIZE_LABELS[next]}`);
+  const applyScale = (delta) => {
+    const next = player.stepSubScale(delta);
+    toast(`字幕字号：${Math.round(next * 100)}%`);
   };
   const minus = el('button', {
     class: 'btn sub-size-btn',
     type: 'button',
-    title: '减小字幕字号',
+    title: '减小字幕字号（也可直接拖拽字幕四角无级缩放）',
     'aria-label': '减小字幕字号',
   }, 'A−');
   const plus = el('button', {
     class: 'btn sub-size-btn',
     type: 'button',
-    title: '增大字幕字号',
+    title: '增大字幕字号（也可直接拖拽字幕四角无级缩放）',
     'aria-label': '增大字幕字号',
   }, 'A＋');
-  minus.addEventListener('click', () => apply(-1));
-  plus.addEventListener('click', () => apply(1));
+  const alphaBtn = el('button', {
+    class: 'btn sub-size-btn sub-alpha-btn',
+    type: 'button',
+    title: '切换字幕背景透明度（也可悬停字幕拖动滑块或按 Alt+滚轮）',
+    'aria-label': '切换字幕背景透明度',
+  }, `底色 ${Math.round(player.getSubAlpha() * 100)}%`);
+  minus.addEventListener('click', () => applyScale(-0.12));
+  plus.addEventListener('click', () => applyScale(0.12));
+  alphaBtn.addEventListener('click', () => {
+    const next = player.cycleSubAlpha();
+    toast(`字幕背景透明度：${Math.round(next * 100)}%`);
+  });
+  player.onSubBoxChange = (box) => {
+    alphaBtn.textContent = `底色 ${Math.round((box?.alpha ?? 0.68) * 100)}%`;
+  };
   const group = el('div', {
     class: 'sub-size-group',
     role: 'group',
-    'aria-label': '字幕字号调节',
-  }, minus, plus);
+    'aria-label': '字幕外观调节',
+  }, minus, plus, alphaBtn);
   group.hidden = true;
   return group;
 }

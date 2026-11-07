@@ -860,54 +860,312 @@
 
 .sub-layer {
   position: absolute;
-  inset: auto 0 max(var(--sub-bottom, 9%), 52px) 0;
+  inset: 0;
   z-index: 3;
-  display: flex;
-  justify-content: center;
-  padding: 0 6%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sub-guide-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent 6%,
+    rgba(255, 102, 0, 0.72) 25%,
+    rgba(255, 102, 0, 0.72) 75%,
+    transparent 94%
+  );
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.45);
   pointer-events: none;
 }
 
 .sub-line {
+  --sub-scale: 1;
+  --sub-max-w: 84%;
+  --sub-alpha: 0.68;
+  position: absolute;
+  left: var(--sub-x, 50%);
+  top: var(--sub-y, 86%);
+  transform: translate(-50%, -50%);
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  max-width: 92%;
-  padding: 5px 14px 6px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: max-content;
+  max-width: var(--sub-max-w, 84%);
+  padding: calc(5px * var(--sub-scale, 1)) calc(14px * var(--sub-scale, 1))
+    calc(6px * var(--sub-scale, 1));
+  border: 1px solid rgba(255, 255, 255, min(0.18, calc(var(--sub-alpha, 0.68) * 0.25)));
   border-radius: 10px;
-  background: rgba(12, 12, 12, 0.68);
-  -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  backdrop-filter: blur(10px) saturate(1.4);
+  background: rgba(12, 12, 12, var(--sub-alpha, 0.68));
+  -webkit-backdrop-filter: blur(calc(10px * min(1, var(--sub-alpha, 0.68) * 1.8)))
+    saturate(1.4);
+  backdrop-filter: blur(calc(10px * min(1, var(--sub-alpha, 0.68) * 1.8)))
+    saturate(1.4);
   color: #fafafa;
   font-size: calc(clamp(15px, 1.6vw, 26px) * var(--sub-scale, 1));
   line-height: 1.42;
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, calc(var(--sub-alpha, 0.68) * 0.42));
   white-space: pre-wrap;
-  /* 字幕胶囊可直接上下拖拽调整高度，双击复位 */
+  word-break: break-word;
   pointer-events: auto;
   cursor: grab;
+  user-select: none;
   touch-action: none;
+  transition: border-color 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+
+.sub-line[hidden] {
+  display: none;
+}
+
+.sub-line.is-clear-bg {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  text-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.96),
+    0 0 10px rgba(0, 0, 0, 0.82),
+    0 0 2px rgba(0, 0, 0, 1);
+}
+
+.sub-line:hover,
+.sub-line.is-interacting {
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 102, 0, 0.28);
 }
 
 .sub-line.is-dragging {
   cursor: grabbing;
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.42);
 }
 
-.sub-line[data-size="sm"] {
-  --sub-scale: 0.85;
+/* 拖拽左右折行宽度时，实时展开为目标最大宽度以便直观预览边界 */
+.sub-line.is-resizing-width {
+  width: var(--sub-max-w, 84%);
+  border-style: dashed;
+  border-color: rgba(255, 102, 0, 0.75);
 }
 
-.sub-line[data-size="md"] {
-  --sub-scale: 1;
+/* ── 四角缩放手柄与左右宽度手柄 ── */
+.sub-handle {
+  position: absolute;
+  z-index: 4;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
 }
 
-.sub-line[data-size="lg"] {
-  --sub-scale: 1.22;
+.sub-line:hover .sub-handle,
+.sub-line.is-interacting .sub-handle {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sub-handle.is-corner {
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.65));
+}
+
+.sub-handle.is-corner:hover {
+  border-color: var(--brand-mark);
+  transform: scale(1.18);
+}
+
+.sub-handle.is-nw {
+  top: -4px;
+  left: -4px;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 4px;
+  cursor: nwse-resize;
+}
+
+.sub-handle.is-ne {
+  top: -4px;
+  right: -4px;
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: 4px;
+  cursor: nesw-resize;
+}
+
+.sub-handle.is-sw {
+  bottom: -4px;
+  left: -4px;
+  border-right: 0;
+  border-top: 0;
+  border-bottom-left-radius: 4px;
+  cursor: nesw-resize;
+}
+
+.sub-handle.is-se {
+  bottom: -4px;
+  right: -4px;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 4px;
+  cursor: nwse-resize;
+}
+
+.sub-handle.is-edge {
+  top: 50%;
+  width: 6px;
+  height: 22px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: ew-resize;
+}
+
+.sub-handle.is-edge:hover {
+  background: var(--brand-mark);
+  transform: translateY(-50%) scaleX(1.25);
+}
+
+.sub-handle.is-w {
+  left: -4px;
+}
+
+.sub-handle.is-e {
+  right: -4px;
+}
+
+/* ── 字幕胶囊顶部微工具栏（背景透明度滑块 + 复位）与实时 HUD 角标 ── */
+.sub-tools {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(16, 16, 16, 0.86);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #f4f4f5;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  cursor: default;
+  transition: opacity 0.16s var(--ease), transform 0.16s var(--ease);
+}
+
+/* 为顶部微工具条提供悬停桥接区，鼠标移上去不会断触 */
+.sub-tools::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -8px;
+  left: 0;
+  height: 8px;
+}
+
+.sub-line:hover .sub-tools,
+.sub-tools:hover {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.sub-line.is-dragging .sub-tools,
+.sub-line.is-scaling .sub-tools,
+.sub-line.is-resizing-width .sub-tools {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sub-tools-label {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.sub-alpha-slider {
+  width: 62px;
+  height: 4px;
+  margin: 0;
+  accent-color: var(--brand-mark);
+  cursor: pointer;
+}
+
+.sub-alpha-val {
+  min-width: 28px;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.sub-reset-btn {
+  padding: 2px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 10.5px;
+  cursor: pointer;
+}
+
+.sub-reset-btn:hover {
+  border-color: var(--brand-mark);
+  background: rgba(234, 88, 12, 0.28);
+}
+
+.sub-hud {
+  position: absolute;
+  top: -26px;
+  right: 0;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(234, 88, 12, 0.92);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+/* 当字幕拖到画面顶部边缘时，微工具条与 HUD 自动向下翻转避免超出画布 */
+.sub-line.is-near-top .sub-tools {
+  bottom: auto;
+  top: calc(100% + 6px);
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.sub-line.is-near-top .sub-tools::after {
+  bottom: auto;
+  top: -8px;
+}
+
+.sub-line.is-near-top:hover .sub-tools,
+.sub-line.is-near-top .sub-tools:hover {
+  transform: translateX(-50%) translateY(0);
+}
+
+.sub-line.is-near-top .sub-hud {
+  top: auto;
+  bottom: -26px;
 }
 
 .sub-en {
@@ -915,7 +1173,7 @@
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: 1.35;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .sub-zh {
@@ -929,10 +1187,6 @@
   height: 100%;
   aspect-ratio: auto;
   border-radius: 0;
-}
-
-.player:fullscreen .sub-layer {
-  bottom: max(var(--sub-bottom, 9%), 4%);
 }
 
 .player:fullscreen .sub-line {
@@ -1953,13 +2207,25 @@
   font-weight: 600;
 }
 
-.sub-size-group .sub-size-btn:first-child {
+.sub-size-group .sub-size-btn:not(:last-child) {
   border-right: 0;
+}
+
+.sub-size-group .sub-size-btn:first-child {
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.sub-size-group .sub-size-btn:not(:first-child):not(:last-child) {
+  border-radius: 0;
 }
 
 .sub-size-group .sub-size-btn:last-child {
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.sub-alpha-btn {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 

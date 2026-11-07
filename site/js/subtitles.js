@@ -5,9 +5,21 @@ import { buildExportMenu } from './subexport.js';
 const YT_API = 'https://www.youtube.com/iframe_api';
 const STREAM_GAP = 2.5;
 const SUB_SIZES = ['sm', 'md', 'lg'];
-const SUB_DEFAULT_OFFSET = 9;
-const SUB_MIN_OFFSET = 4;
-const SUB_MAX_OFFSET = 78;
+const SUB_SIZE_SCALES = { sm: 0.85, md: 1, lg: 1.22 };
+const SUB_DEFAULTS = {
+  x: 50,
+  y: 86,
+  scale: 1,
+  maxW: 84,
+  alpha: 0.68,
+};
+const SUB_MIN_SCALE = 0.55;
+const SUB_MAX_SCALE = 2.4;
+const SUB_MIN_MAX_W = 28;
+const SUB_MAX_MAX_W = 96;
+const SUB_MIN_ALPHA = 0;
+const SUB_MAX_ALPHA = 0.95;
+const SNAP_THRESHOLD_PCT = 1.8;
 
 let apiPromise = null;
 
@@ -67,59 +79,306 @@ export function findActiveStreamCue(cues, time) {
 export function createOverlay() {
   const enLine = el('span', { class: 'sub-en', hidden: true });
   const zhLine = el('span', { class: 'sub-zh' });
-  const line = el('span', { class: 'sub-line', hidden: true }, enLine, zhLine);
-  const layer = el('div', { class: 'sub-layer', 'aria-hidden': 'true' }, line);
+  const hudBadge = el('span', { class: 'sub-hud', hidden: true });
+
+  // ── 四角缩放手柄 (nw/ne/sw/se) 与左右折行宽度手柄 (w/e) ──
+  const cornerHandles = ['nw', 'ne', 'sw', 'se'].map((dir) => el('span', {
+    class: `sub-handle is-corner is-${dir}`,
+    dataset: { handle: dir },
+    title: '拖拽四角：无级缩放字幕大小',
+  }));
+  const edgeHandles = ['w', 'e'].map((dir) => el('span', {
+    class: `sub-handle is-edge is-${dir}`,
+    dataset: { handle: dir },
+    title: '拖拽左右边缘：调节字幕折行宽度',
+  }));
+
+  // ── 悬浮微工具条：背景透明度滑块 + 复位按钮（全屏与普通模式均可用） ──
+  const alphaValueEl = el('span', { class: 'sub-alpha-val' }, '68%');
+  const alphaInput = el('input', {
+    class: 'sub-alpha-slider',
+    type: 'range',
+    min: '0',
+    max: '95',
+    step: '1',
+    value: '68',
+    title: '调节字幕背景透明度（或按住 Alt + 滚轮）',
+    'aria-label': '字幕背景透明度',
+  });
+  const resetMiniBtn = el('button', {
+    class: 'sub-reset-btn',
+    type: 'button',
+    title: '复位字幕位置、大小、宽度与透明度（或双击字幕）',
+  }, '复位');
+  const toolsBar = el('div', {
+    class: 'sub-tools',
+    on: {
+      pointerdown: (event) => event.stopPropagation(),
+      dblclick: (event) => event.stopPropagation(),
+    },
+  },
+    el('span', { class: 'sub-tools-label', title: '背景透明度' }, '底色'),
+    alphaInput,
+    alphaValueEl,
+    resetMiniBtn,
+  );
+
+  const guideV = el('div', { class: 'sub-guide-v', hidden: true });
+  const line = el(
+    'div',
+    { class: 'sub-line', hidden: true },
+    toolsBar,
+    hudBadge,
+    enLine,
+    zhLine,
+    ...cornerHandles,
+    ...edgeHandles,
+  );
+  const layer = el('div', { class: 'sub-layer', 'aria-hidden': 'true' }, guideV, line);
+
   let cues = [];
   let enabled = true;
   let bilingual = false;
   let index = -1;
+  let hudTimer = null;
+  let onChangeCallback = null;
 
-  // ── 字号与底部偏移：localStorage 记忆，字幕胶囊可直接上下拖拽 ──
-  const savedSize = store.get('sub_size', 'md');
-  line.dataset.size = SUB_SIZES.includes(savedSize) ? savedSize : 'md';
-  let offset = clampOffset(store.get('sub_offset', SUB_DEFAULT_OFFSET));
-  applyOffset();
+  // ── 读取并兼容历史配置（sub_box 优先，回退兼容旧版 sub_offset / sub_size） ──
+  const legacySize = store.get('sub_size', 'md');
+  const legacyOffset = Number(store.get('sub_offset', 9));
+  const savedBox = store.get('sub_box', null);
 
-  function clampOffset(value) {
-    const num = Number(value);
-    if (!Number.isFinite(num)) return SUB_DEFAULT_OFFSET;
-    return Math.min(SUB_MAX_OFFSET, Math.max(SUB_MIN_OFFSET, num));
-  }
-
-  function applyOffset() {
-    layer.style.setProperty('--sub-bottom', `${offset}%`);
-  }
-
-  function persistOffset() {
-    store.set('sub_offset', Math.round(offset * 10) / 10);
-  }
-
-  let drag = null;
-  line.addEventListener('pointerdown', (event) => {
-    drag = { id: event.pointerId, startY: event.clientY, startOffset: offset };
-    line.classList.add('is-dragging');
-    line.setPointerCapture?.(event.pointerId);
-  });
-  line.addEventListener('pointermove', (event) => {
-    if (!drag || event.pointerId !== drag.id) return;
-    const height = layer.getBoundingClientRect().height || 1;
-    offset = clampOffset(drag.startOffset - ((event.clientY - drag.startY) / height) * 100);
-    applyOffset();
-  });
-  const endDrag = (event) => {
-    if (!drag || event.pointerId !== drag.id) return;
-    drag = null;
-    line.classList.remove('is-dragging');
-    persistOffset();
+  const state = {
+    x: clampNum(savedBox?.x, 4, 96, SUB_DEFAULTS.x),
+    y: clampNum(
+      savedBox?.y,
+      4,
+      96,
+      Number.isFinite(legacyOffset) ? 100 - Math.min(78, Math.max(4, legacyOffset)) - 5 : SUB_DEFAULTS.y,
+    ),
+    scale: clampNum(
+      savedBox?.scale,
+      SUB_MIN_SCALE,
+      SUB_MAX_SCALE,
+      SUB_SIZE_SCALES[legacySize] || SUB_DEFAULTS.scale,
+    ),
+    maxW: clampNum(savedBox?.maxW, SUB_MIN_MAX_W, SUB_MAX_MAX_W, SUB_DEFAULTS.maxW),
+    alpha: clampNum(savedBox?.alpha, SUB_MIN_ALPHA, SUB_MAX_ALPHA, SUB_DEFAULTS.alpha),
   };
-  line.addEventListener('pointerup', endDrag);
-  line.addEventListener('pointercancel', endDrag);
-  line.addEventListener('dblclick', () => {
-    offset = SUB_DEFAULT_OFFSET;
-    applyOffset();
-    persistOffset();
-    toast('字幕位置已复位');
+
+  function clampNum(val, min, max, fallback) {
+    const num = Number(val);
+    if (!Number.isFinite(num)) return fallback;
+    return Math.min(max, Math.max(min, num));
+  }
+
+  function sizeNameForScale(scale) {
+    if (scale <= 0.91) return 'sm';
+    if (scale >= 1.13) return 'lg';
+    return 'md';
+  }
+
+  function showHud(text, duration = 900) {
+    hudBadge.textContent = text;
+    hudBadge.hidden = false;
+    if (hudTimer) clearTimeout(hudTimer);
+    if (duration > 0) {
+      hudTimer = setTimeout(() => {
+        hudBadge.hidden = true;
+      }, duration);
+    }
+  }
+
+  function syncVisualPosition(clampState = false) {
+    const lw = layer.clientWidth;
+    const lh = layer.clientHeight;
+    let vx = state.x;
+    let vy = state.y;
+    if (lw > 0 && lh > 0 && !line.hidden) {
+      const bw = line.offsetWidth;
+      const bh = line.offsetHeight;
+      const halfW = Math.min(48.5, (bw / lw) * 50);
+      const halfH = Math.min(47.5, (bh / lh) * 50);
+      vx = Math.min(98.5 - halfW, Math.max(1.5 + halfW, vx));
+      vy = Math.min(97.5 - halfH, Math.max(2.5 + halfH, vy));
+      if (clampState) {
+        state.x = vx;
+        state.y = vy;
+      }
+    }
+    layer.style.setProperty('--sub-x', `${vx.toFixed(2)}%`);
+    layer.style.setProperty('--sub-y', `${vy.toFixed(2)}%`);
+    line.classList.toggle('is-near-top', vy < 18);
+  }
+
+  function applyBoxStyles(clampState = false) {
+    line.style.setProperty('--sub-scale', state.scale.toFixed(3));
+    line.style.setProperty('--sub-max-w', `${state.maxW.toFixed(1)}%`);
+    line.style.setProperty('--sub-alpha', state.alpha.toFixed(2));
+    line.dataset.size = sizeNameForScale(state.scale);
+    line.classList.toggle('is-clear-bg', state.alpha < 0.12);
+    const pct = Math.round(state.alpha * 100);
+    alphaInput.value = String(pct);
+    alphaValueEl.textContent = `${pct}%`;
+    syncVisualPosition(clampState);
+    onChangeCallback?.({ ...state });
+  }
+
+  function persistBox() {
+    store.set('sub_box', {
+      x: Math.round(state.x * 10) / 10,
+      y: Math.round(state.y * 10) / 10,
+      scale: Math.round(state.scale * 100) / 100,
+      maxW: Math.round(state.maxW * 10) / 10,
+      alpha: Math.round(state.alpha * 100) / 100,
+    });
+    store.set('sub_size', sizeNameForScale(state.scale));
+  }
+
+  applyBoxStyles();
+
+  // ── 透明度滑块与复位按钮事件 ──
+  alphaInput.addEventListener('input', () => {
+    state.alpha = clampNum(Number(alphaInput.value) / 100, SUB_MIN_ALPHA, SUB_MAX_ALPHA, SUB_DEFAULTS.alpha);
+    applyBoxStyles();
+    showHud(`底色 ${Math.round(state.alpha * 100)}%`, 700);
   });
+  alphaInput.addEventListener('change', () => persistBox());
+
+  function resetAll() {
+    Object.assign(state, SUB_DEFAULTS);
+    applyBoxStyles();
+    persistBox();
+    showHud('已复位默认外观', 1000);
+    toast('字幕位置、大小、宽度与透明度已复位');
+  }
+
+  resetMiniBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    resetAll();
+  });
+
+  // ── 统一指针交互：任意拖拽平移 (move) / 四角缩放字号 (scale) / 左右边缘调宽度 (width) ──
+  let interaction = null;
+  line.addEventListener('pointerdown', (event) => {
+    if (event.button !== 0 && event.pointerType === 'mouse') return;
+    if (event.target.closest('.sub-tools')) return;
+
+    const handleEl = event.target.closest('.sub-handle');
+    const handle = handleEl?.dataset.handle || '';
+    const layerRect = layer.getBoundingClientRect();
+    const lineRect = line.getBoundingClientRect();
+    const cx = lineRect.left + lineRect.width / 2;
+    const cy = lineRect.top + lineRect.height / 2;
+
+    if (handle === 'nw' || handle === 'ne' || handle === 'sw' || handle === 'se') {
+      interaction = {
+        mode: 'scale',
+        id: event.pointerId,
+        cx,
+        cy,
+        startDist: Math.max(24, Math.hypot(event.clientX - cx, event.clientY - cy)),
+        startScale: state.scale,
+      };
+      line.classList.add('is-interacting', 'is-scaling');
+    } else if (handle === 'w' || handle === 'e') {
+      interaction = {
+        mode: 'width',
+        id: event.pointerId,
+        dir: handle === 'e' ? 1 : -1,
+        startX: event.clientX,
+        startMaxW: state.maxW,
+        layerW: layerRect.width || 1,
+      };
+      line.classList.add('is-interacting', 'is-resizing-width');
+    } else {
+      interaction = {
+        mode: 'move',
+        id: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        startPctX: state.x,
+        startPctY: state.y,
+        layerW: layerRect.width || 1,
+        layerH: layerRect.height || 1,
+      };
+      line.classList.add('is-interacting', 'is-dragging');
+    }
+    line.setPointerCapture?.(event.pointerId);
+    event.preventDefault();
+  });
+
+  line.addEventListener('pointermove', (event) => {
+    if (!interaction || event.pointerId !== interaction.id) return;
+    if (interaction.mode === 'move') {
+      const dxPct = ((event.clientX - interaction.startX) / interaction.layerW) * 100;
+      const dyPct = ((event.clientY - interaction.startY) / interaction.layerH) * 100;
+      let nextX = clampNum(interaction.startPctX + dxPct, 2, 98, state.x);
+      const nextY = clampNum(interaction.startPctY + dyPct, 3, 97, state.y);
+      // 水平中轴磁吸（距离 50% 小于阈值时自动吸附并展示居中对齐线）
+      const snapped = Math.abs(nextX - 50) <= SNAP_THRESHOLD_PCT;
+      if (snapped) nextX = 50;
+      guideV.hidden = !snapped;
+      state.x = nextX;
+      state.y = nextY;
+      syncVisualPosition(true);
+    } else if (interaction.mode === 'scale') {
+      const curDist = Math.max(12, Math.hypot(event.clientX - interaction.cx, event.clientY - interaction.cy));
+      const ratio = curDist / interaction.startDist;
+      state.scale = clampNum(interaction.startScale * ratio, SUB_MIN_SCALE, SUB_MAX_SCALE, state.scale);
+      applyBoxStyles(false);
+      showHud(`字号 ${Math.round(state.scale * 100)}%`, 0);
+    } else if (interaction.mode === 'width') {
+      const deltaPx = (event.clientX - interaction.startX) * interaction.dir;
+      const deltaPct = ((deltaPx * 2) / interaction.layerW) * 100;
+      state.maxW = clampNum(interaction.startMaxW + deltaPct, SUB_MIN_MAX_W, SUB_MAX_MAX_W, state.maxW);
+      applyBoxStyles(false);
+      showHud(`折行宽度 ${Math.round(state.maxW)}%`, 0);
+    }
+  });
+
+  const endInteraction = (event) => {
+    if (!interaction || event.pointerId !== interaction.id) return;
+    interaction = null;
+    guideV.hidden = true;
+    line.classList.remove('is-interacting', 'is-dragging', 'is-scaling', 'is-resizing-width');
+    syncVisualPosition(false);
+    persistBox();
+    if (!hudBadge.hidden) {
+      showHud(hudBadge.textContent, 650);
+    }
+  };
+  line.addEventListener('pointerup', endInteraction);
+  line.addEventListener('pointercancel', endInteraction);
+
+  // ── 滚轮微调：Alt/Shift + 滚轮调透明度，Ctrl + 滚轮调字号 ──
+  line.addEventListener('wheel', (event) => {
+    if (!event.altKey && !event.shiftKey && !event.ctrlKey) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const dir = event.deltaY < 0 ? 1 : -1;
+    if (event.ctrlKey) {
+      state.scale = clampNum(state.scale + dir * 0.06, SUB_MIN_SCALE, SUB_MAX_SCALE, state.scale);
+      applyBoxStyles();
+      persistBox();
+      showHud(`字号 ${Math.round(state.scale * 100)}%`, 800);
+    } else {
+      state.alpha = clampNum(state.alpha + dir * 0.05, SUB_MIN_ALPHA, SUB_MAX_ALPHA, state.alpha);
+      applyBoxStyles();
+      persistBox();
+      showHud(`底色 ${Math.round(state.alpha * 100)}%`, 800);
+    }
+  }, { passive: false });
+
+  line.addEventListener('dblclick', (event) => {
+    if (event.target.closest('.sub-tools') || event.target.closest('.sub-handle')) return;
+    resetAll();
+  });
+
+  if (typeof ResizeObserver === 'function') {
+    const ro = new ResizeObserver(() => syncVisualPosition(false));
+    ro.observe(layer);
+  }
 
   function render(cue) {
     const zh = cue?.zh || '';
@@ -128,6 +387,7 @@ export function createOverlay() {
     enLine.textContent = en;
     enLine.hidden = !en;
     line.hidden = !zh && !en;
+    if (!line.hidden) syncVisualPosition(false);
   }
 
   function reset() {
@@ -153,11 +413,43 @@ export function createOverlay() {
     },
     setSize(size) {
       if (!SUB_SIZES.includes(size)) return;
-      line.dataset.size = size;
-      store.set('sub_size', size);
+      state.scale = SUB_SIZE_SCALES[size] || 1;
+      applyBoxStyles();
+      persistBox();
     },
     getSize() {
-      return SUB_SIZES.includes(line.dataset.size) ? line.dataset.size : 'md';
+      return sizeNameForScale(state.scale);
+    },
+    stepScale(delta) {
+      state.scale = clampNum(state.scale + delta, SUB_MIN_SCALE, SUB_MAX_SCALE, state.scale);
+      applyBoxStyles();
+      persistBox();
+      showHud(`字号 ${Math.round(state.scale * 100)}%`, 850);
+      return state.scale;
+    },
+    getScale() {
+      return state.scale;
+    },
+    setAlpha(alpha) {
+      state.alpha = clampNum(alpha, SUB_MIN_ALPHA, SUB_MAX_ALPHA, state.alpha);
+      applyBoxStyles();
+      persistBox();
+      showHud(`底色 ${Math.round(state.alpha * 100)}%`, 850);
+      return state.alpha;
+    },
+    getAlpha() {
+      return state.alpha;
+    },
+    cycleAlpha() {
+      const steps = [0.68, 0.88, 0.42, 0];
+      const cur = state.alpha;
+      const idx = steps.findIndex((s) => Math.abs(s - cur) < 0.08);
+      const next = steps[(idx + 1) % steps.length];
+      return this.setAlpha(next);
+    },
+    resetLayout: resetAll,
+    set onChange(fn) {
+      onChangeCallback = fn;
     },
     update(time) {
       if (!enabled) return;
