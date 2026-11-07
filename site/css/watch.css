@@ -2243,12 +2243,12 @@
   );
   opacity: 0;
   transform: translateY(-4px);
-  transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+  transition: opacity 0.16s var(--ease), transform 0.16s var(--ease);
 }
 
 .player.is-hud-awake .player-hud,
 .player-hud-wrap:hover .player-hud,
-.player-hud:focus-within {
+.player-hud:has(:focus-visible) {
   opacity: 1;
   transform: translateY(0);
 }

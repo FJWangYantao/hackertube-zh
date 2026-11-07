@@ -865,8 +865,8 @@ function buildRateButton(player) {
 
 /**
  * 播放器顶部悬浮 HUD 栏：
- * - 鼠标移入播放器、移动或触摸时自动唤醒 2.6 秒，悬停在按钮上时保持常亮；
- * - 顶部保留 14px 隐形感应热区（.player-hud-wake），即使 YouTube iframe 吞掉内部移动事件，
+ * - 鼠标移入播放器、移动或触摸时自动唤醒 1.2 秒，鼠标移出播放器后 180ms 迅速收起；
+ * - 顶部保留 16px 隐形感应热区（.player-hud-wake），即使 YouTube iframe 吞掉内部移动事件，
  *   鼠标滑向播放器上沿也能立即唤出 HUD。
  */
 function buildPlayerHud(playerNode, leftBtns = [], rightBtns = []) {
@@ -882,22 +882,30 @@ function buildPlayerHud(playerNode, leftBtns = [], rightBtns = []) {
   const wrap = el('div', { class: 'player-hud-wrap' }, wakeZone, bar);
 
   let wakeTimer = null;
-  const wake = () => {
-    playerNode.classList.add('is-hud-awake');
+  const scheduleHide = (delayMs) => {
     if (wakeTimer) clearTimeout(wakeTimer);
     wakeTimer = setTimeout(() => {
-      if (!bar.matches(':hover') && !bar.matches(':focus-within')) {
+      if (!bar.matches(':hover')) {
         playerNode.classList.remove('is-hud-awake');
       }
-    }, 2600);
+    }, delayMs);
+  };
+  const wake = (delayMs = 1200) => {
+    playerNode.classList.add('is-hud-awake');
+    scheduleHide(delayMs);
   };
 
-  playerNode.addEventListener('pointerenter', wake);
-  playerNode.addEventListener('pointermove', wake);
-  playerNode.addEventListener('touchstart', wake, { passive: true });
-  wakeZone.addEventListener('pointerenter', wake);
-  bar.addEventListener('pointerleave', wake);
-  wake();
+  playerNode.addEventListener('pointerenter', () => wake(1200));
+  playerNode.addEventListener('pointermove', () => wake(1200));
+  playerNode.addEventListener('pointerleave', () => scheduleHide(180));
+  playerNode.addEventListener('touchstart', () => wake(1800), { passive: true });
+  wakeZone.addEventListener('pointerenter', () => wake(1200));
+  bar.addEventListener('pointerenter', () => {
+    playerNode.classList.add('is-hud-awake');
+    if (wakeTimer) clearTimeout(wakeTimer);
+  });
+  bar.addEventListener('pointerleave', () => scheduleHide(220));
+  wake(1400);
 
   return {
     node: wrap,

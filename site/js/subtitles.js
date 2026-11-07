@@ -193,7 +193,7 @@ export function createOverlay() {
     return 'md';
   }
 
-  function showHud(text, duration = 900) {
+  function showHud(text, duration = 600) {
     hudBadge.textContent = text;
     hudBadge.hidden = false;
     if (hudTimer) clearTimeout(hudTimer);
@@ -257,7 +257,7 @@ export function createOverlay() {
     state.scale = clampNum(state.scale + delta, SUB_MIN_SCALE, SUB_MAX_SCALE, state.scale);
     applyBoxStyles();
     persistBox();
-    showHud(`字号 ${Math.round(state.scale * 100)}%`, 850);
+    showHud(`字号 ${Math.round(state.scale * 100)}%`, 550);
   };
   scaleDownBtn.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -270,7 +270,7 @@ export function createOverlay() {
   alphaInput.addEventListener('input', () => {
     state.alpha = clampNum(Number(alphaInput.value) / 100, SUB_MIN_ALPHA, SUB_MAX_ALPHA, SUB_DEFAULTS.alpha);
     applyBoxStyles();
-    showHud(`底色 ${Math.round(state.alpha * 100)}%`, 700);
+    showHud(`底色 ${Math.round(state.alpha * 100)}%`, 480);
   });
   alphaInput.addEventListener('change', () => persistBox());
 
@@ -278,7 +278,7 @@ export function createOverlay() {
     Object.assign(state, SUB_DEFAULTS);
     applyBoxStyles();
     persistBox();
-    showHud('已复位默认外观', 1000);
+    showHud('已复位默认外观', 750);
     toast('字幕位置、大小、宽度与透明度已复位');
   }
 
@@ -374,11 +374,16 @@ export function createOverlay() {
     syncVisualPosition(false);
     persistBox();
     if (!hudBadge.hidden) {
-      showHud(hudBadge.textContent, 650);
+      showHud(hudBadge.textContent, 380);
     }
   };
   line.addEventListener('pointerup', endInteraction);
   line.addEventListener('pointercancel', endInteraction);
+  line.addEventListener('pointerleave', () => {
+    if (!interaction && !hudBadge.hidden) {
+      showHud(hudBadge.textContent, 160);
+    }
+  });
 
   // ── 滚轮微调：Alt/Shift + 滚轮调透明度，Ctrl + 滚轮调字号 ──
   line.addEventListener('wheel', (event) => {
@@ -390,12 +395,12 @@ export function createOverlay() {
       state.scale = clampNum(state.scale + dir * 0.06, SUB_MIN_SCALE, SUB_MAX_SCALE, state.scale);
       applyBoxStyles();
       persistBox();
-      showHud(`字号 ${Math.round(state.scale * 100)}%`, 800);
+      showHud(`字号 ${Math.round(state.scale * 100)}%`, 550);
     } else {
       state.alpha = clampNum(state.alpha + dir * 0.05, SUB_MIN_ALPHA, SUB_MAX_ALPHA, state.alpha);
       applyBoxStyles();
       persistBox();
-      showHud(`底色 ${Math.round(state.alpha * 100)}%`, 800);
+      showHud(`底色 ${Math.round(state.alpha * 100)}%`, 550);
     }
   }, { passive: false });
 
