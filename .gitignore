@@ -24,6 +24,9 @@ work/.gemini_key
 # One-off probe and scratch files
 work/*.html
 work/*.wav
+work/*.py
+work/*.js
+work/*.css
 work/gemini_*.json
 work/gemini_test.txt
 work/resp*.json
@@ -36,6 +39,23 @@ Thumbs.db
 
 # Scratch reports
 work/*.md
+work/*.txt
+work/*.json
+!work/picked.json
+work/tmp_tweet/
+work/whisper_*/
+work/cuda_runtime/
+work/arch-desktop/
+work/redo_wl_5min/
+work/pipeline/
 
 # Generated hybrid pipeline recognition/checkpoints/status
 work/hybrid_batch/
+
+# Environment & secrets
+.env
+*.env
+work/.env
+
+# Crash dumps
+*.stackdump

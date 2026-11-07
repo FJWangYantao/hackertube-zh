@@ -9,6 +9,7 @@ export function parse(hash = location.hash) {
   }
   if (path === '/saved') return { view: 'saved', params, path };
   if (path === '/history') return { view: 'history', params, path };
+  if (path === '/series') return { view: 'series', params, path };
   return { view: 'feed', params, path: '/feed' };
 }
 

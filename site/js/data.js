@@ -2,7 +2,7 @@ const cache = new Map();
 const commentCache = new Map();
 const subtitleCache = new Map();
 const chapterCache = new Map();
-let videoIndexPromise = null;
+const NOTES_MAX = 2000;
 
 async function fetchJSON(path) {
   if (cache.has(path)) return cache.get(path);
@@ -22,7 +22,6 @@ async function fetchJSON(path) {
 export const load = {
   feed: () => fetchJSON('data/feed.json'),
   feedRest: () => fetchJSON('data/feed-rest.json').catch(() => []),
-  videos: () => fetchJSON('data/videos.json'),
   meta: () => fetchJSON('data/meta.json'),
   related: () => fetchJSON('data/related.json'),
   series: () => fetchJSON('data/series.json'),
@@ -82,20 +81,31 @@ export async function chapters(vid) {
   }
 }
 
-export function videoIndex() {
-  if (!videoIndexPromise) {
-    videoIndexPromise = load.videos()
-      .then((rows) => new Map(rows.map((row) => [row.vid, row])))
-      .catch((error) => {
-        videoIndexPromise = null;
-        throw error;
-      });
-  }
-  return videoIndexPromise;
-}
-
 export function indexByVid(rows) {
   return new Map(rows.map((row) => [row.vid, row]));
+}
+
+function loadNotesMap() {
+  const raw = store.get('notes', {});
+  return raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+}
+
+function makeNoteId() {
+  return `n${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+}
+
+/** 修剪笔记总量，localStorage 里最老的先走（按写入时间）。 */
+function trimNotes(map) {
+  let entries = Object.entries(map);
+  const total = entries.reduce((sum, [, rows]) => sum + rows.length, 0);
+  if (total <= NOTES_MAX) return;
+  const all = entries.flatMap(([vid, rows]) => rows.map((note) => ({ vid, note })));
+  all.sort((a, b) => (a.note.u || 0) - (b.note.u || 0));
+  const doomed = new Set(all.slice(0, total - NOTES_MAX).map(({ vid, note }) => `${vid}/${note.id}`));
+  for (const [vid, rows] of entries) {
+    map[vid] = rows.filter((note) => !doomed.has(`${vid}/${note.id}`));
+    if (!map[vid].length) delete map[vid];
+  }
 }
 
 let progressCache = null;
@@ -172,5 +182,52 @@ export const store = {
       progressCache = {};
       this.set('progress', {});
     }
+  },
+  // ── 随手记 / 时间戳书签（ht.notes: { [vid]: Array<{id, t, text, cue, u}> }）──
+  getNotes(vid) {
+    const rows = loadNotesMap()[vid];
+    return Array.isArray(rows) ? rows.slice() : [];
+  },
+  addNote(vid, { t, text = '', cueZh = '' }) {
+    if (!vid || !Number.isFinite(t)) return null;
+    const map = loadNotesMap();
+    const rows = Array.isArray(map[vid]) ? map[vid] : [];
+    const note = {
+      id: makeNoteId(),
+      t: Math.max(0, Math.floor(t)),
+      text: String(text || '').trim(),
+      cue: String(cueZh || ''),
+      u: Date.now(),
+    };
+    rows.unshift(note);
+    map[vid] = rows;
+    trimNotes(map);
+    this.set('notes', map);
+    return note;
+  },
+  updateNote(vid, noteId, text) {
+    const map = loadNotesMap();
+    const rows = Array.isArray(map[vid]) ? map[vid] : [];
+    const note = rows.find((row) => row.id === noteId);
+    if (!note) return false;
+    note.text = String(text || '').trim();
+    note.u = Date.now();
+    this.set('notes', map);
+    return true;
+  },
+  removeNote(vid, noteId) {
+    const map = loadNotesMap();
+    const rows = Array.isArray(map[vid]) ? map[vid] : [];
+    const next = rows.filter((row) => row.id !== noteId);
+    if (next.length === rows.length) return false;
+    if (next.length) map[vid] = next;
+    else delete map[vid];
+    this.set('notes', map);
+    return true;
+  },
+  notesForVid(vid) {
+    const map = loadNotesMap();
+    if (vid) return Array.isArray(map[vid]) ? map[vid].slice() : [];
+    return Object.fromEntries(Object.entries(map).map(([key, rows]) => [key, rows.slice()]));
   },
 };

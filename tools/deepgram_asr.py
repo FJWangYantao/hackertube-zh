@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
-from urllib.request import HTTPRedirectHandler, Request, build_opener
+from urllib.request import HTTPRedirectHandler, ProxyHandler, Request, build_opener
 
 
 LISTEN_URL = "https://api.deepgram.com/v1/listen?" + urlencode({
@@ -85,9 +85,13 @@ def _times(row: dict[str, Any], limit: float) -> tuple[float, float]:
     start, end = row.get("start"), row.get("end")
     if not _finite_number(start) or not _finite_number(end):
         raise _invalid_response()
-    if not 0 <= start < end <= limit:
+    start, end = float(start), float(end)
+    # Deepgram's own duration can run a hair past ffprobe's; clamp instead of
+    # rejecting an otherwise good transcript.
+    end = min(end, limit)
+    if not 0 <= start < end:
         raise _invalid_response()
-    return float(start), float(end)
+    return start, end
 
 
 def _words(rows: Any, limit: float) -> list[dict[str, Any]]:
@@ -98,6 +102,9 @@ def _words(rows: Any, limit: float) -> list[dict[str, Any]]:
     for row in rows:
         if not isinstance(row, dict):
             raise _invalid_response()
+        raw_start = row.get("start")
+        if not _finite_number(raw_start) or float(raw_start) >= limit:
+            continue  # entirely beyond the probed audio; drop, don't fail
         start, end = _times(row, limit)
         if start <= previous_start:
             raise _invalid_response()
@@ -127,11 +134,15 @@ def _utterances(rows: Any, limit: float) -> list[dict[str, Any]]:
         if not isinstance(row, dict):
             raise _invalid_response()
         start, end = _times(row, limit)
-        if start < previous_end:
-            raise _invalid_response()
+        start = max(start, previous_end)  # Nova's boundaries can overlap by ms; clamp
+        if start >= end:
+            continue
         words = _words(row.get("words"), limit)
-        if words[0]["start"] < start or words[-1]["end"] > end:
-            raise _invalid_response()
+        words = [w for w in words if w["end"] > start and w["start"] < end]
+        if not words:
+            continue
+        words = [{**w, "start": max(w["start"], start), "end": min(w["end"], end)}
+                 for w in words]
         if "confidence" in row:
             confidence = row["confidence"]
             if not _finite_number(confidence) or not 0 <= confidence <= 1:
@@ -210,6 +221,15 @@ def _retry_delay(value: str | None, attempt: int) -> float:
     return min(seconds, MAX_RETRY_DELAY)
 
 
+def _default_opener() -> Callable[..., Any]:
+    """Opener honouring DEEPGRAM_PROXY: direct uploads from CN networks reset."""
+    handlers: list[Any] = [_NoRedirect()]
+    proxy = os.environ.get("DEEPGRAM_PROXY", "")
+    if proxy:
+        handlers.append(ProxyHandler({"http": proxy, "https": proxy}))
+    return build_opener(*handlers).open
+
+
 class DeepgramClient:
     """Upload English audio; retry only explicit HTTP 429 rate-limit responses."""
 
@@ -233,7 +253,7 @@ class DeepgramClient:
         self._api_key = api_key
         self._timeout = float(timeout)
         self._max_attempts = max_attempts
-        self._opener = build_opener(_NoRedirect()).open if opener is None else opener
+        self._opener = _default_opener() if opener is None else opener
         self._sleep = time.sleep if sleep is None else sleep
 
     def _upload(self, audio_path: Path) -> bytes:

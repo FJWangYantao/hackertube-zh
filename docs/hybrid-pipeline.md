@@ -2,7 +2,7 @@
 
 ## PRD：目标与边界
 
-将本地 faster-whisper（1 个常驻 worker）与 Deepgram Nova-3（默认 1 路，最多 2 路）用于不同的视频，让识别与翻译同时进行。全部视频共享 Antigravity 10 路、DeepSeek 6 路翻译名额。模型加载、下载和视频协调不占翻译线程。
+将本地 faster-whisper（1 个常驻 worker）与 Deepgram Nova-3（默认 1 路，最多 6 路）用于不同的视频，让识别与翻译同时进行。全部视频共享 12 路翻译名额：antigravity/gemini-3.8-flash 6 路、trae-cn/deepseek-v4.1-flash 3 路、workbuddy-vps/cn:deepseek-v4.1-flash 3 路。模型加载、下载和视频协调不占翻译线程。
 
 保留原串行入口。新入口默认仅输出计划，`--run` 执行，`--publish` 允许发布；开发验证不启动真实批处理。凭据只从 `DEEPGRAM_API_KEY` 读取。
 
@@ -65,7 +65,7 @@ python -I tools/run_hybrid_batch.py --ids-file work/batch_next.txt --limit 2
 python -I tools/run_hybrid_batch.py --ids-file work/batch_next.txt --limit 2 --run
 ```
 
-发布需再加 `--publish`。`--limit` 是本轮选择的视频数上限，包含在途任务，避免只限制发布却继续产生云端费用。默认本地 CUDA、Deepgram 1 路、翻译 10+6。`--deepgram-workers 0` 可关闭云端；`--local-workers 0` 可只走云端。不要同时运行旧串行批处理或其他翻译入口。
+发布需再加 `--publish`。`--limit` 是本轮选择的视频数上限，包含在途任务，避免只限制发布却继续产生云端费用。默认本地 CUDA、Deepgram 1 路、翻译 6+3+3（共 12 路）。`--deepgram-workers 0` 可关闭云端；`--local-workers 0` 可只走云端。不要同时运行旧串行批处理或其他翻译入口。
 
 ## 验证结果与实际限制
 

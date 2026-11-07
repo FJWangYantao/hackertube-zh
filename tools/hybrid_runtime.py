@@ -25,7 +25,7 @@ from translation_backends import BackendPool
 
 CACHE_VERSION = 1
 SOURCE_MODELS = {"whisper-local": "faster-whisper-small.en", "deepgram": "nova-3"}
-GROUP_CHARS = 2500
+GROUP_CHARS = 1300
 
 
 def legacy_modules() -> tuple:
@@ -138,6 +138,15 @@ def create_json_exclusive(path: Path, payload: dict) -> bool:
             os.link(temporary, path)
         except FileExistsError:
             return False
+        except (PermissionError, OSError):
+            # Fallback on Windows when os.link is disallowed or fails with WinError 5
+            try:
+                fd = os.open(path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            except FileExistsError:
+                return False
+            with open(fd, "w", encoding="utf-8") as fh:
+                json.dump(payload, fh, ensure_ascii=False, allow_nan=False)
+            return True
         return True
     finally:
         if temporary is not None:

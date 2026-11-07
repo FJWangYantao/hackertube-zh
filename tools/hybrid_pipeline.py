@@ -74,10 +74,10 @@ class HybridPipeline:
             raise ValueError("queue watermarks must satisfy 0 <= low < high")
         if not recognizers or any(
             name not in ("local", "deepgram") or type(capacity) is not int
-            or not 1 <= capacity <= (1 if name == "local" else 2) or not callable(callback)
+            or not 1 <= capacity <= (1 if name == "local" else 6) or not callable(callback)
             for name, (capacity, callback) in recognizers.items()
         ):
-            raise ValueError("enable local capacity 1 and/or Deepgram capacity 1..2")
+            raise ValueError("enable local capacity 1 and/or Deepgram capacity 1..6")
         self.recognizers = dict(recognizers)
         self.translate = translate
         self.group = group

@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / "work"))
 import run_whisper_batch as batch
 import whisper_wl_runner as runner
 
-ANTIGRAVITY = "antigravity-tools/gemini-3.8-flash-low"
+ANTIGRAVITY = "antigravity/gemini-3.8-flash"
 DEEPSEEK_CN = "workbuddy-vps/cn:deepseek-v4.1-flash"
 
 

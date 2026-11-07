@@ -146,6 +146,7 @@ def group_cues(cues: list[dict], max_chars: int | None = None) -> list[list[dict
 
 def call_gateway(
     sentences: list[str], timeout: int = 180, attempts: int = 3, *, model: str | None = None,
+    reasoning_effort: str | None = None, thinking: dict | None = None,
 ) -> list[str]:
     """Send a request using a local model choice, safe for mixed-model threads."""
     selected_model = MODEL if model is None else model
@@ -160,6 +161,13 @@ def call_gateway(
             {"role": "user", "content": GLOSSARY + "\n\n" + SEP.join(sentences)},
         ],
     }
+    if reasoning_effort:
+        # Reasoning models (e.g. GLM-5.3-Flash) otherwise spend max_tokens on
+        # reasoning_content and return an empty final answer.
+        body["reasoning_effort"] = reasoning_effort
+    if thinking is not None:
+        # DeepSeek-style switch; upstreams that ignore it are unaffected.
+        body["thinking"] = thinking
     request = urllib.request.Request(
         GATEWAY,
         data=json.dumps(body).encode("utf-8"),
@@ -171,6 +179,12 @@ def call_gateway(
             with urllib.request.urlopen(request, timeout=timeout) as response:
                 payload = json.load(response)
             break
+        except urllib.error.HTTPError as error:
+            # Quota and access errors will not recover within seconds; retrying
+            # them only delays the pool's circuit breaker.
+            if error.code in (402, 403) or attempt == attempts:
+                raise
+            time.sleep(1.5 * attempt)
         except (urllib.error.URLError, TimeoutError, OSError):
             if attempt == attempts:
                 raise

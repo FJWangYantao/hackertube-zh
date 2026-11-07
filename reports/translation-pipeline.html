@@ -1,0 +1,2409 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HackerTube 中文 · 翻译流水线运维工作台</title>
+<style>
+:root {
+  --bg: #07090e;
+  --panel: #0d121c;
+  --surface: #141b29;
+  --surface-hover: #1b2436;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-subtle: rgba(255, 255, 255, 0.04);
+  --line-focus: rgba(56, 189, 248, 0.4);
+  --fg: #f1f5f9;
+  --mut: #7e8fa6;
+  --cyan: #38bdf8;
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --bad: #f87171;
+  --purple: #a78bfa;
+  --vtt: var(--cyan);
+  --gem: var(--purple);
+  --wh: var(--warn);
+  --meta: var(--ok);
+  --com: #f472b6;
+  --mono: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 14px/1.6 -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  letter-spacing: -0.01em;
+}
+code, .mono { font-family: var(--mono); font-size: 0.9em; }
+a { color: var(--cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Workspace Container */
+.workspace { max-width: 1520px; margin: 0 auto; padding: 0 20px 60px; }
+section { padding: 32px 0 10px; border-top: 1px solid var(--line-subtle); }
+section:first-of-type { border-top: 0; padding-top: 18px; }
+
+/* Section Header (Utility Copy: Clear, brief, actionable) */
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.sec-head h2 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sec-head small {
+  font-size: 12px;
+  color: var(--mut);
+  font-weight: 400;
+  font-family: var(--mono);
+}
+
+/* Cardless Panel Surface */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+/* Controls */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--surface-hover); border-color: rgba(255, 255, 255, 0.18); }
+.btn.on { background: rgba(56, 189, 248, 0.14); border-color: var(--cyan); color: #fff; }
+.btn:disabled { opacity: 0.45; cursor: default; }
+
+input[type=text], select {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 13px;
+  transition: border-color 0.15s;
+}
+input[type=text]:focus, select:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1px var(--cyan);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  font-family: var(--mono);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+.ok { color: var(--ok); border-color: rgba(52, 211, 153, 0.3); background: rgba(52, 211, 153, 0.08); }
+.bad { color: var(--bad); border-color: rgba(248, 113, 113, 0.3); background: rgba(248, 113, 113, 0.08); }
+.warn { color: var(--warn); border-color: rgba(251, 191, 36, 0.3); background: rgba(251, 191, 36, 0.08); }
+.mut { color: var(--mut); }
+.c-wh { color: var(--warn); border-color: rgba(251, 191, 36, 0.3); background: rgba(251, 191, 36, 0.08); }
+
+/* Operational Topbar */
+nav.top {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(7, 9, 14, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+nav.top .in {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.brand-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-strip strong {
+  font-size: 13px;
+  font-family: var(--mono);
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+.brand-strip .tag {
+  font-size: 10px;
+  font-family: var(--mono);
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--cyan);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.nav-links {
+  display: flex;
+  gap: 18px;
+  font-size: 13px;
+  color: var(--mut);
+}
+.nav-links a { color: var(--mut); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover { color: var(--fg); text-decoration: none; }
+.conn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.dot-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 8px var(--ok);
+  display: inline-block;
+  flex-shrink: 0;
+}
+.dot-live.err { background: var(--bad); box-shadow: 0 0 8px var(--bad); }
+.dot-live.pulse { animation: ping 0.5s ease; }
+@keyframes ping { 50% { transform: scale(1.6); } }
+
+/* Operational Metric Rail (Replaces large marketing hero) */
+.metric-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 14px 0 16px;
+}
+.kpi {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 14px;
+  position: relative;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.kpi.bump { border-color: var(--ok); box-shadow: 0 0 14px rgba(52, 211, 153, 0.2); }
+.kpi .num {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--mono);
+  letter-spacing: -0.02em;
+  color: #fff;
+  display: block;
+}
+.kpi .lbl {
+  font-size: 11.5px;
+  color: var(--mut);
+  margin-top: 2px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 1. Live Monitor Layout */
+.multi-ribbon {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+.multi-card {
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+.multi-card:hover {
+  background: var(--surface-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.multi-card.active {
+  border-color: var(--cyan);
+  background: rgba(56, 189, 248, 0.08);
+}
+.multi-card .mc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.multi-card .mc-title {
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+.multi-card .mc-bar {
+  height: 3px;
+  background: #1e293b;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+.multi-card .mc-bar i {
+  display: block;
+  height: 100%;
+  background: var(--cyan);
+  transition: width 0.3s;
+}
+
+.pool-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 6px;
+  margin: 10px 0 12px;
+}
+.pool-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+}
+.pool-card .pc-name { font-weight: 600; color: #fff; font-family: var(--mono); }
+.pool-card .pc-workers { color: var(--mut); font-size: 11px; margin-top: 1px; }
+.pool-card .pc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 6px var(--ok); flex-shrink: 0; }
+.pool-card.idle .pc-dot { background: var(--mut); box-shadow: none; }
+
+.telem-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 6px;
+  margin: 6px 0 10px;
+}
+.telem-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line-subtle);
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-family: var(--mono);
+  transition: border-color 0.2s, background 0.2s;
+}
+.telem-card:hover {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.04);
+}
+.telem-card .tc-label {
+  font-size: 10px;
+  color: var(--mut);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.telem-card .tc-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 2px;
+}
+.telem-card .tc-sub {
+  font-size: 10px;
+  font-weight: normal;
+  color: var(--cyan);
+}
+.telem-card.warn {
+  border-color: rgba(251, 146, 60, 0.4);
+  background: rgba(251, 146, 60, 0.06);
+}
+.telem-card.warn .tc-val {
+  color: var(--accent);
+}
+
+.fold-box {
+  margin-top: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--line-subtle);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 11.5px;
+}
+.fold-summary {
+  cursor: pointer;
+  color: var(--mut);
+  font-family: var(--mono);
+  user-select: none;
+  font-size: 11px;
+}
+.fold-summary:hover { color: var(--fg); }
+
+.live-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 1100px) { .live-grid { grid-template-columns: 1fr; } }
+
+.phases {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 12px 0 10px;
+}
+.ph {
+  padding: 4px 10px;
+  border-radius: 5px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font: 11.5px var(--mono);
+  color: var(--mut);
+  transition: all 0.2s ease;
+}
+.ph.done {
+  color: var(--ok);
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.08);
+}
+.ph.act {
+  color: #07090e;
+  background: var(--warn);
+  border-color: var(--warn);
+  font-weight: 700;
+  animation: pulse 1.4s infinite;
+}
+.ph.fail { color: #fff; background: var(--bad); border-color: var(--bad); }
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.45); }
+  70% { box-shadow: 0 0 0 6px transparent; }
+}
+
+.pbar {
+  height: 6px;
+  background: var(--surface);
+  border-radius: 99px;
+  overflow: hidden;
+  margin: 6px 0 10px;
+}
+.pbar > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--cyan), var(--ok));
+  transition: width 0.35s ease;
+}
+
+.grp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(116px, 1fr));
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+.grp {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font: 11px var(--mono);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.grp.done {
+  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(52, 211, 153, 0.06);
+  color: var(--ok);
+}
+.grp.part {
+  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(251, 191, 36, 0.08);
+  color: var(--warn);
+}
+.grp .g-bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--ok);
+  transition: width 0.3s;
+}
+
+.cue-matrix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin: 8px 0 10px;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 6px;
+  background: #05070a;
+  border-radius: 6px;
+  border: 1px solid var(--line-subtle);
+}
+.cbox {
+  width: 17px;
+  height: 17px;
+  border-radius: 3px;
+  background: #111724;
+  font: 9px/17px var(--mono);
+  text-align: center;
+  color: #55667e;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cbox:hover { filter: brightness(1.3); }
+.cbox.on { background: rgba(52, 211, 153, 0.25); color: var(--ok); }
+.cbox.new { background: var(--ok); color: #07090e; font-weight: 700; transform: scale(1.15); }
+.cbox.bad { background: rgba(248, 113, 113, 0.35); color: var(--bad); }
+
+.term {
+  background: #05070a;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font: 11.5px/1.6 var(--mono);
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #c0d1e8;
+  overflow-y: auto;
+}
+.queue-list { max-height: 310px; overflow-y: auto; padding-right: 2px; }
+.qrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 12.5px;
+  transition: all 0.12s ease;
+}
+.qrow:hover { background: var(--surface); }
+.qrow.sel { background: var(--surface); border-color: var(--line-focus); }
+.qrow .t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 280px; }
+
+/* 2. DAG Topology */
+.ov-wrap { display: grid; grid-template-columns: 1fr 340px; gap: 12px; }
+@media (max-width: 1120px) { .ov-wrap { grid-template-columns: 1fr; } }
+#ov { width: 100%; height: auto; background: #05070a; border: 1px solid var(--line); border-radius: 10px; }
+.edge { fill: none; stroke: #1e293b; stroke-width: 2.2; }
+.flow { fill: none; stroke-width: 1.4; stroke-dasharray: 4 8; opacity: 0.55; animation: dash 1.2s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -12; } }
+.elabel { fill: #64748b; font-size: 10px; font-family: var(--mono); }
+.node { cursor: pointer; }
+.node rect.bg { fill: #0d121c; stroke: #1e293b; stroke-width: 1.2; transition: all 0.18s; }
+.node:hover rect.bg { fill: #141b29; stroke: #475569; }
+.node.sel rect.bg { stroke: #fff; stroke-width: 1.8; fill: #172236; }
+.node.hit rect.bg { stroke: var(--hc, #fff); fill: #172236; }
+.node .t { fill: #f1f5f9; font-size: 12px; font-weight: 600; }
+.node .s { fill: #94a3b8; font-size: 10px; font-family: var(--mono); }
+.lane-title { fill: #475569; font-size: 11px; letter-spacing: 1.2px; font-family: var(--mono); }
+.tok { filter: drop-shadow(0 0 4px currentColor); }
+
+/* 3. Video Trace & Inspector */
+.insp-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.stage-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.stab {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--mut);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+.stab:hover { color: var(--fg); border-color: rgba(255, 255, 255, 0.18); }
+.stab.on { background: rgba(56, 189, 248, 0.15); color: #fff; border-color: var(--cyan); }
+
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 920px) { .cols { grid-template-columns: 1fr; } }
+.cue {
+  background: #05070a;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cyan);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 6px 0;
+  font-size: 13px;
+}
+.cue .tm { font: 11px var(--mono); color: var(--mut); }
+.cue .zh { color: #fff; font-size: 13.5px; margin: 3px 0; }
+.check {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--surface);
+  margin: 4px 0;
+  border: 1px solid var(--line);
+  font-size: 13px;
+}
+.check .ic { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-size: 10.5px; flex: none; }
+.check.pass .ic { background: rgba(52, 211, 153, 0.2); color: var(--ok); }
+.check.fail .ic { background: rgba(248, 113, 113, 0.2); color: var(--bad); }
+.check .v { margin-left: auto; font: 11.5px var(--mono); color: var(--mut); }
+
+/* In-browser Player Simulation */
+.player { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+@media (max-width: 980px) { .player { grid-template-columns: 1fr; } }
+.screen {
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  background: #05070a;
+  border: 1px solid var(--line);
+}
+.screen .meta-ov {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px 24px 60px;
+}
+.screen .meta-ov h4 { margin: 4px 0; font-size: 20px; font-weight: 600; max-width: 90%; }
+.screen .meta-ov p { margin: 2px 0; color: #94a3b8; font-size: 12.5px; }
+.sub-ov { position: absolute; left: 0; right: 0; bottom: 40px; text-align: center; padding: 0 20px; transition: opacity 0.2s; }
+.sub-ov .z { display: inline-block; background: rgba(0, 0, 0, 0.85); padding: 4px 10px; border-radius: 4px; font-size: 16px; color: #fff; }
+.sub-ov .e { display: block; margin-top: 3px; }
+.sub-ov .e span { display: inline-block; background: rgba(0, 0, 0, 0.7); padding: 2px 8px; border-radius: 4px; font-size: 11.5px; color: #cbd5e1; }
+.pctrl {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34px;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  font: 11.5px var(--mono);
+}
+.pctrl .trk { flex: 1; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px; position: relative; cursor: pointer; }
+.pctrl .trk i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--cyan); border-radius: 2px; }
+.pctrl button { background: #1e293b; border: 1px solid var(--line); color: #fff; border-radius: 4px; padding: 2px 6px; cursor: pointer; font: inherit; }
+.tlist { max-height: 360px; overflow-y: auto; padding-right: 4px; }
+.tline { padding: 6px 8px; border-radius: 5px; cursor: pointer; border: 1px solid transparent; font-size: 12.5px; }
+.tline:hover { background: var(--surface); }
+.tline.act { background: var(--surface); border-color: var(--line-focus); }
+.tline .tm { font: 11px var(--mono); color: var(--cyan); }
+.tline .en { color: var(--mut); font-size: 11.5px; }
+
+/* Horizontal Metric Bars */
+.hbar { display: grid; grid-template-columns: 280px 1fr 70px; gap: 10px; align-items: center; margin: 6px 0; font-size: 12px; }
+.hbar .tr { height: 10px; background: #05070a; border-radius: 4px; overflow: hidden; }
+.hbar .tr i { display: block; height: 100%; width: 0; border-radius: 4px; transition: width 0.6s ease; }
+.hbar .n { font: 11.5px var(--mono); text-align: right; }
+
+/* Translation Channels & Bottleneck Monitor Styles */
+.channel-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+.channel-table th {
+  color: var(--mut);
+  font-weight: 500;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.channel-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line-subtle);
+  vertical-align: middle;
+}
+.channel-table tr:hover td {
+  background: var(--surface);
+}
+.channel-table tr.row-bottleneck td {
+  background: rgba(248, 113, 113, 0.04);
+}
+.channel-table tr.row-fastest td {
+  background: rgba(52, 211, 153, 0.03);
+}
+
+.tc-latency-bars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tc-lat-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 110px;
+  gap: 10px;
+  align-items: center;
+  font-size: 11.5px;
+}
+.tc-lat-row .tc-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+.tc-lat-row .tc-track {
+  height: 8px;
+  background: #05070a;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.tc-lat-row .tc-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+.tc-lat-row .tc-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.req-stream-container {
+  max-height: 250px;
+  overflow-y: auto;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  border: 1px solid var(--line-subtle);
+  border-radius: 6px;
+  background: #05070a;
+}
+.req-item {
+  display: grid;
+  grid-template-columns: 75px 85px 1fr 75px 95px 70px;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+.req-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+.req-item.status-error {
+  background: rgba(248, 113, 113, 0.08);
+  color: #fca5a5;
+}
+
+footer {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 30px 20px 40px;
+  color: #475569;
+  font-size: 12px;
+  font-family: var(--mono);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="in">
+    <div class="brand-strip">
+      <strong>HACKERTUBE // PIPELINE</strong>
+      <span class="tag">RUNTIME MONITOR</span>
+    </div>
+    <div class="nav-links">
+      <a href="#live">实时监控</a>
+      <a href="#channels">渠道耗时与瓶颈</a>
+      <a href="#dag">数据流拓扑</a>
+      <a href="#trace">全链路溯源 & 网关实测</a>
+      <a href="#comments">评论检视</a>
+      <a href="#stats">产出与诊断</a>
+    </div>
+    <div class="conn">
+      <i class="dot-live" id="conn-dot"></i>
+      <span id="conn-txt">连接本地接口中…</span>
+      <button class="btn" id="poll-btn" style="padding: 2px 8px; font-size: 11.5px;">轮询: 1.0s</button>
+      <button class="btn" id="btn-toggle-ext" style="padding: 2px 10px; font-size: 11.5px; border-color: rgba(56,189,248,0.3); color: var(--cyan);">⚙ 扩展分析</button>
+    </div>
+  </div>
+</nav>
+
+<div class="workspace">
+  <!-- Minimal KPI Strip (Maintains exact DOM ID compatibility) -->
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 12px;margin:10px 0 14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;font-size:12px;">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
+      <span id="card-subs"><span class="mut">已发布字幕:</span> <b class="mono" id="st-subs" style="color:var(--cyan)">—</b> <span class="mut" id="st-subs-sub" style="display:none"></span></span>
+      <span id="card-cues"><span class="mut">双语 Cues:</span> <b class="mono" id="st-cues" style="color:var(--ok)">—</b> <span class="mut" id="st-cues-sub" style="display:none"></span></span>
+      <span><span class="mut">批次队列:</span> <b class="mono" id="st-batch" style="color:var(--warn)">—</b> <span class="mut" id="st-batch-sub" style="display:none"></span></span>
+      <span><span class="mut">元数据:</span> <b class="mono" id="st-meta">—</b> <span class="mut" id="st-meta-sub" style="display:none"></span></span>
+      <span><span class="mut">HN评论:</span> <b class="mono" id="st-com">—</b> <span class="mut" id="st-com-sub" style="display:none"></span></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="#channels" class="btn" style="padding:2px 8px;font-size:11px;color:var(--cyan);border-color:rgba(56,189,248,0.3)">⚡ 各渠道监控 & 瓶颈面板</a>
+      <span class="mono mut" style="font-size:11px;">单屏轻量控制台 · 极简低噪模式</span>
+    </div>
+  </div>
+
+  <!-- 1. LIVE MONITOR (PRIMARY CONSOLE) -->
+  <section id="live" style="padding-top:0;border-top:none;">
+    <!-- Multi-Flight Active Tasks Ribbon -->
+    <div id="lv-ribbon-wrap" style="margin-bottom:12px;" hidden>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+        <span class="mono mut" style="font-size:11.5px;">并发执行任务 (<span id="lv-multi-count" style="color:var(--cyan);font-weight:700">0</span> Active Flights)：</span>
+        <span class="mono mut" style="font-size:11px;">点击快速切换主监视窗</span>
+      </div>
+      <div id="lv-multi-ribbon" class="multi-ribbon"></div>
+    </div>
+
+    <div class="live-grid">
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap">
+          <div>
+            <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
+              <span class="pill c-wh" id="lv-badge">读取中…</span>
+              <span class="pill mut" id="lv-lock">lock: —</span>
+            </div>
+            <h3 id="lv-title" style="margin:2px 0;font-size:16px;font-weight:600">—</h3>
+            <div class="mono mut" style="font-size:11.5px" id="lv-sub">—</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button class="btn on" id="lv-auto-follow" title="自动跟随当前正在 processing 的视频">🎯 跟随当前任务</button>
+            <button class="btn" id="lv-inspect-btn">🔍 深度调试</button>
+          </div>
+        </div>
+
+        <div class="phases" id="lv-phases"></div>
+
+        <!-- Stage 1 Progress -->
+        <div style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px">
+            <span><b id="lv-stage1-label">Stage 1 · 语音识别</b> <code id="lv-dev" class="mut">—</code></span>
+            <span class="mono" id="lv-rec-txt">—</span>
+          </div>
+          <div class="pbar"><i id="lv-rec-bar"></i></div>
+        </div>
+
+        <!-- Stage 2 Progress -->
+        <div style="margin-top:10px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px">
+            <span>
+              <b id="lv-stage2-label">Stage 2 · 并发翻译池</b>
+              <code class="mut" id="lv-ck-name">—</code>
+              <span class="pill" id="lv-tr-speed" style="display:none;margin-left:6px;font-size:11px;color:var(--cyan);border-color:rgba(56,189,248,0.3)">⚡ 测速中…</span>
+            </span>
+            <span class="mono" id="lv-tr-txt">—</span>
+          </div>
+          <div class="pbar"><i id="lv-tr-bar"></i></div>
+
+          <!-- Model Pool Health Strip -->
+          <div id="lv-pool-health" class="pool-strip"></div>
+
+          <!-- SRE Telemetry Metrics: 损耗池时 · 断点挽救 · 吞吐倍速 · 本地减负 -->
+          <div id="lv-sre-telemetry" class="telem-strip">
+            <div class="telem-card" id="tc-loss" title="损耗池时：因超时、失败重试等占用的工作槽位总时长及有效产出率">
+              <div class="tc-label">⚡ 损耗池时 (有效率)</div>
+              <div class="tc-val" id="tc-loss-val">-- <span class="tc-sub">(--%)</span></div>
+            </div>
+            <div class="telem-card" id="tc-rescued" title="断点挽救：命中 translation.checkpoint 避免重复翻译直接跳过的等效池时">
+              <div class="tc-label">🛡️ 断点挽救工时</div>
+              <div class="tc-val" id="tc-rescued-val">--</div>
+            </div>
+            <div class="telem-card" id="tc-speed" title="吞吐倍速：相较于物理音频时长的综合加速比 (云端ASR+多模型并发)">
+              <div class="tc-label">🚀 综合吞吐倍速</div>
+              <div class="tc-val" id="tc-speed-val">-- <span class="tc-sub">实时</span></div>
+            </div>
+            <div class="telem-card" id="tc-offload" title="GPU减负：Deepgram 云端 ASR 相比本地 Whisper 节省的 GPU/CPU 算力">
+              <div class="tc-label">☁️ 本地硬件减负</div>
+              <div class="tc-val" id="tc-offload-val">--</div>
+            </div>
+          </div>
+
+          <!-- Foldable Details for Group Grid & Cue Matrix (De-clutter) -->
+          <details class="fold-box" id="lv-fold-details">
+            <summary class="fold-summary">▶ 展开微观请求分组 (group_cues) 与 Checkpoint 矩阵 (700+ 句)</summary>
+            <div class="grp-grid" id="lv-groups"></div>
+            <div class="cue-matrix" id="lv-cues"></div>
+          </details>
+        </div>
+
+        <!-- Latest Cue Detail -->
+        <div style="margin-top:8px">
+          <div id="lv-cue-detail"></div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="panel">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <b style="font-size:13px">实时执行日志 <code id="lv-log-file" class="mut">—</code></b>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span class="mono mut" style="font-size:11px" id="lv-mtime">—</span>
+              <button class="btn" id="btn-copy-log" style="padding:1px 6px;font-size:10.5px" title="复制完整日志">📋 复制</button>
+            </div>
+          </div>
+          <div class="term" id="lv-log" style="height:230px">等待日志…</div>
+        </div>
+
+        <div class="panel" style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <b style="font-size:13px">作业队列 (<code id="lv-queue-src">status.json</code>)</b>
+            <span class="mono mut" style="font-size:11px" id="lv-q-sum">—</span>
+          </div>
+          <div class="queue-list" id="lv-queue" style="max-height:220px"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TRANSLATION CHANNELS & BOTTLENECK MONITOR PANEL -->
+  <section id="channels" style="padding-top:24px">
+    <div class="sec-head">
+      <h2>
+        <span>⚡ 翻译渠道请求监控与瓶颈诊断</span>
+        <span class="pill" id="tc-channels-count" style="font-size:11px;color:var(--cyan);border-color:rgba(56,189,248,0.3)">10 个渠道就绪</span>
+        <span class="pill" id="tc-slowest-badge" style="font-size:11px;color:var(--bad);border-color:rgba(248,113,113,0.3);display:none">⚠️ 木桶短板: --</span>
+      </h2>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="mono mut" style="font-size:11.5px">全池平均响应: <b id="tc-overall-avg" style="color:var(--cyan)">-- ms</b></span>
+        <button class="btn on" id="btn-probe-all" style="padding:4px 12px;font-size:12px;background:rgba(56,189,248,0.15);color:var(--cyan);border-color:rgba(56,189,248,0.4);font-weight:600">⚡ 一键并发测速全部渠道</button>
+      </div>
+    </div>
+
+    <!-- SRE Bottleneck Alert & Insights Card -->
+    <div class="panel" id="tc-bottleneck-card" style="margin-bottom:14px;border-left:3px solid var(--warn);background:rgba(251,191,36,0.03)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:320px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <b style="font-size:13.5px;color:var(--warn)">🎯 SRE 瓶颈分析诊断报告 (Bottleneck Diagnostics)</b>
+            <span class="pill warn" id="tc-bn-status-pill" style="font-size:10.5px">分析中</span>
+          </div>
+          <div id="tc-bottleneck-desc" style="font-size:12.5px;color:var(--fg);line-height:1.6">
+            正在分析各个翻译渠道请求耗时分布、熔断器健康度与木桶短板…
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;font-family:var(--mono);font-size:12px;flex-wrap:wrap">
+          <div style="background:var(--surface);padding:6px 12px;border-radius:6px;border:1px solid var(--line)">
+            <span class="mut">🚀 极速主力:</span> <b id="tc-fastest-val" style="color:var(--ok)">--</b>
+          </div>
+          <div style="background:var(--surface);padding:6px 12px;border-radius:6px;border:1px solid var(--line)">
+            <span class="mut">🐢 木桶短板:</span> <b id="tc-slowest-val" style="color:var(--bad)">--</b>
+          </div>
+        </div>
+      </div>
+      <div id="tc-recommendations-list" style="margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);font-size:12px;color:var(--mut);display:flex;flex-direction:column;gap:4px">
+        <!-- Injected recommendations -->
+      </div>
+    </div>
+
+    <!-- Channels Matrix Table + Horizontal Latency Ranking Chart -->
+    <div style="display:grid;grid-template-columns: 1.45fr 1fr;gap:14px;margin-bottom:14px" class="channels-grid-layout">
+      <!-- Left: Channel Metrics Table -->
+      <div class="panel" style="overflow-x:auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <b style="font-size:13px">各渠道请求与性能指标明细</b>
+          <span class="mono mut" style="font-size:11px">按并发配额 & 稳定性排序</span>
+        </div>
+        <table class="channel-table" id="channel-metrics-table">
+          <thead>
+            <tr>
+              <th>渠道名称 / 模型</th>
+              <th>状态</th>
+              <th>槽位 (活跃/配额)</th>
+              <th>请求 (成功/总数)</th>
+              <th>成功率</th>
+              <th>平均耗时</th>
+              <th>P90 耗时</th>
+              <th>速率</th>
+              <th>瓶颈诊断</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="channel-table-body">
+            <tr><td colspan="10" style="text-align:center;color:var(--mut);padding:18px">正在获取渠道指标…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Right: Latency Ranking & Visualization Chart -->
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <b style="font-size:13px">渠道延迟横向排行 (快 ➔ 慢)</b>
+          <span class="mono mut" style="font-size:11px">越短越快 · 超过 4.5s 标红告警</span>
+        </div>
+        <div id="tc-latency-bars" class="tc-latency-bars-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Request Audit Stream -->
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <b style="font-size:13px">实时翻译请求流水审计 (Recent Request Stream)</b>
+          <span class="mono mut" style="font-size:11px" id="tc-recent-count">最近 0 条请求</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;font-size:12px">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="mut">筛选渠道:</span>
+            <select id="tc-filter-model" class="btn" style="padding:2px 8px;font-size:11.5px;background:var(--surface)">
+              <option value="all">所有渠道</option>
+            </select>
+          </div>
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--mut)">
+            <input type="checkbox" id="tc-only-slow" style="cursor:pointer"> 仅看慢请求 (&gt;3.5s)
+          </label>
+        </div>
+      </div>
+      <div class="req-stream-container" id="tc-req-stream">
+        <div style="padding:14px;text-align:center;color:var(--mut)">暂无最近请求数据</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTENDED ANALYSIS DRAWER (DEFAULT COLLAPSED FOR ZERO CLUTTER) -->
+  <div id="ext-drawer" style="display:none;margin-top:28px;border-top:1px dashed var(--line);padding-top:16px;">
+    <!-- 2. DAG TOPOLOGY -->
+    <section id="dag">
+      <div class="sec-head">
+        <h2>全景数据流拓扑 <small>实时节点统计 · 点击查看节点配置</small></h2>
+      </div>
+      <div class="ov-wrap">
+        <svg id="ov" viewBox="0 0 1330 620"></svg>
+        <aside class="panel" id="ov-detail"></aside>
+      </div>
+    </section>
+
+    <!-- 3. REAL VIDEO END-TO-END INSPECTOR -->
+    <section id="trace">
+      <div class="sec-head">
+        <h2>单视频全链路溯源 & 网关实测 <small>调取中间件 / 现场执行脚本函数</small></h2>
+      </div>
+      <div class="panel">
+        <div class="insp-bar">
+          <label class="mut" style="font-size:12px">数据源</label>
+          <select id="tr-filter">
+            <option value="all">全部已处理/队列视频</option>
+            <option value="vtt-manual">YouTube .en.vtt (人工/清洗)</option>
+            <option value="vtt-auto">YouTube .en-orig.vtt (自动滚行)</option>
+            <option value="gemini">Gemini 3.1 Flash-Lite 转写</option>
+            <option value="whisper-local">本地 Faster-Whisper + 双模型池</option>
+            <option value="batch">Whisper 批处理队列 (status.json)</option>
+          </select>
+          <input type="text" id="tr-search" placeholder="搜索 vid / 中英文标题 / 频道…" style="min-width:240px">
+          <select id="tr-select" style="min-width:320px;max-width:500px"></select>
+          <button class="btn" id="tr-reload">↻ 重新读取</button>
+          <span class="mut" style="font-size:12px;margin-left:6px">典型样本:</span>
+          <button class="btn" data-pick="SxdOUGdseq4" style="padding:4px 8px;font-size:12px">SxdOUGdseq4</button>
+          <button class="btn" data-pick="-5wpm-gesOY" style="padding:4px 8px;font-size:12px">-5wpm-gesOY</button>
+          <button class="btn" data-pick="2V1FtfBDsLU" style="padding:4px 8px;font-size:12px">2V1FtfBDsLU</button>
+          <button class="btn" data-pick="6bqBsHSwPgw" style="padding:4px 8px;font-size:12px">6bqBsHSwPgw</button>
+        </div>
+
+        <div class="stage-tabs" id="tr-tabs">
+          <button class="stab on" data-tab="meta">1. 视频元数据与分流</button>
+          <button class="stab" data-tab="source">2. 原始字幕轨 / 识别产物</button>
+          <button class="stab" data-tab="groups">3. 分组请求 & 网关实测</button>
+          <button class="stab" data-tab="verify">4. check_subs 体检报告</button>
+          <button class="stab" data-tab="player">5. 站内双语字幕同步预览</button>
+        </div>
+
+        <div id="tr-body"></div>
+      </div>
+    </section>
+
+    <!-- 4. COMMENTS INSPECTOR -->
+    <section id="comments">
+      <div class="sec-head">
+        <h2>HN 评论译文检视 <small>site/data/comments/&lt;vid&gt;.json</small></h2>
+      </div>
+      <div class="panel" id="com-body"></div>
+    </section>
+
+    <!-- 5. REPOSITORY BREAKDOWN -->
+    <section id="stats">
+      <div class="sec-head">
+        <h2>全库产出分布与异常诊断 <small>全库实时扫描产物与失败条目</small></h2>
+      </div>
+      <div class="cols">
+        <div class="panel">
+          <h3 style="margin:0 0 10px;font-size:14px;font-weight:600">字幕来源分布（实时文件数 & 字幕句数）</h3>
+          <div id="st-sources"></div>
+          <h3 style="margin:20px 0 10px;font-size:14px;font-weight:600">翻译与转写模型分布</h3>
+          <div id="st-models"></div>
+        </div>
+        <div class="panel">
+          <h3 style="margin:0 0 10px;font-size:14px;font-weight:600">批处理状态分布 & 异常记录</h3>
+          <div id="st-wh-bars"></div>
+          <div class="mut mono" style="font-size:11px;margin:12px 0 6px">非 completed 状态条目（点击排查）：</div>
+          <div id="st-wh-issues" class="queue-list" style="max-height:240px"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer>
+  <span>数据接口：<code>tools/pipeline_server.py</code> (端口 8767 · 只读文件映射)</span>
+  <span>HACKERTUBE TRANSLATION RUNTIME</span>
+</footer>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const fmtT = s => { s = Math.max(0, +s || 0); const m = Math.floor(s/60), r = (s%60).toFixed(2).padStart(5,'0'); return `${String(m).padStart(2,'0')}:${r}`; };
+
+// Auto-detect API base (works whether opened at http://127.0.0.1:8767/ or via file:// or another port)
+let API_BASE = location.port === '8767' ? '' : 'http://127.0.0.1:8767';
+let pollMs = 1000, pollTimer = null;
+let autoFollow = true, watchedVid = null, selectedCueIdx = null;
+let curTraceVid = 'SxdOUGdseq4', curTraceData = null, curTraceTab = 'meta', selectedChunkIdx = 0;
+let lastKnownSubs = null, lastKnownCues = null, prevDoneCues = new Set();
+let overviewData = null, liveData = null;
+let speedHistory = [];
+
+async function apiGet(path) {
+  const res = await fetch(API_BASE + path, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// =========================================================================
+// 1. LIVE POLLING (OVERVIEW + ACTIVE RUNNER TELEMETRY)
+// =========================================================================
+async function refreshOverview() {
+  try {
+    const d = await apiGet('/api/overview');
+    overviewData = d;
+    $('#st-meta').textContent = d.videos.meta_translated.toLocaleString() + ' / ' + d.videos.total.toLocaleString();
+    $('#st-meta-sub').textContent = `有效长青视频 ${d.videos.evergreen.toLocaleString()} · news 过滤 ${d.videos.news} · 屏蔽领域 ${d.videos.blocked_areas.join(',') || '无'}`;
+
+    if (lastKnownSubs !== null && d.subs.files !== lastKnownSubs) {
+      $('#card-subs').classList.add('bump'); setTimeout(()=>$('#card-subs').classList.remove('bump'), 1200);
+    }
+    lastKnownSubs = d.subs.files;
+    $('#st-subs').textContent = d.subs.files.toLocaleString();
+    const sf = d.subs.by_source_files;
+    $('#st-subs-sub').textContent = `VTT ${(sf['vtt-manual']||0)+(sf['vtt-auto']||0)} · Whisper ${sf['whisper-local']||0} · Gemini ${sf['gemini']||0}`;
+
+    if (lastKnownCues !== null && d.subs.total_cues !== lastKnownCues) {
+      $('#card-cues').classList.add('bump'); setTimeout(()=>$('#card-cues').classList.remove('bump'), 1200);
+    }
+    lastKnownCues = d.subs.total_cues;
+    $('#st-cues').textContent = d.subs.total_cues.toLocaleString();
+    $('#st-cues-sub').textContent = `中文字数 ${(d.subs.total_zh_chars/1e4).toFixed(1)} 万 · 英文词数 ${(d.subs.total_en_words/1e4).toFixed(1)} 万`;
+
+    const hb = d.hybrid_batch || {};
+    if (hb.configured) {
+      const hc = hb.counts || {};
+      $('#st-batch').textContent = `${hc.completed || 0} / ${hb.tracked}`;
+      $('#st-batch-sub').textContent = `混合引擎 · 识别中 ${hc.recognizing||0} · 翻译中 ${hc.translating||0} · 失败 ${hc.failed||0}`;
+    } else {
+      const wc = d.whisper_batch.counts;
+      $('#st-batch').textContent = `${wc.completed || 0} / ${d.whisper_batch.tracked}`;
+      $('#st-batch-sub').textContent = `进行中 ${(wc.processing||0)+(wc.downloading||0)} · 需登录 ${wc.login_required||0} · 静音 ${wc.no_speech||0} · 失败 ${wc.failed||0}`;
+    }
+
+    $('#st-com').textContent = d.comments.total_comments.toLocaleString();
+    $('#st-com-sub').textContent = `覆盖 ${d.comments.files} 个高分视频 · 空译 ${d.comments.blank_comments} 条`;
+
+    updateDagCounts();
+    renderBreakdown(d);
+  } catch (e) {
+    $('#conn-dot').classList.add('err');
+    $('#conn-txt').textContent = `接口未连接 (${e.message}) — 请运行: python -I tools/pipeline_server.py`;
+  }
+}
+
+async function refreshLive() {
+  try {
+    const q = (!autoFollow && watchedVid) ? `?vid=${encodeURIComponent(watchedVid)}` : '';
+    const d = await apiGet('/api/live' + q);
+    liveData = d;
+    const dot = $('#conn-dot');
+    dot.classList.remove('err'); dot.classList.add('pulse');
+    setTimeout(() => dot.classList.remove('pulse'), 350);
+    $('#conn-txt').textContent = `LIVE · ${API_BASE || location.origin}/api · 同步于 ${new Date(d.now*1000).toLocaleTimeString()}`;
+
+    if (d.published_subs_total && lastKnownSubs && d.published_subs_total !== lastKnownSubs) {
+      refreshOverview();
+    }
+    renderLiveMonitor(d);
+    if (d.channels_telemetry) {
+      renderChannelsTelemetry(d.channels_telemetry);
+    } else {
+      apiGet('/api/translation-channels').then(renderChannelsTelemetry).catch(() => {});
+    }
+    updateDagActive(d);
+  } catch (e) {
+    $('#conn-dot').classList.add('err');
+    $('#conn-txt').textContent = `接口未连接 (${e.message}) · 当前展示基准快照 · 请在终端运行 python tools/pipeline_server.py`;
+  }
+}
+
+function renderLiveMonitor(d) {
+  const vid = d.active_vid || '—';
+  if (autoFollow && watchedVid !== vid) {
+    watchedVid = vid;
+    prevDoneCues = new Set();
+    selectedCueIdx = null;
+  }
+
+  // Multi-Flight Active Tasks Ribbon (Feature 3)
+  const multi = d.multi_active || [];
+  const ribbonWrap = $('#lv-ribbon-wrap');
+  if (ribbonWrap) {
+    if (multi.length > 0) {
+      ribbonWrap.hidden = false;
+      $('#lv-multi-count').textContent = multi.length;
+      $('#lv-multi-ribbon').innerHTML = multi.map(m => {
+        const isSel = m.vid === watchedVid;
+        const phaseLbl = m.status === 'translating' ? `${m.pct}% 翻译` : (m.status === 'recognizing' ? 'ASR 识别' : m.status);
+        return `<div class="multi-card ${isSel ? 'active' : ''}" data-mvid="${m.vid}">
+          <div class="mc-head">
+            <span class="mono" style="font-size:11px;color:var(--cyan);font-weight:600">${m.vid}</span>
+            <span class="pill ${m.pct === 100 ? 'ok' : 'c-wh'}" style="font-size:10px;padding:1px 5px">${phaseLbl}</span>
+          </div>
+          <div class="mc-title">${esc(m.title)}</div>
+          <div class="mc-bar"><i style="width:${m.pct}%"></i></div>
+        </div>`;
+      }).join('');
+      $$('#lv-multi-ribbon .multi-card').forEach(el => {
+        el.onclick = () => {
+          autoFollow = false;
+          $('#lv-auto-follow').classList.remove('on');
+          watchedVid = el.dataset.mvid;
+          prevDoneCues = new Set();
+          selectedCueIdx = null;
+          refreshLive();
+        };
+      });
+    } else {
+      ribbonWrap.hidden = true;
+    }
+  }
+
+  const st = d.stage || {};
+  const rs = st.runner_state || {};
+  const meta = d.active_meta || {};
+  const hy = d.hybrid || {};
+  const isHybrid = d.engine === 'hybrid';
+  const provider = rs.provider || '';
+  const phase = rs.phase || d.active_status?.phase || d.active_status?.status || 'idle';
+  const status = rs.status || d.active_status?.status || 'idle';
+
+  $('#lv-badge').textContent = `${vid} · ${status.toUpperCase()} (${phase})`;
+  $('#lv-badge').className = `pill ${status==='completed'?'ok':status==='failed'?'bad':'c-wh'}`;
+  $('#lv-lock').textContent = st.locked
+    ? `🔒 ${isHybrid ? 'batch.lock' : 'runner.lock'} (PID ${st.lock?.pid || '?'})`
+    : '🔓 无活动锁';
+  $('#lv-lock').className = `pill ${st.locked ? 'warn' : 'mut'}`;
+  $('#lv-title').textContent = meta.title_zh || meta.title || vid;
+  $('#lv-sub').textContent = `${meta.title || ''} · 频道: ${meta.channel || '—'} · score: ${meta.score ?? '—'} · run_id: ${rs.run_id || '—'}`;
+
+  // Phase bar
+  const PHASES = isHybrid ? [
+    ['recognition','1. 语音识别（本地 / Deepgram）'],
+    ['translation','2. 全局翻译池 6+3+3'],
+    ['completed','3. 校验并落盘'],
+  ] : [
+    ['download','1. 下载英文音频'],
+    ['audio_validation','2. 音轨校验'],
+    ['recognition','3. Whisper 识别'],
+    ['translation','4. 16并发池翻译'],
+    ['subtitle_validation','5. 字幕校验'],
+    ['completed','6. 独占发布'],
+  ];
+  const order = isHybrid
+    ? ['recognition','translation','completed']
+    : ['download','audio_validation','recognition','recognition_cache','translation','subtitle_validation','verification_or_publication','completed'];
+  const curIdx = order.indexOf(phase);
+  $('#lv-phases').innerHTML = PHASES.map(([k, label]) => {
+    const idx = order.indexOf(k);
+    const isAct = (k === phase) || (k === 'recognition' && phase === 'recognition_cache') || (k === 'completed' && phase === 'verification_or_publication');
+    const isDone = phase === 'completed' || (curIdx > idx && idx !== -1);
+    const cls = status === 'failed' && isAct ? 'fail' : isAct && phase !== 'completed' ? 'act' : isDone ? 'done' : '';
+    return `<span class="ph ${cls}">${label}</span>`;
+  }).join('');
+
+  // Recognition bar
+  const lg = st.log || {};
+  const dur = lg.duration || d.active_status?.duration || 0;
+  const pos = st.transcript_count > 0 ? dur : (lg.recognized_audio_pos || 0);
+  const recPct = dur > 0 ? Math.min(100, (pos / dur) * 100) : (st.transcript_count > 0 ? 100 : 0);
+  $('#lv-stage1-label').textContent = isHybrid
+    ? `Stage 1 · ${provider === 'deepgram' ? 'Deepgram Nova-3 云端识别' : provider === 'local' ? '本地 Faster-Whisper 识别' : '语音识别'}`
+    : 'Stage 1 · Faster-Whisper 语音识别';
+  $('#lv-stage2-label').textContent = isHybrid
+    ? 'Stage 2 · 全局翻译池 6+3+3 + 断点恢复'
+    : 'Stage 2 · 双模型并发池 + 断点恢复';
+  $('#lv-dev').textContent = lg.device_info ? `(${lg.device_info}${lg.vad_removed ? ` · VAD 剔除静音 ${lg.vad_removed}` : ''}${lg.trimmed_overlaps ? ` · 裁剪重叠 ${lg.trimmed_overlaps} 段` : ''})` : '';
+  $('#lv-rec-txt').textContent = `${pos.toFixed(1)}s / ${dur.toFixed(1)}s (${recPct.toFixed(0)}%) · 识别段数: ${st.transcript_count || lg.recognized_segments || 0}`;
+  $('#lv-rec-bar').style.width = recPct + '%';
+
+  // Translation & Checkpoint bar
+  const totCues = st.transcript_count || rs.cues || 0;
+  const doneCues = st.translated_count || 0;
+  const trPct = totCues > 0 ? Math.min(100, (doneCues / totCues) * 100) : 0;
+  $('#lv-ck-name').textContent = st.checkpoint_file ? `${st.checkpoint_file} (fp:${(st.checkpoint_fingerprint||'').slice(0,8)})` : '等待识别完成后创建 checkpoint';
+  $('#lv-tr-txt').textContent = `${doneCues} / ${totCues} 句 (${trPct.toFixed(0)}%) · 并发槽位: ${rs.workers || 16}`;
+  $('#lv-tr-bar').style.width = trPct + '%';
+
+  // Feature 1: Speed & ETA Engine
+  const nowSec = Date.now() / 1000;
+  speedHistory.push({ t: nowSec, vid, cues: doneCues });
+  speedHistory = speedHistory.filter(s => s.vid === vid && nowSec - s.t <= 35);
+  let speedCps = 0;
+  if (speedHistory.length >= 2) {
+    const oldest = speedHistory[0];
+    const newest = speedHistory[speedHistory.length - 1];
+    const dt = newest.t - oldest.t;
+    const dc = newest.cues - oldest.cues;
+    if (dt >= 1.5 && dc > 0) {
+      speedCps = dc / dt;
+    }
+  }
+  const spEl = $('#lv-tr-speed');
+  if (spEl) {
+    const remaining = Math.max(0, totCues - doneCues);
+    if (status === 'translating' && totCues > 0 && remaining > 0) {
+      spEl.style.display = 'inline-flex';
+      if (speedCps > 0) {
+        const etaSec = Math.round(remaining / speedCps);
+        const etaFmt = etaSec >= 60 ? `${Math.floor(etaSec/60)}分${etaSec%60}秒` : `${etaSec}秒`;
+        spEl.innerHTML = `⚡ <b>${speedCps.toFixed(1)}</b> 句/s · 预计剩余 <b>${etaFmt}</b>`;
+      } else {
+        spEl.innerHTML = `⚡ 测速中 (已完成 ${doneCues}/${totCues})`;
+      }
+    } else if (status === 'completed' && totCues > 0) {
+      spEl.style.display = 'inline-flex';
+      spEl.innerHTML = `✓ 已完成全部 ${totCues} 句`;
+    } else {
+      spEl.style.display = 'none';
+    }
+  }
+
+  // Dynamic Browser Tab Title Telemetry
+  if (status === 'translating' && totCues > 0) {
+    const spTxt = speedCps > 0 ? `${speedCps.toFixed(0)}/s` : '跑批';
+    document.title = `[${trPct.toFixed(0)}% · ⚡${spTxt}] HT 监控`;
+  } else if (status === 'recognizing') {
+    document.title = `[🎙️ 识别中] HT 监控`;
+  } else if (status === 'completed') {
+    document.title = `[✓ 完成] HT 监控`;
+  } else if (status === 'failed') {
+    document.title = `[⚠️ 失败] HT 监控`;
+  } else {
+    document.title = `HackerTube 翻译运维控制台`;
+  }
+
+  // Feature 4: Model Pool Health & Telemetry Strip
+  const poolHealthEl = $('#lv-pool-health');
+  if (poolHealthEl) {
+    const twList = hy.configuration?.translation_workers || [];
+    const activeSlots = hy.translation_active ?? 0;
+    const backlog = hy.backlog_groups ?? 0;
+    const workers = (hy.configuration?.translation_workers || []).reduce((n, w) => n + (w.workers || 0), 0) || 16;
+    if (twList.length > 0) {
+      poolHealthEl.style.display = 'grid';
+      poolHealthEl.innerHTML = twList.map(tw => {
+        const mName = tw.model.split('/').pop().replace('cn:', '');
+        return `<div class="pool-card">
+          <div>
+            <div class="pc-name">${esc(mName)}</div>
+            <div class="pc-workers">配额: ${tw.workers} 槽位 · 在线</div>
+          </div>
+          <i class="pc-dot" title="网关正常"></i>
+        </div>`;
+      }).join('') + `<div class="pool-card" style="border-style:dashed;background:rgba(56,189,248,0.04)">
+        <div>
+          <div class="pc-name" style="color:var(--cyan)">POOL TELEMETRY</div>
+          <div class="pc-workers">活跃槽位: ${activeSlots}/${workers} · 积压: ${backlog}组</div>
+        </div>
+        <span class="pill ${backlog > 20 ? 'warn' : 'ok'}" style="font-size:10px">${backlog > 20 ? '高积压' : '通畅'}</span>
+      </div>`;
+    } else {
+      poolHealthEl.style.display = 'none';
+    }
+  }
+
+  // SRE Telemetry Metrics (Feature: Pool Time Loss, Rescued Time, Speedup, Offload)
+  const telem = d.telemetry;
+  const telemEl = $('#lv-sre-telemetry');
+  if (telem && telemEl) {
+    telemEl.style.display = 'grid';
+    const lossCard = $('#tc-loss');
+    const lossVal = $('#tc-loss-val');
+    if (lossVal) {
+      const goodputCls = telem.goodput_pct < 90 ? 'var(--accent)' : 'var(--ok)';
+      lossVal.innerHTML = `${esc(telem.wasted_fmt)} <span class="tc-sub" style="color:${goodputCls}">(${telem.goodput_pct}% 有效)</span>`;
+      if (lossCard) {
+        if (telem.goodput_pct < 90 || telem.wasted_pool_sec > 300) {
+          lossCard.classList.add('warn');
+        } else {
+          lossCard.classList.remove('warn');
+        }
+      }
+    }
+    const rescVal = $('#tc-rescued-val');
+    if (rescVal) rescVal.innerHTML = `${esc(telem.rescued_fmt)} <span class="tc-sub">(零重复)</span>`;
+    const speedVal = $('#tc-speed-val');
+    if (speedVal) speedVal.innerHTML = `${esc(telem.speedup_ratio)} <span class="tc-sub">(${telem.audio_processed_hr}h 音频)</span>`;
+    const offloadVal = $('#tc-offload-val');
+    if (offloadVal) offloadVal.innerHTML = `~${telem.gpu_offload_pct}% <span class="tc-sub">(云端卸载)</span>`;
+  }
+
+  // Groups grid
+  const groups = st.groups || [];
+  $('#lv-groups').innerHTML = groups.length ? groups.map(g => {
+    const pct = g.total ? Math.round(g.done / g.total * 100) : 0;
+    const cls = g.done === g.total ? 'done' : (g.done > 0 || phase === 'translation') ? 'part' : '';
+    return `<div class="grp ${cls}" title="${fmtT(g.s)} - ${fmtT(g.e)} (${g.chars} chars)">
+      <div><b>G#${g.group_index+1}</b> [${g.start_cue}..${g.end_cue}]</div>
+      <div class="mut">${g.done}/${g.total} 句 · ${g.chars}c</div>
+      <div class="g-bar" style="width:${pct}%"></div>
+    </div>`;
+  }).join('') : `<div class="small mut">当前处于识别阶段，生成 transcript.json 后将在此展示 2500 字符分组块…</div>`;
+
+  // Cue matrix
+  const cues = st.cues || [];
+  const newDone = new Set();
+  cues.forEach(c => { if (c.done) newDone.add(c.i); });
+  $('#lv-cues').innerHTML = cues.map(c => {
+    const isJustAdded = c.done && prevDoneCues.size > 0 && !prevDoneCues.has(c.i);
+    const cls = c.issue ? 'bad' : isJustAdded ? 'new' : c.done ? 'on' : '';
+    return `<div class="cbox ${cls}" data-i="${c.i}" title="cue #${c.i+1} (${fmtT(c.s)}-${fmtT(c.e)})">${c.i+1}</div>`;
+  }).join('');
+  prevDoneCues = newDone;
+
+  $$('#lv-cues .cbox').forEach(el => el.onclick = () => {
+    selectedCueIdx = +el.dataset.i;
+    renderLiveCueDetail(cues);
+  });
+  renderLiveCueDetail(cues);
+
+  // Log terminal
+  $('#lv-log-file').textContent = st.log_file || '';
+  $('#lv-mtime').textContent = st.checkpoint_mtime ? `checkpoint 更新于 ${new Date(st.checkpoint_mtime*1000).toLocaleTimeString()}` : '';
+  const logEl = $('#lv-log');
+  const atBottom = logEl.scrollTop + logEl.clientHeight >= logEl.scrollHeight - 20;
+  logEl.textContent = (lg.lines || []).join('\n') || '暂无日志';
+  if (atBottom) logEl.scrollTop = logEl.scrollHeight;
+
+  // Batch queue
+  const bc = d.batch_status_counts || {};
+  const workers = (hy.configuration?.translation_workers || []).reduce((n, w) => n + (w.workers || 0), 0) || 16;
+  $('#lv-queue-src').textContent = isHybrid ? 'work/hybrid_batch/status.json' : 'work/whisper_batch/status.json';
+  $('#lv-q-sum').textContent = isHybrid
+    ? `已完成 ${bc.completed||0} · 识别中 ${bc.recognizing||0} · 翻译中 ${bc.translating||0} · 失败 ${bc.failed||0} · 积压 ${hy.backlog_groups ?? '—'} 组 · 翻译活跃 ${hy.translation_active ?? '—'}/${workers}${hy.paused ? ' · 准入暂停' : ''}`
+    : `已完成 ${bc.completed||0} · 进行中 ${bc.processing||0} · 待跑 ${(d.next_pending||[]).length}+`;
+  const qItems = [
+    ...(d.next_pending || []).slice(0, 4).map(x => ({...x, status: x.prefetched ? 'queued (已预取音频)' : 'queued'})),
+    ...(d.recent_items || [])
+  ];
+  $('#lv-queue').innerHTML = qItems.map(item => {
+    const busy = ['processing', 'recognizing', 'translating'].includes(item.status);
+    const col = item.status === 'completed' ? 'ok' : busy ? 'c-wh' : item.status === 'failed' ? 'bad' : 'mut';
+    const sel = item.vid === watchedVid ? 'sel' : '';
+    return `<div class="qrow ${sel}" data-vid="${item.vid}">
+      <div>
+        <span class="mono" style="font-size:12px;color:var(--vtt)">${item.vid}</span>
+        <span class="t">${esc(item.title)}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        ${item.duration ? `<span class="mono mut" style="font-size:11px">${Math.round(item.duration)}s</span>` : ''}
+        ${item.status === 'failed' ? `<button class="btn" data-retry="${item.vid}" style="padding:1px 5px;font-size:10px;color:var(--bad);border-color:rgba(248,113,113,0.3)" title="复制单视频重试命令">📋 拷命令</button>` : ''}
+        <span class="pill ${col}">${esc(item.status)}</span>
+      </div>
+    </div>`;
+  }).join('');
+  $$('#lv-queue [data-retry]').forEach(btn => {
+    btn.onclick = e => {
+      e.stopPropagation();
+      const rvid = btn.dataset.retry;
+      const cmd = `python -I tools/run_hybrid_batch.py --start-vid ${rvid} --retry-uncertain`;
+      navigator.clipboard.writeText(cmd).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ 已复制';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      });
+    };
+  });
+  $$('#lv-queue .qrow').forEach(row => row.onclick = () => {
+    autoFollow = false;
+    $('#lv-auto-follow').classList.remove('on');
+    watchedVid = row.dataset.vid;
+    prevDoneCues = new Set();
+    selectedCueIdx = null;
+    refreshLive();
+  });
+}
+
+function renderLiveCueDetail(cues) {
+  const box = $('#lv-cue-detail');
+  if (!cues.length) { box.innerHTML = `<div class="small mut">等待 transcript.json 生成…</div>`; return; }
+  let target = selectedCueIdx !== null ? cues[selectedCueIdx] : [...cues].reverse().find(c => c.done) || cues[0];
+  if (!target) target = cues[0];
+  const wordsHtml = (target.words_head || []).map(w =>
+    `<span class="pill mut" title="start=${w.s}s">${esc(w.w)} <small style="color:${w.p>0.85?'var(--ok)':'var(--warn)'}">${Math.round(w.p*100)}%</small></span>`
+  ).join(' ');
+  box.innerHTML = `<div class="cue" style="border-left-color:${target.done?'var(--ok)':'var(--wh)'}">
+    <div class="tm">Cue #${target.i+1} / ${cues.length} · ${fmtT(target.s)} → ${fmtT(target.e)} · ${target.word_count} 词
+      · 校验: ${target.issue ? `<span class="bad">${esc(target.issue)}</span>` : target.done ? '<span class="ok">translation_issue() == None ✓</span>' : '<span class="warn">等待翻译槽位…</span>'}</div>
+    <div class="zh" style="margin:4px 0">${target.zh ? esc(target.zh) : '<span class="mut">（尚未写入 translation_checkpoint）</span>'}</div>
+    <div class="mut small">${esc(target.en)}</div>
+    ${wordsHtml ? `<div style="margin-top:6px"><span class="small mut">Whisper 词级时间戳与概率 (前8词)：</span>${wordsHtml}</div>` : ''}
+  </div>`;
+}
+
+$('#lv-auto-follow').onclick = () => {
+  autoFollow = !autoFollow;
+  $('#lv-auto-follow').classList.toggle('on', autoFollow);
+  if (autoFollow) refreshLive();
+};
+$('#lv-inspect-btn').onclick = () => {
+  if (watchedVid) {
+    loadVideoTrace(watchedVid);
+    $('#trace').scrollIntoView({ behavior: 'smooth' });
+  }
+};
+$('#poll-btn').onclick = () => {
+  pollMs = pollMs === 1000 ? 2500 : pollMs === 2500 ? 0 : 1000;
+  $('#poll-btn').textContent = pollMs ? `轮询: ${(pollMs/1000).toFixed(1)}s` : '轮询: 已暂停';
+  if (pollTimer) clearInterval(pollTimer);
+  if (pollMs) pollTimer = setInterval(refreshLive, pollMs);
+};
+
+// =========================================================================
+// 2. REAL TOPOLOGY DAG
+// =========================================================================
+const NODES = [
+  { id:'vjsonl', x:24,  y:80,  w:160, h:54, c:'#81c784', t:'data/videos.jsonl', s:'加载中…', file:'data/videos.jsonl' },
+  { id:'mjsonl', x:24,  y:175, w:160, h:54, c:'#f48fb1', t:'data/mentions.jsonl', s:'39,834 条 HN 评论', file:'data/mentions.jsonl' },
+  { id:'tmeta',  x:235, y:45,  w:175, h:54, c:'#81c784', t:'translate_meta.py', s:'batch=12 · workers=4', file:'tools/translate_meta.py' },
+  { id:'tcom',   x:235, y:155, w:175, h:54, c:'#f48fb1', t:'translate_comments.py', s:'top 200 · batch=4', file:'tools/translate_comments.py' },
+  { id:'fetch',  x:235, y:320, w:175, h:58, c:'#4fc3f7', t:'fetch_subs.py', s:'yt-dlp · en / en-orig', file:'tools/fetch_subs.py' },
+  { id:'vtt',    x:465, y:250, w:175, h:58, c:'#4fc3f7', t:'pick_source + parse_vtt', s:'work/subs/*.vtt', file:'tools/make_subs.py' },
+  { id:'gemini', x:465, y:365, w:175, h:58, c:'#b388ff', t:'transcribe_gemini.py', s:'work/audio/*.gemini.json', file:'tools/transcribe_gemini.py' },
+  { id:'whisp',  x:465, y:485, w:175, h:58, c:'#ffb74d', t:'whisper_wl_runner.py', s:'CUDA small.en int8', file:'work/whisper_wl_runner.py' },
+  { id:'group',  x:695, y:305, w:170, h:58, c:'#4fc3f7', t:'group_cues + @@@', s:'700 chars · 二分重试', file:'tools/make_subs.py' },
+  { id:'pool',   x:695, y:475, w:170, h:62, c:'#ffb74d', t:'BackendPool + 断点恢复', s:'10 AG + 6 DS · 2500c', file:'tools/translation_backends.py' },
+  { id:'gw',     x:920, y:225, w:175, h:70, c:'#4ade80', t:'本地 Magpie 网关', s:'127.0.0.1:3425/v1', file:'tools/make_subs.py' },
+  { id:'check',  x:920, y:420, w:175, h:60, c:'#4fc3f7', t:'check_subs / verify', s:'<=12字/秒 · 对齐校验', file:'tools/check_subs.py' },
+  { id:'vzh',    x:920, y:45,  w:175, h:54, c:'#81c784', t:'work/videos_zh.jsonl', s:'加载中…', file:'work/videos_zh.jsonl' },
+  { id:'outcom', x:1140,y:145, w:168, h:54, c:'#f48fb1', t:'site/data/comments/', s:'加载中…', file:'site/data/comments/' },
+  { id:'outsub', x:1140,y:420, w:168, h:58, c:'#4fc3f7', t:'site/data/subs/', s:'加载中…', file:'site/data/subs/' },
+  { id:'build',  x:1140,y:275, w:168, h:66, c:'#4ade80', t:'build_site.py', s:'feed.json + blocklist', file:'tools/build_site.py' },
+];
+const NMAP = Object.fromEntries(NODES.map(n => [n.id, n]));
+const EDGES = [
+  ['vjsonl','tmeta','#81c784'],['tmeta','gw','#81c784'],['gw','vzh','#81c784'],['vzh','build','#81c784'],
+  ['vjsonl','tcom','#f48fb1'],['mjsonl','tcom','#f48fb1'],['tcom','gw','#f48fb1'],['gw','outcom','#f48fb1'],['outcom','build','#f48fb1'],
+  ['vjsonl','fetch','#4fc3f7'],['fetch','vtt','#4fc3f7'],['fetch','gemini','#b388ff'],['fetch','whisp','#ffb74d'],
+  ['vtt','group','#4fc3f7'],['gemini','group','#b388ff'],['whisp','pool','#ffb74d'],
+  ['group','gw','#4fc3f7'],['pool','gw','#ffb74d'],['gw','check','#4fc3f7'],['check','outsub','#4fc3f7'],['outsub','build','#4fc3f7']
+];
+
+const svg = $('#ov');
+const mkSvg = (t, a={}) => { const e = document.createElementNS('http://www.w3.org/2000/svg', t); for (const [k,v] of Object.entries(a)) e.setAttribute(k,v); return e; };
+const gE = mkSvg('g'), gT = mkSvg('g'), gN = mkSvg('g');
+svg.append(gE, gT, gN);
+
+function edgeD(a, b) {
+  const A = NMAP[a], B = NMAP[b];
+  const x1 = A.x + A.w, y1 = A.y + A.h/2, x2 = B.x, y2 = B.y + B.h/2;
+  if (B.x >= A.x + A.w - 10) { const dx = Math.max(40, (x2-x1)*0.5); return `M${x1},${y1} C${x1+dx},${y1} ${x2-dx},${y2} ${x2},${y2}`; }
+  const ax = A.x + A.w/2, ay = y2 > y1 ? A.y + A.h : A.y, bx = B.x + B.w/2, by = y2 > y1 ? B.y : B.y + B.h;
+  return `M${ax},${ay} C${ax},${(ay+by)/2} ${bx},${(ay+by)/2} ${bx},${by}`;
+}
+const EDGE_PATHS = EDGES.map(([a,b,c]) => {
+  const d = edgeD(a,b);
+  const p = mkSvg('path',{d, class:'edge'});
+  const f = mkSvg('path',{d, class:'flow', stroke:c});
+  gE.append(p, f);
+  return { a, b, c, path: p, len: p.getTotalLength() };
+});
+const NODE_ELS = {};
+NODES.forEach(n => {
+  const g = mkSvg('g',{class:'node', transform:`translate(${n.x},${n.y})`, style:`--hc:${n.c}`});
+  g.append(
+    mkSvg('rect',{class:'bg', width:n.w, height:n.h, rx:10}),
+    mkSvg('rect',{width:4, height:n.h-12, x:0, y:6, rx:2, fill:n.c}),
+  );
+  const t = mkSvg('text',{class:'t', x:12, y:22}); t.textContent = n.t;
+  const s = mkSvg('text',{class:'s', x:12, y:40, id:`ns-${n.id}`}); s.textContent = n.s;
+  g.append(t, s);
+  g.onclick = () => selectDagNode(n.id);
+  gN.append(g);
+  NODE_ELS[n.id] = g;
+});
+
+function updateDagCounts() {
+  if (!overviewData) return;
+  const d = overviewData;
+  $('#ns-vjsonl').textContent = `${d.videos.total.toLocaleString()} 视频 (evergreen ${d.videos.evergreen})`;
+  $('#ns-vzh').textContent = `${d.videos.meta_translated.toLocaleString()} 已译 (${d.videos.videos_zh_lines} 行)`;
+  $('#ns-outcom').textContent = `${d.comments.files} 文件 · ${d.comments.total_comments.toLocaleString()} 评论`;
+  $('#ns-vtt').textContent = `work/subs: ${d.work_caches.vtt_total} 个 .vtt`;
+  $('#ns-gemini').textContent = `已转写 ${d.subs.by_source_files['gemini']||0} 个视频`;
+  $('#ns-whisp').textContent = `已完成 ${d.whisper_batch.counts.completed||0}/${d.whisper_batch.tracked}`;
+  $('#ns-outsub').textContent = `${d.subs.files} 文件 · ${d.subs.total_cues.toLocaleString()} 句`;
+}
+
+function updateDagActive(d) {
+  const phase = d.stage?.runner_state?.phase;
+  Object.values(NODE_ELS).forEach(el => el.classList.remove('hit'));
+  if (phase === 'recognition') NODE_ELS.whisp?.classList.add('hit');
+  if (phase === 'translation') { NODE_ELS.pool?.classList.add('hit'); NODE_ELS.gw?.classList.add('hit'); }
+  if (phase === 'subtitle_validation' || phase === 'verification_or_publication') NODE_ELS.check?.classList.add('hit');
+}
+
+function selectDagNode(id) {
+  Object.values(NODE_ELS).forEach(el => el.classList.remove('sel'));
+  NODE_ELS[id]?.classList.add('sel');
+  const n = NMAP[id];
+  const cfg = overviewData?.config || {};
+  $('#ov-detail').innerHTML = `
+    <span class="pill" style="color:${n.c}">${n.id}</span>
+    <h3 style="margin:6px 0 2px">${esc(n.t)}</h3>
+    <div class="mono mut" style="font-size:12px;margin-bottom:8px">${esc(n.file)}</div>
+    <div class="term" style="max-height:360px">${esc(JSON.stringify({
+      node: n.t,
+      live_stat: $(`#ns-${n.id}`)?.textContent,
+      active_batch_vid: liveData?.active_vid,
+      active_phase: liveData?.stage?.runner_state?.phase,
+      runtime_config: cfg
+    }, null, 2))}</div>`;
+}
+selectDagNode('pool');
+
+// Animated tokens along DAG edges
+const dagTokens = [];
+setInterval(() => {
+  if (dagTokens.length < 26) {
+    const e = EDGE_PATHS[Math.floor(Math.random() * EDGE_PATHS.length)];
+    const c = mkSvg('circle',{r:4.5, fill:e.c, style:`color:${e.c}`, class:'tok'});
+    gT.append(c);
+    dagTokens.push({ e, p: 0, c });
+  }
+}, 240);
+function animDag() {
+  for (let i = dagTokens.length - 1; i >= 0; i--) {
+    const tk = dagTokens[i];
+    tk.p += 2.6 / Math.max(60, tk.e.len);
+    if (tk.p >= 1) { tk.c.remove(); dagTokens.splice(i, 1); }
+    else { const pt = tk.e.path.getPointAtLength(tk.p * tk.e.len); tk.c.setAttribute('cx', pt.x); tk.c.setAttribute('cy', pt.y); }
+  }
+  requestAnimationFrame(animDag);
+}
+requestAnimationFrame(animDag);
+
+// =========================================================================
+// 3. REAL VIDEO END-TO-END TRACE & GATEWAY LIVE TEST
+// =========================================================================
+async function loadVideoList() {
+  const src = $('#tr-filter').value;
+  const q = $('#tr-search').value;
+  const d = await apiGet(`/api/videos?source=${encodeURIComponent(src)}&q=${encodeURIComponent(q)}&limit=120`);
+  const sel = $('#tr-select');
+  sel.innerHTML = (d.items || []).map(v =>
+    `<option value="${v.vid}" ${v.vid===curTraceVid?'selected':''}>[${v.vid}] ${esc(v.title.slice(0,48))} (${v.source_kind}${v.cue_count?` · ${v.cue_count}句`:''})</option>`
+  ).join('');
+}
+
+async function loadVideoTrace(vid) {
+  curTraceVid = vid;
+  selectedChunkIdx = 0;
+  $('#tr-body').innerHTML = `<div class="mut">正在从磁盘读取 <code>${esc(vid)}</code> 的全链路文件与校验结果…</div>`;
+  const d = await apiGet(`/api/video/${encodeURIComponent(vid)}`);
+  curTraceData = d;
+  renderTraceTab();
+  renderCommentsSection(d);
+}
+
+function renderTraceTab() {
+  const d = curTraceData;
+  if (!d) return;
+  const box = $('#tr-body');
+  const m = d.meta || {};
+  const sub = d.published_sub;
+
+  if (curTraceTab === 'meta') {
+    box.innerHTML = `<div class="cols">
+      <div>
+        <div class="small mut">原始记录 (<code>data/videos.jsonl</code>)</div>
+        <div class="cue">
+          <div class="tm">vid=${esc(d.vid)} · score=${m.score ?? '—'} · shelf_life=${esc(m.shelf_life || '—')} · HN mentions=${m.hn_mentions ?? '—'}</div>
+          <div><b>${esc(m.title)}</b></div>
+          <div class="mut small" style="margin-top:4px">${esc(m.summary)}</div>
+          <div class="small" style="margin-top:4px"><span class="c-vtt">why_hn:</span> ${esc(m.why_hn)}</div>
+        </div>
+      </div>
+      <div>
+        <div class="small mut">已译元数据 (<code>work/videos_zh.jsonl</code> · 由 <code>translate_meta.py</code> 生成)</div>
+        <div class="cue" style="border-left-color:var(--meta)">
+          <div class="tm">领域: ${(m.areas||[]).join(', ') || '—'}</div>
+          <div class="zh"><b>${esc(m.title_zh || '（未译）')}</b></div>
+          <div style="margin-top:4px">${esc(m.summary_zh || '')}</div>
+          <div class="small" style="margin-top:4px"><span class="c-meta">why_zh:</span> ${esc(m.why_zh || '')}</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:10px" class="term">${esc(JSON.stringify({
+      vid: d.vid,
+      has_vtt_files: (d.vtt_candidates || []).map(x => x.name),
+      picked_vtt: d.vtt_groups?.picked || null,
+      has_gemini_cache: Boolean(d.gemini),
+      has_whisper_stage: Boolean(d.whisper_stage?.exists),
+      published_source: sub?.source || null,
+      published_model: sub?.model || null,
+      translation_model: sub?.translation_model || null,
+      batch_status: d.batch_status || null,
+    }, null, 2))}</div>`;
+    return;
+  }
+
+  if (curTraceTab === 'source') {
+    let html = '';
+    if (d.vtt_candidates && d.vtt_candidates.length) {
+      html += `<h4>YouTube VTT 字幕轨探测与清洗 (<code>work/subs/${esc(d.vid)}.*.vtt</code>)</h4>
+        <div class="small mut"><code>make_subs.pick_source("${esc(d.vid)}")</code> 实际选中：<code>${esc(d.vtt_groups?.picked || '无')}</code></div>
+        <div class="cols" style="margin-top:8px">
+          ${d.vtt_candidates.map(v => `<div class="card" style="background:#0c1320">
+            <b>${esc(v.name)}</b> <span class="pill ${d.vtt_groups?.picked===v.name?'ok':'mut'}">${d.vtt_groups?.picked===v.name?'PICKED':'备选'}</span>
+            <div class="small mut">大小: ${(v.size/1024).toFixed(1)} KiB · 解析后句数: ${v.cue_count} · 覆盖末尾: ${v.end}s · 含 &lt;c&gt; 内联词标签: ${v.has_c_tags}</div>
+            <div class="term" style="margin-top:6px;max-height:220px">${esc(v.raw_sample)}</div>
+          </div>`).join('')}
+        </div>`;
+    }
+    if (d.gemini) {
+      const g = d.gemini;
+      html += `<h4 style="margin-top:14px">Gemini 语音转写缓存 (<code>work/audio/${esc(g.file)}</code>)</h4>
+        <div class="cols">
+          <div>
+            <div class="check pass"><div class="ic">✓</div><div>check_language · 拉丁字母占比 >= 50%</div><div class="v">${(g.latin_share*100).toFixed(1)}%</div></div>
+            <div class="check pass"><div class="ic">✓</div><div>check_language · 35 个英文常见词占比 >= 10%</div><div class="v">${(g.english_func_share*100).toFixed(1)}%</div></div>
+            <div class="check ${g.words_per_sec<=6?'pass':'fail'}"><div class="ic">${g.words_per_sec<=6?'✓':'✕'}</div><div>check_timeline · 词速 <= 6.0 words/s</div><div class="v">${g.words_per_sec} w/s (${g.cues} 句 / ${g.span}s)</div></div>
+          </div>
+          <div class="term" style="max-height:210px">${esc(JSON.stringify(g.sample, null, 2))}</div>
+        </div>`;
+    }
+    if (d.whisper_stage && d.whisper_stage.exists) {
+      const ws = d.whisper_stage, ai = d.audio_info;
+      html += `<h4 style="margin-top:14px">本地 Faster-Whisper 识别产物 (<code>work/whisper_batch/${esc(d.vid)}/</code>)</h4>
+        <div class="cols">
+          <div class="term" style="max-height:240px">${esc(JSON.stringify({
+            audio_files: ws.audio_files,
+            english_audio_ok: ai?.english_audio_ok,
+            duration: ai?.duration,
+            audio_formats: ai?.audio_formats,
+            transcript_segments: ws.transcript_count,
+            translated_in_checkpoint: ws.translated_count,
+          }, null, 2))}</div>
+          <div class="term" style="max-height:240px">${esc((ws.log?.lines || []).join('\n'))}</div>
+        </div>`;
+    }
+    if (!html) html = `<div class="mut">该视频在磁盘上暂无本地 VTT / Gemini / Whisper 缓存文件（可能仅发布了最终字幕或尚未下载）。</div>`;
+    box.innerHTML = html;
+    return;
+  }
+
+  if (curTraceTab === 'groups') {
+    const cues = sub?.cues || d.whisper_stage?.cues || [];
+    if (!cues.length) { box.innerHTML = `<div class="mut">该视频尚无字幕段可供分组。</div>`; return; }
+    const maxChars = (sub?.source === 'whisper-local' || d.whisper_stage?.exists) ? 2500 : 700;
+    // Group in JS with exact same rule as make_subs.group_cues
+    const groups = [];
+    let cur = [], sz = 0;
+    cues.forEach((c, idx) => {
+      const en = c.en || '';
+      cur.push({ ...c, idx });
+      sz += en.length;
+      const ends = /[.!?]["')\]]?$/.test(en);
+      if ((sz >= maxChars && ends) || sz >= maxChars * 1.8) {
+        groups.push({ cues: cur, chars: sz }); cur = []; sz = 0;
+      }
+    });
+    if (cur.length) groups.push({ cues: cur, chars: sz });
+    const g = groups[Math.min(selectedChunkIdx, groups.length - 1)] || groups[0];
+    const reqText = `术语参考：closure=闭包；garbage collection=垃圾回收；monad=单子；event loop=事件循环；backpropagation=反向传播；compiler=编译器；transformer=Transformer（保留英文）；thread=线程；runtime=运行时。\n\n` +
+      g.cues.map(c => c.en).join('\n@@@\n');
+
+    box.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px">
+        <div><code>make_subs.group_cues(cues, max_chars=${maxChars})</code>：共 <b>${cues.length}</b> 句 → 打包为 <b>${groups.length}</b> 个网关请求块（点击任一块查看其真实 <code>@@@</code> 请求载荷）</div>
+        <button class="btn on" id="gw-test-btn">⚡ 发送当前块 (前4句) 到本地 :3425 网关实测翻译</button>
+      </div>
+      <div class="grp-grid" style="max-height:150px;overflow:auto">
+        ${groups.map((gr, i) => `<div class="grp ${i===selectedChunkIdx?'part':'done'}" style="cursor:pointer" data-gi="${i}">
+          <div><b>Chunk #${i+1}</b> [${gr.cues[0].idx+1}..${gr.cues[gr.cues.length-1].idx+1}]</div>
+          <div class="mut">${gr.cues.length} 句 · ${gr.chars} chars</div>
+        </div>`).join('')}
+      </div>
+      <div id="gw-live-res" style="margin:10px 0"></div>
+      <div class="cols" style="margin-top:8px">
+        <div>
+          <div class="small mut">发送给网关的真实 User Message (<code>GLOSSARY + "\\n@@@\\n".join(sentences)</code>)</div>
+          <div class="term" style="max-height:300px">${esc(reqText)}</div>
+        </div>
+        <div>
+          <div class="small mut">该块对应的真实已落盘译文 (<code>@@@</code> 切分对齐后)</div>
+          <div class="term" style="max-height:300px">${esc(g.cues.map(c => c.zh || '（未译）').join('\n@@@\n'))}</div>
+        </div>
+      </div>`;
+    $$('[data-gi]').forEach(el => el.onclick = () => { selectedChunkIdx = +el.dataset.gi; renderTraceTab(); });
+    $('#gw-test-btn').onclick = async () => {
+      const btn = $('#gw-test-btn');
+      const resBox = $('#gw-live-res');
+      btn.disabled = true; btn.textContent = '⏳ 正在请求 http://127.0.0.1:3425/v1/chat/completions …';
+      try {
+        const sentences = g.cues.slice(0, 4).map(c => c.en);
+        const r = await fetch(API_BASE + '/api/gateway-translate', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ sentences })
+        }).then(x => x.json());
+        if (!r.ok) {
+          resBox.innerHTML = `<div class="cue" style="border-left-color:var(--bad)"><b>网关返回异常：</b> <code>${esc(r.error)}</code></div>`;
+        } else {
+          resBox.innerHTML = `<div class="cue" style="border-left-color:var(--ok)">
+            <div class="tm">✔ 真实网关响应成功 · 模型: ${esc(r.model)} · 耗时: ${r.elapsed_ms} ms · 输入 ${r.input_count} 句 == 输出 ${r.output_count} 段</div>
+            ${r.results.map((row, idx) => `<div style="margin-top:6px;padding-top:6px;border-top:1px dashed #24324a">
+              <div class="zh">${idx+1}. ${esc(row.zh)} <span class="pill ${row.issue?'bad':'ok'}">${row.issue || `合法 (${row.zh.length}/${row.limit} chars)`}</span></div>
+              <div class="mut small">${esc(row.en)}</div>
+            </div>`).join('')}
+          </div>`;
+        }
+      } catch (e) {
+        resBox.innerHTML = `<div class="cue" style="border-left-color:var(--bad)">请求失败: ${esc(e.message)}</div>`;
+      } finally {
+        btn.disabled = false; btn.textContent = '⚡ 发送当前块 (前4句) 到本地 :3425 网关实测翻译';
+      }
+    };
+    return;
+  }
+
+  if (curTraceTab === 'verify') {
+    if (!sub) { box.innerHTML = `<div class="mut">该视频尚未发布到 <code>site/data/subs/${esc(d.vid)}.json</code>。</div>`; return; }
+    const issues = sub.inspect_issues || [];
+    const tIssues = sub.translation_issues || [];
+    const checks = [
+      ['check_subs · 句数 >= MIN_CUES (5)', `${sub.cue_count} cues`, sub.cue_count >= 5],
+      ['check_subs · 时间轴跨度 >= 60s', `${sub.span}s`, sub.span >= 60],
+      ['check_subs · 中文字速 <= 12.0 字/秒 (防时间轴塌缩)', `${sub.chars_per_sec} 字/秒`, sub.chars_per_sec <= 12],
+      ['transcribe · 英文词速 <= 6.0~8.0 词/秒', `${sub.words_per_sec} 词/秒`, sub.words_per_sec <= 8],
+      ['check_subs.inspect(cues) 综合判定', issues.length ? issues.join(', ') : '0 issues', issues.length === 0],
+      ['subtitle_recovery.translation_issue() 逐句扫描', tIssues.length ? `${tIssues.length} 条异常` : '全部通过', tIssues.length === 0],
+    ];
+    box.innerHTML = `<div class="cols">
+      <div>${checks.map(([k,v,ok]) => `<div class="check ${ok?'pass':'fail'}">
+        <div class="ic">${ok?'✓':'✕'}</div><div>${esc(k)}</div><div class="v">${esc(v)}</div>
+      </div>`).join('')}</div>
+      <div class="term" style="max-height:280px">${esc(JSON.stringify({
+        file: `site/data/subs/${d.vid}.json`,
+        source: sub.source,
+        model: sub.model,
+        translation_model: sub.translation_model,
+        translation_workers: sub.translation_workers,
+        cue_count: sub.cue_count,
+        first_cue: sub.cues[0],
+        last_cue: sub.cues[sub.cues.length - 1],
+      }, null, 2))}</div>
+    </div>`;
+    return;
+  }
+
+  if (curTraceTab === 'player') {
+    const cues = sub?.cues || d.whisper_stage?.cues || [];
+    if (!cues.length) { box.innerHTML = `<div class="mut">该视频暂无可播放字幕。</div>`; return; }
+    mountRealPlayer(box, d.meta || {}, sub || { source: 'staged', cues });
+  }
+}
+
+// Mini player bound to ALL real cues of the inspected video
+let plTimer = null;
+function mountRealPlayer(box, meta, sub) {
+  if (plTimer) clearInterval(plTimer);
+  const cues = sub.cues;
+  const tMin = cues[0].s, tMax = cues[cues.length - 1].e;
+  let curT = tMin, playing = true, mode = 2;
+
+  box.innerHTML = `<div class="player">
+    <div>
+      <div class="screen">
+        <div class="meta-ov">
+          <span class="pill c-vtt">${esc(meta.vid || '')} · source: ${esc(sub.source || '')}</span>
+          <h4>${esc(meta.title_zh || meta.title || '')}</h4>
+          <p>${esc(meta.title || '')} · ${esc(meta.channel || '')}</p>
+        </div>
+        <div class="sub-ov" id="pl-sub"><span class="z" id="pl-z"></span><span class="e"><span id="pl-e"></span></span></div>
+        <div class="pctrl">
+          <button id="pl-btn">⏸</button>
+          <span id="pl-tm">00:00</span>
+          <div class="trk" id="pl-trk"><i id="pl-fill"></i></div>
+          <button id="pl-md">字幕 中英</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="background:#0d1421">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+        <b>完整真实字幕文稿 (${cues.length} 句)</b>
+        <span class="small mut">点击任意句跳转</span>
+      </div>
+      <div class="tlist" id="pl-list">
+        ${cues.slice(0, 250).map((c, i) => `<div class="tline" data-pi="${i}">
+          <div class="tm">#${i+1} · ${fmtT(c.s)} – ${fmtT(c.e)}</div>
+          <div>${esc(c.zh)}</div><div class="en">${esc(c.en)}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+
+  function sync() {
+    if (!$('#pl-tm')) { clearInterval(plTimer); return; }
+    $('#pl-tm').textContent = `${fmtT(curT)} / ${fmtT(tMax)}`;
+    $('#pl-fill').style.width = Math.min(100, Math.max(0, (curT - tMin) / Math.max(1, tMax - tMin) * 100)) + '%';
+    const idx = cues.findIndex(c => curT >= c.s && curT <= c.e);
+    const active = cues[idx] || cues.find(c => c.s >= curT) || cues[0];
+    $('#pl-sub').style.opacity = mode === 0 ? 0 : 1;
+    $('#pl-z').textContent = active?.zh || '';
+    $('#pl-e').textContent = active?.en || '';
+    $('#pl-e').parentElement.style.display = mode === 2 ? 'block' : 'none';
+    $$('#pl-list .tline').forEach((el, i) => el.classList.toggle('act', i === idx));
+  }
+  $$('#pl-list .tline').forEach(el => el.onclick = () => { curT = cues[+el.dataset.pi].s + 0.05; sync(); });
+  $('#pl-btn').onclick = () => { playing = !playing; $('#pl-btn').textContent = playing ? '⏸' : '▶'; };
+  $('#pl-md').onclick = () => { mode = (mode + 1) % 3; $('#pl-md').textContent = ['字幕 关','字幕 中','字幕 中英'][mode]; sync(); };
+  $('#pl-trk').onclick = e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    curT = tMin + ((e.clientX - r.left) / r.width) * (tMax - tMin);
+    sync();
+  };
+  plTimer = setInterval(() => {
+    if (!playing) return;
+    curT += 0.3;
+    if (curT > tMax) curT = tMin;
+    sync();
+  }, 100);
+  sync();
+}
+
+$$('#tr-tabs .stab').forEach(b => b.onclick = () => {
+  $$('#tr-tabs .stab').forEach(x => x.classList.remove('on'));
+  b.classList.add('on');
+  curTraceTab = b.dataset.tab;
+  renderTraceTab();
+});
+$('#tr-filter').onchange = loadVideoList;
+$('#tr-search').oninput = loadVideoList;
+$('#tr-select').onchange = e => loadVideoTrace(e.target.value);
+$('#tr-reload').onclick = () => loadVideoTrace(curTraceVid);
+$$('[data-pick]').forEach(b => b.onclick = () => {
+  curTraceVid = b.dataset.pick;
+  loadVideoList();
+  loadVideoTrace(curTraceVid);
+});
+
+// =========================================================================
+// 4. REAL COMMENTS INSPECTOR
+// =========================================================================
+function renderCommentsSection(d) {
+  const rows = d.comments || [];
+  const box = $('#com-body');
+  if (!rows.length) {
+    box.innerHTML = `<div class="mut">视频 <code>${esc(d.vid)}</code> 暂无 <code>site/data/comments/${esc(d.vid)}.json</code> 评论译文文件（<code>translate_comments.py</code> 仅处理 score 前 200 的视频）。可点击上方 <code>SxdOUGdseq4</code> 或 <code>2V1FtfBDsLU</code> 查看真实评论译文。</div>`;
+    return;
+  }
+  box.innerHTML = `<div style="margin-bottom:8px"><code>site/data/comments/${esc(d.vid)}.json</code>：共 <b>${rows.length}</b> 条已译评论（按 <code>strong_rec → rec → reference → joke → critical</code> 排序）</div>
+    <div class="cols">
+      ${rows.slice(0, 8).map(c => `<div class="cue" style="border-left-color:var(--com)">
+        <div class="tm">${esc(c.author)} · ${esc(c.month)} · <span class="pill c-com">${esc(c.stance)}</span></div>
+        <div class="zh" style="margin:4px 0">${esc(c.text_zh)}</div>
+        ${c.why_zh ? `<div class="small c-com">why_zh：${esc(c.why_zh)}</div>` : ''}
+        ${c.quote_zh ? `<div class="small mut">quote_zh：“${esc(c.quote_zh)}”</div>` : ''}
+        <details style="margin-top:4px"><summary class="small mut" style="cursor:pointer">查看英文原文</summary><div class="small mut" style="margin-top:4px">${esc(c.text)}</div></details>
+      </div>`).join('')}
+    </div>`;
+}
+
+// =========================================================================
+// 5. REPOSITORY BREAKDOWN & REAL FAILURE DIAGNOSTICS
+// =========================================================================
+function renderBreakdown(d) {
+  const sf = d.subs.by_source_files, sc = d.subs.by_source_cues;
+  const maxF = Math.max(1, ...Object.values(sf));
+  const srcRows = [
+    ['vtt-manual', 'YouTube .en.vtt (人工/清洗字幕)', 'var(--vtt)'],
+    ['whisper-local', '本地 Faster-Whisper (small.en int8)', 'var(--wh)'],
+    ['gemini', 'Gemini 3.1 Flash-Lite 语音转写', 'var(--gem)'],
+    ['vtt-auto', 'YouTube .en-orig.vtt (自动滚行字幕)', '#38bdf8'],
+  ];
+  $('#st-sources').innerHTML = srcRows.map(([k, label, c]) => {
+    const f = sf[k] || 0, cu = sc[k] || 0;
+    return `<div class="hbar">
+      <div>${label}</div>
+      <div class="tr"><i style="width:${(f/maxF*100).toFixed(1)}%;background:${c}"></i></div>
+      <div class="n">${f} 文件 / ${(cu/1000).toFixed(1)}k 句</div>
+    </div>`;
+  }).join('');
+
+  const bm = Object.entries(d.subs.by_model || {});
+  const maxM = Math.max(1, ...bm.map(x => x[1]));
+  $('#st-models').innerHTML = bm.map(([m, n]) => `<div class="hbar">
+    <div class="mono" style="font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(m)}">${esc(m)}</div>
+    <div class="tr"><i style="width:${(n/maxM*100).toFixed(1)}%;background:var(--meta)"></i></div>
+    <div class="n">${n} 文件</div>
+  </div>`).join('');
+
+  const wc = d.whisper_batch.counts || {};
+  const maxW = Math.max(1, ...Object.values(wc));
+  $('#st-wh-bars').innerHTML = Object.entries(wc).map(([k, n]) => {
+    const c = k==='completed'?'var(--ok)':k==='failed'?'var(--bad)':k==='processing'?'var(--wh)':'var(--mut)';
+    return `<div class="hbar">
+      <div class="mono">${esc(k)}</div>
+      <div class="tr"><i style="width:${(n/maxW*100).toFixed(1)}%;background:${c}"></i></div>
+      <div class="n">${n}</div>
+    </div>`;
+  }).join('');
+}
+
+// Also populate non-completed whisper_batch entries from status.json
+async function loadBatchIssues() {
+  try {
+    const st = await apiGet('/work/whisper_batch/status.json');
+    const bad = Object.entries(st).filter(([,v]) => v.status !== 'completed');
+    $('#st-wh-issues').innerHTML = bad.map(([vid, v]) => `<div class="qrow" data-ivid="${vid}">
+      <div>
+        <span class="mono c-vtt">${vid}</span>
+        <span class="pill ${v.status==='failed'?'bad':v.status==='processing'?'c-wh':'warn'}">${esc(v.status)}</span>
+        <span class="small mut">${esc(v.phase || '')}</span>
+      </div>
+      <div class="small mut" style="max-width:420px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(v.reason||'')}">${esc(v.reason || '')}</div>
+    </div>`).join('');
+    $$('[data-ivid]').forEach(el => el.onclick = () => {
+      autoFollow = false; $('#lv-auto-follow').classList.remove('on');
+      watchedVid = el.dataset.ivid; refreshLive();
+      $('#live').scrollIntoView({ behavior: 'smooth' });
+    });
+  } catch (_) {}
+}
+
+// Copy Terminal Log
+const copyLogBtn = $('#btn-copy-log');
+if (copyLogBtn) {
+  copyLogBtn.onclick = () => {
+    const text = $('#lv-log').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      copyLogBtn.textContent = '✓ 已复制';
+      setTimeout(() => { copyLogBtn.textContent = '📋 复制'; }, 1500);
+    });
+  };
+}
+
+// Drawer toggle & Visibility Hibernate (Zero-Noise Mode)
+$('#btn-toggle-ext').onclick = () => {
+  const drawer = $('#ext-drawer');
+  const isHidden = drawer.style.display === 'none';
+  drawer.style.display = isHidden ? 'block' : 'none';
+  $('#btn-toggle-ext').classList.toggle('on', isHidden);
+  $('#btn-toggle-ext').textContent = isHidden ? '✕ 收起分析' : '⚙ 扩展分析';
+  if (isHidden) {
+    drawer.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
+// Hibernate polling when tab is hidden to save CPU/battery
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(refreshLive, 10000);
+  } else {
+    if (pollTimer) clearInterval(pollTimer);
+    if (pollMs) {
+      refreshLive();
+      pollTimer = setInterval(refreshLive, pollMs);
+    }
+  }
+});
+
+// --- Translation Channels & Bottleneck Monitor Logic ---
+const DEFAULT_CHANNELS_TELEMETRY = {
+  timestamp: Date.now() / 1000,
+  total_channels: 10,
+  total_workers: 46,
+  in_flight_workers: 0,
+  overall_avg_latency_ms: 3892.0,
+  fastest_channel: { model: "antigravity/gemini-3.5-flash-lite", name: "gemini-3.5-flash-lite", latency_ms: 980.0 },
+  slowest_channel: { model: "hub-wanai/glm-5.3-flash", name: "glm-5.3-flash", latency_ms: 6450.0 },
+  bottlenecks: [
+    { model: "hub-wanai/glm-5.3-flash", name: "glm-5.3-flash", reason: "响应延迟偏高 (平均 6450ms，是极速通道的 6.6 倍)" },
+    { model: "cloudc/glm-5.3-flash", name: "glm-5.3-flash", reason: "响应耗时超过 6.1s，成为批次拖尾项" },
+    { model: "hub-oaifree/glm-5.3-flash", name: "glm-5.3-flash", reason: "耗时偏长 (平均 5780ms)" },
+    { model: "zhacha/glm-5.3-flash", name: "glm-5.3-flash", reason: "耗时偏长 (平均 5340ms)" }
+  ],
+  recommendations: [
+    "【木桶短板】hub-wanai 与 cloudc 平均耗时高达 6.1~6.5s，比极速主力慢 6x 以上，长句分块容易在其槽位形成阻塞拖尾。",
+    "【主力保障】Gemini 3.8 / 3.5 响应低至 ~1s 且零故障，建议提高其并发槽位权重以最大化流水线吞吐。",
+    "【GLM调优】建议检查 GLM 渠道的 reasoning_effort 与思考模式设置，避免大模型把 max_tokens 浪费在思维链导致首字延迟爆炸。"
+  ],
+  channels: [
+    { model: "antigravity/gemini-3.8-flash", name: "gemini-3.8-flash", provider: "antigravity", workers: 6, in_flight: 0, total_requests: 42, success_requests: 42, error_requests: 0, success_rate: 100.0, total_cues: 504, total_chars: 32760, avg_latency_ms: 1150.0, p50_latency_ms: 1120.0, p90_latency_ms: 1280.0, min_latency_ms: 850.0, max_latency_ms: 1420.0, chars_per_sec: 695.7, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 1140.0, last_error: null, is_bottleneck: false, bottleneck_reason: "性能处于健康水位" },
+    { model: "antigravity/gemini-3.5-flash-lite", name: "gemini-3.5-flash-lite", provider: "antigravity", workers: 6, in_flight: 0, total_requests: 38, success_requests: 38, error_requests: 0, success_rate: 100.0, total_cues: 456, total_chars: 29640, avg_latency_ms: 980.0, p50_latency_ms: 950.0, p90_latency_ms: 1120.0, min_latency_ms: 780.0, max_latency_ms: 1210.0, chars_per_sec: 816.3, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 960.0, last_error: null, is_bottleneck: false, bottleneck_reason: "性能处于健康水位" },
+    { model: "trae-cn/deepseek-v4.1-flash", name: "deepseek-v4.1-flash", provider: "trae-cn", workers: 5, in_flight: 0, total_requests: 35, success_requests: 35, error_requests: 0, success_rate: 100.0, total_cues: 420, total_chars: 27300, avg_latency_ms: 2450.0, p50_latency_ms: 2400.0, p90_latency_ms: 2780.0, min_latency_ms: 2100.0, max_latency_ms: 2950.0, chars_per_sec: 326.5, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 2420.0, last_error: null, is_bottleneck: false, bottleneck_reason: "性能处于健康水位" },
+    { model: "workbuddy-vps/cn:deepseek-v4.1-flash", name: "deepseek-v4.1-flash", provider: "workbuddy-vps", workers: 5, in_flight: 0, total_requests: 34, success_requests: 34, error_requests: 0, success_rate: 100.0, total_cues: 408, total_chars: 26520, avg_latency_ms: 2680.0, p50_latency_ms: 2650.0, p90_latency_ms: 3050.0, min_latency_ms: 2250.0, max_latency_ms: 3200.0, chars_per_sec: 298.5, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 2690.0, last_error: null, is_bottleneck: false, bottleneck_reason: "性能处于健康水位" },
+    { model: "hiyo/gpt-6-luna", name: "gpt-6-luna", provider: "hiyo", workers: 4, in_flight: 0, total_requests: 26, success_requests: 26, error_requests: 0, success_rate: 100.0, total_cues: 312, total_chars: 20280, avg_latency_ms: 3120.0, p50_latency_ms: 3050.0, p90_latency_ms: 3580.0, min_latency_ms: 2700.0, max_latency_ms: 3820.0, chars_per_sec: 256.4, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 3100.0, last_error: null, is_bottleneck: false, bottleneck_reason: "性能处于健康水位" },
+    { model: "commandcode-plan/deepseek/deepseek-v4.1-flash", name: "deepseek-v4.1-flash", provider: "commandcode-plan", workers: 4, in_flight: 0, total_requests: 22, success_requests: 22, error_requests: 0, success_rate: 100.0, total_cues: 264, total_chars: 17160, avg_latency_ms: 4850.0, p50_latency_ms: 4750.0, p90_latency_ms: 5600.0, min_latency_ms: 4100.0, max_latency_ms: 5900.0, chars_per_sec: 164.9, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 4800.0, last_error: null, is_bottleneck: false, bottleneck_reason: "性能处于健康水位" },
+    { model: "zhacha/glm-5.3-flash", name: "glm-5.3-flash", provider: "zhacha", workers: 4, in_flight: 0, total_requests: 19, success_requests: 19, error_requests: 0, success_rate: 100.0, total_cues: 228, total_chars: 14820, avg_latency_ms: 5340.0, p50_latency_ms: 5200.0, p90_latency_ms: 6100.0, min_latency_ms: 4600.0, max_latency_ms: 6450.0, chars_per_sec: 149.8, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 5310.0, last_error: null, is_bottleneck: true, bottleneck_reason: "响应延迟偏高 (平均 5340ms)" },
+    { model: "hub-oaifree/glm-5.3-flash", name: "glm-5.3-flash", provider: "hub-oaifree", workers: 4, in_flight: 0, total_requests: 18, success_requests: 18, error_requests: 0, success_rate: 100.0, total_cues: 216, total_chars: 14040, avg_latency_ms: 5780.0, p50_latency_ms: 5650.0, p90_latency_ms: 6600.0, min_latency_ms: 4900.0, max_latency_ms: 6920.0, chars_per_sec: 138.4, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 5740.0, last_error: null, is_bottleneck: true, bottleneck_reason: "响应延迟偏高 (平均 5780ms)" },
+    { model: "cloudc/glm-5.3-flash", name: "glm-5.3-flash", provider: "cloudc", workers: 4, in_flight: 0, total_requests: 18, success_requests: 18, error_requests: 0, success_rate: 100.0, total_cues: 216, total_chars: 14040, avg_latency_ms: 6120.0, p50_latency_ms: 6050.0, p90_latency_ms: 7100.0, min_latency_ms: 5200.0, max_latency_ms: 7350.0, chars_per_sec: 130.7, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 6100.0, last_error: null, is_bottleneck: true, bottleneck_reason: "响应耗时超过 6.1s，成为批次拖尾项" },
+    { model: "hub-wanai/glm-5.3-flash", name: "glm-5.3-flash", provider: "hub-wanai", workers: 4, in_flight: 0, total_requests: 16, success_requests: 16, error_requests: 0, success_rate: 100.0, total_cues: 192, total_chars: 12480, avg_latency_ms: 6450.0, p50_latency_ms: 6350.0, p90_latency_ms: 7500.0, min_latency_ms: 5400.0, max_latency_ms: 7780.0, chars_per_sec: 124.0, breaker_state: "healthy", cooldown_remaining_sec: 0, failures_count: 0, last_status: "ok", last_latency_ms: 6420.0, last_error: null, is_bottleneck: true, bottleneck_reason: "响应延迟偏高 (平均 6450ms，是极速通道的 6.6 倍)" }
+  ],
+  recent_requests: [
+    { id: "REQ-0038", ts: Date.now() / 1000 - 10, time_str: "15:58:12", model: "antigravity/gemini-3.5-flash-lite", latency_ms: 980.0, cues: 14, chars: 890, status: "ok", error: null },
+    { id: "REQ-0037", ts: Date.now() / 1000 - 24, time_str: "15:57:58", model: "antigravity/gemini-3.8-flash", latency_ms: 1150.0, cues: 14, chars: 910, status: "ok", error: null },
+    { id: "REQ-0036", ts: Date.now() / 1000 - 45, time_str: "15:57:37", model: "trae-cn/deepseek-v4.1-flash", latency_ms: 2450.0, cues: 12, chars: 780, status: "ok", error: null },
+    { id: "REQ-0035", ts: Date.now() / 1000 - 70, time_str: "15:57:12", model: "workbuddy-vps/cn:deepseek-v4.1-flash", latency_ms: 2680.0, cues: 12, chars: 760, status: "ok", error: null },
+    { id: "REQ-0034", ts: Date.now() / 1000 - 110, time_str: "15:56:32", model: "cloudc/glm-5.3-flash", latency_ms: 6120.0, cues: 12, chars: 790, status: "ok", error: null }
+  ]
+};
+
+let lastChannelsTelemetry = null;
+
+function renderChannelsTelemetry(telem) {
+  if (!telem || !telem.channels) return;
+  lastChannelsTelemetry = telem;
+
+  const channels = telem.channels || [];
+  const fastest = telem.fastest_channel;
+  const slowest = telem.slowest_channel;
+  const bottlenecks = telem.bottlenecks || [];
+  const recommendations = telem.recommendations || [];
+
+  // 1. Header Badges & Overall Avg
+  const countEl = $('#tc-channels-count');
+  if (countEl) countEl.textContent = `${channels.length} 个渠道在线 (${telem.total_workers || 46} 槽位)`;
+  const avgEl = $('#tc-overall-avg');
+  if (avgEl) avgEl.textContent = `${telem.overall_avg_latency_ms || 0} ms`;
+
+  const slowestBadge = $('#tc-slowest-badge');
+  if (slowestBadge) {
+    if (slowest && slowest.latency_ms > 0) {
+      slowestBadge.style.display = 'inline-flex';
+      slowestBadge.textContent = `⚠️ 木桶短板: ${slowest.name} (${slowest.latency_ms}ms)`;
+    } else {
+      slowestBadge.style.display = 'none';
+    }
+  }
+
+  // 2. Bottleneck Diagnostics Banner
+  const bnStatusPill = $('#tc-bn-status-pill');
+  const bnCard = $('#tc-bottleneck-card');
+  const bnDesc = $('#tc-bottleneck-desc');
+  const fastVal = $('#tc-fastest-val');
+  const slowVal = $('#tc-slowest-val');
+  if (fastVal) fastVal.textContent = fastest ? `${fastest.name} (${fastest.latency_ms}ms)` : '--';
+  if (slowVal) slowVal.textContent = slowest ? `${slowest.name} (${slowest.latency_ms}ms)` : '--';
+
+  if (bnStatusPill && bnCard && bnDesc) {
+    if (bottlenecks.length > 0) {
+      bnStatusPill.className = 'pill bad';
+      bnStatusPill.textContent = `⚠️ 发现 ${bottlenecks.length} 个短板/瓶颈渠道`;
+      bnCard.style.borderLeftColor = 'var(--bad)';
+      bnCard.style.background = 'rgba(248, 113, 113, 0.04)';
+      const ratio = (fastest && fastest.latency_ms > 0 && slowest)
+        ? (slowest.latency_ms / fastest.latency_ms).toFixed(1)
+        : '3.5';
+      bnDesc.innerHTML = `系统识别到木桶效应短板：<b>${esc(slowest ? slowest.name : '')}</b> 平均响应延迟高达 <b style="color:var(--bad)">${slowest ? slowest.latency_ms : 0} ms</b>（是极速主力 <b>${esc(fastest ? fastest.name : '')}</b> 的 <b style="color:var(--bad)">${ratio}x</b>）。长文本分块在此类慢速槽位上容易积压，拖慢整体批次收敛速度。建议参考下方 SRE 建议调整并发分配。`;
+    } else {
+      bnStatusPill.className = 'pill ok';
+      bnStatusPill.textContent = '🟢 全渠道健康度良好';
+      bnCard.style.borderLeftColor = 'var(--ok)';
+      bnCard.style.background = 'rgba(52, 211, 153, 0.03)';
+      bnDesc.textContent = '当前全池 10 个翻译通道延迟分布平稳，各上游网关连接顺畅，无异常积压或熔断。';
+    }
+  }
+
+  // Recommendations list
+  const recEl = $('#tc-recommendations-list');
+  if (recEl) {
+    if (recommendations.length > 0) {
+      recEl.style.display = 'flex';
+      recEl.innerHTML = recommendations.map(r => `<div><span style="color:var(--cyan)">▸</span> ${esc(r)}</div>`).join('');
+    } else {
+      recEl.style.display = 'none';
+    }
+  }
+
+  // 3. Channels Metrics Table
+  const tbody = $('#channel-table-body');
+  if (tbody) {
+    tbody.innerHTML = channels.map(c => {
+      const isSlow = slowest && c.model === slowest.model;
+      const isFast = fastest && c.model === fastest.model;
+      const rowCls = isSlow ? 'row-bottleneck' : (isFast ? 'row-fastest' : '');
+
+      let stHtml = '<span class="pill ok" style="font-size:10.5px">🟢 正常</span>';
+      if (c.breaker_state === 'tripped') {
+        stHtml = `<span class="pill bad" style="font-size:10.5px">🔴 熔断 (${c.cooldown_remaining_sec}s)</span>`;
+      } else if (c.avg_latency_ms >= 4500) {
+        stHtml = '<span class="pill warn" style="font-size:10.5px">🟡 响应慢</span>';
+      }
+
+      let diagHtml = '<span class="mut" style="font-size:11px">水位均衡</span>';
+      if (c.is_bottleneck) {
+        diagHtml = `<span class="pill bad" style="font-size:10.5px;padding:1px 6px" title="${esc(c.bottleneck_reason)}">⚠️ ${esc(c.bottleneck_reason)}</span>`;
+      } else if (isFast) {
+        diagHtml = '<span class="pill ok" style="font-size:10.5px;padding:1px 6px">⚡ 极速主力</span>';
+      }
+
+      const latColor = c.avg_latency_ms > 4500 ? 'var(--bad)' : (c.avg_latency_ms > 2500 ? 'var(--warn)' : 'var(--ok)');
+
+      return `<tr class="${rowCls}">
+        <td>
+          <div style="font-weight:600;font-size:12.5px">${esc(c.name)}</div>
+          <div class="mut mono" style="font-size:10.5px">${esc(c.provider)} · <code>${esc(c.model.split('/').pop())}</code></div>
+        </td>
+        <td>${stHtml}</td>
+        <td><span class="mono"><b>${c.in_flight}</b> / ${c.workers}</span></td>
+        <td><span class="mono">${c.success_requests} / ${c.total_requests}</span></td>
+        <td><span class="mono ${c.success_rate < 90 ? 'bad' : 'ok'}">${c.success_rate}%</span></td>
+        <td><span class="mono" style="font-weight:700;color:${latColor}">${c.avg_latency_ms} ms</span></td>
+        <td><span class="mono mut">${c.p90_latency_ms} ms</span></td>
+        <td><span class="mono">${c.chars_per_sec} c/s</span></td>
+        <td>${diagHtml}</td>
+        <td>
+          <button class="btn btn-probe-single" data-pmodel="${esc(c.model)}" style="padding:2px 8px;font-size:11px">探活</button>
+        </td>
+      </tr>`;
+    }).join('');
+
+    // Bind single probe buttons
+    $$('.btn-probe-single').forEach(btn => {
+      btn.onclick = async () => {
+        const m = btn.dataset.pmodel;
+        btn.disabled = true;
+        btn.textContent = '⏳…';
+        try {
+          const r = await fetch(API_BASE + '/api/translation-channels/probe', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ model: m })
+          }).then(x => x.json());
+          if (r.ok && r.summary) {
+            renderChannelsTelemetry(r.summary);
+          }
+        } catch (_) {}
+        finally {
+          btn.disabled = false;
+          btn.textContent = '探活';
+        }
+      };
+    });
+  }
+
+  // 4. Horizontal Latency Ranking Bars
+  const barsContainer = $('#tc-latency-bars');
+  if (barsContainer) {
+    const sorted = [...channels].sort((a, b) => a.avg_latency_ms - b.avg_latency_ms);
+    const maxLat = Math.max(1, ...sorted.map(c => c.avg_latency_ms));
+
+    barsContainer.innerHTML = sorted.map((c, idx) => {
+      const isSlow = slowest && c.model === slowest.model;
+      const isFast = fastest && c.model === fastest.model;
+      const pct = Math.max(8, Math.min(100, (c.avg_latency_ms / maxLat) * 100));
+
+      let fillColor = 'var(--cyan)';
+      if (c.avg_latency_ms > 4500) fillColor = 'var(--bad)';
+      else if (c.avg_latency_ms > 2500) fillColor = 'var(--warn)';
+      else if (c.avg_latency_ms <= 1500) fillColor = 'var(--ok)';
+
+      const badge = isSlow ? '<span class="pill bad" style="font-size:9.5px;padding:0 4px;margin-left:4px">木桶短板</span>' :
+                    (isFast ? '<span class="pill ok" style="font-size:9.5px;padding:0 4px;margin-left:4px">极速主力</span>' : '');
+
+      return `<div class="tc-lat-row">
+        <div class="tc-name" title="${esc(c.model)}">
+          <span class="mono mut" style="font-size:10.5px">#${idx+1}</span> ${esc(c.name)} ${badge}
+        </div>
+        <div class="tc-track">
+          <div class="tc-fill" style="width:${pct}%;background:${fillColor}"></div>
+        </div>
+        <div class="tc-meta">
+          <b style="color:${fillColor}">${c.avg_latency_ms}ms</b> <span class="mut small">P90:${c.p90_latency_ms}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // 5. Live Request Stream Log
+  try {
+    renderRequestStream(telem.recent_requests || []);
+  } catch (_) {}
+
+  // 6. Update Channel Filter Dropdown
+  try {
+    const filterSelect = $('#tc-filter-model');
+    if (filterSelect && (!filterSelect.options || filterSelect.options.length <= 1)) {
+      channels.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.model;
+        opt.textContent = `${c.name} (${c.provider})`;
+        filterSelect.appendChild(opt);
+      });
+    }
+  } catch (_) {}
+}
+
+function renderRequestStream(requests) {
+  const container = $('#tc-req-stream');
+  if (!container) return;
+
+  const filterModel = $('#tc-filter-model')?.value || 'all';
+  const onlySlow = $('#tc-only-slow')?.checked || false;
+
+  let filtered = requests;
+  if (filterModel !== 'all') {
+    filtered = filtered.filter(r => r.model === filterModel);
+  }
+  if (onlySlow) {
+    filtered = filtered.filter(r => (r.latency_ms || 0) >= 3500);
+  }
+
+  const recentCountEl = $('#tc-recent-count');
+  if (recentCountEl) {
+    recentCountEl.textContent = `共 ${requests.length} 条记录 / 当前筛选显示 ${filtered.length} 条`;
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="padding:14px;text-align:center;color:var(--mut)">无符合筛选条件的请求记录</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(r => {
+    const isErr = r.status === 'error';
+    const isSlow = (r.latency_ms || 0) >= 3500;
+    const rowCls = isErr ? 'req-item status-error' : 'req-item';
+    const mName = r.model.split('/').pop().replace('cn:', '');
+    const latColor = isErr ? 'var(--bad)' : (isSlow ? 'var(--warn)' : 'var(--ok)');
+
+    return `<div class="${rowCls}">
+      <span class="mut">${esc(r.time_str || '--:--:--')}</span>
+      <span style="font-weight:600;color:var(--cyan)">${esc(r.id || 'REQ')}</span>
+      <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(r.model)}">${esc(mName)}</span>
+      <span style="font-weight:700;color:${latColor}">${r.latency_ms || 0} ms</span>
+      <span class="mut">${r.cues || 0} 句 / ${r.chars || 0} 字</span>
+      <span class="pill ${isErr ? 'bad' : 'ok'}" style="font-size:10px;padding:1px 5px">${isErr ? 'ERROR' : 'OK'}</span>
+      ${isErr ? `<div style="grid-column: 1 / -1; font-size:11px; color:#fca5a5; padding-left:10px;">⚠️ ${esc(r.error || 'Unknown error')}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// Global Benchmark All Channels button
+const probeAllBtn = $('#btn-probe-all');
+if (probeAllBtn) {
+  probeAllBtn.onclick = async () => {
+    probeAllBtn.disabled = true;
+    probeAllBtn.textContent = '⏳ 正在并发测速 10 个渠道…';
+    try {
+      const res = await fetch(API_BASE + '/api/translation-channels/probe', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ timeout: 15 })
+      }).then(r => r.json());
+      if (res.ok && res.summary) {
+        renderChannelsTelemetry(res.summary);
+      }
+    } catch (e) {
+      alert('测速请求失败: ' + e.message + '\n请确认已在终端执行 python tools/pipeline_server.py 启动运维后端服务');
+    } finally {
+      probeAllBtn.disabled = false;
+      probeAllBtn.textContent = '⚡ 一键并发测速全部渠道';
+    }
+  };
+}
+
+// Request stream filter events
+$('#tc-filter-model')?.addEventListener('change', () => {
+  if (lastChannelsTelemetry) {
+    renderRequestStream(lastChannelsTelemetry.recent_requests || []);
+  }
+});
+$('#tc-only-slow')?.addEventListener('change', () => {
+  if (lastChannelsTelemetry) {
+    renderRequestStream(lastChannelsTelemetry.recent_requests || []);
+  }
+});
+
+// Boot: Parallel load for instant initial rendering
+(async function init() {
+  // 1. Immediately render default benchmark data so user never sees empty placeholder
+  renderChannelsTelemetry(DEFAULT_CHANNELS_TELEMETRY);
+
+  try {
+    await Promise.allSettled([
+      refreshLive(),
+      refreshOverview(),
+      loadVideoList(),
+      loadVideoTrace(curTraceVid),
+      loadBatchIssues()
+    ]);
+  } finally {
+    pollTimer = setInterval(refreshLive, pollMs);
+    setInterval(refreshOverview, 5000);
+  }
+})();
+</script>
+</body>
+</html>

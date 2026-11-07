@@ -1,8 +1,9 @@
 import { el, debounce, toast } from './ui.js';
-import { load, indexByVid, store } from './data.js';
+import { load, indexByVid, store, seriesData } from './data.js';
 import { parse } from './router.js';
 import * as home from './home.js';
 import * as watch from './watch.js';
+import * as seriesList from './series.js';
 
 const view = document.getElementById('view');
 const searchForm = document.getElementById('search-form');
@@ -24,6 +25,7 @@ const state = {
   feedComplete: false,
   meta: { areas: [] },
   areaNames: new Map(),
+  seriesInfo: new Map(),
   mounted: null,
   lastRoute: null,
   lastListKey: '',
@@ -36,6 +38,7 @@ const context = {
   get feedComplete() { return state.feedComplete; },
   get meta() { return state.meta; },
   areaName: (id) => state.areaNames.get(id) || '',
+  seriesInfo: (vid) => state.seriesInfo.get(vid) || null,
   setTitle: (title) => { document.title = title; },
   syncNav,
 };
@@ -59,6 +62,7 @@ async function boot() {
   window.addEventListener('hashchange', render);
   render();
   loadRemainingFeed();
+  loadSeriesIndex();
 }
 
 /** Pull the rest of the catalogue in after the first paint. */
@@ -72,6 +76,22 @@ async function loadRemainingFeed() {
     }
   } finally {
     state.feedComplete = true;
+    state.mounted?.refresh?.();
+  }
+}
+
+/** 合集索引（vid → { series, index, total }）；加载完成后补首页角标。 */
+async function loadSeriesIndex() {
+  const { byVid, byId } = await seriesData();
+  const info = new Map();
+  for (const [vid, id] of byVid) {
+    const series = byId.get(id);
+    if (!series || !Array.isArray(series.vids)) continue;
+    const index = series.vids.indexOf(vid);
+    if (index >= 0) info.set(vid, { series, index, total: series.vids.length });
+  }
+  state.seriesInfo = info;
+  if (state.lastRoute && state.lastRoute.view !== 'watch') {
     state.mounted?.refresh?.();
   }
 }
@@ -116,6 +136,14 @@ function render() {
     window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = 'HackerTube 中文';
     state.mounted = watch.show(view, route, context) || null;
+  } else if (route.view === 'series') {
+    const key = routeKey(route);
+    const returningFromWatch = state.lastRoute?.view === 'watch';
+    const restored = returningFromWatch ? state.scrollMemory.get(key) : null;
+    state.lastListKey = key;
+    document.title = '系列合集 · HackerTube 中文';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    state.mounted = seriesList.showSeriesList(view, route, context, restored);
   } else {
     const key = routeKey(route);
     const returningFromWatch = state.lastRoute?.view === 'watch';

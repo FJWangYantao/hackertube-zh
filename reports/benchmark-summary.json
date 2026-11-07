@@ -1,0 +1,45 @@
+{
+ "word_counts": {
+  "youtube": 213,
+  "whisper": 203,
+  "deepgram": 212
+ },
+ "whisper": {
+  "wer_vs_youtube": 0.061,
+  "sub": 3,
+  "del": 10,
+  "ins": 0
+ },
+ "deepgram": {
+  "wer_vs_youtube": 0.0329,
+  "sub": 6,
+  "del": 1,
+  "ins": 0
+ },
+ "whisper_vs_deepgram": {
+  "disagreement_rate": 0.0591
+ },
+ "top_substitutions": [
+  [
+   [
+    "18",
+    "EIGHTEEN"
+   ],
+   1
+  ],
+  [
+   [
+    "LOOK",
+    "LOOKED"
+   ],
+   1
+  ],
+  [
+   [
+    "AND",
+    "THAN"
+   ],
+   1
+  ]
+ ]
+}

@@ -222,7 +222,7 @@ class HybridTests(unittest.TestCase):
         for kwargs in ({"queue_low": 3, "queue_high": 3}, {"queue_low": -1}, {"queue_high": 0}):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 self.make_pipeline(**kwargs)
-        for recognizers in ({"local": (2, self.recognize)}, {"deepgram": (3, self.recognize)}):
+        for recognizers in ({"local": (2, self.recognize)}, {"deepgram": (7, self.recognize)}):
             with self.assertRaises(ValueError):
                 self.make_pipeline(recognizers)
         pipeline = self.make_pipeline()

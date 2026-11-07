@@ -27,6 +27,8 @@ let savedSet = new Set();
 let visitedSet = new Set();
 let chipsBarEl;
 let chipsEl;
+let subChipsEl;
+let channelHeroEl;
 let levelEl;
 let sortEl;
 let headEl;
@@ -82,6 +84,8 @@ function renderShell() {
   });
 
   chipsBarEl = el('div', { class: 'chips-bar' }, chipsEl, levelEl, sortEl);
+  subChipsEl = el('div', { class: 'sub-chips', role: 'group', 'aria-label': '二级细分主题', hidden: true });
+  channelHeroEl = el('div', { class: 'channel-hero', hidden: true });
   titleEl = el('h1', {});
   countEl = el('p', { class: 'count' });
   headActionEl = el('div', { class: 'head-actions' });
@@ -93,6 +97,8 @@ function renderShell() {
   container.replaceChildren(
     el('section', { class: 'feed' },
       chipsBarEl,
+      subChipsEl,
+      channelHeroEl,
       headEl,
       railsEl,
       subHitsEl,
@@ -107,6 +113,7 @@ function apply(initialCount = PAGE) {
   visitedSet = new Set(store.list('visited'));
   chipsBarEl.hidden = viewName !== 'feed';
   buildChips();
+  buildSubChips();
   renderHomeRails();
   levelEl.value = params.get('level') || '';
   sortEl.value = params.get('sort') || 'score';
@@ -123,6 +130,8 @@ function apply(initialCount = PAGE) {
 /** Recompute the list after more rows arrive, keeping the current position. */
 function refresh() {
   const keep = Math.max(shown, PAGE);
+  buildSubChips();
+  renderHomeRails();
   list = buildList();
   shown = 0;
   renderBatch(true, keep);
@@ -141,7 +150,8 @@ function buildChips() {
   const discussed = params.get('discussed') === '1';
   const sub = params.get('sub') === '1';
   const channel = params.get('channel') || '';
-  const hasFilter = Boolean(area || type || level || discussed || sub || channel);
+  const cat = params.get('cat') || '';
+  const hasFilter = Boolean(area || type || level || discussed || sub || channel || cat);
 
   const chips = [
     chipButton('全部', !hasFilter, () => {
@@ -151,6 +161,7 @@ function buildChips() {
       params.delete('discussed');
       params.delete('sub');
       params.delete('channel');
+      params.delete('cat');
       sync();
     }),
   ];
@@ -158,6 +169,7 @@ function buildChips() {
   if (area) {
     chips.push(chipButton(`${ctx.areaName(area) || area} ×`, true, () => {
       params.delete('area');
+      params.delete('cat');
       sync();
     }));
   }
@@ -208,6 +220,62 @@ function chipButton(label, pressed, onClick) {
   }, label);
 }
 
+/** 领域（area）下的二级分类下钻栏：仅当 URL 带 area 时展开。 */
+function buildSubChips() {
+  const area = params.get('area') || '';
+  const cat = params.get('cat') || '';
+  if (viewName !== 'feed' || !area) {
+    subChipsEl.hidden = true;
+    subChipsEl.replaceChildren();
+    return;
+  }
+  const areaMeta = (ctx.meta?.areas || []).find((entry) => entry.id === area);
+  const categories = areaMeta?.categories || [];
+  const includeAll = params.get('all') === '1';
+  const counts = new Map();
+  if (categories.length) {
+    for (const video of ctx.feed) {
+      if (video.area !== area) continue;
+      if (!includeAll && ((video.recommenders || 0) <= 0 || video.shelf_life === 'news')) {
+        continue;
+      }
+      for (const name of video.categories || []) {
+        if (!categories.includes(name)) continue;
+        counts.set(name, (counts.get(name) || 0) + 1);
+      }
+    }
+  }
+  const rows = [...counts.entries()]
+    .filter(([, n]) => n > 0)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  if (!rows.length) {
+    subChipsEl.hidden = true;
+    subChipsEl.replaceChildren();
+    return;
+  }
+  subChipsEl.replaceChildren(
+    subChip('全部细分', !cat, () => {
+      params.delete('cat');
+      sync();
+    }),
+    ...rows.map(([name, n]) => subChip(`${name} ${n}`, cat === name, () => {
+      if (cat === name) params.delete('cat');
+      else params.set('cat', name);
+      sync();
+    })),
+  );
+  subChipsEl.hidden = false;
+}
+
+function subChip(label, pressed, onClick) {
+  return el('button', {
+    class: 'chip sub-chip',
+    type: 'button',
+    'aria-pressed': pressed ? 'true' : 'false',
+    on: { click: onClick },
+  }, label);
+}
+
 function setParam(key, value) {
   if (value) params.set(key, value);
   else params.delete(key);
@@ -235,6 +303,7 @@ function buildList() {
   const type = params.get('type') || '';
   const level = params.get('level') || '';
   const channel = params.get('channel') || '';
+  const cat = params.get('cat') || '';
   const discussed = params.get('discussed') === '1';
   const sub = params.get('sub') === '1';
   const terms = (params.get('q') || '').trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -251,6 +320,7 @@ function buildList() {
     }
   }
   if (area) rows = rows.filter((video) => video.area === area);
+  if (cat) rows = rows.filter((video) => (video.categories || []).includes(cat));
   if (type) rows = rows.filter((video) => video.content_type === type);
   if (level) rows = rows.filter((video) => video.level === level);
   if (channel) rows = rows.filter((video) => video.channel === channel);
@@ -402,14 +472,21 @@ function card(video) {
       hasResume ? `已看 ${formatClock(progress.t)}` : '已看'));
   }
 
-  if (video.has_sub || video.comment_count > 0) {
-    const badges = el('div', { class: 'thumb-badges' });
-    if (video.has_sub) {
-      badges.append(el('span', { class: 'badge badge-sub', title: '站内提供中英双语字幕' }, '中字'));
-    }
-    if (video.comment_count > 0) {
-      badges.append(el('span', { class: 'badge' }, `${video.comment_count} 条讨论`));
-    }
+  const badges = el('div', { class: 'thumb-badges' });
+  const sInfo = ctx.seriesInfo?.(video.vid);
+  if (sInfo) {
+    badges.append(el('span', {
+      class: 'badge badge-series',
+      title: `所属合集：${sInfo.series.title}（第 ${sInfo.index + 1} / ${sInfo.total} 集）`,
+    }, `合集 ${sInfo.index + 1}/${sInfo.total}`));
+  }
+  if (video.has_sub) {
+    badges.append(el('span', { class: 'badge badge-sub', title: '站内提供中英双语字幕' }, '中字'));
+  }
+  if (video.comment_count > 0) {
+    badges.append(el('span', { class: 'badge' }, `${video.comment_count} 条讨论`));
+  }
+  if (badges.childElementCount > 0) {
     thumbNode.append(badges);
   }
 
@@ -539,6 +616,7 @@ function exportUserData() {
     saved: store.list('saved'),
     visited: store.list('visited'),
     progress: store.get('progress', {}),
+    notes: store.get('notes', {}),
   };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -573,7 +651,18 @@ function triggerImportUserData() {
         const currentProg = store.get('progress', {});
         store.set('progress', { ...data.progress, ...currentProg });
       }
-      toast('已恢复收藏与浏览记录');
+      if (data.notes && typeof data.notes === 'object' && !Array.isArray(data.notes)) {
+        const currentNotes = store.get('notes', {});
+        const mergedNotes = { ...currentNotes };
+        for (const [vid, rows] of Object.entries(data.notes)) {
+          if (!Array.isArray(rows)) continue;
+          const known = new Set((mergedNotes[vid] || []).map((note) => note.id));
+          const additions = rows.filter((note) => note && note.id && !known.has(note.id));
+          if (additions.length) mergedNotes[vid] = [...(mergedNotes[vid] || []), ...additions];
+        }
+        store.set('notes', mergedNotes);
+      }
+      toast('已恢复收藏、记录与随手记');
       apply(shown);
     } catch {
       toast('备份文件格式有误');
@@ -583,17 +672,105 @@ function triggerImportUserData() {
   input.click();
 }
 
+/** 频道聚合页头部卡片：聚合统计 + 领域徽章 + 快捷过滤。 */
+function buildChannelHero() {
+  const channel = viewName === 'feed' ? (params.get('channel') || '') : '';
+  const includeAll = params.get('all') === '1';
+  const channelVideos = channel
+    ? ctx.feed.filter((video) => video.channel === channel
+      && (includeAll || ((video.recommenders || 0) > 0 && video.shelf_life !== 'news')))
+    : [];
+  if (!channel || !channelVideos.length) {
+    channelHeroEl.hidden = true;
+    channelHeroEl.replaceChildren();
+    return;
+  }
+
+  const totalRecs = channelVideos.reduce((sum, video) => sum + (video.recommenders || 0), 0);
+  const subCount = channelVideos.filter((video) => video.has_sub).length;
+  const firstYears = channelVideos.map((video) => video.first_year).filter(Boolean);
+  const lastYears = channelVideos.map((video) => video.last_year).filter(Boolean);
+  const yearSpan = firstYears.length
+    ? `${Math.min(...firstYears)}–${Math.max(...(lastYears.length ? lastYears : firstYears))}`
+    : '';
+  const areaCounts = new Map();
+  for (const video of channelVideos) {
+    if (!video.area) continue;
+    areaCounts.set(video.area, (areaCounts.get(video.area) || 0) + 1);
+  }
+  const topAreas = [...areaCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3);
+
+  const stat = (num, label) => el('div', { class: 'hero-stat' },
+    el('span', { class: 'hero-stat-num' }, num),
+    el('span', { class: 'hero-stat-label' }, label));
+
+  const sub = params.get('sub') === '1';
+  const subBtn = el('button', {
+    class: 'chip hero-chip',
+    type: 'button',
+    'aria-pressed': sub ? 'true' : 'false',
+    on: {
+      click: () => {
+        if (sub) params.delete('sub');
+        else params.set('sub', '1');
+        sync();
+      },
+    },
+  }, sub ? '看全部视频' : `仅看有中字 (${subCount})`);
+  const clearBtn = el('button', {
+    class: 'chip hero-chip',
+    type: 'button',
+    on: {
+      click: () => {
+        params = new URLSearchParams();
+        sync();
+      },
+    },
+  }, '清除筛选');
+
+  channelHeroEl.replaceChildren(
+    avatar(channel, 'xl'),
+    el('div', { class: 'hero-main' },
+      el('h1', { class: 'hero-title' }, channel),
+      el('div', { class: 'hero-stats' },
+        stat(channelVideos.length.toLocaleString('zh-CN'), '收录视频'),
+        stat(totalRecs.toLocaleString('zh-CN'), 'HN 推荐人次'),
+        stat(`${subCount}/${channelVideos.length}`, '中文字幕覆盖'),
+        yearSpan ? stat(yearSpan, '活跃年份') : null,
+      ),
+      topAreas.length ? el('div', { class: 'hero-areas' },
+        ...topAreas.map(([id, n]) => el('a', {
+          class: 'hero-area-badge',
+          href: `#/feed?area=${encodeURIComponent(id)}`,
+          title: `切换到「${ctx.areaName(id) || id}」领域`,
+        }, `${ctx.areaName(id) || id} · ${n}`)),
+      ) : null,
+    ),
+    el('div', { class: 'hero-actions' }, subBtn, clearBtn),
+  );
+  channelHeroEl.hidden = false;
+}
+
 function updateHead() {
   const area = params.get('area') || '';
   const type = params.get('type') || '';
   const level = params.get('level') || '';
   const channel = params.get('channel') || '';
+  const cat = params.get('cat') || '';
   const query = (params.get('q') || '').trim();
   const discussed = params.get('discussed') === '1';
   const sub = params.get('sub') === '1';
   const all = params.get('all') === '1';
   const isFilteredFeed = viewName === 'feed'
-    && (area || type || level || channel || query || discussed || sub || all);
+    && (area || type || level || channel || cat || query || discussed || sub || all);
+
+  buildChannelHero();
+
+  if (viewName === 'feed' && !channelHeroEl.hidden) {
+    // 频道聚合页：hero 卡片自带统计与清除按钮，替代常规头部。
+    headEl.hidden = true;
+    return;
+  }
 
   if (viewName === 'feed' && !isFilteredFeed) {
     headEl.hidden = true;
@@ -609,6 +786,7 @@ function updateHead() {
   else {
     const parts = [
       area ? ctx.areaName(area) : '',
+      cat,
       channel,
       type ? typeLabel(type) : '',
       level ? levelLabel(level, { includeGeneral: true }) : '',

@@ -3,13 +3,22 @@ import {
 } from './ui.js';
 import { comments as loadComments, load, store, subs as loadSubs, chapters as loadChapters } from './data.js';
 import { renderComments } from './comments.js';
-import { createOverlay, loadYouTubeApi, renderTranscript } from './subtitles.js';
+import { createOverlay, loadYouTubeApi, renderTranscript, findActiveStreamCue } from './subtitles.js';
 import { go } from './router.js';
 import { loadSeriesFor, buildSeriesPanel, nextEpisode } from './series.js';
 
 const RELATED_LIMIT = 12;
 const RELATED_MIN = 8;
 const NEXT_COUNTDOWN_SECONDS = 5;
+const RATE_STEPS = [0.75, 1, 1.25, 1.5, 1.75, 2];
+
+function normalizeRate(value) {
+  return RATE_STEPS.includes(Number(value)) ? Number(value) : 1;
+}
+
+function formatRate(rate) {
+  return `${rate}x`;
+}
 
 /**
  * Video id of an in-flight auto-advance: set right before navigating to the
@@ -57,6 +66,7 @@ export function show(container, route, ctx) {
 
   let destroyed = false;
   let transcript = null;
+  let cues = [];
   let toggleRailTab = null;
   let chapterBar = null;
   let cachedRelatedMap = {};
@@ -94,9 +104,21 @@ export function show(container, route, ctx) {
     : null;
   const commentCount = video.comment_count || 0;
   const subtitleBtn = buildSubtitleButton(player);
+  const subSizeGroup = buildSubtitleSizeControls(player);
+  const rateBtn = buildRateButton(player);
   const theaterBtn = buildTheaterButton();
   const autoplayBtn = buildAutoplayButton();
   const fullscreenBtn = buildFullscreenButton(player);
+  const notesBtn = el('button', {
+    class: 'btn',
+    type: 'button',
+    title: '在当前时间点添加随手记 / 书签（快捷键 B）',
+  }, '随手记');
+  const helpBtn = el('button', {
+    class: 'btn',
+    type: 'button',
+    title: '键盘快捷键速查（快捷键 ?）',
+  }, '快捷键 ?');
   let watchRoot = null;
   const setTheater = (on, announce = false) => {
     watchRoot?.classList.toggle('is-theater', on);
@@ -113,9 +135,45 @@ export function show(container, route, ctx) {
   player.onFallback = () => {
     canSync = false;
     subtitleBtn.hidden = true;
+    subSizeGroup.hidden = true;
   };
+  player.onRateChange = (value) => {
+    rateBtn.textContent = formatRate(value);
+  };
+
+  // ── 随手记 / 时间戳书签 ──
+  const cueTextAt = (seconds) => {
+    if (!cues.length) return '';
+    const idx = findActiveStreamCue(cues, seconds);
+    return idx >= 0 ? (cues[idx].zh || '') : '';
+  };
+  const notesCard = buildNotesCard({
+    video,
+    onSeek: (t) => seekAndScroll(t),
+    onChanged: () => syncNotesUi(),
+  });
+  const syncNotesUi = () => {
+    const count = store.getNotes(video.vid).length;
+    notesBtn.textContent = count ? `随手记 (${count})` : '随手记';
+    notesCard.render();
+    transcript?.refreshNotes?.();
+  };
+  const noteEditor = buildNoteEditor({
+    getTime: () => player.getCurrentTime(),
+    getCueText: cueTextAt,
+    onSave: (t, text, cueText) => {
+      store.addNote(video.vid, { t, text, cueZh: cueText });
+      toast(`已保存随手记 · ${formatClock(t)}`);
+      syncNotesUi();
+    },
+  });
+  notesBtn.addEventListener('click', () => noteEditor.open());
+  const kbdHelp = buildKbdHelp();
+  helpBtn.addEventListener('click', () => kbdHelp.toggle());
+
   const { row: channel, toggleSave } = buildChannel(
-    video, commentCount, player, [subtitleBtn, theaterBtn, autoplayBtn, fullscreenBtn],
+    video, commentCount, player,
+    [subtitleBtn, subSizeGroup, rateBtn, theaterBtn, autoplayBtn, fullscreenBtn, notesBtn, helpBtn],
   );
   const description = buildDescription(video, ctx);
   const commentsBox = el('section', { class: 'comments' });
@@ -137,6 +195,9 @@ export function show(container, route, ctx) {
   );
   if (english) main.append(english);
   main.append(channel, description);
+  // 我的笔记与书签：折叠卡片放在简介上方，无笔记时自动隐藏。
+  main.insertBefore(notesCard.node, description);
+  syncNotesUi();
 
   // AI outline: chapter strip under the player + TL;DR card above the description.
   chaptersPromise.then((data) => {
@@ -252,21 +313,23 @@ export function show(container, route, ctx) {
   };
   player.onPlaying = () => clearNextPanel();
 
-  watchRoot = el('div', { class: 'watch' }, main, rail, commentsBox);
+  watchRoot = el('div', { class: 'watch' }, main, rail, commentsBox, kbdHelp.node, noteEditor.node);
   container.replaceChildren(watchRoot);
   setTheater(store.get('theater', false) === true);
 
   loadSubs(video.vid).then(async (payload) => {
     if (destroyed) return;
-    const cues = (payload?.cues || []).filter((cue) => cue.zh);
+    cues = (payload?.cues || []).filter((cue) => cue.zh);
     if (!cues.length) return;
     player.setCues(cues);
     subtitleBtn.hidden = !canSync;
+    subSizeGroup.hidden = !canSync;
     const chapterData = await chaptersPromise;
     if (destroyed) return;
     transcript = renderTranscript(cues, seekAndScroll, {
       chapters: chapterData?.chapters || [],
       meta: { vid: video.vid, title: video.title_zh || video.title },
+      onNotesChange: syncNotesUi,
     });
     if (initialStart > 0) transcript.update(initialStart);
 
@@ -326,9 +389,25 @@ export function show(container, route, ctx) {
   document.addEventListener('fullscreenchange', onFullscreen);
 
   const onKeyDown = (event) => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    if (!noteEditor.node.hidden) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopPropagation();
+        noteEditor.close();
+      }
+      return;
+    }
+    if (!kbdHelp.node.hidden) {
+      if (event.key === 'Escape' || event.key === '?') {
+        event.preventDefault();
+        event.stopPropagation();
+        kbdHelp.close();
+      }
+      return;
+    }
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-    if (event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.key === 's' || event.key === 'S') {
       event.preventDefault();
       toggleSave();
@@ -348,6 +427,26 @@ export function show(container, route, ctx) {
       && window.matchMedia('(min-width: 1101px)').matches) {
       event.preventDefault();
       theaterBtn.click();
+    } else if (event.key === 'j' || event.key === 'J') {
+      event.preventDefault();
+      player.seekBy(-10);
+      toast(`⏪ 快退 10 秒 · ${formatClock(player.getCurrentTime())}`);
+    } else if (event.key === 'l' || event.key === 'L') {
+      event.preventDefault();
+      player.seekBy(10);
+      toast(`⏩ 快进 10 秒 · ${formatClock(player.getCurrentTime())}`);
+    } else if (event.key === '[') {
+      event.preventDefault();
+      toast(`播放速度：${formatRate(player.cyclePlaybackRate(-1))}`);
+    } else if (event.key === ']') {
+      event.preventDefault();
+      toast(`播放速度：${formatRate(player.cyclePlaybackRate(1))}`);
+    } else if (event.key === 'b' || event.key === 'B') {
+      event.preventDefault();
+      noteEditor.open();
+    } else if (event.key === '?') {
+      event.preventDefault();
+      kbdHelp.toggle();
     }
   };
   document.addEventListener('keydown', onKeyDown);
@@ -496,6 +595,8 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
   let onPlaying = null;
   let lastKnownTime = startAt || 0;
   let lastKnownDuration = 0;
+  let rate = normalizeRate(store.get('speed', 1));
+  let onRateChange = null;
   let readyResolve;
   const ready = new Promise((resolve) => { readyResolve = resolve; });
 
@@ -523,6 +624,8 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
             if (!destroyed) {
               if (beginSec > 0) yt.seekTo?.(beginSec, true);
               yt.playVideo?.();
+              // 恢复用户偏好的播放倍速
+              yt.setPlaybackRate?.(rate);
             }
           },
           onStateChange: (event) => {
@@ -564,6 +667,36 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     return mounting;
   }
 
+  function currentTime() {
+    if (yt && typeof yt.getCurrentTime === 'function') {
+      const t = yt.getCurrentTime();
+      if (Number.isFinite(t) && t > 0) return Math.floor(t);
+    }
+    return Math.floor(lastKnownTime || 0);
+  }
+
+  function doSeek(seconds) {
+    startAt = seconds;
+    lastKnownTime = seconds;
+    onTimeUpdate?.(seconds, lastKnownDuration, true);
+    mount(seconds).then(() => ready).then(() => {
+      if (yt) {
+        yt.seekTo(seconds, true);
+        yt.playVideo?.();
+      } else if (fallbackFrame) {
+        fallbackFrame.src = `https://www.youtube-nocookie.com/embed/${video.vid}`
+          + `?autoplay=1&rel=0&start=${Math.floor(seconds)}`;
+      }
+    });
+  }
+
+  function applyRate(next) {
+    rate = next;
+    store.set('speed', next);
+    yt?.setPlaybackRate?.(next);
+    onRateChange?.(rate);
+  }
+
   function tick(force = false) {
     if (!yt || typeof yt.getCurrentTime !== 'function') return;
     const state = yt.getPlayerState?.();
@@ -589,27 +722,29 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     set onTimeUpdate(fn) { onTimeUpdate = fn; },
     set onEnded(fn) { onEnded = fn; },
     set onPlaying(fn) { onPlaying = fn; },
+    set onRateChange(fn) { onRateChange = fn; },
     getCurrentTime() {
-      if (yt && typeof yt.getCurrentTime === 'function') {
-        const t = yt.getCurrentTime();
-        if (Number.isFinite(t) && t > 0) return Math.floor(t);
-      }
-      return Math.floor(lastKnownTime || 0);
+      return currentTime();
+    },
+    seekBy(delta) {
+      doSeek(Math.max(0, currentTime() + delta));
     },
     seek(seconds) {
-      startAt = seconds;
-      lastKnownTime = seconds;
-      onTimeUpdate?.(seconds, lastKnownDuration, true);
-      mount(seconds).then(() => ready).then(() => {
-        if (yt) {
-          yt.seekTo(seconds, true);
-          yt.playVideo?.();
-        } else if (fallbackFrame) {
-          fallbackFrame.src = `https://www.youtube-nocookie.com/embed/${video.vid}`
-            + `?autoplay=1&rel=0&start=${Math.floor(seconds)}`;
-        }
-      });
+      doSeek(seconds);
     },
+    getPlaybackRate() {
+      return rate;
+    },
+    cyclePlaybackRate(dir) {
+      const idx = RATE_STEPS.indexOf(rate);
+      const next = RATE_STEPS[
+        (idx + (dir > 0 ? 1 : -1) + RATE_STEPS.length) % RATE_STEPS.length
+      ];
+      applyRate(next);
+      return rate;
+    },
+    setSubSize: (size) => overlay.setSize(size),
+    getSubSize: () => overlay.getSize(),
     destroy() {
       tick(true);
       destroyed = true;
@@ -695,6 +830,300 @@ function buildFullscreenButton(player) {
   return button;
 }
 
+function buildRateButton(player) {
+  const button = el('button', {
+    class: 'btn rate-btn',
+    type: 'button',
+    title: '切换播放倍速（快捷键 [ / ]）',
+  }, formatRate(player.getPlaybackRate()));
+  button.addEventListener('click', () => {
+    const value = player.cyclePlaybackRate(1);
+    toast(`播放速度：${formatRate(value)}`);
+  });
+  return button;
+}
+
+const SUB_SIZES = ['sm', 'md', 'lg'];
+const SUB_SIZE_LABELS = { sm: '小', md: '中', lg: '大' };
+
+function buildSubtitleSizeControls(player) {
+  const apply = (dir) => {
+    const idx = SUB_SIZES.indexOf(player.getSubSize());
+    const next = SUB_SIZES[Math.min(SUB_SIZES.length - 1, Math.max(0, idx + dir))];
+    player.setSubSize(next);
+    toast(`字幕字号：${SUB_SIZE_LABELS[next]}`);
+  };
+  const minus = el('button', {
+    class: 'btn sub-size-btn',
+    type: 'button',
+    title: '减小字幕字号',
+    'aria-label': '减小字幕字号',
+  }, 'A−');
+  const plus = el('button', {
+    class: 'btn sub-size-btn',
+    type: 'button',
+    title: '增大字幕字号',
+    'aria-label': '增大字幕字号',
+  }, 'A＋');
+  minus.addEventListener('click', () => apply(-1));
+  plus.addEventListener('click', () => apply(1));
+  const group = el('div', {
+    class: 'sub-size-group',
+    role: 'group',
+    'aria-label': '字幕字号调节',
+  }, minus, plus);
+  group.hidden = true;
+  return group;
+}
+
+/** ? 键快捷键速查浮层。 */
+function buildKbdHelp() {
+  const rows = [
+    ['/', '聚焦搜索框'],
+    ['S', '收藏当前视频'],
+    ['C', '切换字幕模式（关 / 中 / 中英）'],
+    ['T', '切换字幕流 / 推荐面板'],
+    ['F', '全屏播放'],
+    ['W', '宽屏模式'],
+    ['A', '连播开关'],
+    ['J / L', '快退 / 快进 10 秒'],
+    ['[ / ]', '降低 / 提高播放速度'],
+    ['B', '随手记：在当前时间点添加书签'],
+    ['?', '打开或关闭本速查面板'],
+    ['Esc', '关闭面板 / 清空搜索'],
+  ];
+  const panel = el('div', {
+    class: 'kbd-panel',
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-label': '键盘快捷键',
+  },
+    el('h2', { class: 'kbd-title' }, '键盘快捷键'),
+    el('dl', { class: 'kbd-list' },
+      ...rows.map(([keys, desc]) => el('div', { class: 'kbd-row' },
+        el('dt', {}, el('kbd', { class: 'kbd-key' }, keys)),
+        el('dd', {}, desc),
+      ))),
+    el('p', { class: 'kbd-hint' }, '按 Esc 或点击空白处关闭'),
+  );
+  const overlay = el('div', { class: 'kbd-overlay', hidden: true }, panel);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) overlay.hidden = true;
+  });
+  return {
+    node: overlay,
+    toggle() {
+      overlay.hidden = !overlay.hidden;
+    },
+    close() {
+      overlay.hidden = true;
+    },
+  };
+}
+
+/** 随手记编辑浮层：预填当前时间点与对应字幕句。 */
+function buildNoteEditor({ getTime, getCueText, onSave }) {
+  const tsEl = el('span', { class: 'note-editor-ts' }, '');
+  const cueEl = el('p', { class: 'note-editor-cue' }, '');
+  const input = el('input', {
+    class: 'note-input',
+    type: 'text',
+    placeholder: '记一句备注（可留空，仅书签也可以）',
+    maxlength: 200,
+    'aria-label': '笔记内容',
+  });
+  const saveBtn = el('button', { class: 'btn', type: 'button' }, '保存');
+  const cancelBtn = el('button', { class: 'btn', type: 'button' }, '取消');
+  const panel = el('div', {
+    class: 'kbd-panel note-editor-panel',
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-label': '随手记',
+  },
+    el('h2', { class: 'kbd-title' }, '随手记'),
+    el('p', { class: 'note-editor-row' }, '时间点：', tsEl),
+    cueEl,
+    input,
+    el('div', { class: 'note-editor-actions' }, saveBtn, cancelBtn),
+  );
+  const overlay = el('div', { class: 'kbd-overlay', hidden: true }, panel);
+  let pending = null;
+
+  function close() {
+    overlay.hidden = true;
+    pending = null;
+  }
+
+  function save() {
+    if (!pending) return;
+    onSave(pending.t, input.value, getCueText(pending.t));
+    close();
+  }
+
+  saveBtn.addEventListener('click', save);
+  cancelBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) close();
+  });
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      save();
+    } else if (event.key === 'Escape') {
+      event.stopPropagation();
+      close();
+    }
+  });
+
+  return {
+    node: overlay,
+    open() {
+      const t = Math.max(0, Math.floor(getTime() || 0));
+      pending = { t };
+      tsEl.textContent = formatClock(t);
+      const cueText = getCueText(t);
+      cueEl.textContent = cueText ? `“${cueText}”` : '（当前位置没有对应字幕句）';
+      input.value = '';
+      overlay.hidden = false;
+      setTimeout(() => input.focus(), 0);
+    },
+    close,
+  };
+}
+
+/** 「我的笔记与书签」折叠卡片：时间戳跳转、编辑、删除、复制 Markdown。 */
+function buildNotesCard({ video, onSeek, onChanged }) {
+  const countEl = el('span', { class: 'notes-count' }, '');
+  const copyBtn = el('button', {
+    class: 'desc-toggle notes-copy',
+    type: 'button',
+    title: '复制为 Markdown 笔记',
+  }, '复制 Markdown');
+  const head = el('div', {
+    class: 'notes-head',
+    role: 'button',
+    tabindex: '0',
+    'aria-expanded': 'false',
+    title: '展开 / 收起笔记列表',
+  },
+    el('span', { class: 'notes-caret', 'aria-hidden': 'true' }, '▸'),
+    el('h2', { class: 'notes-title' }, '我的笔记与书签'),
+    countEl,
+    copyBtn,
+  );
+  const listEl = el('div', { class: 'notes-list' });
+  const node = el('section', { class: 'notes-card', hidden: true }, head, listEl);
+
+  let open = false;
+  const setOpen = (next) => {
+    open = next;
+    node.classList.toggle('is-open', open);
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  head.addEventListener('click', (event) => {
+    if (event.target.closest('button')) return;
+    setOpen(!open);
+  });
+  head.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      setOpen(!open);
+    }
+  });
+  copyBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    copyMarkdown();
+  });
+
+  function noteRow(note) {
+    const tsBtn = el('button', {
+      class: 'note-ts-btn',
+      type: 'button',
+      title: '跳到该时间点',
+    }, formatClock(note.t));
+    tsBtn.addEventListener('click', () => onSeek(note.t));
+
+    const body = el('div', { class: 'note-body' },
+      el('p', { class: 'note-text' }, note.text || note.cue || '（未填写内容）'),
+      note.text && note.cue ? el('p', { class: 'note-cue-line' }, note.cue) : null,
+    );
+
+    const delBtn = el('button', { class: 'note-act', type: 'button' }, '删除');
+    const editBtn = el('button', { class: 'note-act', type: 'button' }, '编辑');
+    delBtn.addEventListener('click', () => {
+      store.removeNote(video.vid, note.id);
+      toast('已删除随手记');
+      onChanged?.();
+    });
+    editBtn.addEventListener('click', () => {
+      const input = el('input', {
+        class: 'note-input note-inline-input',
+        type: 'text',
+        value: note.text || '',
+        maxlength: 200,
+        'aria-label': '编辑笔记内容',
+      });
+      body.replaceChildren(input);
+      input.focus();
+      input.select();
+      let done = false;
+      const commit = () => {
+        if (done) return;
+        done = true;
+        store.updateNote(video.vid, note.id, input.value);
+        onChanged?.();
+      };
+      input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          commit();
+        } else if (event.key === 'Escape') {
+          event.stopPropagation();
+          done = true;
+          onChanged?.();
+        }
+      });
+      input.addEventListener('blur', commit);
+    });
+
+    return el('div', { class: 'note-item' }, tsBtn, body, el('div', { class: 'note-item-actions' }, editBtn, delBtn));
+  }
+
+  async function copyMarkdown() {
+    const notes = store.getNotes(video.vid);
+    if (!notes.length) return;
+    const base = `${location.origin}${location.pathname}#/video/${video.vid}`;
+    const lines = notes.map((note) => {
+      const text = (note.text || note.cue || '').trim();
+      return `- [\`${formatClock(note.t)}\`](${base}?t=${note.t}) ${text}`;
+    });
+    const md = `# ${video.title_zh || video.title}\n\n${lines.join('\n')}\n`;
+    try {
+      await navigator.clipboard.writeText(md);
+      toast(`已复制 ${notes.length} 条笔记为 Markdown`);
+    } catch {
+      toast('复制失败，请检查浏览器权限');
+    }
+  }
+
+  function render() {
+    const notes = store.getNotes(video.vid);
+    if (!notes.length) {
+      node.hidden = true;
+      listEl.replaceChildren();
+      return;
+    }
+    node.hidden = false;
+    countEl.textContent = `${notes.length} 条`;
+    listEl.replaceChildren(...notes.map(noteRow));
+  }
+
+  setOpen(false);
+  render();
+
+  return { node, render };
+}
+
 function buildChannel(video, commentCount, player, extra = []) {
   const saved = store.has('saved', video.vid);
   const saveBtn = el('button', {
@@ -766,6 +1195,10 @@ function buildChannel(video, commentCount, player, extra = []) {
 function buildDescription(video, ctx) {
   const summary = video.summary_zh || video.summary || '';
   const why = video.why_zh || video.why_hn || '';
+  // feed.json only carries the English originals when they differ from what
+  // the Chinese body already shows, so these are the toggle-worthy lines.
+  const enSummary = video.summary && video.summary !== summary ? video.summary : '';
+  const enWhy = video.why_hn && video.why_hn !== why ? video.why_hn : '';
 
   const body = el('div', { class: 'desc-body' });
   if (why) {
@@ -775,6 +1208,13 @@ function buildDescription(video, ctx) {
   if (summary) {
     body.append(el('p', {}, summary));
   }
+
+  const enBody = (enWhy || enSummary)
+    ? el('div', { class: 'desc-body desc-en', hidden: true },
+      enWhy ? el('p', { class: 'desc-why' },
+        el('strong', {}, 'Why HN recommends: '), enWhy) : null,
+      enSummary ? el('p', {}, enSummary) : null)
+    : null;
 
   const tagNodes = [];
   if (video.has_sub) {
@@ -814,42 +1254,71 @@ function buildDescription(video, ctx) {
   for (const cat of (video.categories || []).slice(0, 3)) {
     if (!cat || seenLower.has(cat.toLowerCase())) continue;
     seenLower.add(cat.toLowerCase());
+    // 带领域跳转到二级分类下钻，比全文搜索更精准。
+    const href = video.area
+      ? `#/feed?area=${encodeURIComponent(video.area)}&cat=${encodeURIComponent(cat)}`
+      : `#/feed?q=${encodeURIComponent(cat)}`;
     tagNodes.push(el('a', {
       class: 'mini-chip',
-      href: `#/feed?q=${encodeURIComponent(cat)}`,
+      href,
     }, cat));
   }
 
   const chips = tagNodes.length ? el('div', { class: 'desc-chips' }, ...tagNodes) : null;
   const isLong = (why.length + summary.length) > 130 && Boolean(why && summary);
-  if (!isLong) {
+
+  if (!enBody && !isLong) {
     return el('div', { class: 'description' }, body, chips);
   }
 
-  const toggle = el('button', {
-    class: 'desc-toggle',
-    type: 'button',
-    'aria-expanded': 'false',
-  }, '展开简介');
-  const description = el('div', { class: 'description is-collapsed' }, body, toggle, chips);
+  const actions = el('div', { class: 'desc-actions' });
 
-  const setExpanded = (expanded) => {
-    description.classList.toggle('is-collapsed', !expanded);
-    toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    toggle.textContent = expanded ? '收起' : '展开简介';
-  };
+  if (enBody) {
+    const enToggle = el('button', {
+      class: 'desc-toggle',
+      type: 'button',
+      'aria-expanded': 'false',
+    }, '查看英文导读');
+    enToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      enBody.hidden = !enBody.hidden;
+      enToggle.setAttribute('aria-expanded', enBody.hidden ? 'false' : 'true');
+      enToggle.textContent = enBody.hidden ? '查看英文导读' : '收起英文导读';
+    });
+    actions.append(enToggle);
+  }
 
-  toggle.addEventListener('click', (event) => {
-    event.stopPropagation();
-    setExpanded(description.classList.contains('is-collapsed'));
-  });
+  let description;
+  if (isLong) {
+    const toggle = el('button', {
+      class: 'desc-toggle',
+      type: 'button',
+      'aria-expanded': 'false',
+    }, '展开简介');
+    description = el('div', { class: 'description is-collapsed' },
+      body, enBody, actions, chips);
+    actions.prepend(toggle);
 
-  description.addEventListener('click', (event) => {
-    if (event.target.closest('a, button')) return;
-    if (description.classList.contains('is-collapsed')) {
-      setExpanded(true);
-    }
-  });
+    const setExpanded = (expanded) => {
+      description.classList.toggle('is-collapsed', !expanded);
+      toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      toggle.textContent = expanded ? '收起' : '展开简介';
+    };
+
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setExpanded(description.classList.contains('is-collapsed'));
+    });
+
+    description.addEventListener('click', (event) => {
+      if (event.target.closest('a, button')) return;
+      if (description.classList.contains('is-collapsed')) {
+        setExpanded(true);
+      }
+    });
+  } else {
+    description = el('div', { class: 'description' }, body, enBody, actions, chips);
+  }
 
   return description;
 }

@@ -22,11 +22,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import make_subs
 from deepgram_asr import DeepgramClient
 from hybrid_pipeline import HybridJob, HybridPipeline, VIDEO_ID
-from hybrid_runtime import HybridRuntime, batch_lock, group_recognition, legacy_modules
+from hybrid_runtime import GROUP_CHARS, HybridRuntime, batch_lock, group_recognition, legacy_modules
 from subtitle_recovery import write_json_atomic
 from translation_backends import (
-    ANTIGRAVITY_MODEL, DEEPSEEK_CN_MODEL, BackendPool, TranslationBackend,
-    validate_worker_counts,
+    ANTIGRAVITY_MODEL, CLOUDC_MODEL, COMMANDCODE_MODEL, DEEPSEEK_CN_MODEL,
+    GEMINI_LITE_MODEL, HUB_OAIFREE_MODEL, HUB_WANAI_MODEL, HIYO_MODEL,
+    TRAE_MODEL, ZHACHA_MODEL,
+    BackendPool, TranslationBackend, validate_pool_worker_counts,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,9 +43,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--start-vid", help="Start from this pending video")
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
     parser.add_argument("--local-workers", choices=(0, 1), type=int, default=1)
-    parser.add_argument("--deepgram-workers", choices=(0, 1, 2), type=int, default=1)
-    parser.add_argument("--antigravity-workers", type=int, default=10)
-    parser.add_argument("--deepseek-workers", type=int, default=6)
+    parser.add_argument("--deepgram-workers", choices=range(0, 7), type=int, default=1,
+                        metavar="{0..6}")
+    parser.add_argument("--antigravity-workers", type=int, default=6)
+    parser.add_argument("--trae-workers", type=int, default=5)
+    parser.add_argument("--workbuddy-workers", type=int, default=5)
+    parser.add_argument("--hiyo-workers", type=int, default=4)
+    parser.add_argument("--cloudc-workers", type=int, default=4)
+    parser.add_argument("--zhacha-workers", type=int, default=4)
+    parser.add_argument("--hub-oaifree-workers", type=int, default=4)
+    parser.add_argument("--hub-wanai-workers", type=int, default=4)
+    parser.add_argument("--commandcode-workers", type=int, default=4)
+    parser.add_argument("--gemini-lite-workers", type=int, default=6)
     parser.add_argument("--queue-low", type=int, default=8)
     parser.add_argument("--queue-high", type=int, default=32)
     parser.add_argument("--deepgram-timeout", type=float, default=180.0)
@@ -53,7 +64,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--publish", action="store_true", help="Allow creation of site subtitles")
     args = parser.parse_args(argv)
     try:
-        validate_worker_counts(args.antigravity_workers, args.deepseek_workers)
+        validate_pool_worker_counts(worker_counts(args))
         if args.limit is not None and args.limit < 1:
             raise ValueError("--limit must be positive")
         if args.local_workers + args.deepgram_workers == 0:
@@ -91,17 +102,39 @@ def make_plan(args: argparse.Namespace, root: Path) -> list[HybridJob]:
     jobs = []
     for vid in pending:
         duration = history.get(vid, {}).get("duration")
-        estimate = max(1, math.ceil(duration * 16 / 2500)) if (
+        estimate = max(1, math.ceil(duration * 16 / GROUP_CHARS)) if (
             type(duration) in (int, float) and math.isfinite(duration) and duration > 0) else 8
         jobs.append(HybridJob(vid, root / "work" / "hybrid_batch" / vid, estimate))
     return jobs
 
 
+def worker_counts(args: argparse.Namespace) -> dict[str, int]:
+    """Per-model concurrency for the three hybrid translation backends."""
+    return {
+        ANTIGRAVITY_MODEL: args.antigravity_workers,
+        TRAE_MODEL: args.trae_workers,
+        DEEPSEEK_CN_MODEL: args.workbuddy_workers,
+        HIYO_MODEL: args.hiyo_workers,
+        CLOUDC_MODEL: args.cloudc_workers,
+        ZHACHA_MODEL: args.zhacha_workers,
+        HUB_OAIFREE_MODEL: args.hub_oaifree_workers,
+        HUB_WANAI_MODEL: args.hub_wanai_workers,
+        COMMANDCODE_MODEL: args.commandcode_workers,
+        GEMINI_LITE_MODEL: args.gemini_lite_workers,
+    }
+
+
 def translation_pool(args: argparse.Namespace) -> BackendPool:
-    limits = ((ANTIGRAVITY_MODEL, args.antigravity_workers),
-              (DEEPSEEK_CN_MODEL, args.deepseek_workers))
-    return BackendPool(tuple(TranslationBackend(model, count,
-        partial(make_subs.call_gateway, model=model)) for model, count in limits if count))
+    # DeepSeek-family backends honour the DeepSeek thinking switch; GLM/hiyo
+    # lanes ignore or require it, so leave those requests untouched.
+    thinking_off = frozenset({TRAE_MODEL, DEEPSEEK_CN_MODEL, COMMANDCODE_MODEL})
+
+    def callback(model: str) -> partial:
+        kwargs = {"thinking": {"type": "disabled"}} if model in thinking_off else {}
+        return partial(make_subs.call_gateway, model=model, **kwargs)
+
+    return BackendPool(tuple(TranslationBackend(model, count, callback(model))
+        for model, count in worker_counts(args).items() if count))
 
 
 class StatusWriter:
@@ -166,7 +199,7 @@ def main(argv: list[str] | None = None) -> int:
     jobs = make_plan(args, ROOT)
     plan = {"mode": "execute" if args.run else "plan-only", "videos": len(jobs),
             "local_workers": args.local_workers, "deepgram_workers": args.deepgram_workers,
-            "translation_workers": args.antigravity_workers + args.deepseek_workers,
+            "translation_workers": sum(worker_counts(args).values()),
             "queue_low": args.queue_low, "queue_high": args.queue_high,
             "publish": args.publish, "video_ids": [job.vid for job in jobs]}
     print(json.dumps(plan, ensure_ascii=False))

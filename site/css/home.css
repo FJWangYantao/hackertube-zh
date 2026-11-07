@@ -757,4 +757,462 @@
   }
 }
 
+/* 卡片上的合集角标（合集 1/N） */
+.badge-series {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.94));
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ── #/series 合集浏览页 ─────────────────────────────────────────────── */
+.series-page {
+  max-width: 1760px;
+  padding-bottom: 48px;
+}
+
+.series-toolbar {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px 24px 0;
+}
+
+.series-page-head {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.series-page-count {
+  color: var(--text-2);
+  font-size: 13px;
+}
+
+.series-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 24px 0;
+}
+
+.series-search {
+  height: 32px;
+  width: min(280px, 100%);
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  font-size: 13px;
+}
+
+.series-search:focus {
+  border-color: var(--brand);
+  outline: none;
+}
+
+.series-kinds {
+  display: flex;
+  gap: 6px;
+}
+
+.series-kind-chip[aria-pressed="true"] {
+  border-color: rgba(234, 88, 12, 0.4);
+  background: rgba(234, 88, 12, 0.12);
+  color: var(--brand);
+}
+
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 16px 24px 0;
+}
+
+.series-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--card-highlight), var(--card-shadow);
+  transition: transform 0.22s var(--ease), border-color 0.2s var(--ease),
+    box-shadow 0.22s var(--ease);
+}
+
+.series-card:hover {
+  border-color: var(--border);
+  box-shadow: var(--card-highlight), var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.series-cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--bg-chip);
+}
+
+.series-cover-thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.series-cover-thumb img {
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.series-card:hover .series-cover-thumb img {
+  transform: scale(1.04);
+}
+
+.series-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0) 45%);
+  pointer-events: none;
+}
+
+.series-count-badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 1;
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--pill);
+  background: rgba(15, 15, 15, 0.68);
+  -webkit-backdrop-filter: blur(8px) saturate(1.4);
+  backdrop-filter: blur(8px) saturate(1.4);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.series-cover-progress {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.series-cover-progress-fill {
+  display: block;
+  height: 100%;
+  background: var(--brand-mark);
+}
+
+.series-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px 14px;
+}
+
+.series-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.series-card-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.series-card-title:hover {
+  color: var(--brand);
+}
+
+.series-kind-tag {
+  flex: none;
+  padding: 1px 7px;
+  border: 1px solid var(--border);
+  border-radius: var(--pill);
+  color: var(--text-3);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+.series-channel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-2);
+  font-size: 12.5px;
+  width: fit-content;
+}
+
+.series-channel:hover {
+  color: var(--brand);
+}
+
+.series-eps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+}
+
+.series-ep-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  color: var(--text-2);
+  font-size: 12.5px;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.series-ep-link:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.series-ep-link.is-watched {
+  color: var(--text-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--border);
+}
+
+.series-ep-no {
+  flex: none;
+  color: var(--brand);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.series-ep-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.series-eps-more {
+  color: var(--text-3);
+  font-size: 11.5px;
+}
+
+.series-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.series-watched {
+  color: var(--text-2);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.series-start {
+  flex: none;
+}
+
+/* ── 二级分类下钻栏（#/feed?area=… 时展开）──────────────────────────── */
+.sub-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 24px 0;
+  scrollbar-width: none;
+}
+
+.sub-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.sub-chips[hidden] {
+  display: none;
+}
+
+.sub-chip {
+  height: 28px;
+  padding: 0 11px;
+  border-radius: var(--pill);
+  background: var(--bg-card);
+  color: var(--text-2);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.sub-chip[aria-pressed="true"] {
+  border-color: rgba(234, 88, 12, 0.4);
+  background: rgba(234, 88, 12, 0.12);
+  color: var(--brand);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .sub-chips {
+    padding: 8px 12px 0;
+  }
+}
+
+/* ── 频道聚合页头部卡片（#/feed?channel=… 时展开）───────────────────── */
+.avatar.xl {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.channel-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 1760px;
+  margin: 16px 24px 0;
+  padding: 18px 20px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--card-highlight), var(--card-shadow);
+}
+
+.channel-hero[hidden] {
+  display: none;
+}
+
+.hero-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.hero-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.hero-stat-num {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-stat-label {
+  color: var(--text-2);
+  font-size: 11.5px;
+}
+
+.hero-areas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hero-area-badge {
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--pill);
+  background: var(--bg-chip);
+  color: var(--text-2);
+  font-size: 12px;
+  transition: border-color 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.hero-area-badge:hover {
+  border-color: rgba(234, 88, 12, 0.4);
+  color: var(--brand);
+}
+
+.hero-actions {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.hero-chip {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12.5px;
+  text-align: center;
+}
+
+.hero-chip[aria-pressed="true"] {
+  border-color: rgba(234, 88, 12, 0.4);
+  background: rgba(234, 88, 12, 0.12);
+  color: var(--brand);
+}
+
+@media (max-width: 640px) {
+  .channel-hero {
+    flex-direction: column;
+    margin: 12px 12px 0;
+    padding: 14px;
+  }
+
+  .avatar.xl {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+  }
+
+  .hero-actions {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 640px) {
+  .series-toolbar,
+  .series-filters {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .series-grid {
+    grid-template-columns: 1fr;
+    padding: 12px 12px 0;
+  }
+}
+
 

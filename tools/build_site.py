@@ -6,6 +6,7 @@ Usage:
 
 Writes site/data/videos.json (full rows), feed.json (grid fields only),
 related.json (vid -> related vids), and meta.json (areas + comment counts).
+Also regenerates subs-index and series.json via their tools as a post-step.
 """
 
 from __future__ import annotations
@@ -192,6 +193,14 @@ def main() -> None:
     for row in output:
         entry = {key: row[key] for key in FEED_KEYS}
         entry["why_zh"] = row["why_zh"] or row["why_hn"]
+        # English originals ship only when a Chinese version exists and differs,
+        # so the watch page can offer a 查看英文导读 toggle without duplicating
+        # untranslated rows.
+        shown_summary = row["summary_zh"] or row["summary"]
+        if row["summary"] and row["summary"] != shown_summary:
+            entry["summary"] = row["summary"]
+        if row["why_hn"] and row["why_hn"] != entry["why_zh"]:
+            entry["why_hn"] = row["why_hn"]
         entry["categories"] = (row["categories"] or [])[:3]
         entry["area"] = row["area"]
         entry["comment_count"] = comment_counts.get(row["vid"], 0)
@@ -245,6 +254,7 @@ def main() -> None:
         f"comments {sum(comment_counts.values())} in {len(comment_counts)} files\n"
     )
     build_subindex()
+    build_series()
 
 
 def build_subindex() -> None:
@@ -269,6 +279,29 @@ def build_subindex() -> None:
         sys.stdout.write(result.stdout)
     if result.returncode != 0:
         sys.stdout.write(f"warning: subtitle index not rebuilt:\n{result.stderr}\n")
+
+
+def build_series() -> None:
+    """Regenerate the 合集 index (tools/make_series.py).
+
+    Same subprocess pattern as build_subindex(): -I keeps this script's
+    directory off sys.path, and a failure only leaves the series data stale.
+    """
+    try:
+        result = subprocess.run(
+            [sys.executable, "-I", "-X", "utf8", str(ROOT / "tools" / "make_series.py")],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+    except OSError as exc:
+        sys.stdout.write(f"warning: series index not rebuilt: {exc}\n")
+        return
+    if result.stdout:
+        sys.stdout.write(result.stdout)
+    if result.returncode != 0:
+        sys.stdout.write(f"warning: series index not rebuilt:\n{result.stderr}\n")
 
 
 if __name__ == "__main__":

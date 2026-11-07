@@ -222,10 +222,13 @@ class CliTests(unittest.TestCase):
     def test_default_configuration_and_invalid_limits(self) -> None:
         args = cli.parse_args(["--ids-file", str(self.ids)])
         self.assertEqual((args.local_workers, args.deepgram_workers,
-                          args.antigravity_workers, args.deepseek_workers), (1, 1, 10, 6))
+                          args.antigravity_workers, args.trae_workers,
+                          args.workbuddy_workers), (1, 1, 6, 5, 5))
         for extra in (["--limit", "0"], ["--local-workers", "2"],
-                      ["--deepgram-workers", "3"], ["--queue-low", "32"],
-                      ["--publish"], ["--local-workers", "0", "--deepgram-workers", "0"]):
+                      ["--deepgram-workers", "7"], ["--queue-low", "32"],
+                      ["--publish"], ["--local-workers", "0", "--deepgram-workers", "0"],
+                      ["--antigravity-workers", "7"], ["--trae-workers", "-1"],
+                      ["--workbuddy-workers", "6"]):
             with self.subTest(extra=extra), redirect_stderr(StringIO()), self.assertRaises(SystemExit):
                 cli.parse_args(["--ids-file", str(self.ids)] + extra)
 

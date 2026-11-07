@@ -14,6 +14,7 @@ import logging
 import math
 import os
 import tempfile
+import time
 from collections import deque
 from dataclasses import dataclass
 from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
@@ -85,7 +86,16 @@ def write_json_atomic(path: Path, payload: object) -> None:
             json.dump(payload, stream, ensure_ascii=False, allow_nan=False)
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(temporary, path)
+        for attempt in range(5):
+            try:
+                os.replace(temporary, path)
+                break
+            except PermissionError:
+                # A concurrent reader (e.g. the status dashboard) briefly holds
+                # the target open on Windows; back off and try again.
+                if attempt == 4:
+                    raise
+                time.sleep(0.2 * (attempt + 1))
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)

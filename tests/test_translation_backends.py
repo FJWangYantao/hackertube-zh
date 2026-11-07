@@ -43,14 +43,45 @@ class NetworkGuardTests(unittest.TestCase):
 
 class BackendTests(NetworkGuardTests):
     def test_required_constants_and_frozen_dataclass(self) -> None:
-        self.assertEqual(backends.ANTIGRAVITY_MODEL, "antigravity-tools/gemini-3.8-flash-low")
+        self.assertEqual(backends.ANTIGRAVITY_MODEL, "antigravity/gemini-3.8-flash")
         self.assertEqual(backends.DEEPSEEK_CN_MODEL, "workbuddy-vps/cn:deepseek-v4.1-flash")
+        self.assertEqual(backends.TRAE_MODEL, "trae-cn/deepseek-v4.1-flash")
+        self.assertEqual(backends.HIYO_MODEL, "hiyo/gpt-6-luna")
+        self.assertEqual(backends.CLOUDC_MODEL, "cloudc/glm-5.3-flash")
+        self.assertEqual(backends.ZHACHA_MODEL, "zhacha/glm-5.3-flash")
+        self.assertEqual(backends.HUB_OAIFREE_MODEL, "hub-oaifree/glm-5.3-flash")
+        self.assertEqual(backends.HUB_WANAI_MODEL, "hub-wanai/glm-5.3-flash")
+        self.assertEqual(backends.COMMANDCODE_MODEL, "commandcode-plan/deepseek/deepseek-v4.1-flash")
+        self.assertEqual(backends.GEMINI_LITE_MODEL, "antigravity/gemini-3.5-flash-lite")
+        self.assertEqual(backends.TRANSLATION_MODELS, (
+            (backends.ANTIGRAVITY_MODEL, 6),
+            (backends.TRAE_MODEL, 5),
+            (backends.DEEPSEEK_CN_MODEL, 5),
+            (backends.HIYO_MODEL, 4),
+            (backends.CLOUDC_MODEL, 4),
+            (backends.ZHACHA_MODEL, 4),
+            (backends.HUB_OAIFREE_MODEL, 4),
+            (backends.HUB_WANAI_MODEL, 4),
+            (backends.COMMANDCODE_MODEL, 4),
+            (backends.GEMINI_LITE_MODEL, 6),
+        ))
+        self.assertEqual(backends.TOTAL_WORKERS, 46)
         self.assertEqual(backends.DEFAULT_ANTIGRAVITY_WORKERS, 10)
         self.assertEqual(backends.DEFAULT_DEEPSEEK_WORKERS, 6)
         backend = backends.TranslationBackend("model", 1, echo)
         self.assertTrue(is_dataclass(backend))
         with self.assertRaises(FrozenInstanceError):
             backend.workers = 2
+
+    def test_hybrid_pool_worker_caps(self) -> None:
+        backends.validate_pool_worker_counts({
+            backends.ANTIGRAVITY_MODEL: 6,
+            backends.TRAE_MODEL: 3, backends.DEEPSEEK_CN_MODEL: 3,
+        })
+        for bad in ({backends.ANTIGRAVITY_MODEL: 7}, {backends.TRAE_MODEL: 6},
+                    {backends.DEEPSEEK_CN_MODEL: -1}, {"unknown/model": 1}, {}):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                backends.validate_pool_worker_counts(bad)
 
     def test_pool_reports_total_models_and_configuration_metadata(self) -> None:
         pool = configured_pool()
@@ -66,6 +97,78 @@ class BackendTests(NetworkGuardTests):
         snapshot.clear()
         self.assertEqual(pool.metadata[0]["workers"], 10)
         self.assertEqual(pool.workers, 16)
+
+    def test_pool_breaker_trips_after_quota_failures(self) -> None:
+        calls = []
+
+        def quota_fail(sentences: list[str]) -> list[str]:
+            calls.append(sentences)
+            raise backends.urllib.error.HTTPError("u", 402, "quota gone", None, None)
+
+        pool = backends.BackendPool((backends.TranslationBackend("m", 1, quota_fail),))
+        for _ in range(backends.BREAKER_THRESHOLD):
+            with self.assertRaises(backends.urllib.error.HTTPError):
+                pool(["x"])
+        self.assertEqual(len(calls), backends.BREAKER_THRESHOLD)
+        with patch.object(backends, "BREAKER_GIVE_UP", 0.05):
+            with self.assertRaises(RuntimeError):
+                pool(["x"])
+        self.assertEqual(len(calls), backends.BREAKER_THRESHOLD)
+
+    def test_pool_breaker_trips_on_transport_failures(self) -> None:
+        calls = []
+
+        def timeout_fail(sentences: list[str]) -> list[str]:
+            calls.append(sentences)
+            raise TimeoutError("slow upstream")
+
+        pool = backends.BackendPool((backends.TranslationBackend("m", 1, timeout_fail),))
+        for _ in range(backends.BREAKER_THRESHOLD):
+            with self.assertRaises(TimeoutError):
+                pool(["x"])
+        self.assertEqual(len(calls), backends.BREAKER_THRESHOLD)
+        with patch.object(backends, "BREAKER_GIVE_UP", 0.05):
+            with self.assertRaises(RuntimeError):
+                pool(["x"])
+        self.assertEqual(len(calls), backends.BREAKER_THRESHOLD)
+
+    def test_pool_breaker_routes_waiting_calls_to_healthy_lane(self) -> None:
+        bad_calls = []
+
+        def quota_fail(sentences: list[str]) -> list[str]:
+            bad_calls.append(sentences)
+            raise backends.urllib.error.HTTPError("u", 429, "rate limited", None, None)
+
+        pool = backends.BackendPool((
+            backends.TranslationBackend("bad", 3, quota_fail),
+            backends.TranslationBackend("ok", 1, echo),
+        ))
+        for _ in range(backends.BREAKER_THRESHOLD):
+            pool._record("bad", backends.urllib.error.HTTPError("u", 429, "rate limited", None, None))
+        self.assertIsNotNone(pool._breakers["bad"]["tripped_at"])
+        self.assertEqual(pool(["x"]), echo(["x"]))
+        self.assertEqual(bad_calls, [])
+
+    def test_pool_breaker_reopens_after_cooldown(self) -> None:
+        calls = []
+
+        def flaky(sentences: list[str]) -> list[str]:
+            calls.append(len(calls))
+            if len(calls) <= backends.BREAKER_THRESHOLD:
+                raise backends.urllib.error.HTTPError("u", 402, "quota", None, None)
+            return echo(sentences)
+
+        pool = backends.BackendPool((backends.TranslationBackend("m", 1, flaky),))
+        for _ in range(backends.BREAKER_THRESHOLD):
+            with self.assertRaises(backends.urllib.error.HTTPError):
+                pool(["x"])
+        with patch.object(backends, "BREAKER_GIVE_UP", 0.05):
+            with self.assertRaises(RuntimeError):
+                pool(["x"])
+        self.assertEqual(len(calls), backends.BREAKER_THRESHOLD)
+        pool._breakers["m"]["tripped_at"] -= backends.BREAKER_COOLDOWN + 1
+        self.assertEqual(pool(["x"]), echo(["x"]))
+        self.assertIsNone(pool._breakers["m"]["tripped_at"])
 
     def test_single_backend_identity_is_exact_for_existing_cache(self) -> None:
         model = " exact/中文:model "
@@ -411,6 +514,35 @@ class RecoveryPoolTests(NetworkGuardTests):
                                   for group in original for cue in group])
         self.assertEqual(len(payload["translations"]), 96)
         self.assertEqual(payload["model"], pool.model_identity)
+
+
+class TelemetryTests(unittest.TestCase):
+    def test_telemetry_records_success_and_failure_metrics(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            storage = Path(td) / "telemetry.json"
+            telem = backends.TranslationTelemetry(storage_path=storage)
+            model = backends.ANTIGRAVITY_MODEL
+            telem.record_start(model)
+            telem.record_success(model, 1200.0, 5, 200)
+            summary = telem.get_summary()
+            ch = next(c for c in summary["channels"] if c["model"] == model)
+            self.assertGreaterEqual(ch["total_requests"], 1)
+            self.assertGreater(ch["avg_latency_ms"], 0)
+            self.assertEqual(ch["last_status"], "ok")
+
+            # Record failure
+            telem.record_start(model)
+            telem.record_failure(model, 5000.0, 3, 100, "TimeoutError: gateway timed out")
+            summary2 = telem.get_summary()
+            ch2 = next(c for c in summary2["channels"] if c["model"] == model)
+            self.assertGreaterEqual(ch2["error_requests"], 1)
+            self.assertEqual(ch2["last_status"], "error")
+            self.assertIn("TimeoutError", ch2["last_error"])
+
+            # Bottleneck diagnostics
+            self.assertIn("bottlenecks", summary2)
+            self.assertIn("recommendations", summary2)
+            self.assertTrue(storage.exists())
 
 
 if __name__ == "__main__":
