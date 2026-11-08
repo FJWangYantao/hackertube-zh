@@ -849,6 +849,100 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     searchInput.focus();
   });
 
+  // ── 📝 选区划词即随手记 / 复制精准引用 ──
+  const selPop = el('div', { class: 'transcript-sel-pop', hidden: true });
+  const noteSelBtn = el('button', {
+    class: 'sel-pop-btn',
+    type: 'button',
+    title: '将选中文本添加到当前时间点随手记',
+  }, '📌 记入随手记');
+  const quoteSelBtn = el('button', {
+    class: 'sel-pop-btn',
+    type: 'button',
+    title: '复制带时间戳的 Markdown 引用文本',
+  }, '📋 复制引用');
+  selPop.append(noteSelBtn, quoteSelBtn);
+  document.body.append(selPop);
+
+  let currentSelCue = null;
+  let currentSelText = '';
+
+  const checkSelection = () => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) {
+      selPop.hidden = true;
+      return;
+    }
+    const text = sel.toString().trim();
+    if (text.length < 2) {
+      selPop.hidden = true;
+      return;
+    }
+    try {
+      const range = sel.getRangeAt(0);
+      const commonNode = range.commonAncestorContainer;
+      const lineEl = commonNode.nodeType === Node.ELEMENT_NODE
+        ? commonNode.closest('.transcript-line')
+        : commonNode.parentElement?.closest('.transcript-line');
+      if (!lineEl || !list.contains(lineEl)) {
+        selPop.hidden = true;
+        return;
+      }
+      const idx = items.findIndex((it) => it.node === lineEl);
+      if (idx < 0) {
+        selPop.hidden = true;
+        return;
+      }
+      currentSelCue = items[idx].cue;
+      currentSelText = text;
+
+      const rect = range.getBoundingClientRect();
+      if (!rect.width && !rect.height) {
+        selPop.hidden = true;
+        return;
+      }
+      selPop.style.top = `${Math.max(10, rect.top - 44)}px`;
+      selPop.style.left = `${Math.max(10, rect.left + rect.width / 2)}px`;
+      selPop.hidden = false;
+    } catch {
+      selPop.hidden = true;
+    }
+  };
+
+  noteSelBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!currentSelCue || !vid) return;
+    store.addNote(vid, { t: currentSelCue.s, text: currentSelText, cueZh: currentSelCue.zh || '' });
+    toast(`已记入随手记 · ${stamp(currentSelCue.s)}`);
+    selPop.hidden = true;
+    window.getSelection()?.removeAllRanges();
+    refreshNoteMarks();
+    onNotesChange?.();
+  });
+
+  quoteSelBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    if (!currentSelCue) return;
+    const url = `${location.origin}${location.pathname}#/video/${vid}?t=${Math.floor(currentSelCue.s)}`;
+    const md = `> ${currentSelText}\n> — 《${meta.title || ''}》（${stamp(currentSelCue.s)}）${url}`;
+    try {
+      await navigator.clipboard.writeText(md);
+      toast('已复制带时间戳的 Markdown 引用');
+    } catch {
+      window.prompt('复制引用', md);
+    }
+    selPop.hidden = true;
+    window.getSelection()?.removeAllRanges();
+  });
+
+  list.addEventListener('mouseup', checkSelection);
+  list.addEventListener('keyup', checkSelection);
+  const onGlobalSelChange = () => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) selPop.hidden = true;
+  };
+  document.addEventListener('selectionchange', onGlobalSelChange);
+
   const exportMenu = buildExportMenu(cues, meta);
   const toolbar = el('div', { class: 'transcript-bar' },
     el('div', { class: 'transcript-search' }, searchInput, matchCountEl, clearBtn),
@@ -879,6 +973,8 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     refreshNotes: refreshNoteMarks,
     destroy() {
       exportMenu.destroy();
+      selPop.remove();
+      document.removeEventListener('selectionchange', onGlobalSelChange);
     },
   };
 }

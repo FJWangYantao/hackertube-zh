@@ -16,6 +16,167 @@ const TS_COLON_RE = /(?<![0-9:/-])\b(?:(\d{1,2}):)?([0-5]?\d):([0-5]\d)\b(?![0-9
 const TS_MIN_ZH_RE = /(?:约|大约|第)?\s*(\d{1,3})\s*分钟(?:处|左右)?/g;
 const TS_MIN_EN_RE = /\b(?:about|around|at)\s+(\d{1,3})\s*(?:min|minute|minutes)\b/gi;
 
+const STOP_WORDS = new Set([
+  'the', 'and', 'that', 'this', 'with', 'from', 'they', 'have', 'what', 'about', 'which',
+  'there', 'their', 'when', 'make', 'know', 'like', 'just', 'some', 'good', 'very', 'also',
+  'then', 'were', 'been', 'into', 'more', 'than', 'other', 'these', 'could', 'first', 'after',
+  'where', 'being', 'because', 'would', 'your', 'them', 'does', 'will', 'here', 'over', 'only',
+  'such', 'time', 'even', 'most', 'much', 'take', 'well', 'people', 'going', 'want', 'think',
+  'look', 'come', 'right', 'thing', 'things', 'really', 'something', 'actually', 'every',
+  'between', 'through', 'using', 'used', 'need', 'means', 'call', 'case', 'point', 'said',
+  'tell', 'work', 'works', 'working', 'talking', 'talk', 'kind', 'many', 'sort', 'give',
+  'gives', 'problem', 'saying', 'probably', 'little', 'down', 'back', 'different', 'another',
+  'always', 'together', 'everything', 'anyone', 'someone', 'anything', 'might', 'great',
+  'course', 'part', 'sure', 'same', 'done', 'should', 'each', 'before', 'those', 'around',
+  'while', 'never', 'must', 'still', 'without', 'again', 'place', 'under', 'last',
+  'made', 'during', 'show', 'shows', 'looks', 'help', 'keep', 'start',
+  'starts', 'started', 'number', 'system', 'systems', 'computer', 'science', 'video',
+  'youtube', 'slides', 'slide', 'speaker', 'talks', 'question', 'questions', 'thank', 'thanks',
+  'hello', 'welcome', 'everyone', 'today', 'morning', 'afternoon', 'guys', 'lets', 'please',
+  'okay', 'yeah', 'cool', 'nice', 'awesome', 'fine', 'sorry', 'zero', 'gonna', 'wanna', 'gotta',
+  'raw', 'list', 'use', 'new', 'dot', 'line', 'next', 'bit', 'piece', 'turn', 'side', 'set',
+  'get', 'put', 'lot', 'way', 'single', 'stuff', 'basically', 'example', 'simple', 'big',
+  'high', 'low', 'see', 'saw', 'seen', 'four', 'three', 'five', 'six', 'seven', 'eight', 'nine',
+  'ten', 'two', 'one', 'second', 'third', 'times', 'went', 'gone', 'feel', 'felt',
+  'try', 'tried', 'trying', 'kept', 'keeping', 'run', 'ran', 'running', 'read',
+  'write', 'wrote', 'written', 'stop', 'stopped', 'hear', 'heard', 'walk', 'step', 'steps',
+  'already', 'either', 'neither', 'whether', 'whose', 'whom', 'since', 'until', 'unless',
+  'upon', 'towards', 'onto', 'behind', 'beside', 'beyond',
+  'further', 'longer', 'shorter', 'higher', 'lower', 'larger', 'smaller', 'better', 'worse',
+  'best', 'worst', 'least', 'less', 'almost', 'nearly', 'quite', 'fairly',
+  'pretty', 'rather', 'somewhat', 'entirely', 'completely', 'totally', 'partly', 'mainly',
+  'mostly', 'largely', 'simply', 'merely', 'hardly', 'scarcely', 'barely', 'indeed',
+  'certainly', 'definitely', 'absolutely', 'possibly', 'perhaps', 'maybe', 'obviously',
+  'clearly', 'apparently', 'presumably', 'supposedly', 'truly',
+  'fact', 'sense', 'idea', 'whole', 'half', 'full', 'empty', 'open', 'close', 'closed',
+  'easy', 'hard', 'difficult', 'fast', 'slow', 'quick', 'quickly',
+  'true', 'false', 'yes', 'none', 'any', 'all', 'both',
+  'can', 'had', 'has', 'how', 'why', 'who', 'our', 'out', 'off', 'not', 'too', 'now',
+  'you', 'your', 'yours', 'for', 'was', 'were', 'are', 'is', 'am',
+  'change', 'changes', 'world', 'years', 'days', 'hours', 'minutes', 'seconds',
+]);
+
+const TECH_TERMS = new Set([
+  // AI, LLM, ML & NLP
+  'gpt', 'llm', 'token', 'tokens', 'tokenizer', 'tokenization', 'bpe', 'vocab', 'vocabulary',
+  'encoder', 'decoder', 'encode', 'decode', 'attention', 'transformer', 'embedding', 'embeddings',
+  'vector', 'vectors', 'tensor', 'tensors', 'gradient', 'weights', 'loss', 'training', 'inference',
+  'prompt', 'dataset', 'corpus', 'unicode', 'utf', 'byte', 'bytes', 'regex',
+  // Systems, Concurrency & Operating Systems
+  'systemd', 'init', 'pid', 'daemon', 'service', 'cgroup', 'journal', 'dbus', 'kernel',
+  'thread', 'threads', 'async', 'sync', 'await', 'mutex', 'lock', 'locks', 'concurrency', 'parallel',
+  'memory', 'cache', 'caching', 'buffer', 'buffers', 'pointer', 'pointers', 'allocator', 'stack', 'heap',
+  'cpu', 'gpu', 'registers', 'instruction', 'latency', 'throughput', 'bandwidth',
+  'compiler', 'parser', 'syntax', 'ast', 'ir', 'llvm', 'wasm', 'bytecode', 'runtime', 'gc',
+  // Linux, Networks & Databases
+  'linux', 'unix', 'posix', 'socket', 'packet', 'packets', 'tcp', 'udp', 'http', 'api', 'protocol', 'protocols',
+  'database', 'query', 'queries', 'table', 'tables', 'schema', 'index', 'indexes', 'transaction',
+  'btree', 'hash', 'cluster', 'replica', 'sharding', 'consensus', 'raft', 'paxos',
+  'graph', 'tree', 'nodes', 'edges', 'matrix', 'matrices', 'algorithm', 'complexity', 'entropy',
+  // Speaking, Presentation & Pedagogy
+  'boards', 'board', 'blackboard', 'chalk', 'props', 'presentation', 'lecture', 'audience', 'heuristic',
+]);
+
+function normalizeStem(word) {
+  if (word.endsWith('ies') && word.length > 4) return word.slice(0, -3) + 'y';
+  if (word.endsWith('es') && word.length > 4 && /[sxhz]/.test(word[word.length - 3])) return word.slice(0, -2);
+  if (word.endsWith('s') && !word.endsWith('ss') && word.length > 3) return word.slice(0, -1);
+  return word;
+}
+
+export function extractKeywords(cues = [], video = null) {
+  if (!cues || cues.length < 15) return [];
+
+  const metaTokens = new Set();
+  if (video) {
+    const rawMeta = `${video.title || ''} ${video.topic || ''} ${video.summary || ''} ${(video.categories || []).join(' ')}`.toLowerCase();
+    const mTokens = rawMeta.match(/\b[a-z]{3,18}\b/g) || [];
+    for (const tok of mTokens) {
+      if (!STOP_WORDS.has(tok) && tok.length >= 3) {
+        metaTokens.add(normalizeStem(tok));
+        metaTokens.add(tok);
+      }
+    }
+  }
+
+  const freq = new Map();
+  const times = new Map();
+  const bestWord = new Map();
+
+  for (const cue of cues) {
+    const text = (cue.en || cue.zh || '').toLowerCase();
+    const tokens = text.match(/\b[a-z]{3,18}\b/g) || [];
+    const seenInCue = new Set();
+    for (const raw of tokens) {
+      if (raw.length < 3 || STOP_WORDS.has(raw)) continue;
+      const stem = normalizeStem(raw);
+      if (STOP_WORDS.has(stem) || seenInCue.has(stem)) continue;
+      seenInCue.add(stem);
+
+      freq.set(stem, (freq.get(stem) || 0) + 1);
+      if (!times.has(stem)) times.set(stem, []);
+      times.get(stem).push(cue.s);
+
+      if (!bestWord.has(stem) || (raw.length > bestWord.get(stem).length && !raw.endsWith('s'))) {
+        bestWord.set(stem, raw);
+      }
+    }
+  }
+
+  const candidates = [];
+  for (const [stem, count] of freq.entries()) {
+    if (count < 3) continue;
+    let score = count;
+
+    // Direct match with video metadata (title, topic, summary, categories)
+    if (metaTokens.has(stem)) {
+      score *= 12.0;
+    } else {
+      for (const mt of metaTokens) {
+        if (mt.length >= 4 && (stem.includes(mt) || mt.includes(stem))) {
+          score *= 5.0;
+          break;
+        }
+      }
+    }
+
+    // Domain tech vocabulary match
+    if (TECH_TERMS.has(stem)) {
+      score *= 6.0;
+    }
+
+    candidates.push({
+      stem,
+      displayWord: bestWord.get(stem) || stem,
+      count,
+      score,
+      times: times.get(stem) || [],
+    });
+  }
+
+  candidates.sort((a, b) => b.score - a.score || b.count - a.count);
+
+  // Deduplicate overlapping stems (e.g. avoid 'token' + 'tokenizer' + 'tokenization' occupying all 5 slots)
+  const selected = [];
+  for (const cand of candidates) {
+    const w = cand.displayWord;
+    const isDuplicate = selected.some((s) => {
+      const sw = s.displayWord;
+      return (w.startsWith(sw) || sw.startsWith(w)) && Math.abs(w.length - sw.length) >= 2;
+    });
+    if (!isDuplicate) {
+      selected.push(cand);
+      if (selected.length >= 5) break;
+    }
+  }
+
+  return selected.map((c) => ({
+    word: c.displayWord,
+    count: c.count,
+    times: c.times,
+  }));
+}
+
 function extractCommentHotspots(comments = [], maxDuration = 7200) {
   const spots = [];
   for (const c of comments) {
@@ -100,8 +261,14 @@ export function createHeatmapBar({ video, onSeek }) {
   );
 
   const stage = el('div', { class: 'heatmap-stage' }, canvas, tip);
+  const kwRow = el('div', { class: 'heatmap-kw-row', hidden: true });
   const hotspotsBar = el('div', { class: 'heatmap-hotspots', hidden: true });
-  const wrap = el('div', { class: 'heatmap-wrap', hidden: true }, head, stage, hotspotsBar);
+  const wrap = el('div', { class: 'heatmap-wrap', hidden: true }, head, stage, kwRow, hotspotsBar);
+
+  let keywords = [];
+  let activeKeyword = null;
+  let activeKwOccurrences = [];
+  let activeKwIdx = -1;
 
   const ctx2d = canvas.getContext('2d');
   let width = 600;
@@ -173,8 +340,86 @@ export function createHeatmapBar({ video, onSeek }) {
     if (hotspots.length) parts.push(`${hotspots.length} 处网友空降点`);
     subStatEl.textContent = parts.join(' · ');
 
+    keywords = extractKeywords(cues, video);
+    renderKeywords();
     renderHotspotChips();
     draw();
+  }
+
+  function renderKeywords() {
+    if (!keywords.length) {
+      kwRow.hidden = true;
+      kwRow.replaceChildren();
+      return;
+    }
+    const chips = keywords.map((k) => {
+      const active = activeKeyword === k.word;
+      return el('button', {
+        class: 'heatmap-kw-chip' + (active ? ' is-active' : ''),
+        type: 'button',
+        title: `在波形条上点亮「${k.word}」出现的全部时间点（共 ${k.count} 次）并跳播`,
+        on: {
+          click: () => {
+            if (activeKeyword === k.word) {
+              activeKeyword = null;
+              activeKwOccurrences = [];
+              activeKwIdx = -1;
+            } else {
+              activeKeyword = k.word;
+              activeKwOccurrences = k.times || [];
+              activeKwIdx = 0;
+              if (activeKwOccurrences[0] != null) onSeek(activeKwOccurrences[0]);
+            }
+            renderKeywords();
+            draw();
+          },
+        },
+      },
+        el('span', { class: 'heatmap-kw-dot' }),
+        el('span', {}, k.word),
+        el('span', { class: 'heatmap-kw-count' }, String(k.count)),
+      );
+    });
+
+    let navGroup = null;
+    if (activeKeyword && activeKwOccurrences.length > 1) {
+      navGroup = el('div', { class: 'heatmap-kw-nav' },
+        el('button', {
+          class: 'heatmap-kw-step',
+          type: 'button',
+          title: '跳至上一处',
+          on: {
+            click: (e) => {
+              e.stopPropagation();
+              activeKwIdx = (activeKwIdx - 1 + activeKwOccurrences.length) % activeKwOccurrences.length;
+              onSeek(activeKwOccurrences[activeKwIdx]);
+              renderKeywords();
+            },
+          },
+        }, '‹ 上一处'),
+        el('span', { class: 'heatmap-kw-pos' }, `${activeKwIdx + 1}/${activeKwOccurrences.length}`),
+        el('button', {
+          class: 'heatmap-kw-step',
+          type: 'button',
+          title: '跳至下一处',
+          on: {
+            click: (e) => {
+              e.stopPropagation();
+              activeKwIdx = (activeKwIdx + 1) % activeKwOccurrences.length;
+              onSeek(activeKwOccurrences[activeKwIdx]);
+              renderKeywords();
+            },
+          },
+        }, '下一处 ›'),
+      );
+    }
+
+    kwRow.replaceChildren(
+      el('span', { class: 'heatmap-kw-title' }, '🏷️ 脉冲探针：'),
+      ...chips,
+      navGroup,
+    );
+    kwRow.hidden = false;
   }
 
   function renderHotspotChips() {
@@ -293,6 +538,28 @@ export function createHeatmapBar({ video, onSeek }) {
       ctx2d.fillRect(Math.max(0, px - 1), 0, 2, height);
     }
 
+    // 5. Draw Active Keyword Pulse Needles
+    if (activeKeyword && activeKwOccurrences.length) {
+      ctx2d.save();
+      ctx2d.strokeStyle = '#38bdf8';
+      ctx2d.lineWidth = 2;
+      for (const t of activeKwOccurrences) {
+        const kx = (t / dur) * width;
+        if (kx >= 2 && kx <= width - 2) {
+          ctx2d.beginPath();
+          ctx2d.moveTo(kx, 2);
+          ctx2d.lineTo(kx, baseY);
+          ctx2d.stroke();
+
+          ctx2d.fillStyle = '#38bdf8';
+          ctx2d.beginPath();
+          ctx2d.arc(kx, 4, 3, 0, Math.PI * 2);
+          ctx2d.fill();
+        }
+      }
+      ctx2d.restore();
+    }
+
     ctx2d.restore();
   }
 
@@ -372,7 +639,7 @@ export function createHeatmapBar({ video, onSeek }) {
       requestAnimationFrame(resize);
     },
     setComments(nextComments) {
-      comments = Array.isArray(nextComments) ? nextComments : [];
+      comments = Array.isArray(nextComments) ? nextComments : (nextComments?.comments || []);
       recomputeBins();
     },
     refreshNotes() {
@@ -394,6 +661,9 @@ export function createHeatmapBar({ video, onSeek }) {
       } else {
         draw();
       }
+    },
+    getHotspots() {
+      return hotspots;
     },
     destroy() {
       ro.disconnect();

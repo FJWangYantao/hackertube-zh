@@ -98,10 +98,126 @@ export function show(container, route, ctx) {
     onSeek: (seconds) => seekAndScroll(seconds),
   });
 
+  // ── 🪟 Mini 悬浮小窗包装器与伴读气泡 ──
+  const playerWrap = el('div', { class: 'player-wrap' }, player.node);
+  const miniBar = el('div', { class: 'mini-player-bar' },
+    el('button', {
+      class: 'mini-player-btn mini-player-restore',
+      type: 'button',
+      title: '回到正常画面 (滚动至顶部)',
+      on: {
+        click: (e) => {
+          e.stopPropagation();
+          playerWrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+      },
+    }, '⇡ 回到顶部'),
+    el('button', {
+      class: 'mini-player-btn mini-player-close',
+      type: 'button',
+      title: '关闭悬浮小窗',
+      'aria-label': '关闭悬浮小窗',
+      on: {
+        click: (e) => {
+          e.stopPropagation();
+          dismissMini = true;
+          player.node.classList.remove('is-mini');
+        },
+      },
+    }, '✕'),
+  );
+  player.node.append(miniBar);
+
+  let dismissMini = false;
+  let main = null;
+
+  const syncMiniState = () => {
+    if (destroyed || !playerWrap || !player?.node) return;
+    const rect = playerWrap.getBoundingClientRect();
+    const isTheater = watchRoot?.classList.contains('is-theater');
+    const isFullscreen = Boolean(document.fullscreenElement);
+    // When the bottom of the original player wrapper is scrolled above the 56px app header
+    const isOutOfView = rect.bottom < 56;
+    if (isOutOfView && !dismissMini && !isTheater && !isFullscreen) {
+      player.node.classList.add('is-mini');
+      main?.classList.add('has-mini');
+    } else {
+      player.node.classList.remove('is-mini');
+      main?.classList.remove('has-mini');
+      if (rect.bottom >= 56) {
+        dismissMini = false;
+      }
+    }
+  };
+
+  const miniObserver = new IntersectionObserver(() => {
+    syncMiniState();
+  }, { rootMargin: '-56px 0px 0px 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
+  miniObserver.observe(playerWrap);
+  window.addEventListener('scroll', syncMiniState, { passive: true });
+
+  // ── 💬 播放时 HN 社区伴读微气泡 ──
+  let whisperSpots = [];
+  let lastWhisperSpot = null;
+  let whisperTimer = null;
+  const whisperEl = el('aside', {
+    class: 'hn-whisper',
+    hidden: true,
+    'aria-live': 'polite',
+  });
+  playerWrap.append(whisperEl);
+
+  const showWhisper = (spot) => {
+    if (lastWhisperSpot === spot) return;
+    lastWhisperSpot = spot;
+    whisperEl.replaceChildren(
+      el('div', { class: 'hn-whisper-head' },
+        el('span', { class: 'hn-whisper-tag' }, '🔥 HN 伴读'),
+        el('span', { class: 'hn-whisper-ts' }, formatClock(spot.t)),
+        el('button', {
+          class: 'hn-whisper-close',
+          type: 'button',
+          title: '关闭',
+          'aria-label': '关闭气泡',
+          on: {
+            click: (e) => {
+              e.stopPropagation();
+              whisperEl.hidden = true;
+            },
+          },
+        }, '×'),
+      ),
+      el('div', {
+        class: 'hn-whisper-body',
+        title: '点击跳转到底部查看 HN 评论讨论',
+        on: {
+          click: () => {
+            commentsBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            toast(`已定位至 HN 讨论 (@${spot.author})`);
+          },
+        },
+      },
+        el('span', { class: 'hn-whisper-author' }, `@${spot.author}：`),
+        el('span', { class: 'hn-whisper-snippet' }, spot.snippet || '提及此时间点'),
+        el('span', { class: 'hn-whisper-more' }, '查看原评 ↘'),
+      ),
+    );
+    whisperEl.hidden = false;
+    if (whisperTimer) clearTimeout(whisperTimer);
+    whisperTimer = setTimeout(() => {
+      whisperEl.hidden = true;
+    }, 8500);
+  };
+
   player.onTimeUpdate = (time, duration, force = false) => {
     transcript?.update(time);
     heatmap.setProgress(time, duration);
     store.setProgress(video.vid, time, duration, force);
+
+    if (whisperSpots.length && Math.abs((lastWhisperSpot?.t || -999) - time) > 6) {
+      const hit = whisperSpots.find((sp) => Math.abs(sp.t - time) <= 3);
+      if (hit) showWhisper(hit);
+    }
   };
 
   const title = el('h1', { class: 'watch-title' }, video.title_zh || video.title);
@@ -198,7 +314,11 @@ export function show(container, route, ctx) {
     commentsBox.append(el('p', { class: 'muted' }, '正在加载讨论…'));
     loadComments(video.vid).then((payload) => {
       if (!destroyed) {
-        if (Array.isArray(payload)) heatmap.setComments(payload);
+        const commentList = Array.isArray(payload) ? payload : (payload?.comments || []);
+        if (commentList.length) {
+          heatmap.setComments(commentList);
+          whisperSpots = heatmap.getHotspots?.() || [];
+        }
         renderComments(commentsBox, payload, seekAndScroll);
       }
     });
@@ -206,7 +326,7 @@ export function show(container, route, ctx) {
     renderComments(commentsBox, null, seekAndScroll);
   }
 
-  const main = el('div', { class: 'watch-main' }, player.node, heatmap.node, title);
+  main = el('div', { class: 'watch-main' }, playerWrap, heatmap.node, title);
   // Poster bleed for the CSS ambient glow around the player.
   main.style.setProperty(
     '--ambient-img',
@@ -476,6 +596,9 @@ export function show(container, route, ctx) {
     destroy() {
       destroyed = true;
       clearNextPanel();
+      miniObserver.disconnect();
+      window.removeEventListener('scroll', syncMiniState);
+      if (whisperTimer) clearTimeout(whisperTimer);
       heatmap?.destroy();
       playerHud.destroy();
       transcript?.destroy?.();
@@ -720,6 +843,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     getPlaybackRate() {
       return rate;
     },
+    isMounted: () => Boolean(yt || mounting),
     cyclePlaybackRate(dir) {
       const idx = RATE_STEPS.indexOf(rate);
       const next = RATE_STEPS[

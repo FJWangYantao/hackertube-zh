@@ -6,7 +6,6 @@
   max-width: 1754px;
   margin: 0 auto;
   padding: 24px;
-  overflow-x: clip;
 }
 
 .watch-main {
@@ -14,6 +13,10 @@
   isolation: isolate;
   grid-column: 1;
   min-width: 0;
+}
+
+.watch-main.has-mini {
+  z-index: 9999;
 }
 
 /* Cinema ambient light: the poster blurred and bled around the player */
