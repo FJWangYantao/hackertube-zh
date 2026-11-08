@@ -6,6 +6,7 @@ import { renderComments } from './comments.js';
 import { createOverlay, loadYouTubeApi, renderTranscript, findActiveStreamCue } from './subtitles.js';
 import { go } from './router.js';
 import { loadSeriesFor, buildSeriesPanel, nextEpisode } from './series.js';
+import { createHeatmapBar } from './heatmap.js';
 
 const RELATED_LIMIT = 12;
 const RELATED_MIN = 8;
@@ -83,10 +84,6 @@ export function show(container, route, ctx) {
 
   const player = buildPlayer(video, initialStart, canResumeSaved, autoMount);
   const chaptersPromise = loadChapters(video.vid).catch(() => null);
-  player.onTimeUpdate = (time, duration, force = false) => {
-    transcript?.update(time);
-    store.setProgress(video.vid, time, duration, force);
-  };
 
   const seekAndScroll = (seconds) => {
     player.seek(seconds);
@@ -94,6 +91,17 @@ export function show(container, route, ctx) {
     if (rect.top < 0 || rect.bottom > window.innerHeight) {
       player.node.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+  };
+
+  const heatmap = createHeatmapBar({
+    video,
+    onSeek: (seconds) => seekAndScroll(seconds),
+  });
+
+  player.onTimeUpdate = (time, duration, force = false) => {
+    transcript?.update(time);
+    heatmap.setProgress(time, duration);
+    store.setProgress(video.vid, time, duration, force);
   };
 
   const title = el('h1', { class: 'watch-title' }, video.title_zh || video.title);
@@ -154,6 +162,7 @@ export function show(container, route, ctx) {
     notesBtn.textContent = count ? `＋随手记 (${count})` : '＋随手记';
     notesCard.render();
     transcript?.refreshNotes?.();
+    heatmap.refresh();
   };
   const noteEditor = buildNoteEditor({
     getTime: () => player.getCurrentTime(),
@@ -188,13 +197,16 @@ export function show(container, route, ctx) {
   if (commentCount > 0) {
     commentsBox.append(el('p', { class: 'muted' }, '正在加载讨论…'));
     loadComments(video.vid).then((payload) => {
-      if (!destroyed) renderComments(commentsBox, payload, seekAndScroll);
+      if (!destroyed) {
+        if (Array.isArray(payload)) heatmap.setComments(payload);
+        renderComments(commentsBox, payload, seekAndScroll);
+      }
     });
   } else {
     renderComments(commentsBox, null, seekAndScroll);
   }
 
-  const main = el('div', { class: 'watch-main' }, player.node, title);
+  const main = el('div', { class: 'watch-main' }, player.node, heatmap.node, title);
   // Poster bleed for the CSS ambient glow around the player.
   main.style.setProperty(
     '--ambient-img',
@@ -211,6 +223,7 @@ export function show(container, route, ctx) {
     if (destroyed) return;
     const chapters = data?.chapters || [];
     if (!chapters.length) return;
+    heatmap.setChapters(chapters);
     main.insertBefore(buildOutline(data, seekAndScroll), description);
   });
 
@@ -325,6 +338,7 @@ export function show(container, route, ctx) {
     if (destroyed) return;
     cues = (payload?.cues || []).filter((cue) => cue.zh);
     if (!cues.length) return;
+    heatmap.setCues(cues);
     player.setCues(cues);
     subtitleBtn.hidden = !canSync;
     const chapterData = await chaptersPromise;
@@ -462,6 +476,7 @@ export function show(container, route, ctx) {
     destroy() {
       destroyed = true;
       clearNextPanel();
+      heatmap?.destroy();
       playerHud.destroy();
       transcript?.destroy?.();
       player.destroy();

@@ -461,7 +461,7 @@ function renderBatch(reset = false, batchSize = PAGE) {
 
 function card(video) {
   const link = el('a', { class: 'card-link', href: `#/video/${video.vid}` });
-  const thumbNode = thumb(video);
+  const thumbNode = thumb(video, { storyboard: true });
   const progress = store.getProgress(video.vid);
   const hasResume = progress?.t >= 5 && (!progress.d || progress.t < progress.d - 12);
 
@@ -542,7 +542,13 @@ function card(video) {
     },
   }, bookmarkIcon());
 
-  return el('article', { class: 'card' }, link, saveBtn);
+  const cardEl = el('article', { class: 'card' }, link, saveBtn);
+  cardEl.addEventListener('pointermove', (e) => {
+    const rect = cardEl.getBoundingClientRect();
+    cardEl.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    cardEl.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  });
+  return cardEl;
 }
 
 function bookmarkIcon() {

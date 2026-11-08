@@ -70,16 +70,17 @@ export function avatar(name, extraClass = '') {
   return node;
 }
 
-export function thumb(video, { className = '', size = 'hqdefault' } = {}) {
+export function thumb(video, { className = '', size = 'hqdefault', storyboard = false } = {}) {
   const box = el('div', { class: ['thumb', className].filter(Boolean).join(' ') });
   if (!video?.vid) {
     box.classList.add('thumb-fallback');
     box.append(el('span', {}, '?'));
     return box;
   }
+  const baseSrc = `https://i.ytimg.com/vi/${video.vid}/${size}.jpg`;
   const img = el('img', {
     class: 'is-loading',
-    src: `https://i.ytimg.com/vi/${video.vid}/${size}.jpg`,
+    src: baseSrc,
     alt: '',
     loading: 'lazy',
     decoding: 'async',
@@ -96,6 +97,38 @@ export function thumb(video, { className = '', size = 'hqdefault' } = {}) {
   box.append(img);
   // Cached images can finish before the load listener is attached.
   if (img.complete && img.naturalWidth > 0) markReady();
+
+  if (storyboard && video.vid) {
+    const segs = [0, 1, 2, 3].map((i) => el('span', { class: 'thumb-sb-seg' + (i === 0 ? ' is-active' : '') }));
+    const bar = el('div', { class: 'thumb-storyboard-bar', 'aria-hidden': 'true' }, ...segs);
+    box.append(bar);
+
+    let activeIdx = 0;
+    const setFrame = (idx) => {
+      if (idx === activeIdx) return;
+      activeIdx = idx;
+      segs.forEach((seg, i) => seg.classList.toggle('is-active', i === idx));
+      img.src = idx === 0 ? baseSrc : `https://i.ytimg.com/vi/${video.vid}/hq${idx}.jpg`;
+    };
+
+    box.addEventListener('pointerenter', () => {
+      box.classList.add('is-storyboarding');
+    });
+
+    box.addEventListener('pointermove', (event) => {
+      const rect = box.getBoundingClientRect();
+      if (!rect.width) return;
+      const ratio = Math.min(0.999, Math.max(0, (event.clientX - rect.left) / rect.width));
+      const idx = Math.floor(ratio * 4);
+      setFrame(idx);
+    });
+
+    box.addEventListener('pointerleave', () => {
+      box.classList.remove('is-storyboarding');
+      setFrame(0);
+    });
+  }
+
   return box;
 }
 
