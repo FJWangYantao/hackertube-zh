@@ -9,6 +9,8 @@ work/subs/
 
 # Subtitle pipeline scratch
 work/*.log
+work/*.err
+work/*.jsonl
 work/shard_*.txt
 work/missing_subs.txt
 work/retry*.txt

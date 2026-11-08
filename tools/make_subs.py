@@ -13,6 +13,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import functools
 import html
 import json
 import re
@@ -20,18 +21,34 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+TOOLS_DIR = Path(__file__).resolve().parent
+# `python -I` keeps the script directory off sys.path; the sibling modules we
+# import by bare name (translation_backends) need it back.
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
+
+ROOT = TOOLS_DIR.parent
 SUBS_DIR = ROOT / "work" / "subs"
 OUT_DIR = ROOT / "site" / "data" / "subs"
 PICKED = ROOT / "work" / "picked.json"
 
 GATEWAY = "http://127.0.0.1:3425/v1/chat/completions"
-MODEL = "workbuddy-vps/cn:deepseek-v4.1-flash"
+# 双通道并行槽位：commandcode 20 槽 + antigravity 10 槽，共 30 并发。
+# 每块字幕落到哪个通道由 BackendPool 的空闲槽位决定，不经过 magpie 的组路由。
+BACKEND_SLOTS: tuple[tuple[str, int], ...] = (
+    ("commandcode-plan/deepseek/deepseek-v4.1-flash", 70),
+    ("antigravity/gemini-3.8-flash", 10),
+    ("workbuddy-deepseek/cn:deepseek-v4.1-flash", 10),
+    ("workbuddy-deepseek/global:deepseek-v4.1-flash-sg", 10),
+)
+MODEL = ""               # 空表示按 BACKEND_SLOTS 建池；--model 可覆盖为单通道
+# 字幕翻译不需要思考链；开着会把 max_tokens 花在 reasoning_content 上。
+REASONING_EFFORT = "none"
 MAX_CHARS = 700          # per translation chunk
-WORKERS = 4
+WORKERS = 4              # 仅单通道模式（--model）下生效
 
 SEP = "\n@@@\n"
 
@@ -150,6 +167,8 @@ def call_gateway(
 ) -> list[str]:
     """Send a request using a local model choice, safe for mixed-model threads."""
     selected_model = MODEL if model is None else model
+    if not selected_model and BACKEND_SLOTS:
+        selected_model = BACKEND_SLOTS[0][0]
     if not isinstance(selected_model, str) or not selected_model.strip():
         raise ValueError("model must be a nonblank string")
     body = {
@@ -161,6 +180,9 @@ def call_gateway(
             {"role": "user", "content": GLOSSARY + "\n\n" + SEP.join(sentences)},
         ],
     }
+    if reasoning_effort is None and thinking is None:
+        # 默认关闭思考链：字幕批量翻译不需要，开着既慢又容易把 max_tokens 吃光。
+        reasoning_effort = REASONING_EFFORT
     if reasoning_effort:
         # Reasoning models (e.g. GLM-5.3-Flash) otherwise spend max_tokens on
         # reasoning_content and return an empty final answer.
@@ -201,10 +223,58 @@ def call_gateway(
     return parts
 
 
-def translate_batch(sentences: list[str]) -> list[str]:
+def make_transport(slots: tuple[tuple[str, int], ...], reasoning_effort: str | None = None):
+    """Build the slot pool: every model owns its own concurrency budget.
+
+    Each callback swallows content-level failures (separator mismatch, empty
+    answer) by splitting the chunk and retrying, so only transport/quota errors
+    reach the pool's circuit breaker. A formatting hiccup must never bench a
+    healthy channel for 15 minutes.
+    """
+    from translation_backends import BackendPool, TranslationBackend
+    effort = REASONING_EFFORT if reasoning_effort is None else reasoning_effort
+
+    def upstream_kwargs(model: str) -> dict:
+        """Close the thinking chain per upstream dialect.
+
+        commandcode's DeepSeek accepts reasoning_effort=none; workbuddy's only
+        offers low/high/max, so it needs the DeepSeek thinking switch instead —
+        passing none there would silently land on "low", not off. Gemini has no
+        off switch at all, so its nearest level is the best available.
+        """
+        if model.startswith("workbuddy-deepseek/"):
+            return {"thinking": {"type": "disabled"}}
+        if model.startswith("antigravity/"):
+            return {"reasoning_effort": "low"}
+        return {"reasoning_effort": effort}
+
+    def callback(model: str):
+        single = functools.partial(call_gateway, model=model, **upstream_kwargs(model))
+
+        def translate(sentences: list[str]) -> list[str]:
+            return translate_batch(sentences, single)
+
+        return translate
+
+    return BackendPool(tuple(
+        TranslationBackend(model, count, callback(model))
+        for model, count in slots
+    ))
+
+
+def transport_label(transport) -> str:
+    """Short label for the subtitle JSON, e.g. 'deepseek-v4.1-flash+gemini-3.8-flash'."""
+    models = getattr(transport, "models", None)
+    if models:
+        return "+".join(model.split("/")[-1] for model in models)
+    return MODEL
+
+
+def translate_batch(sentences: list[str], transport=None) -> list[str]:
     """Translate in one call; split in half and retry on misalignment."""
+    send = call_gateway if transport is None else transport
     try:
-        result = call_gateway(sentences)
+        result = send(sentences)
         if all(result):
             return result
         raise ValueError("empty translation")
@@ -214,12 +284,13 @@ def translate_batch(sentences: list[str]) -> list[str]:
         if len(sentences) <= 1:
             return [""]
         mid = len(sentences) // 2
-        return translate_batch(sentences[:mid]) + translate_batch(sentences[mid:])
+        return (translate_batch(sentences[:mid], transport)
+                + translate_batch(sentences[mid:], transport))
 
 
-def translate_group(group: list[dict]) -> list[dict]:
+def translate_group(group: list[dict], transport=None) -> list[dict]:
     sentences = [cue["en"] for cue in group]
-    translated = translate_batch(sentences)
+    translated = translate_batch(sentences, transport)
     return [{**cue, "zh": piece} for cue, piece in zip(group, translated)]
 
 
@@ -253,54 +324,148 @@ def pick_source(vid: str) -> Path | None:
     return SUBS_DIR / best
 
 
-def build(vid: str, force: bool = False) -> bool:
-    out_path = OUT_DIR / f"{vid}.json"
-    if out_path.exists() and not force:
-        print(f"  {vid}: already translated, skipped")
-        return False
-    source = pick_source(vid)
-    if source is None:
-        print(f"  {vid}: no vtt, skipped")
-        return False
-    cues = parse_vtt(source)
-    if not cues:
-        print(f"  {vid}: empty captions, skipped")
-        return False
-    groups = group_cues(cues)
-    print(f"  {vid}: {len(cues)} cues -> {len(groups)} chunks ({source.name})")
-    with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        translated = [cue for part in pool.map(translate_group, groups) for cue in part]
-    missing = sum(1 for c in translated if not c["zh"])
-    if translated and missing == len(translated):
-        raise RuntimeError("all cues untranslated; not writing an empty file")
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+def write_payload(vid: str, source: Path, translated: list[dict], label: str) -> None:
     payload = {
         "vid": vid,
-        "model": MODEL,
+        "model": label,
         "source": source.name,
         "cues": [{"s": round(c["s"], 2), "e": round(c["e"], 2),
                   "zh": c["zh"], "en": c["en"]} for c in translated],
     }
-    with out_path.open("w", encoding="utf-8") as fh:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    with (OUT_DIR / f"{vid}.json").open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False)
-    print(f"  {vid}: wrote {len(translated)} cues, {missing} untranslated")
-    return True
+
+
+def build(vid: str, force: bool = False, transport=None) -> bool:
+    """Translate one video; returns True when a file was written."""
+    return build_many([vid], transport=transport, force=force) == 1
+
+
+def build_many(vids: list[str], transport=None, force: bool = False) -> int:
+    """Translate several videos through one shared slot pool.
+
+    Chunks from every video are queued together, so a short video no longer
+    leaves most of the 30 slots idle while its own dozen chunks finish.
+    """
+    if transport is None:
+        transport = make_transport(BACKEND_SLOTS)
+    label = transport_label(transport)
+
+    sources: dict[str, Path] = {}
+    grouped: dict[str, list[list[dict]]] = {}
+    tasks: list[tuple[str, int]] = []
+    for vid in dict.fromkeys(vids):
+        if (OUT_DIR / f"{vid}.json").exists() and not force:
+            print(f"  {vid}: already translated, skipped", flush=True)
+            continue
+        source = pick_source(vid)
+        if source is None:
+            print(f"  {vid}: no vtt, skipped", flush=True)
+            continue
+        cues = parse_vtt(source)
+        if not cues:
+            print(f"  {vid}: empty captions, skipped", flush=True)
+            continue
+        groups = group_cues(cues)
+        sources[vid] = source
+        grouped[vid] = groups
+        tasks.extend((vid, index) for index in range(len(groups)))
+        print(f"  {vid}: {len(cues)} cues -> {len(groups)} chunks ({source.name})",
+              flush=True)
+
+    if not tasks:
+        return 0
+
+    results: dict[str, list] = {vid: [None] * len(groups)
+                                for vid, groups in grouped.items()}
+    remaining: dict[str, int] = {vid: len(groups) for vid, groups in grouped.items()}
+    failures: dict[str, Exception] = {}
+    built = 0
+
+    def finalize(vid: str) -> None:
+        """Write a video the moment its last chunk lands, so progress survives."""
+        nonlocal built
+        if vid in failures:
+            print(f"  {vid}: FAILED {failures[vid]}", flush=True)
+            return
+        translated = [cue for part in results[vid] if part for cue in part]
+        missing = sum(1 for c in translated if not c["zh"])
+        if translated and missing == len(translated):
+            print(f"  {vid}: FAILED all cues untranslated", flush=True)
+            return
+        write_payload(vid, sources[vid], translated, label)
+        built += 1
+        print(f"  {vid}: wrote {len(translated)} cues, {missing} untranslated "
+              f"({built}/{len(grouped)})", flush=True)
+
+    concurrency = getattr(transport, "workers", WORKERS)
+    print(f"  queueing {len(tasks)} chunks over {concurrency} slots...", flush=True)
+    with ThreadPoolExecutor(max_workers=concurrency) as executor:
+        futures = {
+            executor.submit(translate_group, grouped[vid][index], transport): (vid, index)
+            for vid, index in tasks
+        }
+        for future in as_completed(futures):
+            vid, index = futures[future]
+            try:
+                results[vid][index] = future.result()
+            except Exception as exc:  # noqa: BLE001
+                failures.setdefault(vid, exc)
+            remaining[vid] -= 1
+            if remaining[vid] == 0:
+                finalize(vid)
+
+    return built
+
+
+def parse_slots(spec: str) -> tuple[tuple[str, int], ...]:
+    """Parse 'model=n,model=n' into slot pairs."""
+    slots: list[tuple[str, int]] = []
+    for item in spec.split(","):
+        item = item.strip()
+        if not item:
+            continue
+        model, sep, count = item.rpartition("=")
+        if not sep or not model or not count.isdigit() or int(count) < 1:
+            raise ValueError(f"bad slot spec {item!r}; expected model=n")
+        slots.append((model, int(count)))
+    if not slots:
+        raise ValueError("empty --slots")
+    return tuple(slots)
 
 
 def main() -> None:
-    global WORKERS, MODEL, MAX_CHARS
+    global WORKERS, MODEL, MAX_CHARS, REASONING_EFFORT
     parser = argparse.ArgumentParser()
     parser.add_argument("--vids", nargs="*", default=[])
     parser.add_argument("--vid-file", default="")
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--force", action="store_true")
-    parser.add_argument("--workers", type=int, default=WORKERS)
-    parser.add_argument("--model", default=MODEL)
+    parser.add_argument("--workers", type=int, default=WORKERS,
+                        help="仅单通道模式（--model）下生效")
+    parser.add_argument("--model", default=MODEL,
+                        help="单通道模型；给出时忽略 --slots")
+    parser.add_argument("--slots", default="",
+                        help="并行槽位，如 'model=20,model=10'；默认 "
+                             + ",".join(f"{m}={n}" for m, n in BACKEND_SLOTS))
     parser.add_argument("--max-chars", type=int, default=MAX_CHARS)
+    parser.add_argument("--limit", type=int, default=0,
+                        help="只处理前 N 个尚未翻译的视频（分批推进用）")
+    parser.add_argument("--reasoning-effort", default=REASONING_EFFORT,
+                        help="传给上游的 reasoning_effort；空字符串表示不传")
     args = parser.parse_args()
     WORKERS = max(1, args.workers)
     MODEL = args.model
     MAX_CHARS = max(200, args.max_chars)
+    REASONING_EFFORT = args.reasoning_effort
+
+    slots = (tuple([(args.model, WORKERS)]) if args.model
+             else parse_slots(args.slots) if args.slots
+             else BACKEND_SLOTS)
+    transport = make_transport(slots)
+    print("pool: " + ", ".join(f"{m} x{n}" for m, n in slots)
+          + f" = {transport.workers} 并发", flush=True)
 
     vids = args.vids
     if args.vid_file:
@@ -313,13 +478,12 @@ def main() -> None:
     if not vids:
         vids = sorted(p.stem.split(".")[0] for p in SUBS_DIR.glob("*.vtt"))
 
-    done = 0
-    for vid in dict.fromkeys(vids):
-        try:
-            done += build(vid, force=args.force)
-        except Exception as exc:  # noqa: BLE001
-            print(f"  {vid}: FAILED {exc}")
-    print(f"built {done}/{len(set(vids))}")
+    vids = list(dict.fromkeys(vids))
+    if args.limit and not args.force:
+        # Skip what is already on disk first, so a batch always makes progress.
+        vids = [vid for vid in vids if not (OUT_DIR / f"{vid}.json").exists()][:args.limit]
+    done = build_many(vids, transport=transport, force=args.force)
+    print(f"built {done}/{len(vids)}")
 
 
 if __name__ == "__main__":
