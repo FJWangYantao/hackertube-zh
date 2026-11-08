@@ -59,6 +59,9 @@ work/hybrid_batch/
 *.env
 work/.env
 
+# Alternative-source probes (may contain a live proxy subscription token)
+work/alt_sources/
+
 # Ops helpers carrying live credentials or large binaries (keep local only)
 work/sub_fresh.yaml
 work/vps_mihomo.yaml
