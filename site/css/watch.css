@@ -1650,62 +1650,6 @@
   color: var(--text);
 }
 
-/* Chapter strip right under the player */
-.chapter-bar {
-  display: flex;
-  gap: 3px;
-  margin-top: 10px;
-}
-
-.chapter-seg {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1px;
-  min-width: 0;
-  padding: 5px 8px 4px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg-subtle);
-  text-align: left;
-  transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
-}
-
-.chapter-seg:hover {
-  background: var(--bg-hover);
-  border-color: var(--text-3);
-}
-
-.chapter-seg.is-active {
-  border-color: rgba(234, 88, 12, 0.45);
-  background: rgba(234, 88, 12, 0.1);
-}
-
-.chapter-seg-time {
-  color: var(--text-3);
-  font-size: 10.5px;
-  font-variant-numeric: tabular-nums;
-}
-
-.chapter-seg.is-active .chapter-seg-time {
-  color: var(--brand);
-  font-weight: 700;
-}
-
-.chapter-seg-title {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--text-2);
-  font-size: 11.5px;
-  font-weight: 500;
-}
-
-.chapter-seg.is-active .chapter-seg-title {
-  color: var(--text);
-}
-
 /* AI outline card (TL;DR + chapter chips) */
 .watch-outline {
   margin: 12px 0;
@@ -1776,20 +1720,6 @@
   font-size: 11px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-}
-
-@media (max-width: 900px) {
-  .chapter-bar {
-    flex-wrap: wrap;
-  }
-
-  .chapter-seg-title {
-    display: none;
-  }
-
-  .chapter-seg {
-    padding: 4px 7px;
-  }
 }
 
 /* 合集导航：当前视频属于某个系列时，显示在简介上方 */
@@ -1930,7 +1860,6 @@
 .comment-ts,
 .comment-date,
 .transcript-ts,
-.chapter-seg-time,
 .transcript-chapter-ts,
 .outline-chip-ts,
 .player-resume,

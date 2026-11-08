@@ -68,7 +68,6 @@ export function show(container, route, ctx) {
   let transcript = null;
   let cues = [];
   let toggleRailTab = null;
-  let chapterBar = null;
   let cachedRelatedMap = {};
   ctx.setTitle(`${video.title_zh || video.title} · HackerTube 中文`);
   markVisited(video.vid);
@@ -86,7 +85,6 @@ export function show(container, route, ctx) {
   const chaptersPromise = loadChapters(video.vid).catch(() => null);
   player.onTimeUpdate = (time, duration, force = false) => {
     transcript?.update(time);
-    chapterBar?.update(time);
     store.setProgress(video.vid, time, duration, force);
   };
 
@@ -208,15 +206,12 @@ export function show(container, route, ctx) {
   main.insertBefore(notesCard.node, description);
   syncNotesUi();
 
-  // AI outline: chapter strip under the player + TL;DR card above the description.
+  // AI outline: TL;DR card above the description.
   chaptersPromise.then((data) => {
     if (destroyed) return;
     const chapters = data?.chapters || [];
     if (!chapters.length) return;
-    chapterBar = buildChapterBar(chapters, data.dur || 0, seekAndScroll);
-    main.insertBefore(chapterBar.node, title);
     main.insertBefore(buildOutline(data, seekAndScroll), description);
-    chapterBar.update(initialStart);
   });
 
   const initialRelated = pickRelated(video, {}, ctx);
@@ -472,45 +467,6 @@ export function show(container, route, ctx) {
       player.destroy();
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('fullscreenchange', onFullscreen);
-    },
-  };
-}
-
-/** Chapter strip right under the player; segments sized by chapter length. */
-function buildChapterBar(chapters, duration, onSeek) {
-  const last = chapters[chapters.length - 1];
-  const total = Math.max(1, duration || (last ? last.s + 60 : 1));
-  const segments = chapters.map((chapter, i) => {
-    const end = i + 1 < chapters.length ? chapters[i + 1].s : total;
-    const span = Math.max(2, end - chapter.s);
-    const node = el('button', {
-      class: 'chapter-seg',
-      type: 'button',
-      style: { flexGrow: String(span) },
-      title: `${formatClock(chapter.s)} · ${chapter.t}`,
-      on: { click: () => onSeek(chapter.s) },
-    },
-      el('span', { class: 'chapter-seg-time' }, formatClock(chapter.s)),
-      el('span', { class: 'chapter-seg-title' }, chapter.t),
-    );
-    return { chapter, node };
-  });
-
-  const bar = el('div', { class: 'chapter-bar', role: 'navigation', 'aria-label': '章节导航' },
-    ...segments.map((segment) => segment.node));
-
-  let active = -1;
-  return {
-    node: bar,
-    update(time) {
-      let next = -1;
-      for (let i = 0; i < segments.length; i++) {
-        if (time + 0.01 >= segments[i].chapter.s) next = i;
-      }
-      if (next === active) return;
-      if (active >= 0) segments[active].node.classList.remove('is-active');
-      active = next;
-      if (next >= 0) segments[next].node.classList.add('is-active');
     },
   };
 }
