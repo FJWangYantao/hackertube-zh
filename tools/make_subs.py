@@ -36,11 +36,11 @@ OUT_DIR = ROOT / "site" / "data" / "subs"
 PICKED = ROOT / "work" / "picked.json"
 
 GATEWAY = "http://127.0.0.1:3425/v1/chat/completions"
-# 双通道并行槽位：commandcode 20 槽 + antigravity 10 槽，共 30 并发。
+# 并行槽位：commandcode 80 + workbuddy cn 10 + workbuddy global 10，共 100 并发。
+# antigravity 已撤下，空出的槽位全部并入 commandcode。
 # 每块字幕落到哪个通道由 BackendPool 的空闲槽位决定，不经过 magpie 的组路由。
 BACKEND_SLOTS: tuple[tuple[str, int], ...] = (
-    ("commandcode-plan/deepseek/deepseek-v4.1-flash", 70),
-    ("antigravity/gemini-3.8-flash", 10),
+    ("commandcode-plan/deepseek/deepseek-v4.1-flash", 80),
     ("workbuddy-deepseek/cn:deepseek-v4.1-flash", 10),
     ("workbuddy-deepseek/global:deepseek-v4.1-flash-sg", 10),
 )
