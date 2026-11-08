@@ -16,10 +16,48 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from hybrid_pipeline import HybridJob, Recognition
-from hybrid_runtime import HybridRuntime, batch_lock
+from hybrid_runtime import HybridRuntime, batch_lock, vtt_rows
 import run_hybrid_batch as cli
 
 VID = "abcdefghijk"
+
+
+class VttRowsTests(unittest.TestCase):
+    def test_vtt_rows_parse_and_collapse_rolling_repeats(self) -> None:
+        vtt = """WEBVTT
+
+00:00:01.000 --> 00:00:03.000 align:start position:0%
+ hi<00:00:01.500><c> there</c>
+
+00:00:03.000 --> 00:00:05.000 align:start position:0%
+ hi there everybody
+
+00:00:05.000 --> 00:00:07.000 align:start position:0%
+ welcome to the show
+
+00:00:07.000 --> 00:00:09.000 align:start position:0%
+ welcome to the show
+"""
+        rows = vtt_rows(vtt)
+        self.assertEqual([(r["start"], r["end"]) for r in rows],
+                         [(1.0, 5.0), (5.0, 9.0)])
+        self.assertEqual([r["text"] for r in rows],
+                         ["hi there everybody", "welcome to the show"])
+
+    def test_vtt_rows_skip_blank_cues(self) -> None:
+        vtt = """WEBVTT
+
+00:00:00.000 --> 00:00:02.000
+[Music]
+
+00:00:02.000 --> 00:00:04.000
+
+00:00:04.000 --> 00:00:06.000
+real content starts here
+"""
+        rows = vtt_rows(vtt)
+        self.assertEqual([(r["start"], r["end"], r["text"]) for r in rows],
+                         [(0.0, 2.0, "[Music]"), (4.0, 6.0, "real content starts here")])
 
 
 def sample_rows() -> list[dict]:
@@ -222,13 +260,13 @@ class CliTests(unittest.TestCase):
     def test_default_configuration_and_invalid_limits(self) -> None:
         args = cli.parse_args(["--ids-file", str(self.ids)])
         self.assertEqual((args.local_workers, args.deepgram_workers,
-                          args.antigravity_workers, args.trae_workers,
-                          args.workbuddy_workers), (1, 1, 6, 5, 5))
+                          args.cc_workers, args.cn_workers, args.global_workers),
+                         (1, 1, 130, 10, 10))
         for extra in (["--limit", "0"], ["--local-workers", "2"],
                       ["--deepgram-workers", "7"], ["--queue-low", "32"],
                       ["--publish"], ["--local-workers", "0", "--deepgram-workers", "0"],
-                      ["--antigravity-workers", "7"], ["--trae-workers", "-1"],
-                      ["--workbuddy-workers", "6"]):
+                      ["--cc-workers", "131"], ["--cn-workers", "11"],
+                      ["--global-workers", "11"]):
             with self.subTest(extra=extra), redirect_stderr(StringIO()), self.assertRaises(SystemExit):
                 cli.parse_args(["--ids-file", str(self.ids)] + extra)
 

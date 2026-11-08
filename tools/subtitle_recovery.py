@@ -310,10 +310,17 @@ class RecoverySession:
             valid, invalid = {}, {index: f"translator {type(error).__name__}"
                                  for index in work.indexes}
         self._active.remove(work)
-        self.completed = {**self.completed, **valid}
         transport_failure = error is not None and not isinstance(error, ValueError)
+        if transport_failure and work.attempt < self.repair_attempts:
+            # Transient upstream failures (lane flap, 5xx, timeouts) retry the
+            # whole group on another lane instead of permanently rejecting its
+            # cues; the circuit breaker routes the retry to a healthy backend.
+            self._pending.append(TranslationWork(tuple(work.indexes), work.attempt + 1, self._owner))
+            write_json_atomic(self.path, {**self.identity, "translations": self.completed})
+            return
+        self.completed = {**self.completed, **valid}
         for index, reason in invalid.items():
-            if transport_failure or work.attempt >= self.repair_attempts:
+            if work.attempt >= self.repair_attempts:
                 self._failures = {**self._failures, index: reason}
             else:
                 self._pending.append(TranslationWork((index,), work.attempt + 1, self._owner))

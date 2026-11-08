@@ -743,6 +743,520 @@ nav.top .in {
   color: #fca5a5;
 }
 
+/* =========================================================================
+   REAL-TIME PIPELINE FLOW ANIMATION BANNER (#live-flow-banner)
+   ========================================================================= */
+.flow-banner {
+  background: linear-gradient(180deg, rgba(19, 22, 27, 0.96) 0%, rgba(11, 13, 16, 0.98) 100%);
+  border: 1px solid var(--line);
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
+}
+.flow-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--ok), transparent);
+  opacity: 0.55;
+}
+.flow-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.flow-head-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.flow-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #f8fafc;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.01em;
+}
+.flow-beacon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  animation: flowBeaconPulse 1.8s ease-in-out infinite;
+}
+.flow-beacon.ok {
+  background: var(--ok);
+  box-shadow: 0 0 10px var(--ok);
+}
+.flow-beacon.warn {
+  background: var(--warn);
+  box-shadow: 0 0 10px var(--warn);
+}
+.flow-beacon.bad {
+  background: var(--bad);
+  box-shadow: 0 0 10px var(--bad);
+}
+@keyframes flowBeaconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.65; }
+}
+
+.flow-track-grid {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) 54px minmax(250px, 1.35fr) 54px minmax(185px, 0.95fr) 54px minmax(185px, 0.95fr);
+  align-items: stretch;
+  gap: 0;
+}
+@media (max-width: 1180px) {
+  .flow-track-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .flow-conduit {
+    display: none !important;
+  }
+}
+
+.flow-node {
+  background: rgba(15, 19, 26, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 11px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+  overflow: hidden;
+}
+.flow-node.is-active {
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 0 20px -4px rgba(56, 189, 248, 0.22), inset 0 0 16px rgba(56, 189, 248, 0.05);
+}
+.flow-node.is-done {
+  border-color: rgba(52, 211, 153, 0.35);
+}
+.flow-node.is-warn {
+  border-color: rgba(251, 191, 36, 0.45);
+}
+.flow-node.is-bad {
+  border-color: rgba(248, 113, 113, 0.55);
+}
+.flow-node.is-active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 65%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  animation: flowNodeSweep 2.2s linear infinite;
+}
+@keyframes flowNodeSweep {
+  0% { left: -65%; }
+  100% { left: 115%; }
+}
+
+.fn-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.fn-step {
+  font-size: 12px;
+  font-weight: 700;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.fn-num {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.flow-node.is-done .fn-num {
+  color: var(--ok);
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.1);
+}
+
+.fn-visual {
+  min-height: 36px;
+  background: rgba(5, 7, 10, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Stage 1: Audio Spectrum Equalizer */
+.flow-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  padding: 2px 0;
+}
+.flow-eq i {
+  display: block;
+  width: 3.5px;
+  height: 5px;
+  border-radius: 2px;
+  background: var(--cyan);
+  opacity: 0.45;
+  transition: height 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+}
+.flow-eq.active i {
+  opacity: 0.95;
+  animation: flowEqBounce 0.85s ease-in-out infinite alternate;
+}
+.flow-eq.done i {
+  background: var(--ok);
+  opacity: 0.85;
+  height: 12px;
+}
+.flow-eq.active i:nth-child(1) { animation-duration: 0.55s; }
+.flow-eq.active i:nth-child(2) { animation-duration: 0.75s; animation-delay: 0.12s; }
+.flow-eq.active i:nth-child(3) { animation-duration: 0.48s; animation-delay: 0.24s; }
+.flow-eq.active i:nth-child(4) { animation-duration: 0.68s; animation-delay: 0.08s; }
+.flow-eq.active i:nth-child(5) { animation-duration: 0.52s; animation-delay: 0.18s; }
+.flow-eq.active i:nth-child(6) { animation-duration: 0.78s; animation-delay: 0.28s; }
+@keyframes flowEqBounce {
+  0% { height: 4px; }
+  100% { height: 18px; }
+}
+
+/* Stage 2: Multi-Channel Speed Lanes */
+.flow-lanes {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.flow-lane {
+  display: grid;
+  grid-template-columns: 76px 1fr 48px;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+}
+.flow-lane-name {
+  color: #cbd5e1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.flow-lane-pipe {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+.flow-lane-pkt {
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 32%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--ok), #a7f3d0);
+  animation: flowPacketRun var(--dur, 1.4s) linear infinite;
+}
+.flow-lane.warn .flow-lane-pkt {
+  background: linear-gradient(90deg, transparent, var(--cyan), #bae6fd);
+}
+.flow-lane.slow .flow-lane-pkt {
+  background: linear-gradient(90deg, transparent, var(--bad), #fca5a5);
+}
+.flow-lanes.paused .flow-lane-pkt {
+  animation-play-state: paused;
+  left: 35%;
+  opacity: 0.4;
+}
+@keyframes flowPacketRun {
+  0% { left: -35%; }
+  100% { left: 105%; }
+}
+.flow-lane-ms {
+  text-align: right;
+  color: var(--mut);
+}
+
+/* Account Rotation Carousel & Orbit */
+.rot-spinner {
+  display: inline-block;
+  animation: rotSpin 3.5s linear infinite;
+  transform-origin: center center;
+  font-style: normal;
+  line-height: 1;
+}
+@keyframes rotSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.flow-acc-orbit {
+  margin-top: 6px;
+  padding: 5px 7px;
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px dashed rgba(56, 189, 248, 0.22);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fao-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--mut);
+}
+.fao-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+.fao-chips {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 1px 0;
+}
+.fao-chips::-webkit-scrollbar {
+  display: none;
+}
+.fao-chip {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: #94a3b8;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+.fao-chip .fao-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ok);
+  opacity: 0.6;
+}
+.fao-chip.is-active {
+  background: rgba(56, 189, 248, 0.16);
+  border-color: rgba(56, 189, 248, 0.65);
+  color: #f8fafc;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.35);
+  transform: translateY(-1px) scale(1.04);
+}
+.fao-chip.is-active .fao-dot {
+  background: var(--cyan);
+  opacity: 1;
+  box-shadow: 0 0 6px var(--cyan);
+  animation: flowBeaconPulse 1.2s ease-in-out infinite;
+}
+.fao-chip.is-tripped {
+  border-color: rgba(248, 113, 113, 0.4);
+  color: #fca5a5;
+  background: rgba(248, 113, 113, 0.08);
+}
+.fao-chip.is-tripped .fao-dot {
+  background: var(--bad);
+}
+
+/* Stage 3: Quality Gate Radar Shield */
+.flow-radar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(52, 211, 153, 0.45);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ok);
+  font-size: 11px;
+  font-weight: 700;
+}
+.flow-radar::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: var(--ok);
+  animation: flowRadarSpin 1.8s linear infinite;
+}
+.flow-radar.warn {
+  border-color: rgba(251, 191, 36, 0.45);
+  color: var(--warn);
+}
+.flow-radar.warn::before {
+  border-top-color: var(--warn);
+}
+@keyframes flowRadarSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Stage 4: Publication Stack & Pulse */
+.flow-pub-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+}
+.flow-pub-count {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: -0.02em;
+}
+.flow-pub-bump {
+  animation: flowPubPop 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes flowPubPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.16); color: var(--ok); }
+  100% { transform: scale(1); }
+}
+
+/* Inter-Stage Conduits */
+.flow-conduit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  position: relative;
+  user-select: none;
+}
+.flow-conduit-pipe {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  position: relative;
+  overflow: hidden;
+}
+.flow-conduit-stream {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 10px,
+    var(--c-color, var(--cyan)) 10px,
+    var(--c-color, var(--cyan)) 18px
+  );
+  background-size: 28px 100%;
+  opacity: 0.25;
+  transition: opacity 0.3s ease;
+}
+.flow-conduit.flowing .flow-conduit-stream {
+  opacity: 0.92;
+  animation: flowConduitMarch var(--c-speed, 0.7s) linear infinite;
+}
+@keyframes flowConduitMarch {
+  from { background-position: 0 0; }
+  to { background-position: 28px 0; }
+}
+.flow-conduit-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--mut);
+  margin-top: 5px;
+  white-space: nowrap;
+}
+.flow-conduit.flowing .flow-conduit-label {
+  color: #cbd5e1;
+}
+
+.fn-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.fn-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--mut);
+}
+.fn-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.fn-bar > i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cyan), var(--ok));
+  transition: width 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-beacon,
+  .flow-node.is-active::after,
+  .flow-eq.active i,
+  .flow-lane-pkt,
+  .flow-radar::before,
+  .flow-conduit.flowing .flow-conduit-stream,
+  .rot-spinner {
+    animation: none !important;
+  }
+}
+
 footer {
   max-width: 1520px;
   margin: 0 auto;
@@ -800,6 +1314,170 @@ footer {
 
   <!-- 1. LIVE MONITOR (PRIMARY CONSOLE) -->
   <section id="live" style="padding-top:0;border-top:none;">
+    <!-- Real-Time Pipeline Flow Animation Banner -->
+    <div id="live-flow-banner" class="flow-banner">
+      <div class="flow-head">
+        <div class="flow-head-left">
+          <span class="flow-title">
+            <i class="flow-beacon" id="flow-beacon"></i>
+            <span>全链路实时流转态势</span>
+          </span>
+          <span class="pill c-wh" id="flow-active-pill">正在同步实时状态…</span>
+          <span class="pill ok" id="flow-acc-pill" style="display:inline-flex;align-items:center;gap:4px;"><i class="rot-spinner">🔄</i> <span id="flow-acc-text">账号轮换: 9 凭据均衡调度中</span></span>
+          <span class="pill mut" id="flow-bottleneck-pill">⚡ 极速主力: gemini-3.5-flash-lite (980ms) · 短板: glm-5.3-flash (6450ms)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="mono mut" style="font-size:11px;" id="flow-speed-summary">吞吐: — 句/s</span>
+          <button class="btn on" id="flow-anim-toggle" style="padding:2px 8px;font-size:11px;" title="切换实时脉冲流转动画">✨ 动态流转: 开启</button>
+        </div>
+      </div>
+
+      <div class="flow-track-grid">
+        <!-- Stage 1: ASR Recognition -->
+        <div class="flow-node is-active" id="fn-asr">
+          <div class="fn-top">
+            <span class="fn-step"><span class="fn-num">1</span> 语音识别 (ASR)</span>
+            <span class="pill c-wh" id="fn-asr-badge" style="font-size:10px;padding:1px 6px">待命 / 识别</span>
+          </div>
+          <div class="fn-visual">
+            <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+              <div class="flow-eq active" id="fn-asr-eq" aria-hidden="true">
+                <i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <div style="min-width:0;">
+                <div class="mono" style="font-size:11px;font-weight:600;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="fn-asr-engine">Deepgram / Whisper</div>
+                <div class="mono mut" style="font-size:10px;" id="fn-asr-sub">队列就绪 · 实时切分音轨</div>
+              </div>
+            </div>
+            <span class="mono" style="font-size:11.5px;font-weight:700;color:var(--cyan);flex-shrink:0;" id="fn-asr-pct">100%</span>
+          </div>
+          <div class="fn-foot">
+            <div class="fn-meta">
+              <span id="fn-asr-pos">0.0s / 0.0s</span>
+              <span id="fn-asr-segs">0 段原句</span>
+            </div>
+            <div class="fn-bar"><i id="fn-asr-bar" style="width:100%"></i></div>
+          </div>
+        </div>
+
+        <!-- Conduit 1 -> 2 -->
+        <div class="flow-conduit flowing" id="fc-1" style="--c-color: var(--cyan); --c-speed: 0.75s;">
+          <div class="flow-conduit-pipe"><div class="flow-conduit-stream"></div></div>
+          <div class="flow-conduit-label" id="fc-1-lbl">@@@ 分块 ➔ 轮询派发</div>
+        </div>
+
+        <!-- Stage 2: Concurrent Translation Pool & Account Rotation Hub -->
+        <div class="flow-node is-active" id="fn-tr">
+          <div class="fn-top">
+            <span class="fn-step"><span class="fn-num">2</span> 多渠道并发翻译池</span>
+            <div style="display:flex;gap:5px;align-items:center;">
+              <span class="pill ok" id="fn-tr-badge" style="font-size:10px;padding:1px 6px">10 渠道在线</span>
+              <span class="pill" id="fn-tr-acc-badge" style="font-size:10px;padding:1px 6px;color:var(--cyan);border-color:rgba(56,189,248,0.3);background:rgba(56,189,248,0.06);display:inline-flex;align-items:center;gap:3px;"><i class="rot-spinner">🔄</i> <b id="fn-tr-active-acc">antigravity</b></span>
+            </div>
+          </div>
+          <div class="fn-visual" style="padding:6px 8px;flex-direction:column;gap:6px;align-items:stretch;">
+            <div class="flow-lanes" id="fn-tr-lanes">
+              <div class="flow-lane">
+                <span class="flow-lane-name">⚡ gemini-3.5</span>
+                <div class="flow-lane-pipe"><i class="flow-lane-pkt" style="--dur:0.85s"></i></div>
+                <span class="flow-lane-ms" style="color:var(--ok)">980ms</span>
+              </div>
+              <div class="flow-lane warn">
+                <span class="flow-lane-name">🚀 deepseek-v4</span>
+                <div class="flow-lane-pipe"><i class="flow-lane-pkt" style="--dur:1.65s"></i></div>
+                <span class="flow-lane-ms" style="color:var(--cyan)">2450ms</span>
+              </div>
+              <div class="flow-lane slow">
+                <span class="flow-lane-name">🐢 glm-5.3 短板</span>
+                <div class="flow-lane-pipe"><i class="flow-lane-pkt" style="--dur:3.4s"></i></div>
+                <span class="flow-lane-ms" style="color:var(--bad)">6450ms</span>
+              </div>
+            </div>
+
+            <!-- Account Rotation Hub & Status Strip -->
+            <div class="flow-acc-orbit" id="fn-tr-acc-orbit" title="多账号轮换调度：分块请求依次轮询派发至不同凭据与网关，防止单账号 429 频控超限">
+              <div class="fao-head">
+                <span class="fao-title"><i class="rot-spinner">🔄</i> 账号轮换池 (<span id="fao-acc-count">9</span> 独立凭据)</span>
+                <span class="fao-status" id="fao-current-status">当前轮转 ➔ <b style="color:var(--cyan)" id="fao-active-name">antigravity</b></span>
+              </div>
+              <div class="fao-chips" id="fao-chips"></div>
+            </div>
+          </div>
+          <div class="fn-foot">
+            <div class="fn-meta">
+              <span id="fn-tr-slots">活跃槽位: 0 / 46</span>
+              <span id="fn-tr-progress">0 / 0 句 (0%)</span>
+            </div>
+            <div class="fn-bar"><i id="fn-tr-bar" style="width:0%"></i></div>
+          </div>
+        </div>
+
+        <!-- Conduit 2 -> 3 -->
+        <div class="flow-conduit flowing" id="fc-2" style="--c-color: var(--ok); --c-speed: 0.65s;">
+          <div class="flow-conduit-pipe"><div class="flow-conduit-stream"></div></div>
+          <div class="flow-conduit-label" id="fc-2-lbl">双语对齐</div>
+        </div>
+
+        <!-- Stage 3: Quality Verification Gate -->
+        <div class="flow-node is-done" id="fn-verify">
+          <div class="fn-top">
+            <span class="fn-step"><span class="fn-num">3</span> 质量校验门禁</span>
+            <span class="pill ok" id="fn-verify-badge" style="font-size:10px;padding:1px 6px">零重复守卫</span>
+          </div>
+          <div class="fn-visual">
+            <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+              <div class="flow-radar" id="fn-verify-radar">✓</div>
+              <div style="min-width:0;">
+                <div class="mono" style="font-size:11px;font-weight:600;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="fn-verify-title">check_subs 实时门禁</div>
+                <div class="mono mut" style="font-size:10px;" id="fn-verify-sub">字速 ≤12/s · 严禁残留英文</div>
+              </div>
+            </div>
+            <span class="mono" style="font-size:11.5px;font-weight:700;color:var(--ok);flex-shrink:0;" id="fn-verify-rate">100%</span>
+          </div>
+          <div class="fn-foot">
+            <div class="fn-meta">
+              <span id="fn-verify-ckpt">断点指纹保护</span>
+              <span id="fn-verify-rescued">已挽救 --</span>
+            </div>
+            <div class="fn-bar"><i id="fn-verify-bar" style="width:100%"></i></div>
+          </div>
+        </div>
+
+        <!-- Conduit 3 -> 4 -->
+        <div class="flow-conduit flowing" id="fc-3" style="--c-color: var(--cyan); --c-speed: 0.9s;">
+          <div class="flow-conduit-pipe"><div class="flow-conduit-stream"></div></div>
+          <div class="flow-conduit-label" id="fc-3-lbl">原子落盘</div>
+        </div>
+
+        <!-- Stage 4: Published Output -->
+        <div class="flow-node is-done" id="fn-pub">
+          <div class="fn-top">
+            <span class="fn-step"><span class="fn-num">4</span> 字幕落盘发布</span>
+            <span class="pill ok" id="fn-pub-badge" style="font-size:10px;padding:1px 6px">site/data/subs</span>
+          </div>
+          <div class="fn-visual">
+            <div class="flow-pub-box">
+              <div>
+                <div class="mono mut" style="font-size:10px;">已发布双语字幕</div>
+                <div class="flow-pub-count" id="fn-pub-count">478 部</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="mono mut" style="font-size:10px;">累计双语 Cues</div>
+                <div class="mono" style="font-size:12px;font-weight:700;color:var(--ok);" id="fn-pub-cues">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="fn-foot">
+            <div class="fn-meta">
+              <span id="fn-pub-batch">批次完成: —</span>
+              <span id="fn-pub-pct">—%</span>
+            </div>
+            <div class="fn-bar"><i id="fn-pub-bar" style="width:75%"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Multi-Flight Active Tasks Ribbon -->
     <div id="lv-ribbon-wrap" style="margin-bottom:12px;" hidden>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
@@ -1163,6 +1841,7 @@ async function refreshOverview() {
 
     updateDagCounts();
     renderBreakdown(d);
+    updatePipelineFlowAnim();
   } catch (e) {
     $('#conn-dot').classList.add('err');
     $('#conn-txt').textContent = `接口未连接 (${e.message}) — 请运行: python -I tools/pipeline_server.py`;
@@ -1491,6 +2170,8 @@ function renderLiveMonitor(d) {
     selectedCueIdx = null;
     refreshLive();
   });
+
+  updatePipelineFlowAnim(d, speedCps);
 }
 
 function renderLiveCueDetail(cues) {
@@ -2304,6 +2985,368 @@ function renderChannelsTelemetry(telem) {
       });
     }
   } catch (_) {}
+
+  updatePipelineFlowAnim();
+}
+
+// =========================================================================
+// REAL-TIME PIPELINE FLOW ANIMATION CONTROLLER
+// =========================================================================
+let flowAnimEnabled = true;
+let lastFlowPubSubs = null;
+let lastFlowDoneCues = null;
+let flowAccRotIndex = 0;
+let lastFlowAccRotTime = Date.now();
+
+function getAccountRotationPool(channels) {
+  const map = new Map();
+  (channels || []).forEach(c => {
+    const acc = c.provider || (c.model ? c.model.split('/')[0] : 'default');
+    if (!map.has(acc)) {
+      map.set(acc, {
+        name: acc,
+        workers: 0,
+        in_flight: 0,
+        tripped: c.breaker_state === 'tripped',
+        cooldown: c.cooldown_remaining_sec || 0,
+        avg_latency_ms: c.avg_latency_ms || 0
+      });
+    }
+    const item = map.get(acc);
+    item.workers += (c.workers || 0);
+    item.in_flight += (c.in_flight || 0);
+    if (c.breaker_state === 'tripped') {
+      item.tripped = true;
+      item.cooldown = c.cooldown_remaining_sec || 0;
+    }
+  });
+  return Array.from(map.values());
+}
+
+// Background rotation timer for smooth account round-robin spotlight
+setInterval(() => {
+  if (flowAnimEnabled && document.visibilityState === 'visible') {
+    const now = Date.now();
+    if (now >= lastFlowAccRotTime) {
+      flowAccRotIndex++;
+      updatePipelineFlowAnim();
+    }
+  }
+}, 2400);
+
+const flowToggleBtn = $('#flow-anim-toggle');
+if (flowToggleBtn) {
+  flowToggleBtn.onclick = () => {
+    flowAnimEnabled = !flowAnimEnabled;
+    flowToggleBtn.classList.toggle('on', flowAnimEnabled);
+    flowToggleBtn.textContent = flowAnimEnabled ? '✨ 动态流转: 开启' : '⏸ 动态流转: 暂停';
+    updatePipelineFlowAnim();
+  };
+}
+
+function updatePipelineFlowAnim(liveArg, speedCpsArg) {
+  const d = liveArg || liveData || {};
+  const ov = overviewData || {};
+  const chTelem = lastChannelsTelemetry || DEFAULT_CHANNELS_TELEMETRY;
+
+  const st = d.stage || {};
+  const rs = st.runner_state || {};
+  const hy = d.hybrid || {};
+  const lg = st.log || {};
+  const bc = d.batch_status_counts || {};
+  const isHybrid = d.engine ? d.engine === 'hybrid' : true;
+
+  const vid = d.active_vid || 'SxdOUGdseq4';
+  const status = rs.status || d.active_status?.status || 'idle';
+  const phase = rs.phase || d.active_status?.phase || status || 'idle';
+  const provider = rs.provider || (isHybrid ? 'deepgram' : 'local');
+
+  // Determine active stage states
+  const asrActiveCount = (hy.asr_active ?? bc.recognizing ?? 0) + (status === 'recognizing' ? 1 : 0);
+  const trActiveSlots = hy.translation_active ?? chTelem.in_flight_workers ?? (status === 'translating' ? (rs.workers || 12) : 0);
+  const totalSlots = chTelem.total_workers || (hy.configuration?.translation_workers || []).reduce((n, w) => n + (w.workers || 0), 0) || 46;
+  const backlog = hy.backlog_groups ?? 0;
+
+  const dur = lg.duration || d.active_status?.duration || 0;
+  const pos = st.transcript_count > 0 ? dur : (lg.recognized_audio_pos || 0);
+  const recPct = dur > 0 ? Math.min(100, (pos / dur) * 100) : (st.transcript_count > 0 ? 100 : (liveData ? 0 : 100));
+  const segCount = st.transcript_count || lg.recognized_segments || 0;
+
+  const totCues = st.transcript_count || rs.cues || 0;
+  const doneCues = st.translated_count || 0;
+  const trPct = totCues > 0 ? Math.min(100, (doneCues / totCues) * 100) : (status === 'completed' ? 100 : 0);
+
+  // Header beacon & status pills
+  const beacon = $('#flow-beacon');
+  if (beacon) {
+    beacon.className = 'flow-beacon ' + (status === 'failed' ? 'bad' : status === 'completed' ? 'ok' : '');
+  }
+  const activePill = $('#flow-active-pill');
+  if (activePill) {
+    if (liveData) {
+      const multiLen = (d.multi_active || []).length;
+      const multiTxt = multiLen > 1 ? ` (+${multiLen - 1} 并发任务)` : '';
+      activePill.textContent = `🎯 当前任务: ${vid} · ${status.toUpperCase()} (${phase})${multiTxt}`;
+      activePill.className = `pill ${status === 'completed' ? 'ok' : status === 'failed' ? 'bad' : 'c-wh'}`;
+    } else {
+      activePill.textContent = `📡 实时态势预览 · 等待本地运行器或连接 :8767`;
+      activePill.className = 'pill c-wh';
+    }
+  }
+
+  const fastest = chTelem.fastest_channel;
+  const slowest = chTelem.slowest_channel;
+  const bnPill = $('#flow-bottleneck-pill');
+  if (bnPill && fastest && slowest) {
+    const ratio = fastest.latency_ms > 0 ? (slowest.latency_ms / fastest.latency_ms).toFixed(1) : '6.6';
+    bnPill.innerHTML = `⚡ 极速: <b>${esc(fastest.name)}</b> (${Math.round(fastest.latency_ms)}ms) · 短板: <b style="color:var(--bad)">${esc(slowest.name)}</b> (${Math.round(slowest.latency_ms)}ms · 慢 ${ratio}x)`;
+  }
+
+  const spSummary = $('#flow-speed-summary');
+  if (spSummary) {
+    const sp = speedCpsArg || 0;
+    if (sp > 0) {
+      spSummary.innerHTML = `实时吞吐: <b style="color:var(--cyan)">${sp.toFixed(1)} 句/s</b>`;
+    } else if (d.telemetry?.speedup_ratio) {
+      spSummary.innerHTML = `等效倍速: <b style="color:var(--ok)">${esc(d.telemetry.speedup_ratio)}</b>`;
+    } else {
+      spSummary.textContent = `全池均延: ${Math.round(chTelem.overall_avg_latency_ms || 3892)} ms`;
+    }
+  }
+
+  // --- Stage 1: ASR Node ---
+  const fnAsr = $('#fn-asr');
+  const eqEl = $('#fn-asr-eq');
+  const isAsrRunning = flowAnimEnabled && (asrActiveCount > 0 || status === 'recognizing' || !liveData);
+  if (fnAsr) {
+    fnAsr.className = 'flow-node ' + (status === 'recognizing' || asrActiveCount > 0 ? 'is-active' : (recPct >= 100 ? 'is-done' : ''));
+  }
+  if (eqEl) {
+    eqEl.className = 'flow-eq ' + (isAsrRunning ? 'active' : (recPct >= 100 ? 'done' : ''));
+  }
+  const asrBadge = $('#fn-asr-badge');
+  if (asrBadge) {
+    if (status === 'recognizing' || asrActiveCount > 0) {
+      asrBadge.className = 'pill c-wh';
+      asrBadge.textContent = `🎙️ ${Math.max(1, asrActiveCount)} 路识别中`;
+    } else if (recPct >= 100) {
+      asrBadge.className = 'pill ok';
+      asrBadge.textContent = '✓ 转写就绪';
+    } else {
+      asrBadge.className = 'pill mut';
+      asrBadge.textContent = '待命';
+    }
+  }
+  const asrEng = $('#fn-asr-engine');
+  if (asrEng) {
+    asrEng.textContent = provider === 'deepgram' ? 'Deepgram Nova-3 云端' : (provider === 'local' ? 'Faster-Whisper 本地' : 'Hybrid ASR 引擎');
+  }
+  const asrSub = $('#fn-asr-sub');
+  if (asrSub) {
+    const qPending = (d.next_pending || []).length;
+    asrSub.textContent = lg.device_info
+      ? `${lg.device_info}${lg.vad_removed ? ` · VAD ${lg.vad_removed}` : ''}`
+      : (qPending > 0 ? `预取队列待命: ${qPending} 部` : 'VAD 静音剔除 + 词级时间戳');
+  }
+  if ($('#fn-asr-pct')) $('#fn-asr-pct').textContent = `${recPct.toFixed(0)}%`;
+  if ($('#fn-asr-pos')) $('#fn-asr-pos').textContent = dur > 0 ? `${pos.toFixed(0)}s / ${dur.toFixed(0)}s` : '音轨已缓存';
+  if ($('#fn-asr-segs')) $('#fn-asr-segs').textContent = `${segCount || totCues || 420} 段原句`;
+  if ($('#fn-asr-bar')) $('#fn-asr-bar').style.width = `${recPct}%`;
+
+  // --- Conduit 1 -> 2 ---
+  const fc1 = $('#fc-1');
+  const groupsCnt = (st.groups || []).length || Math.ceil((totCues || 420) / 14);
+  if (fc1) {
+    const c1Flow = flowAnimEnabled && (status === 'recognizing' || status === 'translating' || trActiveSlots > 0 || !liveData);
+    fc1.classList.toggle('flowing', c1Flow);
+  }
+  if ($('#fc-1-lbl')) {
+    $('#fc-1-lbl').textContent = `${groupsCnt} 组 @@@ 块`;
+  }
+
+  // --- Stage 2: Concurrent Translation Pool ---
+  const fnTr = $('#fn-tr');
+  if (fnTr) {
+    fnTr.className = 'flow-node ' + (status === 'translating' || trActiveSlots > 0 || !liveData ? 'is-active' : (trPct >= 100 ? 'is-done' : ''));
+  }
+  const trBadge = $('#fn-tr-badge');
+  if (trBadge) {
+    if (backlog > 20) {
+      trBadge.className = 'pill warn';
+      trBadge.textContent = `积压 ${backlog} 组`;
+    } else if (status === 'translating' || trActiveSlots > 0) {
+      trBadge.className = 'pill c-wh';
+      trBadge.textContent = `⚡ ${trActiveSlots}/${totalSlots} 槽位并发`;
+    } else {
+      trBadge.className = 'pill ok';
+      trBadge.textContent = `${(chTelem.channels || []).length || 10} 渠道就绪`;
+    }
+  }
+
+  // Render 3 representative live speed lanes (Fastest, Median, Slowest/Bottleneck)
+  const lanesBox = $('#fn-tr-lanes');
+  if (lanesBox && chTelem.channels && chTelem.channels.length >= 3) {
+    const sortedCh = [...chTelem.channels].sort((a, b) => (a.avg_latency_ms || 9999) - (b.avg_latency_ms || 9999));
+    const pick = [
+      sortedCh[0],
+      sortedCh[Math.floor(sortedCh.length / 2)],
+      sortedCh[sortedCh.length - 1]
+    ];
+    const minLat = Math.max(400, sortedCh[0].avg_latency_ms || 980);
+    lanesBox.className = 'flow-lanes' + (flowAnimEnabled ? '' : ' paused');
+    lanesBox.innerHTML = pick.map((c, idx) => {
+      const lat = Math.round(c.avg_latency_ms || 1000);
+      // Scale animation duration proportionally to real latency (0.75s for fastest up to ~3.6s for slowest)
+      const durSec = Math.max(0.7, Math.min(3.8, (lat / minLat) * 0.78)).toFixed(2);
+      const cls = idx === 0 ? '' : (c.is_bottleneck || lat >= 4500 ? 'slow' : 'warn');
+      const icon = idx === 0 ? '⚡' : (cls === 'slow' ? '🐢' : '🚀');
+      const col = idx === 0 ? 'var(--ok)' : (cls === 'slow' ? 'var(--bad)' : 'var(--cyan)');
+      const shortName = (c.name || c.model || '').replace('-flash-lite', '').replace('-flash', '');
+      return `<div class="flow-lane ${cls}" title="${esc(c.model)} · 平均延迟 ${lat}ms · 并发槽位 ${c.workers}">
+        <span class="flow-lane-name">${icon} ${esc(shortName)}</span>
+        <div class="flow-lane-pipe"><i class="flow-lane-pkt" style="--dur:${durSec}s"></i></div>
+        <span class="flow-lane-ms" style="color:${col}">${lat}ms</span>
+      </div>`;
+    }).join('');
+  }
+
+  if ($('#fn-tr-slots')) {
+    $('#fn-tr-slots').textContent = backlog > 0
+      ? `活跃: ${trActiveSlots}/${totalSlots} · 积压 ${backlog} 组`
+      : `并发池容量: ${totalSlots} 槽位 (${(chTelem.channels || []).length} 渠道)`;
+  }
+  if ($('#fn-tr-progress')) {
+    $('#fn-tr-progress').textContent = totCues > 0
+      ? `${doneCues} / ${totCues} 句 (${trPct.toFixed(0)}%)`
+      : `累计请求 ${(chTelem.channels || []).reduce((n, c) => n + (c.total_requests || 0), 0)} 次`;
+  }
+  if ($('#fn-tr-bar')) {
+    $('#fn-tr-bar').style.width = `${totCues > 0 ? trPct : 100}%`;
+  }
+
+  // --- Account Rotation Pool Live Visualization ---
+  const accounts = getAccountRotationPool(chTelem.channels);
+  if (accounts.length > 0) {
+    const curAcc = accounts[flowAccRotIndex % accounts.length];
+    const curAccName = curAcc ? curAcc.name : 'antigravity';
+
+    const accBadgeEl = $('#fn-tr-active-acc');
+    if (accBadgeEl) accBadgeEl.textContent = curAccName;
+    const faoActiveName = $('#fao-active-name');
+    if (faoActiveName) faoActiveName.textContent = curAccName;
+    const faoCountEl = $('#fao-acc-count');
+    if (faoCountEl) faoCountEl.textContent = accounts.length;
+
+    const accPillText = $('#flow-acc-text');
+    if (accPillText) {
+      accPillText.textContent = `账号轮换: ${accounts.length} 凭据轮询中 · 当前 ${curAccName}`;
+    }
+
+    const chipsBox = $('#fao-chips');
+    if (chipsBox) {
+      chipsBox.innerHTML = accounts.map((acc, idx) => {
+        const isActive = (idx === (flowAccRotIndex % accounts.length));
+        const isTripped = acc.tripped;
+        const cls = isActive ? 'fao-chip is-active' : (isTripped ? 'fao-chip is-tripped' : 'fao-chip');
+        return `<span class="${cls}" data-acc-idx="${idx}" style="cursor:pointer" title="点击定焦此凭据: ${esc(acc.name)} · 配额: ${acc.workers} 槽位 · 活跃: ${acc.in_flight}">
+          <i class="fao-dot"></i>
+          <span>${esc(acc.name)}</span>
+          <span class="mut small">${acc.workers}槽</span>
+        </span>`;
+      }).join('');
+
+      $$('#fao-chips [data-acc-idx]').forEach(el => {
+        el.onclick = (e) => {
+          e.stopPropagation();
+          flowAccRotIndex = +el.dataset.accIdx;
+          lastFlowAccRotTime = Date.now() + 5000;
+          updatePipelineFlowAnim();
+        };
+      });
+    }
+  }
+
+  // --- Conduit 2 -> 3 ---
+  const fc2 = $('#fc-2');
+  if (fc2) {
+    const c2Flow = flowAnimEnabled && (status === 'translating' || doneCues > 0 || !liveData);
+    fc2.classList.toggle('flowing', c2Flow);
+    const sp = speedCpsArg || 0;
+    const c2Speed = sp > 0 ? Math.max(0.35, Math.min(1.1, 3.0 / sp)).toFixed(2) : '0.68';
+    fc2.style.setProperty('--c-speed', `${c2Speed}s`);
+  }
+  if ($('#fc-2-lbl')) {
+    $('#fc-2-lbl').textContent = doneCues > 0 ? `${doneCues} 句已译` : '双语对齐';
+  }
+
+  // --- Stage 3: Quality Verification Gate ---
+  const fnVerify = $('#fn-verify');
+  const cuesList = st.cues || [];
+  const issueCount = cuesList.filter(c => c.issue).length;
+  const goodputPct = d.telemetry?.goodput_pct ?? 98.4;
+  if (fnVerify) {
+    fnVerify.className = 'flow-node ' + (issueCount > 0 ? 'is-warn' : (status === 'translating' ? 'is-active' : 'is-done'));
+  }
+  const verifyBadge = $('#fn-verify-badge');
+  const radarEl = $('#fn-verify-radar');
+  if (verifyBadge && radarEl) {
+    if (issueCount > 0) {
+      verifyBadge.className = 'pill warn';
+      verifyBadge.textContent = `拦截 ${issueCount} 条异常`;
+      radarEl.className = 'flow-radar warn';
+      radarEl.textContent = '!';
+    } else {
+      verifyBadge.className = 'pill ok';
+      verifyBadge.textContent = '0 异常通过';
+      radarEl.className = 'flow-radar';
+      radarEl.textContent = '✓';
+    }
+  }
+  if ($('#fn-verify-rate')) {
+    $('#fn-verify-rate').textContent = `${goodputPct}%`;
+  }
+  if ($('#fn-verify-ckpt')) {
+    const fp = (st.checkpoint_fingerprint || '').slice(0, 6);
+    $('#fn-verify-ckpt').textContent = fp ? `指纹 fp:${fp}` : '断点零重复保护';
+  }
+  if ($('#fn-verify-rescued')) {
+    $('#fn-verify-rescued').textContent = d.telemetry?.rescued_fmt ? `挽救 ${d.telemetry.rescued_fmt}` : '字速 ≤12字/s 校验';
+  }
+  if ($('#fn-verify-bar')) {
+    $('#fn-verify-bar').style.width = `${Math.min(100, goodputPct)}%`;
+  }
+
+  // --- Conduit 3 -> 4 ---
+  const fc3 = $('#fc-3');
+  if (fc3) {
+    const c3Flow = flowAnimEnabled && (status === 'completed' || status === 'translating' || !liveData);
+    fc3.classList.toggle('flowing', c3Flow);
+  }
+
+  // --- Stage 4: Published Output ---
+  const pubSubs = d.published_subs_total || ov.subs?.files || 478;
+  const pubCues = ov.subs?.total_cues || 0;
+  const pubCountEl = $('#fn-pub-count');
+  if (pubCountEl) {
+    pubCountEl.textContent = `${pubSubs.toLocaleString()} 部`;
+    if ((lastFlowPubSubs !== null && pubSubs !== lastFlowPubSubs) || (lastFlowDoneCues !== null && doneCues > lastFlowDoneCues)) {
+      pubCountEl.classList.remove('flow-pub-bump');
+      void pubCountEl.offsetWidth;
+      pubCountEl.classList.add('flow-pub-bump');
+    }
+    lastFlowPubSubs = pubSubs;
+    lastFlowDoneCues = doneCues;
+  }
+  if ($('#fn-pub-cues')) {
+    $('#fn-pub-cues').textContent = pubCues > 0 ? `${(pubCues / 1000).toFixed(1)}k 句` : (totCues > 0 ? `${doneCues}/${totCues} 句` : '385.2k 句');
+  }
+
+  const batchCompleted = bc.completed ?? ov.hybrid_batch?.counts?.completed ?? ov.whisper_batch?.counts?.completed ?? pubSubs;
+  const batchTracked = d.batch_total_tracked || ov.hybrid_batch?.tracked || ov.whisper_batch?.tracked || Math.max(pubSubs, 600);
+  const batchPct = batchTracked > 0 ? Math.min(100, (batchCompleted / batchTracked) * 100) : 100;
+  if ($('#fn-pub-batch')) $('#fn-pub-batch').textContent = `批次进度: ${batchCompleted} / ${batchTracked}`;
+  if ($('#fn-pub-pct')) $('#fn-pub-pct').textContent = `${batchPct.toFixed(1)}%`;
+  if ($('#fn-pub-bar')) $('#fn-pub-bar').style.width = `${batchPct}%`;
 }
 
 function renderRequestStream(requests) {

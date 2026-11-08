@@ -25,9 +25,7 @@ from hybrid_pipeline import HybridJob, HybridPipeline, VIDEO_ID
 from hybrid_runtime import GROUP_CHARS, HybridRuntime, batch_lock, group_recognition, legacy_modules
 from subtitle_recovery import write_json_atomic
 from translation_backends import (
-    ANTIGRAVITY_MODEL, CLOUDC_MODEL, COMMANDCODE_MODEL, DEEPSEEK_CN_MODEL,
-    GEMINI_LITE_MODEL, HUB_OAIFREE_MODEL, HUB_WANAI_MODEL, HIYO_MODEL,
-    TRAE_MODEL, ZHACHA_MODEL,
+    COMMANDCODE_MODEL, DEEPSEEK_CN_MODEL, WORKBUDDY_GLOBAL_MODEL,
     BackendPool, TranslationBackend, validate_pool_worker_counts,
 )
 
@@ -45,16 +43,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--local-workers", choices=(0, 1), type=int, default=1)
     parser.add_argument("--deepgram-workers", choices=range(0, 7), type=int, default=1,
                         metavar="{0..6}")
-    parser.add_argument("--antigravity-workers", type=int, default=6)
-    parser.add_argument("--trae-workers", type=int, default=5)
-    parser.add_argument("--workbuddy-workers", type=int, default=5)
-    parser.add_argument("--hiyo-workers", type=int, default=4)
-    parser.add_argument("--cloudc-workers", type=int, default=4)
-    parser.add_argument("--zhacha-workers", type=int, default=4)
-    parser.add_argument("--hub-oaifree-workers", type=int, default=4)
-    parser.add_argument("--hub-wanai-workers", type=int, default=4)
-    parser.add_argument("--commandcode-workers", type=int, default=4)
-    parser.add_argument("--gemini-lite-workers", type=int, default=6)
+    parser.add_argument("--cc-workers", type=int, default=130,
+                        help="commandcode DeepSeek slots")
+    parser.add_argument("--cn-workers", type=int, default=10)
+    parser.add_argument("--global-workers", type=int, default=10)
     parser.add_argument("--queue-low", type=int, default=8)
     parser.add_argument("--queue-high", type=int, default=32)
     parser.add_argument("--deepgram-timeout", type=float, default=180.0)
@@ -109,28 +101,24 @@ def make_plan(args: argparse.Namespace, root: Path) -> list[HybridJob]:
 
 
 def worker_counts(args: argparse.Namespace) -> dict[str, int]:
-    """Per-model concurrency for the three hybrid translation backends."""
+    """Per-model concurrency for the hybrid translation backends."""
     return {
-        ANTIGRAVITY_MODEL: args.antigravity_workers,
-        TRAE_MODEL: args.trae_workers,
-        DEEPSEEK_CN_MODEL: args.workbuddy_workers,
-        HIYO_MODEL: args.hiyo_workers,
-        CLOUDC_MODEL: args.cloudc_workers,
-        ZHACHA_MODEL: args.zhacha_workers,
-        HUB_OAIFREE_MODEL: args.hub_oaifree_workers,
-        HUB_WANAI_MODEL: args.hub_wanai_workers,
-        COMMANDCODE_MODEL: args.commandcode_workers,
-        GEMINI_LITE_MODEL: args.gemini_lite_workers,
+        COMMANDCODE_MODEL: args.cc_workers,
+        DEEPSEEK_CN_MODEL: args.cn_workers,
+        WORKBUDDY_GLOBAL_MODEL: args.global_workers,
     }
 
 
 def translation_pool(args: argparse.Namespace) -> BackendPool:
-    # DeepSeek-family backends honour the DeepSeek thinking switch; GLM/hiyo
-    # lanes ignore or require it, so leave those requests untouched.
-    thinking_off = frozenset({TRAE_MODEL, DEEPSEEK_CN_MODEL, COMMANDCODE_MODEL})
-
+    # Close the thinking chain per upstream dialect: commandcode accepts
+    # reasoning_effort=none, workbuddy only understands the DeepSeek switch.
     def callback(model: str) -> partial:
-        kwargs = {"thinking": {"type": "disabled"}} if model in thinking_off else {}
+        if model == COMMANDCODE_MODEL:
+            kwargs = {"reasoning_effort": "none"}
+        elif model in (DEEPSEEK_CN_MODEL, WORKBUDDY_GLOBAL_MODEL):
+            kwargs = {"thinking": {"type": "disabled"}}
+        else:
+            kwargs = {}
         return partial(make_subs.call_gateway, model=model, **kwargs)
 
     return BackendPool(tuple(TranslationBackend(model, count, callback(model))
@@ -169,11 +157,21 @@ def execute(args: argparse.Namespace, jobs: list[HybridJob], root: Path) -> int:
     pool = translation_pool(args)
     runtime = HybridRuntime(root, device=args.device, deepgram=client,
         publish=args.publish, retry_uncertain=args.retry_uncertain, translation_pool=pool)
+
+    def caption_first(recognize: Callable) -> Callable:
+        """Try the free YouTube caption track first; fall back to audio ASR."""
+        def wrapped(job: HybridJob) -> Recognition:
+            captions = runtime.recognize_captions(job)
+            if captions is not None:
+                return captions
+            return recognize(job)
+        return wrapped
+
     recognizers = {}
     if args.local_workers:
-        recognizers["local"] = (1, runtime.recognize_local)
+        recognizers["local"] = (1, caption_first(runtime.recognize_local))
     if args.deepgram_workers:
-        recognizers["deepgram"] = (args.deepgram_workers, runtime.recognize_deepgram)
+        recognizers["deepgram"] = (args.deepgram_workers, caption_first(runtime.recognize_deepgram))
     stage = root / "work" / "hybrid_batch"
     status = StatusWriter(stage / "status.json", {
         "local_workers": args.local_workers, "deepgram_workers": args.deepgram_workers,

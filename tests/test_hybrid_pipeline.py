@@ -42,14 +42,14 @@ class SessionTests(unittest.TestCase):
         self.assertIsNone(resumed.take())
         self.assertEqual(resumed.result(), session.result())
 
-    def test_session_transport_failure_retains_checkpoint_without_semantic_retry(self) -> None:
+    def test_session_transport_failure_retries_group_on_resume(self) -> None:
         session = RecoverySession(groups(2), self.path, model="fake")
         first, second = session.take(), session.take()
         session.accept(first, ["可用"])
         session.accept(second, error=OSError("offline"))
-        self.assertTrue(session.done)
-        with self.assertRaisesRegex(RuntimeError, "incomplete"):
-            session.result()
+        # Transient transport failures (lane flap, 5xx) re-enqueue the whole
+        # group instead of permanently rejecting its cues.
+        self.assertFalse(session.done)
         resumed = RecoverySession(groups(2), self.path, model="fake")
         self.assertEqual(resumed.pending_count, 1)
         self.assertEqual(resumed.texts(resumed.take()), ["source 1"])

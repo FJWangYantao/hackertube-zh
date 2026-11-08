@@ -7,10 +7,15 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import math
 import os
+import re
+import subprocess
 import sys
 import tempfile
+import threading
+import time
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Callable, Iterator
@@ -23,9 +28,73 @@ from local_asr_worker import LocalWhisperProcess
 from subtitle_recovery import translation_issue, write_json_atomic
 from translation_backends import BackendPool
 
+LOGGER = logging.getLogger(__name__)
+
 CACHE_VERSION = 1
-SOURCE_MODELS = {"whisper-local": "faster-whisper-small.en", "deepgram": "nova-3"}
-GROUP_CHARS = 1300
+SOURCE_MODELS = {"whisper-local": "faster-whisper-small.en", "deepgram": "nova-3",
+                 "youtube-auto": "youtube-captions"}
+GROUP_CHARS = 400
+PROXY = os.environ.get("HT_PROXY", "http://127.0.0.1:7890")
+
+# Single global throttle for every direct YouTube touch (media downloads and
+# caption fetches alike). Empirically safe: 10s launch spacing held for 2h+
+# across two batches with zero bot_check, while a 4s experiment triggered a
+# subscription-wide wave in 50 seconds.
+_PACE_LOCK = threading.Lock()
+_LAST_YOUTUBE_TOUCH = 0.0
+PACING_INTERVAL = 10.0
+
+
+def pace_youtube(interval: float | None = None) -> None:
+    """Block until at least ``interval`` seconds since the last YouTube touch."""
+    global _LAST_YOUTUBE_TOUCH
+    gap = PACING_INTERVAL if interval is None else interval
+    with _PACE_LOCK:
+        wait = _LAST_YOUTUBE_TOUCH + gap - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        _LAST_YOUTUBE_TOUCH = time.monotonic()
+
+
+def vtt_rows(text: str) -> list[dict]:
+    """Parse a WebVTT file into recognition rows, collapsing rolling repeats.
+
+    YouTube auto-caption VTT duplicates the previous line inside each new cue
+    and embeds inline <c> timing tags; both are normalised away here.
+    """
+    rows: list[dict] = []
+    last: dict | None = None
+    for block in re.split(r"\n\n+", text):
+        body_lines = block.splitlines()
+        if not body_lines:
+            continue
+        times = re.findall(r"(\d+):(\d+):(\d+)\.(\d+)", body_lines[0])
+        if len(times) < 2:
+            continue
+
+        def secs(parts: tuple[str, ...]) -> float:
+            hours, minutes, seconds, millis = (int(x) for x in parts)
+            return hours * 3600 + minutes * 60 + seconds + millis / 1000
+
+        start, end = secs(times[0]), secs(times[1])
+        if end <= start:
+            end = start + 0.5
+        body = " ".join(re.sub(r"<[^>]+>", "", line).strip()
+                        for line in body_lines[1:])
+        body = re.sub(r"\s+", " ", body).strip()
+        if not body:
+            continue
+        if last is not None and body == last["text"]:
+            last["end"] = end
+            continue
+        if last is not None and body.startswith(last["text"]):
+            last["text"] = body
+            last["end"] = end
+            continue
+        row = {"start": round(start, 3), "end": round(end, 3), "text": body}
+        rows.append(row)
+        last = row
+    return rows
 
 
 def legacy_modules() -> tuple:
@@ -199,6 +268,66 @@ class HybridRuntime:
         if not finite(duration) or duration <= 0:
             raise ValueError("audio duration must be positive and finite")
         return audio, float(duration)
+
+    def recognize_captions(self, job: HybridJob) -> Recognition | None:
+        """Fetch YouTube caption tracks as a zero-ASR recognition source.
+
+        Returns the Recognition when captions exist and ``None`` when they do
+        not or the fetch fails — the caller then falls back to the audio
+        pipeline for this video. Cached through the same recognition.json the
+        audio paths use, with the vtt as provenance.
+        """
+        cached = self._cached(job)
+        if cached is not None:
+            return cached
+        stage = job.stage
+        vtts = sorted(stage.glob("captions*.vtt"))
+        if not vtts:
+            # English first; any other language track also translates fine.
+            proc = None
+            for langs in ("en.*", ".*"):
+                pace_youtube()
+                cmd = [sys.executable, "-m", "yt_dlp", "--proxy", PROXY,
+                       "--no-playlist", "--no-warnings", "--socket-timeout", "30",
+                       "--retries", "1", "--sleep-requests", "1.5",
+                       "--extractor-args", "youtube:player_client=tv_embedded",
+                       "--skip-download", "--write-auto-subs", "--write-subs",
+                       "--sub-langs", langs, "--sub-format", "vtt",
+                       "--write-info-json", "-o", str(stage / "captions.%(ext)s"),
+                       f"https://www.youtube.com/watch?v={job.vid}"]
+                proc = subprocess.run(cmd, capture_output=True, text=True,
+                                      encoding="utf-8", errors="replace", timeout=300)
+                vtts = sorted(stage.glob("captions*.vtt"))
+                if not proc.returncode and vtts:
+                    break
+            if not vtts:
+                LOGGER.info("video=%s no usable captions (yt-dlp exit %s)",
+                            job.vid, proc.returncode if proc is not None else -1)
+                return None
+        try:
+            return self._save_captions(job, vtts[0])
+        except Exception as exc:
+            LOGGER.warning("video=%s caption parse/validation failed: %s", job.vid, exc)
+            return None
+
+    def _save_captions(self, job: HybridJob, vtt: Path) -> Recognition:
+        rows = vtt_rows(vtt.read_text(encoding="utf-8", errors="replace"))
+        duration = 0.0
+        try:
+            info = json.loads((job.stage / "captions.info.json").read_text(encoding="utf-8"))
+            duration = float(info.get("duration") or 0.0)
+        except (OSError, ValueError, TypeError):
+            pass
+        if duration <= 0 and rows:
+            duration = rows[-1]["end"]
+        result = Recognition(job.vid, "youtube-auto", "youtube-captions", duration, rows)
+        validate_recognition(result)
+        payload = {"version": CACHE_VERSION, "vid": job.vid, "source": result.source,
+                   "model": result.model, "duration": result.duration, "rows": result.rows,
+                   "audio_path": str(vtt.relative_to(self.root)),
+                   "audio_sha256": fingerprint(vtt)}
+        write_json_atomic(job.stage / "recognition.json", payload)
+        return result
 
     def _save(self, job: HybridJob, result: Recognition, audio: Path) -> Recognition:
         validate_recognition(result)

@@ -40,20 +40,14 @@ HUB_OAIFREE_MODEL = "hub-oaifree/glm-5.3-flash"
 HUB_WANAI_MODEL = "hub-wanai/glm-5.3-flash"
 COMMANDCODE_MODEL = "commandcode-plan/deepseek/deepseek-v4.1-flash"
 GEMINI_LITE_MODEL = "antigravity/gemini-3.5-flash-lite"
+WORKBUDDY_GLOBAL_MODEL = "workbuddy-global/global:deepseek-v4.1-flash-sg"
 
-# The hybrid pipeline's pool: ten flash backends, 46 concurrent translations
-# in total (antigravity takes the widest slot).
+# The hybrid pipeline's pool: commandcode carries the bulk, workbuddy keeps
+# the two cheap routes as spillover. Every channel runs DeepSeek non-thinking.
 TRANSLATION_MODELS: tuple[tuple[str, int], ...] = (
-    (ANTIGRAVITY_MODEL, 6),
-    (TRAE_MODEL, 5),
-    (DEEPSEEK_CN_MODEL, 5),
-    (HIYO_MODEL, 4),
-    (CLOUDC_MODEL, 4),
-    (ZHACHA_MODEL, 4),
-    (HUB_OAIFREE_MODEL, 4),
-    (HUB_WANAI_MODEL, 4),
-    (COMMANDCODE_MODEL, 4),
-    (GEMINI_LITE_MODEL, 6),
+    (COMMANDCODE_MODEL, 130),
+    (DEEPSEEK_CN_MODEL, 10),
+    (WORKBUDDY_GLOBAL_MODEL, 10),
 )
 MAX_WORKERS_BY_MODEL = dict(TRANSLATION_MODELS)
 TOTAL_WORKERS = sum(MAX_WORKERS_BY_MODEL.values())

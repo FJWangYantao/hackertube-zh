@@ -40,9 +40,9 @@ GATEWAY = "http://127.0.0.1:3425/v1/chat/completions"
 # antigravity 已撤下，空出的槽位全部并入 commandcode。
 # 每块字幕落到哪个通道由 BackendPool 的空闲槽位决定，不经过 magpie 的组路由。
 BACKEND_SLOTS: tuple[tuple[str, int], ...] = (
-    ("commandcode-plan/deepseek/deepseek-v4.1-flash", 80),
-    ("workbuddy-deepseek/cn:deepseek-v4.1-flash", 10),
-    ("workbuddy-deepseek/global:deepseek-v4.1-flash-sg", 10),
+    ("commandcode-plan/deepseek/deepseek-v4.1-flash", 130),
+    ("workbuddy-vps/cn:deepseek-v4.1-flash", 10),
+    ("workbuddy-global/global:deepseek-v4.1-flash-sg", 10),
 )
 MODEL = ""               # 空表示按 BACKEND_SLOTS 建池；--model 可覆盖为单通道
 # 字幕翻译不需要思考链；开着会把 max_tokens 花在 reasoning_content 上。
@@ -53,8 +53,8 @@ WORKERS = 4              # 仅单通道模式（--model）下生效
 SEP = "\n@@@\n"
 
 SYSTEM = (
-    "你是资深的英译中技术字幕译者，读者是中文开发者。"
-    "用户给出若干句英文演讲字幕，句子之间用单独一行的 @@@ 分隔。"
+    "你是资深的字幕翻译者，读者是中文开发者。"
+    "用户给出若干句外文（多为英文）演讲字幕，句子之间用单独一行的 @@@ 分隔。"
     "请逐句译成简体中文，并且：\n"
     "1. 输出必须保留完全相同的 @@@ 分隔符，数量与顺序都要和输入一致；\n"
     "2. 不合并、不拆分句子，一句对应一句；\n"
@@ -242,7 +242,7 @@ def make_transport(slots: tuple[tuple[str, int], ...], reasoning_effort: str | N
         passing none there would silently land on "low", not off. Gemini has no
         off switch at all, so its nearest level is the best available.
         """
-        if model.startswith("workbuddy-deepseek/"):
+        if model.startswith("workbuddy-"):
             return {"thinking": {"type": "disabled"}}
         if model.startswith("antigravity/"):
             return {"reasoning_effort": "low"}
@@ -307,7 +307,7 @@ def pick_source(vid: str) -> Path | None:
     """
     candidates = [
         SUBS_DIR / f"{vid}.{lang}.vtt"
-        for lang in ("en", "en-orig")
+        for lang in ("en", "en-orig", "en-US", "en-GB", "en-CA")
         if (SUBS_DIR / f"{vid}.{lang}.vtt").exists()
         and (SUBS_DIR / f"{vid}.{lang}.vtt").stat().st_size > 500
     ]

@@ -53,19 +53,13 @@ class BackendTests(NetworkGuardTests):
         self.assertEqual(backends.HUB_WANAI_MODEL, "hub-wanai/glm-5.3-flash")
         self.assertEqual(backends.COMMANDCODE_MODEL, "commandcode-plan/deepseek/deepseek-v4.1-flash")
         self.assertEqual(backends.GEMINI_LITE_MODEL, "antigravity/gemini-3.5-flash-lite")
+        self.assertEqual(backends.WORKBUDDY_GLOBAL_MODEL, "workbuddy-global/global:deepseek-v4.1-flash-sg")
         self.assertEqual(backends.TRANSLATION_MODELS, (
-            (backends.ANTIGRAVITY_MODEL, 6),
-            (backends.TRAE_MODEL, 5),
-            (backends.DEEPSEEK_CN_MODEL, 5),
-            (backends.HIYO_MODEL, 4),
-            (backends.CLOUDC_MODEL, 4),
-            (backends.ZHACHA_MODEL, 4),
-            (backends.HUB_OAIFREE_MODEL, 4),
-            (backends.HUB_WANAI_MODEL, 4),
-            (backends.COMMANDCODE_MODEL, 4),
-            (backends.GEMINI_LITE_MODEL, 6),
+            (backends.COMMANDCODE_MODEL, 130),
+            (backends.DEEPSEEK_CN_MODEL, 10),
+            (backends.WORKBUDDY_GLOBAL_MODEL, 10),
         ))
-        self.assertEqual(backends.TOTAL_WORKERS, 46)
+        self.assertEqual(backends.TOTAL_WORKERS, 150)
         self.assertEqual(backends.DEFAULT_ANTIGRAVITY_WORKERS, 10)
         self.assertEqual(backends.DEFAULT_DEEPSEEK_WORKERS, 6)
         backend = backends.TranslationBackend("model", 1, echo)
@@ -75,10 +69,12 @@ class BackendTests(NetworkGuardTests):
 
     def test_hybrid_pool_worker_caps(self) -> None:
         backends.validate_pool_worker_counts({
-            backends.ANTIGRAVITY_MODEL: 6,
-            backends.TRAE_MODEL: 3, backends.DEEPSEEK_CN_MODEL: 3,
+            backends.COMMANDCODE_MODEL: 130,
+            backends.DEEPSEEK_CN_MODEL: 10,
+            backends.WORKBUDDY_GLOBAL_MODEL: 10,
         })
-        for bad in ({backends.ANTIGRAVITY_MODEL: 7}, {backends.TRAE_MODEL: 6},
+        for bad in ({backends.COMMANDCODE_MODEL: 131},
+                    {backends.DEEPSEEK_CN_MODEL: 11},
                     {backends.DEEPSEEK_CN_MODEL: -1}, {"unknown/model": 1}, {}):
             with self.subTest(bad=bad), self.assertRaises(ValueError):
                 backends.validate_pool_worker_counts(bad)
@@ -521,7 +517,7 @@ class TelemetryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             storage = Path(td) / "telemetry.json"
             telem = backends.TranslationTelemetry(storage_path=storage)
-            model = backends.ANTIGRAVITY_MODEL
+            model = backends.DEEPSEEK_CN_MODEL
             telem.record_start(model)
             telem.record_success(model, 1200.0, 5, 200)
             summary = telem.get_summary()
