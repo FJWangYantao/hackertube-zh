@@ -1,0 +1,15 @@
+[Unit]
+Description=Mihomo proxy for hackertube builder
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu
+ExecStart=/home/ubuntu/mihomo-linux -f /home/ubuntu/vps_mihomo.yaml -d /home/ubuntu
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

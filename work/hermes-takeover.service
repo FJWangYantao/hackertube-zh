@@ -1,0 +1,7 @@
+[Unit]
+Description=Hackertube builder takeover check
+
+[Service]
+Type=oneshot
+User=ubuntu
+ExecStart=/home/ubuntu/takeover_check.sh

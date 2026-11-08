@@ -1,0 +1,19 @@
+[Unit]
+Description=Hackertube audio library builder (YouTube pre-download)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu
+ExecStart=/usr/bin/python3 /home/ubuntu/vps_download_audio.py
+# 崩溃/被杀后 30 秒自动拉起;开机自启由 enable 决定
+Restart=on-failure
+RestartSec=30
+TimeoutStopSec=30
+StandardOutput=append:/home/ubuntu/dl_stdout.log
+StandardError=append:/home/ubuntu/dl_stdout.log
+
+[Install]
+WantedBy=multi-user.target

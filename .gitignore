@@ -59,5 +59,19 @@ work/hybrid_batch/
 *.env
 work/.env
 
+# Ops helpers carrying live credentials or large binaries (keep local only)
+work/sub_fresh.yaml
+work/vps_mihomo.yaml
+work/testadmin.yaml
+work/chain_49_50.bat
+work/hermes_relay/
+
+# Runtime state from one-off pipeline runs
+work/*.progress
+work/*.start
+
+# Local subtitle conflict copies (scratch)
+work/subs_conflicts_local/
+
 # Crash dumps
 *.stackdump
