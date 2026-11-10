@@ -122,6 +122,12 @@ export function createOverlay() {
     type: 'button',
     title: '复位字幕位置、大小、宽度与透明度（或双击字幕）',
   }, '复位');
+  const modeMiniBtn = el('button', {
+    class: 'sub-tool-btn sub-mode-btn',
+    type: 'button',
+    title: '切换画面字幕语言模式（中 / 中英 / 英，快捷键 C）',
+    'aria-label': '切换字幕语言模式',
+  }, '中');
   const toolsBar = el('div', {
     class: 'sub-tools',
     on: {
@@ -129,6 +135,8 @@ export function createOverlay() {
       dblclick: (event) => event.stopPropagation(),
     },
   },
+    modeMiniBtn,
+    el('span', { class: 'sub-tools-sep', 'aria-hidden': 'true' }),
     scaleDownBtn,
     scaleUpBtn,
     el('span', { class: 'sub-tools-sep', 'aria-hidden': 'true' }),
@@ -154,9 +162,11 @@ export function createOverlay() {
   let cues = [];
   let enabled = true;
   let bilingual = false;
+  let subMode = 'zh';
   let index = -1;
   let hudTimer = null;
   let onChangeCallback = null;
+  let onModeChangeCallback = null;
 
   // ── 读取并兼容历史配置（sub_box 优先，回退兼容旧版 sub_offset / sub_size） ──
   const legacySize = store.get('sub_size', 'md');
@@ -287,6 +297,24 @@ export function createOverlay() {
     resetAll();
   });
 
+  const OVERLAY_MODE_LABELS = { zh: '中', both: '中英', en: '英' };
+  const OVERLAY_ACTIVE_MODES = ['zh', 'both', 'en'];
+  function syncModeMiniBtn() {
+    const label = OVERLAY_MODE_LABELS[subMode] || '中';
+    modeMiniBtn.textContent = label;
+  }
+  modeMiniBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const curIdx = OVERLAY_ACTIVE_MODES.indexOf(subMode);
+    const nextMode = OVERLAY_ACTIVE_MODES[(curIdx + 1) % OVERLAY_ACTIVE_MODES.length];
+    subMode = nextMode;
+    bilingual = nextMode === 'both';
+    syncModeMiniBtn();
+    if (enabled && index >= 0) render(cues[index]);
+    showHud(`字幕：${OVERLAY_MODE_LABELS[nextMode]}`, 650);
+    onModeChangeCallback?.(nextMode);
+  });
+
   // ── 统一指针交互：任意拖拽平移 (move) / 四角缩放字号 (scale) / 左右边缘调宽度 (width) ──
   let interaction = null;
   line.addEventListener('pointerdown', (event) => {
@@ -412,15 +440,24 @@ export function createOverlay() {
   if (typeof ResizeObserver === 'function') {
     const ro = new ResizeObserver(() => syncVisualPosition(false));
     ro.observe(layer);
+    layer._resizeObserver = ro;
   }
 
   function render(cue) {
-    const zh = cue?.zh || '';
-    const en = bilingual ? (cue?.en || '') : '';
-    zhLine.textContent = zh;
-    enLine.textContent = en;
-    enLine.hidden = !en;
-    line.hidden = !zh && !en;
+    if (subMode === 'en') {
+      const en = cue?.en || cue?.zh || '';
+      zhLine.textContent = en;
+      enLine.textContent = '';
+      enLine.hidden = true;
+      line.hidden = !en;
+    } else {
+      const zh = cue?.zh || '';
+      const en = (subMode === 'both' || bilingual) ? (cue?.en || '') : '';
+      zhLine.textContent = zh;
+      enLine.textContent = en;
+      enLine.hidden = !en;
+      line.hidden = !zh && !en;
+    }
     if (!line.hidden) syncVisualPosition(false);
   }
 
@@ -443,7 +480,29 @@ export function createOverlay() {
     },
     setBilingual(on) {
       bilingual = on;
+      subMode = on ? 'both' : 'zh';
+      modeMiniBtn.textContent = subMode === 'both' ? '中英' : '中';
       if (enabled && index >= 0) render(cues[index]);
+    },
+    setMode(mode) {
+      if (mode === 'off') {
+        enabled = false;
+        reset();
+        return;
+      }
+      enabled = true;
+      if (mode === 'zh' || mode === 'both' || mode === 'en') {
+        subMode = mode;
+        bilingual = mode === 'both';
+        modeMiniBtn.textContent = mode === 'both' ? '中英' : mode === 'en' ? '英' : '中';
+      }
+      if (index >= 0) render(cues[index]);
+    },
+    getMode() {
+      return enabled ? subMode : 'off';
+    },
+    set onModeChange(fn) {
+      onModeChangeCallback = fn;
     },
     setSize(size) {
       if (!SUB_SIZES.includes(size)) return;
@@ -493,6 +552,13 @@ export function createOverlay() {
       render(next >= 0 ? cues[next] : null);
     },
     clear: reset,
+    destroy() {
+      if (layer._resizeObserver) {
+        layer._resizeObserver.disconnect();
+        layer._resizeObserver = null;
+      }
+      reset();
+    },
   };
 }
 
@@ -538,10 +604,17 @@ export function renderHighlighted(container, text, regex) {
  *           onNotesChange?: () => void }} [opts]
  */
 export function renderTranscript(cues, onSeek, opts = {}) {
-  const { chapters = [], meta = {}, onNotesChange } = opts;
+  const { chapters = [], meta = {}, onNotesChange, onSearchHits } = opts;
   const vid = meta.vid || '';
-  let showEn = store.get('stream_en', true) !== false;
-  const list = el('div', { class: 'transcript-list' + (showEn ? '' : ' hide-en') });
+  const savedStreamLang = store.get('stream_lang', null);
+  let streamLang = (savedStreamLang === 'both' || savedStreamLang === 'zh' || savedStreamLang === 'en')
+    ? savedStreamLang
+    : (store.get('stream_en', true) !== false ? 'both' : 'zh');
+  const list = el('div', {
+    class: 'transcript-list'
+      + (streamLang === 'zh' ? ' hide-en' : '')
+      + (streamLang === 'en' ? ' hide-zh' : ''),
+  });
   const items = [];
   let activeIndex = -1;
   let pastBound = 0;
@@ -676,7 +749,7 @@ export function renderTranscript(cues, onSeek, opts = {}) {
       el('span', { class: 'transcript-chapter-ts' }, stamp(chapter.s)),
       el('span', { class: 'transcript-chapter-title' }, chapter.t),
     );
-    chapterNodes.push(node);
+    chapterNodes.push({ node, s: Number(chapter.s) || 0 });
     list.append(node);
   };
 
@@ -689,24 +762,37 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     const zhText = (cue.zh || '').trim();
     const enEl = enText ? el('span', { class: 'transcript-en' }, enText) : null;
     const zhEl = el('span', { class: 'transcript-zh' }, zhText);
-    const noteBtn = el('span', {
+    const noteBtn = el('button', {
       class: 'line-note-btn',
+      type: 'button',
       title: '标记 / 取消书签',
-      'aria-hidden': 'true',
+      'aria-label': '标记或取消当前字幕书签',
     }, noteIcon());
     noteBtn.addEventListener('click', (event) => {
       event.stopPropagation();
       toggleLineNote(cue);
     });
-    const node = el('button', {
+    const node = el('div', {
       class: 'transcript-line',
-      type: 'button',
+      role: 'button',
+      tabindex: '0',
       on: {
-        click: () => {
+        click: (e) => {
+          if (e.target.closest('.line-note-btn')) return;
           userPausedUntil = 0;
           syncResumeBtn.hidden = true;
           setActive(idx, false);
           onSeek(cue.s);
+        },
+        keydown: (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            if (e.target.closest('.line-note-btn')) return;
+            e.preventDefault();
+            userPausedUntil = 0;
+            syncResumeBtn.hidden = true;
+            setActive(idx, false);
+            onSeek(cue.s);
+          }
         },
       },
     },
@@ -732,11 +818,25 @@ export function renderTranscript(cues, onSeek, opts = {}) {
   const searchInput = el('input', {
     class: 'transcript-input',
     type: 'search',
-    placeholder: '搜索字幕（中 / 英）…',
+    placeholder: '搜索字幕（Enter 下一个 / G 聚焦）…',
     autocomplete: 'off',
     'aria-label': '搜索字幕内容',
   });
   const matchCountEl = el('span', { class: 'transcript-match', hidden: true });
+  const prevHitBtn = el('button', {
+    class: 'transcript-search-nav',
+    type: 'button',
+    title: '上一个匹配句 (Shift+Enter)',
+    'aria-label': '上一个匹配句',
+    hidden: true,
+  }, '‹');
+  const nextHitBtn = el('button', {
+    class: 'transcript-search-nav',
+    type: 'button',
+    title: '下一个匹配句 (Enter)',
+    'aria-label': '下一个匹配句',
+    hidden: true,
+  }, '›');
   const clearBtn = el('button', {
     class: 'transcript-clear',
     type: 'button',
@@ -744,19 +844,23 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     hidden: true,
   }, '×');
 
+  const STREAM_LANG_LABEL = { both: '中英', zh: '仅中', en: '仅英' };
   const biBtn = el('button', {
     class: 'transcript-follow',
     type: 'button',
-    'aria-pressed': showEn ? 'true' : 'false',
-    title: '切换显示中英对照或仅中文',
-  }, showEn ? '中英' : '仅中');
+    'aria-pressed': streamLang === 'both' ? 'true' : 'false',
+    title: '切换字幕文稿语言：中英对照 / 仅中文 / 仅英文',
+  }, STREAM_LANG_LABEL[streamLang] || '中英');
 
   biBtn.addEventListener('click', () => {
-    showEn = !showEn;
-    store.set('stream_en', showEn);
-    list.classList.toggle('hide-en', !showEn);
-    biBtn.textContent = showEn ? '中英' : '仅中';
-    biBtn.setAttribute('aria-pressed', showEn ? 'true' : 'false');
+    const order = ['both', 'zh', 'en'];
+    streamLang = order[(order.indexOf(streamLang) + 1) % order.length];
+    store.set('stream_lang', streamLang);
+    store.set('stream_en', streamLang !== 'zh');
+    list.classList.toggle('hide-en', streamLang === 'zh');
+    list.classList.toggle('hide-zh', streamLang === 'en');
+    biBtn.textContent = STREAM_LANG_LABEL[streamLang];
+    biBtn.setAttribute('aria-pressed', streamLang === 'both' ? 'true' : 'false');
     if (autoFollow && !hasQuery) requestAnimationFrame(() => scrollToActive(false));
   });
 
@@ -789,7 +893,9 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     }
     const text = visible.map(({ cue }) => {
       const ts = `[${stamp(cue.s)}]`;
-      return showEn && cue.en ? `${ts} ${cue.zh}\n${cue.en}` : `${ts} ${cue.zh}`;
+      if (streamLang === 'en') return `${ts} ${cue.en || cue.zh}`;
+      if (streamLang === 'zh') return `${ts} ${cue.zh}`;
+      return cue.en ? `${ts} ${cue.zh}\n${cue.en}` : `${ts} ${cue.zh}`;
     }).join('\n');
     try {
       await navigator.clipboard.writeText(text);
@@ -799,6 +905,26 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     }
   });
 
+  let matchedItems = [];
+  let hitCursor = -1;
+
+  function stepHit(delta) {
+    if (!matchedItems.length) return;
+    if (hitCursor >= 0 && matchedItems[hitCursor]) {
+      matchedItems[hitCursor].node.classList.remove('is-search-focus');
+    }
+    hitCursor = (hitCursor + delta + matchedItems.length) % matchedItems.length;
+    const targetItem = matchedItems[hitCursor];
+    if (!targetItem) return;
+    targetItem.node.classList.add('is-search-focus');
+    matchCountEl.textContent = `${hitCursor + 1}/${matchedItems.length}`;
+    userPausedUntil = Date.now() + 8000;
+    onSeek(targetItem.cue.s);
+    const top = targetItem.node.offsetTop - list.offsetTop - (list.clientHeight * 0.36) + (targetItem.node.offsetHeight / 2);
+    list.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    onSearchHits?.(searchInput.value.trim(), matchedItems.map((it) => it.cue.s), targetItem.cue.s);
+  }
+
   function applyFilter() {
     const raw = searchInput.value.trim();
     const terms = raw.toLowerCase().split(/\s+/).filter(Boolean);
@@ -806,34 +932,49 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     clearBtn.hidden = !hasQuery;
     matchCountEl.hidden = !hasQuery;
 
+    for (const item of items) {
+      item.node.classList.remove('is-search-focus');
+    }
+    matchedItems = [];
+    hitCursor = -1;
+
     if (!hasQuery) {
+      prevHitBtn.hidden = true;
+      nextHitBtn.hidden = true;
       for (const item of items) {
         item.node.hidden = false;
         item.zhEl.textContent = item.cue.zh;
         if (item.enEl) item.enEl.textContent = item.cue.en;
       }
-      for (const node of chapterNodes) node.hidden = false;
+      for (const ch of chapterNodes) ch.node.hidden = false;
       emptyEl.hidden = true;
+      onSearchHits?.('', [], null);
       if (autoFollow) scrollToActive(false);
       return;
     }
 
     const regex = new RegExp(terms.map(escapeRegExp).join('|'), 'gi');
-    let matches = 0;
     for (const item of items) {
       const matched = terms.every((t) => item.haystack.includes(t));
       item.node.hidden = !matched;
       if (matched) {
-        matches += 1;
+        matchedItems.push(item);
         renderHighlighted(item.zhEl, item.cue.zh, regex);
         if (item.enEl) renderHighlighted(item.enEl, item.cue.en, regex);
       }
     }
     // Searching is about the matching lines; chapter dividers only add noise.
-    for (const node of chapterNodes) node.hidden = true;
+    for (const ch of chapterNodes) ch.node.hidden = true;
+    const matches = matchedItems.length;
+    prevHitBtn.hidden = matches < 2;
+    nextHitBtn.hidden = matches < 1;
     matchCountEl.textContent = `${matches} 句`;
     emptyEl.hidden = matches > 0;
+    onSearchHits?.(raw, matchedItems.map((it) => it.cue.s), null);
   }
+
+  prevHitBtn.addEventListener('click', () => stepHit(-1));
+  nextHitBtn.addEventListener('click', () => stepHit(1));
 
   searchInput.addEventListener('input', applyFilter);
   searchInput.addEventListener('keydown', (event) => {
@@ -841,6 +982,9 @@ export function renderTranscript(cues, onSeek, opts = {}) {
       event.stopPropagation();
       searchInput.value = '';
       applyFilter();
+    } else if (event.key === 'Enter' && hasQuery && matchedItems.length) {
+      event.preventDefault();
+      stepHit(event.shiftKey ? -1 : 1);
     }
   });
   clearBtn.addEventListener('click', () => {
@@ -945,7 +1089,7 @@ export function renderTranscript(cues, onSeek, opts = {}) {
 
   const exportMenu = buildExportMenu(cues, meta);
   const toolbar = el('div', { class: 'transcript-bar' },
-    el('div', { class: 'transcript-search' }, searchInput, matchCountEl, clearBtn),
+    el('div', { class: 'transcript-search' }, searchInput, matchCountEl, prevHitBtn, nextHitBtn, clearBtn),
     biBtn,
     followBtn,
     copyBtn,
@@ -958,11 +1102,35 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     syncResumeBtn,
   );
 
+  let activeChapterIdx = -1;
+
   return {
     node: panel,
     update(time) {
       const idx = findActiveStreamCue(cues, time);
       setActive(idx, true);
+      if (chapterNodes.length) {
+        let nextCh = -1;
+        for (let i = chapterNodes.length - 1; i >= 0; i--) {
+          if (time + 0.1 >= chapterNodes[i].s) {
+            nextCh = i;
+            break;
+          }
+        }
+        if (nextCh !== activeChapterIdx) {
+          if (activeChapterIdx >= 0 && chapterNodes[activeChapterIdx]) {
+            chapterNodes[activeChapterIdx].node.classList.remove('is-active');
+          }
+          activeChapterIdx = nextCh;
+          if (activeChapterIdx >= 0 && chapterNodes[activeChapterIdx]) {
+            chapterNodes[activeChapterIdx].node.classList.add('is-active');
+          }
+        }
+      }
+    },
+    focusSearch() {
+      searchInput.focus();
+      searchInput.select();
     },
     scrollToCurrent() {
       requestAnimationFrame(() => scrollToActive(false));

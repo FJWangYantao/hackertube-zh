@@ -225,8 +225,16 @@ export function createHeatmapBar({ video, onSeek }) {
   let hoverRatio = -1;
   let bins = new Float32Array(BINS);
   let hotBins = new Float32Array(BINS);
+  let searchHitQuery = '';
+  let searchHitTimes = [];
+  let searchActiveTime = null;
 
   const subStatEl = el('span', { class: 'muted', style: { fontSize: '11.5px' } }, '');
+  const searchLegText = el('span', {}, '搜索命中');
+  const searchLegItem = el('span', { class: 'heatmap-leg-item', hidden: true },
+    el('span', { class: 'heatmap-leg-swatch', style: { background: '#10b981' } }),
+    searchLegText,
+  );
   const head = el('div', { class: 'heatmap-head' },
     el('span', { class: 'heatmap-label' },
       el('span', { class: 'heatmap-pulse' }),
@@ -234,6 +242,7 @@ export function createHeatmapBar({ video, onSeek }) {
     ),
     subStatEl,
     el('div', { class: 'heatmap-legend' },
+      searchLegItem,
       el('span', { class: 'heatmap-leg-item' },
         el('span', { class: 'heatmap-leg-swatch', style: { background: '#ff6600' } }),
         '已播/语速密度',
@@ -560,6 +569,29 @@ export function createHeatmapBar({ video, onSeek }) {
       ctx2d.restore();
     }
 
+    // 6. Draw Subtitle Live Search Hit Needles (🔍)
+    if (searchHitTimes.length) {
+      ctx2d.save();
+      for (const t of searchHitTimes) {
+        const sx = (t / dur) * width;
+        if (sx >= 2 && sx <= width - 2) {
+          const isFocused = searchActiveTime != null && Math.abs(t - searchActiveTime) < 0.25;
+          ctx2d.strokeStyle = isFocused ? '#34d399' : '#10b981';
+          ctx2d.lineWidth = isFocused ? 2.5 : 1.75;
+          ctx2d.beginPath();
+          ctx2d.moveTo(sx, 2);
+          ctx2d.lineTo(sx, baseY);
+          ctx2d.stroke();
+
+          ctx2d.fillStyle = isFocused ? '#a7f3d0' : '#10b981';
+          ctx2d.beginPath();
+          ctx2d.arc(sx, 4, isFocused ? 4.2 : 3, 0, Math.PI * 2);
+          ctx2d.fill();
+        }
+      }
+      ctx2d.restore();
+    }
+
     ctx2d.restore();
   }
 
@@ -641,6 +673,18 @@ export function createHeatmapBar({ video, onSeek }) {
     setComments(nextComments) {
       comments = Array.isArray(nextComments) ? nextComments : (nextComments?.comments || []);
       recomputeBins();
+    },
+    setSearchHits(query, times, activeTime = null) {
+      searchHitQuery = (query || '').trim();
+      searchHitTimes = Array.isArray(times) ? times : [];
+      searchActiveTime = activeTime;
+      if (searchHitQuery && searchHitTimes.length) {
+        searchLegText.textContent = `搜索「${searchHitQuery.slice(0, 12)}」(${searchHitTimes.length}) 🔍`;
+        searchLegItem.hidden = false;
+      } else {
+        searchLegItem.hidden = true;
+      }
+      draw();
     },
     refreshNotes() {
       notes = store.getNotes(video.vid);

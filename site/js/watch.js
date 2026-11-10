@@ -11,7 +11,7 @@ import { createHeatmapBar } from './heatmap.js';
 const RELATED_LIMIT = 12;
 const RELATED_MIN = 8;
 const NEXT_COUNTDOWN_SECONDS = 5;
-const RATE_STEPS = [0.75, 1, 1.25, 1.5, 1.75, 2];
+const RATE_STEPS = [0.75, 1, 1.25, 1.35, 1.5, 1.75, 2];
 
 function normalizeRate(value) {
   return RATE_STEPS.includes(Number(value)) ? Number(value) : 1;
@@ -209,8 +209,12 @@ export function show(container, route, ctx) {
     }, 8500);
   };
 
+  let outlineView = null;
+  let selectRailTab = null;
+
   player.onTimeUpdate = (time, duration, force = false) => {
     transcript?.update(time);
+    outlineView?.update(time);
     heatmap.setProgress(time, duration);
     store.setProgress(video.vid, time, duration, force);
 
@@ -227,13 +231,14 @@ export function show(container, route, ctx) {
   const commentCount = video.comment_count || 0;
   const subtitleBtn = buildSubtitleButton(player);
   const rateBtn = buildRateButton(player);
+  const skipSilenceBtn = buildSkipSilenceButton(player);
   const theaterBtn = buildTheaterButton();
   const autoplayBtn = buildAutoplayButton();
   const fullscreenBtn = buildFullscreenButton(player);
   const notesBtn = el('button', {
     class: 'hud-btn',
     type: 'button',
-    title: '在当前时间点添加随手记 / 书签（快捷键 B）',
+    title: '打开伴读随手记工作台 / 添加书签（快捷键 B）',
   }, '＋随手记');
   const helpBtn = el('button', {
     class: 'hud-btn hud-btn-kbd',
@@ -257,12 +262,13 @@ export function show(container, route, ctx) {
   player.onFallback = () => {
     canSync = false;
     subtitleBtn.hidden = true;
+    skipSilenceBtn.hidden = true;
   };
   player.onRateChange = (value) => {
     rateBtn.textContent = formatRate(value);
   };
 
-  // ── 随手记 / 时间戳书签 ──
+  // ── 随手记 / 时间戳书签与分栏伴读工作台 ──
   const cueTextAt = (seconds) => {
     if (!cues.length) return '';
     const idx = findActiveStreamCue(cues, seconds);
@@ -273,10 +279,20 @@ export function show(container, route, ctx) {
     onSeek: (t) => seekAndScroll(t),
     onChanged: () => syncNotesUi(),
   });
+  const railNotesCountEl = el('span', { class: 'rail-tab-count' }, '0');
+  const railNotesPanel = buildRailNotesPanel({
+    video,
+    getTime: () => player.getCurrentTime(),
+    getCueText: cueTextAt,
+    onSeek: (t) => seekAndScroll(t),
+    onChanged: () => syncNotesUi(),
+  });
   const syncNotesUi = () => {
     const count = store.getNotes(video.vid).length;
     notesBtn.textContent = count ? `＋随手记 (${count})` : '＋随手记';
+    railNotesCountEl.textContent = String(count);
     notesCard.render();
+    railNotesPanel.render();
     transcript?.refreshNotes?.();
     heatmap.refresh();
   };
@@ -289,14 +305,26 @@ export function show(container, route, ctx) {
       syncNotesUi();
     },
   });
-  notesBtn.addEventListener('click', () => noteEditor.open());
+  const openNoteAction = () => {
+    const isDesktop = window.matchMedia('(min-width: 1101px)').matches;
+    const isFullscreen = Boolean(document.fullscreenElement);
+    const isTheater = watchRoot?.classList.contains('is-theater');
+    if (isDesktop && !isFullscreen && !isTheater && selectRailTab) {
+      selectRailTab('notes');
+      railNotesPanel.focusComposer(true);
+    } else {
+      noteEditor.open();
+    }
+  };
+  notesBtn.addEventListener('click', openNoteAction);
   const kbdHelp = buildKbdHelp();
-  helpBtn.addEventListener('click', () => kbdHelp.toggle());
+  helpBtn.addEventListener('click', () => kbdHelp.toggle(helpBtn));
 
   // ── 播放器顶部悬浮 HUD 栏（全屏与普通模式均可见，外层频道栏仅留页面级按钮） ──
   const playerHud = buildPlayerHud(player.node, [
     subtitleBtn,
     rateBtn,
+    skipSilenceBtn,
     autoplayBtn,
   ], [
     notesBtn,
@@ -344,7 +372,9 @@ export function show(container, route, ctx) {
     const chapters = data?.chapters || [];
     if (!chapters.length) return;
     heatmap.setChapters(chapters);
-    main.insertBefore(buildOutline(data, seekAndScroll), description);
+    outlineView = buildOutline(data, seekAndScroll);
+    if (initialStart > 0) outlineView.update(initialStart);
+    main.insertBefore(outlineView.node, description);
   });
 
   const initialRelated = pickRelated(video, {}, ctx);
@@ -461,12 +491,16 @@ export function show(container, route, ctx) {
     heatmap.setCues(cues);
     player.setCues(cues);
     subtitleBtn.hidden = !canSync;
+    skipSilenceBtn.hidden = !canSync;
     const chapterData = await chaptersPromise;
     if (destroyed) return;
     transcript = renderTranscript(cues, seekAndScroll, {
       chapters: chapterData?.chapters || [],
       meta: { vid: video.vid, title: video.title_zh || video.title },
       onNotesChange: syncNotesUi,
+      onSearchHits: (query, times, activeTime) => {
+        heatmap.setSearchHits(query, times, activeTime);
+      },
     });
     if (initialStart > 0) transcript.update(initialStart);
 
@@ -483,6 +517,17 @@ export function show(container, route, ctx) {
       el('span', { class: 'rail-tab-count' }, String(cues.length)),
     );
 
+    const notesTabBtn = el('button', {
+      class: 'rail-tab',
+      type: 'button',
+      role: 'tab',
+      'aria-selected': 'false',
+      title: '伴读随手记与书签工作台（快捷键 B）',
+    },
+      el('span', {}, '随手记'),
+      railNotesCountEl,
+    );
+
     const relatedTabBtn = el('button', {
       class: 'rail-tab',
       type: 'button',
@@ -497,26 +542,39 @@ export function show(container, route, ctx) {
     const setTab = (tab) => {
       activeTab = tab;
       const isStream = tab === 'stream';
+      const isNotes = tab === 'notes';
+      const isRelated = tab === 'related';
       streamTabBtn.setAttribute('aria-selected', isStream ? 'true' : 'false');
-      relatedTabBtn.setAttribute('aria-selected', isStream ? 'false' : 'true');
+      notesTabBtn.setAttribute('aria-selected', isNotes ? 'true' : 'false');
+      relatedTabBtn.setAttribute('aria-selected', isRelated ? 'true' : 'false');
       transcript.node.hidden = !isStream;
-      railList.hidden = isStream;
-      rail.classList.toggle('is-stream-active', isStream);
+      railNotesPanel.node.hidden = !isNotes;
+      railList.hidden = !isRelated;
+      rail.classList.toggle('is-stream-active', isStream || isNotes);
       if (isStream) transcript.scrollToCurrent();
+      if (isNotes) railNotesPanel.render();
     };
+    selectRailTab = setTab;
 
     streamTabBtn.addEventListener('click', () => setTab('stream'));
+    notesTabBtn.addEventListener('click', () => setTab('notes'));
     relatedTabBtn.addEventListener('click', () => setTab('related'));
-    toggleRailTab = () => setTab(activeTab === 'stream' ? 'related' : 'stream');
+    const tabCycle = ['stream', 'notes', 'related'];
+    toggleRailTab = () => {
+      const next = tabCycle[(tabCycle.indexOf(activeTab) + 1) % tabCycle.length];
+      setTab(next);
+    };
 
     const tabsBar = el('div', { class: 'rail-tabs', role: 'tablist', 'aria-label': '右侧边栏切换' },
       streamTabBtn,
+      notesTabBtn,
       relatedTabBtn,
     );
 
+    railNotesPanel.node.hidden = true;
     railList.hidden = true;
     rail.classList.add('has-stream', 'is-stream-active');
-    rail.replaceChildren(tabsBar, transcript.node, railList);
+    rail.replaceChildren(tabsBar, transcript.node, railNotesPanel.node, railList);
     if (initialStart > 0) transcript.scrollToCurrent();
   });
 
@@ -551,6 +609,13 @@ export function show(container, route, ctx) {
     } else if ((event.key === 'c' || event.key === 'C') && !subtitleBtn.hidden) {
       event.preventDefault();
       subtitleBtn.click();
+    } else if ((event.key === 'x' || event.key === 'X') && !skipSilenceBtn.hidden) {
+      event.preventDefault();
+      skipSilenceBtn.click();
+    } else if ((event.key === 'g' || event.key === 'G') && transcript) {
+      event.preventDefault();
+      selectRailTab?.('stream');
+      transcript.focusSearch();
     } else if ((event.key === 't' || event.key === 'T') && toggleRailTab) {
       event.preventDefault();
       toggleRailTab();
@@ -580,7 +645,7 @@ export function show(container, route, ctx) {
       toast(`播放速度：${formatRate(player.cyclePlaybackRate(1))}`);
     } else if (event.key === 'b' || event.key === 'B') {
       event.preventDefault();
-      noteEditor.open();
+      openNoteAction();
     } else if (event.key === '?') {
       event.preventDefault();
       kbdHelp.toggle();
@@ -609,26 +674,56 @@ export function show(container, route, ctx) {
   };
 }
 
-/** TL;DR card with clickable chapter chips, placed above the description. */
+/** TL;DR card with clickable chapter chips and live active chapter highlight. */
 function buildOutline(data, onSeek) {
-  return el('section', { class: 'watch-outline', 'aria-label': 'AI 内容大纲' },
+  const chapters = data.chapters || [];
+  const chipEntries = chapters.map((chapter) => {
+    const btn = el('button', {
+      class: 'outline-chip',
+      type: 'button',
+      title: `跳到 ${formatClock(chapter.s)}`,
+      on: { click: () => onSeek(chapter.s) },
+    },
+      el('span', { class: 'outline-chip-ts' }, formatClock(chapter.s)),
+      el('span', {}, chapter.t),
+    );
+    return { node: btn, s: Number(chapter.s) || 0 };
+  });
+
+  const node = el('section', { class: 'watch-outline', 'aria-label': 'AI 内容大纲' },
     el('div', { class: 'outline-head' },
       el('h2', { class: 'outline-title' }, '内容大纲'),
       el('span', { class: 'outline-badge', title: '由 AI 根据字幕生成，仅供参考' }, 'AI 生成'),
     ),
     el('p', { class: 'outline-tldr' }, data.tldr || ''),
     el('div', { class: 'outline-chapters' },
-      ...(data.chapters || []).map((chapter) => el('button', {
-        class: 'outline-chip',
-        type: 'button',
-        title: `跳到 ${formatClock(chapter.s)}`,
-        on: { click: () => onSeek(chapter.s) },
-      },
-        el('span', { class: 'outline-chip-ts' }, formatClock(chapter.s)),
-        el('span', {}, chapter.t),
-      )),
+      ...chipEntries.map((entry) => entry.node),
     ),
   );
+
+  let activeIdx = -1;
+  return {
+    node,
+    update(time) {
+      if (!chipEntries.length) return;
+      let nextIdx = -1;
+      for (let i = chipEntries.length - 1; i >= 0; i--) {
+        if (time + 0.2 >= chipEntries[i].s) {
+          nextIdx = i;
+          break;
+        }
+      }
+      if (nextIdx !== activeIdx) {
+        if (activeIdx >= 0 && chipEntries[activeIdx]) {
+          chipEntries[activeIdx].node.classList.remove('is-active');
+        }
+        activeIdx = nextIdx;
+        if (activeIdx >= 0 && chipEntries[activeIdx]) {
+          chipEntries[activeIdx].node.classList.add('is-active');
+        }
+      }
+    },
+  };
 }
 
 function showError(container, heading, message) {
@@ -727,12 +822,15 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
         events: {
           onReady: () => {
             readyResolve();
-            if (!destroyed) {
-              if (beginSec > 0) yt.seekTo?.(beginSec, true);
-              yt.playVideo?.();
-              // 恢复用户偏好的播放倍速
-              yt.setPlaybackRate?.(rate);
+            if (destroyed) {
+              yt?.destroy?.();
+              yt = null;
+              return;
             }
+            if (beginSec > 0) yt.seekTo?.(beginSec, true);
+            yt.playVideo?.();
+            // 恢复用户偏好的播放倍速
+            yt.setPlaybackRate?.(rate);
           },
           onStateChange: (event) => {
             if (event.data === 0) {
@@ -798,6 +896,55 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     });
   }
 
+  let playerCues = [];
+  let skipSilence = store.get('skip_silence', false) === true;
+  let lastSilenceJumpAt = 0;
+
+  function checkAndSkipSilence(curSec) {
+    if (!skipSilence || playerCues.length < 5) return false;
+    const now = Date.now();
+    if (now - lastSilenceJumpAt < 1800) return false;
+
+    // Check if curSec is inside a long silent gap (>= 4.5s) between cues
+    let nextCueStart = -1;
+    let gapLen = 0;
+    if (curSec >= 1.5 && curSec < playerCues[0].s - 1.2 && playerCues[0].s >= 5) {
+      nextCueStart = playerCues[0].s;
+      gapLen = playerCues[0].s;
+    } else {
+      let lo = 0;
+      let hi = playerCues.length - 1;
+      let afterIdx = -1;
+      while (lo <= hi) {
+        const mid = (lo + hi) >> 1;
+        if (playerCues[mid].s <= curSec) {
+          afterIdx = mid;
+          lo = mid + 1;
+        } else {
+          hi = mid - 1;
+        }
+      }
+      if (afterIdx >= 0 && afterIdx + 1 < playerCues.length) {
+        const curCueEnd = playerCues[afterIdx].e || (playerCues[afterIdx].s + 2.5);
+        const nextCue = playerCues[afterIdx + 1];
+        if (curSec >= curCueEnd + 0.35 && nextCue.s - curCueEnd >= 4.5 && nextCue.s - curSec >= 2.2) {
+          nextCueStart = nextCue.s;
+          gapLen = nextCue.s - curSec;
+        }
+      }
+    }
+
+    if (nextCueStart > 0 && gapLen >= 2.2) {
+      const targetSec = Math.max(curSec + 1, nextCueStart - 0.3);
+      lastSilenceJumpAt = now;
+      yt?.seekTo?.(targetSec, true);
+      lastKnownTime = targetSec;
+      toast(`⚡ 已跳过 ${Math.round(targetSec - curSec)} 秒空白片段`);
+      return true;
+    }
+    return false;
+  }
+
   function applyRate(next) {
     rate = next;
     store.set('speed', next);
@@ -813,6 +960,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     const duration = typeof yt.getDuration === 'function' ? yt.getDuration() : 0;
     if (Number.isFinite(currentTime) && currentTime > 0) lastKnownTime = currentTime;
     if (Number.isFinite(duration) && duration > 0) lastKnownDuration = duration;
+    if (!force && state === 1 && checkAndSkipSilence(currentTime)) return;
     overlay.update(currentTime);
     onTimeUpdate?.(currentTime, lastKnownDuration, force);
   }
@@ -823,9 +971,20 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
 
   return {
     node: player,
-    setCues: (cues) => overlay.setCues(cues),
+    setCues: (nextCues) => {
+      playerCues = Array.isArray(nextCues) ? nextCues : [];
+      overlay.setCues(playerCues);
+    },
     setEnabled: (on) => overlay.setEnabled(on),
     setBilingual: (on) => overlay.setBilingual(on),
+    setSubMode: (mode) => overlay.setMode(mode),
+    getSubMode: () => overlay.getMode(),
+    set onSubModeChange(fn) { overlay.onModeChange = fn; },
+    setSkipSilence(on) {
+      skipSilence = Boolean(on);
+      store.set('skip_silence', skipSilence);
+    },
+    getSkipSilence: () => skipSilence,
     set onFallback(fn) { onFallback = fn; },
     set onTimeUpdate(fn) { onTimeUpdate = fn; },
     set onEnded(fn) { onEnded = fn; },
@@ -863,15 +1022,15 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
       tick(true);
       destroyed = true;
       clearInterval(timer);
-      overlay.clear();
+      overlay.destroy();
       yt?.destroy?.();
       yt = null;
     },
   };
 }
 
-const SUBTITLE_MODES = ['off', 'zh', 'both'];
-const SUBTITLE_LABELS = { off: '字幕 关', zh: '字幕 中', both: '字幕 中英' };
+const SUBTITLE_MODES = ['off', 'zh', 'both', 'en'];
+const SUBTITLE_LABELS = { off: '字幕 关', zh: '字幕 中', both: '字幕 中英', en: '字幕 英' };
 
 function buildSubtitleButton(player) {
   let mode = store.get('subs_mode', null);
@@ -882,23 +1041,52 @@ function buildSubtitleButton(player) {
     class: 'hud-btn',
     type: 'button',
     hidden: true,
-    title: '切换字幕模式（快捷键 C）',
+    title: '切换字幕模式：关 / 中 / 中英 / 英（快捷键 C）',
     'aria-pressed': mode === 'off' ? 'false' : 'true',
   }, SUBTITLE_LABELS[mode]);
 
   const apply = () => {
-    player.setEnabled(mode !== 'off');
-    player.setBilingual(mode === 'both');
+    player.setSubMode(mode);
     button.textContent = SUBTITLE_LABELS[mode];
     button.classList.toggle('is-on', mode !== 'off');
     button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
   };
   apply();
 
+  player.onSubModeChange = (nextMode) => {
+    if (SUBTITLE_MODES.includes(nextMode)) {
+      mode = nextMode;
+      store.set('subs_mode', mode);
+      button.textContent = SUBTITLE_LABELS[mode];
+      button.classList.toggle('is-on', mode !== 'off');
+      button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
+    }
+  };
+
   button.addEventListener('click', () => {
     mode = SUBTITLE_MODES[(SUBTITLE_MODES.indexOf(mode) + 1) % SUBTITLE_MODES.length];
     store.set('subs_mode', mode);
     apply();
+  });
+  return button;
+}
+
+function buildSkipSilenceButton(player) {
+  let on = player.getSkipSilence();
+  const button = el('button', {
+    class: 'hud-btn' + (on ? ' is-on' : ''),
+    type: 'button',
+    hidden: true,
+    title: '自动跳过 ≥4.5 秒无台词空白段（快捷键 X）',
+    'aria-pressed': on ? 'true' : 'false',
+  }, on ? '跳过空白 开' : '跳过空白');
+  button.addEventListener('click', () => {
+    on = !on;
+    player.setSkipSilence(on);
+    button.classList.toggle('is-on', on);
+    button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    button.textContent = on ? '跳过空白 开' : '跳过空白';
+    toast(on ? '⚡ 智能跳过空白已开启：自动略过长停顿片段' : '智能跳过空白已关闭');
   });
   return button;
 }
@@ -1014,16 +1202,18 @@ function buildPlayerHud(playerNode, leftBtns = [], rightBtns = []) {
 /** ? 键快捷键速查浮层。 */
 function buildKbdHelp() {
   const rows = [
-    ['/', '聚焦搜索框'],
+    ['/', '聚焦全局搜索框'],
+    ['G', '聚焦视频内字幕搜索（Enter 下一个 / Shift+Enter 上一个）'],
     ['S', '收藏当前视频'],
-    ['C', '切换字幕模式（关 / 中 / 中英）'],
-    ['T', '切换字幕流 / 推荐面板'],
+    ['C', '切换字幕模式（关 / 中 / 中英 / 英）'],
+    ['X', '开启 / 关闭智能跳过空白片段'],
+    ['T', '切换右侧面板（字幕流 / 随手记 / 接下来）'],
+    ['B', '打开伴读随手记工作台 / 添加时间点书签'],
     ['F', '全屏播放'],
     ['W', '宽屏模式'],
     ['A', '连播开关'],
     ['J / L', '快退 / 快进 10 秒'],
-    ['[ / ]', '降低 / 提高播放速度'],
-    ['B', '随手记：在当前时间点添加书签'],
+    ['[ / ]', '降低 / 提高播放速度（含 1.35x 黄金倍速）'],
     ['?', '打开或关闭本速查面板'],
     ['Esc', '关闭面板 / 清空搜索'],
   ];
@@ -1043,15 +1233,23 @@ function buildKbdHelp() {
   );
   const overlay = el('div', { class: 'kbd-overlay', hidden: true }, panel);
   overlay.addEventListener('click', (event) => {
-    if (event.target === overlay) overlay.hidden = true;
+    if (event.target === overlay) {
+      overlay.hidden = true;
+    }
   });
   return {
     node: overlay,
-    toggle() {
+    toggle(triggerEl = null) {
       overlay.hidden = !overlay.hidden;
+      if (!overlay.hidden) {
+        panel.focus?.() || panel.querySelector('button, [tabindex="0"]')?.focus();
+      } else if (triggerEl) {
+        triggerEl.focus?.();
+      }
     },
-    close() {
+    close(triggerEl = null) {
       overlay.hidden = true;
+      if (triggerEl) triggerEl.focus?.();
     },
   };
 }
@@ -1087,6 +1285,7 @@ function buildNoteEditor({ getTime, getCueText, onSave }) {
   function close() {
     overlay.hidden = true;
     pending = null;
+    notesBtn.focus?.();
   }
 
   function save() {
@@ -1257,6 +1456,283 @@ function buildNotesCard({ video, onSeek, onChanged }) {
   render();
 
   return { node, render };
+}
+
+/** 右侧分栏「伴读随手记工作台」：边看边记、不遮挡视频画面、支持 Alt+T 时间戳与一键摘录当前台词。 */
+function buildRailNotesPanel({ video, getTime, getCueText, onSeek, onChanged }) {
+  let capturedSec = null;
+  const tsBadge = el('span', { class: 'rail-notes-ts-badge' }, '0:00');
+  const cuePreview = el('p', { class: 'rail-notes-cue-preview muted', hidden: true }, '');
+  const textarea = el('textarea', {
+    class: 'rail-notes-textarea',
+    rows: '3',
+    maxlength: '400',
+    placeholder: '边看边记…（按 Enter 保存，Shift+Enter 换行，Alt+T 插入当前时间戳）',
+    'aria-label': '伴读随手记输入框',
+  });
+
+  const refreshCapture = (forceNow = false) => {
+    if (forceNow || capturedSec === null) {
+      capturedSec = Math.max(0, Math.floor(getTime() || 0));
+    }
+    tsBadge.textContent = `⏱ ${formatClock(capturedSec)}`;
+    const cue = getCueText(capturedSec);
+    if (cue) {
+      cuePreview.textContent = `❝ ${cue}`;
+      cuePreview.hidden = false;
+    } else {
+      cuePreview.textContent = '';
+      cuePreview.hidden = true;
+    }
+  };
+
+  textarea.addEventListener('focus', () => {
+    refreshCapture(true);
+  });
+
+  const insertTsBtn = el('button', {
+    class: 'rail-notes-tool-btn',
+    type: 'button',
+    title: '在光标处插入当前播放时间戳 (Alt+T)',
+    on: {
+      click: () => {
+        const t = Math.max(0, Math.floor(getTime() || 0));
+        capturedSec = t;
+        refreshCapture(false);
+        const stampStr = `[${formatClock(t)}] `;
+        const start = textarea.selectionStart ?? textarea.value.length;
+        const end = textarea.selectionEnd ?? textarea.value.length;
+        textarea.value = textarea.value.slice(0, start) + stampStr + textarea.value.slice(end);
+        textarea.focus();
+        textarea.selectionStart = textarea.selectionEnd = start + stampStr.length;
+      },
+    },
+  }, '⏱ 插入时间点');
+
+  const quoteCueBtn = el('button', {
+    class: 'rail-notes-tool-btn',
+    type: 'button',
+    title: '将当前正在播放的字幕台词摘录到输入框',
+    on: {
+      click: () => {
+        const t = Math.max(0, Math.floor(getTime() || 0));
+        capturedSec = t;
+        refreshCapture(false);
+        const cue = getCueText(t);
+        if (!cue) {
+          toast('当前时间点暂无字幕台词');
+          return;
+        }
+        const quote = `“${cue}” `;
+        const start = textarea.selectionStart ?? textarea.value.length;
+        const end = textarea.selectionEnd ?? textarea.value.length;
+        textarea.value = textarea.value.slice(0, start) + quote + textarea.value.slice(end);
+        textarea.focus();
+        textarea.selectionStart = textarea.selectionEnd = start + quote.length;
+      },
+    },
+  }, '❝ 摘录当前台词');
+
+  const submitNote = () => {
+    const t = capturedSec !== null ? capturedSec : Math.max(0, Math.floor(getTime() || 0));
+    const text = textarea.value.trim();
+    const cue = getCueText(t);
+    store.addNote(video.vid, { t, text, cueZh: cue });
+    textarea.value = '';
+    capturedSec = null;
+    refreshCapture(true);
+    toast(`已记入随手记 · ${formatClock(t)}`);
+    onChanged?.();
+  };
+
+  const saveBtn = el('button', {
+    class: 'rail-notes-save-btn',
+    type: 'button',
+    title: '保存随手记（可留空仅存为时间点书签）',
+    on: { click: submitNote },
+  }, '记入笔记');
+
+  textarea.addEventListener('keydown', (e) => {
+    if (e.altKey && (e.key === 't' || e.key === 'T')) {
+      e.preventDefault();
+      insertTsBtn.click();
+    } else if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      submitNote();
+    }
+  });
+
+  const composer = el('div', { class: 'rail-notes-composer' },
+    el('div', { class: 'rail-notes-composer-head' },
+      tsBadge,
+      el('div', { class: 'rail-notes-tools' }, insertTsBtn, quoteCueBtn),
+    ),
+    cuePreview,
+    textarea,
+    el('div', { class: 'rail-notes-composer-foot' },
+      el('span', { class: 'muted', style: { fontSize: '11.5px' } }, 'Enter 保存 · Alt+T 插入时间点'),
+      saveBtn,
+    ),
+  );
+
+  const listEl = el('div', { class: 'rail-notes-list' });
+
+  const buildMarkdown = () => {
+    const notes = store.getNotes(video.vid);
+    if (!notes.length) return '';
+    const base = `${location.origin}${location.pathname}#/video/${video.vid}`;
+    const lines = notes.map((note) => {
+      const mainText = (note.text || note.cue || '').trim();
+      const subQuote = note.text && note.cue ? `\n  > ${note.cue}` : '';
+      return `- [\`${formatClock(note.t)}\`](${base}?t=${note.t}) ${mainText}${subQuote}`;
+    });
+    return `# ${video.title_zh || video.title}\n\n${lines.join('\n')}\n`;
+  };
+
+  const copyMdBtn = el('button', {
+    class: 'transcript-copy',
+    type: 'button',
+    title: '复制全部随手记为 Markdown 格式',
+    on: {
+      click: async () => {
+        const md = buildMarkdown();
+        if (!md) {
+          toast('还没有可导出的随手记');
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(md);
+          toast('已复制 Markdown 随手记');
+        } catch {
+          toast('复制失败，请检查浏览器权限');
+        }
+      },
+    },
+  }, '复制 MD');
+
+  const downloadMdBtn = el('button', {
+    class: 'transcript-copy',
+    type: 'button',
+    title: '下载 .md 笔记文件（可直接导入 Obsidian / Notion）',
+    on: {
+      click: () => {
+        const md = buildMarkdown();
+        if (!md) {
+          toast('还没有可导出的随手记');
+          return;
+        }
+        const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const safeTitle = (video.title_zh || video.title || video.vid || 'notes')
+          .replace(/[\\/:*?"<>|]+/g, '_')
+          .slice(0, 48);
+        a.download = `${safeTitle}-笔记.md`;
+        document.body.append(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        toast('已下载 .md 笔记文件');
+      },
+    },
+  }, '下载 .md');
+
+  const footerBar = el('div', { class: 'rail-notes-ExportBar', hidden: true },
+    el('span', { class: 'muted', style: { fontSize: '12px' } }, '导出到 Obsidian / Notion：'),
+    el('div', { class: 'rail-notes-export-btns' }, copyMdBtn, downloadMdBtn),
+  );
+
+  const panel = el('div', { class: 'stream-panel rail-notes-panel' },
+    composer,
+    listEl,
+    footerBar,
+  );
+
+  function render() {
+    const notes = store.getNotes(video.vid);
+    footerBar.hidden = notes.length === 0;
+    if (!notes.length) {
+      listEl.replaceChildren(
+        el('div', { class: 'rail-notes-empty muted' },
+          el('p', {}, '📌 还没有随手记'),
+          el('p', { style: { fontSize: '12px', marginTop: '4px' } }, '你可以在上方直接输入并按 Enter，或在「实时字幕流」中划词 / 点击书签图标快速摘录。'),
+        ),
+      );
+      return;
+    }
+
+    listEl.replaceChildren(...notes.map((note) => {
+      const tsBtn = el('button', {
+        class: 'note-ts-btn',
+        type: 'button',
+        title: '跳转到该时间点播放',
+        on: { click: () => onSeek(note.t) },
+      }, formatClock(note.t));
+
+      const body = el('div', { class: 'note-body' },
+        el('p', { class: 'note-text' }, note.text || note.cue || '（书签）'),
+        note.text && note.cue ? el('p', { class: 'note-cue-line' }, `❝ ${note.cue}`) : null,
+      );
+
+      const editBtn = el('button', { class: 'note-act', type: 'button' }, '编辑');
+      const delBtn = el('button', { class: 'note-act', type: 'button' }, '删除');
+
+      delBtn.addEventListener('click', () => {
+        store.removeNote(video.vid, note.id);
+        toast('已删除随手记');
+        onChanged?.();
+      });
+
+      editBtn.addEventListener('click', () => {
+        const input = el('input', {
+          class: 'note-input note-inline-input',
+          type: 'text',
+          value: note.text || '',
+          maxlength: 300,
+          'aria-label': '编辑随手记',
+        });
+        body.replaceChildren(input);
+        input.focus();
+        input.select();
+        let done = false;
+        const commit = () => {
+          if (done) return;
+          done = true;
+          store.updateNote(video.vid, note.id, input.value);
+          onChanged?.();
+        };
+        input.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Enter') {
+            ev.preventDefault();
+            commit();
+          } else if (ev.key === 'Escape') {
+            ev.stopPropagation();
+            done = true;
+            onChanged?.();
+          }
+        });
+        input.addEventListener('blur', commit);
+      });
+
+      return el('div', { class: 'note-item rail-note-item' },
+        tsBtn,
+        body,
+        el('div', { class: 'note-item-actions' }, editBtn, delBtn),
+      );
+    }));
+  }
+
+  render();
+
+  return {
+    node: panel,
+    render,
+    focusComposer(captureNow = true) {
+      refreshCapture(captureNow);
+      setTimeout(() => textarea.focus(), 0);
+    },
+  };
 }
 
 function buildChannel(video, commentCount, player, extra = []) {

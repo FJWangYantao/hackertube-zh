@@ -17,6 +17,77 @@ const TYPE_CHIPS = [
   ['demo', '演示'],
 ];
 
+const CAT_ZH = {
+  'Compilers & Languages': '编译器与编程语言',
+  'Operating Systems': '操作系统',
+  'Distributed Systems': '分布式系统',
+  'Databases': '数据库',
+  'Networking': '计算机网络',
+  'Graphics & Game Dev': '图形学与游戏开发',
+  'Web & Frontend': 'Web 与前端架构',
+  'Algorithms & Theory': '算法与计算理论',
+  'Performance & Debugging': '性能优化与调试',
+  'Software Architecture': '软件架构',
+  'Developer Tools': '开发者工具',
+  'Generative AI & LLMs': '大模型与生成式 AI',
+  'Deep Learning': '深度学习',
+  'Robotics & Control': '机器人与控制',
+  'Computer Vision & Audio': '计算机视觉与音频',
+  'AI Safety & Alignment': 'AI 安全与对齐',
+  'Data Science': '数据科学',
+  'Cryptanalysis & Exploits': '漏洞利用与密码分析',
+  'Network & Web Security': '网络与 Web 安全',
+  'Reverse Engineering': '逆向工程',
+  'Privacy & Surveillance': '隐私与反监控',
+  'Physical Security & Lockpicking': '物理安全与锁具',
+  'Electronic Engineering': '电子工程与电路',
+  'Computer Architecture': '计算机体系结构',
+  'Semiconductors & Chips': '半导体与芯片',
+  'Retrocomputing': '复古计算与硬件史',
+  'Embedded & IoT': '嵌入式与物联网',
+  'Radio & RF': '无线电与射频',
+  'Pure Mathematics': '纯粹数学',
+  'Applied Math & Statistics': '应用数学与统计',
+  'Linear Algebra & Calculus': '线性代数与微积分',
+  'Quantum & Theoretical Physics': '量子与理论物理',
+  'Classical Physics & Optics': '经典物理与光学',
+  'Chemistry & Materials': '化学与材料',
+  'Space & Rocketry': '航天与火箭工程',
+  'Aviation': '航空工程',
+  'Civil & Infrastructure': '土木与基础设施',
+  'Mechanical & Manufacturing': '机械与精密制造',
+  'Energy & Nuclear': '能源与核工程',
+  'Startups & Venture': '创业与风险投资',
+  'Economics & Finance': '经济与金融',
+  'Tech Industry & Policy': '科技产业与政策',
+  'Career & Management': '工程管理与职业成长',
+  'Design & Typography': '设计与字体排印',
+  'History of Computing': '计算机发展史',
+  'Gaming History & Speedruns': '游戏史与速通原理',
+  'Music Tech & Synthesis': '音乐科技与合成器',
+  'Biology & Medicine': '生物与医学',
+  'Neuroscience & Psychology': '神经科学与心理学',
+  'Philosophy & Society': '哲学与技术社会',
+};
+
+const HOME_HOT_TOPICS = [
+  'Generative AI & LLMs',
+  'Compilers & Languages',
+  'Operating Systems',
+  'Computer Architecture',
+  'Graphics & Game Dev',
+  'Databases',
+  'Distributed Systems',
+  'Linear Algebra & Calculus',
+  'Reverse Engineering',
+  'Retrocomputing',
+  'History of Computing',
+];
+
+function catLabel(name) {
+  return CAT_ZH[name] || name;
+}
+
 let ctx;
 let container;
 let viewName;
@@ -172,6 +243,11 @@ function buildChips() {
       params.delete('cat');
       sync();
     }));
+  } else if (cat) {
+    chips.push(chipButton(`专题：${catLabel(cat)} ×`, true, () => {
+      params.delete('cat');
+      sync();
+    }));
   }
 
   if (channel) {
@@ -220,18 +296,50 @@ function chipButton(label, pressed, onClick) {
   }, label);
 }
 
-/** 领域（area）下的二级分类下钻栏：仅当 URL 带 area 时展开。 */
+/** 领域（area）下的二级分类下钻栏；当未选领域时展示全站「热门技术专题」一键过滤栏。 */
 function buildSubChips() {
   const area = params.get('area') || '';
   const cat = params.get('cat') || '';
-  if (viewName !== 'feed' || !area) {
+  const channel = params.get('channel') || '';
+  if (viewName !== 'feed' || channel) {
     subChipsEl.hidden = true;
     subChipsEl.replaceChildren();
     return;
   }
+  const includeAll = params.get('all') === '1';
+
+  if (!area) {
+    const counts = new Map();
+    for (const video of ctx.feed) {
+      if (!includeAll && ((video.recommenders || 0) <= 0 || video.shelf_life === 'news')) {
+        continue;
+      }
+      for (const name of video.categories || []) {
+        counts.set(name, (counts.get(name) || 0) + 1);
+      }
+    }
+    const hotList = HOME_HOT_TOPICS
+      .map((name) => [name, counts.get(name) || 0])
+      .filter(([, n]) => n > 0);
+    if (!hotList.length) {
+      subChipsEl.hidden = true;
+      subChipsEl.replaceChildren();
+      return;
+    }
+    subChipsEl.replaceChildren(
+      el('span', { class: 'sub-chips-label' }, '🔥 技术专题：'),
+      ...hotList.map(([name, n]) => subChip(`${catLabel(name)} ${n}`, cat === name, () => {
+        if (cat === name) params.delete('cat');
+        else params.set('cat', name);
+        sync();
+      })),
+    );
+    subChipsEl.hidden = false;
+    return;
+  }
+
   const areaMeta = (ctx.meta?.areas || []).find((entry) => entry.id === area);
   const categories = areaMeta?.categories || [];
-  const includeAll = params.get('all') === '1';
   const counts = new Map();
   if (categories.length) {
     for (const video of ctx.feed) {
@@ -258,7 +366,7 @@ function buildSubChips() {
       params.delete('cat');
       sync();
     }),
-    ...rows.map(([name, n]) => subChip(`${name} ${n}`, cat === name, () => {
+    ...rows.map(([name, n]) => subChip(`${catLabel(name)} ${n}`, cat === name, () => {
       if (cat === name) params.delete('cat');
       else params.set('cat', name);
       sync();
@@ -338,7 +446,9 @@ function buildList() {
 }
 
 function haystack(video) {
-  return [
+  if (video._haystack) return video._haystack;
+  const cats = video.categories || [];
+  const text = [
     video.title,
     video.title_zh,
     video.summary_zh,
@@ -348,8 +458,11 @@ function haystack(video) {
     ctx.areaName(video.area),
     typeLabel(video.content_type),
     levelLabel(video.level, { includeGeneral: true }),
-    ...(video.categories || []),
+    ...cats,
+    ...cats.map(catLabel),
   ].filter(Boolean).join(' ').toLowerCase();
+  video._haystack = text;
+  return text;
 }
 
 function comparator(sort) {
@@ -543,10 +656,17 @@ function card(video) {
   }, bookmarkIcon());
 
   const cardEl = el('article', { class: 'card' }, link, saveBtn);
+  let cardRect = null;
+  cardEl.addEventListener('pointerenter', () => {
+    cardRect = cardEl.getBoundingClientRect();
+  });
   cardEl.addEventListener('pointermove', (e) => {
-    const rect = cardEl.getBoundingClientRect();
-    cardEl.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-    cardEl.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    if (!cardRect) cardRect = cardEl.getBoundingClientRect();
+    cardEl.style.setProperty('--mouse-x', `${e.clientX - cardRect.left}px`);
+    cardEl.style.setProperty('--mouse-y', `${e.clientY - cardRect.top}px`);
+  });
+  cardEl.addEventListener('pointerleave', () => {
+    cardRect = null;
   });
   return cardEl;
 }
@@ -792,7 +912,7 @@ function updateHead() {
   else {
     const parts = [
       area ? ctx.areaName(area) : '',
-      cat,
+      cat ? catLabel(cat) : '',
       channel,
       type ? typeLabel(type) : '',
       level ? levelLabel(level, { includeGeneral: true }) : '',
