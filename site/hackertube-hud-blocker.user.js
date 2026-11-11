@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HackerTube 播放器 HUD 屏蔽
 // @namespace    https://fjwangyantao.github.io/hackertube-zh/
-// @version      1.1.0
+// @version      1.2.0
 // @description  在 HackerTube 中文站内屏蔽 YouTube 播放器原生界面（标题栏、水印、中央播放键、片尾推荐等），避免与站内自定义控制栏重合。仅作用于嵌入在本站的 YouTube 播放器。
 // @match        https://www.youtube.com/embed/*
 // @match        https://www.youtube-nocookie.com/embed/*
@@ -36,6 +36,7 @@
     '.ytp-gradient-top',
     '.ytp-gradient-bottom',
     '.ytp-watermark',
+    '.ytp-impression-link',
     '.ytp-large-play-button',
     '.ytp-bezel',
     '.ytp-endscreen-content',
@@ -57,6 +58,16 @@
     // —— 新版：底部时间胶囊 + Watch on YouTube 角标 ——
     '.ytwPlayerBottomControlsHost',
     'a[aria-label="Watch on YouTube"]',
+    // —— 2026-11 改版：暂停态底部按钮（类名已换，旧选择器失效）——
+    '.watch-on-youtube-button-wrapper',
+    '.watch-on-youtube-button',
+    '.fullscreen-watch-next-entrypoint-wrapper',
+    // —— 2026-11 改版：左下角视频链接圆形按钮（旧版 .ytp-impression-link 兜底）——
+    'ytm-button-renderer.icon-link',
+    '.icon-link',
+    // —— 原生 CC 字幕：站内有自己的双语字幕层，原生字幕属干扰 ——
+    '.ytp-caption-window-container',
+    '.caption-window',
     // —— 新版：全屏顶部标题与「更多视频」入口 ——
     '.ytwPlayerFullscreenTopControlsHost',
     '.ytmFullscreenRelatedVideosEntryPointViewModelHost',
