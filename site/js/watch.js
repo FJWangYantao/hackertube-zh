@@ -1004,6 +1004,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
         rel: 0,
         fs: 0,
         playsinline: 1,
+        iv_load_policy: 3,
       };
       if (beginSec > 0) playerVars.start = beginSec;
       yt = new YT.Player(host, {
@@ -1020,6 +1021,8 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
             }
             if (yt.getIframe?.()) yt.getIframe().tabIndex = -1;
             syncHudBlocker();
+            yt.unloadModule?.('captions');
+            yt.unloadModule?.('cc');
             yt.setVolume?.(volume);
             if (muted) yt.mute?.();
             else yt.unMute?.();
@@ -1030,8 +1033,11 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
           },
           onStateChange: (event) => {
             playbackState = event.data;
-            if (event.data === 1) unveilSoon();
-            else setVeiled(true);
+            if (event.data === 1) {
+              yt?.unloadModule?.('captions');
+              yt?.unloadModule?.('cc');
+              unveilSoon();
+            } else setVeiled(true);
             onPlaybackStateChange?.(playbackState);
             if (event.data === 0) {
               overlay.clear();
@@ -1223,7 +1229,6 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     setBilingual: (on) => overlay.setBilingual(on),
     setSubMode: (mode) => overlay.setMode(mode),
     getSubMode: () => overlay.getMode(),
-    set onSubModeChange(fn) { overlay.onModeChange = fn; },
     setSkipSilence(on) {
       skipSilence = Boolean(on);
       if (rememberPlayback()) store.set('skip_silence', skipSilence);
@@ -1319,10 +1324,6 @@ function buildSubtitleButton(player) {
     return true;
   };
   apply();
-
-  player.onSubModeChange = (nextMode) => {
-    if (setMode(nextMode)) emitSettingsChanged('subs_mode', nextMode, 'hud');
-  };
 
   button.addEventListener('click', () => {
     const nextMode = SUBTITLE_MODES[(SUBTITLE_MODES.indexOf(mode) + 1) % SUBTITLE_MODES.length];

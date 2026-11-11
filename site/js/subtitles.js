@@ -93,64 +93,10 @@ export function createOverlay() {
     title: '拖拽左右边缘：调节字幕折行宽度',
   }));
 
-  // ── 悬浮微工具条：字号 A−/A＋ + 背景透明度滑块 + 复位按钮（全屏与普通模式均可用） ──
-  const scaleDownBtn = el('button', {
-    class: 'sub-tool-btn',
-    type: 'button',
-    title: '减小字幕字号（或拖拽四角手柄 / Ctrl+滚轮）',
-    'aria-label': '减小字幕字号',
-  }, 'A−');
-  const scaleUpBtn = el('button', {
-    class: 'sub-tool-btn',
-    type: 'button',
-    title: '增大字幕字号（或拖拽四角手柄 / Ctrl+滚轮）',
-    'aria-label': '增大字幕字号',
-  }, 'A＋');
-  const alphaValueEl = el('span', { class: 'sub-alpha-val' }, '68%');
-  const alphaInput = el('input', {
-    class: 'sub-alpha-slider',
-    type: 'range',
-    min: '0',
-    max: '95',
-    step: '1',
-    value: '68',
-    title: '调节字幕背景透明度（或按住 Alt + 滚轮）',
-    'aria-label': '字幕背景透明度',
-  });
-  const resetMiniBtn = el('button', {
-    class: 'sub-reset-btn',
-    type: 'button',
-    title: '复位字幕位置、大小、宽度与透明度（或双击字幕）',
-  }, '复位');
-  const modeMiniBtn = el('button', {
-    class: 'sub-tool-btn sub-mode-btn',
-    type: 'button',
-    title: '切换画面字幕语言模式（中 / 中英 / 英，快捷键 C）',
-    'aria-label': '切换字幕语言模式',
-  }, '中');
-  const toolsBar = el('div', {
-    class: 'sub-tools',
-    on: {
-      pointerdown: (event) => event.stopPropagation(),
-      dblclick: (event) => event.stopPropagation(),
-    },
-  },
-    modeMiniBtn,
-    el('span', { class: 'sub-tools-sep', 'aria-hidden': 'true' }),
-    scaleDownBtn,
-    scaleUpBtn,
-    el('span', { class: 'sub-tools-sep', 'aria-hidden': 'true' }),
-    el('span', { class: 'sub-tools-label', title: '背景透明度' }, '底色'),
-    alphaInput,
-    alphaValueEl,
-    resetMiniBtn,
-  );
-
   const guideV = el('div', { class: 'sub-guide-v', hidden: true });
   const line = el(
     'div',
     { class: 'sub-line', hidden: true },
-    toolsBar,
     hudBadge,
     enLine,
     zhLine,
@@ -166,7 +112,6 @@ export function createOverlay() {
   let index = -1;
   let hudTimer = null;
   let onChangeCallback = null;
-  let onModeChangeCallback = null;
 
   // ── 读取并兼容历史配置（sub_box 优先，回退兼容旧版 sub_offset / sub_size） ──
   const legacySize = store.get('sub_size', 'md');
@@ -247,9 +192,6 @@ export function createOverlay() {
     line.style.setProperty('--sub-alpha', state.alpha.toFixed(2));
     line.dataset.size = sizeNameForScale(state.scale);
     line.classList.toggle('is-clear-bg', state.alpha < 0.12);
-    const pct = Math.round(state.alpha * 100);
-    alphaInput.value = String(pct);
-    alphaValueEl.textContent = `${pct}%`;
     syncVisualPosition(clampState);
     onChangeCallback?.({ ...state });
   }
@@ -268,28 +210,7 @@ export function createOverlay() {
 
   applyBoxStyles();
 
-  // ── 字号按钮、透明度滑块与复位按钮事件 ──
-  const stepScaleBy = (delta) => {
-    state.scale = clampNum(state.scale + delta, SUB_MIN_SCALE, SUB_MAX_SCALE, state.scale);
-    applyBoxStyles();
-    persistBox();
-    showHud(`字号 ${Math.round(state.scale * 100)}%`, 550);
-  };
-  scaleDownBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-    stepScaleBy(-0.12);
-  });
-  scaleUpBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-    stepScaleBy(0.12);
-  });
-  alphaInput.addEventListener('input', () => {
-    state.alpha = clampNum(Number(alphaInput.value) / 100, SUB_MIN_ALPHA, SUB_MAX_ALPHA, SUB_DEFAULTS.alpha);
-    applyBoxStyles();
-    showHud(`底色 ${Math.round(state.alpha * 100)}%`, 480);
-  });
-  alphaInput.addEventListener('change', () => persistBox());
-
+  // ── 复位（双击字幕） ──
   function resetAll() {
     Object.assign(state, SUB_DEFAULTS);
     applyBoxStyles();
@@ -298,34 +219,10 @@ export function createOverlay() {
     toast('字幕位置、大小、宽度与透明度已复位');
   }
 
-  resetMiniBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-    resetAll();
-  });
-
-  const OVERLAY_MODE_LABELS = { zh: '中', both: '中英', en: '英' };
-  const OVERLAY_ACTIVE_MODES = ['zh', 'both', 'en'];
-  function syncModeMiniBtn() {
-    const label = OVERLAY_MODE_LABELS[subMode] || '中';
-    modeMiniBtn.textContent = label;
-  }
-  modeMiniBtn.addEventListener('click', (event) => {
-    event.stopPropagation();
-    const curIdx = OVERLAY_ACTIVE_MODES.indexOf(subMode);
-    const nextMode = OVERLAY_ACTIVE_MODES[(curIdx + 1) % OVERLAY_ACTIVE_MODES.length];
-    subMode = nextMode;
-    bilingual = nextMode === 'both';
-    syncModeMiniBtn();
-    if (enabled && index >= 0) render(cues[index]);
-    showHud(`字幕：${OVERLAY_MODE_LABELS[nextMode]}`, 650);
-    onModeChangeCallback?.(nextMode);
-  });
-
   // ── 统一指针交互：任意拖拽平移 (move) / 四角缩放字号 (scale) / 左右边缘调宽度 (width) ──
   let interaction = null;
   line.addEventListener('pointerdown', (event) => {
     if (event.button !== 0 && event.pointerType === 'mouse') return;
-    if (event.target.closest('.sub-tools')) return;
 
     const handleEl = event.target.closest('.sub-handle');
     const handle = handleEl?.dataset.handle || '';
@@ -439,7 +336,7 @@ export function createOverlay() {
   }, { passive: false });
 
   line.addEventListener('dblclick', (event) => {
-    if (event.target.closest('.sub-tools') || event.target.closest('.sub-handle')) return;
+    if (event.target.closest('.sub-handle')) return;
     resetAll();
   });
 
@@ -487,7 +384,6 @@ export function createOverlay() {
     setBilingual(on) {
       bilingual = on;
       subMode = on ? 'both' : 'zh';
-      modeMiniBtn.textContent = subMode === 'both' ? '中英' : '中';
       if (enabled && index >= 0) render(cues[index]);
     },
     setMode(mode) {
@@ -500,15 +396,11 @@ export function createOverlay() {
       if (mode === 'zh' || mode === 'both' || mode === 'en') {
         subMode = mode;
         bilingual = mode === 'both';
-        modeMiniBtn.textContent = mode === 'both' ? '中英' : mode === 'en' ? '英' : '中';
       }
       if (index >= 0) render(cues[index]);
     },
     getMode() {
       return enabled ? subMode : 'off';
-    },
-    set onModeChange(fn) {
-      onModeChangeCallback = fn;
     },
     setSize(size) {
       if (!SUB_SIZES.includes(size)) return;

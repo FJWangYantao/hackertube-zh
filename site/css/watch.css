@@ -199,7 +199,7 @@
   position: absolute;
   left: 14px;
   bottom: 14px;
-  z-index: 2;
+  z-index: 7;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -210,6 +210,24 @@
   color: #fff;
   font-size: 12.5px;
   font-variant-numeric: tabular-nums;
+  transition: bottom 0.16s var(--ease);
+}
+
+/* HUD 显示时，「上次看到」与「连播」卡片上移到控制栏上方，避免被遮挡 */
+.player.is-hud-awake .player-resume,
+.player.is-hud-awake .player-next,
+.player:has(.player-hud-wrap:hover) .player-resume,
+.player:has(.player-hud-wrap:hover) .player-next {
+  bottom: 71px;
+}
+
+@media (max-width: 640px) {
+  .player.is-hud-awake .player-resume,
+  .player.is-hud-awake .player-next,
+  .player:has(.player-hud-wrap:hover) .player-resume,
+  .player:has(.player-hud-wrap:hover) .player-next {
+    bottom: 61px;
+  }
 }
 
 .resume-restart {
@@ -231,7 +249,7 @@
   position: absolute;
   right: 14px;
   bottom: 14px;
-  z-index: 2;
+  z-index: 7;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -242,6 +260,7 @@
   backdrop-filter: blur(6px);
   color: #fff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  transition: bottom 0.16s var(--ease);
 }
 
 .next-info {
@@ -1110,116 +1129,7 @@
   right: -4px;
 }
 
-/* ── 字幕胶囊顶部微工具栏（背景透明度滑块 + 复位）与实时 HUD 角标 ── */
-.sub-tools {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 9px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  background: rgba(16, 16, 16, 0.86);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  color: #f4f4f5;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  pointer-events: none;
-  cursor: default;
-  transition: opacity 0.16s var(--ease), transform 0.16s var(--ease);
-}
-
-/* 为顶部微工具条提供悬停桥接区，鼠标移上去不会断触 */
-.sub-tools::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: -8px;
-  left: 0;
-  height: 8px;
-}
-
-.sub-line:hover .sub-tools,
-.sub-tools:hover {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
-
-.sub-line.is-dragging .sub-tools,
-.sub-line.is-scaling .sub-tools,
-.sub-line.is-resizing-width .sub-tools {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sub-tools-label {
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.sub-tool-btn {
-  padding: 2px 5px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 10.5px;
-  font-weight: 600;
-  line-height: 1.1;
-  cursor: pointer;
-}
-
-.sub-tool-btn:hover {
-  border-color: var(--brand-mark);
-  background: rgba(234, 88, 12, 0.28);
-}
-
-.sub-tools-sep {
-  width: 1px;
-  height: 11px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.sub-alpha-slider {
-  width: 62px;
-  height: 4px;
-  margin: 0;
-  accent-color: var(--brand-mark);
-  cursor: pointer;
-}
-
-.sub-alpha-val {
-  min-width: 28px;
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.sub-reset-btn {
-  padding: 2px 6px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 10.5px;
-  cursor: pointer;
-}
-
-.sub-reset-btn:hover {
-  border-color: var(--brand-mark);
-  background: rgba(234, 88, 12, 0.28);
-}
-
+/* ── 字幕实时 HUD 角标 ── */
 .sub-hud {
   position: absolute;
   top: -26px;
@@ -1238,23 +1148,7 @@
   pointer-events: none;
 }
 
-/* 当字幕拖到画面顶部边缘时，微工具条与 HUD 自动向下翻转避免超出画布 */
-.sub-line.is-near-top .sub-tools {
-  bottom: auto;
-  top: calc(100% + 6px);
-  transform: translateX(-50%) translateY(-4px);
-}
-
-.sub-line.is-near-top .sub-tools::after {
-  bottom: auto;
-  top: -8px;
-}
-
-.sub-line.is-near-top:hover .sub-tools,
-.sub-line.is-near-top .sub-tools:hover {
-  transform: translateX(-50%) translateY(0);
-}
-
+/* 当字幕拖到画面顶部边缘时，HUD 自动向下翻转避免超出画布 */
 .sub-line.is-near-top .sub-hud {
   top: auto;
   bottom: -26px;
