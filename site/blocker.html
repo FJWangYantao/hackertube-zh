@@ -43,7 +43,7 @@ code{background:#ffffff10;border-radius:6px;padding:1px 7px;font-size:13px}
       <li>片尾「More videos」推荐</li>
       <li>上下渐变暗条</li>
     </ul>
-    <p>检测到插件后，站内会自动停用内置的「遮罩兜底」方案，画面更干净、切换更即时。</p>
+    <p>站内默认使用「自动」模式：检测到插件后停用内置的「遮罩兜底」，画面更干净、切换更即时；插件未生效时自动恢复兜底。更新到 v1.3.0 后，也可以在右上角「设置 → 播放器 → 高级」中独立调整插件和遮罩偏好。</p>
   </div>
 
   <div class="card">
@@ -69,6 +69,7 @@ code{background:#ffffff10;border-radius:6px;padding:1px 7px;font-size:13px}
     <ul>
       <li><strong>安全吗？</strong>插件只做一件事：向本站嵌入的 YouTube 播放器注入一段隐藏界面元素的 CSS。全部源码就这么多，可在脚本管理器里随时查看。</li>
       <li><strong>会影响其他网站吗？</strong>不会。插件检测到播放器不是嵌入在本站时直接退出，不注入任何内容。</li>
+      <li><strong>如何启停？</strong>打开站内右上角「设置 → 播放器」；默认自动模式会在插件与遮罩间接管，展开「高级」可独立调整两项偏好，也可强制只用遮罩或完全关闭屏蔽。</li>
       <li><strong>不装会怎样？</strong>不装也能正常观看，站点自带的遮罩方案会盖住原生界面，只是暂停/恢复瞬间可能有轻微闪烁。</li>
       <li><strong>如何卸载？</strong>在 Tampermonkey / Violentmonkey 面板中删除本脚本即可，站点会自动恢复遮罩方案。</li>
     </ul>

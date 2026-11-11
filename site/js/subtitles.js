@@ -188,7 +188,12 @@ export function createOverlay() {
       SUB_SIZE_SCALES[legacySize] || SUB_DEFAULTS.scale,
     ),
     maxW: clampNum(savedBox?.maxW, SUB_MIN_MAX_W, SUB_MAX_MAX_W, SUB_DEFAULTS.maxW),
-    alpha: clampNum(savedBox?.alpha, SUB_MIN_ALPHA, SUB_MAX_ALPHA, SUB_DEFAULTS.alpha),
+    alpha: clampNum(
+      savedBox?.alpha,
+      SUB_MIN_ALPHA,
+      SUB_MAX_ALPHA,
+      store.get('sub_alpha', SUB_DEFAULTS.alpha),
+    ),
   };
 
   function clampNum(val, min, max, fallback) {
@@ -258,6 +263,7 @@ export function createOverlay() {
       alpha: Math.round(state.alpha * 100) / 100,
     });
     store.set('sub_size', sizeNameForScale(state.scale));
+    store.set('sub_alpha', Math.round(state.alpha * 100) / 100);
   }
 
   applyBoxStyles();

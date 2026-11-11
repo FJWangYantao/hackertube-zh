@@ -170,7 +170,8 @@
 
 /* 装了「HUD 屏蔽插件」的用户：插件已隐藏原生 UI（iframe 内 postMessage 广播），
    遮罩直接不渲染；is-veiled 照常切换，暂停时仍显示自定义播放键。 */
-.player.hud-blocked .player-veil {
+.player.hud-blocked .player-veil,
+.player.veil-disabled .player-veil {
   display: none;
 }
 

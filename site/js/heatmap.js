@@ -1,5 +1,6 @@
-import { el, formatClock } from './ui.js';
+import { el, formatClock, toast } from './ui.js';
 import { store } from './data.js';
+import { emitSettingsChanged } from './settings.js';
 import { findActiveStreamCue } from './subtitles.js';
 
 /**
@@ -214,7 +215,7 @@ function extractCommentHotspots(comments = [], maxDuration = 7200) {
   return spots;
 }
 
-export function createHeatmapBar({ video, onSeek }) {
+export function createHeatmapBar({ video, onSeek, visible = true }) {
   let cues = [];
   let chapters = [];
   let comments = [];
@@ -235,27 +236,40 @@ export function createHeatmapBar({ video, onSeek }) {
     el('span', { class: 'heatmap-leg-swatch', style: { background: '#10b981' } }),
     searchLegText,
   );
+  const hideButton = el('button', {
+    class: 'heatmap-close',
+    type: 'button',
+    title: '隐藏内容热力，可在设置中重新打开',
+    'aria-label': '隐藏内容热力',
+    on: {
+      click: () => {
+        visible = false;
+        wrap.hidden = true;
+        store.set('heatmap_enabled', false);
+        emitSettingsChanged('heatmap_enabled', false, 'heatmap');
+        toast('已隐藏内容热力，可在右上角「设置」中重新打开');
+      },
+    },
+  }, el('span', { 'aria-hidden': 'true' }, '×'));
   const head = el('div', { class: 'heatmap-head' },
-    el('span', { class: 'heatmap-label' },
-      el('span', { class: 'heatmap-pulse' }),
-      el('span', {}, '高能声波与空降点'),
-    ),
+    el('span', { class: 'heatmap-label' }, '内容热力'),
     subStatEl,
     el('div', { class: 'heatmap-legend' },
       searchLegItem,
-      el('span', { class: 'heatmap-leg-item' },
+      el('span', { class: 'heatmap-leg-item', title: '橙色表示语速密度，亮色表示已播放部分' },
         el('span', { class: 'heatmap-leg-swatch', style: { background: '#ff6600' } }),
-        '已播/语速密度',
+        '语速 / 已播',
       ),
       el('span', { class: 'heatmap-leg-item' },
         el('span', { class: 'heatmap-leg-swatch', style: { background: '#facc15' } }),
-        'HN 评论提及 🔥',
+        '评论提及',
       ),
       el('span', { class: 'heatmap-leg-item' },
         el('span', { class: 'heatmap-leg-swatch', style: { background: '#38bdf8' } }),
-        '我的书签 📌',
+        '我的书签',
       ),
     ),
+    hideButton,
   );
 
   const canvas = el('canvas', { class: 'heatmap-canvas' });
@@ -298,6 +312,10 @@ export function createHeatmapBar({ video, onSeek }) {
   }
 
   function recomputeBins() {
+    if (!visible) {
+      wrap.hidden = true;
+      return;
+    }
     const dur = computeDuration();
     duration = dur;
     bins = new Float32Array(BINS);
@@ -366,6 +384,7 @@ export function createHeatmapBar({ video, onSeek }) {
       return el('button', {
         class: 'heatmap-kw-chip' + (active ? ' is-active' : ''),
         type: 'button',
+        'aria-pressed': String(active),
         title: `在波形条上点亮「${k.word}」出现的全部时间点（共 ${k.count} 次）并跳播`,
         on: {
           click: () => {
@@ -384,7 +403,6 @@ export function createHeatmapBar({ video, onSeek }) {
           },
         },
       },
-        el('span', { class: 'heatmap-kw-dot' }),
         el('span', {}, k.word),
         el('span', { class: 'heatmap-kw-count' }, String(k.count)),
       );
@@ -397,6 +415,7 @@ export function createHeatmapBar({ video, onSeek }) {
           class: 'heatmap-kw-step',
           type: 'button',
           title: '跳至上一处',
+          'aria-label': '跳至上一处',
           on: {
             click: (e) => {
               e.stopPropagation();
@@ -405,12 +424,13 @@ export function createHeatmapBar({ video, onSeek }) {
               renderKeywords();
             },
           },
-        }, '‹ 上一处'),
-        el('span', { class: 'heatmap-kw-pos' }, `${activeKwIdx + 1}/${activeKwOccurrences.length}`),
+        }, el('span', { 'aria-hidden': 'true' }, '‹')),
+        el('span', { class: 'heatmap-kw-pos' }, `${activeKwIdx + 1} / ${activeKwOccurrences.length}`),
         el('button', {
           class: 'heatmap-kw-step',
           type: 'button',
           title: '跳至下一处',
+          'aria-label': '跳至下一处',
           on: {
             click: (e) => {
               e.stopPropagation();
@@ -419,14 +439,14 @@ export function createHeatmapBar({ video, onSeek }) {
               renderKeywords();
             },
           },
-        }, '下一处 ›'),
+        }, el('span', { 'aria-hidden': 'true' }, '›')),
       );
     }
 
     kwRow.replaceChildren(
-      el('span', { class: 'heatmap-kw-title' }, '🏷️ 脉冲探针：'),
+      el('span', { class: 'heatmap-kw-title' }, '关键词'),
       ...chips,
-      navGroup,
+      ...(navGroup ? [navGroup] : []),
     );
     kwRow.hidden = false;
   }
@@ -447,7 +467,7 @@ export function createHeatmapBar({ video, onSeek }) {
       if (unique.length >= 6) break;
     }
     hotspotsBar.replaceChildren(
-      el('span', { class: 'heatmap-hot-label' }, '🔥 网友热议空降：'),
+      el('span', { class: 'heatmap-hot-label' }, '评论时间点'),
       ...unique.map((spot) => el('button', {
         class: 'heatmap-hot-chip',
         type: 'button',
@@ -659,6 +679,13 @@ export function createHeatmapBar({ video, onSeek }) {
 
   return {
     node: wrap,
+    setVisible(nextVisible) {
+      const next = nextVisible === true;
+      if (visible === next) return;
+      visible = next;
+      recomputeBins();
+      if (visible) requestAnimationFrame(resize);
+    },
     setCues(nextCues) {
       cues = Array.isArray(nextCues) ? nextCues : [];
       recomputeBins();

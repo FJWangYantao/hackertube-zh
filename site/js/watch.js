@@ -7,14 +7,25 @@ import { createOverlay, loadYouTubeApi, renderTranscript, findActiveStreamCue } 
 import { go } from './router.js';
 import { loadSeriesFor, buildSeriesPanel, nextEpisode } from './series.js';
 import { createHeatmapBar } from './heatmap.js';
+import {
+  emitBlockerState, emitSettingsChanged, SETTINGS_EVENT,
+} from './settings.js';
 
 const RELATED_LIMIT = 12;
 const RELATED_MIN = 8;
 const NEXT_COUNTDOWN_SECONDS = 5;
 const RATE_STEPS = [0.75, 1, 1.25, 1.35, 1.5, 1.75, 2];
+const YT_MESSAGE_ORIGINS = new Set([
+  'https://www.youtube.com',
+  'https://www.youtube-nocookie.com',
+]);
 
 function normalizeRate(value) {
   return RATE_STEPS.includes(Number(value)) ? Number(value) : 1;
+}
+
+function rememberPlayback() {
+  return store.get('remember_playback', true) !== false;
 }
 
 function formatRate(rate) {
@@ -139,6 +150,7 @@ export function show(container, route, ctx) {
   const heatmap = createHeatmapBar({
     video,
     onSeek: (seconds) => seekAndScroll(seconds),
+    visible: store.get('heatmap_enabled', true) !== false,
   });
 
   // ── 🪟 Mini 悬浮小窗包装器与伴读气泡 ──
@@ -379,6 +391,20 @@ export function show(container, route, ctx) {
   ]);
   player.node.append(playerHud.node, kbdHelp.node, noteEditor.node);
 
+  const onSettingsChange = (event) => {
+    const { key, value, origin } = event.detail || {};
+    if (origin !== 'settings') return;
+    if (key === 'subs_mode') subtitleBtn.setMode?.(value);
+    else if (key === 'speed') player.setPlaybackRate(Number(value));
+    else if (key === 'autoplay') autoplayBtn.setOn?.(value === true);
+    else if (key === 'skip_silence') skipSilenceBtn.setOn?.(value === true);
+    else if (key === 'sub_size') player.setSubSize(value);
+    else if (key === 'sub_alpha') player.setSubAlpha(Number(value));
+    else if (key === 'hud_hide_ms') playerHud.setHideDelay(Number(value));
+    else if (key === 'heatmap_enabled') heatmap.setVisible(value === true);
+  };
+  window.addEventListener(SETTINGS_EVENT, onSettingsChange);
+
   const { row: channel, toggleSave } = buildChannel(video, commentCount, player);
   const description = buildDescription(video, ctx);
   const commentsBox = el('section', { class: 'comments' });
@@ -481,7 +507,7 @@ export function show(container, route, ctx) {
     go(`/video/${next.vid}`);
   };
   player.onEnded = () => {
-    if (store.get('autoplay', false) !== true || destroyed || nextPanel) return;
+    if (autoplayBtn.getOn?.() !== true || destroyed || nextPanel) return;
     const next = pickNext();
     if (!next) {
       toast('没有可连播的推荐视频');
@@ -696,10 +722,14 @@ export function show(container, route, ctx) {
       toast(`⏩ 快进 10 秒 · ${formatClock(player.getCurrentTime())}`);
     } else if (event.key === '[') {
       event.preventDefault();
-      toast(`播放速度：${formatRate(player.cyclePlaybackRate(-1))}`);
+      const value = player.cyclePlaybackRate(-1);
+      emitSettingsChanged('speed', value, 'hud');
+      toast(`播放速度：${formatRate(value)}`);
     } else if (event.key === ']') {
       event.preventDefault();
-      toast(`播放速度：${formatRate(player.cyclePlaybackRate(1))}`);
+      const value = player.cyclePlaybackRate(1);
+      emitSettingsChanged('speed', value, 'hud');
+      toast(`播放速度：${formatRate(value)}`);
     } else if (event.key === 'b' || event.key === 'B') {
       event.preventDefault();
       openNoteAction();
@@ -724,6 +754,7 @@ export function show(container, route, ctx) {
       heatmap?.destroy();
       playerHud.destroy();
       transcript?.destroy?.();
+      window.removeEventListener(SETTINGS_EVENT, onSettingsChange);
       player.destroy();
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('fullscreenchange', onFullscreen);
@@ -859,11 +890,12 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
   let onPlaybackStateChange = null;
   let onVolumeChange = null;
   let playbackState = -1;
-  // 暂停遮罩：非播放态盖住 YouTube 原生暂停 UI，配合 CSS 渐变遮罩。
-  // 转入播放时不立刻撤遮罩，先按住 unveilHoldMs 再淡出 unveilFadeMs，盖过原生 UI 的退场动画。
-  // 两个时长可用 localStorage 覆盖便于实测调参（改完刷新页面生效）：
-  //   localStorage.setItem('ht.veilHold', '3000')
-  //   localStorage.setItem('ht.veilFade', '2500')
+  let hudMode = ['auto', 'veil', 'off'].includes(store.get('hud_mode', 'auto'))
+    ? store.get('hud_mode', 'auto')
+    : 'auto';
+  let hudVeilEnabled = store.get('hud_veil', true) === true;
+  let hudBlockerEnabled = store.get('hud_blocker_enabled', true) === true;
+  let hudBlocked = false;
   let unveilTimer = 0;
   const veilNum = (key, fallback) => {
     const value = Number(store.get(key, fallback));
@@ -871,14 +903,16 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
   };
   const unveilHoldMs = veilNum('veilHold', 4200);
   const unveilFadeMs = veilNum('veilFade', 1000);
+  const useHudBlocker = () => hudMode === 'auto' && hudBlockerEnabled;
+  const useHudVeil = () => hudMode === 'veil' || (hudMode === 'auto' && hudVeilEnabled);
+  player.classList.toggle('veil-disabled', !useHudVeil());
   const setVeiled = (on) => {
     clearTimeout(unveilTimer);
     veil.style.transitionDuration = '';
     player.classList.toggle('is-veiled', Boolean(on));
   };
   const unveilSoon = () => {
-    // 插件已屏蔽原生 UI 时无需按住（按住只为盖原生 UI 的退场动画），立即撤。
-    if (player.classList.contains('hud-blocked')) {
+    if (hudBlocked) {
       setVeiled(false);
       return;
     }
@@ -888,20 +922,58 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
       player.classList.remove('is-veiled');
     }, unveilHoldMs);
   };
-  // 「HUD 屏蔽插件」探测：插件在 YouTube iframe 内隐藏原生 UI 后向父页面广播。
-  // 收到后给 player 加 hud-blocked（CSS 里隐藏遮罩），暂停时仍靠 is-veiled 显示自定义播放键。
-  const onHudBlockerMessage = (event) => {
-    if (event.data && event.data.source === 'ht-hud-blocker' && event.data.active) {
-      const wasPlaying = playbackState === 1;
-      player.classList.add('hud-blocked');
-      if (wasPlaying) {
-        // 广播可能在按住期间才到：正在播放则立刻撤下暂停播放键，不等计时器
-        clearTimeout(unveilTimer);
-        player.classList.remove('is-veiled');
-      }
+  const postToHudBlocker = (payload) => {
+    const frame = yt?.getIframe?.();
+    if (!frame?.contentWindow) return false;
+    try {
+      const targetOrigin = new URL(frame.src, location.href).origin;
+      if (!YT_MESSAGE_ORIGINS.has(targetOrigin)) return false;
+      frame.contentWindow.postMessage(payload, targetOrigin);
+      return true;
+    } catch {
+      return false;
     }
   };
+  const syncHudBlocker = () => postToHudBlocker({
+    source: 'ht-hud-blocker-control',
+    type: 'set-enabled',
+    enabled: useHudBlocker(),
+  });
+  const syncHudPreferences = () => {
+    player.classList.toggle('veil-disabled', !useHudVeil());
+    if (!useHudBlocker()) {
+      hudBlocked = false;
+      player.classList.remove('hud-blocked');
+    }
+    syncHudBlocker();
+    setVeiled(playbackState !== 1);
+  };
+  const onHudBlockerMessage = (event) => {
+    const data = event.data;
+    if (!data || data.source !== 'ht-hud-blocker') return;
+    if (!YT_MESSAGE_ORIGINS.has(event.origin) || !yt) return;
+    const frame = yt.getIframe?.();
+    if (!frame || event.source !== frame.contentWindow) return;
+    hudBlocked = data.active === true && useHudBlocker();
+    player.classList.toggle('hud-blocked', hudBlocked);
+    setVeiled(playbackState !== 1);
+    emitBlockerState({
+      active: hudBlocked,
+      installed: true,
+      version: data.version,
+    });
+  };
+  const onPlayerSettingsChange = (event) => {
+    const { key, value, origin } = event.detail || {};
+    if (origin !== 'settings') return;
+    if (key === 'hud_veil') hudVeilEnabled = value === true;
+    else if (key === 'hud_blocker_enabled') hudBlockerEnabled = value === true;
+    else if (key === 'hud_mode' && ['auto', 'veil', 'off'].includes(value)) hudMode = value;
+    else return;
+    syncHudPreferences();
+  };
   window.addEventListener('message', onHudBlockerMessage);
+  window.addEventListener(SETTINGS_EVENT, onPlayerSettingsChange);
   const savedVolume = Number(store.get('volume', 80));
   let volume = Number.isFinite(savedVolume) ? Math.max(0, Math.min(100, savedVolume)) : 80;
   let muted = store.get('muted', false) === true;
@@ -947,6 +1019,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
               return;
             }
             if (yt.getIframe?.()) yt.getIframe().tabIndex = -1;
+            syncHudBlocker();
             yt.setVolume?.(volume);
             if (muted) yt.mute?.();
             else yt.unMute?.();
@@ -977,6 +1050,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
       timer = setInterval(() => tick(false), 250);
     } catch {
       if (destroyed) return null;
+      emitBlockerState({ active: false, installed: false, version: null });
       const startParam = beginSec > 0 ? `&start=${beginSec}` : '';
       fallbackFrame = el('iframe', {
         src: `https://www.youtube-nocookie.com/embed/${video.vid}?autoplay=1&controls=1&rel=0${startParam}`,
@@ -1111,7 +1185,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
 
   function applyRate(next) {
     rate = next;
-    store.set('speed', next);
+    if (rememberPlayback()) store.set('speed', next);
     yt?.setPlaybackRate?.(next);
     onRateChange?.(rate);
   }
@@ -1152,7 +1226,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     set onSubModeChange(fn) { overlay.onModeChange = fn; },
     setSkipSilence(on) {
       skipSilence = Boolean(on);
-      store.set('skip_silence', skipSilence);
+      if (rememberPlayback()) store.set('skip_silence', skipSilence);
     },
     getSkipSilence: () => skipSilence,
     set onFallback(fn) { onFallback = fn; },
@@ -1179,6 +1253,11 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     getPlaybackRate() {
       return rate;
     },
+    setPlaybackRate(value) {
+      const next = normalizeRate(value);
+      if (next !== rate) applyRate(next);
+      return rate;
+    },
     isMounted: () => Boolean(yt || mounting),
     cyclePlaybackRate(dir) {
       const idx = RATE_STEPS.indexOf(rate);
@@ -1193,13 +1272,16 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     stepSubScale: (delta) => overlay.stepScale(delta),
     getSubScale: () => overlay.getScale(),
     cycleSubAlpha: () => overlay.cycleAlpha(),
+    setSubAlpha: (value) => overlay.setAlpha(value),
     getSubAlpha: () => overlay.getAlpha(),
     set onSubBoxChange(fn) { overlay.onChange = fn; },
     destroy() {
       tick(true);
       destroyed = true;
       clearInterval(timer);
+      emitBlockerState({ active: false, installed: false, version: null });
       window.removeEventListener('message', onHudBlockerMessage);
+      window.removeEventListener(SETTINGS_EVENT, onPlayerSettingsChange);
       overlay.destroy();
       yt?.destroy?.();
       yt = null;
@@ -1229,25 +1311,25 @@ function buildSubtitleButton(player) {
     button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
     button.title = `切换字幕模式（当前：${SUBTITLE_LABELS[mode]}，快捷键 C）`;
   };
+  const setMode = (nextMode) => {
+    if (!SUBTITLE_MODES.includes(nextMode) || nextMode === mode) return false;
+    mode = nextMode;
+    if (rememberPlayback()) store.set('subs_mode', mode);
+    apply();
+    return true;
+  };
   apply();
 
   player.onSubModeChange = (nextMode) => {
-    if (SUBTITLE_MODES.includes(nextMode)) {
-      mode = nextMode;
-      store.set('subs_mode', mode);
-      button.classList.toggle('is-on', mode !== 'off');
-      button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
-      button.title = `切换字幕模式（当前：${SUBTITLE_LABELS[mode]}，快捷键 C）`;
-    }
+    if (setMode(nextMode)) emitSettingsChanged('subs_mode', nextMode, 'hud');
   };
 
   button.addEventListener('click', () => {
-    mode = SUBTITLE_MODES[(SUBTITLE_MODES.indexOf(mode) + 1) % SUBTITLE_MODES.length];
-    store.set('subs_mode', mode);
-    apply();
+    const nextMode = SUBTITLE_MODES[(SUBTITLE_MODES.indexOf(mode) + 1) % SUBTITLE_MODES.length];
+    if (setMode(nextMode)) emitSettingsChanged('subs_mode', nextMode, 'hud');
     toast(`字幕：${SUBTITLE_LABELS[mode]}`);
   });
-  return button;
+  return Object.assign(button, { setMode });
 }
 
 function buildSkipSilenceButton(player) {
@@ -1260,14 +1342,20 @@ function buildSkipSilenceButton(player) {
     'aria-label': '跳过空白',
     'aria-pressed': on ? 'true' : 'false',
   }, hudIcon('fastFwd'));
-  button.addEventListener('click', () => {
-    on = !on;
+  const setOn = (next) => {
+    const enabled = Boolean(next);
+    if (enabled === on) return false;
+    on = enabled;
     player.setSkipSilence(on);
     button.classList.toggle('is-on', on);
     button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    return true;
+  };
+  button.addEventListener('click', () => {
+    if (setOn(!on)) emitSettingsChanged('skip_silence', on, 'hud');
     toast(on ? '⚡ 智能跳过空白已开启：自动略过长停顿片段' : '智能跳过空白已关闭');
   });
-  return button;
+  return Object.assign(button, { setOn });
 }
 
 function buildTheaterButton() {
@@ -1289,14 +1377,20 @@ function buildAutoplayButton() {
     'aria-label': '连播',
     'aria-pressed': on ? 'true' : 'false',
   }, hudIcon('loop'));
-  button.addEventListener('click', () => {
-    on = !on;
-    store.set('autoplay', on);
+  const setOn = (next) => {
+    const enabled = Boolean(next);
+    if (enabled === on) return false;
+    on = enabled;
+    if (rememberPlayback()) store.set('autoplay', on);
     button.classList.toggle('is-on', on);
     button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    return true;
+  };
+  button.addEventListener('click', () => {
+    if (setOn(!on)) emitSettingsChanged('autoplay', on, 'hud');
     toast(on ? '连播已开：播完自动播放下一个推荐' : '连播已关');
   });
-  return button;
+  return Object.assign(button, { setOn, getOn: () => on });
 }
 
 function buildFullscreenButton(player) {
@@ -1322,6 +1416,7 @@ function buildRateButton(player) {
   }, formatRate(player.getPlaybackRate()));
   button.addEventListener('click', () => {
     const value = player.cyclePlaybackRate(1);
+    emitSettingsChanged('speed', value, 'hud');
     toast(`播放速度：${formatRate(value)}`);
   });
   return button;
@@ -1432,6 +1527,8 @@ function buildPlayerHud(playerNode, playbackControls, featureBtns = []) {
   const wrap = el('div', { class: 'player-hud-wrap' }, bar);
 
   let wakeTimer = null;
+  let hideDelay = Number(store.get('hud_hide_ms', 3000));
+  if (![1800, 3000, 5000].includes(hideDelay)) hideDelay = 3000;
   // 字幕胶囊现在位于 HUD 之上（z-index）；指针在字幕上或字幕正被拖动时，
   // 控制栏立即收起，避免挡住字幕的抓取/拖拽。
   const overSubtitle = (target) => Boolean(target?.closest?.('.sub-line'));
@@ -1450,7 +1547,7 @@ function buildPlayerHud(playerNode, playbackControls, featureBtns = []) {
       }
     }, delayMs);
   };
-  const wake = (delayMs = 3000) => {
+  const wake = (delayMs = hideDelay) => {
     if (subtitleBusy()) return;
     playerNode.classList.add('is-hud-awake');
     scheduleHide(delayMs);
@@ -1474,7 +1571,7 @@ function buildPlayerHud(playerNode, playbackControls, featureBtns = []) {
   playerNode.addEventListener('pointerleave', () => scheduleHide(240));
   playerNode.addEventListener('touchstart', (event) => {
     if (overSubtitle(event.target) || subtitleBusy()) return;
-    wake(3000);
+    wake();
   }, { passive: true });
   bar.addEventListener('pointerenter', () => {
     playerNode.classList.add('is-hud-awake');
@@ -1489,6 +1586,9 @@ function buildPlayerHud(playerNode, playbackControls, featureBtns = []) {
   return {
     node: wrap,
     wake,
+    setHideDelay(value) {
+      if ([1800, 3000, 5000].includes(value)) hideDelay = value;
+    },
     destroy() {
       if (wakeTimer) clearTimeout(wakeTimer);
     },

@@ -1,6 +1,7 @@
 import { el, debounce, toast } from './ui.js';
 import { load, indexByVid, store, seriesData } from './data.js';
 import { parse } from './router.js';
+import { createSettingsPanel } from './settings.js';
 import * as home from './home.js';
 import * as watch from './watch.js';
 import * as seriesList from './series.js';
@@ -13,11 +14,16 @@ const searchKbd = document.getElementById('search-kbd');
 const menuBtn = document.getElementById('menu-btn');
 const randomBtn = document.getElementById('random-btn');
 const themeBtn = document.getElementById('theme-btn');
+const settingsBtn = document.getElementById('settings-btn');
 const sidebar = document.getElementById('sidebar');
 const scrim = document.getElementById('scrim');
 const areaNav = document.getElementById('area-nav');
 const mobile = window.matchMedia('(max-width: 1000px)');
 const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+const settings = createSettingsPanel({
+  trigger: settingsBtn,
+  onThemeChange: applyTheme,
+});
 
 const state = {
   feed: [],
@@ -129,6 +135,7 @@ function render() {
   state.mounted?.destroy?.();
   state.mounted = null;
   closeDrawer(false);
+  settings.close();
   syncSearch(route);
   syncNav(route.view, route.params);
 
@@ -216,10 +223,19 @@ function currentTheme() {
   return systemDark.matches ? 'dark' : 'light';
 }
 
+function applyTheme(theme) {
+  if (theme === 'dark' || theme === 'light') {
+    document.documentElement.dataset.theme = theme;
+  } else {
+    delete document.documentElement.dataset.theme;
+  }
+  store.set('theme', theme === 'dark' || theme === 'light' ? theme : 'auto');
+}
+
 function toggleTheme() {
   const next = currentTheme() === 'dark' ? 'light' : 'dark';
-  document.documentElement.dataset.theme = next;
-  store.set('theme', next);
+  applyTheme(next);
+  settings.syncTheme(next);
   toast(next === 'dark' ? '已切换为深色外观' : '已切换为浅色外观');
 }
 
@@ -245,6 +261,12 @@ function bindChrome() {
 
   randomBtn?.addEventListener('click', openRandomVideo);
   themeBtn?.addEventListener('click', toggleTheme);
+  settingsBtn?.addEventListener('click', () => {
+    const opening = !settings.isOpen();
+    closeDrawer(false);
+    if (opening) settings.open();
+    else settings.close();
+  });
 
   menuBtn.addEventListener('click', () => {
     if (mobile.matches) {
@@ -328,6 +350,13 @@ function bindChrome() {
     setSearchPlaceholder();
     syncSidebarInert();
   });
+
+  systemDark.addEventListener('change', () => {
+    const savedTheme = store.get('theme', 'auto');
+    if (savedTheme !== 'dark' && savedTheme !== 'light') {
+      delete document.documentElement.dataset.theme;
+    }
+  });
 }
 
 function setSearchPlaceholder() {
@@ -339,6 +368,7 @@ function syncSidebarInert() {
 }
 
 function setDrawer(open) {
+  if (open) settings.close();
   sidebar.classList.toggle('open', open);
   document.body.classList.toggle('drawer-open', open);
   scrim.hidden = !open;

@@ -5,6 +5,8 @@ import { store } from './data.js';
 import { replace } from './router.js';
 import { renderHighlighted, escapeRegExp } from './subtitles.js';
 import { searchSubtitles } from './subsearch.js';
+import { exportUserData, triggerImportUserData } from './user-data.js';
+import { SETTINGS_IMPORT_EVENT } from './settings.js';
 
 const PAGE = 48;
 
@@ -735,69 +737,6 @@ function emptyState() {
   return wrap;
 }
 
-function exportUserData() {
-  const payload = {
-    version: 1,
-    exportedAt: new Date().toISOString(),
-    saved: store.list('saved'),
-    visited: store.list('visited'),
-    progress: store.get('progress', {}),
-    notes: store.get('notes', {}),
-  };
-  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = el('a', {
-    href: url,
-    download: `hackertube-zh-backup-${new Date().toISOString().slice(0, 10)}.json`,
-  });
-  document.body.append(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-  toast('已导出个人数据备份');
-}
-
-function triggerImportUserData() {
-  const input = el('input', { type: 'file', accept: 'application/json,.json', hidden: true });
-  input.addEventListener('change', async () => {
-    const file = input.files?.[0];
-    input.remove();
-    if (!file) return;
-    try {
-      const data = JSON.parse(await file.text());
-      if (Array.isArray(data.saved)) {
-        const mergedSaved = [...new Set([...data.saved, ...store.list('saved')])];
-        store.set('saved', mergedSaved.slice(0, 1000));
-      }
-      if (Array.isArray(data.visited)) {
-        const mergedVisited = [...new Set([...data.visited, ...store.list('visited')])];
-        store.set('visited', mergedVisited.slice(0, 500));
-      }
-      if (data.progress && typeof data.progress === 'object') {
-        const currentProg = store.get('progress', {});
-        store.set('progress', { ...data.progress, ...currentProg });
-      }
-      if (data.notes && typeof data.notes === 'object' && !Array.isArray(data.notes)) {
-        const currentNotes = store.get('notes', {});
-        const mergedNotes = { ...currentNotes };
-        for (const [vid, rows] of Object.entries(data.notes)) {
-          if (!Array.isArray(rows)) continue;
-          const known = new Set((mergedNotes[vid] || []).map((note) => note.id));
-          const additions = rows.filter((note) => note && note.id && !known.has(note.id));
-          if (additions.length) mergedNotes[vid] = [...(mergedNotes[vid] || []), ...additions];
-        }
-        store.set('notes', mergedNotes);
-      }
-      toast('已恢复收藏、记录与随手记');
-      apply(shown);
-    } catch {
-      toast('备份文件格式有误');
-    }
-  });
-  document.body.append(input);
-  input.click();
-}
-
 /** 频道聚合页头部卡片：聚合统计 + 领域徽章 + 快捷过滤。 */
 function buildChannelHero() {
   const channel = viewName === 'feed' ? (params.get('channel') || '') : '';
@@ -952,7 +891,14 @@ function updateHead() {
       class: 'head-reset',
       type: 'button',
       title: '从备份 JSON 文件恢复收藏与记录',
-      on: { click: triggerImportUserData },
+      on: {
+        click: () => triggerImportUserData(({ settings }) => {
+          apply(shown);
+          window.dispatchEvent(new CustomEvent(SETTINGS_IMPORT_EVENT, {
+            detail: settings,
+          }));
+        }),
+      },
     }, '导入恢复'));
   } else if (viewName === 'history' && list.length > 0) {
     headActionEl.append(
