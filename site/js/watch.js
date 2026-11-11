@@ -21,6 +21,48 @@ function formatRate(rate) {
   return `${rate}x`;
 }
 
+/* ── HUD 图标：单行图形化控制栏用 Material 风格 24x24 path ── */
+const HUD_ICONS = {
+  play: 'M8 5v14l11-7z',
+  pause: 'M6 4h4v16H6zM14 4h4v16h-4z',
+  volHigh: 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05'
+    + 'c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71'
+    + 's-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z',
+  volLow: 'M5 9v6h4l5 5V4L9 9H5zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05'
+    + 'c1.48-.73 2.5-2.25 2.5-4.02z',
+  volMute: 'M4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25'
+    + 'c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73'
+    + 'l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4zm4.5 8c0-1.77-1.02-3.29-2.5-4.03'
+    + 'v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51'
+    + 'A8.8 8.8 0 0 0 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71z',
+  cc: 'M19 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z'
+    + 'm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4'
+    + 'c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1'
+    + 'c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z',
+  theater: 'M19 7H5c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 8H5V9h14v6z',
+  fullscreen: 'M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z',
+  fullscreenExit: 'M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z',
+  loop: 'M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z',
+  fastFwd: 'M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z',
+  pencil: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41'
+    + 'l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
+};
+
+function hudIcon(name) {
+  const node = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  node.setAttribute('viewBox', '0 0 24 24');
+  node.setAttribute('class', 'hud-ic');
+  node.setAttribute('aria-hidden', 'true');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', HUD_ICONS[name]);
+  node.append(path);
+  return node;
+}
+
+function setHudIcon(button, name) {
+  button.querySelector('.hud-ic path')?.setAttribute('d', HUD_ICONS[name]);
+}
+
 /**
  * Video id of an in-flight auto-advance: set right before navigating to the
  * next video so the incoming watch view mounts the player without waiting
@@ -237,13 +279,14 @@ export function show(container, route, ctx) {
   const theaterBtn = buildTheaterButton();
   const autoplayBtn = buildAutoplayButton();
   const fullscreenBtn = buildFullscreenButton(player);
+  const notesBadge = el('span', { class: 'hud-badge', hidden: true }, '0');
   const notesBtn = el('button', {
-    class: 'hud-btn',
+    class: 'hud-btn hud-icon-btn hud-notes-btn',
     type: 'button',
     title: '打开伴读随手记工作台 / 添加书签（快捷键 B）',
-  }, '＋随手记');
+  }, hudIcon('pencil'), notesBadge);
   const helpBtn = el('button', {
-    class: 'hud-btn hud-btn-kbd',
+    class: 'hud-btn hud-text-btn hud-btn-kbd',
     type: 'button',
     title: '键盘快捷键速查（快捷键 ?）',
     'aria-label': '键盘快捷键速查',
@@ -253,7 +296,6 @@ export function show(container, route, ctx) {
     watchRoot?.classList.toggle('is-theater', on);
     theaterBtn.classList.toggle('is-on', on);
     theaterBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    theaterBtn.textContent = on ? '标准屏' : '宽屏';
     store.set('theater', on);
     if (announce) toast(on ? '已切换到宽屏' : '已恢复标准布局');
   };
@@ -292,7 +334,8 @@ export function show(container, route, ctx) {
   });
   const syncNotesUi = () => {
     const count = store.getNotes(video.vid).length;
-    notesBtn.textContent = count ? `＋随手记 (${count})` : '＋随手记';
+    notesBadge.textContent = String(count);
+    notesBadge.hidden = count === 0;
     railNotesCountEl.textContent = String(count);
     notesCard.render();
     railNotesPanel.render();
@@ -323,13 +366,12 @@ export function show(container, route, ctx) {
   const kbdHelp = buildKbdHelp();
   helpBtn.addEventListener('click', () => kbdHelp.toggle(helpBtn));
 
-  // ── 统一底部控制栏：基础播放控制与 HackerTube 高级功能共用一套 HUD ──
+  // ── 统一底部控制栏：单行图形化布局，参照传统视频网站 ──
   const playerHud = buildPlayerHud(player.node, playbackControls, [
     subtitleBtn,
     rateBtn,
     skipSilenceBtn,
     autoplayBtn,
-  ], [
     notesBtn,
     helpBtn,
     theaterBtn,
@@ -582,7 +624,9 @@ export function show(container, route, ctx) {
   });
 
   const onFullscreen = () => {
-    fullscreenBtn.textContent = document.fullscreenElement ? '退出全屏' : '全屏';
+    const active = Boolean(document.fullscreenElement);
+    setHudIcon(fullscreenBtn, active ? 'fullscreenExit' : 'fullscreen');
+    fullscreenBtn.title = active ? '退出全屏（快捷键 F）' : '全屏播放（快捷键 F）';
   };
   document.addEventListener('fullscreenchange', onFullscreen);
 
@@ -1164,7 +1208,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
 }
 
 const SUBTITLE_MODES = ['off', 'zh', 'both', 'en'];
-const SUBTITLE_LABELS = { off: '字幕 关', zh: '字幕 中', both: '字幕 中英', en: '字幕 英' };
+const SUBTITLE_LABELS = { off: '关闭', zh: '中文', both: '中英双语', en: '英文' };
 
 function buildSubtitleButton(player) {
   let mode = store.get('subs_mode', null);
@@ -1172,18 +1216,18 @@ function buildSubtitleButton(player) {
     mode = store.get('subs', true) ? 'zh' : 'off';
   }
   const button = el('button', {
-    class: 'hud-btn',
+    class: 'hud-btn hud-icon-btn' + (mode !== 'off' ? ' is-on' : ''),
     type: 'button',
     hidden: true,
-    title: '切换字幕模式：关 / 中 / 中英 / 英（快捷键 C）',
+    'aria-label': '字幕',
     'aria-pressed': mode === 'off' ? 'false' : 'true',
-  }, SUBTITLE_LABELS[mode]);
+  }, hudIcon('cc'));
 
   const apply = () => {
     player.setSubMode(mode);
-    button.textContent = SUBTITLE_LABELS[mode];
     button.classList.toggle('is-on', mode !== 'off');
     button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
+    button.title = `切换字幕模式（当前：${SUBTITLE_LABELS[mode]}，快捷键 C）`;
   };
   apply();
 
@@ -1191,9 +1235,9 @@ function buildSubtitleButton(player) {
     if (SUBTITLE_MODES.includes(nextMode)) {
       mode = nextMode;
       store.set('subs_mode', mode);
-      button.textContent = SUBTITLE_LABELS[mode];
       button.classList.toggle('is-on', mode !== 'off');
       button.setAttribute('aria-pressed', mode === 'off' ? 'false' : 'true');
+      button.title = `切换字幕模式（当前：${SUBTITLE_LABELS[mode]}，快捷键 C）`;
     }
   };
 
@@ -1201,6 +1245,7 @@ function buildSubtitleButton(player) {
     mode = SUBTITLE_MODES[(SUBTITLE_MODES.indexOf(mode) + 1) % SUBTITLE_MODES.length];
     store.set('subs_mode', mode);
     apply();
+    toast(`字幕：${SUBTITLE_LABELS[mode]}`);
   });
   return button;
 }
@@ -1208,18 +1253,18 @@ function buildSubtitleButton(player) {
 function buildSkipSilenceButton(player) {
   let on = player.getSkipSilence();
   const button = el('button', {
-    class: 'hud-btn' + (on ? ' is-on' : ''),
+    class: 'hud-btn hud-icon-btn' + (on ? ' is-on' : ''),
     type: 'button',
     hidden: true,
     title: '自动跳过 ≥4.5 秒无台词空白段（快捷键 X）',
+    'aria-label': '跳过空白',
     'aria-pressed': on ? 'true' : 'false',
-  }, on ? '跳过空白 开' : '跳过空白');
+  }, hudIcon('fastFwd'));
   button.addEventListener('click', () => {
     on = !on;
     player.setSkipSilence(on);
     button.classList.toggle('is-on', on);
     button.setAttribute('aria-pressed', on ? 'true' : 'false');
-    button.textContent = on ? '跳过空白 开' : '跳过空白';
     toast(on ? '⚡ 智能跳过空白已开启：自动略过长停顿片段' : '智能跳过空白已关闭');
   });
   return button;
@@ -1227,27 +1272,28 @@ function buildSkipSilenceButton(player) {
 
 function buildTheaterButton() {
   return el('button', {
-    class: 'hud-btn theater-btn',
+    class: 'hud-btn hud-icon-btn theater-btn',
     type: 'button',
     title: '切换宽屏（快捷键 W）',
+    'aria-label': '宽屏',
     'aria-pressed': 'false',
-  }, '宽屏');
+  }, hudIcon('theater'));
 }
 
 function buildAutoplayButton() {
   let on = store.get('autoplay', false) === true;
   const button = el('button', {
-    class: 'hud-btn autoplay-btn' + (on ? ' is-on' : ''),
+    class: 'hud-btn hud-icon-btn autoplay-btn' + (on ? ' is-on' : ''),
     type: 'button',
-    title: '播放完自动播放下一个推荐视频（快捷键 A）',
+    title: '连播：播放完自动播放下一个推荐视频（快捷键 A）',
+    'aria-label': '连播',
     'aria-pressed': on ? 'true' : 'false',
-  }, on ? '连播 开' : '连播 关');
+  }, hudIcon('loop'));
   button.addEventListener('click', () => {
     on = !on;
     store.set('autoplay', on);
     button.classList.toggle('is-on', on);
     button.setAttribute('aria-pressed', on ? 'true' : 'false');
-    button.textContent = on ? '连播 开' : '连播 关';
     toast(on ? '连播已开：播完自动播放下一个推荐' : '连播已关');
   });
   return button;
@@ -1255,10 +1301,11 @@ function buildAutoplayButton() {
 
 function buildFullscreenButton(player) {
   const button = el('button', {
-    class: 'hud-btn',
+    class: 'hud-btn hud-icon-btn',
     type: 'button',
     title: '全屏播放（快捷键 F）',
-  }, '全屏');
+    'aria-label': '全屏',
+  }, hudIcon('fullscreen'));
   if (!document.fullscreenEnabled) button.hidden = true;
   button.addEventListener('click', () => {
     if (document.fullscreenElement) document.exitFullscreen?.();
@@ -1269,7 +1316,7 @@ function buildFullscreenButton(player) {
 
 function buildRateButton(player) {
   const button = el('button', {
-    class: 'hud-btn rate-btn',
+    class: 'hud-btn hud-text-btn rate-btn',
     type: 'button',
     title: '切换播放倍速（快捷键 [ / ]）',
   }, formatRate(player.getPlaybackRate()));
@@ -1283,16 +1330,17 @@ function buildRateButton(player) {
 function buildPlaybackControls(player) {
   let scrubbing = false;
   const playBtn = el('button', {
-    class: 'hud-btn hud-play-btn',
+    class: 'hud-btn hud-icon-btn hud-play-btn',
     type: 'button',
     title: '播放 / 暂停（空格或 K）',
     'aria-label': '播放',
-  }, '播放');
+  }, hudIcon('play'));
   const muteBtn = el('button', {
-    class: 'hud-btn hud-mute-btn',
+    class: 'hud-btn hud-icon-btn hud-mute-btn',
     type: 'button',
     title: '静音 / 恢复声音（M）',
-  }, '静音');
+    'aria-label': '静音',
+  }, hudIcon('volHigh'));
   const volumeInput = el('input', {
     class: 'volume-slider',
     type: 'range',
@@ -1302,6 +1350,7 @@ function buildPlaybackControls(player) {
     value: String(player.getVolume()),
     'aria-label': '音量',
   });
+  const volumeGroup = el('div', { class: 'hud-volume' }, muteBtn, volumeInput);
   const currentEl = el('span', { class: 'player-time-current' }, '0:00');
   const durationEl = el('span', { class: 'player-time-duration' }, '0:00');
   const timeEl = el('span', { class: 'player-time' }, currentEl, ' / ', durationEl);
@@ -1316,7 +1365,7 @@ function buildPlaybackControls(player) {
     'aria-label': '播放进度',
   });
   const mainRow = el('div', { class: 'player-hud-main' },
-    el('div', { class: 'hud-group playback-group' }, playBtn, muteBtn, volumeInput, timeEl),
+    el('div', { class: 'hud-group playback-group' }, playBtn, volumeGroup, timeEl),
   );
   const node = el('div', { class: 'player-playback' }, progress, mainRow);
 
@@ -1335,13 +1384,14 @@ function buildPlaybackControls(player) {
 
   player.onPlaybackStateChange = (state) => {
     const playing = state === 1 || state === 3;
-    playBtn.textContent = playing ? '暂停' : '播放';
+    setHudIcon(playBtn, playing ? 'pause' : 'play');
     playBtn.setAttribute('aria-label', playing ? '暂停' : '播放');
+    playBtn.title = playing ? '暂停（空格或 K）' : '播放（空格或 K）';
   };
   const syncVolume = (value, muted) => {
     volumeInput.value = String(value);
     volumeInput.setAttribute('aria-valuetext', `${Math.round(value)}%`);
-    muteBtn.textContent = muted || value === 0 ? '开声音' : '静音';
+    setHudIcon(muteBtn, muted || value === 0 ? 'volMute' : value < 50 ? 'volLow' : 'volHigh');
     muteBtn.setAttribute('aria-pressed', muted || value === 0 ? 'true' : 'false');
   };
   player.onVolumeChange = syncVolume;
@@ -1367,10 +1417,10 @@ function buildPlaybackControls(player) {
   };
 }
 
-/** 底部统一控制栏；透明交互层让指针事件不再被 YouTube iframe 吞掉。 */
-function buildPlayerHud(playerNode, playbackControls, featureBtns = [], rightBtns = []) {
+/** 底部统一控制栏（单行图形化）；透明交互层让指针事件不再被 YouTube iframe 吞掉。 */
+function buildPlayerHud(playerNode, playbackControls, featureBtns = []) {
   playbackControls.mainRow.append(
-    el('div', { class: 'hud-group hud-group-right' }, ...rightBtns),
+    el('div', { class: 'hud-group hud-group-right' }, ...featureBtns),
   );
   const bar = el('div', {
     class: 'player-hud',
@@ -1378,13 +1428,20 @@ function buildPlayerHud(playerNode, playbackControls, featureBtns = [], rightBtn
     'aria-label': '播放器控制栏',
   },
     playbackControls.node,
-    el('div', { class: 'player-hud-features' },
-      el('div', { class: 'hud-group' }, ...featureBtns),
-    ),
   );
   const wrap = el('div', { class: 'player-hud-wrap' }, bar);
 
   let wakeTimer = null;
+  // 字幕胶囊现在位于 HUD 之上（z-index）；指针在字幕上或字幕正被拖动时，
+  // 控制栏立即收起，避免挡住字幕的抓取/拖拽。
+  const overSubtitle = (target) => Boolean(target?.closest?.('.sub-line'));
+  const subtitleBusy = () => Boolean(
+    playerNode.querySelector('.sub-line.is-interacting, .sub-line.is-dragging'),
+  );
+  const hideNow = () => {
+    if (wakeTimer) clearTimeout(wakeTimer);
+    playerNode.classList.remove('is-hud-awake');
+  };
   const scheduleHide = (delayMs) => {
     if (wakeTimer) clearTimeout(wakeTimer);
     wakeTimer = setTimeout(() => {
@@ -1394,15 +1451,31 @@ function buildPlayerHud(playerNode, playbackControls, featureBtns = [], rightBtn
     }, delayMs);
   };
   const wake = (delayMs = 3000) => {
+    if (subtitleBusy()) return;
     playerNode.classList.add('is-hud-awake');
     scheduleHide(delayMs);
   };
 
-  playerNode.addEventListener('pointerenter', () => wake());
-  playerNode.addEventListener('pointermove', () => wake());
-  playerNode.addEventListener('pointerdown', () => wake());
+  playerNode.addEventListener('pointerenter', (event) => {
+    if (overSubtitle(event.target)) hideNow();
+    else wake();
+  });
+  playerNode.addEventListener('pointermove', (event) => {
+    if (overSubtitle(event.target) || subtitleBusy()) {
+      hideNow();
+      return;
+    }
+    wake();
+  });
+  playerNode.addEventListener('pointerdown', (event) => {
+    if (overSubtitle(event.target) || subtitleBusy()) return;
+    wake();
+  });
   playerNode.addEventListener('pointerleave', () => scheduleHide(240));
-  playerNode.addEventListener('touchstart', () => wake(3000), { passive: true });
+  playerNode.addEventListener('touchstart', (event) => {
+    if (overSubtitle(event.target) || subtitleBusy()) return;
+    wake(3000);
+  }, { passive: true });
   bar.addEventListener('pointerenter', () => {
     playerNode.classList.add('is-hud-awake');
     if (wakeTimer) clearTimeout(wakeTimer);

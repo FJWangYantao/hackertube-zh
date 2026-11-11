@@ -928,7 +928,8 @@
 .sub-layer {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  /* 高于 .player-hud-wrap(6)：字幕胶囊可被直接抓取/拖动，不被控制栏挡住 */
+  z-index: 7;
   overflow: hidden;
   pointer-events: none;
 }
@@ -2235,11 +2236,11 @@
 }
 
 .player-hud {
-  padding: 24px 12px 10px;
+  padding: 20px 8px 4px;
   background: linear-gradient(
     to top,
     rgba(8, 8, 10, 0.9) 0%,
-    rgba(8, 8, 10, 0.68) 62%,
+    rgba(8, 8, 10, 0.62) 58%,
     transparent 100%
   );
   opacity: 0;
@@ -2262,50 +2263,36 @@
   width: 100%;
 }
 
+/* 单行控制栏：左侧 播放/音量/时间，右侧功能图标，进度条在行上方 */
 .player-hud-main {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.player-hud-features {
-  margin-top: 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.player-hud-features::-webkit-scrollbar {
-  display: none;
-}
-
-.player-hud-features .hud-group {
-  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 0 6px;
 }
 
 .hud-group {
   display: inline-flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  min-width: 0;
 }
 
 .playback-group {
-  flex-wrap: nowrap;
-  min-width: 0;
+  gap: 2px;
 }
 
 .hud-group-right {
   flex: none;
   margin-left: auto;
+  gap: 2px;
 }
 
 .player-progress {
   --progress: 0%;
   display: block;
-  width: 100%;
-  height: 4px;
-  margin: 0 0 9px;
+  width: calc(100% - 16px);
+  height: 3px;
+  margin: 0 8px 4px;
   padding: 0;
   border: 0;
   border-radius: 999px;
@@ -2316,21 +2303,37 @@
     rgba(255, 255, 255, 0.3) var(--progress) 100%
   );
   cursor: pointer;
+  transition: height 0.15s var(--ease);
+}
+
+.player-hud:hover .player-progress,
+.player-progress:active {
+  height: 6px;
 }
 
 .player-progress::-webkit-slider-thumb {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   border: 0;
   border-radius: 50%;
   appearance: none;
   background: #fff;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: scale(0.55);
+  transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
+}
+
+.player-hud:hover .player-progress::-webkit-slider-thumb,
+.player-progress:active::-webkit-slider-thumb,
+.player-progress:focus-visible::-webkit-slider-thumb {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .player-progress::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   border: 0;
   border-radius: 50%;
   background: #fff;
@@ -2342,70 +2345,128 @@
   cursor: default;
 }
 
+/* 按钮基类：图标按钮与文本按钮共用，去掉旧药丸描边 */
 .hud-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex: none;
-  height: 28px;
-  padding: 0 10px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  background: rgba(15, 15, 18, 0.72);
-  -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  backdrop-filter: blur(10px) saturate(1.4);
+  border: 0;
+  background: transparent;
   color: rgba(255, 255, 255, 0.92);
-  font-size: 12px;
-  font-weight: 500;
   line-height: 1;
   white-space: nowrap;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.32);
   cursor: pointer;
-  transition: background 0.16s var(--ease), border-color 0.16s var(--ease),
-    color 0.16s var(--ease), transform 0.16s var(--ease);
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
 }
 
 .hud-btn[hidden] {
   display: none;
 }
 
-.hud-btn:hover,
-.hud-btn:focus-visible {
-  border-color: rgba(255, 255, 255, 0.44);
-  background: rgba(28, 28, 32, 0.88);
+.hud-icon-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.hud-ic {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
+}
+
+.hud-icon-btn:hover,
+.hud-icon-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
   color: #fff;
 }
 
-.hud-btn.is-on {
-  border-color: rgba(255, 102, 0, 0.58);
-  background: rgba(234, 88, 12, 0.26);
+/* 开启态：图标点亮 + 底部品牌色短横条（YouTube 风格） */
+.hud-icon-btn.is-on {
   color: #fff;
 }
 
-.hud-btn.is-on:hover {
-  border-color: rgba(255, 102, 0, 0.82);
-  background: rgba(234, 88, 12, 0.38);
+.hud-icon-btn.is-on::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 15px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--brand-mark);
+  transform: translateX(-50%);
 }
 
-.hud-play-btn,
-.hud-mute-btn {
-  min-width: 48px;
-}
-
-.hud-play-btn {
+.hud-text-btn {
+  height: 30px;
+  min-width: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font-size: 12.5px;
   font-weight: 600;
 }
 
+.hud-text-btn:hover,
+.hud-text-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+/* 随手记数量角标 */
+.hud-badge {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  border-radius: 7px;
+  background: var(--brand-mark);
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  line-height: 14px;
+  text-align: center;
+}
+
+.hud-badge[hidden] {
+  display: none;
+}
+
+/* 音量：滑杆平时收起，悬停 / 聚焦时展开 */
+.hud-volume {
+  display: inline-flex;
+  align-items: center;
+}
+
 .volume-slider {
-  width: 72px;
-  height: 4px;
-  margin: 0 4px;
+  width: 0;
+  height: 3px;
+  margin: 0;
+  opacity: 0;
   accent-color: var(--brand-mark);
   cursor: pointer;
+  transition: width 0.18s var(--ease), opacity 0.18s var(--ease),
+    margin 0.18s var(--ease);
+}
+
+.hud-volume:hover .volume-slider,
+.hud-volume:focus-within .volume-slider {
+  width: 64px;
+  opacity: 1;
+  margin: 0 6px 0 2px;
 }
 
 .player-time {
-  margin-left: 2px;
+  margin-left: 6px;
   color: rgba(255, 255, 255, 0.86);
   font-family: var(--font-mono);
   font-size: 11.5px;
@@ -2418,20 +2479,16 @@
 }
 
 .hud-btn-kbd {
-  min-width: 28px;
-  padding: 0 8px;
   font-family: var(--font-mono);
   font-weight: 700;
 }
 
 .rate-btn {
-  min-width: 46px;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
 .player:fullscreen .theater-btn,
-.player.is-mini .player-hud-features,
 .player.is-mini .hud-group-right,
 .player.is-mini .volume-slider {
   display: none;
@@ -2445,34 +2502,39 @@
 
 @media (max-width: 640px) {
   .player-hud {
-    padding: 18px 8px 8px;
+    padding: 16px 4px 2px;
   }
 
-  .hud-btn {
-    height: 26px;
-    padding: 0 8px;
-    font-size: 11px;
+  .hud-icon-btn {
+    width: 30px;
+    height: 30px;
   }
 
-  .hud-btn-kbd,
-  .volume-slider {
+  .hud-ic {
+    width: 19px;
+    height: 19px;
+  }
+
+  .hud-text-btn {
+    height: 28px;
+    min-width: 28px;
+    padding: 0 6px;
+    font-size: 11.5px;
+  }
+
+  .player .autoplay-btn,
+  .player .hud-btn-kbd {
     display: none;
   }
 
   .player-hud-main {
-    gap: 5px;
-  }
-
-  .hud-group {
-    gap: 4px;
+    gap: 2px;
+    padding: 0 2px;
   }
 
   .player-time {
+    margin-left: 3px;
     font-size: 10.5px;
-  }
-
-  .player-hud-features {
-    margin-top: 4px;
   }
 }
 
