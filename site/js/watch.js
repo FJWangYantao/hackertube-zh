@@ -83,6 +83,7 @@ export function show(container, route, ctx) {
   if (autoMount) autoAdvanceVid = null;
 
   const player = buildPlayer(video, initialStart, canResumeSaved, autoMount);
+  const playbackControls = buildPlaybackControls(player);
   const chaptersPromise = loadChapters(video.vid).catch(() => null);
 
   const seekAndScroll = (seconds) => {
@@ -213,6 +214,7 @@ export function show(container, route, ctx) {
   let selectRailTab = null;
 
   player.onTimeUpdate = (time, duration, force = false) => {
+    playbackControls.update(time, duration);
     transcript?.update(time);
     outlineView?.update(time);
     heatmap.setProgress(time, duration);
@@ -261,6 +263,7 @@ export function show(container, route, ctx) {
   let canSync = true;
   player.onFallback = () => {
     canSync = false;
+    player.node.classList.add('is-fallback');
     subtitleBtn.hidden = true;
     skipSilenceBtn.hidden = true;
   };
@@ -320,8 +323,8 @@ export function show(container, route, ctx) {
   const kbdHelp = buildKbdHelp();
   helpBtn.addEventListener('click', () => kbdHelp.toggle(helpBtn));
 
-  // ── 播放器顶部悬浮 HUD 栏（全屏与普通模式均可见，外层频道栏仅留页面级按钮） ──
-  const playerHud = buildPlayerHud(player.node, [
+  // ── 统一底部控制栏：基础播放控制与 HackerTube 高级功能共用一套 HUD ──
+  const playerHud = buildPlayerHud(player.node, playbackControls, [
     subtitleBtn,
     rateBtn,
     skipSilenceBtn,
@@ -603,7 +606,17 @@ export function show(container, route, ctx) {
     }
     const tag = event.target?.tagName;
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-    if (event.key === 's' || event.key === 'S') {
+    if ((event.code === 'Space' || event.key === 'k' || event.key === 'K')
+      && tag !== 'BUTTON' && tag !== 'A') {
+      event.preventDefault();
+      player.togglePlayback();
+    } else if (event.key === 'm' || event.key === 'M') {
+      event.preventDefault();
+      player.toggleMute();
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      player.seekBy(event.key === 'ArrowLeft' ? -5 : 5);
+    } else if (event.key === 's' || event.key === 'S') {
       event.preventDefault();
       toggleSave();
     } else if ((event.key === 'c' || event.key === 'C') && !subtitleBtn.hidden) {
@@ -751,6 +764,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
 
   const overlay = createOverlay();
   const host = el('div', { class: 'player-host' });
+  const veil = el('div', { class: 'player-veil', 'aria-hidden': 'true' });
   const play = el('button', {
     class: 'play-btn',
     type: 'button',
@@ -758,6 +772,13 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
       ? `从 ${formatClock(initialStart)} 播放视频`
       : '播放视频',
   }, el('span'));
+  const hitbox = el('button', {
+    class: 'player-hitbox',
+    type: 'button',
+    hidden: true,
+    'aria-label': '播放或暂停视频',
+    on: { click: () => togglePlayback() },
+  });
 
   let startAt = initialStart;
   let resumePill = null;
@@ -791,6 +812,55 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
   let onTimeUpdate = null;
   let onEnded = null;
   let onPlaying = null;
+  let onPlaybackStateChange = null;
+  let onVolumeChange = null;
+  let playbackState = -1;
+  // 暂停遮罩：非播放态盖住 YouTube 原生暂停 UI，配合 CSS 渐变遮罩。
+  // 转入播放时不立刻撤遮罩，先按住 unveilHoldMs 再淡出 unveilFadeMs，盖过原生 UI 的退场动画。
+  // 两个时长可用 localStorage 覆盖便于实测调参（改完刷新页面生效）：
+  //   localStorage.setItem('ht.veilHold', '3000')
+  //   localStorage.setItem('ht.veilFade', '2500')
+  let unveilTimer = 0;
+  const veilNum = (key, fallback) => {
+    const value = Number(store.get(key, fallback));
+    return Number.isFinite(value) && value >= 0 ? value : fallback;
+  };
+  const unveilHoldMs = veilNum('veilHold', 4200);
+  const unveilFadeMs = veilNum('veilFade', 1000);
+  const setVeiled = (on) => {
+    clearTimeout(unveilTimer);
+    veil.style.transitionDuration = '';
+    player.classList.toggle('is-veiled', Boolean(on));
+  };
+  const unveilSoon = () => {
+    // 插件已屏蔽原生 UI 时无需按住（按住只为盖原生 UI 的退场动画），立即撤。
+    if (player.classList.contains('hud-blocked')) {
+      setVeiled(false);
+      return;
+    }
+    clearTimeout(unveilTimer);
+    unveilTimer = setTimeout(() => {
+      veil.style.transitionDuration = `${unveilFadeMs}ms`;
+      player.classList.remove('is-veiled');
+    }, unveilHoldMs);
+  };
+  // 「HUD 屏蔽插件」探测：插件在 YouTube iframe 内隐藏原生 UI 后向父页面广播。
+  // 收到后给 player 加 hud-blocked（CSS 里隐藏遮罩），暂停时仍靠 is-veiled 显示自定义播放键。
+  const onHudBlockerMessage = (event) => {
+    if (event.data && event.data.source === 'ht-hud-blocker' && event.data.active) {
+      const wasPlaying = playbackState === 1;
+      player.classList.add('hud-blocked');
+      if (wasPlaying) {
+        // 广播可能在按住期间才到：正在播放则立刻撤下暂停播放键，不等计时器
+        clearTimeout(unveilTimer);
+        player.classList.remove('is-veiled');
+      }
+    }
+  };
+  window.addEventListener('message', onHudBlockerMessage);
+  const savedVolume = Number(store.get('volume', 80));
+  let volume = Number.isFinite(savedVolume) ? Math.max(0, Math.min(100, savedVolume)) : 80;
+  let muted = store.get('muted', false) === true;
   let lastKnownTime = startAt || 0;
   let lastKnownDuration = 0;
   let rate = normalizeRate(store.get('speed', 1));
@@ -801,18 +871,23 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
   async function doMount(customStart = startAt) {
     const beginSec = Math.max(0, Math.floor(customStart || 0));
     poster.remove();
-    play.remove();
     resumePill?.remove();
     player.prepend(host);
+    player.append(hitbox);
+    hitbox.hidden = false;
+    player.classList.add('is-mounted');
+    setVeiled(true);
+    play.tabIndex = -1;
     try {
       const YT = await loadYouTubeApi();
       if (destroyed) return null;
       const playerVars = {
         autoplay: 1,
+        controls: 0,
+        disablekb: 1,
         rel: 0,
         fs: 0,
         playsinline: 1,
-        modestbranding: 1,
       };
       if (beginSec > 0) playerVars.start = beginSec;
       yt = new YT.Player(host, {
@@ -827,12 +902,20 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
               yt = null;
               return;
             }
+            if (yt.getIframe?.()) yt.getIframe().tabIndex = -1;
+            yt.setVolume?.(volume);
+            if (muted) yt.mute?.();
+            else yt.unMute?.();
+            onVolumeChange?.(volume, muted);
             if (beginSec > 0) yt.seekTo?.(beginSec, true);
-            yt.playVideo?.();
-            // 恢复用户偏好的播放倍速
             yt.setPlaybackRate?.(rate);
+            yt.playVideo?.();
           },
           onStateChange: (event) => {
+            playbackState = event.data;
+            if (event.data === 1) unveilSoon();
+            else setVeiled(true);
+            onPlaybackStateChange?.(playbackState);
             if (event.data === 0) {
               overlay.clear();
               if (lastKnownDuration > 0) {
@@ -852,13 +935,16 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
       if (destroyed) return null;
       const startParam = beginSec > 0 ? `&start=${beginSec}` : '';
       fallbackFrame = el('iframe', {
-        src: `https://www.youtube-nocookie.com/embed/${video.vid}?autoplay=1&rel=0${startParam}`,
+        src: `https://www.youtube-nocookie.com/embed/${video.vid}?autoplay=1&controls=1&rel=0${startParam}`,
         title: video.title_zh || video.title,
         allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share',
         allowFullscreen: true,
       });
       host.remove();
+      hitbox.remove();
       overlay.layer.remove();
+      player.classList.add('is-fallback');
+      setVeiled(false);
       player.prepend(fallbackFrame);
       readyResolve();
       onFallback?.();
@@ -871,6 +957,40 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     if (yt) return Promise.resolve(yt);
     if (!mounting) mounting = doMount(customStart);
     return mounting;
+  }
+
+  function togglePlayback() {
+    if (!yt) {
+      if (!fallbackFrame) mount(startAt);
+      return;
+    }
+    const state = yt.getPlayerState?.() ?? playbackState;
+    if (state === 1) yt.pauseVideo?.();
+    else yt.playVideo?.();
+  }
+
+  function setVolume(next) {
+    const value = Number(next);
+    if (!Number.isFinite(value)) return;
+    volume = Math.max(0, Math.min(100, value));
+    muted = volume === 0;
+    store.set('volume', volume);
+    store.set('muted', muted);
+    yt?.setVolume?.(volume);
+    if (muted) yt?.mute?.();
+    else yt?.unMute?.();
+    onVolumeChange?.(volume, muted);
+  }
+
+  function toggleMute() {
+    if (muted) {
+      setVolume(volume || 80);
+      return;
+    }
+    muted = true;
+    store.set('muted', true);
+    yt?.mute?.();
+    onVolumeChange?.(volume, true);
   }
 
   function currentTime() {
@@ -891,7 +1011,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
         yt.playVideo?.();
       } else if (fallbackFrame) {
         fallbackFrame.src = `https://www.youtube-nocookie.com/embed/${video.vid}`
-          + `?autoplay=1&rel=0&start=${Math.floor(seconds)}`;
+          + `?autoplay=1&controls=1&rel=0&start=${Math.floor(seconds)}`;
       }
     });
   }
@@ -965,8 +1085,14 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     onTimeUpdate?.(currentTime, lastKnownDuration, force);
   }
 
-  play.addEventListener('click', () => { mount(startAt); });
-  player.append(poster, play, resumePill, overlay.layer);
+  play.addEventListener('click', () => {
+    if (!yt && !mounting) mount(startAt);
+    else togglePlayback();
+  });
+  player.addEventListener('click', (event) => {
+    if (event.target === player) togglePlayback();
+  });
+  player.append(poster, veil, play, resumePill, overlay.layer);
   if (autoMount) mount(startAt);
 
   return {
@@ -989,7 +1115,14 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
     set onTimeUpdate(fn) { onTimeUpdate = fn; },
     set onEnded(fn) { onEnded = fn; },
     set onPlaying(fn) { onPlaying = fn; },
+    set onPlaybackStateChange(fn) { onPlaybackStateChange = fn; },
+    set onVolumeChange(fn) { onVolumeChange = fn; },
     set onRateChange(fn) { onRateChange = fn; },
+    togglePlayback,
+    setVolume,
+    toggleMute,
+    getVolume: () => volume,
+    isMuted: () => muted,
     getCurrentTime() {
       return currentTime();
     },
@@ -1022,6 +1155,7 @@ function buildPlayer(video, initialStart = 0, isSavedResume = false, autoMount =
       tick(true);
       destroyed = true;
       clearInterval(timer);
+      window.removeEventListener('message', onHudBlockerMessage);
       overlay.destroy();
       yt?.destroy?.();
       yt = null;
@@ -1146,23 +1280,109 @@ function buildRateButton(player) {
   return button;
 }
 
-/**
- * 播放器顶部悬浮 HUD 栏：
- * - 鼠标移入播放器、移动或触摸时自动唤醒 1.2 秒，鼠标移出播放器后 180ms 迅速收起；
- * - 顶部保留 16px 隐形感应热区（.player-hud-wake），即使 YouTube iframe 吞掉内部移动事件，
- *   鼠标滑向播放器上沿也能立即唤出 HUD。
- */
-function buildPlayerHud(playerNode, leftBtns = [], rightBtns = []) {
-  const wakeZone = el('div', { class: 'player-hud-wake', 'aria-hidden': 'true' });
+function buildPlaybackControls(player) {
+  let scrubbing = false;
+  const playBtn = el('button', {
+    class: 'hud-btn hud-play-btn',
+    type: 'button',
+    title: '播放 / 暂停（空格或 K）',
+    'aria-label': '播放',
+  }, '播放');
+  const muteBtn = el('button', {
+    class: 'hud-btn hud-mute-btn',
+    type: 'button',
+    title: '静音 / 恢复声音（M）',
+  }, '静音');
+  const volumeInput = el('input', {
+    class: 'volume-slider',
+    type: 'range',
+    min: '0',
+    max: '100',
+    step: '1',
+    value: String(player.getVolume()),
+    'aria-label': '音量',
+  });
+  const currentEl = el('span', { class: 'player-time-current' }, '0:00');
+  const durationEl = el('span', { class: 'player-time-duration' }, '0:00');
+  const timeEl = el('span', { class: 'player-time' }, currentEl, ' / ', durationEl);
+  const progress = el('input', {
+    class: 'player-progress',
+    type: 'range',
+    min: '0',
+    max: '1',
+    step: '1',
+    value: '0',
+    disabled: true,
+    'aria-label': '播放进度',
+  });
+  const mainRow = el('div', { class: 'player-hud-main' },
+    el('div', { class: 'hud-group playback-group' }, playBtn, muteBtn, volumeInput, timeEl),
+  );
+  const node = el('div', { class: 'player-playback' }, progress, mainRow);
+
+  playBtn.addEventListener('click', () => player.togglePlayback());
+  muteBtn.addEventListener('click', () => player.toggleMute());
+  volumeInput.addEventListener('input', () => player.setVolume(volumeInput.value));
+  progress.addEventListener('pointerdown', () => { scrubbing = true; });
+  progress.addEventListener('input', () => {
+    scrubbing = true;
+    currentEl.textContent = formatClock(progress.value);
+  });
+  progress.addEventListener('change', () => {
+    player.seek(Number(progress.value));
+    scrubbing = false;
+  });
+
+  player.onPlaybackStateChange = (state) => {
+    const playing = state === 1 || state === 3;
+    playBtn.textContent = playing ? '暂停' : '播放';
+    playBtn.setAttribute('aria-label', playing ? '暂停' : '播放');
+  };
+  const syncVolume = (value, muted) => {
+    volumeInput.value = String(value);
+    volumeInput.setAttribute('aria-valuetext', `${Math.round(value)}%`);
+    muteBtn.textContent = muted || value === 0 ? '开声音' : '静音';
+    muteBtn.setAttribute('aria-pressed', muted || value === 0 ? 'true' : 'false');
+  };
+  player.onVolumeChange = syncVolume;
+  syncVolume(player.getVolume(), player.isMuted());
+
+  return {
+    node,
+    mainRow,
+    update(time, duration) {
+      const safeDuration = Number.isFinite(duration) && duration > 0 ? duration : 0;
+      const safeTime = Math.max(0, Number.isFinite(time) ? time : 0);
+      progress.disabled = safeDuration <= 0;
+      progress.max = String(Math.max(1, Math.floor(safeDuration)));
+      if (!scrubbing) {
+        progress.value = String(Math.min(safeTime, safeDuration));
+        currentEl.textContent = formatClock(safeTime);
+      }
+      durationEl.textContent = formatClock(safeDuration);
+      const percent = safeDuration ? Math.min(100, (Number(progress.value) / safeDuration) * 100) : 0;
+      progress.style.setProperty('--progress', `${percent}%`);
+      progress.setAttribute('aria-valuetext', `${formatClock(progress.value)} / ${formatClock(safeDuration)}`);
+    },
+  };
+}
+
+/** 底部统一控制栏；透明交互层让指针事件不再被 YouTube iframe 吞掉。 */
+function buildPlayerHud(playerNode, playbackControls, featureBtns = [], rightBtns = []) {
+  playbackControls.mainRow.append(
+    el('div', { class: 'hud-group hud-group-right' }, ...rightBtns),
+  );
   const bar = el('div', {
     class: 'player-hud',
     role: 'toolbar',
     'aria-label': '播放器控制栏',
   },
-    el('div', { class: 'hud-group' }, ...leftBtns),
-    el('div', { class: 'hud-group hud-group-right' }, ...rightBtns),
+    playbackControls.node,
+    el('div', { class: 'player-hud-features' },
+      el('div', { class: 'hud-group' }, ...featureBtns),
+    ),
   );
-  const wrap = el('div', { class: 'player-hud-wrap' }, wakeZone, bar);
+  const wrap = el('div', { class: 'player-hud-wrap' }, bar);
 
   let wakeTimer = null;
   const scheduleHide = (delayMs) => {
@@ -1173,22 +1393,25 @@ function buildPlayerHud(playerNode, leftBtns = [], rightBtns = []) {
       }
     }, delayMs);
   };
-  const wake = (delayMs = 1200) => {
+  const wake = (delayMs = 3000) => {
     playerNode.classList.add('is-hud-awake');
     scheduleHide(delayMs);
   };
 
-  playerNode.addEventListener('pointerenter', () => wake(1200));
-  playerNode.addEventListener('pointermove', () => wake(1200));
-  playerNode.addEventListener('pointerleave', () => scheduleHide(180));
-  playerNode.addEventListener('touchstart', () => wake(1800), { passive: true });
-  wakeZone.addEventListener('pointerenter', () => wake(1200));
+  playerNode.addEventListener('pointerenter', () => wake());
+  playerNode.addEventListener('pointermove', () => wake());
+  playerNode.addEventListener('pointerdown', () => wake());
+  playerNode.addEventListener('pointerleave', () => scheduleHide(240));
+  playerNode.addEventListener('touchstart', () => wake(3000), { passive: true });
   bar.addEventListener('pointerenter', () => {
     playerNode.classList.add('is-hud-awake');
     if (wakeTimer) clearTimeout(wakeTimer);
   });
-  bar.addEventListener('pointerleave', () => scheduleHide(220));
-  wake(1400);
+  bar.addEventListener('pointerdown', () => {
+    if (wakeTimer) clearTimeout(wakeTimer);
+  });
+  bar.addEventListener('pointerleave', () => scheduleHide(300));
+  wake(1800);
 
   return {
     node: wrap,
@@ -1212,6 +1435,9 @@ function buildKbdHelp() {
     ['F', '全屏播放'],
     ['W', '宽屏模式'],
     ['A', '连播开关'],
+    ['空格 / K', '播放 / 暂停'],
+    ['M', '静音 / 恢复声音'],
+    ['← / →', '快退 / 快进 5 秒'],
     ['J / L', '快退 / 快进 10 秒'],
     ['[ / ]', '降低 / 提高播放速度（含 1.35x 黄金倍速）'],
     ['?', '打开或关闭本速查面板'],
