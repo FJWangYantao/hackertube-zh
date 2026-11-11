@@ -127,9 +127,15 @@ export function downloadSubtitles(cues, meta, formatId) {
   toast(`已导出 ${format.label}`);
 }
 
-/** A small dropdown next to the transcript toolbar's copy button. */
-export function buildExportMenu(cues, meta) {
+/** A small dropdown next to the transcript toolbar: copy + export in one menu. */
+export function buildExportMenu(cues, meta, { onCopy } = {}) {
   const menu = el('div', { class: 'export-menu', role: 'menu', hidden: true },
+    ...(onCopy ? [el('button', {
+      class: 'export-item export-item-copy',
+      type: 'button',
+      role: 'menuitem',
+      on: { click: () => { close(); onCopy(); } },
+    }, '复制到剪贴板')] : []),
     ...FORMATS.map((format) => el('button', {
       class: 'export-item',
       type: 'button',
@@ -141,11 +147,11 @@ export function buildExportMenu(cues, meta) {
   const button = el('button', {
     class: 'transcript-follow export-btn',
     type: 'button',
-    title: '导出字幕文件（SRT / VTT / TXT / Markdown）',
+    title: '复制字幕，或导出为 SRT / VTT / TXT / Markdown 文件',
     'aria-haspopup': 'menu',
     'aria-expanded': 'false',
     on: { click: () => setOpen(!isOpen()) },
-  }, '导出');
+  }, '复制 ▾');
 
   const wrap = el('div', { class: 'export-wrap' }, button, menu);
   let open = false;

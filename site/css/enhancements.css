@@ -93,14 +93,12 @@
 }
 
 /* ── 2. 📊 播放器高能声波热力条 (Heatmap Scrubber) ───────────────────────── */
+/* 去卡片化：热力图是页面的一个内容区块，只用上分隔线 + 留白区分，不再叠白卡 */
 .heatmap-wrap {
   position: relative;
-  margin-top: 10px;
-  padding: 10px 12px 8px;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  background: var(--bg-card);
-  box-shadow: var(--card-highlight), var(--card-shadow);
+  margin-top: 4px;
+  padding: 14px 2px 12px;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .heatmap-head {
@@ -120,6 +118,7 @@
   color: var(--text);
 }
 
+/* 图例默认收起，悬停/聚焦热力图时才显示；触屏常显 */
 .heatmap-legend {
   display: flex;
   align-items: center;
@@ -128,6 +127,19 @@
   margin-left: auto;
   color: var(--text-3);
   font-size: 11px;
+  opacity: 0;
+  transition: opacity 0.18s var(--ease);
+}
+
+.heatmap-wrap:hover .heatmap-legend,
+.heatmap-wrap:focus-within .heatmap-legend {
+  opacity: 1;
+}
+
+@media (pointer: coarse) {
+  .heatmap-legend {
+    opacity: 1;
+  }
 }
 
 .heatmap-close {
@@ -528,20 +540,18 @@
 }
 
 .heatmap-kw-chip:hover {
-  border-color: var(--border);
   color: var(--text);
   background: var(--bg-subtle);
 }
 
 .heatmap-kw-chip.is-active {
-  border-color: rgba(56, 189, 248, 0.3);
-  background: rgba(56, 189, 248, 0.1);
-  color: #0369a1;
+  background: var(--brand-soft);
+  color: var(--brand);
   font-weight: 600;
 }
 
 :root[data-theme="dark"] .heatmap-kw-chip.is-active {
-  color: #7dd3fc;
+  color: var(--brand);
 }
 
 .heatmap-kw-count {
@@ -700,23 +710,21 @@
 }
 
 .transcript-search-nav:hover {
-  border-color: #10b981;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
+  border-color: var(--brand);
+  color: var(--brand);
+  background: var(--brand-soft);
 }
 
 .transcript-line.is-search-focus {
-  outline: 1.5px solid #10b981;
-  background: rgba(16, 185, 129, 0.12) !important;
+  outline: 1.5px solid var(--brand);
+  background: var(--brand-soft) !important;
 }
 
 /* ── 8. 🧭 章节实时高亮 (Live Active Chapter Chip & Stream Header) ─────────── */
 .outline-chip.is-active {
-  border-color: var(--brand);
   background: var(--brand-soft);
-  color: var(--text);
+  color: var(--brand);
   font-weight: 600;
-  box-shadow: 0 0 0 1px rgba(255, 102, 0, 0.22);
 }
 
 .outline-chip.is-active .outline-chip-ts {

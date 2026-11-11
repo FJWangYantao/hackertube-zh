@@ -330,7 +330,7 @@
 }
 
 .watch-title {
-  margin: 16px 0 6px;
+  margin: 12px 0 4px;
   font-size: 20px;
   font-weight: 600;
   line-height: 28px;
@@ -372,28 +372,62 @@
   font-size: 12px;
 }
 
+/* YouTube 原站链接降级为纯文字，不再占用一个按钮框 */
+.channel-ext {
+  padding: 0 4px;
+  color: var(--text-2);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.channel-ext:hover {
+  color: var(--brand);
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  gap: 14px;
   margin-left: auto;
 }
 
+/* 观看页频道行的收藏/分享：去按钮框，改纯文字链接，与 YouTube ↗ 风格统一 */
+.actions .btn {
+  height: auto;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.actions .btn:hover {
+  background: none;
+  color: var(--brand);
+}
+
+.actions .btn.is-on {
+  border: 0;
+  background: none;
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* 简介：不再是灰底卡片，直接白底文字，与上方大纲用细分隔线分开 */
 .description {
-  padding: 12px 14px;
-  border-radius: var(--radius);
-  background: var(--bg-chip);
+  padding: 12px 0 4px;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: none;
   font-size: 14px;
-  line-height: 1.65;
-  transition: background 0.15s var(--ease);
+  line-height: 1.7;
 }
 
 .description.is-collapsed {
   cursor: pointer;
-}
-
-.description.is-collapsed:hover {
-  background: var(--bg-chip-hover);
 }
 
 .description.is-collapsed .desc-body {
@@ -407,55 +441,73 @@
   margin-top: 10px;
 }
 
+/* HN 推荐：去掉左侧竖条，改成 💡 开头 + 标题加粗 + 正文灰色 */
 .desc-why {
-  padding-left: 10px;
-  border-left: 3px solid var(--brand);
+  color: var(--text-2);
 }
 
+.desc-why strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* 简介标签：不再是灰气泡，而是灰色小字链接，用 · 分隔 */
 .desc-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 12px;
+  align-items: baseline;
+  gap: 4px 0;
+  margin-top: 10px;
+  line-height: 1.9;
 }
 
 .mini-chip {
-  padding: 2px 10px;
-  border: 1px solid var(--border);
-  border-radius: var(--pill);
-  background: var(--bg-card);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
   color: var(--text-2);
-  font-size: 12px;
-  transition: border-color 0.15s var(--ease), color 0.15s var(--ease);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: inherit;
+  transition: color 0.15s var(--ease);
+}
+
+.mini-chip:not(:last-child)::after {
+  content: '·';
+  margin: 0 9px;
+  color: var(--text-3, #bbb);
+  pointer-events: none;
 }
 
 .mini-chip:hover {
-  border-color: var(--text-2);
-  color: var(--text);
+  color: var(--brand);
 }
 
 .mini-chip.is-sub {
-  border-color: rgba(234, 88, 12, 0.35);
-  background: rgba(234, 88, 12, 0.12);
   color: var(--brand);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .mini-chip.is-intro {
-  border-color: rgba(22, 163, 74, 0.3);
-  background: rgba(22, 163, 74, 0.12);
   color: #15803d;
 }
 
 .mini-chip.is-intermediate {
-  border-color: rgba(37, 99, 235, 0.3);
-  background: rgba(37, 99, 235, 0.12);
   color: #1d4ed8;
 }
 
 .mini-chip.is-advanced {
-  border-color: rgba(234, 88, 12, 0.3);
-  background: rgba(234, 88, 12, 0.12);
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* 「+N」展开按钮保持小巧文字样式，与标签一致 */
+.mini-chip-more {
+  color: var(--text-2);
+}
+
+.mini-chip-more:hover {
   color: var(--brand);
 }
 
@@ -482,17 +534,26 @@
   padding: 0;
   border: 0;
   background: none;
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 600;
+  color: var(--text-2);
+  font-size: 12.5px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: color 0.15s var(--ease), text-decoration-color 0.15s var(--ease);
+}
+
+.desc-toggle:hover {
+  color: var(--brand);
+  text-decoration-color: currentColor;
 }
 
 .desc-actions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 6px;
+  gap: 16px;
+  margin-top: 8px;
 }
 
 .desc-actions .desc-toggle {
@@ -533,18 +594,19 @@
 
 .comment-sort {
   display: inline-flex;
-  padding: 2px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-subtle);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
   margin-left: auto;
 }
 
 .sort-pill {
   height: 26px;
-  padding: 0 10px;
+  padding: 0 8px;
   border: 0;
-  border-radius: 6px;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
   background: transparent;
   color: var(--text-2);
   font-size: 12px;
@@ -552,9 +614,37 @@
 }
 
 .sort-pill[aria-pressed="true"] {
-  background: var(--bg-card);
+  background: none;
+  color: var(--brand);
+  font-weight: 600;
+  border-bottom-color: var(--brand);
+  box-shadow: none;
+}
+
+/* 评论筛选：去黑底气泡，改下划线 Tab 风格，与排序、字幕 Tab 统一 */
+.comment-filters .chip {
+  height: 30px;
+  padding: 0 8px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.comment-filters .chip:hover {
+  background: none;
   color: var(--text);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.comment-filters .chip[aria-pressed="true"] {
+  border-color: transparent;
+  border-bottom-color: var(--brand);
+  background: none;
+  color: var(--brand);
+  font-weight: 600;
 }
 
 .comment-filters {
@@ -771,29 +861,31 @@
 
 .rail-tabs {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 4px;
   margin-bottom: 10px;
-  padding: 3px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-subtle);
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: none;
 }
 
 .rail-tab {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   height: 32px;
-  padding: 0 10px;
+  padding: 0 4px;
   border: 0;
-  border-radius: 7px;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
   background: transparent;
   color: var(--text-2);
   font-size: 13px;
   font-weight: 500;
-  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+  transition: color 0.15s var(--ease), border-color 0.15s var(--ease);
 }
 
 .rail-tab:hover {
@@ -801,10 +893,11 @@
 }
 
 .rail-tab[aria-selected="true"] {
-  background: var(--bg-card);
-  color: var(--text);
+  background: none;
+  color: var(--brand);
   font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-bottom-color: var(--brand);
+  box-shadow: none;
 }
 
 .rail-live-dot {
@@ -837,10 +930,10 @@
 }
 
 .rail-tab-count {
-  padding: 0 6px;
-  border-radius: var(--pill);
-  background: var(--bg-chip);
-  color: var(--text-2);
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--text-3);
   font-size: 11px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
@@ -848,7 +941,6 @@
 }
 
 .rail-tab[aria-selected="true"] .rail-tab-count {
-  background: rgba(234, 88, 12, 0.14);
   color: var(--brand);
 }
 
@@ -1179,25 +1271,24 @@
   font-size: calc(min(3.4vh, 2.6vw) * var(--sub-scale, 1));
 }
 
-/* Continuous Subtitle Stream Panel */
+/* Continuous Subtitle Stream Panel：不再是卡片，白底，工具条只留底部分隔线 */
 .stream-panel {
   position: relative;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-card);
-  box-shadow: var(--card-highlight);
-  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
 }
 
 .transcript-bar {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 10px;
+  padding: 8px 0;
   border-bottom: 1px solid var(--border);
-  background: var(--bg-subtle);
+  background: none;
 }
 
 .transcript-search {
@@ -1206,14 +1297,16 @@
   align-items: center;
   flex: 1;
   min-width: 0;
-  height: 30px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
+  height: 28px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: none;
+  transition: border-color 0.15s var(--ease);
 }
 
 .transcript-search:focus-within {
-  border-color: var(--brand);
+  border-bottom-color: var(--brand);
 }
 
 .transcript-input {
@@ -1263,27 +1356,26 @@
 .transcript-follow,
 .transcript-copy {
   flex: none;
-  height: 30px;
-  padding: 0 8px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
+  height: 26px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 0;
+  background: none;
   color: var(--text-2);
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 500;
   white-space: nowrap;
+  transition: color 0.15s var(--ease);
 }
 
 .transcript-follow:hover,
 .transcript-copy:hover {
-  background: var(--bg-chip-hover);
-  color: var(--text);
+  color: var(--brand);
 }
 
 .transcript-follow[aria-pressed="true"] {
-  border-color: rgba(234, 88, 12, 0.35);
-  background: rgba(234, 88, 12, 0.14);
   color: var(--brand);
+  font-weight: 600;
 }
 
 .transcript-list {
@@ -1350,10 +1442,11 @@
   background: var(--bg-hover);
 }
 
+/* 当前句：左侧橙色竖条 + 中性灰底，避免整行橙色块造成的视觉噪音 */
 .transcript-line.is-active {
   opacity: 1;
   border-left-color: var(--brand-mark);
-  background: rgba(234, 88, 12, 0.12);
+  background: var(--bg-subtle);
 }
 
 .transcript-line.is-active .transcript-ts {
@@ -1616,14 +1709,13 @@
   color: var(--text);
 }
 
-/* AI outline card (TL;DR + chapter chips) */
+/* AI outline：不再是卡片，直接白底文字，与下方简介用细分隔线分开 */
 .watch-outline {
-  margin: 12px 0;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-card);
-  box-shadow: var(--card-highlight);
+  margin: 14px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
 }
 
 .outline-head {
@@ -1654,48 +1746,65 @@
   line-height: 1.65;
 }
 
+/* 章节目录：不再是气泡，而是纯文字时间链接，用 · 分隔，多行自然换行 */
 .outline-chapters {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
+  gap: 4px 0;
+  margin-top: 8px;
+  line-height: 1.9;
 }
 
 .outline-chip {
   display: inline-flex;
   align-items: baseline;
-  gap: 6px;
-  padding: 3px 10px;
-  border: 1px solid var(--border);
-  border-radius: var(--pill);
-  background: var(--bg);
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
   color: var(--text-2);
-  font-size: 12px;
-  transition: border-color 0.15s var(--ease), color 0.15s var(--ease),
-    background 0.15s var(--ease);
+  font-size: 13px;
+  transition: color 0.15s var(--ease);
+}
+
+.outline-chip:not(:last-child)::after {
+  content: '·';
+  margin: 0 10px;
+  color: var(--text-3, #bbb);
+  pointer-events: none;
 }
 
 .outline-chip:hover {
-  border-color: rgba(234, 88, 12, 0.4);
-  background: rgba(234, 88, 12, 0.06);
   color: var(--text);
+}
+
+.outline-chip:hover .outline-chip-ts {
+  color: var(--brand-hover, var(--brand));
 }
 
 .outline-chip-ts {
   color: var(--brand);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
-/* 合集导航：当前视频属于某个系列时，显示在简介上方 */
+.outline-chip.is-active {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.outline-chip.is-active .outline-chip-ts {
+  color: var(--brand);
+}
+
+/* 合集导航：不再是卡片，直接白底，与下方用分隔线分开 */
 .watch-series {
-  margin: 12px 0;
-  padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg-card);
-  box-shadow: var(--card-highlight);
+  margin: 14px 0 0;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: none;
 }
 
 .series-head {
@@ -1715,12 +1824,12 @@
 
 .series-pos {
   flex: 0 0 auto;
-  padding: 1px 8px;
-  border: 1px solid var(--border);
-  border-radius: var(--pill);
-  background: var(--bg);
-  color: var(--text-2);
-  font-size: 11px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--text-3);
+  font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
 
@@ -1733,33 +1842,30 @@
   scrollbar-width: thin;
 }
 
+/* 集数：不再是灰气泡，而是纯文字链接 */
 .series-ep {
   display: inline-flex;
   align-items: baseline;
-  gap: 7px;
+  gap: 5px;
   flex: 0 0 auto;
   max-width: 250px;
-  padding: 5px 11px;
-  border: 1px solid var(--border);
-  border-radius: var(--pill);
-  background: var(--bg);
+  padding: 2px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
   color: var(--text-2);
-  font-size: 12px;
+  font-size: 13px;
   scroll-snap-align: start;
-  transition: border-color 0.15s var(--ease), color 0.15s var(--ease),
-    background 0.15s var(--ease);
+  transition: color 0.15s var(--ease);
 }
 
 .series-ep:hover {
-  border-color: rgba(234, 88, 12, 0.4);
-  background: rgba(234, 88, 12, 0.06);
   color: var(--text);
 }
 
 .series-ep.is-current {
-  border-color: rgba(234, 88, 12, 0.45);
-  background: rgba(234, 88, 12, 0.1);
-  color: var(--text);
+  color: var(--brand);
+  font-weight: 600;
 }
 
 .series-ep-no {
@@ -1967,27 +2073,27 @@
   margin-top: 12px;
 }
 
-/* ── 我的笔记与书签卡片 ────────────────────────────────────────────── */
+/* ── 我的笔记与书签：不再是卡片，直接白底，上下分隔线 ───────────────── */
 .notes-card {
-  margin: 12px 0;
-  border: 1px solid rgba(234, 88, 12, 0.22);
-  border-radius: var(--radius);
-  background: var(--bg-card);
-  box-shadow: var(--card-highlight);
-  overflow: hidden;
+  margin: 14px 0 0;
+  padding: 10px 0 4px;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: none;
+  overflow: visible;
 }
 
 .notes-head {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 16px;
+  padding: 4px 0;
   cursor: pointer;
   user-select: none;
 }
 
-.notes-head:hover {
-  background: var(--bg-hover);
+.notes-head:hover .notes-title {
+  color: var(--brand);
 }
 
 .notes-caret {
@@ -2006,12 +2112,13 @@
 }
 
 .notes-count {
-  padding: 1px 8px;
-  border-radius: var(--pill);
-  background: rgba(234, 88, 12, 0.12);
+  padding: 0;
+  border-radius: 0;
+  background: none;
   color: var(--brand);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
@@ -2023,7 +2130,7 @@
 .notes-list {
   display: none;
   flex-direction: column;
-  padding: 0 10px 10px;
+  padding: 6px 0 8px;
 }
 
 .notes-card.is-open .notes-list {
@@ -2034,21 +2141,21 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  padding: 7px 6px;
-  border-radius: var(--radius-sm);
+  padding: 6px 0;
+  border-radius: 0;
 }
 
-.note-item:hover {
-  background: var(--bg-subtle);
+.note-item:hover .note-text {
+  color: var(--text);
 }
 
 .note-ts-btn {
   flex: none;
   margin-top: 1px;
-  padding: 1px 7px;
+  padding: 0;
   border: 0;
-  border-radius: 4px;
-  background: rgba(234, 88, 12, 0.12);
+  border-radius: 0;
+  background: none;
   color: var(--brand);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -2058,7 +2165,6 @@
 }
 
 .note-ts-btn:hover {
-  background: rgba(234, 88, 12, 0.22);
   text-decoration: underline;
 }
 

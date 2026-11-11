@@ -425,14 +425,15 @@ export function show(container, route, ctx) {
     renderComments(commentsBox, null, seekAndScroll);
   }
 
-  main = el('div', { class: 'watch-main' }, playerWrap, heatmap.node, title);
+  // 首屏层级对齐成熟视频站：播放器 → 标题 → 频道/操作行 → 热力图 → 简介。
+  main = el('div', { class: 'watch-main' }, playerWrap, title);
   // Poster bleed for the CSS ambient glow around the player.
   main.style.setProperty(
     '--ambient-img',
     `url("https://i.ytimg.com/vi/${video.vid}/hqdefault.jpg")`,
   );
   if (english) main.append(english);
-  main.append(channel, description);
+  main.append(channel, heatmap.node, description);
   // 我的笔记与书签：折叠卡片放在简介上方，无笔记时自动隐藏。
   main.insertBefore(notesCard.node, description);
   syncNotesUi();
@@ -2193,10 +2194,11 @@ function buildChannel(video, commentCount, player, extra = []) {
       shareBtn,
       ...extra,
       el('a', {
-        class: 'btn',
+        class: 'channel-ext',
         href: watchUrl,
         target: '_blank',
         rel: 'noopener',
+        title: '在 YouTube 上打开原视频',
       }, 'YouTube ↗'),
     ),
   );
@@ -2275,7 +2277,28 @@ function buildDescription(video, ctx) {
     }, cat));
   }
 
-  const chips = tagNodes.length ? el('div', { class: 'desc-chips' }, ...tagNodes) : null;
+  // 标签减负：默认只显示前 2 个（中英字幕 + 主分类），其余收进「+N」展开。
+  let chips = null;
+  if (tagNodes.length) {
+    const extras = tagNodes.slice(2);
+    chips = el('div', { class: 'desc-chips' }, ...tagNodes.slice(0, 2));
+    if (extras.length) {
+      const more = el('button', {
+        class: 'mini-chip mini-chip-more',
+        type: 'button',
+        'aria-expanded': 'false',
+      }, `+${extras.length}`);
+      for (const node of extras) node.hidden = true;
+      more.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const expanded = more.getAttribute('aria-expanded') !== 'true';
+        more.setAttribute('aria-expanded', String(expanded));
+        more.textContent = expanded ? '收起标签' : `+${extras.length}`;
+        for (const node of extras) node.hidden = !expanded;
+      });
+      chips.append(...extras, more);
+    }
+  }
   const isLong = (why.length + summary.length) > 130 && Boolean(why && summary);
 
   if (!enBody && !isLong) {

@@ -229,6 +229,8 @@ export function createHeatmapBar({ video, onSeek, visible = true }) {
   let searchHitQuery = '';
   let searchHitTimes = [];
   let searchActiveTime = null;
+  let kwExpanded = false;
+  let hotExpanded = false;
 
   const subStatEl = el('span', { class: 'muted', style: { fontSize: '11.5px' } }, '');
   const searchLegText = el('span', {}, '搜索命中');
@@ -379,7 +381,9 @@ export function createHeatmapBar({ video, onSeek, visible = true }) {
       kwRow.replaceChildren();
       return;
     }
-    const chips = keywords.map((k) => {
+    // 默认只展示前 3 个关键词，其余收进「+N」；有选中词时全部展开以便定位。
+    const visibleKeywords = (kwExpanded || activeKeyword) ? keywords : keywords.slice(0, 3);
+    const chips = visibleKeywords.map((k) => {
       const active = activeKeyword === k.word;
       return el('button', {
         class: 'heatmap-kw-chip' + (active ? ' is-active' : ''),
@@ -443,9 +447,21 @@ export function createHeatmapBar({ video, onSeek, visible = true }) {
       );
     }
 
+    let moreChip = null;
+    if (keywords.length > 3 && !activeKeyword) {
+      moreChip = el('button', {
+        class: 'heatmap-kw-chip heatmap-kw-more',
+        type: 'button',
+        'aria-expanded': String(kwExpanded),
+        title: kwExpanded ? '收起关键词' : `还有 ${keywords.length - 3} 个关键词`,
+        on: { click: () => { kwExpanded = !kwExpanded; renderKeywords(); } },
+      }, kwExpanded ? '收起' : `+${keywords.length - 3}`);
+    }
+
     kwRow.replaceChildren(
       el('span', { class: 'heatmap-kw-title' }, '关键词'),
       ...chips,
+      ...(moreChip ? [moreChip] : []),
       ...(navGroup ? [navGroup] : []),
     );
     kwRow.hidden = false;
@@ -466,9 +482,10 @@ export function createHeatmapBar({ video, onSeek, visible = true }) {
       }
       if (unique.length >= 6) break;
     }
+    const visibleSpots = hotExpanded ? unique : unique.slice(0, 3);
     hotspotsBar.replaceChildren(
       el('span', { class: 'heatmap-hot-label' }, '评论时间点'),
-      ...unique.map((spot) => el('button', {
+      ...visibleSpots.map((spot) => el('button', {
         class: 'heatmap-hot-chip',
         type: 'button',
         title: `@${spot.author}: ${spot.snippet}`,
@@ -477,6 +494,13 @@ export function createHeatmapBar({ video, onSeek, visible = true }) {
         el('span', { class: 'heatmap-hot-ts' }, formatClock(spot.t)),
         el('span', {}, `@${spot.author}`),
       )),
+      ...(unique.length > 3 ? [el('button', {
+        class: 'heatmap-hot-chip heatmap-hot-more',
+        type: 'button',
+        'aria-expanded': String(hotExpanded),
+        title: hotExpanded ? '收起评论时间点' : `还有 ${unique.length - 3} 处空降点`,
+        on: { click: () => { hotExpanded = !hotExpanded; renderHotspotChips(); } },
+      }, hotExpanded ? '收起' : `+${unique.length - 3}`)] : []),
     );
     hotspotsBar.hidden = false;
   }

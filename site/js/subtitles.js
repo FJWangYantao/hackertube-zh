@@ -777,13 +777,7 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     if (autoFollow && !hasQuery) scrollToActive(true);
   });
 
-  const copyBtn = el('button', {
-    class: 'transcript-copy',
-    type: 'button',
-    title: '复制字幕文稿到剪贴板',
-  }, '复制');
-
-  copyBtn.addEventListener('click', async () => {
+  const copyAll = async () => {
     const visible = items.filter((item) => !item.node.hidden);
     if (!visible.length) {
       toast('没有可复制的字幕');
@@ -801,7 +795,7 @@ export function renderTranscript(cues, onSeek, opts = {}) {
     } catch {
       toast('复制失败，请检查浏览器权限');
     }
-  });
+  };
 
   let matchedItems = [];
   let hitCursor = -1;
@@ -985,12 +979,11 @@ export function renderTranscript(cues, onSeek, opts = {}) {
   };
   document.addEventListener('selectionchange', onGlobalSelChange);
 
-  const exportMenu = buildExportMenu(cues, meta);
+  const exportMenu = buildExportMenu(cues, meta, { onCopy: copyAll });
   const toolbar = el('div', { class: 'transcript-bar' },
     el('div', { class: 'transcript-search' }, searchInput, matchCountEl, prevHitBtn, nextHitBtn, clearBtn),
     biBtn,
     followBtn,
-    copyBtn,
     exportMenu.node,
   );
 

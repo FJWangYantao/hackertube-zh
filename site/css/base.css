@@ -235,14 +235,16 @@ p {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 36px;
-  padding: 0 16px;
+  height: 34px;
+  padding: 0 14px;
   border: 1px solid var(--border);
-  border-radius: var(--pill);
+  border-radius: 10px;
   background: var(--bg-card);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
+  transition: background 0.15s var(--ease), border-color 0.15s var(--ease),
+    color 0.15s var(--ease);
 }
 
 .btn:hover {
